@@ -2,13 +2,13 @@
 Python/Django + JWT auth backend and React/Redux/Saga frontend
 ==============================================================
 
-# 1 Technical Stack
+1 Technical Stack
 
-### 1.1 Server container
+1.1 Server container
 
 	- AWS CloudFront + ACM + LoadBalancer + EC2 (Cent OS) + multiple S3 + RDS mode
 
-### 1.2 Back-end
+1.2 Back-end
 
 	- Python/Django: python 3.6,
 
@@ -16,11 +16,11 @@ Python/Django + JWT auth backend and React/Redux/Saga frontend
 
 	- JWT auth based RESTful API
 
-### 1.3 Web service
+1.3 Web service
 
 	- Nginx
 
-### 1.4 Front-end
+1.4 Front-end
 
 	- React.js + Redux + Saga (on Phase1 for web application development)
 
