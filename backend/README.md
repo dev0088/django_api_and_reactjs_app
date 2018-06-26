@@ -32,3 +32,11 @@ $ ./manage.py createsuperuser
 
 $ ./manage.py runserver
 ```
+
+### Server urls
+
+- http://127.0.0.1:8000
+
+- http://127.0.0.1:8000/api/auth/token/obtain/
+
+- http://127.0.0.1:8000/api/echo
