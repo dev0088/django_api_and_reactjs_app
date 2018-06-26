@@ -1,3 +1,6 @@
+from django.contrib import admin
+from django.urls import path
+
 from django.conf.urls import url, include
 from django.views import generic
 from rest_framework import status, serializers, views
@@ -22,6 +25,7 @@ class EchoView(views.APIView):
 
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     url(r'^$', generic.RedirectView.as_view(url='/api/', permanent=False)),
 
     url(r'^api/$', get_schema_view()),

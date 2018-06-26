@@ -9,7 +9,7 @@ Python/Django + JWT auth backend
 
 	- JWT auth based RESTful API
 
-### Build server
+### Create server
 
 	```
 	$ python3.6 -m venv env3
@@ -23,13 +23,16 @@ Python/Django + JWT auth backend
 	$ django-admin startproject config .
 	```
 
-### Run server
+### Create admin user on server
 
 ```
 $ ./manage.py migrate
 
 $ ./manage.py createsuperuser
+```
 
+### Run server
+```
 $ ./manage.py runserver
 ```
 
