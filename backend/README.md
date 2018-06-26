@@ -22,3 +22,13 @@ Python/Django + JWT auth backend
 
 	$ django-admin startproject config .
 	```
+
+### Run server
+
+```
+$ ./manage.py migrate
+
+$ ./manage.py createsuperuser
+
+$ ./manage.py runserver
+```
