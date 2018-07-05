@@ -19,7 +19,6 @@ import { Link, withRouter } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { bindActionCreators } from 'redux';
 import { translate } from '../i18n';
-// import * as loginActions from '../actions/loginActions';
 import {login} from  '../actions/auth'
 import {authErrors, isAuthenticated} from '../reducers'
 import defaultValues from '../constants/defaultValues'
@@ -71,8 +70,6 @@ class LoginScreen extends Component {
   render() {
     const { loading, error } = this.props;
 
-    // Loading
-    // if (loading) return <Loading />;
 		if(this.props.isAuthenticated) {
 			return <Redirect to='/' />
 		}
@@ -146,16 +143,5 @@ function mapDispatchToProps(dispatch) {
 		onSubmit: (username, password) => dispatch(login(username, password))
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   errors: authErrors(state),
-//   isAuthenticated: isAuthenticated(state)
-// })
-//
-// const mapDispatchToProps = (dispatch) => ({
-//   onSubmit: (username, password) => {
-//     dispatch(login(username, password))
-//   }
-// })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

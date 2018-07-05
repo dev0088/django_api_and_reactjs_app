@@ -5,19 +5,7 @@ import './HomeScreen.css'
 
 class HomeScreen extends Component {
 
-	_onReady = (event) => {
-		// access to player in all event handlers via event.target
-		event.target.pauseVideo();
-	}
-
 	render() {
-		const youtubeOpts = {
-
-			width: '100%',
-			playerVars: { // https://developers.google.com/youtube/player_parameters
-				autoplay: 1
-			}
-		};
 
 		return(
 		  <div>

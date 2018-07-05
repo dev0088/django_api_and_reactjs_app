@@ -33,7 +33,7 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-
+		console.log('==== props: ', props)
     this.toggleDropDown = this.toggleDropDown.bind(this);
     this.state = { isOpen: false };
   }
