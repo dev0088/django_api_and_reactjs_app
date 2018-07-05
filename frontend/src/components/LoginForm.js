@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Alert, Button, Jumbotron,  Form } from 'reactstrap';
+import { Alert, Button, Jumbotron,  Form, Image } from 'reactstrap';
 
 import TextInput from './TextInput'
 
