@@ -78,7 +78,7 @@ class HomeScreen extends Component {
 		        <h3><i className="icon-drop" /> Web Styles</h3>
 		        <p>Webpack, SCSS, Bootstrap and ReactStrap - ready at your fingertips.</p>
 		        <p>
-		          <a target="_blank" rel="noopener noreferrer" href="https://reactstrap.github.io/components/alerts/" className="btn btn-primary">
+		          <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
 		            ReactStrap Docs
 		          </a>
 		        </p>
@@ -87,7 +87,7 @@ class HomeScreen extends Component {
 		        <h3><i className="icon-user-following" /> Auth</h3>
 		        <p>Most apps need user authentication. This one comes ready to go with Firebase Auth - but you can easily change that within the </p>
 		        <p>
-		          <a target="_blank" rel="noopener noreferrer" href="https://firebase.google.com/docs/auth/" className="btn btn-primary">
+		          <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
 		            Firebase Auth Docs
 		          </a>
 		        </p>
