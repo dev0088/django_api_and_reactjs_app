@@ -85,7 +85,9 @@ class HomeScreen extends Component {
 		    <Row className="pt-5">
 		      <Col xs="12" sm="12" lg="12">
 		        <h3>How to Use ShipTalent.com</h3>
-						<ReactPlayer url='https://www.youtube.com/watch?v=mubmRIh50Zg'   loop width='100%' height='720px' controls={true}/>
+						<p>
+							<ReactPlayer url='https://www.youtube.com/watch?v=mubmRIh50Zg'   loop width='100%' height='720px' controls={true}/>
+						</p>
 		      </Col>
 		    </Row>
 		  </div>

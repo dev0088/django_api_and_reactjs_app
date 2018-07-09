@@ -13,6 +13,7 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import Config from '../constants/config';
 import { SidebarNavItems } from './Sidebar';
+
 import './Header.css'
 
 class Header extends Component {
@@ -64,18 +65,18 @@ class Header extends Component {
                   {loggedIn ? `Hi, ${member.firstName}` : 'My Account'}
                 </DropdownToggle>
                 <DropdownMenu>
-                  {!loggedIn &&
-                    <div>
+                  {/* {!loggedIn &&
+                    <div> */}
                       <DropdownItem>
                         <Link to="/login">Login</Link>
                       </DropdownItem>
                       <DropdownItem>
                         <Link to="/sign-up">Sign Up</Link>
                       </DropdownItem>
-                    </div>
+                    {/* </div>
                   }
                   {loggedIn &&
-                    <div>
+                    <div> */}
                       <DropdownItem>
                         <Link to="/update-profile">Update Profile</Link>
                       </DropdownItem>
@@ -83,8 +84,8 @@ class Header extends Component {
                       <DropdownItem>
                         <a onClick={this.onLogout}>Logout</a>
                       </DropdownItem>
-                    </div>
-                  }
+                    {/* </div>
+                  } */}
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

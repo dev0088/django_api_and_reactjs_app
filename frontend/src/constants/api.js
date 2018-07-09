@@ -1,8 +1,6 @@
 export default {
-  url: "http://127.0.0.1:8000/api",
-  apiKey: "0hF32so/QHaOwfJd",
-  formHeaders: {
-    'Content-Type': 'application/json',
-		'Access-Control-Allow-Origin': 'localhost:3000'
-  }
+  url: "http://127.0.0.1:8000",
+	formHeaders: {
+		'Content-Type': 'application/json, application/x-www-form-urlencoded; charset=UTF-8'
+	}
 };

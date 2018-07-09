@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { logout } from '../actions/auth'
 
 class MemberScreen extends Component {
   static propTypes = {
@@ -27,7 +28,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  // memberLogout: logout,
+  memberLogout: logout,
   // getMemberData,
 };
 
