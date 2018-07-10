@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, username, email, password=None):
+    def create_user(self, username, email, password=None, first_name='', last_name='', type='talent'):
         """Create and return a `User` with an email, username and password."""
         if username is None:
             raise TypeError('Users must have a username.')
@@ -26,20 +26,24 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users must have an email address.')
 
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(username=username,
+                          email=self.normalize_email(email),
+                          first_name=first_name,
+                          last_name=last_name,
+                          type=type)
         user.set_password(password)
         user.save()
 
         return user
 
-    def create_superuser(self, username, email, password):
+    def create_superuser(self, username, email, password, first_name='admin', last_name='admin', type='agency'):
         """
         Create and return a `User` with superuser (admin) permissions.
         """
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        user = self.create_user(username, email, password)
+        user = self.create_user(username, email, password, first_name, last_name, type)
         user.is_superuser = True
         user.is_staff = True
         user.save()
@@ -78,6 +82,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(auto_now=True)
 
     # More fields required by Django when specifying a custom user model.
+    first_name = models.CharField(max_length=255, unique=False)
+    last_name = models.CharField(max_length=255, unique=False)
+    type = models.CharField(max_length=10, unique=False)
 
     # The `USERNAME_FIELD` property tells us which field we will use to log in.
     # In this case we want it to be the email field.
@@ -94,7 +101,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         This string is used when a `User` is printed in the console.
         """
-        return self.email
+        return self.email + ', ' + self.username + ', ' + self.type
 
     @property
     def token(self):
@@ -113,7 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         Typically this would be the user's first and last name. Since we do
         not store the user's real name, we return their username instead.
         """
-        return self.username
+        return self.first_name + ' ' + self.last_name
 
     def get_short_name(self):
         """
@@ -121,7 +128,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         Typically, this would be the user's first name. Since we do not store
         the user's real name, we return their username instead.
         """
-        return self.username
+        return self.first_name
 
     def _generate_jwt_token(self):
         """

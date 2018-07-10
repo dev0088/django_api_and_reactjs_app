@@ -15,7 +15,14 @@ class RegistrationAPIView(APIView):
     serializer_class = RegistrationSerializer
 
     def post(self, request):
-        user = request.data.get('user', {})
+        user = {
+            'email': request.data.get('email'),
+            'password': request.data.get('password'),
+            'username': request.data.get('username'),
+            'first_name': request.data.get('first_name'),
+            'last_name': request.data.get('last_name'),
+            'type': request.data.get('type')
+        }
         # The create serializer, validate serializer, save serializer pattern
         # below is common and you will see it a lot throughout this course and
         # your own work later on. Get familiar with it.
