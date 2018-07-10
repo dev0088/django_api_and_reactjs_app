@@ -1,0 +1,44 @@
+.record-ctl {
+    padding: 5px;
+    border: solid 1px;
+    border-radius: 5px;
+    width: 580px;
+}
+
+.progress-bar {
+    width: 250px !important;
+}
+
+#myProgress {
+    width: 100%;
+    background-color: grey;
+}
+
+#myBar {
+    height: 30px;
+    background-color: green;
+}
+
+.countdown-label {
+    display: inline-block;
+}
+
+.countdown-bar {
+    display: inline-block;
+    width: 280px;
+    margin-left: 5px;
+}
+
+.record-btn-wrapper {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.record-btn-wrapper button {
+    margin-top: -20px;
+}
+
+.btn-start-stop {
+    background: grey;
+    color: white;
+}
