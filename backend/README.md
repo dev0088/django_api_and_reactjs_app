@@ -16,25 +16,36 @@ Python/Django + JWT auth backend
 
 	$ source env3/bin/activate
 
-	$ pip install coreapi django djangorestframework djangorestframework-simplejwt
+	$ pip install coreapi django djangorestframework djangorestframework-jwt
 
 	$ pip freeze > requirements.txt
 
 	$ django-admin startproject config .
 	```
 
+### Get static files
+
+	```
+	$ ./manage.py collectstatic
+	```
+
+### Migrate models into database
+	```
+	$ ./manage.py makemigrations
+	```
+
 ### Create admin user on server
 
-```
-$ ./manage.py migrate
+	```
+	$ ./manage.py migrate
 
-$ ./manage.py createsuperuser
-```
+	$ ./manage.py createsuperuser
+	```
 
 ### Run server
-```
-$ ./manage.py runserver
-```
+	```
+	$ ./manage.py runserver
+	```
 
 ### Server urls
 
