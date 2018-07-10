@@ -55,7 +55,7 @@ class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.onFormSubmit(this.state)
-      .then(() => this.props.history.push('/'))
+      .then(() => this.props.history.push('/home'))
       .catch(e => console.log(`Error: ${e}`));
   }
 

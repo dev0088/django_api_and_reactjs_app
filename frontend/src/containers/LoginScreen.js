@@ -67,7 +67,7 @@ class LoginScreen extends Component {
 		// this.props.onSubmit(email, password)
 
     // Go to video interview page for the demo.
-    this.props.history.push('/video-interview')
+    this.props.history.push('/home')
   };
 
   render() {
