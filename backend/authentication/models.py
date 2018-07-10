@@ -101,7 +101,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         This string is used when a `User` is printed in the console.
         """
-        return self.email + ', ' + self.username + ', ' + self.type
+        return self.username + ' (' + self.type + ')'
 
     @property
     def token(self):
@@ -143,3 +143,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
+
+    class Meta:
+        db_table = "user"
+        managed = True

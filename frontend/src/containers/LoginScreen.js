@@ -23,6 +23,7 @@ import {login} from  '../actions/auth'
 import {authErrors, isAuthenticated} from '../reducers'
 import defaultValues from '../constants/defaultValues'
 import './LoginScreen.css'
+import apiConfig from '../constants/api';
 
 class LoginScreen extends Component {
   static propTypes = {
@@ -62,9 +63,12 @@ class LoginScreen extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-		// const { email, password } = this.state;
+		const { email, password } = this.state;
 		// this.setState({ loginRequest: true });
-		// this.props.onSubmit(email, password)
+		console.log('==== email, password: ', email, password)
+		this.props.onSubmit(email, password)
+
+
 
     // Go to video interview page for the demo.
     this.props.history.push('/home')
@@ -120,6 +124,9 @@ class LoginScreen extends Component {
                   <Col sm="6" className="text-right">
                     <Link to="/forgot-password">Forgot Password?</Link>
                   </Col>
+									<Col sm="12">
+										Return home <Link to="/">Home</Link>
+									</Col>
                 </Row>
               </CardBody>
             </Card>

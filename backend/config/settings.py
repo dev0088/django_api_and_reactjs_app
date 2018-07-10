@@ -15,8 +15,8 @@ SECRET_KEY = '!pp45o$8uagf%rkj79pne099ff=10c-zv-^qndduaua)d@#!wy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['www.shiptalent.com', 'shiptalent.com', 'staging.shiptalent.com', '34.193.87.115', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.shiptalent.com', 'shiptalent.com', 'staging.shiptalent.com', '34.193.87.115', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -31,6 +31,8 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
 	'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders'
 )
 
 LOCAL_APPS = (
@@ -47,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -155,17 +158,17 @@ STATICFILES_DIRS = (
 #     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
 #     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 # }
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
+#
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
+# }
 
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
@@ -199,3 +202,4 @@ JWT_AUTH = {
 }
 
 AUTH_USER_MODEL = 'authentication.User'
+CORS_ORIGIN_ALLOW_ALL = True

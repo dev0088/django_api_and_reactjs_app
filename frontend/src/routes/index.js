@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import TemplateNothing from '../components/TemplateNothing';
 import TemplateSidebar from '../components/TemplateSidebar';
 import TemplateTopbar from '../components/TemplateTopbar';
+import TempateTopbarOfOnCard from '../components/TempateTopbarOfOnCard';
 
 // Routes
 import ComingSoonScreen from '../containers/ComingSoonScreen';
@@ -24,9 +25,9 @@ const Index = () => (
       exact
       path="/"
       render={props => (
-        <TemplateTopbar>
+        <TempateTopbarOfOnCard>
           <ComingSoonScreen {...props} />
-        </TemplateTopbar>
+        </TempateTopbarOfOnCard>
       )}
     />
     <Route

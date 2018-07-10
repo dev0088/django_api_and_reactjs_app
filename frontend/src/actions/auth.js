@@ -3,20 +3,20 @@ import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
 export const login = (username, password) => ({
-    [RSAA]: {
-        endpoint: `${apiConfig.url}/api/auth/token/obtain/`,
+	  [RSAA]: {
+        endpoint: `${apiConfig.url}/api/v1/auth/login/`,
         method: 'POST',
         body: JSON.stringify({username, password}),
         headers: { 'Content-Type': 'application/json' },
         types: [
-            types.LOGIN.REQUEST, types.LOGIN.SUCCESS, types.LOGIN.FAILURE
+          types.LOGIN.REQUEST, types.LOGIN.SUCCESS, types.LOGIN.FAILURE
         ]
       }
 })
 
 export const logout = (username) => ({
     [RSAA]: {
-        endpoint: `${apiConfig.url}/api/auth/logout`,
+        endpoint: `${apiConfig.url}/api/auth/logout/`,
         method: 'POST',
         body: JSON.stringify({username}),
         headers: { 'Content-Type': 'application/json' },

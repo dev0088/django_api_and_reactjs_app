@@ -7,11 +7,32 @@ const initialState = {
   refresh: undefined,
 	user: undefined,
   errors: {},
+	isAuthenticated: false
 }
 
 export default (state=initialState, action) => {
 	console.log('=== action, state:', action, state)
   switch(action.type) {
+		case types.LOGIN.SUCCESS:
+			return {
+				access: {},
+				refresh: {},
+				user: {},
+				errors: {}
+		}
+		case types.LOGIN.SUCCESS:
+			return {
+				access: {
+					token: action.payload.access,
+					...jwtDecode(action.payload.access)
+				},
+				refresh: {
+					token: action.payload.refresh,
+					...jwtDecode(action.payload.refresh)
+				},
+				user: {},
+				errors: {}
+		}
     case types.LOGIN.SUCCESS:
       return {
         access: {
@@ -23,7 +44,8 @@ export default (state=initialState, action) => {
           ...jwtDecode(action.payload.refresh)
         },
 				user: {},
-        errors: {}
+        errors: {},
+				isAuthenticated: true
     }
     case types.TOKEN.RECEIVED:
       return {
@@ -40,6 +62,7 @@ export default (state=initialState, action) => {
          refresh: undefined,
 				 user: undefined,
          errors: action.payload.response || {'non_field_errors': action.payload.statusText},
+				 isAuthenticated: true
       }
     default:
       return state

@@ -1,3 +1,9 @@
+.footer-layout {
+	bottom: 0px;
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
 .footer-background {
 	width: 100%;
 	border-radius: 0rem;

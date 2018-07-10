@@ -17,16 +17,16 @@ import { SidebarNavItems } from './Sidebar';
 import './Header.css'
 
 class Header extends Component {
-  static propTypes = {
-    member: PropTypes.shape({
-      firstName: PropTypes.string,
-      email: PropTypes.string,
-    }),
-    logout: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }).isRequired,
-  }
+  // static propTypes = {
+  //   member: PropTypes.shape({
+  //     firstName: PropTypes.string,
+  //     email: PropTypes.string,
+  //   }),
+  //   logout: PropTypes.func.isRequired,
+  //   history: PropTypes.shape({
+  //     push: PropTypes.func.isRequired,
+  //   }).isRequired,
+  // }
 
   static defaultProps = {
     member: {},
@@ -45,7 +45,9 @@ class Header extends Component {
 
   render() {
     const { member } = this.props;
-    const loggedIn = !!(member && member.email);
+		console.log('==== member: ', member)
+    // const loggedIn = (member && member.email);
+		const loggedIn = true
     return (
       <header>
         <Navbar dark color="primary" expand="sm" className="fixed-top">

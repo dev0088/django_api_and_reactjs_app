@@ -10,10 +10,10 @@ import {logout} from '../actions/auth'
 const Template = ({ children }) => (
   <div>
     <MemberScreen Layout={Header} />
-    <Container fluid>
+    <Container fluid style={{height: '100vh'}}>
       {children}
     </Container>
-		<Footer />
+		<Footer position='absolute'/>
   </div>
 );
 

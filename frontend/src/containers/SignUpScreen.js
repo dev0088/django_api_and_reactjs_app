@@ -18,8 +18,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { translate } from '../i18n';
 import { bindActionCreators } from 'redux'
-// import * as registerActions from '../actions/registerActions'
-// import * as loginFromRegistrationActions from '../actions/loginFromRegistrationActions'
+import * as registerActions from '../actions/registerActions'
 import defaultValues from '../constants/defaultValues'
 import './SignUpScreen.css'
 
@@ -145,6 +144,9 @@ class SignUp extends React.Component {
                   <Col sm="12">
                     Already have an account? <Link to="/login">Login</Link>
                   </Col>
+									<Col sm="12">
+										Return home <Link to="/">Home</Link>
+									</Col>
                 </Row>
               </CardBody>
             </Card>
@@ -165,8 +167,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		// actions: bindActionCreators(registerActions, dispatch),
-		// autoLoginActions: bindActionCreators(loginFromRegistrationActions, dispatch)
+		registerActions: bindActionCreators(registerActions, dispatch),
 	}
 }
 
