@@ -5,6 +5,7 @@ import MemberScreen from '../containers/MemberScreen';
 import Header from './Header';
 import Footer from './Footer';
 import { Sidebar } from './Sidebar';
+import {logout} from '../actions/auth'
 
 const Template = ({ children }) => (
   <div>

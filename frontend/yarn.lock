@@ -5886,6 +5886,10 @@ redux-api-middleware@^2.3.0:
     babel-runtime "^6.25.0"
     lodash.isplainobject "^4.0.6"
 
+redux-devtools-extension@^2.13.5:
+  version "2.13.5"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
+
 redux-persist-transform-filter@^0.0.18:
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/redux-persist-transform-filter/-/redux-persist-transform-filter-0.0.18.tgz#bc9901a0267bd64631099b4e7bb4d48c00647418"
