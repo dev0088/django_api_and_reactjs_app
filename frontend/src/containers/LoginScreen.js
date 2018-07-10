@@ -62,10 +62,13 @@ class LoginScreen extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-		const { email, password } = this.state;
-		this.setState({ loginRequest: true });
-		this.props.onSubmit(email, password)
-  }
+		// const { email, password } = this.state;
+		// this.setState({ loginRequest: true });
+		// this.props.onSubmit(email, password)
+
+    // Go to video interview page for the demo.
+    this.props.history.push('/video-interview')
+  };
 
   render() {
     const { loading, error } = this.props;

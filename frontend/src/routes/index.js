@@ -14,6 +14,8 @@ import LoginScreen from '../containers/LoginScreen';
 import ForgotPasswordScreen from '../containers/ForgotPasswordScreen';
 
 import Error from '../components/Error';
+import VideoPreview from "../containers/video-interview/preview";
+import VideoPractice from "../containers/video-interview/practice";
 
 const Index = () => (
   <Switch>
@@ -52,12 +54,31 @@ const Index = () => (
     />
 
     <Route
+      path="/video-interview"
+      render={props => (
+        <TemplateTopbar>
+          <VideoPreview {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/video-practice"
+      render={props => (
+        <TemplateTopbar>
+          <VideoPractice {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
       render={props => (
         <TemplateSidebar>
           <Error {...props} title="404" content="Sorry, the route you requested does not exist" />
         </TemplateSidebar>
       )}
     />
+
   </Switch>
 );
 
