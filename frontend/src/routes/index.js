@@ -7,6 +7,7 @@ import TemplateSidebar from '../components/TemplateSidebar';
 import TemplateTopbar from '../components/TemplateTopbar';
 
 // Routes
+import ComingSoonScreen from '../containers/ComingSoonScreen';
 import HomeScreen from '../containers/HomeScreen';
 import SignUpScreen from '../containers/SignUpScreen';
 
@@ -22,6 +23,14 @@ const Index = () => (
     <Route
       exact
       path="/"
+      render={props => (
+        <TemplateTopbar>
+          <ComingSoonScreen {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/home"
       render={props => (
         <TemplateTopbar>
           <HomeScreen {...props} />
