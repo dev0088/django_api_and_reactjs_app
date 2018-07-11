@@ -32,11 +32,7 @@ class SignUp extends React.Component {
     }).isRequired,
   }
 
-  static defaultProps = {
-    error: null,
-  }
-
-  constructor(props) {
+	constructor(props) {
     super(props);
     this.state = {
 			userName: '',
@@ -45,12 +41,20 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       password2: '',
-			type: 'talent'
+			type: 'talent',
+			error: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+	componentWillReceiveProps(nextProps) {
+		console.log('=== nextProps: ', nextProps)
+		this.setState({
+			error: nextProps.register && nextProps.register.failure ? nextProps.register.errorMessage : false
+		})
+	}
 
 	componentDidUpdate() {
 		if (this.props.register && this.props.register.isRegistered) {
@@ -87,15 +91,10 @@ class SignUp extends React.Component {
 			lastName,
 			type
 		)
-		// .then(() => this.props.history.push('/login'))
-		// .catch(e => console.log(`Error: ${e}`));
-    // this.props.onFormSubmit(this.state)
-    //   .then(() => this.props.history.push('/login'))
-    //   .catch(e => console.log(`Error: ${e}`));
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error } = this.state;
 
     // Loading
     if (loading) return <Loading />;
