@@ -42,8 +42,8 @@ class HeaderOfComingSoon extends Component {
       <header>
         <Navbar dark color="white" expand="sm" className="fixed-top">
           <Link to="/" className="navbar-brand" style={{ color: '#FFF' }}>
-						<img className="brand-image" width="111" height="88"
-							src={require('../images/logo.jpg')} />
+						<img className="brand-image"
+							src={require('../images/logo.png')} />
           </Link>
           <NavbarToggler onClick={this.toggleDropDown} className="header-comingsoon-navbar-toggler"/>
           <Collapse isOpen={this.state.isOpen} navbar>
