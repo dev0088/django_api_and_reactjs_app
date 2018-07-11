@@ -6,6 +6,7 @@ import TemplateNothing from '../components/TemplateNothing';
 import TemplateSidebar from '../components/TemplateSidebar';
 import TemplateTopbar from '../components/TemplateTopbar';
 import TempateTopbarOfOnCard from '../components/TempateTopbarOfOnCard';
+import TemplateTopbarOfComingSoon from '../components/TemplateTopbarOfComingSoon';
 
 // Routes
 import ComingSoonScreen from '../containers/ComingSoonScreen';
@@ -25,9 +26,9 @@ const Index = () => (
       exact
       path="/"
       render={props => (
-        <TempateTopbarOfOnCard>
+        <TemplateTopbarOfComingSoon>
           <ComingSoonScreen {...props} />
-        </TempateTopbarOfOnCard>
+        </TemplateTopbarOfComingSoon>
       )}
     />
     <Route

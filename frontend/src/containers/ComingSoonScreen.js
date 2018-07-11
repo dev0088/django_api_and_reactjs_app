@@ -8,7 +8,7 @@ class ComingSoonScreen extends Component {
 	render() {
 
 		return(
-			<Row className="justify-content-center bg-info" style={{height: "100%"}}>
+			<Row className="justify-content-center" style={{height: "100%"}}>
 				<Col sm="6" offset-sm="3">
 					<Card className="comingsoon-layout">
 						<img src={require('../images/coming_soon.jpg')} className="comingsoon-background-image"/>
