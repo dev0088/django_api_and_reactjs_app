@@ -1,6 +1,8 @@
+import { RSAA } from 'redux-api-middleware';
+import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
-export function registerRequest(
+export const registerRequest = (
 	userName,
   email,
   password,
@@ -8,35 +10,22 @@ export function registerRequest(
   firstName,
   lastName,
   type
-) {
-  return {
-    type: types.REGISTER.REQUEST,
-		userName,
-	  email,
-	  password,
-	  passwordConfirm,
-	  firstName,
-	  lastName,
-	  type
-  }
-}
-
-export function registerInit() {
-  return {
-    type: types.REGISTER.INIT
-  }
-}
-
-export function registerSuccess(payload) {
-  return {
-    type: types.REGISTER.SUCCESS,
-    ...payload
-  }
-}
-
-export function registerFailure(err) {
-  return {
-    type: types.REGISTER.FAILURE,
-    err
-  }
-}
+) => ({
+	  [RSAA]: {
+        endpoint: `${apiConfig.url}/api/v1/auth/register/`,
+        method: 'POST',
+        body: JSON.stringify({
+					username: userName,
+				  email,
+				  password,
+				  passwordConfirm,
+				  first_name: firstName,
+				  last_name: lastName,
+				  type
+				}),
+        headers: { 'Content-Type': 'application/json' },
+        types: [
+          types.REGISTER.REQUEST, types.REGISTER.SUCCESS, types.REGISTER.FAILURE
+        ]
+      }
+})

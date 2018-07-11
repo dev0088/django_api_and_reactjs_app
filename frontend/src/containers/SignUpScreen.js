@@ -39,16 +39,25 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+			userName: '',
       firstName: '',
       lastName: '',
       email: '',
       password: '',
       password2: '',
+			type: 'talent'
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+	componentDidUpdate() {
+		if (this.props.register && this.props.register.isRegistered) {
+			// Go to video interview page for the demo.
+			this.props.history.push('/login')
+		}
+	}
 
   handleChange = (event) => {
     this.setState({
@@ -59,9 +68,30 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onFormSubmit(this.state)
-      .then(() => this.props.history.push('/login'))
-      .catch(e => console.log(`Error: ${e}`));
+		const {
+			userName,
+		  email,
+		  password,
+		  passwordConfirm,
+		  firstName,
+		  lastName,
+		  type
+		} = this.state
+
+		this.props.registerActions.registerRequest(
+			userName,
+			email,
+			password,
+			passwordConfirm,
+			firstName,
+			lastName,
+			type
+		)
+		// .then(() => this.props.history.push('/login'))
+		// .catch(e => console.log(`Error: ${e}`));
+    // this.props.onFormSubmit(this.state)
+    //   .then(() => this.props.history.push('/login'))
+    //   .catch(e => console.log(`Error: ${e}`));
   }
 
   render() {
@@ -80,6 +110,17 @@ class SignUp extends React.Component {
                 {!!error && <Alert color="danger">{error}</Alert>}
                 <Form onSubmit={this.handleSubmit}>
                   <FormGroup>
+										<Label for="userName">User Name</Label>
+                    <Input
+                      type="text"
+                      name="userName"
+                      id="userName"
+                      placeholder=""
+                      value={this.state.userName}
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+									<FormGroup>
                     <Label for="firstName">First Name</Label>
                     <Input
                       type="text"
