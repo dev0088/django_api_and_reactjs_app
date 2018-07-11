@@ -6,7 +6,7 @@ import './HomeScreen.css'
 class HomeScreen extends Component {
 
   render() {
-    
+
     return(
       <div>
         <Row>
@@ -14,8 +14,6 @@ class HomeScreen extends Component {
             <h1>Welcome, ShipTalent.com!</h1>
             <p></p>
             <p className="lead">We are building a greate web application for talent and client.</p>
-            <p></p>
-            <h3>Coming Soon!</h3>
           </Jumbotron>
           <img src={require('../images/backgrounds/background_side.png')} className="home-background-image"/>
         </Row>

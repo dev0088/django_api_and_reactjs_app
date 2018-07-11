@@ -2,11 +2,11 @@ import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
-export const login = (username, password) => ({
+export const login = (email, password) => ({
 	  [RSAA]: {
         endpoint: `${apiConfig.url}/api/v1/auth/login/`,
         method: 'POST',
-        body: JSON.stringify({username, password}),
+        body: JSON.stringify({email, password}),
         headers: { 'Content-Type': 'application/json' },
         types: [
           types.LOGIN.REQUEST, types.LOGIN.SUCCESS, types.LOGIN.FAILURE
@@ -14,11 +14,11 @@ export const login = (username, password) => ({
       }
 })
 
-export const logout = (username) => ({
+export const logout = (email) => ({
     [RSAA]: {
         endpoint: `${apiConfig.url}/api/auth/logout/`,
         method: 'POST',
-        body: JSON.stringify({username}),
+        body: JSON.stringify({email}),
         headers: { 'Content-Type': 'application/json' },
         types: [
             types.LOGOUT.REQUEST, types.LOGOUT.SUCCESS, types.LOGOUT.FAILURE

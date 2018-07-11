@@ -1,68 +1,45 @@
-import jwtDecode from 'jwt-decode'
 import * as auth from '../actions/auth'
 import * as types from '../actions/actionTypes';
+import jwtDecode from 'jwt-decode'
 
 const initialState = {
-  access: undefined,
-  refresh: undefined,
-	user: undefined,
-  errors: {},
+  access: false,
+  errors: false,
 	isAuthenticated: false
 }
 
 export default (state=initialState, action) => {
 	console.log('=== action, state:', action, state)
   switch(action.type) {
-		case types.LOGIN.SUCCESS:
-			return {
-				access: {},
-				refresh: {},
-				user: {},
-				errors: {}
-		}
-		case types.LOGIN.SUCCESS:
-			return {
-				access: {
-					token: action.payload.access,
-					...jwtDecode(action.payload.access)
-				},
-				refresh: {
-					token: action.payload.refresh,
-					...jwtDecode(action.payload.refresh)
-				},
-				user: {},
-				errors: {}
-		}
+		case types.LOGIN.REQUEST:
+      return {
+        access: {},
+        errors: false,
+				isAuthenticated: false
+    }
     case types.LOGIN.SUCCESS:
       return {
         access: {
-          token: action.payload.access,
-          ...jwtDecode(action.payload.access)
+          token: action.payload.token,
+          ...jwtDecode(action.payload.token)
         },
-        refresh: {
-          token: action.payload.refresh,
-          ...jwtDecode(action.payload.refresh)
-        },
-				user: {},
-        errors: {},
+        errors: false,
 				isAuthenticated: true
     }
     case types.TOKEN.RECEIVED:
       return {
         ...state,
         access: {
-          token: action.payload.access,
-          ...jwtDecode(action.payload.access)
+          token: action.payload.token,
+          ...jwtDecode(action.payload.token)
         }
       }
     case types.LOGIN.FAILURE:
     case types.TOKEN.FAILURE:
       return {
-         access: undefined,
-         refresh: undefined,
-				 user: undefined,
+         access: {},
          errors: action.payload.response || {'non_field_errors': action.payload.statusText},
-				 isAuthenticated: true
+				 isAuthenticated: false
       }
     default:
       return state

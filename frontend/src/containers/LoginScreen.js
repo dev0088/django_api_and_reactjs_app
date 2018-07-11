@@ -30,7 +30,6 @@ class LoginScreen extends Component {
     // member: PropTypes.shape({
     //   email: PropTypes.string,
     // }),
-    error: PropTypes.string,
     loading: PropTypes.bool.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
     history: PropTypes.shape({
@@ -54,6 +53,13 @@ class LoginScreen extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+	componentDidUpdate() {
+		if (this.props.isAuthenticated) {
+			// Go to video interview page for the demo.
+			this.props.history.push('/home')
+		}
+	}
+
   handleChange = (event) => {
     this.setState({
       ...this.state,
@@ -65,13 +71,7 @@ class LoginScreen extends Component {
     event.preventDefault();
 		const { email, password } = this.state;
 		// this.setState({ loginRequest: true });
-		console.log('==== email, password: ', email, password)
 		this.props.onSubmit(email, password)
-
-
-
-    // Go to video interview page for the demo.
-    this.props.history.push('/home')
   };
 
   render() {
@@ -88,7 +88,7 @@ class LoginScreen extends Component {
             <Card>
               <CardHeader>Login</CardHeader>
               <CardBody>
-                {!!error && <Alert color="danger">{error}</Alert>}
+                {!!error && <Alert color="danger">{'Login failed'}</Alert>}
                 <Form onSubmit={this.handleSubmit}>
                   <FormGroup>
                     <Label for="email">Email</Label>
@@ -138,19 +138,19 @@ class LoginScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user } = state;
+  const { user, auth } = state;
 
   return {
     user,
-		errors: authErrors(state),
-		isAuthenticated: isAuthenticated(state)
+		error: authErrors(state),
+		isAuthenticated: state.auth.isAuthenticated//isAuthenticated(state)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     // actions: bindActionCreators(loginActions, dispatch),
-		onSubmit: (username, password) => dispatch(login(username, password))
+		onSubmit: (email, password) => dispatch(login(email, password))
   }
 }
 

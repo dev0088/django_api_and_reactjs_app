@@ -30,12 +30,12 @@ class Header extends Component {
 
   static defaultProps = {
     member: {},
+		auth: {}
   }
 
   constructor(props) {
     super(props);
-		console.log('==== props: ', props)
-    this.toggleDropDown = this.toggleDropDown.bind(this);
+		this.toggleDropDown = this.toggleDropDown.bind(this);
     this.state = { isOpen: false };
   }
 
@@ -44,10 +44,11 @@ class Header extends Component {
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
 
   render() {
-    const { member } = this.props;
-		console.log('==== member: ', member)
+    const { member, auth } = this.props;
+		console.log('==== member: ', member, auth)
     // const loggedIn = (member && member.email);
-		const loggedIn = true
+		// const loggedIn = true
+		const loggedIn = (auth && auth.access && auth.access.email);
     return (
       <header>
         <Navbar dark color="primary" expand="sm" className="fixed-top">
@@ -70,7 +71,8 @@ class Header extends Component {
               </div>
               <UncontrolledDropdown nav>
                 <DropdownToggle nav caret>
-                  {loggedIn ? `Hi, ${member.firstName}` : 'My Account'}
+                  {/* {loggedIn ? `Hi, ${member.firstName}` : 'My Account'} */}
+									{loggedIn ? `Hi, ${auth.access.email}` : 'My Account'}
                 </DropdownToggle>
                 <DropdownMenu>
                   {!loggedIn &&
