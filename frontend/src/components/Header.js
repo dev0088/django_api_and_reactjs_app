@@ -39,7 +39,7 @@ class Header extends Component {
     this.state = { isOpen: false };
   }
 
-  onLogout = () => this.props.logout().then(() => this.props.history.push('/login'));
+  onLogout = () => this.props.logout().then(() => this.props.history.push('/'));
 
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
 
@@ -54,7 +54,7 @@ class Header extends Component {
           <Link to="/" className="navbar-brand" style={{ color: '#FFF' }}>
 						<img className="brand-image" width="30" height="30"
 							src={require('../images/logo.jpg')} />
-            
+
           </Link>
           { loggedIn && (
               <Link to="/video-interview" className="navbar-brand" style={{ color: '#FFF' }}>
@@ -73,18 +73,18 @@ class Header extends Component {
                   {loggedIn ? `Hi, ${member.firstName}` : 'My Account'}
                 </DropdownToggle>
                 <DropdownMenu>
-                  {/* {!loggedIn &&
-                    <div> */}
+                  {!loggedIn &&
+                    <div>
                       <DropdownItem>
                         <Link to="/login">Login</Link>
                       </DropdownItem>
                       <DropdownItem>
                         <Link to="/sign-up">Sign Up</Link>
                       </DropdownItem>
-                    {/* </div>
+                    </div>
                   }
                   {loggedIn &&
-                    <div> */}
+                    <div>
                       <DropdownItem>
                         <Link to="/update-profile">Update Profile</Link>
                       </DropdownItem>
@@ -92,8 +92,8 @@ class Header extends Component {
                       <DropdownItem>
                         <a onClick={this.onLogout}>Logout</a>
                       </DropdownItem>
-                    {/* </div>
-                  } */}
+                    </div>
+                  }
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
