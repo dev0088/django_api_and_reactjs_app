@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
-import {Route, Switch} from 'react-router'
+import { Route, Switch } from 'react-router'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import PrivateRoute from './containers/PrivateRoute';
