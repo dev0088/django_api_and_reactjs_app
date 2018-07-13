@@ -11,6 +11,11 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 import { SidebarNavItems } from './sidebar';
 
 import './header.css'
@@ -31,17 +36,32 @@ class Header extends Component {
     member: {},
 		auth: {}
   }
-
   constructor(props) {
     super(props);
 		this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.state = { isOpen: false };
+    this.state = { 
+      isOpen: false,
+      subMenuOpen: false
+    };
   }
 
   onLogout = () => this.props.logout().then(() => this.props.history.push('/'));
 
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
+  handleClickTap = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+    this.setState({
+      subMenuOpen: true,
+      anchorEl: event.currentTarget,
+    });
+  };
 
+  handleRequestClose = () => {
+    this.setState({
+      subMenuOpen: false,
+    });
+  };
   render() {
     const { member, auth } = this.props;
     // const loggedIn = (member && member.email);
@@ -57,9 +77,7 @@ class Header extends Component {
 
           </Link>
           { loggedIn && (
-              <Link to="/video-interview" className="navbar-brand" style={{ color: '#FFF' }}>
-                <span className="brand-name">Video Interview</span>
-              </Link>
+              <MenuItem href="/video-interview" primaryText="Video Interview" />
             )
           }
           <NavbarToggler onClick={this.toggleDropDown} />
@@ -68,35 +86,33 @@ class Header extends Component {
               <div className="d-block d-sm-none">
                 {SidebarNavItems()}
               </div>
-              <UncontrolledDropdown nav>
-                <DropdownToggle nav caret>
-                  {/* {loggedIn ? `Hi, ${member.firstName}` : 'My Account'} */}
-									{loggedIn ? `Hi, ${auth.access.email}` : 'My Account'}
-                </DropdownToggle>
-                <DropdownMenu>
-                  {!loggedIn &&
-                    <div>
-                      <DropdownItem>
-                        <Link to="/login">Login</Link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Link to="/sign-up">Sign Up</Link>
-                      </DropdownItem>
-                    </div>
-                  }
-                  {loggedIn &&
-                    <div>
-                      <DropdownItem>
-                        <Link to="/update-profile">Update Profile</Link>
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        <a onClick={this.onLogout}>Logout</a>
-                      </DropdownItem>
-                    </div>
-                  }
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <RaisedButton
+                className="my-account"
+                onClick={this.handleClickTap}
+                label={loggedIn ? `Hi, ${auth.access.email}` : 'My Account'}
+              />
+              <Popover
+                open={this.state.subMenuOpen}
+                anchorEl={this.state.anchorEl}
+                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                onRequestClose={this.handleRequestClose}
+                animation={PopoverAnimationVertical}
+              >
+                {!loggedIn &&
+                  <Menu>
+                    <MenuItem primaryText="Login" href="/login" />
+                    <MenuItem primaryText="Sign Up" href="/sign-up" />
+                  </Menu>
+                }
+                {loggedIn &&
+                  <Menu>
+                    <MenuItem primaryText="Update Profile" href="/update-profile" />
+                    <Divider />
+                    <MenuItem primaryText="Logout" onClick={this.onLogout} />
+                  </Menu>
+                }
+              </Popover>
             </Nav>
           </Collapse>
         </Navbar>

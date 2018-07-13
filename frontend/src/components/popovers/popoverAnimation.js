@@ -34,7 +34,7 @@ export default class PopoverAnimation extends React.Component {
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleTouchTap}
           label="Click me"
         />
         <Popover
