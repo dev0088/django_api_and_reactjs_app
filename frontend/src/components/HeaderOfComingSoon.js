@@ -35,9 +35,6 @@ class HeaderOfComingSoon extends Component {
 
   render() {
     const { member } = this.props;
-		console.log('==== member: ', member)
-    // const loggedIn = (member && member.email);
-		const loggedIn = true
     return (
       <header>
         <Navbar dark color="white" expand="sm" className="fixed-top">

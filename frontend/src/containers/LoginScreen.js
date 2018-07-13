@@ -78,7 +78,7 @@ class LoginScreen extends Component {
     const { loading, error } = this.props;
 
 		if(this.props.isAuthenticated) {
-			return <Redirect to='/' />
+			return <Redirect to='/home' />
 		}
 
     return (
