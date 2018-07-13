@@ -15,12 +15,12 @@ import {
   CardHeader,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Loading from '../components/Loading';
+import Loading from '../components/loading';
 import { translate } from '../i18n';
 import { bindActionCreators } from 'redux'
 import * as registerActions from '../actions/registerActions'
 import defaultValues from '../constants/defaultValues'
-import './SignUpScreen.css'
+import './signUpScreen.css'
 
 class SignUp extends React.Component {
   static propTypes = {

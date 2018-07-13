@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Jumbotron } from 'reactstrap';
-import './Footer.css'
+import './footer.css'
 
 const Footer = (props) => (
   <footer className="mt-5 footer-layout" style={props.position ? {position: props.position} : {}}>

@@ -16,13 +16,13 @@ import {
   CardHeader,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Loading from '../components/Loading';
+import Loading from '../components/loading';
 import { bindActionCreators } from 'redux';
 import { translate } from '../i18n';
-import {login} from  '../actions/auth'
-import {authErrors, isAuthenticated} from '../reducers'
+import { login } from  '../actions/auth'
+import { authErrors, isAuthenticated } from '../reducers'
 import defaultValues from '../constants/defaultValues'
-import './LoginScreen.css'
+import './loginScreen.css'
 import apiConfig from '../constants/api';
 
 class LoginScreen extends Component {

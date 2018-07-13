@@ -12,8 +12,8 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import ErrorMessages from '../../constants/errors';
-import Loading from './Loading';
-import Error from './Error';
+import Loading from './loading';
+import Error from './error';
 
 const RecipeView = ({
   error,

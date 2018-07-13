@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col, Jumbotron } from 'reactstrap';
 import ReactPlayer from 'react-player'
-import './HomeScreen.css'
+import './homeScreen.css'
 
 class HomeScreen extends Component {
 

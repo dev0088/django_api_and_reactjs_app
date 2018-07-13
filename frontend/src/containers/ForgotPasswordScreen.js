@@ -15,8 +15,8 @@ import {
   CardHeader,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Loading from '../components/Loading';
-import './ForgotPasswordScreen.css'
+import Loading from '../components/loading';
+import './forgotPasswordScreen.css'
 
 class ForgotPasswordScreen extends React.Component {
   static propTypes = {

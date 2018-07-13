@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
-import MemberScreen from '../containers/MemberScreen';
-import HeaderOfComingSoon from './HeaderOfComingSoon';
+import MemberScreen from '../containers/memberScreen';
+import HeaderOfComingSoon from './headerOfComingSoon';
 
 const Template = ({ children }) => (
   <div>

@@ -12,10 +12,10 @@ import {
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import Config from '../constants/config';
-import { SidebarNavItems } from './Sidebar';
+import { SidebarNavItems } from './sidebar';
 
-import './Header.css'
-import './HeaderOfComingSoon.css'
+import './header.css'
+import './headerOfComingSoon.css'
 
 class HeaderOfComingSoon extends Component {
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col, Card } from 'reactstrap';
 import ReactPlayer from 'react-player'
-import './ComingSoonScreen.css'
+import './comingSoonScreen.css'
 
 class ComingSoonScreen extends Component {
 

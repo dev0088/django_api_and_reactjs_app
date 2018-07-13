@@ -12,9 +12,9 @@ import {
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import Config from '../constants/config';
-import { SidebarNavItems } from './Sidebar';
+import { SidebarNavItems } from './sidebar';
 
-import './Header.css'
+import './header.css'
 
 class Header extends Component {
   // static propTypes = {
