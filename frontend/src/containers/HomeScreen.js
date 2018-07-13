@@ -10,7 +10,7 @@ class HomeScreen extends Component {
     return(
       <div>
         <Row>
-          <Jumbotron className="bg-primary text-white text-center slogan-description-background">
+          <Jumbotron className="text-center slogan-description-background">
             <h1>Welcome, ShipTalent.com!</h1>
             <p></p>
             <p className="lead">We are building a greate web application for talent and client.</p>
@@ -84,7 +84,12 @@ class HomeScreen extends Component {
           <Col xs="12" sm="12" lg="12">
             <h3>How to Use ShipTalent.com</h3>
             <p>
-              <ReactPlayer url='https://www.youtube.com/watch?v=mubmRIh50Zg'   loop width='100%' height='720px' controls={true}/>
+              <ReactPlayer 
+                url='https://www.youtube.com/watch?v=mubmRIh50Zg' 
+                loop width='100%' 
+                height='720px' 
+                controls={true}
+              />
             </p>
           </Col>
         </Row>

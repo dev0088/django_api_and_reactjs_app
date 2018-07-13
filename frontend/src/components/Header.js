@@ -44,7 +44,6 @@ class Header extends Component {
 
   render() {
     const { member, auth } = this.props;
-		console.log('==== member: ', member, auth)
     // const loggedIn = (member && member.email);
 		// const loggedIn = true
 		const loggedIn = (auth && auth.access && auth.access.email);
