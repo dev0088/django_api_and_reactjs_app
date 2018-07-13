@@ -24,6 +24,7 @@ import { authErrors, isAuthenticated } from '../reducers'
 import defaultValues from '../constants/defaultValues'
 import './loginScreen.css'
 import apiConfig from '../constants/api';
+import Login from '../components/other-pages/login';
 
 class LoginScreen extends Component {
   static propTypes = {
@@ -86,6 +87,7 @@ class LoginScreen extends Component {
         <Row>
           <Col lg={{ size: 6, offset: 3 }}>
             <Card>
+              <Login />
               <CardHeader>Login</CardHeader>
               <CardBody>
                 {!!error && <Alert color="danger">{'Login failed'}</Alert>}
