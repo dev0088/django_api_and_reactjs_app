@@ -8,7 +8,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import configureStore from './store'
 import Routes from './routes/index';
 
-import './App.css';
+import './static/css/App.css';
+import './static/css/vendor-styles.css';
 
 const history = createHistory()
 

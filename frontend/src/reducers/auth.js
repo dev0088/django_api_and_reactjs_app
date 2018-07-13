@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
-	console.log('=== action, state:', action, state)
+	// console.log('=== action, state:', action, state)
   switch(action.type) {
 		case types.LOGIN.REQUEST:
       return {

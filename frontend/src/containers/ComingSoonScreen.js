@@ -5,7 +5,6 @@ import './comingSoonScreen.css'
 class ComingSoonScreen extends Component {
 
 	render() {
-
 		return(
 			<Row className="justify-content-center" style={{height: "100%"}}>
 				<Col sm="6" offset-sm="3">

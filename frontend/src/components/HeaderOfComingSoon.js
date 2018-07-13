@@ -7,7 +7,7 @@ import {
   NavbarToggler,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import { SidebarNavItems } from './sidebar';
+// import { SidebarNavItems } from './sidebar';
 
 import './header.css'
 import './headerOfComingSoon.css'
@@ -31,10 +31,9 @@ class HeaderOfComingSoon extends Component {
           <NavbarToggler onClick={this.toggleDropDown} className="header-comingsoon-navbar-toggler"/>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <div className="d-block d-sm-none">
-                {SidebarNavItems()}
-              </div>
-							<Link to="/login">Login</Link>
+							<Link to="/login">
+                Login
+              </Link>
             </Nav>
           </Collapse>
         </Navbar>
