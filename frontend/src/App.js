@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { render } from 'react-dom';
 import createHistory from 'history/createBrowserHistory'
-import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
-import { Route, Switch } from 'react-router'
 import { BrowserRouter as Router } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import PrivateRoute from './containers/privateRoute';
 import configureStore from './store'
 import Routes from './routes/index';
 

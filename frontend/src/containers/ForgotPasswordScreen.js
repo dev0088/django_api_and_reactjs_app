@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
   Row,
   Col,
@@ -14,7 +13,7 @@ import {
   FormGroup,
   CardHeader,
 } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loading from '../components/loading';
 import './forgotPasswordScreen.css'
 

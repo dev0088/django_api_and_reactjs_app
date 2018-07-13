@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {
   Nav,
   Navbar,
@@ -11,7 +11,6 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Config from '../constants/config';
 import { SidebarNavItems } from './sidebar';
 
 import './header.css'
@@ -54,6 +53,7 @@ class Header extends Component {
         <Navbar dark color="primary" expand="sm" className="fixed-top">
           <Link to="/home" className="navbar-brand" style={{ color: '#FFF' }}>
 						<img className="brand-image"
+              alt="Logo"
 							src={require('../images/logo.png')} />
 
           </Link>

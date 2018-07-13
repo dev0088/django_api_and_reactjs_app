@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 import MemberScreen from '../containers/memberScreen';
 import HeaderOfComingSoon from './headerOfComingSoon';
 

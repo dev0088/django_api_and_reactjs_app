@@ -15,15 +15,15 @@ import {
   FormGroup,
   CardHeader,
 } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
-import Loading from '../components/loading';
-import { bindActionCreators } from 'redux';
-import { translate } from '../i18n';
+import { Link } from 'react-router-dom';
+// import Loading from '../components/loading';
+// import { bindActionCreators } from 'redux';
+// import { translate } from '../i18n';
 import { login } from  '../actions/auth'
-import { authErrors, isAuthenticated } from '../reducers'
-import defaultValues from '../constants/defaultValues'
+import { authErrors } from '../reducers'
+// import defaultValues from '../constants/defaultValues'
 import './loginScreen.css'
-import apiConfig from '../constants/api';
+// import apiConfig from '../constants/api';
 import Login from '../components/other-pages/login';
 
 class LoginScreen extends Component {
@@ -76,7 +76,7 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { loading, error } = this.props;
+    const { error } = this.props;
 
 		if(this.props.isAuthenticated) {
 			return <Redirect to='/home' />
@@ -140,7 +140,7 @@ class LoginScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, auth } = state;
+  const { user } = state;
 
   return {
     user,

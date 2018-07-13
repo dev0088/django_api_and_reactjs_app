@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth.js'
-import register, * as fromRegister from './register.js'
+import register from './register.js'
 import echo, * as fromEcho from './echo.js'
 
 export default combineReducers({

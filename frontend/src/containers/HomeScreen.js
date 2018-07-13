@@ -15,7 +15,7 @@ class HomeScreen extends Component {
             <p></p>
             <p className="lead">We are building a greate web application for talent and client.</p>
           </Jumbotron>
-          <img src={require('../images/backgrounds/background_side.png')} className="home-background-image"/>
+          <img src={require('../images/backgrounds/background_side.png')} alt="home background" className="home-background-image"/>
         </Row>
         <Row className="pt-5">
           <Col xs="12" md="4" className="pt-3 pt-md-0">
@@ -23,7 +23,7 @@ class HomeScreen extends Component {
             <p>ShiptTalent.com is a community of Talent with one common goal: to work on a cruise ship.</p>
             <p>With ShiptTalent.com, singers, dancers, aerialist, musicians, technicians, activity staff and youth staff can audition and interview with <b>every</b> cruise line <b>at the same time</b> in one easy setp. No need to go to endless auditions. ...</p>
             <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
+              <a target="_blank" rel="noopener noreferrer"  className="btn btn-primary">
                 More details ...
               </a>
             </p>
@@ -33,7 +33,7 @@ class HomeScreen extends Component {
             <p>It's easy. In order to audition and interview with <b>every</b> cruise line at the same time, all you have to do is create your own unique profile. </p>
             <p>What's in your profile? Unlinke other employment sites, your profile isn't simply a place to post your basic headshot, resume and demo reel. Sure, your profile includes these basics, ...</p>
             <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
+              <a target="_blank" rel="noopener noreferrer"  className="btn btn-primary">
                 More details ...
               </a>
             </p>
@@ -55,7 +55,7 @@ class HomeScreen extends Component {
             <p>Unlinke other employment sites, your profile isn't simply a place to post your headshot, resume and demo reel.</p>
             <p>There is so much more about you that needs to be seen!</p>
             <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
+              <a target="_blank" rel="noopener noreferrer"  className="btn btn-primary">
                 More details ...
               </a>
             </p>
@@ -64,7 +64,7 @@ class HomeScreen extends Component {
             <h3><i className="icon-drop" /> Web Styles</h3>
             <p>Webpack, SCSS, Bootstrap and ReactStrap - ready at your fingertips.</p>
             <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
+              <a target="_blank" rel="noopener noreferrer"  className="btn btn-primary">
                 ReactStrap Docs
               </a>
             </p>
@@ -73,7 +73,7 @@ class HomeScreen extends Component {
             <h3><i className="icon-user-following" /> Auth</h3>
             <p>Most apps need user authentication. This one comes ready to go with Firebase Auth - but you can easily change that within the </p>
             <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
+              <a target="_blank" rel="noopener noreferrer"  className="btn btn-primary">
                 Firebase Auth Docs
               </a>
             </p>

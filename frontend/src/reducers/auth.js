@@ -1,4 +1,4 @@
-import * as auth from '../actions/auth'
+// import * as auth from '../actions/auth'
 import * as types from '../actions/actionTypes';
 import jwtDecode from 'jwt-decode'
 

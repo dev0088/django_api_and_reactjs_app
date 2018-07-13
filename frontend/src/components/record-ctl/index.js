@@ -27,7 +27,7 @@ export default class RecordCtl extends Component {
   }
 
   onClick = () => {
-    let {isRecording, total} = this.state;
+    let {isRecording} = this.state;
 
     if (isRecording) {
       this.setState({isRecording: false});

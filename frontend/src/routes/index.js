@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 import TemplateNothing from '../components/templateNothing';
 import TemplateSidebar from '../components/templateSidebar';
 import TemplateTopbar from '../components/templateTopbar';
-import TempateTopbarOfOnCard from '../components/tempateTopbarOfOnCard';
 import TemplateTopbarOfComingSoon from '../components/templateTopbarOfComingSoon';
 
 // Routes
