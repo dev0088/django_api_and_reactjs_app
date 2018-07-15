@@ -30,6 +30,32 @@
   color: white !important;
   fill: white !important;
 }
+
+.details-content {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  padding-bottom: 30px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  border-radius: 3px;
+  margin-bottom: 30px; }
+  .details-content img {
+    height: 240px;
+    margin: 0 auto; }
+  .details-content .favorite {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer; }
+  .details-content h5 {
+    padding-top: 10px;
+    padding-bottom: 5px; }
+  .details-content .price {
+    margin: 0;
+    color: #258df2;
+    padding-bottom: 10px; }
 @media only screen and (max-width: 575px) {
   .my-account button{
     text-align: left !important;

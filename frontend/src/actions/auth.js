@@ -10,7 +10,7 @@ export const login = (email, password) => ({
         headers: { 'Content-Type': 'application/json' },
         types: [
           types.LOGIN.REQUEST, types.LOGIN.SUCCESS, types.LOGIN.FAILURE
-        ]
+        ],
       }
 })
 
