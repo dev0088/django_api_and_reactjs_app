@@ -83,7 +83,6 @@ class SignUp extends React.Component {
 		  lastName,
 		  type
 		} = this.state
-		console.log('==== this: ', this)
 		this.props.registerActions.registerRequest(
 			userName,
 			email,
@@ -106,7 +105,7 @@ class SignUp extends React.Component {
         <div className="login-fields">
           <h3>Sign Up</h3>
           {!!error && <Alert color="danger">{error}</Alert>}
-          <Form onSubmit={this.handleSubmit}>
+          <Form>
             <TextField
               name="userName"
               id="userName"
@@ -164,7 +163,7 @@ class SignUp extends React.Component {
             />
 
             <div className="pt20">
-              <RaisedButton label="Sing Up" primary={true} fullWidth={true}/>
+              <RaisedButton label="Sing Up" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
             </div>
           </Form>
 
