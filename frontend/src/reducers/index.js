@@ -3,11 +3,13 @@ import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth.js'
 import register from './register.js'
 import echo, * as fromEcho from './echo.js'
+import shiptalentInfo from './shiptalentInfo.js'
 
 export default combineReducers({
   auth: auth,
   echo: echo,
 	register: register,
+	shiptalentInfo: shiptalentInfo,
   router: routerReducer
 })
 

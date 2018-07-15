@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
 	'authentication',
+	'shiptalent_info'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -133,6 +134,10 @@ STATICFILES_DIRS = (
 
 # MEDIA_URL = '/media/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 # Rest Framework for simplejwt
 #
 # REST_FRAMEWORK = {

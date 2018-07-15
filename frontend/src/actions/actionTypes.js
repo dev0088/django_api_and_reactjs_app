@@ -24,3 +24,5 @@ export const TOKEN = createRequestTypes('@@jwt/TOKEN');
 export const REGISTER = createRequestTypes('@@jwt/REGISTER');
 
 export const LOGOUT = createRequestTypes('@@jwt/LOGOUT'); // logout is always success
+
+export const SHIPTALENT_INFO = createRequestTypes('@@jwt/SHIPTALENT_INFO');
