@@ -19,6 +19,7 @@ export default function shiptalentInfo(state = initialState, action) {
         value: action.payload,
       });
     case types.SHIPTALENT_INFO.FAILURE:
+			console.log('=== SHIPTALENT_INFO.FAILURE: ', action.payload)
       return Object.assign({}, state, {
         isFetching: false,
         isRegistered: false,
