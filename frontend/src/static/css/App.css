@@ -1344,8 +1344,7 @@ input[type="button"].btn-block {
 .login-wrapper {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  background: #258df2;
+  max-width: 500px;
   margin: 0 auto;
   margin-top: 60px;
   margin-bottom: 60px; }
@@ -1356,7 +1355,6 @@ input[type="button"].btn-block {
   background: #fff;
   padding: 45px;
   top: 30px;
-  right: 30px;
   -webkit-box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2);
   -moz-box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2);
   box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2); }
