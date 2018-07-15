@@ -15,6 +15,8 @@ import {
   CardHeader,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import Loading from '../components/loading';
 // import { translate } from '../i18n';
 import { bindActionCreators } from 'redux'
@@ -25,8 +27,8 @@ import './signUpScreen.css'
 class SignUp extends React.Component {
   static propTypes = {
     error: PropTypes.string,
-    loading: PropTypes.bool.isRequired,
-    onFormSubmit: PropTypes.func.isRequired,
+    // loading: PropTypes.bool.isRequired,
+    // onFormSubmit: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
@@ -100,98 +102,82 @@ class SignUp extends React.Component {
     if (loading) return <Loading />;
 
     return (
-      <div className='signup-layout'>
-        <Row>
-          <Col lg={{ size: 6, offset: 3 }}>
-            <Card>
-              <CardHeader>Sign Up</CardHeader>
-              <CardBody>
-                {!!error && <Alert color="danger">{error}</Alert>}
-                <Form onSubmit={this.handleSubmit}>
-                  <FormGroup>
-										<Label for="userName">User Name</Label>
-                    <Input
-                      type="text"
-                      name="userName"
-                      id="userName"
-                      placeholder=""
-                      value={this.state.userName}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-									<FormGroup>
-                    <Label for="firstName">First Name</Label>
-                    <Input
-                      type="text"
-                      name="firstName"
-                      id="firstName"
-                      placeholder="John"
-                      value={this.state.firstName}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="lastName">Last Name</Label>
-                    <Input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      placeholder="Doe"
-                      value={this.state.lastName}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
+      <div className="login-wrapper">
+        <div className="login-fields">
+          <h3>Sign Up</h3>
+          {!!error && <Alert color="danger">{error}</Alert>}
+          <Form onSubmit={this.handleSubmit}>
+            <TextField
+              name="userName"
+              id="userName"
+              placeholder=""
+              value={this.state.userName}
+              onChange={this.handleChange}
+              floatingLabelText="User name"
+              fullWidth={true}
+            />
+            <TextField
+              name="firstName"
+              id="firstName"
+              placeholder=""
+              value={this.state.firstName}
+              onChange={this.handleChange}
+              floatingLabelText="First Name"
+              fullWidth={true}
+            />
+            <TextField
+              name="lastName"
+              id="lastName"
+              placeholder=""
+              value={this.state.lastName}
+              onChange={this.handleChange}
+              floatingLabelText="Last Name"
+              fullWidth={true}
+            />
+            <TextField
+              type="email"
+              name="email"
+              id="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+              floatingLabelText="john@doe.corp"
+              fullWidth={true}
+              type="email"
+            />
+            <TextField
+              type="password"
+              name="password"
+              id="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              floatingLabelText="Password"
+              fullWidth={true}
+            />
+            <TextField
+              type="password"
+              name="password2"
+              id="password2"
+              value={this.state.password2}
+              onChange={this.handleChange}
+              floatingLabelText="Confirm Password"
+              fullWidth={true}
+            />
 
-                  <FormGroup style={{ marginTop: 40 }}>
-                    <Label for="email">Email</Label>
-                    <Input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="john@doe.corp"
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="password">Password</Label>
-                    <Input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="••••••••"
-                      value={this.state.password}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="password2">Confirm Password</Label>
-                    <Input
-                      type="password"
-                      name="password2"
-                      id="password2"
-                      placeholder="••••••••"
-                      value={this.state.password2}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <Button color="primary">Sign Up!</Button>
-                </Form>
+            <div className="pt20">
+              <RaisedButton label="Sing Up" primary={true} fullWidth={true}/>
+            </div>
+          </Form>
 
-                <hr />
-
-                <Row>
-                  <Col sm="12">
-                    Already have an account? <Link to="/login">Login</Link>
-                  </Col>
-									<Col sm="12">
-										Return home <Link to="/">Home</Link>
-									</Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+          <hr />
+          <Row>
+            <Col sm="12">
+              Already have an account? <Link to="/login">Login</Link>
+            </Col>
+            <Col sm="12">
+              Return home <Link to="/">Home</Link>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }
