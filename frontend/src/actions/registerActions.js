@@ -12,7 +12,7 @@ export const registerRequest = (
   type
 ) => ({
 	  [RSAA]: {
-        endpoint: `${apiConfig.url}/api/v1/auth/register/`,
+        endpoint: `${apiConfig.url}/auth/register/`,
         method: 'POST',
         body: JSON.stringify({
 					username: userName,
