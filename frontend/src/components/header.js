@@ -39,13 +39,13 @@ class Header extends Component {
   constructor(props) {
     super(props);
 		this.toggleDropDown = this.toggleDropDown.bind(this);
-    this.state = { 
+    this.state = {
       isOpen: false,
       subMenuOpen: false
     };
   }
 
-  onLogout = () => this.props.logout().then(() => this.props.history.push('/'));
+  onLogout = () => this.props.logout(this.props.auth.access.token).then(() => this.props.history.push('/'));
 
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
   handleClickTap = (event) => {

@@ -1,6 +1,6 @@
 // import * as auth from '../actions/auth'
 import * as types from '../actions/actionTypes';
-import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode';
 
 const initialState = {
   access: false,
@@ -41,6 +41,20 @@ export default (state=initialState, action) => {
          errors: action.payload.response || {'non_field_errors': action.payload.statusText},
 				 isAuthenticated: false
       }
+		case types.LOGOUT.REQUEST:
+		case types.LOGOUT.SUCCESS:
+			return {
+				access: {},
+				errors: false,
+				isAuthenticated: false
+			}
+		case types.LOGOUT.FAILURE:
+			return {
+				access: {},
+				errors: true,
+				isAuthenticated: false,
+				errors: action.payload.response || {'non_field_errors': action.payload.statusText},
+			}
     default:
       return state
     }

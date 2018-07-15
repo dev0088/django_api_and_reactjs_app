@@ -20,7 +20,7 @@ class HeaderOfComingSoon extends Component {
     this.state = { isOpen: false };
   }
 
-  onLogout = () => this.props.logout().then(() => this.props.history.push('/login'));
+  onLogout = () => this.props.logout(this.props.auth.access.token).then(() => this.props.history.push('/login'));
 
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
 
