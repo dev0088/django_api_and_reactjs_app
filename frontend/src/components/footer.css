@@ -1,0 +1,21 @@
+.footer-layout {
+	bottom: 0px;
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.footer-background {
+	width: 100%;
+	border-radius: 0rem;
+	margin-bottom: 0rem;
+	padding-top: 0rem;
+	padding-bottom: 0rem;
+}
+
+.footer-link {
+	color: #fff!important;
+}
+
+.footer-description {
+	color: #212529;
+}
