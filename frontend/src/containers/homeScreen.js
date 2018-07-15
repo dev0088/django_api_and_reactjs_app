@@ -35,7 +35,6 @@ class HomeScreen extends Component {
 		try {
 			if (this.state.shiptalentInfo) {
 				let info = this.state.shiptalentInfo.find(function(info) {
-					console.log('=== info: ', info)
 					return info.name === name;
 				})
 
