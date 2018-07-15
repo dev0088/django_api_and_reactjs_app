@@ -4,11 +4,11 @@ from django.db import models
 from django.db import models
 from datetime import datetime, timedelta
 
-class ShipTalentInfoManager(models.Manager):
+class TalentsManager(models.Manager):
   def get_queryset(self):
-    return super(ShipTalentInfoManager, self).get_queryset().filter(active=True)
+    return super(TalentsManager, self).get_queryset().filter(active=True)
 
-class ShipTalentInfo(models.Model):
+class Talents(models.Model):
   name = models.CharField(max_length=50, blank=False, default='')
   value = models.TextField(default='', blank=False)
   description = models.CharField(max_length=100, blank=True, default='')
@@ -16,12 +16,12 @@ class ShipTalentInfo(models.Model):
 
   def __str__(self):
     """
-    Returns a string representation of this `ShipTalentInfo`.
-    This string is used when a `ShipTalentInfo` is printed in the console.
+    Returns a string representation of this `Talents`.
+    This string is used when a `Talents` is printed in the console.
     """
     return self.name
 
   class Meta:
-    db_table = "shiptalent_info"
-    ordering = ('name',)
+    db_table = "talents"
+    ordering = ('id',)
     managed = True
