@@ -1344,8 +1344,7 @@ input[type="button"].btn-block {
 .login-wrapper {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  background: #258df2;
+  max-width: 500px;
   margin: 0 auto;
   margin-top: 60px;
   margin-bottom: 60px; }
