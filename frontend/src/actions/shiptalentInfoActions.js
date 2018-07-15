@@ -4,7 +4,7 @@ import * as types from './actionTypes'
 
 export const getShipTalentInfo = () => ({
 	  [RSAA]: {
-        endpoint: `${apiConfig.url}/api/v1/shiptalent_info/all`,
+        endpoint: `${apiConfig.url}/shiptalent_info/all`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         types: [

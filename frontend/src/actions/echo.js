@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { withAuth } from '../reducers'
+import { withAuth } from '../reducers';
 import config from '../config';
 
 export const ECHO_REQUEST = '@@echo/ECHO_REQUEST';

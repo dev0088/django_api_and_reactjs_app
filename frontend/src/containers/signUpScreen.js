@@ -83,7 +83,7 @@ class SignUp extends React.Component {
 		  lastName,
 		  type
 		} = this.state
-
+		console.log('==== this: ', this)
 		this.props.registerActions.registerRequest(
 			userName,
 			email,
