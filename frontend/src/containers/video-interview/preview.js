@@ -6,9 +6,6 @@ import './styles.css'
 import AudioMeter from "../../components/audio-meter/index";
 
 class VideoPreview extends React.Component {
-  constructor() {
-    super();
-  }
 
   render () {
     return <div className="video-interview">

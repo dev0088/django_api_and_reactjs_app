@@ -1,4 +1,4 @@
-import * as auth from '../actions/auth'
+// import * as auth from '../actions/auth'
 import * as types from '../actions/actionTypes';
 import jwtDecode from 'jwt-decode'
 
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
-	console.log('=== action, state:', action, state)
+	// console.log('=== action, state:', action, state)
   switch(action.type) {
 		case types.LOGIN.REQUEST:
       return {

@@ -14,7 +14,7 @@ import {
   CardHeader,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Loading from './Loading';
+import Loading from './loading';
 
 class SignUp extends React.Component {
   static propTypes = {

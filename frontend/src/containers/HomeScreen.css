@@ -4,9 +4,38 @@
 	margin-bottom: 0rem;
 	margin-top: 3.5rem;
 	background-color: transparent!important;
-	color: #20426f!important;
 	position: absolute;
+}
+.slogan-description-background h1, 
+.slogan-description-background p {
+	color: #20426f!important;
 }
 .home-background-image {
 	width: 100%;
+}
+.my-account{
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+.my-account button{
+  background-color: transparent !important;
+}
+.my-account button span{
+  color: white !important
+}
+.ml-auto .d-block a{
+  color: white !important;
+}
+.ml-auto .d-block a svg{
+  color: white !important;
+  fill: white !important;
+}
+@media only screen and (max-width: 575px) {
+  .my-account button{
+    text-align: left !important;
+  }
+  div[role="presentation"],
+  div[role="menu"] {
+    width: 91vw !important;
+  }
 }

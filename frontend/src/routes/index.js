@@ -2,21 +2,20 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Templates
-import TemplateNothing from '../components/TemplateNothing';
-import TemplateSidebar from '../components/TemplateSidebar';
-import TemplateTopbar from '../components/TemplateTopbar';
-import TempateTopbarOfOnCard from '../components/TempateTopbarOfOnCard';
-import TemplateTopbarOfComingSoon from '../components/TemplateTopbarOfComingSoon';
+import TemplateNothing from '../components/templateNothing';
+import TemplateSidebar from '../components/templateSidebar';
+import TemplateTopbar from '../components/templateTopbar';
+import TemplateTopbarOfComingSoon from '../components/templateTopbarOfComingSoon';
 
 // Routes
-import ComingSoonScreen from '../containers/ComingSoonScreen';
-import HomeScreen from '../containers/HomeScreen';
-import SignUpScreen from '../containers/SignUpScreen';
+import ComingSoonScreen from '../containers/comingSoonScreen';
+import HomeScreen from '../containers/homeScreen';
+import SignUpScreen from '../containers/signUpScreen';
 
-import LoginScreen from '../containers/LoginScreen';
-import ForgotPasswordScreen from '../containers/ForgotPasswordScreen';
+import LoginScreen from '../containers/loginScreen';
+import ForgotPasswordScreen from '../containers/forgotPasswordScreen';
 
-import Error from '../components/Error';
+import Error from '../components/error';
 import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
 

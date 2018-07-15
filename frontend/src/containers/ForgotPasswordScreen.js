@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
   Row,
   Col,
@@ -14,9 +13,9 @@ import {
   FormGroup,
   CardHeader,
 } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
-import Loading from '../components/Loading';
-import './ForgotPasswordScreen.css'
+import { Link } from 'react-router-dom';
+import Loading from '../components/loading';
+import './forgotPasswordScreen.css'
 
 class ForgotPasswordScreen extends React.Component {
   static propTypes = {

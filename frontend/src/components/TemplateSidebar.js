@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
-import MemberScreen from '../containers/MemberScreen';
-import Header from './Header';
-import Footer from './Footer';
-import { Sidebar } from './Sidebar';
+import MemberScreen from '../containers/memberScreen';
+import Header from './header';
+import Footer from './footer';
+import { Sidebar } from './sidebar';
 
 const Template = ({ children }) => (
   <div>
