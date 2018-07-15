@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import ReactPlayer from 'react-player'
 import renderHTML from 'react-render-html';
 import Truncate from 'react-truncate-html';
+import RaisedButton from 'material-ui/RaisedButton';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './homeScreen.css'
 
@@ -62,80 +63,86 @@ class HomeScreen extends Component {
         </Row>
         <Row className="pt-5">
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-map" />What is ShipeTalent.com?</h3>
-							<Truncate
-							  lines={9}
-							  dangerouslySetInnerHTML={{
-							   __html: this.getValueByName('what_is_shiptalent')
-							  }}
-							/>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
-                More details ...
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-map" />What is ShipeTalent.com?</h3>
+  							<Truncate
+  							  lines={9}
+  							  dangerouslySetInnerHTML={{
+  							   __html: this.getValueByName('what_is_shiptalent')
+  							  }}
+  							/>
+              <RaisedButton
+                label="More details ..."
+                primary={true}
+              />
+            </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-fire" /> How Does ShiptTalent.com Work?</h3>
-						<Truncate
-							lines={9}
-							dangerouslySetInnerHTML={{
-							 __html: this.getValueByName('how_does_shiptalent_work')
-							}}
-						/>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
-                More details ...
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-fire" /> How Does ShiptTalent.com Work?</h3>
+  						<Truncate
+  							lines={9}
+  							dangerouslySetInnerHTML={{
+  							 __html: this.getValueByName('how_does_shiptalent_work')
+  							}}
+  						/>
+              <RaisedButton
+                label="More details ..."
+                primary={true}
+              />
+            </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-organization" /> Why use ShiptTalent.com?</h3>
-						<Truncate
-							lines={9}
-							dangerouslySetInnerHTML={{
-							 __html: this.getValueByName('why_use_shiptalent')
-							}}
-						/>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
-                Mode details ...
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-organization" /> Why use ShiptTalent.com?</h3>
+  						<Truncate
+  							lines={9}
+  							dangerouslySetInnerHTML={{
+  							 __html: this.getValueByName('why_use_shiptalent')
+  							}}
+  						/>
+              <RaisedButton
+                label="More details ..."
+                primary={true}
+              />
+            </div>
           </Col>
         </Row>
         <Row className="pt-md-5 pb-5">
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-layers" /> The ShipTalent.com Difference</h3>
-							<Truncate
-								lines={9}
-								dangerouslySetInnerHTML={{
-								 __html: this.getValueByName('the_shiptalent_difference')
-								}}
-							/>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#"  className="btn btn-primary">
-                More details ...
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-layers" /> The ShipTalent.com Difference</h3>
+  							<Truncate
+  								lines={9}
+  								dangerouslySetInnerHTML={{
+  								 __html: this.getValueByName('the_shiptalent_difference')
+  								}}
+  							/>
+              <RaisedButton
+                label="More details ..."
+                primary={true}
+              />
+            </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-drop" /> Web Styles</h3>
-            <p>Webpack, SCSS, Bootstrap and ReactStrap - ready at your fingertips.</p>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
-                ReactStrap Docs
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-drop" /> Web Styles</h3>
+              <p>Webpack, SCSS, Bootstrap and ReactStrap - ready at your fingertips.</p>
+              <RaisedButton
+                label="ReactStrap Docs"
+                primary={true}
+              />
+            </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
-            <h3><i className="icon-user-following" /> Auth</h3>
-            <p>Most apps need user authentication. This one comes ready to go with Firebase Auth - but you can easily change that within the </p>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href="#" className="btn btn-primary">
-                Firebase Auth Docs
-              </a>
-            </p>
+            <div className="details-content">
+              <h3><i className="icon-user-following" /> Auth</h3>
+              <p>Most apps need user authentication. This one comes ready to go with Firebase Auth - but you can easily change that within the </p>
+              <RaisedButton
+                label="Firebase Auth Docs"
+                primary={true}
+              />
+            </div>
           </Col>
         </Row>
         <hr />
