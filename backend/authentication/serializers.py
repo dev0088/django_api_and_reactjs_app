@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import User
-
+from talents.models import Talents
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
@@ -18,11 +18,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # request. Making `token` read-only handles that for us.
     token = serializers.CharField(max_length=255, read_only=True)
 
+	# Talent profile
+    talent = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+
     class Meta:
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email', 'username', 'password', 'token', 'first_name', 'last_name', 'type']
+        fields = ['email', 'username', 'password', 'token', 'first_name', 'last_name', 'type', 'talent']
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.

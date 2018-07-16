@@ -10,7 +10,7 @@ from rest_framework import status
 
 class ShipTalentInfoList(APIView):
     """
-    List all shiptalent_info, or create a new shiptalent_info_item.
+    List all shiptalent_info.
     """
     def get(self, request, format=None):
         shiptalent_info = ShipTalentInfo.objects.all()
@@ -26,7 +26,7 @@ class ShipTalentInfoList(APIView):
 
 class ShipTalentInfoDetail(APIView):
     """
-    Retrieve, update or delete a shiptalent_info_item instance.
+    Retrieve a shiptalent_info_item instance.
     """
     def get_object(self, pk):
         try:
