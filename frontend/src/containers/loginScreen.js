@@ -104,7 +104,7 @@ class LoginScreen extends Component {
                 id="email"
                 value={this.state.email}
                 onChange={this.handleChange}
-                floatingLabelText="john@doe.corp"
+                floatingLabelText="Email"
                 fullWidth={true}
               />
               <TextField
@@ -113,7 +113,7 @@ class LoginScreen extends Component {
                 type="password"
                 value={this.state.password}
                 onChange={this.handleChange}
-                floatingLabelText="••••••••"
+                floatingLabelText="Password"
                 fullWidth={true}
               />
               <div className="pt20">

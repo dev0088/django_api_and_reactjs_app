@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 const SidebarNavItems = () => (
   <div>
+  {/*
     <Menu>
       <MenuItem 
         className={`nav-link ${window.location.pathname === '/' && 'active'}`} 
@@ -24,6 +25,7 @@ const SidebarNavItems = () => (
         primaryText="Recipes" 
       />
     </Menu>
+  */}
   </div>
 );
 

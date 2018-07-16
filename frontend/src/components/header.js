@@ -20,6 +20,11 @@ import { SidebarNavItems } from './sidebar';
 
 import './header.css'
 
+const styles = {
+  menuitem: {
+    color: "#FFF"
+  }
+}
 class Header extends Component {
   // static propTypes = {
   //   member: PropTypes.shape({
@@ -77,7 +82,7 @@ class Header extends Component {
 
           </Link>
           { loggedIn && (
-              <MenuItem href="/video-interview" primaryText="Video Interview" />
+              <MenuItem href="/video-interview" style={styles.menuitem} primaryText="Video Interview" />
             )
           }
           <NavbarToggler onClick={this.toggleDropDown} />
