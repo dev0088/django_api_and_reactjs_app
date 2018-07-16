@@ -14,15 +14,6 @@
   font-size: 23px;
 }
 
-.btnn-adjust-settings {
-  margin: 10px auto;
-}
-
-.btnn-not-ready {
-  margin-top: 30px;
-  font-size: 13px;
-}
-
 .camera-box {
   margin-top: 100px;
 }
@@ -80,6 +71,20 @@
 
 .playbackbtn-wrapper {
   text-align: center;
+}
+
+.btnn-video-buttons{
+  margin-top: 20px;
+}
+.btnn-video-buttons button{
+  height: auto !important;
+  line-height: 1.2 !important;
+}
+.btnn-video-buttons button > div > div{
+  padding: 8px 0 !important;
+}
+.btnn-video-buttons button div{
+  height: auto !important;
 }
 
 canvas {

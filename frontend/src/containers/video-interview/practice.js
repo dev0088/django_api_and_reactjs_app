@@ -1,5 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import AudioMeter from "../../components/audio-meter/index";
 import { questions } from "./constants";
@@ -8,6 +9,12 @@ import './styles.css';
 import RecordCtl from "../../components/record-ctl/index";
 import VideoPlayBack from "./play-back";
 
+const styles={
+  raisedButton: {
+    whiteSpace: "normal",
+    width: "240px",
+  }
+}
 class VideoPractice extends React.Component {
   constructor() {
     super();
@@ -20,12 +27,12 @@ class VideoPractice extends React.Component {
   }
 
   onStopRecord = () => {
-    console.log('onStopRecord');
+    // console.log('onStopRecord');
     this.setState({isStopped: true});
   };
 
   onStartRecord = () => {
-    console.log('onStartRecord');
+    // console.log('onStartRecord');
     this.setState({isStopped: false});
   };
 
@@ -85,7 +92,12 @@ class VideoPractice extends React.Component {
 
       { !isPlayBackOpen && isStopped &&
         <div className="col-md-12 playbackbtn-wrapper">
-          <button className="btn btn-primary btn-playback" onClick={this.openPlayBack}>Play Back</button>
+          <RaisedButton
+            label="Play Back"
+            className="btn-playback"
+            onClick={this.openPlayBack}
+            primary={true}
+          />
         </div>
       }
 
