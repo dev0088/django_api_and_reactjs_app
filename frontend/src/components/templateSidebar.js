@@ -10,14 +10,12 @@ const Template = ({ children }) => (
   <div>
     <MemberScreen Layout={Header} />
     <Container fluid>
-      <Row>
-        <Sidebar />
-        <Col md="10" sm="9" className="px-sm-5 py-sm-5 ml-sm-auto">
-          {children}
-          <Footer />
-        </Col>
-      </Row>
+      {/* <Sidebar /> */}
+      <div className="px-sm-5 py-sm-5 ml-sm-auto">
+        {children}
+      </div>
     </Container>
+    <Footer />
   </div>
 );
 

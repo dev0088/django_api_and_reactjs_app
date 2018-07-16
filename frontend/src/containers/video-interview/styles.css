@@ -23,7 +23,7 @@
 }
 
 .video-practice {
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .video-practice .camera-box video {
@@ -86,7 +86,9 @@
 .btnn-video-buttons button div{
   height: auto !important;
 }
-
+.video_container{
+  text-align: center;
+}
 canvas {
   background: gray;
 }

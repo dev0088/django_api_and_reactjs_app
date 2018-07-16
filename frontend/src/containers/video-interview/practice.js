@@ -81,7 +81,8 @@ class VideoPractice extends React.Component {
             onStart={this.onStartRecord}
             countStop={isPlayBackOpen || isStopped}
           />
-
+        </div>
+        <div className="col-sm-12 video_container">
           <Webcam height="300" width="700" style={{marginLeft: '-150px', marginTop: '5px'}}/>
           <div className="audio-box">
             <AudioMeter/>
