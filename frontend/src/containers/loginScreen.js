@@ -79,7 +79,6 @@ class LoginScreen extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    console.log(this.state, this.props);
     // this.setState({ loginRequest: true });
     this.props.onSubmit(email, password);
 
