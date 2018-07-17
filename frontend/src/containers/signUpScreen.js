@@ -137,7 +137,7 @@ class SignUp extends React.Component {
               id="email"
               value={this.state.email}
               onChange={this.handleChange}
-              floatingLabelText="john@doe.corp"
+              floatingLabelText="Email"
               fullWidth={true}
             />
             <TextField

@@ -6,16 +6,16 @@ import ReactPlayer from 'react-player'
 import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
-import './faq.css'
+import './terms.css'
 
-class Faq extends Component {
+class Terms extends Component {
 
   render() {
     return(
-      <div className="faq-container">
+      <div className="terms-container">
         <Row className="pt-5">
           <Col sm="12">
-            <h3><i className="icon-map" />Frequently Asked Questions</h3>
+            <h3><i className="icon-map" />Terms &amp; Conditions</h3>
             <hr />
             <p>
               Read carefully.  This is your contract with ShipTalent.com
@@ -52,4 +52,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Faq);
+export default connect(mapStateToProps, mapDispatchToProps)(Terms);

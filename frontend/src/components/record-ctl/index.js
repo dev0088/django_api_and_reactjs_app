@@ -3,7 +3,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './styles.css';
 import {fmtMSS} from "../../utils/helper";
 
+const styles = {
+  stopButton: {
+    backgroundColor: '#CC0000'
+  },
+  startButton: {
 
+  }
+}
 export default class RecordCtl extends Component {
 
   constructor() {
@@ -11,7 +18,7 @@ export default class RecordCtl extends Component {
 
     this.state = {
       isRecording: false,
-      remaining: 120,
+      remaining: 30,
       total: 120,
       reset: false
     };
@@ -81,12 +88,21 @@ export default class RecordCtl extends Component {
       </div>
       <div className="record-btn-wrapper">
         { !countStop &&
-        <RaisedButton
-          label={isRecording ? 'Stop Recording' : 'Start Recording'}
-          className="btn-start-stop"
-          onClick={this.onClick}
-          primary={true}
-        />}
+          (isRecording ? (
+            <RaisedButton
+              label={'Stop Recording'}
+              className="btn-start-stop"
+              onClick={this.onClick}
+            />
+          ): (
+            <RaisedButton
+              label={'Start Recording'}
+              className="btn-start-start"
+              onClick={this.onClick}
+              primary={!isRecording}
+            />
+          ))
+        }
       </div>
     </div>)
 

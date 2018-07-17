@@ -34,7 +34,9 @@
     /*display: inline-block;*/
 }
 
-.btn-start-stop {
-    background: grey;
-    color: white;
+.btn-start-stop button {
+    background-color: #C00 !important;
+}
+.btn-start-stop button span{
+    color: white !important;
 }
