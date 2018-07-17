@@ -20,6 +20,7 @@ import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
 
 import MyProfile from "../containers/myProfile";
+import MyAcount from "../containers/myAccount";
 
 const Index = () => (
   <Switch>
@@ -90,7 +91,16 @@ const Index = () => (
           <MyProfile {...props} />
         </TemplateTopbar>
       )}
-    />  
+    />
+
+    <Route
+      path="/account"
+      render={props => (
+        <TemplateTopbar>
+          <MyAcount {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
     <Route
       render={props => (

@@ -109,6 +109,7 @@ class Header extends Component {
                 {loggedIn &&
                   <Menu>
                     <MenuItem primaryText="View My Profile" href="/profile" />
+                    <MenuItem primaryText="Account Settings" href="/account" />
                     <Divider />
                     <MenuItem primaryText="Logout" onClick={this.onLogout} />
                   </Menu>
