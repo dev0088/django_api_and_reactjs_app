@@ -4,17 +4,9 @@ import { connect } from 'react-redux';
 import {
   Row,
   Col,
-  Card,
   Form,
-  Label,
   Alert,
-  Input,
-  Button,
-  CardBody,
-  FormGroup,
-  CardHeader,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -147,7 +139,6 @@ class SignUp extends React.Component {
               onChange={this.handleChange}
               floatingLabelText="john@doe.corp"
               fullWidth={true}
-              type="email"
             />
             <TextField
               type="password"

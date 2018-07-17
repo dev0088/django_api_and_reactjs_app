@@ -1,6 +1,5 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton';
 
 import './styles.css'

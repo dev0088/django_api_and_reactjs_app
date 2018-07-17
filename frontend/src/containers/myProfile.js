@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import ReactPlayer from 'react-player'
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import renderHTML from 'react-render-html';
 import Truncate from 'react-truncate-html';
 import './myProfile.css'
 
@@ -23,9 +20,7 @@ class MyProfile extends Component {
       lastName:     "Last",
       headLine:     "POP/Rock Tenor with Strong Dancing and Acting Skills",
       photoURL:     "../images/user1.jpg",
-      bio:          "2016-2018: Lead Vocalist with crystal Cruises - Crystal symphony <br/> \
-                      2013-2015: Lead Vocalist with crystal Cruises - Crystal symphony <br/> \
-                      2012-2015: Singer/Dancer - Hardly Useful Productions - Wichita, KS USA <br/>",
+      bio:          "2016-2018: Lead Vocalist with crystal Cruises - Crystal symphony <br/> 2013-2015: Lead Vocalist with crystal Cruises - Crystal symphony <br/> 2012-2015: Singer/Dancer - Hardly Useful Productions - Wichita, KS USA <br/>",
       skills:       ["Dances", "Acts", "Movies"],
       nationality:  "United States",
       language:     ["English", "Spanish"],
@@ -40,7 +35,7 @@ class MyProfile extends Component {
           <Col md="9">
             <Row className="details-content">
               <Col md="2" className="profile-image">
-                <img src={require("../images/user1.jpg")} />
+                <img src={require("../images/user1.jpg")} alt="Profile"/>
               </Col>
               <Col md="10" className="profile-name">
                 <h3>
@@ -64,9 +59,10 @@ class MyProfile extends Component {
               <Col md="12" className="profile-skills">
                 <h4>Skills</h4>
                 {
-                  this.state.skills.map(skill => {
+                  this.state.skills.map((skill,index) => {
                     return (<FlatButton
                       label={skill}
+                      key={index}
                       style={styles.flatPrimary}
                     />)
                   })
@@ -77,9 +73,10 @@ class MyProfile extends Component {
               <Col md="12" className="profile-language">
                 <h4>Language</h4>
                 {
-                  this.state.language.map(lang => {
+                  this.state.language.map((lang, index) => {
                     return (<FlatButton
                       label={lang}
+                      key={index}
                       style={styles.flatPrimary}
                     />)
                   })

@@ -5,21 +5,13 @@ import { Redirect } from 'react-router';
 import {
   Row,
   Col,
-  Card,
   Form,
-  Label,
   Alert,
-  Input,
-  Button,
-  CardBody,
-  FormGroup,
-  CardHeader,
 } from 'reactstrap';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router-dom';
 // import Loading from '../components/loading';
 // import { bindActionCreators } from 'redux';
 // import { translate } from '../i18n';

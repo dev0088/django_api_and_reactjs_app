@@ -4,11 +4,7 @@ import {
   Nav,
   Navbar,
   Collapse,
-  DropdownMenu,
-  DropdownItem,
   NavbarToggler,
-  DropdownToggle,
-  UncontrolledDropdown,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -68,7 +64,7 @@ class Header extends Component {
     });
   };
   render() {
-    const { member, auth } = this.props;
+    const { auth } = this.props;
     // const loggedIn = (member && member.email);
 		// const loggedIn = true
 		const loggedIn = (auth && auth.access && auth.access.email);

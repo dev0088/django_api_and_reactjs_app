@@ -3,7 +3,6 @@ import { Row, Col, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactPlayer from 'react-player'
-import renderHTML from 'react-render-html';
 import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
@@ -48,7 +47,7 @@ class HomeScreen extends Component {
 	}
 
   render() {
-		const { shiptalentInfo } = this.state
+		// const { shiptalentInfo } = this.state
     return(
       <div>
         <Row>

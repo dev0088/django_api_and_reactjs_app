@@ -3,20 +3,12 @@ import PropTypes from 'prop-types';
 import {
   Row,
   Col,
-  Card,
   Form,
-  Label,
   Alert,
-  Input,
-  Button,
-  CardBody,
-  FormGroup,
-  CardHeader,
 } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router-dom';
 import Loading from '../components/loading';
 import './forgotPasswordScreen.css'
 

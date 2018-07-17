@@ -9,12 +9,7 @@ import './styles.css';
 import RecordCtl from "../../components/record-ctl/index";
 import VideoPlayBack from "./play-back";
 
-const styles={
-  raisedButton: {
-    whiteSpace: "normal",
-    width: "240px",
-  }
-}
+
 class VideoPractice extends React.Component {
   constructor() {
     super();

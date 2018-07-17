@@ -51,7 +51,6 @@ export default (state=initialState, action) => {
 		case types.LOGOUT.FAILURE:
 			return {
 				access: {},
-				errors: true,
 				isAuthenticated: false,
 				errors: action.payload.response || {'non_field_errors': action.payload.statusText},
 			}
