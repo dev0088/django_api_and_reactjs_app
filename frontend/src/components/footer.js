@@ -9,7 +9,7 @@ const styles = {
   },
 };
 const Footer = (props) => (
-  <footer className="mt-5 footer-layout" style={props.position ? {position: props.position} : {}}>
+  <footer className="mt-3 footer-layout" style={props.position ? {position: props.position} : {}}>
     <Row>
 			<Jumbotron className="bg-primary text-white text-center footer-background">
 	      <Col sm="12" className="text-center pt-3">
