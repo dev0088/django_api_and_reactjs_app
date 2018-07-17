@@ -58,7 +58,7 @@ class SignUp extends React.Component {
   }
 
 	componentWillReceiveProps(nextProps) {
-		console.log('=== nextProps: ', nextProps)
+		// console.log('=== nextProps: ', nextProps)
 		this.setState({
 			error: nextProps.register && nextProps.register.failure ? nextProps.register.errorMessage : false
 		})

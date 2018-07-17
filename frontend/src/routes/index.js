@@ -19,6 +19,8 @@ import Error from '../components/error';
 import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
 
+import MyProfile from "../containers/myProfile";
+
 const Index = () => (
   <Switch>
     <Route
@@ -80,6 +82,15 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+
+    <Route
+      path="/profile"
+      render={props => (
+        <TemplateTopbar>
+          <MyProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />  
 
     <Route
       render={props => (

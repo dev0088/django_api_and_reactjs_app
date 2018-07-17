@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 const initialState = {
   access: false,
   errors: false,
-	isAuthenticated: false
+	isAuthenticated: false,
 }
 
 export default (state=initialState, action) => {
@@ -15,7 +15,7 @@ export default (state=initialState, action) => {
       return {
         access: {},
         errors: false,
-				isAuthenticated: false
+				isAuthenticated: false,
     }
     case types.LOGIN.SUCCESS:
       return {
@@ -24,7 +24,7 @@ export default (state=initialState, action) => {
           ...jwtDecode(action.payload.token)
         },
         errors: false,
-				isAuthenticated: true
+				isAuthenticated: true,
     }
     case types.TOKEN.RECEIVED:
       return {
@@ -39,7 +39,7 @@ export default (state=initialState, action) => {
       return {
          access: {},
          errors: action.payload.response || {'non_field_errors': action.payload.statusText},
-				 isAuthenticated: false
+				 isAuthenticated: false,
       }
 		case types.LOGOUT.REQUEST:
 		case types.LOGOUT.SUCCESS:
@@ -80,10 +80,16 @@ export function refreshToken(state) {
 }
 
 export function isRefreshTokenExpired(state) {
-  if (state.refresh && state.refresh.exp) {
-    return 1000 * state.refresh.exp - (new Date()).getTime() < 5000
+  // console.log("refresh", jwtDecode(state.access.token));
+  if (state.access && state.access.token)
+  {
+    let decode = jwtDecode(state.access.token);
+    if (decode && decode.exp) {
+      return 1000 * decode.exp - (new Date()).getTime() < 5000;
+    }
+    return true;
   }
-  return true
+  return true;
 }
 
 export function isAuthenticated(state) {

@@ -13,7 +13,6 @@ const styles={
   }
 }
 class VideoPreview extends React.Component {
-
   render () {
     return <div className="video-interview">
       <div className="video-interview-header">
@@ -57,5 +56,4 @@ class VideoPreview extends React.Component {
     </div>
   }
 }
-
 export default VideoPreview;

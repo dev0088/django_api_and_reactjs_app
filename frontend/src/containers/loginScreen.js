@@ -23,8 +23,8 @@ import { Link } from 'react-router-dom';
 // import Loading from '../components/loading';
 // import { bindActionCreators } from 'redux';
 // import { translate } from '../i18n';
-import { login } from  '../actions/auth'
-import { authErrors } from '../reducers'
+import { login } from  '../actions/auth';
+import { authErrors, isAuthenticated } from '../reducers';
 // import defaultValues from '../constants/defaultValues'
 import './loginScreen.css'
 // import apiConfig from '../const styles = {
@@ -62,7 +62,7 @@ class LoginScreen extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidUpdate() {
+  componentWillMount() {
     if (this.props.isAuthenticated) {
       // Go to video interview page for the demo.
       this.props.history.push('/home')
@@ -163,7 +163,7 @@ function mapStateToProps(state) {
   return {
     user,
     error: authErrors(state),
-    isAuthenticated: state.auth.isAuthenticated//isAuthenticated(state)
+    isAuthenticated: isAuthenticated(state)
   }
 }
 

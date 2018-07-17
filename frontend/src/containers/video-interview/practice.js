@@ -57,7 +57,6 @@ class VideoPractice extends React.Component {
   };
 
   render () {
-
     const { currentQuestion, isStopped, isPlayBackOpen } = this.state;
 
     return <div className="video-practice">

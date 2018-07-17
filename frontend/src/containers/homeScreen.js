@@ -18,7 +18,6 @@ class HomeScreen extends Component {
 		};
 
 	}
-
 	componentWillMount() {
 		this.props.shiptalentInfoActions.getShipTalentInfo()
 		this.setState({
@@ -50,7 +49,6 @@ class HomeScreen extends Component {
 
   render() {
 		const { shiptalentInfo } = this.state
-
     return(
       <div>
         <Row>
@@ -166,9 +164,8 @@ class HomeScreen extends Component {
 
 function mapStateToProps(state) {
   const { shiptalentInfo } = state;
-
   return {
-		shiptalentInfo
+		shiptalentInfo: shiptalentInfo,
   }
 }
 
