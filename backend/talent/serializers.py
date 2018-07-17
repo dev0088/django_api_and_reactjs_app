@@ -28,8 +28,8 @@ class TalentSerializer(serializers.ModelSerializer):
 
 			# 'nationality',
 			# 'citizenshi',
-			'passwort_expiration_data',
-			'passwort_number',
+			'passport_expiration_data',
+			'passport_number',
 			# country_of_current_residence,
 
 			# 'visa_type',

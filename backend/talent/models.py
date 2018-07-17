@@ -54,9 +54,9 @@ class Talent(models.Model):
 	# language_skills: has_many -> talent_languages_skills
 
 	# height/wegiht/BMI/Age-Range
-	height = models.IntegerField(blank=True)
-	weight = models.IntegerField(blank=True)
-	bmi = models.FloatField(blank=True)
+	height = models.IntegerField(blank=True, default=0)
+	weight = models.IntegerField(blank=True, default=0)
+	bmi = models.FloatField(blank=True, default=0.0)
 	age_range = models.CharField(max_length=100, blank=True, default='')
 
 	# medical info

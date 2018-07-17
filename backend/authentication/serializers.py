@@ -2,6 +2,21 @@ from rest_framework import serializers
 
 from .models import User
 from talent.models import Talent
+from talent.serializers import TalentSerializer
+
+class TalentUserSerializer(serializers.ModelSerializer):
+    """Serializers registration requests and creates a new user."""
+    # talent = TalentSerializer(many=False, read_only=False)
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'first_name', 'last_name', 'type']
+
+
+class GeneralUserSerializer(serializers.ModelSerializer):
+    """Serializers registration requests and creates a new user."""
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'first_name', 'last_name', 'type']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
@@ -19,13 +34,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
     token = serializers.CharField(max_length=255, read_only=True)
 
 	# Talent profile
-    talent = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    # talent = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email', 'username', 'password', 'token', 'first_name', 'last_name', 'type', 'talent']
+        fields = ['email', 'username', 'password', 'token', 'first_name', 'last_name', 'type']
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.

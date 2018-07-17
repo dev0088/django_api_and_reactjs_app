@@ -9,8 +9,8 @@ from django.contrib.auth.models import (
 from django.db import models
 
 TYPE_CHOICES = (
-    ('t', 'talent'),
-    ('c', 'client'),
+    ('talent', 'talent'),
+    ('client', 'client'),
 )
 
 class UserManager(BaseUserManager):
