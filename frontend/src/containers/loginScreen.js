@@ -60,7 +60,6 @@ class LoginScreen extends Component {
       this.props.history.push('/home')
     }
   }
-
   handleChange = (event) => {
     this.setState({
       ...this.state,
@@ -82,11 +81,10 @@ class LoginScreen extends Component {
     if(this.props.isAuthenticated) {
       return <Redirect to='/home' />
     }
-
     return (
       <div className="login-layout">
         <div className="login-wrapper">
-          <div className="login-fields">
+          <div className="login-fields" id="loginForm">
             <h3>Login</h3>
             {!!error && <Alert color="danger">{'Login failed'}</Alert>}
             <Form>
@@ -109,6 +107,7 @@ class LoginScreen extends Component {
               />
               <div className="pt20">
                 <Checkbox
+                  id="remember"
                   label="Remember Me"
                 />
               </div>

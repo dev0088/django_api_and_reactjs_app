@@ -23,6 +23,8 @@ import MyProfile from "../containers/myProfile";
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
 
+import Faq from "../containers/faq";
+
 const Index = () => (
   <Switch>
     <Route
@@ -108,6 +110,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyAcount {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/faq/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <Faq {...props} />
         </TemplateTopbar>
       )}
     />

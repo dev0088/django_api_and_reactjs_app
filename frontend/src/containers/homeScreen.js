@@ -71,6 +71,7 @@ class HomeScreen extends Component {
               <RaisedButton
                 label="More details ..."
                 primary={true}
+                href="/faq/what_is_shiptalent"
               />
             </div>
           </Col>
@@ -86,6 +87,7 @@ class HomeScreen extends Component {
               <RaisedButton
                 label="More details ..."
                 primary={true}
+                href="/faq/how_does_shiptalent_work"
               />
             </div>
           </Col>
@@ -101,6 +103,7 @@ class HomeScreen extends Component {
               <RaisedButton
                 label="More details ..."
                 primary={true}
+                href="/faq/why_use_shiptalent"
               />
             </div>
           </Col>
@@ -118,6 +121,7 @@ class HomeScreen extends Component {
               <RaisedButton
                 label="More details ..."
                 primary={true}
+                href="/faq/the_shiptalent_difference"
               />
             </div>
           </Col>
