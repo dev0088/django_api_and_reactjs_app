@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-import { Row, Col, Jumbotron } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import ReactPlayer from 'react-player'
-import Truncate from 'react-truncate-html';
-import RaisedButton from 'material-ui/RaisedButton';
-import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './faq.css'
 
 class Faq extends Component {

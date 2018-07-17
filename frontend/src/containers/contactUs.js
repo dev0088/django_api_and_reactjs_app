@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import ReactPlayer from 'react-player'
-import Truncate from 'react-truncate-html';
 import {
   Row,
   Col,
@@ -11,7 +8,6 @@ import {
 } from 'reactstrap';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './contactUs.css'
 
 class ContactUs extends Component {
@@ -36,12 +32,12 @@ class ContactUs extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    const {
-      fullName,
-      email,
-      title,
-      content
-    } = this.state
+    // const {
+    //   fullName,
+    //   email,
+    //   title,
+    //   content
+    // } = this.state
     alert("Submit button was clicked!");
     // this.props.registerActions.registerRequest(
     //   fullName,
@@ -51,7 +47,7 @@ class ContactUs extends Component {
     // )
   }
   render() {
-    const { error } = this.state;
+    const { error, fullName, email, title, content } = this.state;
     return(
       <div className="contact-container">
         <Row className="pt-5">
@@ -64,7 +60,7 @@ class ContactUs extends Component {
                 name="fullName"
                 id="fullName"
                 placeholder=""
-                value={this.state.fullName}
+                value={fullName}
                 onChange={this.handleChange}
                 floatingLabelText="Full name"
                 fullWidth={true}
@@ -73,7 +69,7 @@ class ContactUs extends Component {
                 type="email"
                 name="email"
                 id="email"
-                value={this.state.email}
+                value={email}
                 onChange={this.handleChange}
                 floatingLabelText="Email"
                 fullWidth={true}
@@ -82,7 +78,7 @@ class ContactUs extends Component {
                 name="title"
                 id="title"
                 placeholder=""
-                value={this.state.title}
+                value={title}
                 onChange={this.handleChange}
                 floatingLabelText="Title"
                 fullWidth={true}
@@ -91,7 +87,7 @@ class ContactUs extends Component {
                 name="content"
                 id="content"
                 multiLine={true}
-                value={this.state.content}
+                value={content}
                 onChange={this.handleChange}
                 rows={5}
                 rowsMax={7}

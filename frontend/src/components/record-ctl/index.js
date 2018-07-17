@@ -3,14 +3,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './styles.css';
 import {fmtMSS} from "../../utils/helper";
 
-const styles = {
-  stopButton: {
-    backgroundColor: '#CC0000'
-  },
-  startButton: {
-
-  }
-}
 export default class RecordCtl extends Component {
 
   constructor() {
