@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -24,13 +24,14 @@ class MyProfile extends Component {
       skills:       ["Dances", "Acts", "Movies"],
       nationality:  "United States",
       language:     ["English", "Spanish"],
-      error:        false,
+      notification: false
     }
   }
 
   render() {
     return(
       <div className="profile-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
         <Row>
           <Col md="9">
             <Row className="details-content">

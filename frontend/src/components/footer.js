@@ -30,7 +30,7 @@ const Footer = (props) => (
             href="/contact-us"
             style={styles.flatPrimary}
           />
-					<p className="footer-description">ShiptTalent.com<br/>Take the lead in being cast at sea</p>
+					<p className="footer-description">ShipTalent.com<br/>Take the lead in being cast at sea</p>
 	      </Col>
 			</Jumbotron>
     </Row>

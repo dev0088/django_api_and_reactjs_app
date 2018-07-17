@@ -61,7 +61,7 @@ class HomeScreen extends Component {
         <Row className="pt-5">
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
-              <h3><i className="icon-map" />What is ShipeTalent.com?</h3>
+              <h3><i className="icon-map" />What is ShipTalent.com?</h3>
   							<Truncate
   							  lines={9}
   							  dangerouslySetInnerHTML={{
@@ -76,7 +76,7 @@ class HomeScreen extends Component {
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
-              <h3><i className="icon-fire" /> How Does ShiptTalent.com Work?</h3>
+              <h3><i className="icon-fire" /> How Does ShipTalent.com Work?</h3>
   						<Truncate
   							lines={9}
   							dangerouslySetInnerHTML={{
@@ -91,7 +91,7 @@ class HomeScreen extends Component {
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
-              <h3><i className="icon-organization" /> Why use ShiptTalent.com?</h3>
+              <h3><i className="icon-organization" /> Why use ShipTalent.com?</h3>
   						<Truncate
   							lines={9}
   							dangerouslySetInnerHTML={{
