@@ -55,7 +55,7 @@ class Faq extends Component {
     return(
       <div className="faq-container">
         <Row className="pt-5">
-          <Col sm="10" sm-offset="1">
+          <Col sm="12">
             <h3><i className="icon-map" />{ this.state.titleArray[pageId] }</h3>
             <hr />
             <Truncate
