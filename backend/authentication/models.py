@@ -8,6 +8,11 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+TYPE_CHOICES = (
+    ('talent', 'talent'),
+    ('client', 'client'),
+)
+
 class UserManager(BaseUserManager):
     """
     Django requires that custom users define their own Manager class. By
@@ -84,7 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # More fields required by Django when specifying a custom user model.
     first_name = models.CharField(max_length=255, unique=False)
     last_name = models.CharField(max_length=255, unique=False)
-    type = models.CharField(max_length=10, unique=False)
+    type = models.CharField(choices=TYPE_CHOICES, max_length=10, unique=False)
 
     # The `USERNAME_FIELD` property tells us which field we will use to log in.
     # In this case we want it to be the email field.

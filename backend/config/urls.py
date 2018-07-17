@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^api/v1/auth/', include('authentication.urls')),
 	url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
-	# url(r'^api/v1/talent', include('shiptalent_info.urls')),
-	# url(r'^api/v1/talent/profile', include('shiptalent_info.urls')),
+	url(r'^api/v1/talent', include('talent.urls')),
+	url(r'^api/v1/question', include('question.urls')),
+	url(r'^api/v1/video_interview_settings', include('admin_setting.urls')),
+	url(r'^api/v1/client_casting_request', include('client_casting_request.urls')),
+
 ]

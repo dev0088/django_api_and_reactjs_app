@@ -1,7 +1,22 @@
 from rest_framework import serializers
 
 from .models import User
+from talent.models import Talent
+from talent.serializers import TalentSerializer
 
+class TalentUserSerializer(serializers.ModelSerializer):
+    """Serializers registration requests and creates a new user."""
+    # talent = TalentSerializer(many=False, read_only=False)
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'first_name', 'last_name', 'type']
+
+
+class GeneralUserSerializer(serializers.ModelSerializer):
+    """Serializers registration requests and creates a new user."""
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'first_name', 'last_name', 'type']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
@@ -17,6 +32,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # The client should not be able to send a token along with a registration
     # request. Making `token` read-only handles that for us.
     token = serializers.CharField(max_length=255, read_only=True)
+
+	# Talent profile
+    # talent = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = User
