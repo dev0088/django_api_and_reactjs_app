@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -24,13 +24,14 @@ class MyProfile extends Component {
       skills:       ["Dances", "Acts", "Movies"],
       nationality:  "United States",
       language:     ["English", "Spanish"],
-      error:        false,
+      notification: false
     }
   }
 
   render() {
     return(
       <div className="profile-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
         <Row>
           <Col md="9">
             <Row className="details-content">
@@ -84,8 +85,8 @@ class MyProfile extends Component {
               </Col>
             </Row>
           </Col>
-          <Col md="2" md-offset="1" className="profile-buttons">
-            <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} />
+          <Col md="3" className="profile-buttons">
+            <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} href="/edit-profile" />
             <RaisedButton label="View in Detail" primary={true} fullWidth={true} />
             <RaisedButton label="View Sample" primary={true} fullWidth={true} />
             <RaisedButton label="Back to HomePage" primary={true} fullWidth={true} />

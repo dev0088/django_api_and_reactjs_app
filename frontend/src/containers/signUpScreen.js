@@ -10,6 +10,8 @@ import {
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Loading from '../components/loading';
 // import { translate } from '../i18n';
 import { bindActionCreators } from 'redux'
@@ -41,8 +43,8 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       password2: '',
-			type: 'talent',
-			error: false
+			type: 1,
+			error: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -72,6 +74,7 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const typeArray = {1: "talent", 2: "client"}
 		const {
 			userName,
 		  email,
@@ -81,6 +84,7 @@ class SignUp extends React.Component {
 		  lastName,
 		  type
 		} = this.state
+    console.log(typeArray[type]);
 		this.props.registerActions.registerRequest(
 			userName,
 			email,
@@ -88,13 +92,15 @@ class SignUp extends React.Component {
 			passwordConfirm,
 			firstName,
 			lastName,
-			type
+			typeArray[type]
 		)
   }
-
+  handleSelectChange = (event, index, value) => this.setState({ type: value });
   render() {
     const { loading, error } = this.state;
-
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
     // Loading
     if (loading) return <Loading />;
 
@@ -104,6 +110,17 @@ class SignUp extends React.Component {
           <h3>Sign Up</h3>
           {!!error && <Alert color="danger">{error}</Alert>}
           <Form>
+            <SelectField
+              id="type"
+              name="type"
+              floatingLabelText="Type"
+              value={this.state.type}
+              onChange={this.handleSelectChange}
+              menuItemStyle={selectItemStyle}
+            >
+              <MenuItem value={1} primaryText="Talent" />
+              <MenuItem value={2} primaryText="Client" />
+            </SelectField>
             <TextField
               name="userName"
               id="userName"
@@ -137,7 +154,7 @@ class SignUp extends React.Component {
               id="email"
               value={this.state.email}
               onChange={this.handleChange}
-              floatingLabelText="john@doe.corp"
+              floatingLabelText="Email"
               fullWidth={true}
             />
             <TextField
@@ -158,7 +175,6 @@ class SignUp extends React.Component {
               floatingLabelText="Confirm Password"
               fullWidth={true}
             />
-
             <div className="pt20">
               <RaisedButton label="Sing Up" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
             </div>

@@ -21,6 +21,12 @@ import VideoPractice from "../containers/video-interview/practice";
 
 import MyProfile from "../containers/myProfile";
 import MyAcount from "../containers/myAccount";
+import EditProfile from "../containers/editProfile";
+
+import SubFaq from "../containers/subFaq";
+import Faq from "../containers/faq";
+import Terms from "../containers/terms";
+import ContactUs from "../containers/contactUs";
 
 const Index = () => (
   <Switch>
@@ -94,10 +100,55 @@ const Index = () => (
     />
 
     <Route
+      path="/edit-profile"
+      render={props => (
+        <TemplateTopbar>
+          <EditProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
       path="/account"
       render={props => (
         <TemplateTopbar>
           <MyAcount {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/faq/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <SubFaq {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/terms"
+      render={props => (
+        <TemplateTopbar>
+          <Terms {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/faq"
+      render={props => (
+        <TemplateTopbar>
+          <Faq {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    
+    <Route
+      path="/contact-us"
+      render={props => (
+        <TemplateTopbar>
+          <ContactUs {...props} />
         </TemplateTopbar>
       )}
     />
