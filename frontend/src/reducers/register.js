@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export default function register(state = initialState, action) {
+  // console.log('=== register, state:', action, state)
   switch(action.type) {
     // case types.REGISTER.REQUEST:
     //   return Object.assign({}, state, {

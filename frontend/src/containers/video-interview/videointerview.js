@@ -1,7 +1,8 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import { Link } from 'react-router-dom'
-
+import RaisedButton from 'material-ui/RaisedButton';
+import { Row, Col } from 'reactstrap';
 import './styles.css'
 import AudioMeter from "../../components/audio-meter/index";
 
@@ -29,13 +30,25 @@ class VideoPreview extends React.Component {
 			      </div>
 
 			      <div className="col-md-12">
-			        <Link className="btn btn-primary btnn-start-practice" to="/video-practice">Start Practice Questions</Link>
+              <RaisedButton
+                label="Start Practice Questions"
+                href="/video-practice"
+                primary={true}
+              />
 			      </div>
 			      <div className="col-md-12">
-			        <button className="btn btn-primary btnn-adjust-settings">Adjust Video and <br/> Audio Settings</button>
+              <RaisedButton
+                className="btnn-adjust-settings"
+                label="Adjust Video and <br/> Audio Settings"
+                primary={true}
+              />
 			      </div>
 			      <div className="col-md-12">
-			        <button className="btn btn-primary btnn-not-ready">I’m Not Ready. <br/> Take Me Back to My Cruise <br/> Staff Audition Videos</button>
+              <RaisedButton
+                className="btnn-not-ready"
+                label="I’m Not Ready. <br/> Take Me Back to My Cruise <br/> Staff Audition Videos"
+                primary={true}
+              />
 			      </div>
 			    </div>
 				</Col>
