@@ -21,6 +21,7 @@ import VideoPractice from "../containers/video-interview/practice";
 
 import MyProfile from "../containers/myProfile";
 import MyAcount from "../containers/myAccount";
+import EditProfile from "../containers/editProfile";
 
 const Index = () => (
   <Switch>
@@ -89,6 +90,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/edit-profile"
+      render={props => (
+        <TemplateTopbar>
+          <EditProfile {...props} />
         </TemplateTopbar>
       )}
     />

@@ -84,8 +84,8 @@ class MyProfile extends Component {
               </Col>
             </Row>
           </Col>
-          <Col md="2" md-offset="1" className="profile-buttons">
-            <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} />
+          <Col md="3" className="profile-buttons">
+            <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} href="/edit-profile" />
             <RaisedButton label="View in Detail" primary={true} fullWidth={true} />
             <RaisedButton label="View Sample" primary={true} fullWidth={true} />
             <RaisedButton label="Back to HomePage" primary={true} fullWidth={true} />
