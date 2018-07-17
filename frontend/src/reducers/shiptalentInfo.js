@@ -9,6 +9,7 @@ const initialState = {
 };
 
 export default function shiptalentInfo(state = initialState, action) {
+  // console.log("==shipTalent==", state, action);
 	switch(action.type) {
     case types.SHIPTALENT_INFO.SUCCESS:
       return Object.assign({}, state, {

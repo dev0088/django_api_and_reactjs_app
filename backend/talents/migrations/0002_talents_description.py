@@ -8,12 +8,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('talents', '0001_initial'),
+        ('talent', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='talents',
+            model_name='talent',
             name='description',
             field=models.CharField(blank=True, max_length=100),
         ),

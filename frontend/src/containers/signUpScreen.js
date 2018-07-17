@@ -4,18 +4,11 @@ import { connect } from 'react-redux';
 import {
   Row,
   Col,
-  Card,
   Form,
-  Label,
   Alert,
-  Input,
-  Button,
-  CardBody,
-  FormGroup,
-  CardHeader,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Loading from '../components/loading';
 // import { translate } from '../i18n';
@@ -23,6 +16,11 @@ import { bindActionCreators } from 'redux'
 import * as registerActions from '../actions/registerActions'
 // import defaultValues from '../constants/defaultValues'
 import './signUpScreen.css'
+const styles = {
+  flatPrimary: {
+    color: "#258df2",
+  },
+};
 
 class SignUp extends React.Component {
   static propTypes = {
@@ -52,7 +50,7 @@ class SignUp extends React.Component {
   }
 
 	componentWillReceiveProps(nextProps) {
-		console.log('=== nextProps: ', nextProps)
+		// console.log('=== nextProps: ', nextProps)
 		this.setState({
 			error: nextProps.register && nextProps.register.failure ? nextProps.register.errorMessage : false
 		})
@@ -141,7 +139,6 @@ class SignUp extends React.Component {
               onChange={this.handleChange}
               floatingLabelText="john@doe.corp"
               fullWidth={true}
-              type="email"
             />
             <TextField
               type="password"
@@ -170,10 +167,20 @@ class SignUp extends React.Component {
           <hr />
           <Row>
             <Col sm="12">
-              Already have an account? <Link to="/login">Login</Link>
+              Already have an account?
+              <FlatButton
+                label="Login"
+                href="/login"
+                style={styles.flatPrimary}
+              />
             </Col>
             <Col sm="12">
-              Return home <Link to="/">Home</Link>
+              Return home
+              <FlatButton
+                label="Home"
+                href="/"
+                style={styles.flatPrimary}
+              />
             </Col>
           </Row>
         </div>

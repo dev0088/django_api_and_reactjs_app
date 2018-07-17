@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^api/v1/auth/', include('authentication.urls')),
 	url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
-	url(r'^api/v1/talents', include('talents.urls')),
+	url(r'^api/v1/talent', include('talent.urls')),
 ]

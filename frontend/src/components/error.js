@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const Error = ({ title, content }) => (
   <Row>
@@ -9,7 +9,11 @@ const Error = ({ title, content }) => (
       <h2>{title}</h2>
       <p>{content}</p>
       <p>
-        <Link to="/" className="btn btn-primary">Go Home</Link>
+        <RaisedButton
+          label="Go Home"
+          href="/"
+          primary={true}
+        />
       </p>
     </Col>
   </Row>

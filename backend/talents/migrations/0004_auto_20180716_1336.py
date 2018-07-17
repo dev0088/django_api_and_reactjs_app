@@ -8,22 +8,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('talents', '0003_auto_20180716_1328'),
+        ('talent', '0003_auto_20180716_1328'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='talents',
+            model_name='talent',
             name='birthday',
             field=models.DateField(blank=True),
         ),
         migrations.AlterField(
-            model_name='talents',
+            model_name='talent',
             name='expiration_date',
             field=models.DateField(blank=True),
         ),
         migrations.AlterField(
-            model_name='talents',
+            model_name='talent',
             name='passport_expiration_data',
             field=models.DateField(blank=True),
         ),

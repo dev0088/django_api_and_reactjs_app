@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import User
-from talents.models import Talents
+from talent.models import Talent
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""

@@ -4,11 +4,7 @@ import {
   Nav,
   Navbar,
   Collapse,
-  DropdownMenu,
-  DropdownItem,
   NavbarToggler,
-  DropdownToggle,
-  UncontrolledDropdown,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -20,6 +16,11 @@ import { SidebarNavItems } from './sidebar';
 
 import './header.css'
 
+const styles = {
+  menuitem: {
+    color: "#FFF"
+  }
+}
 class Header extends Component {
   // static propTypes = {
   //   member: PropTypes.shape({
@@ -63,7 +64,7 @@ class Header extends Component {
     });
   };
   render() {
-    const { member, auth } = this.props;
+    const { auth } = this.props;
     // const loggedIn = (member && member.email);
 		// const loggedIn = true
 		const loggedIn = (auth && auth.access && auth.access.email);
@@ -77,7 +78,7 @@ class Header extends Component {
 
           </Link>
           { loggedIn && (
-              <MenuItem href="/video-interview" primaryText="Video Interview" />
+              <MenuItem href="/video-interview" style={styles.menuitem} primaryText="Video Interview" />
             )
           }
           <NavbarToggler onClick={this.toggleDropDown} />
@@ -107,7 +108,8 @@ class Header extends Component {
                 }
                 {loggedIn &&
                   <Menu>
-                    <MenuItem primaryText="Update Profile" href="/update-profile" />
+                    <MenuItem primaryText="View My Profile" href="/profile" />
+                    <MenuItem primaryText="Account Settings" href="/account" />
                     <Divider />
                     <MenuItem primaryText="Logout" onClick={this.onLogout} />
                   </Menu>

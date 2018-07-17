@@ -3,28 +3,28 @@ import PropTypes from 'prop-types';
 import {
   Row,
   Col,
-  Card,
   Form,
-  Label,
   Alert,
-  Input,
-  Button,
-  CardBody,
-  FormGroup,
-  CardHeader,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import Loading from '../components/loading';
 import './forgotPasswordScreen.css'
 
+const styles = {
+  flatPrimary: {
+    color: "#258df2",
+  },
+};
 class ForgotPasswordScreen extends React.Component {
   static propTypes = {
     member: PropTypes.shape({
       email: PropTypes.string,
     }),
     error: PropTypes.string,
-    loading: PropTypes.bool.isRequired,
-    onFormSubmit: PropTypes.func.isRequired,
+    // loading: PropTypes.bool.isRequired,
+    // onFormSubmit: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
@@ -66,42 +66,44 @@ class ForgotPasswordScreen extends React.Component {
     if (loading) return <Loading />;
 
     return (
-      <div className="forgot_password-layout ">
-        <Row>
-          <Col lg={{ size: 6, offset: 3 }}>
-            <Card>
-              <CardHeader>Forgot Password</CardHeader>
-              <CardBody>
-                {!!error && <Alert color="danger">{error}</Alert>}
-                <Form onSubmit={this.handleSubmit}>
-                  <FormGroup>
-                    <Label for="email">Email</Label>
-                    <Input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="john@doe.corp"
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <Button color="primary">Reset Password</Button>
-                </Form>
-
-                <hr />
-
-                <Row>
-                  <Col sm="6">
-                    Need an account? <Link to="/sign-up">Sign Up</Link>
-                  </Col>
-                  <Col sm="6" className="text-right">
-                    <Link to="/forgot-password">Login</Link> to your account.
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+      <div className="login-wrapper">
+        <div className="login-fields">
+          <h5>Forgot Password</h5>
+          {!!error && <Alert color="danger">{error}</Alert>}
+          <Form>
+            <TextField
+              type="email"
+              name="email"
+              id="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+              floatingLabelText="Email"
+              fullWidth={true}
+            />
+            <div className="pt20">
+              <RaisedButton label="Reset Password" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
+            </div>
+          </Form>
+          <hr/>
+          <Row>
+            <Col sm="6">
+              Need an account? 
+              <FlatButton
+                label="Sign Up"
+                href="/sign-up"
+                style={styles.flatPrimary}
+              />
+            </Col>
+            <Col sm="6" className="text-right">
+              <FlatButton
+                label="Login"
+                href="/login"
+                style={styles.flatPrimary}
+              />
+              to your account.
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

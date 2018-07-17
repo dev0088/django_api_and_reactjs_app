@@ -8,12 +8,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('talents', '0002_talents_description'),
+        ('talent', '0002_talent_description'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='talents',
+            model_name='talent',
             name='birthday',
             field=models.DateTimeField(blank=True),
         ),

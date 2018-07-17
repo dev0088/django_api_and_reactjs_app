@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import './styles.css';
 import {fmtMSS} from "../../utils/helper";
 
@@ -71,7 +72,7 @@ export default class RecordCtl extends Component {
 
     return (<div className="record-ctl">
       <div className="countdown-label">
-        { isRecording || countStop ? 'Response time' : 'Prep Countdown' } <br/> {fmtMSS(remaining)}
+        { isRecording || countStop ? 'Response time' : 'Prep Countdown' } {fmtMSS(remaining)}
       </div>
       <div className="countdown-bar">
         <div id="myProgress">
@@ -80,7 +81,12 @@ export default class RecordCtl extends Component {
       </div>
       <div className="record-btn-wrapper">
         { !countStop &&
-        <button className="btn btn-default btn-start-stop" onClick={this.onClick}>{isRecording ? 'Stop Recording' : 'Start Recording'}</button>}
+        <RaisedButton
+          label={isRecording ? 'Stop Recording' : 'Start Recording'}
+          className="btn-start-stop"
+          onClick={this.onClick}
+          primary={true}
+        />}
       </div>
     </div>)
 

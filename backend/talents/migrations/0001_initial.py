@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Talents',
+            name='Talent',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sex', models.CharField(choices=[('m', 'Male'), ('f', 'Female')], default='Male', max_length=10)),
@@ -46,13 +46,13 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='talent', to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'db_table': 'talents',
+                'db_table': 'talent',
                 'ordering': ('id',),
                 'managed': True,
             },
         ),
         migrations.AlterUniqueTogether(
-            name='talents',
+            name='talent',
             unique_together=set([('user', 'id')]),
         ),
     ]

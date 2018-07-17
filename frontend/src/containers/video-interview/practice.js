@@ -1,5 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import AudioMeter from "../../components/audio-meter/index";
 import { questions } from "./constants";
@@ -7,6 +8,7 @@ import { questions } from "./constants";
 import './styles.css';
 import RecordCtl from "../../components/record-ctl/index";
 import VideoPlayBack from "./play-back";
+
 
 class VideoPractice extends React.Component {
   constructor() {
@@ -20,12 +22,12 @@ class VideoPractice extends React.Component {
   }
 
   onStopRecord = () => {
-    console.log('onStopRecord');
+    // console.log('onStopRecord');
     this.setState({isStopped: true});
   };
 
   onStartRecord = () => {
-    console.log('onStartRecord');
+    // console.log('onStartRecord');
     this.setState({isStopped: false});
   };
 
@@ -50,7 +52,6 @@ class VideoPractice extends React.Component {
   };
 
   render () {
-
     const { currentQuestion, isStopped, isPlayBackOpen } = this.state;
 
     return <div className="video-practice">
@@ -74,7 +75,8 @@ class VideoPractice extends React.Component {
             onStart={this.onStartRecord}
             countStop={isPlayBackOpen || isStopped}
           />
-
+        </div>
+        <div className="col-sm-12 video_container">
           <Webcam height="300" width="700" style={{marginLeft: '-150px', marginTop: '5px'}}/>
           <div className="audio-box">
             <AudioMeter/>
@@ -85,7 +87,12 @@ class VideoPractice extends React.Component {
 
       { !isPlayBackOpen && isStopped &&
         <div className="col-md-12 playbackbtn-wrapper">
-          <button className="btn btn-primary btn-playback" onClick={this.openPlayBack}>Play Back</button>
+          <RaisedButton
+            label="Play Back"
+            className="btn-playback"
+            onClick={this.openPlayBack}
+            primary={true}
+          />
         </div>
       }
 
