@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
+import Checkbox from 'material-ui/Checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import './editProfile.css'
 
 const styles = {
-  buttonCompleted: {
-    backgroundColor: "#258df2",
-  },
-  buttonNormal: {
-
+  slide: {
+    padding: 10,
   },
 };
 const const_genders = ["male", "female"];
@@ -27,11 +26,11 @@ const const_sub_skill = {
 };
 const const_other_skill = ["sings", "dances", "moves", "acts", "plays"];
 const const_sub_other_skill = {
-  "sings": [],
-  "dances": [],
+  "sings": ["soprano", "alto", "tenor", "baritone"],
+  "dances": ["jazz", "tap", "ballet", "contemp", "hip-Hop", "lyrical", "ballroom", "gymnastics"],
   "moves": [],
   "acts": [],
-  "plays": []
+  "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
 }
 class EditProfile extends Component {
 
@@ -41,7 +40,7 @@ class EditProfile extends Component {
       gender: "male",
       skill: "vocalist",
       subskill: ["tenor"],
-      other_skill: ["dances", "acts"],
+      other_skill: ["dances"],
       other_sub_skill: [],
       notification: false,
       tab1Value: 0,
@@ -49,18 +48,23 @@ class EditProfile extends Component {
     }
   }
   clickButton = (type, val) =>  {
-    if (type === 'other_skill')
+    if (type === 'other_sub_skill')
     {
-      let temp_skill = this.state.other_skill.slice(), pos;
+      let temp_skill = this.state[type].slice(), pos;
       if ((pos = temp_skill.indexOf(val)) > -1){
         temp_skill.splice(pos, 1);
       }
       else
         temp_skill.push(val);
-      this.setState({ 'other_skill': temp_skill });
+      this.setState({ [type]: temp_skill });
     }
-    else
-      this.setState({ [type]: val });
+    else if (type === 'other_skill' || type === 'subskill') {
+      let temp_skill = [val];
+      this.setState({ [type]: temp_skill });
+    }
+    else{
+      this.setState({ [type]: val, 'subskill': [] });
+    }
   }
   handleTab1Change = (value) => {
     this.setState({
@@ -90,6 +94,7 @@ class EditProfile extends Component {
                   label={gender}
                   primary={(gender === this.state.gender)}
                   onClick={() => this.clickButton('gender', gender)}
+                  className={ (gender === this.state.gender) ? "skill-button-primary" : "normal-button" }
                 />)
             })
           }
@@ -97,7 +102,7 @@ class EditProfile extends Component {
         </Row>
         <Row>
           <Col sm="12"> <h5>Who is a...</h5> </Col>
-          <Col>
+          <Col sm="12" className="profile-skills">
           {
             const_skill.map((skill, index) => {
               return (
@@ -106,6 +111,22 @@ class EditProfile extends Component {
                   label={skill}
                   primary={(skill === this.state.skill)}
                   onClick={() => this.clickButton('skill', skill)}
+                  className={ (skill === this.state.skill) ? "skill-button-primary" : "normal-button" }
+                />)
+            })
+          }
+          </Col>
+          <Col sm="12" className="profile-subskills">
+          {
+            const_sub_skill[this.state.skill] && 
+            const_sub_skill[this.state.skill].map((skill, index) => {
+              return (
+                <FlatButton
+                  key={index}
+                  label={skill}
+                  primary={(this.state.subskill.indexOf(skill) > -1)}
+                  className={ (this.state.subskill.indexOf(skill) > -1) ? "skill-button-primary" : "normal-button" }
+                  onClick={() => this.clickButton('subskill', skill)}
                 />)
             })
           }
@@ -113,7 +134,7 @@ class EditProfile extends Component {
         </Row>
         <Row>
           <Col sm="12"> <h5>Who also...</h5> </Col>
-          <Col>
+          <Col sm="12" className="profile-skills">
           {
             const_other_skill.map((other, index) => {
               return (
@@ -122,8 +143,30 @@ class EditProfile extends Component {
                   label={other}
                   primary={(this.state.other_skill.indexOf(other) > -1)}
                   onClick={() => this.clickButton('other_skill', other)}
+                  className={ (this.state.other_skill.indexOf(other) > -1) ? "skill-button-primary" : "normal-button" }
                 />)
             })
+          }
+          </Col>
+          <Col sm="12" className="profile-other-subskills">
+          {
+            this.state.other_skill.map((other, index) => (
+              <div className="profile-other-each-subskills" key={index}>
+              {
+                const_sub_other_skill[other] && 
+                const_sub_other_skill[other].map((skill, index2) => {
+                  return (
+                    <FlatButton
+                      key={index2}
+                      label={skill}
+                      primary={(this.state.other_sub_skill.indexOf(skill) > -1)}
+                      onClick={() => this.clickButton('other_sub_skill', skill)}
+                      className={ (this.state.other_sub_skill.indexOf(skill) > -1) ? "skill-button-primary" : "normal-button" }
+                    />)
+                })
+              }
+              </div>
+            ))
           }
           </Col>
         </Row>
@@ -154,20 +197,19 @@ class EditProfile extends Component {
               onChangeIndex={this.handleTab1Change}
             >
               <div>
-                <h2 style={styles.headline}>Tabs with slide effect</h2>
-                Swipe to see the next slide.<br />
+                My Contact Info Page
               </div>
               <div style={styles.slide}>
-                slide n°2
+                My Nationality Page
               </div>
               <div style={styles.slide}>
-                slide n°3
+                My Languages Page
               </div>
               <div style={styles.slide}>
-                slide n°4
+                My Height, Weight & Age Range Page
               </div>
               <div style={styles.slide}>
-                slide n°5
+                My Medical Page
               </div>
             </SwipeableViews>
           </Col>
@@ -193,19 +235,32 @@ class EditProfile extends Component {
               onChangeIndex={this.handleTab2Change}
             >
               <div>
-                <h2 style={styles.headline}>Tabs with slide effect</h2>
-                Swipe to see the next slide.<br />
+                My Headline & Bio Page
               </div>
               <div style={styles.slide}>
-                slide n°2
+                My Resume Page
               </div>
               <div style={styles.slide}>
-                slide n°3
+                My Pictures Page
               </div>
               <div style={styles.slide}>
-                slide n°4
+                My Videos Page
               </div>
             </SwipeableViews>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" className="profile-checkbox">
+            <Checkbox
+              id="worked before"
+              label=""
+            />
+            <label>I have worked on a cruise ship before<span>(select if you have previous ship experience)</span></label>
+          </Col>
+        </Row>
+        <Row className="profile-go-buttons">
+          <Col sm="12">
+            <RaisedButton label="View My Profile" primary={true} href="/profile"/>
           </Col>
         </Row>
       </div>

@@ -1,5 +1,7 @@
 .profile-edit-container{
 	margin-top: 100px;
+	position: relative;
+	margin-bottom: 40px;
 }
 .profile-edit-title {
 	margin-bottom: 30px;
@@ -27,4 +29,80 @@
 }
 .tabContent > div > div{
 	padding: 10px;
+}
+.skill-button-primary{
+	border: 1px solid rgba(153,153,153,0.6) !important;
+	overflow: initial !important;
+	position: relative;
+}
+.profile-skills .skill-button-primary:after{
+	content: " ";
+	position: absolute;
+	left: 50%;
+	bottom: -12px;
+	width: 2px;
+	height: 11px;
+	background: #000;
+}
+.profile-subskills{
+	border-top: 2px solid #000000;
+	margin-top: 10px;
+	padding-top: 10px;
+	position: relative;
+}
+.profile-subskills > button{
+	overflow: initial !important;
+}
+.profile-subskills > button:before{
+	content: " ";
+	position: absolute;
+	left: 50%;
+	top: -11px;
+	width: 2px;
+	height: 11px;
+	background: #000;
+}
+.profile-other-each-subskills{
+	border-top: 2px solid #000;
+	margin-top: 10px;
+	padding-top: 10px;
+	position: relative;
+}
+.profile-other-each-subskills > button{
+	overflow: initial !important;
+}
+.profile-other-each-subskills > button:before{
+	content: " ";
+	position: absolute;
+	left: 50%;
+	top: -10px;
+	width: 2px;
+	height: 10px;
+	background: #000;
+}
+.profile-edit-container button span{
+	text-transform: capitalize !important;
+}
+.profile-checkbox{
+	position: relative;
+}
+.profile-checkbox > label{
+	position: absolute;
+	top: 5px;
+	left: 50px;
+	line-height: 15px;
+}
+.profile-checkbox > label span{
+	margin-left: 5px;
+	font-size: 80%;
+}
+.profile-go-buttons {
+	position: absolute;
+	top: 0px;
+	right: 20px;
+}
+@media only screen and (max-width: 767px) {
+    .profile-go-buttons {
+		top: 40px;
+	}
 }
