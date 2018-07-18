@@ -1,6 +1,30 @@
 .profile-edit-container{
 	margin-top: 100px;
 }
-.profile-edit-title{
+.profile-edit-title {
+	margin-bottom: 30px;
+}
+.profile-edit-title h3{
+	margin: 0 auto;
 	text-align: center;
+}
+.profile-edit-container h5{
+	font-weight: 600;
+}
+.profile-edit-buttons {
+	margin: 40px 0 20px;
+}
+.profile-edit-buttons h4{
+	font-weight: 600;
+}
+.tabHead button > div > div{
+	white-space: pre-wrap;
+}
+.tabContent {
+	border: 1px solid #EEE;
+	margin-bottom: 20px;
+	box-shadow: inset 0px -2px 11px -1px rgba(38,143,242,1);
+}
+.tabContent > div > div{
+	padding: 10px;
 }
