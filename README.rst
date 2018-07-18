@@ -20,9 +20,10 @@ Python/Django + JWT auth backend and React/Redux/Saga frontend
 
 	- Nginx
 
+	- Docker
+
 1.4 Front-end
 
 	- React.js + Redux + Saga (on Phase1 for web application development)
 
 	- React Native (on Phase2 for iPhone/Android application development)
-

@@ -9,3 +9,4 @@ yarn-error.log
 .DS_Store
 backend/static
 backend/staticlist
+backend/static_backend
