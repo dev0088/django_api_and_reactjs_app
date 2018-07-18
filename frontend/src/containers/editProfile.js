@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import SwipeableViews from 'react-swipeable-views';
 import './editProfile.css'
 
@@ -44,7 +48,25 @@ class EditProfile extends Component {
       other_sub_skill: [],
       notification: false,
       tab1Value: 0,
-      tab2Value: 0
+      tab2Value: 0,
+      contactInfo: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobile: "",
+        address1: "",
+        address2: "",
+        address3: "",
+        address4: "",
+        birthday: null
+      },
+      emergencyInfo: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        relationship: 0
+      }
     }
   }
   clickButton = (type, val) =>  {
@@ -76,7 +98,35 @@ class EditProfile extends Component {
       tab2Value: value,
     });
   };
+  handleContactInfoChange = (event) => {
+    const { contactInfo } = this.state;
+    contactInfo[event.target.name.substring(8)] = event.target.value;
+    this.setState({
+      contactInfo: contactInfo,
+    });
+  }
+  handleBirthdayChange = (event, date) => {
+    const { contactInfo } = this.state;
+    contactInfo['birthday'] = date;
+    this.setState({ contactInfo: contactInfo })
+  }
+  handleEmergencyInfoChange = (event) => {
+    const { emergencyInfo } = this.state;
+    emergencyInfo[event.target.name.substring(10)] = event.target.value;
+    this.setState({
+      emergencyInfo: emergencyInfo,
+    });
+  }
+  handleRelationshipChange = (event, index, value) => {
+    const { emergencyInfo } = this.state;
+    emergencyInfo['relationship'] = value;
+    this.setState({ emergencyInfo: emergencyInfo });
+  }
   render() {
+    const { contactInfo, emergencyInfo } = this.state;
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
     return(
       <div className="profile-edit-container">
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
@@ -197,7 +247,183 @@ class EditProfile extends Component {
               onChangeIndex={this.handleTab1Change}
             >
               <div>
-                My Contact Info Page
+                <h5>Contact Information</h5>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_firstName"
+                      id="contact_firstName"
+                      placeholder=""
+                      value={contactInfo.firstName}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="First Name"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_lastName"
+                      id="contact_lastName"
+                      placeholder=""
+                      value={contactInfo.lastName}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Last Name"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      type="email"
+                      name="contact_email"
+                      id="contact_email"
+                      placeholder=""
+                      value={contactInfo.email}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Email Address"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_mobile"
+                      id="contact_mobile"
+                      placeholder=""
+                      value={contactInfo.mobile}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Mobile"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_address1"
+                      id="contact_address1"
+                      placeholder=""
+                      value={contactInfo.address1}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Mailing Address1"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_address2"
+                      id="contact_address2"
+                      placeholder=""
+                      value={contactInfo.address2}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Mailing Address2"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_address3"
+                      id="contact_address3"
+                      placeholder=""
+                      value={contactInfo.address3}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Mailing Address3"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="contact_address4"
+                      id="contact_address4"
+                      placeholder=""
+                      value={contactInfo.address4}
+                      onChange={this.handleContactInfoChange}
+                      floatingLabelText="Mailing Address4"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="12">
+                    <DatePicker
+                      hintText="Date of Birth"
+                      className="datePicker"
+                      value={contactInfo.birthday}
+                      onChange={this.handleBirthdayChange}
+                    />
+                  </Col>
+                </Row>
+                <h5>Emergency Contact Information</h5>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      name="emergency_firstName"
+                      id="emergency_firstName"
+                      placeholder=""
+                      value={emergencyInfo.firstName}
+                      onChange={this.handleEmergencyInfoChange}
+                      floatingLabelText="First Name"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="emergency_lastName"
+                      id="emergency_lastName"
+                      placeholder=""
+                      value={emergencyInfo.lastName}
+                      onChange={this.handleEmergencyInfoChange}
+                      floatingLabelText="Last Name"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="6">
+                    <TextField
+                      name="emergency_email"
+                      id="emergency_email"
+                      placeholder=""
+                      value={emergencyInfo.email}
+                      onChange={this.handleEmergencyInfoChange}
+                      floatingLabelText="Email Address"
+                      fullWidth={true}
+                    />
+                  </Col>
+                  <Col sm="6">
+                    <TextField
+                      name="emergency_phone"
+                      id="emergency_phone"
+                      placeholder=""
+                      value={emergencyInfo.phone}
+                      onChange={this.handleEmergencyInfoChange}
+                      floatingLabelText="Phone"
+                      fullWidth={true}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="12">
+                    <SelectField
+                      id="emergency_relationship"
+                      name="emergency_relationship"
+                      floatingLabelText="Relationship"
+                      value={emergencyInfo.relationship}
+                      onChange={this.handleRelationshipChange}
+                      menuItemStyle={selectItemStyle}
+                    >
+                      <MenuItem value={1} primaryText="Wife" />
+                      <MenuItem value={2} primaryText="Husband" />
+                      <MenuItem value={3} primaryText="Father" />
+                      <MenuItem value={4} primaryText="Mother" />
+                      <MenuItem value={5} primaryText="Brother" />
+                      <MenuItem value={6} primaryText="Sister" />
+                      <MenuItem value={7} primaryText="Other" />
+                    </SelectField>
+                  </Col>
+                </Row>
               </div>
               <div style={styles.slide}>
                 My Nationality Page

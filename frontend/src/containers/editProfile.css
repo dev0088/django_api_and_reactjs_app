@@ -27,8 +27,19 @@
 	margin-bottom: 20px;
 	box-shadow: inset 0px -2px 11px -1px rgba(38,143,242,1);
 }
+.tabContent h5{
+	margin-top: 15px;
+}
+/*
+.tabContent .react-swipeable-view-container {
+	transform: inherit !important;
+}
+.tabContent div[aria-hidden="true"] {
+	display: none;
+	transition: all 0.15s;
+}*/
 .tabContent > div > div{
-	padding: 10px;
+	padding: 20px;
 }
 .skill-button-primary{
 	border: 1px solid rgba(153,153,153,0.6) !important;
@@ -100,6 +111,15 @@
 	position: absolute;
 	top: 0px;
 	right: 20px;
+}
+.datePicker{
+	margin-top: 20px;
+}
+.datePicker > div {
+	width: 100% !important;
+}
+div[name="emergency_relationship"] {
+	width: 100% !important;
 }
 @media only screen and (max-width: 767px) {
     .profile-go-buttons {
