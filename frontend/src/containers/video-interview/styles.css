@@ -89,6 +89,12 @@
 .video_container{
   text-align: center;
 }
+.video-black{
+  background-color: #FFF;
+  width: 100vw;
+  height: calc(100vh - 102px);
+  margin: -15px;
+}
 canvas {
   background: gray;
 }

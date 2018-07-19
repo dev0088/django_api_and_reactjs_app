@@ -26,3 +26,6 @@ export const REGISTER = createRequestTypes('@@jwt/REGISTER');
 export const LOGOUT = createRequestTypes('@@jwt/LOGOUT'); // logout is always success
 
 export const SHIPTALENT_INFO = createRequestTypes('@@jwt/SHIPTALENT_INFO');
+
+export const VIDEO_QUESTION = createRequestTypes('@@jwt/VIDEO_QUESTION');
+export const VIDEO_SETTINGS = createRequestTypes('@@jwt/VIDEO_SETTINGS');

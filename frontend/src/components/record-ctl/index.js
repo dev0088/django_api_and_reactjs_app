@@ -21,8 +21,10 @@ export default class RecordCtl extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    nextProps['prep'] && this.setState({ remaining: nextProps['prep'] });
+    nextProps['response'] && this.setState({ total: nextProps['response'] });
     if (nextProps.countStop) {
-      this.setState({isRecording: false})
+      this.setState({ isRecording: false });
     }
   }
 

@@ -24,6 +24,9 @@ const muiTheme = getMuiTheme({
 
 
 class App extends Component {
+  componentDidMount(){
+    document.title = "ShipTalent";
+  }
   render() {
     return (
 			<Provider store={store}>
