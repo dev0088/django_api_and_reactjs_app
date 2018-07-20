@@ -10,4 +10,6 @@ yarn-error.log
 backend/static
 backend/staticlist
 backend/static_backend
+frontend/build
+frontend/package-lock.json
 logs
