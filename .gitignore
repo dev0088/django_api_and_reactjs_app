@@ -10,3 +10,4 @@ yarn-error.log
 backend/static
 backend/staticlist
 backend/static_backend
+logs

@@ -8,8 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - '.:/usr/src/shiptalent_frontend'
+      # - '/usr/src/shiptalent_frontend/node_modules'
     ports:
       - '3000:3000'
     environment:
