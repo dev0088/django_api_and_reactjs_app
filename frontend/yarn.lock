@@ -2102,6 +2102,10 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+detectrtc@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/detectrtc/-/detectrtc-1.3.6.tgz#dabc0353981a3da7732de969071c08b6dddd5b59"
+
 diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
