@@ -5,8 +5,14 @@
 }
 
 .video-interview-header {
-  text-align: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 35px;
+  border-bottom: 2px solid #000;
+}
+.video-interview-header:after{
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .btnn-start-practice {
@@ -19,7 +25,15 @@
 }
 
 .audio-box {
-  margin-top: 10px;
+  position: relative;
+  margin: 0 auto;
+  top: 2px;
+  height: 25px;
+}
+.audio-box img{
+  vertical-align: top;
+  margin-right: 10px;
+  height: 20px;
 }
 
 .video-practice {
@@ -30,32 +44,53 @@
   margin-left: -150px;
 }
 
-.question-box {
-  padding: 0 100px;
-  margin-top: 30px;
-}
-
 .camera-box {
   padding: 0 100px;
 }
 
 .question-header {
-  font-family: bold, serif;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 28px;
 }
 
 .question-time {
   margin-top: 30px;
 }
-
+.video-box{
+  width: 70%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.video-status{
+  border: 1px solid #333;
+  width: 100%;
+}
+.video-webcam {
+  width: 100%;
+  background: #333; 
+  height: 335; 
+}
+.video-status > div{
+  padding: 10px;
+}
+.video-status > div:first-child{
+  border-right: 1px solid #333;
+}
+.video-status p {
+  margin-bottom: 0px;
+}
+.video-status p b{
+  color: #F00;
+}
 .video-playback {
   text-align: center;
 }
-
-.video-box {
-  width: 50%;
+.video-progress {
+  height: 7px;
+  width: 100%;
 }
-
 .react-player {
   margin: auto;
 }
@@ -65,11 +100,8 @@
   width: 250px;
 }
 
-.btn-playback {
-  margin: 20px auto;
-}
-
 .playbackbtn-wrapper {
+  margin-top: 15px;
   text-align: center;
 }
 
@@ -97,4 +129,19 @@
 }
 canvas {
   background: gray;
+}
+.record-btn-wrapper {
+    text-align: center;
+    margin-top: 20px;    
+    /*display: inline-block;*/
+}
+
+.btn-start-stop button {
+    background-color: #C00 !important;
+}
+.btn-start-stop button span{
+    color: white !important;
+}
+.btn-start-start, .btn-start-stop, .btn-playback{
+  width: 240px;
 }

@@ -1,32 +1,5 @@
 import React from 'react';
 
-// Polyfill: mediaDevices.
-// Not work on Desktop Safari, IE.
-// Not work on Mobile browsers.
-
-// navigator.mediaDevices = function() {
-//   if (navigator.mediaDevices) {
-//     return navigator.mediaDevices;
-//   }
-//
-//   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-//   if (navigator.getUserMedia) {
-//     return {
-//       getUserMedia: function (c) {
-//         return new Promise(function(y, n) {
-//             navigator.getUserMedia.call(navigator, c, y, n);
-//           }
-//         );
-//       }
-//     }
-//   }
-// }();
-// if (!navigator.mediaDevices) {
-//   alert("mediaDevices() not supported.");
-//   throw new Error("mediaDevices() not supported.")
-// }
-
-// Polyfill: AudioContext.
 window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
 
 class AudioMeter extends React.Component {
@@ -96,10 +69,8 @@ class AudioMeter extends React.Component {
   render () {
     return (
       <div>
-        <span className="microphone">
-          <img src="/images/microphone.png" alt="Microphone" style={{width: '25px', marginTop: '-20px', marginLeft: '10px'}}/>
-        </span>
-        <canvas ref="canvas" width="350" height="30" />
+        <img src="/images/microphone.png" alt="Microphone"/>
+        <canvas ref="canvas" width="350" height="20" />
       </div>
     );
   }

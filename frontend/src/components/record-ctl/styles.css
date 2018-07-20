@@ -1,8 +1,6 @@
 .record-ctl {
-    padding: 5px;
-    border: solid 1px;
-    border-radius: 5px;
-    /*width: 580px;*/
+    width: 560px;
+    margin: 0 auto;
 }
 
 .progress-bar {
@@ -15,7 +13,7 @@
 }
 
 #myBar {
-    height: 30px;
+    height: 7px;
     background-color: green;
 }
 
@@ -26,17 +24,4 @@
 .countdown-bar {
     /*display: inline-block;*/
     /*width: 280px;*/
-}
-
-.record-btn-wrapper {
-    text-align: center;
-    margin-top: 20px;    
-    /*display: inline-block;*/
-}
-
-.btn-start-stop button {
-    background-color: #C00 !important;
-}
-.btn-start-stop button span{
-    color: white !important;
 }
