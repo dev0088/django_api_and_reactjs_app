@@ -10,13 +10,13 @@ class Question(models.Model):
 
 	def __str__(self):
 		"""
-        Returns a string representation of this `Question`.
-        This string is used when a `Question` is printed in the console.
-        """
+    Returns a string representation of this `Question`.
+    This string is used when a `Question` is printed in the console.
+    """
 		truncatedContent = (self.content[:75] + '..') if len(self.content) > 75 else self.content
 		return self.content
 
 	class Meta:
 		db_table = "question"
-		ordering = ('id',)
+		ordering = ('content',)
 		managed = True

@@ -1,6 +1,7 @@
 import os
 from datetime import timedelta
 import datetime
+import psycopg2
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,8 @@ LOCAL_APPS = (
 	'authentication',
 	'shiptalent_info',
 	'talent',
+	'talent_position_type',
+	'talent_position_sub_type',
 	'question',
 	'admin_setting',
 	'client_casting_request'
@@ -98,7 +101,10 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
-    }
+    },
+	'OPTIONS': {
+        'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
+    },
 }
 
 # Internationalization
@@ -131,7 +137,7 @@ STATICFILES_DIRS = (
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
 
-# MEDIA_URL = 'Ω/media/'
+# MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
