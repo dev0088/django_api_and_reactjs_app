@@ -10,7 +10,11 @@ import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import SwipeableViews from 'react-swipeable-views';
+import { bindActionCreators } from 'redux';
+import * as talentActions from  '../actions/talentActions';
 import './editProfile.css'
+import apiConfig from '../constants/api';
+import Dropzone from 'react-dropzone';
 
 const styles = {
   slide: {
@@ -36,6 +40,9 @@ const const_sub_other_skill = {
   "acts": [],
   "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
 }
+
+var ReactS3Uploader = require('react-s3-uploader');
+
 class EditProfile extends Component {
 
   constructor(props) {
@@ -69,6 +76,7 @@ class EditProfile extends Component {
       }
     }
   }
+
   clickButton = (type, val) =>  {
     if (type === 'other_sub_skill')
     {
@@ -88,16 +96,19 @@ class EditProfile extends Component {
       this.setState({ [type]: val, 'subskill': [] });
     }
   }
+
   handleTab1Change = (value) => {
     this.setState({
       tab1Value: value,
     });
   };
+
   handleTab2Change = (value) => {
     this.setState({
       tab2Value: value,
     });
-  };
+  }
+
   handleContactInfoChange = (event) => {
     const { contactInfo } = this.state;
     contactInfo[event.target.name.substring(8)] = event.target.value;
@@ -105,11 +116,13 @@ class EditProfile extends Component {
       contactInfo: contactInfo,
     });
   }
+
   handleBirthdayChange = (event, date) => {
     const { contactInfo } = this.state;
     contactInfo['birthday'] = date;
     this.setState({ contactInfo: contactInfo })
   }
+
   handleEmergencyInfoChange = (event) => {
     const { emergencyInfo } = this.state;
     emergencyInfo[event.target.name.substring(10)] = event.target.value;
@@ -117,16 +130,145 @@ class EditProfile extends Component {
       emergencyInfo: emergencyInfo,
     });
   }
+
   handleRelationshipChange = (event, index, value) => {
     const { emergencyInfo } = this.state;
     emergencyInfo['relationship'] = value;
     this.setState({ emergencyInfo: emergencyInfo });
   }
+
+  handleUploadResume = (files) => {
+    // Upload pdf files
+    let file = files[0]
+    const {user_id} = this.props.auth.access
+    const signAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/policy/`
+    const completeAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/complete/`
+    this.uploadToS3(signAPI, completeAPI, file)
+  }
+
+  handleUploadInterviewVideos = (files) => {
+    // Upload video files
+    let file = files[0]
+    const {user_id} = this.props.auth.access
+    const signAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/policy/?objectName=${file.name}&contentType=${file.type}`
+    const completeAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/complete/`
+    this.uploadToS3(signAPI, completeAPI, file)
+  }
+
+  handleUploadMyPictures = (files) => {
+    // Upload image files
+    let file = files[0]
+    const {user_id} = this.props.auth.access
+    const signAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/policy/`
+    const completeAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/complete/`
+    this.uploadToS3(signAPI, completeAPI, file)
+  }
+
+  uploadToS3 = (signAPI, completeAPI, file) => {
+    const params = {
+      objectName: file.name,
+      contentType: file.type
+    }
+    
+    fetch(signAPI, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).then(response => response.json())
+    .then(response => {
+      if(response.error) {
+        console.log('error: ', response.error)
+        this.onError(file)
+      }
+      else {
+        if (response.signedUrl){
+          console.log('success: ', response, response.signedUrl)
+          this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
+        } else {
+          console.log('error: ', response)
+          this.onError(file)
+        }
+      }
+    })
+    .catch(error => {
+      console.log('error: ', error)
+      this.onError(file)
+    })
+  }
+
+  onProgress = () => {
+    console.log('=== progress')
+  }
+
+  onError = (file) => {
+    console.log('==== Error: ', file)
+  }
+
+  onFinish = (completeAPI, fileID, file) => {
+    console.log('=== Finish: ', fileID, file)
+    const {user_id} = this.props.auth.access    
+    let params = {
+      fileID: fileID, 
+      fileSize: file.size,
+      fileType: file.type,
+    }
+    fetch(completeAPI, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).then(response => response.json())
+    .then(response => {
+      if(response.error) {
+        console.log('error: ', response.error)
+      }
+      else {
+        
+      }
+    })
+    .catch(error => {
+      console.log('error: ', error)
+    })
+  }
+
+  uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
+    const filename = file.name;
+    // Get signedUrl 
+    // var that = this;
+    fetch(s3PutUrl, {
+      method: 'put',
+      // contentType: file.type,
+      headers: {
+        'x-amz-acl': 'public-read',
+        'Content-Type': file.type,
+      },
+      body: file
+    })
+    .then(response => {
+      if(response.error) {
+        console.log('=== uploadFile: error: ', response.error)
+        this.onError(fileID, file)
+      }
+      else {
+        console.log('== uploadFile: success: ', response)
+        this.onFinish(completeAPI, fileID, file)
+      }
+    })
+    .catch(error => {
+      console.log('== uploadFile: error: ', error)
+      this.onError(fileID, file)
+    })
+  }
+
   render() {
     const { contactInfo, emergencyInfo } = this.state;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
     }
+
     return(
       <div className="profile-edit-container">
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
@@ -465,12 +607,28 @@ class EditProfile extends Component {
               </div>
               <div style={styles.slide}>
                 My Resume Page
+                <Dropzone onDrop={ this.handleUploadResume } size={ 150 } accept="application/pdf">
+                  <div>
+                    Drop pdf files here!
+                  </div>
+                </Dropzone>
               </div>
               <div style={styles.slide}>
                 My Pictures Page
+                <Dropzone onDrop={ this.handleUploadMyPictures } size={ 150 } accept="image/*">
+                  <div>
+                    Drop image files here!
+                  </div>
+                </Dropzone>
               </div>
+ 
               <div style={styles.slide}>
                 My Videos Page
+                <Dropzone onDrop={ this.handleUploadInterviewVideos } size={ 150 } accept="video/mp4">
+                  <div>
+                    Drop mp4 video files here!
+                  </div>
+                </Dropzone>
               </div>
             </SwipeableViews>
           </Col>
@@ -495,15 +653,16 @@ class EditProfile extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth } = state;
+  const { auth, talentReducer } = state;
   return {
-    auth
+    auth,
+    talentReducer
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
 

@@ -17,17 +17,22 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_swagger.views import get_swagger_view
+from django.views.generic.base import TemplateView
 
 schema_view = get_swagger_view(title='ShipTalent API')
 
 urlpatterns = [
 	url(r'^apis', schema_view),
-    url(r'^admin/', admin.site.urls),
+  url(r'^admin/', admin.site.urls),
 	url(r'^api/v1/auth/', include('authentication.urls')),
 	url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
 	url(r'^api/v1/talent', include('talent.urls')),
+	url(r'^api/v1/talent_position_type', include('talent_position_type.urls')),
+	url(r'^api/v1/talent_position_sub_type', include('talent_position_sub_type.urls')),
 	url(r'^api/v1/question', include('question.urls')),
 	url(r'^api/v1/video_interview_settings', include('admin_setting.urls')),
 	url(r'^api/v1/client_casting_request', include('client_casting_request.urls')),
-
+	url(r'^api/v1/talent_picture', include('talent_picture.urls')),
+	url(r'^api/v1/talent_resume', include('talent_resume.urls')),
+	url(r'^api/v1/talent_video', include('talent_video.urls')),	
 ]

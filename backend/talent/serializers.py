@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from talent.models import Talent
+from talent_video.serializers import TalentVideoSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
 	user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+	talent_videos = TalentVideoSerializer(many=True, read_only=True)
 
 	class Meta:
 		model = Talent
@@ -44,7 +46,7 @@ class TalentSerializer(serializers.ModelSerializer):
 
 			# pictures,
 
-			# videos,
+			'talent_videos',
 
 			'worked_cruise_ship',
 
