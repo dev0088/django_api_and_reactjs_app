@@ -8,13 +8,17 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import RecordRTC from 'recordrtc';
+import DetectRTC from "detectrtc";
+
 import * as videoActions from  '../../actions/videoActions';
 import AudioMeter from "../../components/audio-meter/index";
-import DetectRTC from "detectrtc";
 
 import './styles.css';
 import RecordCtl from "../../components/record-ctl/index";
 import VideoPlayBack from "./play-back";
+import apiConfig from '../../constants/api';
+import { captureUserMedia } from '../../utils/appUtils';
 
 class VideoPractice extends React.Component {
   constructor() {
@@ -31,12 +35,19 @@ class VideoPractice extends React.Component {
       waitingTime: [30, 120],
       remainingTime: [30, 120],
       timePos: 0,
+
+      src: null,
+      recordVideo: null,
+      uploadSuccess: null,
+      uploading: false,
     };
+
   }
   componentWillMount() {
     let __this = this;
     DetectRTC.load(function() {
-      console.log(DetectRTC);
+      // console.log(DetectRTC);
+
       if (!DetectRTC.hasWebcam)
       {
         __this.setState({ config: false, alertOpen: true })
@@ -56,7 +67,7 @@ class VideoPractice extends React.Component {
         __this.setState({ config: false, alertOpen: true })
         __this.state.errors.push("Your website doesn't have microphone permission."); 
       }
-
+      __this.requestUserMedia();
     });
     this.props.videoActions.getVideoQuestionsActions();
     this.props.videoActions.getVideoSettingsActions();
@@ -105,12 +116,18 @@ class VideoPractice extends React.Component {
       }, 1000)
     }
   }
+  requestUserMedia() {
+    // console.log('requestUserMedia');
+    captureUserMedia((stream) => {
+      this.setState({ src: window.URL.createObjectURL(stream) });
+    });
+  }
 
   onStopRecord = () => {
     const { remainingTime } = this.state;
     remainingTime[0] = remainingTime[1] = 0;
     this.setState({isStopped: true, isPlaying: false});
-
+    this.videoRecordStop();
   };
 
   onStartRecord = () => {
@@ -123,9 +140,47 @@ class VideoPractice extends React.Component {
         remainingTime: remainingTime}, 
       function() {
         this.countDown();
+        this.videoRecordStart();
       });
   };
+  videoRecordStart = () => {
+    let mimeType = "video/webm\;codecs=h264";
+    if(this.isMimeTypeSupported('video/mpeg')) {
+      mimeType = 'video/mpeg';
+    }
+    let options = {
+      checkForInactiveTracks: false,
+      disableLogs: false,
+      getNativeBlob: false,
+      ignoreMutedMedia: false,
+      mimeType: mimeType,
+      type: "video"
+    }
+    captureUserMedia((stream) => {
+      this.state.recordVideo = RecordRTC(stream, options);
+      this.state.recordVideo.startRecording();
+    });
+  }
+  videoRecordStop = () => {
+    let __this = this;
+    this.state.recordVideo.stopRecording(() => {
+      let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
+      let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
+      __this.handleUploadInterviewVideos(file);
+    });
+  }
+  isMimeTypeSupported = (mimeType) => {
+    if(DetectRTC.browser.name === 'Edge' || 
+      DetectRTC.browser.name === 'Safari' || 
+      typeof MediaRecorder === 'undefined') {
+        return false;
+    }
+    if(typeof MediaRecorder.isTypeSupported !== 'function') {
+        return true;
+    }
 
+    return MediaRecorder.isTypeSupported(mimeType);
+  }
   onNextQuestion = () => {
     const { remainingTime, waitingTime } = this.state;
     remainingTime[0] = waitingTime[0];
@@ -165,6 +220,121 @@ class VideoPractice extends React.Component {
   handleAlertRefresh = () => {
     window.location.reload();
   }
+
+  handleUploadInterviewVideos = (file) => {
+    // Upload video files
+    const {user_id} = this.props.auth.access;
+    const signAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/policy/`
+    const completeAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/complete/`
+    this.setState({ uploading: true });
+    this.uploadToS3(signAPI, completeAPI, file)
+  }
+
+  uploadToS3 = (signAPI, completeAPI, file) => {
+    const params = {
+      objectName: file.name,
+      contentType: file.type
+    }
+    
+    fetch(signAPI, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).then(response => response.json())
+    .then(response => {
+      if(response.error) {
+        // console.log('error: ', response.error)
+        this.onError(file)
+      }
+      else {
+        if (response.signedUrl){
+          // console.log('success: ', response, response.signedUrl)
+          this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
+        } else {
+          // console.log('error: ', response)
+          this.onError(file)
+        }
+      }
+    })
+    .catch(error => {
+      // console.log('error: ', error)
+      this.onError(file)
+    })
+  }
+
+  onError = (file) => {
+    // console.log('==== Error: ', file)
+    this.setState({uploading: false});
+  }
+
+  onFinish = (completeAPI, fileID, file, response) => {
+    let __this = this;
+    let params = {
+      fileID: fileID, 
+      fileSize: file.size,
+      fileType: file.type,
+    }
+    let url_parse = response.url.split("?");
+    let s3_url = url_parse[0];
+    __this.setState({ uploading: false, src: s3_url });
+    fetch(completeAPI, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).then(response => response.json())
+    .then(response => {
+      if(response.error) {
+        // console.log('error: ', response.error)
+      }
+      else {
+        
+      }
+    })
+    .catch(error => {
+      this.setState({uploading: false});
+      // console.log('error: ', error)
+    })
+  }
+
+  uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
+    // Get signedUrl 
+    // var that = this;
+    fetch(s3PutUrl, {
+      method: 'put',
+      // contentType: file.type,
+      headers: {
+        'x-amz-acl': 'public-read',
+        'Content-Type': file.type,
+      },
+      body: file
+    })
+    .then(response => {
+      if(response.error) {
+        // console.log('=== uploadFile: error: ', response.error)
+        this.onError(fileID, file)
+      }
+      else {
+        // console.log('== uploadFile: success: ', response)
+        this.onFinish(completeAPI, fileID, file, response)
+      }
+    })
+    .catch(error => {
+      // console.log('== uploadFile: error: ', error)
+      this.onError(fileID, file)
+    })
+  }
+  showSpinner = (b) => {
+    return b ? (<div className="spinner">
+                  <div className="loading_text">
+                    <div className="loading"></div>
+                    Uploading now... Please wait for a while.
+                  </div>
+                </div>) : null;
+  }
   render () {
     const { 
       config, 
@@ -175,7 +345,9 @@ class VideoPractice extends React.Component {
       isPlayBackOpen, 
       waitingTime, 
       remainingTime,
-      timePos
+      timePos,
+      src,
+      uploading,
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -191,9 +363,10 @@ class VideoPractice extends React.Component {
         onClick={this.handleAlertClose}
       />,
     ];
-    if (videoQuestions.value && videoQuestions.value.length > 0)
+    if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
       question = videoQuestions.value[currentQuestion]['content'];
     return config ? (<div className="video-practice">
+        {this.showSpinner(uploading)}
         <div className="video-interview-header">
           <h3>
             <span className="pull-left">Question {currentQuestion + 1} of 5</span>
@@ -201,7 +374,7 @@ class VideoPractice extends React.Component {
           </h3>
         </div>
 
-        {!isPlayBackOpen && videoQuestions.isFetched &&
+        {!isPlayBackOpen && videoQuestions && videoQuestions.isFetched &&
         <React.Fragment>
           <div className="row">
             <div className="col-sm-12 question-box">
@@ -265,6 +438,7 @@ class VideoPractice extends React.Component {
 
         {isPlayBackOpen &&  // Show playback.
           <VideoPlayBack
+            url={src}
             currentQuestion={currentQuestion}
             onNext={this.onNextQuestion}
             onBack={this.onBack}
@@ -289,8 +463,10 @@ class VideoPractice extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { videoQuestions, videoSettings } = state;
+  const { auth, videoQuestions, videoSettings } = state;
+  // let vq = {value: ["aaa", "bbb"], isFetched: true};
   return {
+    auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
   }

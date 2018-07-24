@@ -6011,6 +6011,10 @@ react-smooth@1.0.0:
     raf "^3.2.0"
     react-transition-group "^2.2.1"
 
+react-spinner@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/react-spinner/-/react-spinner-0.2.7.tgz#ea3ca3375dd7a54edbb5cc01d17496a2e2fc14db"
+
 react-swipeable-views-core@^0.12.14:
   version "0.12.14"
   resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.12.14.tgz#65271fd18dd9b359e39392fe065a8067e0d7bfdb"
@@ -6182,6 +6186,10 @@ recompose@^0.26.0:
     fbjs "^0.8.1"
     hoist-non-react-statics "^2.3.1"
     symbol-observable "^1.0.4"
+
+recordrtc@^5.4.7:
+  version "5.4.7"
+  resolved "https://registry.yarnpkg.com/recordrtc/-/recordrtc-5.4.7.tgz#812f237fa3f83eb2a9fd5a007421f263b141985f"
 
 recursive-readdir@2.2.1:
   version "2.2.1"
