@@ -14,10 +14,10 @@ class TalentResume(models.Model):
   active = models.BooleanField(default=True)
 
   def __str__(self):
-    return 'talent: {user_email}, image: {image_path}, {image_size}'.format(
+    return 'talent: {user_email}, image: {resume_url}, {file_size}'.format(
       user_email=self.talent.user.email,
-      image_path=self.path,
-      image_size=self.size
+      resume_url=self.url,
+      file_size=self.size
     )
 
   class Meta:

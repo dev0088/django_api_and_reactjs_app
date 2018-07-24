@@ -15,9 +15,9 @@ class TalentPicture(models.Model):
   active = models.BooleanField(default=True)
 
   def __str__(self):
-    return 'talent: {user_email}, image: {image_path}, {image_size}'.format(
+    return 'talent: {user_email}, image: {image_url}, {image_size}'.format(
       user_email=self.talent.user.email,
-      image_path=self.path,
+      image_url=self.url,
       image_size=self.size
     )
 

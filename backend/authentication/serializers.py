@@ -44,4 +44,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        # Create talent
+        talent = Talent.objects.create(user_id=user.id)
+        return user

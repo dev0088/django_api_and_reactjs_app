@@ -3,18 +3,30 @@ from django.shortcuts import render
 # Create your views here.
 from question.models import Question
 from question.serializers import QuestionSerializer
+from talent_position_sub_type.models import TalentPositionSubType
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import random
 
+
 class QuestionRamdomList(APIView):
     """
     Retrieve 5 questions randomly.
     """
     def get(self, request, format=None):
-        questions = Question.objects.all()
+        try:
+            position_type = request.query_params.get('position_type') #request.query_params.get('position_type')
+            position_sub_type = request.query_params.get('position_sub_type') #request.qurey_params.get('position_sub_type')
+
+            if not position_type or not position_sub_type:
+                questions = Question.objects.all()
+            else :
+                position_sub_type = TalentPositionSubType.objects.get(name=position_sub_type)
+                questions = Question.objects.filter(talent_position_sub_type=position_sub_type.id)
+        except TalentPositionSubType.DoesNotExist:
+            raise Http404
 
         if len(questions) > 5:
 			# generate random numbers

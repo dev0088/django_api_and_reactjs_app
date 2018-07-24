@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from authentication.models import User
 
 SEX_CHOICES = (
@@ -30,7 +30,7 @@ class Talent(models.Model):
 	mailing_addresse2 = models.CharField(max_length=100, blank=True)
 	mailing_addresse3 = models.CharField(max_length=100, blank=True)
 	mailing_addresse4 = models.CharField(max_length=100, blank=True)
-	birthday = models.DateField(blank=True)
+	birthday = models.DateField(blank=True, default=date.today)
 
 	# emergency contact info
 	emergency_first_name = models.CharField(max_length=50, blank=True)
@@ -42,13 +42,13 @@ class Talent(models.Model):
 	# nationality_info
 	# nationality: string(country)
 	# citizenshi: string(passport country)
-	passport_expiration_data = models.DateField(blank=True)
+	passport_expiration_data = models.DateField(blank=True, default=date.today)
 	passport_number = models.CharField(max_length=100, blank=True)
 	# country_of_current_residence: string(country)
 
 	# current visas
 	# visa_type: string -> maybe one of visa_types table
-	expiration_date = models.DateField(blank=True)
+	expiration_date = models.DateField(blank=True, default=date.today)
 
 	# language skills
 	# language_skills: has_many -> talent_languages_skills
