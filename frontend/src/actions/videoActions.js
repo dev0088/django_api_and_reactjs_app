@@ -2,9 +2,11 @@ import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
+var position_type = "Vocalist";
+var position_sub_type = "Tenor";
 export const getVideoQuestionsActions = () => ({
 	  [RSAA]: {
-        endpoint: `${apiConfig.url}/question/random`,
+        endpoint: `${apiConfig.url}/question/random?position_type=${position_type}&position_sub_type=${position_sub_type}`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         types: [
