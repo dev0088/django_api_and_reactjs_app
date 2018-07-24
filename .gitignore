@@ -13,3 +13,4 @@ backend/static_backend
 frontend/build
 frontend/package-lock.json
 logs
+backend/talent_picture/config_aws.py
