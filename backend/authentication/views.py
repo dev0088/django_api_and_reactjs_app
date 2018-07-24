@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import RegistrationSerializer
-
+from talent.models import Talent
+from .models import User
 
 class RegistrationAPIView(APIView):
     # Allow any user (authenticated or not) to hit this endpoint.
@@ -29,5 +30,10 @@ class RegistrationAPIView(APIView):
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        # Create talent
+        user_instance = User.objects.get(username=user['username'])
+        if not user_instance:
+            talent = Talent.objects.create(user=user_instance.id)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
