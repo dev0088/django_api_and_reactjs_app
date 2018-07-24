@@ -41,7 +41,7 @@ const const_sub_other_skill = {
   "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
 }
 
-var ReactS3Uploader = require('react-s3-uploader');
+// var ReactS3Uploader = require('react-s3-uploader');
 
 class EditProfile extends Component {
 
@@ -208,7 +208,7 @@ class EditProfile extends Component {
 
   onFinish = (completeAPI, fileID, file) => {
     console.log('=== Finish: ', fileID, file)
-    const {user_id} = this.props.auth.access    
+    // const {user_id} = this.props.auth.access    
     let params = {
       fileID: fileID, 
       fileSize: file.size,
@@ -235,7 +235,7 @@ class EditProfile extends Component {
   }
 
   uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
-    const filename = file.name;
+    // const filename = file.name;
     // Get signedUrl 
     // var that = this;
     fetch(s3PutUrl, {

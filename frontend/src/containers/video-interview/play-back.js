@@ -9,16 +9,19 @@ const styles={
   }
 }
 export default function VideoPlayBack(props) {
+  console.log();
   return (<div className="row video-playback">
     <div className="video-box col-md-12">
-      <ReactPlayer
-        url='https://www.youtube.com/watch?v=rnwlWn603g4'
-        className='react-player'
-        playing
-        width='500px'
-        height='250px'
-        controls={true}
-      />
+      {props.url && 
+        (<ReactPlayer
+          url={props.url}
+          className='react-player'
+          playing
+          width='500px'
+          height='250px'
+          controls={true}
+        />)
+      }
     </div>
     <div className="col-md-12">
       <RaisedButton
