@@ -1,19 +1,18 @@
 from django.shortcuts import render
 from django.http import Http404
 
-# Create your views here.
 from rest_framework import permissions, status, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .config_aws import (
+from talent_picture.config_aws import (
     AWS_UPLOAD_BUCKET,
     AWS_UPLOAD_REGION,
     AWS_UPLOAD_ACCESS_KEY_ID,
     AWS_UPLOAD_SECRET_KEY,
-    AWS_UPLOAD_IMAGES_PATH,
+    AWS_UPLOAD_RESUMES_PATH
 )
-from .models import TalentPicture
-from .serializers import TalentPictureSerializer
+from .models import TalentResume
+from .serializers import TalentResumeSerializer
 from talent.models import Talent
 from authentication.models import User
 
@@ -23,11 +22,11 @@ import json
 import time
 import os
 
-class TalentPicturePolicy(APIView):
+class TalentResumeFileUploadPolicy(APIView):
     """
     This view is to get the AWS Upload Policy for images to s3 bucket.
-    What we do here is first create a TalentPicture object instance in ShipTalent
-    backend. This is to include the TalentPicture instance in the path
+    What we do here is first create a TalentResume object instance in ShipTalent
+    backend. This is to include the TalentResume instance in the path
     we will use within our bucket as you'll see below.
     """
     # permission_classes = [permissions.IsAuthenticated]
@@ -56,30 +55,39 @@ class TalentPicturePolicy(APIView):
         talent = self.get_object(pk)
         talent_id = talent.id
         user_id = talent.user.username
-        talent_picture = TalentPicture.objects.create(talent=talent, name=object_name)
-        talent_picture_id = talent_picture.id
+        if not talent.talent_resume and not talent.talent_resume.id:
+        	talent_resume = TalentResume.objects.get(id=talent.talent_resume.id)
+        else:
+        	talent_resume = TalentResume.objects.create(talent=talent, name=object_name)
+
+        talent_resume_id = talent_resume.id
         _, file_extension = os.path.splitext(object_name)
         
-        upload_start_path = "{images_path}/{talent_id}/".format(
-                images_path=AWS_UPLOAD_IMAGES_PATH,
-                talent_id=talent_id,
-                talent_picture_id=talent_picture_id,
+        upload_start_path = "{resumes_path}/{talent_id}/".format(
+                resumes_path=AWS_UPLOAD_RESUMES_PATH,
+                talent_id = talent_id,
+                talent_resume_id=talent_resume_id,
                 file_extension=file_extension
             )
-        filename_final = "{talent_picture_id}{file_extension}".format(
-                talent_picture_id= talent_picture_id,
+        filename_final = "{talent_resume_id}{file_extension}".format(
+                talent_resume_id= talent_resume_id,
                 file_extension=file_extension
             )
  
         # Save signed url
         """
         Eventual file_upload_path includes the renamed file to the 
-        Django-stored TalentPicture instance ID. Renaming the file is 
+        Django-stored TalentResume instance ID. Renaming the file is 
         done to prevent issues with user generated formatted names.
         """
         final_upload_path = "{upload_start_path}{filename_final}".format(
                 upload_start_path=upload_start_path,
                 filename_final=filename_final,
+            )
+
+        upload_url = "https://{bucket_name}.s3.amazonaws.com/{final_upload_path}".format(
+                bucket_name=AWS_UPLOAD_BUCKET,
+                final_upload_path=final_upload_path
             )
 
         # get signed url from AWS S3
@@ -90,26 +98,22 @@ class TalentPicturePolicy(APIView):
             final_upload_path,
             headers = {'Content-Type': content_type, 'x-amz-acl':'public-read'})
 
-        upload_url = "https://{bucket_name}.s3.amazonaws.com/{final_upload_path}".format(
-                bucket_name=AWS_UPLOAD_BUCKET,
-                final_upload_path=final_upload_path
-            )
         if object_name and file_extension:
             """
-            Save the eventual path to the Django-stored TalentPicture instance
+            Save the eventual path to the Django-stored TalentResume instance
             """
-            talent_picture.path = final_upload_path
-            talent_picture.url = upload_url
-            talent_picture.save()
+            talent_resume.path = final_upload_path
+            talent_resume.url = upload_url
+            talent_resume.save()
 
         data = {
             'signedUrl': signed_url,
-            'fileID': talent_picture_id
+            'fileID': talent_resume_id
         }
         return Response(data, status=status.HTTP_200_OK)
 
 
-class FileUploadCompleteHandler(APIView):
+class TalentResumeFileUploadCompleteHandler(APIView):
     # permission_classes = [permissions.IsAuthenticated]
     # authentication_classes = [authentication.SessionAuthentication]
 
@@ -121,27 +125,27 @@ class FileUploadCompleteHandler(APIView):
         type_ = request.data.get('fileType')
         print(file_id, size, type_)
         if file_id:
-            obj = TalentPicture.objects.get(id=int(file_id))
+            obj = TalentResume.objects.get(id=int(file_id))
             obj.size = int(size)
             obj.uploaded = True
-            obj.file_type = type_
+            obj.type = type_
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
         return Response(data, status=status.HTTP_200_OK)
 
 
-class TalentPictureList(APIView):
+class TalentResumeList(APIView):
     """
-    List all talent pictures.
+    List all talent resumes.
     """
 
     def get(self, request, pk, format=None):
         try:
             user = User.objects.get(pk=pk)
             talent = Talent.objects.get(user=user.id)
-            talent_pictures = TalentPicture.objects.filter(talent=talent.id)
-            serializer = TalentPictureSerializer(talent_pictures, many=True)
+            talent_resumes = TalentResume.objects.filter(talent=talent.id)
+            serializer = TalentResumeSerializer(talent_resumes, many=True)
             return Response(serializer.data)
         except Talent.DoesNotExist:
             raise Http404

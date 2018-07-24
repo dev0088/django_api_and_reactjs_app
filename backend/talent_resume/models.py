@@ -1,11 +1,8 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from talent.models import Talent
 
-class TalentVideo(models.Model):
-  talent = models.ForeignKey(Talent, related_name='talent_videos', on_delete=models.CASCADE)
+class TalentResume(models.Model):
+  talent = models.ForeignKey(Talent, related_name='talent_resume', on_delete=models.CASCADE)
   name = models.CharField(max_length=120, null=True, blank=True)
   path = models.TextField(blank=True, null=True)
   url = models.TextField(blank=True, null=True)
@@ -15,15 +12,15 @@ class TalentVideo(models.Model):
   updated = models.DateTimeField(auto_now=True)
   uploaded = models.BooleanField(default=False)
   active = models.BooleanField(default=True)
-  
+
   def __str__(self):
-    return 'talent: {user_email}, video: {video_path}, {video_size}'.format(
-        user_email=self.talent.user.email,
-        video_path=self.path,
-        video_size=self.size
-      )
+    return 'talent: {user_email}, image: {image_path}, {image_size}'.format(
+      user_email=self.talent.user.email,
+      image_path=self.path,
+      image_size=self.size
+    )
 
   class Meta:
-    db_table = "talent_video"
+    db_table = "talent_resume"
     ordering = ('talent', 'updated', 'name')
     managed = True

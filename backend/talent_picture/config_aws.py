@@ -1,0 +1,17 @@
+AWS_UPLOAD_BUCKET = "shiptalents3video" #"talents3"
+
+AWS_UPLOAD_USERNAME = "valeriiadidushok"
+
+AWS_UPLOAD_GROUP = "Developer"
+
+AWS_UPLOAD_REGION = 'us-east-1'
+
+AWS_UPLOAD_ACCESS_KEY_ID = "AKIAITK7TCIQ4ITTFY6Q" #"AKIAJSQZNJJM5VPSXCBQ"
+
+AWS_UPLOAD_SECRET_KEY = "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" #"WobhGIZLRLku4C1EXPQTupLTllIvaTCK1FZRdqYo+tK+"
+
+AWS_UPLOAD_IMAGES_PATH = "uploads/images"
+
+AWS_UPLOAD_RESUMES_PATH = "uploads/resumes"
+
+AWS_UPLOAD_VIDEOS_PATH = "uploads/videos"

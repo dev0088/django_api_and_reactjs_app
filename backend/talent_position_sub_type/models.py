@@ -3,8 +3,8 @@ from talent_position_type.models import TalentPositionType
 
 # Create your models here.
 class TalentPositionSubTypeManager(models.Manager):
-    def get_queryset(self):
-        return super(TalentPositionSubTypeManager, self).get_queryset().filter(active=True)
+  def get_queryset(self):
+    return super(TalentPositionSubTypeManager, self).get_queryset().filter(active=True)
 
 class TalentPositionSubType(models.Model):
 	### Relation with user

@@ -29,3 +29,5 @@ export const SHIPTALENT_INFO = createRequestTypes('@@jwt/SHIPTALENT_INFO');
 
 export const VIDEO_QUESTION = createRequestTypes('@@jwt/VIDEO_QUESTION');
 export const VIDEO_SETTINGS = createRequestTypes('@@jwt/VIDEO_SETTINGS');
+
+export const TALENT_UPLOAD_PICTURE = createRequestTypes('@@jwt/TALENT_UPLOAD_PICTURE');

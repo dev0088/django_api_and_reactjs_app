@@ -66,7 +66,7 @@ class Talent(models.Model):
 	### fun stuff ###
 	# headline & Bio
 	head_line = models.CharField(max_length=100, blank=True)
-	bio = models.TextField()
+	bio = models.TextField(max_length=600, blank=True)
 
 	# resume
 	# resume_file_path = models.CharField(max_length=100, blank=True)
@@ -91,9 +91,9 @@ class Talent(models.Model):
 
 	def __str__(self):
 		"""
-        Returns a string representation of this `Talent`.
-        This string is used when a `Talent` is printed in the console.
-        """
+    Returns a string representation of this `Talent`.
+    This string is used when a `Talent` is printed in the console.
+    """
 		return self.user.username + ', ' + self.user.email
 
 	class Meta:

@@ -5,7 +5,7 @@ import register from './register.js'
 import echo, * as fromEcho from './echo.js'
 import shiptalentInfo from './shiptalentInfo.js'
 import videoQuestions, { videoSettings } from './video.js'
-
+import talentReducer from './talent.js'
 
 export default combineReducers({
   auth: auth,
@@ -14,7 +14,8 @@ export default combineReducers({
 	shiptalentInfo: shiptalentInfo,
 	videoQuestions: videoQuestions,
   videoSettings: videoSettings,
-  router: routerReducer
+  router: routerReducer,
+  talentReducer: talentReducer,
 })
 
 

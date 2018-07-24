@@ -3,4 +3,4 @@ from django.contrib import admin
 # Register your models here.
 from . import models
 
-admin.site.register(models.TalentPicture)
+admin.site.register(models.TalentResume)

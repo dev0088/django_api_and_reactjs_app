@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from talent.models import Talent
+from authentication.models import User
 from talent.serializers import TalentSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -14,7 +15,9 @@ class TalentDetail(APIView):
     """
     def get_object(self, pk):
         try:
-            return Talent.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
+            talent = Talent.objects.get(user=user.id)
+            return talent
         except Talent.DoesNotExist:
             raise Http404
 
