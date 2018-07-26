@@ -1,6 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
+import { connect } from 'react-redux';
 
 import './styles.css'
 import AudioMeter from "../../components/audio-meter/index";
@@ -25,6 +26,15 @@ const title = {
   "youth-staff": "Youth Staff"
 }
 class VideoPreview extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      
+    }
+  }
+  adjustSettings = () => {
+    console.log('adjust');
+  }
   render () {
     const { pageId } = this.props.match.params;
     return <div className="video-interview">
@@ -55,6 +65,7 @@ class VideoPreview extends React.Component {
           className="btnn-video-buttons btnn-adjust-settings"
           style={styles.raisedButton}
           label="Adjust Video and Audio Settings"
+          onClick={this.adjustSettings}
           primary={true}
         />
       </div>
@@ -69,4 +80,16 @@ class VideoPreview extends React.Component {
     </div>
   }
 }
-export default VideoPreview;
+
+function mapStateToProps(state) {
+  const { auth } = state;
+  return {
+    auth: auth
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPreview);
