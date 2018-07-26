@@ -10,6 +10,7 @@ import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import SwipeableViews from 'react-swipeable-views';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
 import './editProfile.css'
@@ -644,7 +645,9 @@ class EditProfile extends Component {
         </Row>
         <Row className="profile-go-buttons">
           <Col sm="12">
-            <RaisedButton label="View My Profile" primary={true} href="/profile"/>
+            <Link to="/profile">
+              <RaisedButton label="View My Profile" primary={true}/>
+            </Link>
           </Col>
         </Row>
       </div>

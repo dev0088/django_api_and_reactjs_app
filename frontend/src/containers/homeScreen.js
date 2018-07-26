@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import ReactPlayer from 'react-player'
 import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './homeScreen.css'
 
@@ -68,11 +69,12 @@ class HomeScreen extends Component {
   							   __html: this.getValueByName('what_is_shiptalent')
   							  }}
   							/>
-              <RaisedButton
-                label="More details ..."
-                primary={true}
-                href="/faq/what_is_shiptalent"
-              />
+              <Link to="/faq/what_is_shiptalent">
+                <RaisedButton
+                  label="More details ..."
+                  primary={true}
+                />
+              </Link>
             </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
@@ -84,11 +86,12 @@ class HomeScreen extends Component {
   							 __html: this.getValueByName('how_does_shiptalent_work')
   							}}
   						/>
-              <RaisedButton
-                label="More details ..."
-                primary={true}
-                href="/faq/how_does_shiptalent_work"
-              />
+              <Link to="/faq/how_does_shiptalent_work">
+                <RaisedButton
+                  label="More details ..."
+                  primary={true}
+                />
+              </Link>
             </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">
@@ -100,11 +103,12 @@ class HomeScreen extends Component {
   							 __html: this.getValueByName('why_use_shiptalent')
   							}}
   						/>
-              <RaisedButton
-                label="More details ..."
-                primary={true}
-                href="/faq/why_use_shiptalent"
-              />
+              <Link to="/faq/why_use_shiptalent">
+                <RaisedButton
+                  label="More details ..."
+                  primary={true}
+                />
+              </Link>
             </div>
           </Col>
         </Row>
@@ -118,11 +122,12 @@ class HomeScreen extends Component {
   								 __html: this.getValueByName('the_shiptalent_difference')
   								}}
   							/>
-              <RaisedButton
-                label="More details ..."
-                primary={true}
-                href="/faq/the_shiptalent_difference"
-              />
+              <Link to="/faq/the_shiptalent_difference">
+                <RaisedButton
+                  label="More details ..."
+                  primary={true}
+                />
+              </Link>
             </div>
           </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-0">

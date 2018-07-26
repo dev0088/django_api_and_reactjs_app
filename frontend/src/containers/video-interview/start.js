@@ -1,5 +1,6 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const styles={
   raisedButton: {
@@ -21,23 +22,25 @@ class InterviewStart extends React.Component {
           <p>Before proceeding, it is important that you read the Instructions above very carefully.</p>
           <p>When ready to proceed, click the Let’s Begin button below. </p>
         </div>
-        <div className="col-md-12"> 
-          <RaisedButton
-            label="Instructions"
-            className="btnn-video-buttons"
-            style={styles.raisedButton}
-            href="/interview-instruction/cruise"
-            primary={true}
-          />
+        <div className="col-md-12">
+          <Link to="/interview-instruction/cruise">
+            <RaisedButton
+              label="Instructions"
+              className="btnn-video-buttons"
+              style={styles.raisedButton}
+              primary={true}
+            />
+          </Link>
         </div>
         <div className="col-md-12">
-          <RaisedButton
-            label="Let's begin"
-            className="btnn-video-buttons"
-            style={styles.raisedButton}
-            href="/interview-device-allow/cruise"
-            primary={true}
-          />
+          <Link to="/interview-device-allow/cruise">
+            <RaisedButton
+              label="Let's begin"
+              className="btnn-video-buttons"
+              style={styles.raisedButton}
+              primary={true}
+            />
+          </Link>
         </div>
       </div>)
 

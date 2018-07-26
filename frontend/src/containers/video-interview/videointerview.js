@@ -3,6 +3,7 @@ import Webcam from 'react-webcam';
 import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton';
 import { Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './styles.css'
 import AudioMeter from "../../components/audio-meter/index";
 
@@ -30,11 +31,12 @@ class VideoPreview extends React.Component {
 			      </div>
 
 			      <div className="col-md-12">
-              <RaisedButton
-                label="Start Practice Questions"
-                href="/video-practice"
-                primary={true}
-              />
+			      	<Link to="/video-practice">
+              	<RaisedButton
+	                label="Start Practice Questions"
+	                primary={true}
+	              />
+							</Link>
 			      </div>
 			      <div className="col-md-12">
               <RaisedButton

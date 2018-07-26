@@ -4,6 +4,7 @@ import DetectRTC from "detectrtc";
 import {
   Alert,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const styles={
   raisedLongButton: {
@@ -94,7 +95,9 @@ class InterviewDeviceAllow extends React.Component {
     return (<div className="video-interview">
         <div className="video-interview-header">
           <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
-          <a href={"/interview-instruction/" + pageId}>My Video Interview Instructions</a>
+          <Link to={"/interview-instruction/" + pageId}>
+            My Video Interview Instructions
+          </Link>
         </div>
         <div className="video-access-body row d-flex justify-content-center">
           <p>First, ShipTalent.com needs access to your <b>camera</b> and <b>microphone</b>.</p>
@@ -109,13 +112,14 @@ class InterviewDeviceAllow extends React.Component {
                 audioAllow && (
                   <Alert color="primary">Microphone is enabled.</Alert>  
               )}
-              <RaisedButton
-                label="Let's Rehearse"
-                className="btnn-video-buttons"
-                style={styles.raisedLongButton}
-                primary={true}
-                href={"/video-interview/" + pageId }
-              />
+              <Link to={"/video-interview/" + pageId }>
+                <RaisedButton
+                  label="Let's Rehearse"
+                  className="btnn-video-buttons"
+                  style={styles.raisedLongButton}
+                  primary={true}
+                />
+              </Link>
             </div>
             ) : (
               <React.Fragment>

@@ -9,6 +9,7 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 import Loading from '../components/loading';
 import './forgotPasswordScreen.css'
 
@@ -88,18 +89,20 @@ class ForgotPasswordScreen extends React.Component {
           <Row>
             <Col sm="6">
               Need an account? 
-              <FlatButton
-                label="Sign Up"
-                href="/sign-up"
-                style={styles.flatPrimary}
-              />
+              <Link to="/sign-up">
+                <FlatButton
+                  label="Sign Up"
+                  style={styles.flatPrimary}
+                />
+              </Link>
             </Col>
             <Col sm="6" className="text-right">
-              <FlatButton
-                label="Login"
-                href="/login"
-                style={styles.flatPrimary}
-              />
+              <Link to="/login">
+                <FlatButton
+                  label="Login"
+                  style={styles.flatPrimary}
+                />
+              </Link>
               to your account.
             </Col>
           </Row>

@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Row, Col, Jumbotron } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './footer.css'
 
 const styles = {
@@ -13,23 +14,26 @@ const Footer = (props) => (
     <Row>
 			<Jumbotron className="bg-primary text-white text-center footer-background">
 	      <Col sm="12" className="text-center pt-3">
-          <FlatButton
-            label="Terms & Conditions"
-            href="/terms"
-            style={styles.flatPrimary}
-          />
+          <Link to="/terms">
+            <FlatButton
+              label="Terms & Conditions"
+              style={styles.flatPrimary}
+            />
+          </Link>
           &nbsp; | &nbsp;
-          <FlatButton
-            label="FAQ"
-            href="/faq"
-            style={styles.flatPrimary}
-          />
+          <Link to="/faq">
+            <FlatButton
+              label="FAQ"
+              style={styles.flatPrimary}
+            />
+          </Link>
           &nbsp; | &nbsp;
-          <FlatButton
-            label="Contact Us"
-            href="/contact-us"
-            style={styles.flatPrimary}
-          />
+          <Link to="/contact-us">
+            <FlatButton
+              label="Contact Us"
+              style={styles.flatPrimary}
+            />
+          </Link>  
 					<p className="footer-description">ShipTalent.com<br/>Take the lead in being cast at sea</p>
 	      </Col>
 			</Jumbotron>
