@@ -3,6 +3,8 @@ import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import {
   Alert,
 } from 'reactstrap';
@@ -12,6 +14,7 @@ import RecordRTC from 'recordrtc';
 import DetectRTC from "detectrtc";
 
 import * as videoActions from  '../../actions/videoActions';
+import * as deviceActions from  '../../actions/deviceSettings';
 import AudioMeter from "../../components/audio-meter/index";
 
 import './styles.css';
@@ -20,6 +23,11 @@ import VideoPlayBack from "./play-back";
 import apiConfig from '../../constants/api';
 import { captureUserMedia } from '../../utils/appUtils';
 
+const styles={ 
+  floatingLabelStyle: {
+    color: "#258df2",
+  },
+}
 class VideoPractice extends React.Component {
   constructor() {
     super();
@@ -42,7 +50,10 @@ class VideoPractice extends React.Component {
       uploading: false,
       settings: [],
 
-      deviceSettings: []
+      settingDlg: false,
+      resolution: 1,
+      frameRate: 0,
+      bitRate: 0,
     };
 
   }
@@ -93,8 +104,48 @@ class VideoPractice extends React.Component {
       wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
     else
       wait[1] = remain[1] = 0;
-    this.setState({ waitingTime: wait, remainingTime: remain, deviceSettings: deviceSettings });
+    this.setState(
+      { 
+        waitingTime: wait, 
+        remainingTime: remain,
+        resolution: deviceSettings.resolution,
+        frameRate: deviceSettings.frameRate,
+        bitRate: deviceSettings.bitRate
+      });
   }
+
+  adjustSettings = () => {
+    this.setState({ settingDlg: true });
+  }
+
+  handleDialogClose = () => {
+    this.setState({ settingDlg: false });
+  }
+
+  handleResolutionChange = (event, index, resolution1) => {
+    const { frameRate, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
+    );
+    this.setState({resolution: resolution1});
+  }
+
+  handleFrameChange = (event, index, frameRate1) => {
+    const { resolution, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
+    );
+    this.setState({frameRate: frameRate1});
+  }
+
+  handleBitRateChange = (event, index, bitRate1) => {
+    const { resolution, frameRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
+    );
+    this.setState({bitRate: bitRate1});
+  }
+
   countDown = () => {
     const { isStopped } = this.state;
     const __this = this;
@@ -123,6 +174,7 @@ class VideoPractice extends React.Component {
       }, 1000)
     }
   }
+
   requestUserMedia() {
     // console.log('requestUserMedia');
     captureUserMedia((stream) => {
@@ -341,9 +393,6 @@ class VideoPractice extends React.Component {
     })
   }
 
-  onSettings = () => {
-
-  }
   showSpinner = (b) => {
     return b ? (<div className="spinner">
                   <div className="loading_text">
@@ -354,6 +403,9 @@ class VideoPractice extends React.Component {
   }
 
   render () {
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
     const { 
       config, 
       errors, 
@@ -365,7 +417,12 @@ class VideoPractice extends React.Component {
       remainingTime,
       timePos,
       src,
-      uploading
+      uploading,
+
+      settingDlg,
+      resolution,
+      frameRate,
+      bitRate,
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -379,6 +436,13 @@ class VideoPractice extends React.Component {
         label="Cancel"
         primary={true}
         onClick={this.handleAlertClose}
+      />,
+    ];
+    const settingsAction = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleDialogClose}
       />,
     ];
     if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
@@ -458,11 +522,63 @@ class VideoPractice extends React.Component {
           <VideoPlayBack
             url={src}
             currentQuestion={currentQuestion}
-            onSettings={this.onSettings}
+            onSettings={this.adjustSettings}
             onNext={this.onNextQuestion}
             onBack={this.onBack}
           />
         }
+        <Dialog
+          actions={settingsAction}
+          title="Video and Audio Settings"
+          modal={false}
+          open={settingDlg}
+          onRequestClose={this.handleDialogClose}
+        >
+          <SelectField
+            floatingLabelText="Resolutions"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={resolution}
+            onChange={this.handleResolutionChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={1} primaryText="Default" />
+            <MenuItem value={2} primaryText="1080p" />
+            <MenuItem value={3} primaryText="720p" />
+            <MenuItem value={4} primaryText="480p" />
+          </SelectField>
+          <SelectField
+            floatingLabelText="FrameRate"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={frameRate}
+            onChange={this.handleFrameChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={0} primaryText="Default" />
+            <MenuItem value={5} primaryText="5 fps" />
+            <MenuItem value={15} primaryText="15 fps" />
+            <MenuItem value={24} primaryText="24 fps" />
+            <MenuItem value={30} primaryText="30 fps" />
+            <MenuItem value={60} primaryText="60 fps" />
+          </SelectField>
+          <SelectField
+            floatingLabelText="Media BitRate"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={bitRate}
+            onChange={this.handleBitRateChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={0} primaryText="Default" />
+            <MenuItem value={8000000000} primaryText="1 GB bps" />
+            <MenuItem value={800000000} primaryText="100 MB bps" />
+            <MenuItem value={8000000} primaryText="1 MB bps" />
+            <MenuItem value={800000} primaryText="100 KB bps" />
+            <MenuItem value={8000} primaryText="1 KB bps" />
+            <MenuItem value={800} primaryText="100 Bytes bps" />
+          </SelectField>
+        </Dialog>
       </div>) : (<div className="video-black">
         <Dialog
           title="Error"
@@ -496,6 +612,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     videoActions: bindActionCreators(videoActions, dispatch),
+    deviceActions: bindActionCreators(deviceActions, dispatch),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPractice);

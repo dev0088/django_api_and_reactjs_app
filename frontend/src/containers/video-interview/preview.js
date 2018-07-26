@@ -47,7 +47,6 @@ class VideoPreview extends React.Component {
     super();
     this.state = {
       settingDlg: false,
-      alertOpen: false,
       resolution: 1,
       frameRate: 0,
       bitRate: 0,
