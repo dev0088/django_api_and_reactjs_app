@@ -1,18 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import './styles.css'
+import * as deviceActions from  '../../actions/deviceSettings';
 import AudioMeter from "../../components/audio-meter/index";
 
 const styles={
   raisedButton: {
     whiteSpace: "normal",
     width: "240px",
-  }
+  },
+  floatingLabelStyle: {
+    color: "#258df2",
+  },
 }
 const title = {
   "cruise": "Cruise Staff",
@@ -27,32 +35,64 @@ const title = {
   "video-technician": "Video Technician",
   "youth-staff": "Youth Staff"
 }
+
+var videoResolution = {
+  1: [480, 360],    // Default
+  2: [1280, 720],    // 1080
+  3: [1280, 720],    // 720
+  4: [858, 480],    // 480
+}
 class VideoPreview extends React.Component {
   constructor() {
     super();
     this.state = {
       settingDlg: false,
-      alertOpen: false
+      alertOpen: false,
+      resolution: 1,
+      frameRate: 0,
+      bitRate: 0,
     }
   }
+
   adjustSettings = () => {
     this.setState({ settingDlg: true });
   }
-  handleUpdateSetting = () => {
 
-  }
   handleDialogClose = () => {
     this.setState({ settingDlg: false });
   }
+
+  handleResolutionChange = (event, index, resolution1) => {
+    const { frameRate, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
+    );
+    this.setState({resolution: resolution1});
+  }
+
+  handleFrameChange = (event, index, frameRate1) => {
+    const { resolution, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
+    );
+    this.setState({frameRate: frameRate1});
+  }
+
+  handleBitRateChange = (event, index, bitRate1) => {
+    const { resolution, frameRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
+    );
+    this.setState({bitRate: bitRate1});
+  }
+
   render () {
     const { pageId } = this.props.match.params;
-    const { settingDlg } = this.state;
+    const { settingDlg, resolution, frameRate, bitRate } = this.state;
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
     const actions = [
-      <FlatButton
-        label="Update"
-        primary={true}
-        onClick={this.handleUpdateSetting}
-      />,
       <FlatButton
         label="Cancel"
         primary={true}
@@ -66,7 +106,7 @@ class VideoPreview extends React.Component {
       </div>
 
       <div className="col-md-12 camera-box">
-        <Webcam height="300" width="700"/>
+        <Webcam height={videoResolution[resolution][1]} width={videoResolution[resolution][0]}/>
       </div>
 
       <div className="audio-box">
@@ -74,13 +114,14 @@ class VideoPreview extends React.Component {
       </div>
 
       <div className="col-md-12">
-        <RaisedButton
-          label="Start Practice Questions"
-          className="btnn-video-buttons"
-          style={styles.raisedButton}
-          href="/video-practice"
-          primary={true}
-        />
+        <Link to="/video-practice">
+          <RaisedButton
+            label="Start Practice Questions"
+            className="btnn-video-buttons"
+            style={styles.raisedButton}
+            primary={true}
+          />
+        </Link>
       </div>
       <div className="col-md-12">
         <RaisedButton
@@ -104,10 +145,53 @@ class VideoPreview extends React.Component {
         actions={actions}
         title="Video and Audio Settings"
         modal={false}
-        open={this.state.settingDlg}
+        open={settingDlg}
         onRequestClose={this.handleDialogClose}
       >
-        
+        <SelectField
+          floatingLabelText="Resolutions"
+          floatingLabelStyle={styles.floatingLabelStyle}
+          className="dlg-select"
+          value={resolution}
+          onChange={this.handleResolutionChange}
+          menuItemStyle={selectItemStyle}
+        >
+          <MenuItem value={1} primaryText="Default" />
+          <MenuItem value={2} primaryText="1080p" />
+          <MenuItem value={3} primaryText="720p" />
+          <MenuItem value={4} primaryText="480p" />
+        </SelectField>
+        <SelectField
+          floatingLabelText="FrameRate"
+          floatingLabelStyle={styles.floatingLabelStyle}
+          className="dlg-select"
+          value={frameRate}
+          onChange={this.handleFrameChange}
+          menuItemStyle={selectItemStyle}
+        >
+          <MenuItem value={0} primaryText="Default" />
+          <MenuItem value={5} primaryText="5 fps" />
+          <MenuItem value={15} primaryText="15 fps" />
+          <MenuItem value={24} primaryText="24 fps" />
+          <MenuItem value={30} primaryText="30 fps" />
+          <MenuItem value={60} primaryText="60 fps" />
+        </SelectField>
+        <SelectField
+          floatingLabelText="Media BitRate"
+          floatingLabelStyle={styles.floatingLabelStyle}
+          className="dlg-select"
+          value={bitRate}
+          onChange={this.handleBitRateChange}
+          menuItemStyle={selectItemStyle}
+        >
+          <MenuItem value={0} primaryText="Default" />
+          <MenuItem value={8000000000} primaryText="1 GB bps" />
+          <MenuItem value={800000000} primaryText="100 MB bps" />
+          <MenuItem value={8000000} primaryText="1 MB bps" />
+          <MenuItem value={800000} primaryText="100 KB bps" />
+          <MenuItem value={8000} primaryText="1 KB bps" />
+          <MenuItem value={800} primaryText="100 Bytes bps" />
+        </SelectField>
       </Dialog>
     </div>
   }
@@ -121,7 +205,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    
+    deviceActions: bindActionCreators(deviceActions, dispatch),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPreview);

@@ -215,3 +215,6 @@ canvas {
 .video-access-body p{
   font-size: 24px;
 }
+div.dlg-select {
+  width: 100% !important;
+}

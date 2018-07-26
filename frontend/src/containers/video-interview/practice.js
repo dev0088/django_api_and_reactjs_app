@@ -41,9 +41,12 @@ class VideoPractice extends React.Component {
       uploadSuccess: null,
       uploading: false,
       settings: [],
+
+      deviceSettings: []
     };
 
   }
+
   componentWillMount() {
     let __this = this, detectError = [];
     DetectRTC.load(function() {
@@ -74,11 +77,13 @@ class VideoPractice extends React.Component {
     this.props.videoActions.getVideoQuestionsActions();
     this.props.videoActions.getVideoSettingsActions();
   }
+
   componentDidMount() {
     this.countDown();
   }
+
   componentWillReceiveProps(nextProps) {
-    let { videoSettings } = nextProps;
+    let { videoSettings, deviceSettings } = nextProps;
     let wait = [], remain = [];
     if (videoSettings['value']['video_interview_prep_countdown'])
       wait[0] = remain[0] = videoSettings['value']['video_interview_prep_countdown'];
@@ -88,7 +93,7 @@ class VideoPractice extends React.Component {
       wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
     else
       wait[1] = remain[1] = 0;
-    this.setState({ waitingTime: wait, remainingTime: remain });
+    this.setState({ waitingTime: wait, remainingTime: remain, deviceSettings: deviceSettings });
   }
   countDown = () => {
     const { isStopped } = this.state;
@@ -145,6 +150,7 @@ class VideoPractice extends React.Component {
         this.videoRecordStart();
       });
   };
+
   videoRecordStart = () => {
     let mimeType = "video/webm\;codecs=h264";
     if(this.isMimeTypeSupported('video/mpeg')) {
@@ -163,6 +169,7 @@ class VideoPractice extends React.Component {
       this.state.recordVideo.startRecording();
     });
   }
+
   videoRecordStop = () => {
     let __this = this;
     this.state.recordVideo.stopRecording(() => {
@@ -171,6 +178,7 @@ class VideoPractice extends React.Component {
       __this.handleUploadInterviewVideos(file);
     });
   }
+
   isMimeTypeSupported = (mimeType) => {
     if(DetectRTC.browser.name === 'Edge' || 
       DetectRTC.browser.name === 'Safari' || 
@@ -183,6 +191,7 @@ class VideoPractice extends React.Component {
 
     return MediaRecorder.isTypeSupported(mimeType);
   }
+
   onNextQuestion = () => {
     const { remainingTime, waitingTime } = this.state;
     remainingTime[0] = waitingTime[0];
@@ -215,10 +224,12 @@ class VideoPractice extends React.Component {
 
   openPlayBack = () => {
     this.setState({isPlayBackOpen: true});
-  };
+  }
+
   handleAlertClose = () => {
     this.setState({alertOpen: false});
   }
+
   handleAlertRefresh = () => {
     window.location.reload();
   }
@@ -329,6 +340,7 @@ class VideoPractice extends React.Component {
       this.onError(fileID, file)
     })
   }
+
   onSettings = () => {
 
   }
@@ -340,6 +352,7 @@ class VideoPractice extends React.Component {
                   </div>
                 </div>) : null;
   }
+
   render () {
     const { 
       config, 
@@ -352,7 +365,7 @@ class VideoPractice extends React.Component {
       remainingTime,
       timePos,
       src,
-      uploading,
+      uploading
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -470,12 +483,13 @@ class VideoPractice extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings } = state;
   // let vq = {value: ["aaa", "bbb"], isFetched: true};
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
+    deviceSettings: deviceSettings,
   }
 }
 
