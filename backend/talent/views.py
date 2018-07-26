@@ -8,6 +8,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from talent_position_sub_type.models import TalentPositionSubType
 
 class TalentDetail(APIView):
     """
@@ -31,6 +32,12 @@ class TalentDetail(APIView):
         serializer = TalentSerializer(talent_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
+            print('== request.data: ', request.data)
+            print('== request.data.talent_position_sub_type.name: ', request.data['talent_position_sub_type']['name'])
+            position_sub_type = TalentPositionSubType.objects.get(name=request.data['talent_position_sub_type']['name'])
+            if position_sub_type:
+                talent_item.talent_position_sub_type = position_sub_type
+                talent_item.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
