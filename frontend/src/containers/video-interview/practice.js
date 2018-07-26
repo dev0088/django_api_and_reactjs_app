@@ -3,6 +3,8 @@ import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import {
   Alert,
 } from 'reactstrap';
@@ -12,6 +14,7 @@ import RecordRTC from 'recordrtc';
 import DetectRTC from "detectrtc";
 
 import * as videoActions from  '../../actions/videoActions';
+import * as deviceActions from  '../../actions/deviceSettings';
 import AudioMeter from "../../components/audio-meter/index";
 
 import './styles.css';
@@ -20,6 +23,17 @@ import VideoPlayBack from "./play-back";
 import apiConfig from '../../constants/api';
 import { captureUserMedia } from '../../utils/appUtils';
 
+const styles={ 
+  floatingLabelStyle: {
+    color: "#258df2",
+  },
+}
+const resolutionSize = {
+  1: [],
+  2: [1920, 1080],
+  3: [1280, 720],
+  4: [640, 480]
+}
 class VideoPractice extends React.Component {
   constructor() {
     super();
@@ -40,41 +54,58 @@ class VideoPractice extends React.Component {
       recordVideo: null,
       uploadSuccess: null,
       uploading: false,
+      settings: [],
+
+      settingDlg: false,
+      resolution: 1,
+      frameRate: 0,
+      bitRate: 0,
     };
 
   }
+
   componentWillMount() {
-    let __this = this;
+    let __this = this, detectError = [];
+    let { deviceSettings } = this.props;
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
       if (!DetectRTC.hasWebcam)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Video Camera isn't connected. Check your camera");
+        detectError.push("Video Camera isn't connected. Check your camera.");
       }else if (!DetectRTC.isWebsiteHasWebcamPermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Your website doesn't have camera permission."); 
+        detectError.push("Your website doesn't have camera permission."); 
       }
       if (!DetectRTC.hasMicrophone)
       {
         __this.setState({ config: false, alertOpen: true });
-        __this.state.errors.push("Microphone isn't connected. Check your microphone");
+        detectError.push("Microphone isn't connected. Check your microphone.");
       }
       else if (!DetectRTC.isWebsiteHasMicrophonePermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Your website doesn't have microphone permission."); 
+        detectError.push("Your website doesn't have microphone permission."); 
       }
-      __this.requestUserMedia();
+      __this.setState({ errors: detectError });
+      __this.setState({ 
+          resolution: deviceSettings.resolution,
+          frameRate: deviceSettings.frameRate,
+          bitRate: deviceSettings.bitRate
+        }, function(){
+          __this.requestUserMedia();
+        })
     });
     this.props.videoActions.getVideoQuestionsActions();
     this.props.videoActions.getVideoSettingsActions();
   }
+
   componentDidMount() {
     this.countDown();
   }
+
   componentWillReceiveProps(nextProps) {
     let { videoSettings } = nextProps;
     let wait = [], remain = [];
@@ -86,8 +117,45 @@ class VideoPractice extends React.Component {
       wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
     else
       wait[1] = remain[1] = 0;
-    this.setState({ waitingTime: wait, remainingTime: remain });
+    this.setState(
+      { 
+        waitingTime: wait, 
+        remainingTime: remain,
+      });
   }
+
+  adjustSettings = () => {
+    this.setState({ settingDlg: true });
+  }
+
+  handleDialogClose = () => {
+    this.setState({ settingDlg: false });
+  }
+
+  handleResolutionChange = (event, index, resolution1) => {
+    const { frameRate, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
+    );
+    this.setState({resolution: resolution1});
+  }
+
+  handleFrameChange = (event, index, frameRate1) => {
+    const { resolution, bitRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
+    );
+    this.setState({frameRate: frameRate1});
+  }
+
+  handleBitRateChange = (event, index, bitRate1) => {
+    const { resolution, frameRate } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
+    );
+    this.setState({bitRate: bitRate1});
+  }
+
   countDown = () => {
     const { isStopped } = this.state;
     const __this = this;
@@ -100,9 +168,11 @@ class VideoPractice extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
-              __this.setState({timePos: 1});
+              __this.videoRecordStart();
+              __this.setState({ timePos: 1, isStopped: false, isPlaying: true });
             } else {
-              __this.setState({isStopped: true});
+              __this.setState({ isStopped: true });
+              __this.videoRecordStop();
             }
           } else {
             const newRemaining = [];
@@ -116,10 +186,24 @@ class VideoPractice extends React.Component {
       }, 1000)
     }
   }
+
   requestUserMedia() {
-    // console.log('requestUserMedia');
-    captureUserMedia((stream) => {
-      this.setState({ src: window.URL.createObjectURL(stream) });
+    const { resolution, frameRate } = this.state;
+    let options = {mandatory: {}};
+    if (resolution !== 1 ){
+      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
+      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    }
+    if (frameRate !== 0){
+      options['mandatory']['minFrameRate'] = frameRate;
+    }
+    captureUserMedia(options, (stream) => {
+      try {
+        this.setState({ src: stream });
+      }
+      catch(error) {
+        this.setState({ src: window.URL.createObjectURL(stream) });
+      }
     });
   }
 
@@ -143,12 +227,16 @@ class VideoPractice extends React.Component {
         this.videoRecordStart();
       });
   };
+
   videoRecordStart = () => {
     let mimeType = "video/webm\;codecs=h264";
+    let __this = this;
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
     }
-    let options = {
+    const { resolution, frameRate, bitRate } = this.state;
+    let options = {mandatory: {}};
+    let rtcOptions = {
       checkForInactiveTracks: false,
       disableLogs: false,
       getNativeBlob: false,
@@ -156,11 +244,22 @@ class VideoPractice extends React.Component {
       mimeType: mimeType,
       type: "video"
     }
-    captureUserMedia((stream) => {
-      this.state.recordVideo = RecordRTC(stream, options);
-      this.state.recordVideo.startRecording();
+    if (resolution !== 1 ){
+      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
+      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    }
+    if (frameRate !== 0){
+      options['mandatory']['minFrameRate'] = frameRate;
+    }
+    if (bitRate !== 0)
+      rtcOptions['videoBitsPerSecond'] = bitRate;
+    captureUserMedia(options, (stream) => {
+      __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
+        __this.state.recordVideo.startRecording();
+      })
     });
   }
+
   videoRecordStop = () => {
     let __this = this;
     this.state.recordVideo.stopRecording(() => {
@@ -169,6 +268,7 @@ class VideoPractice extends React.Component {
       __this.handleUploadInterviewVideos(file);
     });
   }
+
   isMimeTypeSupported = (mimeType) => {
     if(DetectRTC.browser.name === 'Edge' || 
       DetectRTC.browser.name === 'Safari' || 
@@ -181,6 +281,7 @@ class VideoPractice extends React.Component {
 
     return MediaRecorder.isTypeSupported(mimeType);
   }
+
   onNextQuestion = () => {
     const { remainingTime, waitingTime } = this.state;
     remainingTime[0] = waitingTime[0];
@@ -213,10 +314,12 @@ class VideoPractice extends React.Component {
 
   openPlayBack = () => {
     this.setState({isPlayBackOpen: true});
-  };
+  }
+
   handleAlertClose = () => {
     this.setState({alertOpen: false});
   }
+
   handleAlertRefresh = () => {
     window.location.reload();
   }
@@ -327,6 +430,7 @@ class VideoPractice extends React.Component {
       this.onError(fileID, file)
     })
   }
+
   showSpinner = (b) => {
     return b ? (<div className="spinner">
                   <div className="loading_text">
@@ -335,7 +439,11 @@ class VideoPractice extends React.Component {
                   </div>
                 </div>) : null;
   }
+
   render () {
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
     const { 
       config, 
       errors, 
@@ -348,6 +456,11 @@ class VideoPractice extends React.Component {
       timePos,
       src,
       uploading,
+
+      settingDlg,
+      resolution,
+      frameRate,
+      bitRate,
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -361,6 +474,13 @@ class VideoPractice extends React.Component {
         label="Cancel"
         primary={true}
         onClick={this.handleAlertClose}
+      />,
+    ];
+    const settingsAction = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleDialogClose}
       />,
     ];
     if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
@@ -440,12 +560,66 @@ class VideoPractice extends React.Component {
           <VideoPlayBack
             url={src}
             currentQuestion={currentQuestion}
+            onSettings={this.adjustSettings}
             onNext={this.onNextQuestion}
             onBack={this.onBack}
           />
         }
+        <Dialog
+          actions={settingsAction}
+          title="Video and Audio Settings"
+          modal={false}
+          open={settingDlg}
+          onRequestClose={this.handleDialogClose}
+        >
+          <SelectField
+            floatingLabelText="Resolutions"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={resolution}
+            onChange={this.handleResolutionChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={1} primaryText="Default" />
+            <MenuItem value={2} primaryText="1080p" />
+            <MenuItem value={3} primaryText="720p" />
+            <MenuItem value={4} primaryText="480p" />
+          </SelectField>
+          <SelectField
+            floatingLabelText="Frame Rate"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={frameRate}
+            onChange={this.handleFrameChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={0} primaryText="Default" />
+            <MenuItem value={5} primaryText="5 fps" />
+            <MenuItem value={15} primaryText="15 fps" />
+            <MenuItem value={24} primaryText="24 fps" />
+            <MenuItem value={30} primaryText="30 fps" />
+            <MenuItem value={60} primaryText="60 fps" />
+          </SelectField>
+          <SelectField
+            floatingLabelText="Media BitRate"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            className="dlg-select"
+            value={bitRate}
+            onChange={this.handleBitRateChange}
+            menuItemStyle={selectItemStyle}
+          >
+            <MenuItem value={0} primaryText="Default" />
+            <MenuItem value={8000000000} primaryText="1 GB bps" />
+            <MenuItem value={800000000} primaryText="100 MB bps" />
+            <MenuItem value={8000000} primaryText="1 MB bps" />
+            <MenuItem value={800000} primaryText="100 KB bps" />
+            <MenuItem value={8000} primaryText="1 KB bps" />
+            <MenuItem value={800} primaryText="100 Bytes bps" />
+          </SelectField>
+        </Dialog>
       </div>) : (<div className="video-black">
         <Dialog
+          title="Error"
           actions={actions}
           modal={false}
           open={this.state.alertOpen}
@@ -463,18 +637,20 @@ class VideoPractice extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings } = state;
   // let vq = {value: ["aaa", "bbb"], isFetched: true};
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
+    deviceSettings: deviceSettings,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     videoActions: bindActionCreators(videoActions, dispatch),
+    deviceActions: bindActionCreators(deviceActions, dispatch),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPractice);

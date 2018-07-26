@@ -12,6 +12,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 // import Loading from '../components/loading';
 // import { bindActionCreators } from 'redux';
 // import { translate } from '../i18n';
@@ -118,27 +119,30 @@ class LoginScreen extends Component {
             <hr />
             <Row>
               <Col sm="7">
-                Need an account? 
-                <FlatButton
-                  label="Sign Up"
-                  href="/sign-up"
-                  style={styles.flatPrimary}
-                />
+                Need an account ? 
+                <Link to="/sign-up">
+                  <FlatButton
+                    label="Sign Up"
+                    style={styles.flatPrimary}
+                  />
+                </Link>
               </Col>
               <Col sm="5" className="text-right">
-                <FlatButton
-                  label="Forgot Password?"
-                  href="/forgot-password"
-                  style={styles.flatPrimary}
-                />
+                <Link to="/forgot-password">
+                  <FlatButton
+                    label="Forgot Password?"
+                    style={styles.flatPrimary}
+                  />
+                </Link>
               </Col>
               <Col sm="12">
-                Return home 
-                <FlatButton
-                  label="Home"
-                  href="/"
-                  style={styles.flatPrimary}
-                />
+                Return home
+                <Link to="/">
+                  <FlatButton
+                    label="Home"
+                    style={styles.flatPrimary}
+                  />
+                </Link>
               </Col>
             </Row>
           </div>

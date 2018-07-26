@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const Error = ({ title, content }) => (
   <Row>
     <Col lg="4">
       <h2>{title}</h2>
       <p>{content}</p>
-      <p>
+      <Link to="/">
         <RaisedButton
           label="Go Home"
-          href="/"
           primary={true}
         />
-      </p>
+      </Link>
     </Col>
   </Row>
 );

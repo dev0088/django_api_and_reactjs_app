@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export default function videoQuestions(state = initialState, action) {
-  // console.log("==video==", state, action);
+  // console.log("==video==", action.type);
 	switch(action.type) {
     case types.VIDEO_QUESTION.SUCCESS:
       return Object.assign({}, state, {
@@ -48,7 +48,7 @@ const initialSettingState = {
 };
 
 export function videoSettings(state = initialSettingState, action) {
-  // console.log("==videoSetting==", state, action);
+  // console.log("==videoSetting==", action.type);
   switch(action.type) {
     case types.VIDEO_SETTINGS.SUCCESS:
       return Object.assign({}, state, {

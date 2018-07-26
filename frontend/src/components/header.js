@@ -78,7 +78,9 @@ class Header extends Component {
 
           </Link>
           { loggedIn && (
-              <MenuItem href="/video-interview" style={styles.menuitem} primaryText="Video Interview" />
+              <Link to="/interview-start">
+                <MenuItem style={styles.menuitem} primaryText="Video Interview" />
+              </Link>
             )
           }
           <NavbarToggler onClick={this.toggleDropDown} />
@@ -102,14 +104,22 @@ class Header extends Component {
               >
                 {!loggedIn &&
                   <Menu>
-                    <MenuItem primaryText="Login" href="/login" />
-                    <MenuItem primaryText="Sign Up" href="/sign-up" />
+                    <Link to="/login">
+                      <MenuItem primaryText="Login" />
+                    </Link>
+                    <Link to="/sign-up">
+                      <MenuItem primaryText="Sign Up" />
+                    </Link>
                   </Menu>
                 }
                 {loggedIn &&
                   <Menu>
-                    <MenuItem primaryText="View My Profile" href="/profile" />
-                    <MenuItem primaryText="Account Settings" href="/account" />
+                    <Link to="/profile">
+                      <MenuItem primaryText="View My Profile" />
+                    </Link>
+                    <Link to="/account">
+                      <MenuItem primaryText="Account Settings" />
+                    </Link>
                     <Divider />
                     <MenuItem primaryText="Logout" onClick={this.onLogout} />
                   </Menu>

@@ -29,6 +29,7 @@ export default function VideoPlayBack(props) {
         className="btnn-video-buttons btn-vpb"
         style={styles.raisedButton}
         primary={true}
+        onClick={() => {props.onSettings()}}
       />
     </div>
 

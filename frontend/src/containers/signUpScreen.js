@@ -12,6 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router-dom';
 import Loading from '../components/loading';
 // import { translate } from '../i18n';
 import { bindActionCreators } from 'redux'
@@ -184,19 +185,21 @@ class SignUp extends React.Component {
           <Row>
             <Col sm="12">
               Already have an account?
-              <FlatButton
-                label="Login"
-                href="/login"
-                style={styles.flatPrimary}
-              />
+              <Link to="/login">
+                <FlatButton
+                  label="Login"
+                  style={styles.flatPrimary}
+                />
+              </Link>
             </Col>
             <Col sm="12">
               Return home
-              <FlatButton
-                label="Home"
-                href="/"
-                style={styles.flatPrimary}
-              />
+              <Link to="/">
+                <FlatButton
+                  label="Home"
+                  style={styles.flatPrimary}
+                />
+              </Link>
             </Col>
           </Row>
         </div>

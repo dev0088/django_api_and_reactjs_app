@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Truncate from 'react-truncate-html';
+import { Link } from 'react-router-dom';
 import './myProfile.css'
 
 const styles = {
@@ -86,7 +87,9 @@ class MyProfile extends Component {
             </Row>
           </Col>
           <Col md="3" className="profile-buttons">
-            <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} href="/edit-profile" />
+            <Link to="/edit-profile">
+              <RaisedButton label="Build/Edit Profile" primary={true} fullWidth={true} />
+            </Link>
             <RaisedButton label="View in Detail" primary={true} fullWidth={true} />
             <RaisedButton label="View Sample" primary={true} fullWidth={true} />
             <RaisedButton label="Back to HomePage" primary={true} fullWidth={true} />

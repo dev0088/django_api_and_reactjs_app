@@ -10,6 +10,11 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './contactUs.css'
 
+const styles={
+  floatingLabelStyle: {
+    color: "#258df2",
+  },
+}
 class ContactUs extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +65,7 @@ class ContactUs extends Component {
                 name="fullName"
                 id="fullName"
                 placeholder=""
+                floatingLabelStyle={styles.floatingLabelStyle}
                 value={fullName}
                 onChange={this.handleChange}
                 floatingLabelText="Full name"
@@ -69,6 +75,7 @@ class ContactUs extends Component {
                 type="email"
                 name="email"
                 id="email"
+                floatingLabelStyle={styles.floatingLabelStyle}
                 value={email}
                 onChange={this.handleChange}
                 floatingLabelText="Email"
@@ -78,6 +85,7 @@ class ContactUs extends Component {
                 name="title"
                 id="title"
                 placeholder=""
+                floatingLabelStyle={styles.floatingLabelStyle}
                 value={title}
                 onChange={this.handleChange}
                 floatingLabelText="Title"
@@ -86,6 +94,7 @@ class ContactUs extends Component {
               <TextField
                 name="content"
                 id="content"
+                floatingLabelStyle={styles.floatingLabelStyle}
                 multiLine={true}
                 value={content}
                 onChange={this.handleChange}
