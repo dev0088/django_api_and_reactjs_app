@@ -98,7 +98,8 @@ class VideoPractice extends React.Component {
           __this.requestUserMedia();
         })
     });
-    this.props.videoActions.getVideoQuestionsActions();
+    const { pageId } = this.props.match.params;
+    this.props.videoActions.getVideoQuestionsActions(pageId);
     this.props.videoActions.getVideoSettingsActions();
   }
 
@@ -441,6 +442,7 @@ class VideoPractice extends React.Component {
   }
 
   render () {
+    const { pageId } = this.props.match.params;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
     }
@@ -559,6 +561,7 @@ class VideoPractice extends React.Component {
         {isPlayBackOpen &&  // Show playback.
           <VideoPlayBack
             url={src}
+            pageId={pageId}
             currentQuestion={currentQuestion}
             onSettings={this.adjustSettings}
             onNext={this.onNextQuestion}

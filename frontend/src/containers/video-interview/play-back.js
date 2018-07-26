@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const styles={
   raisedButton: {
@@ -9,7 +10,7 @@ const styles={
   }
 }
 export default function VideoPlayBack(props) {
-  console.log();
+  
   return (<div className="row video-playback">
     <div className="video-box col-md-12">
       {props.url && 
@@ -44,14 +45,16 @@ export default function VideoPlayBack(props) {
       />
     </div> }
 
-    { props.currentQuestion === 4 &&
+    { props.pageId==='cruise' && props.currentQuestion === 4 &&
     <div className="col-md-12">
-      <RaisedButton
-        label="Let's Go Live!"
-        className="btnn-video-buttons btn-vpb"
-        style={styles.raisedButton}
-        primary={true}
-      />
+      <Link to={"/interview-instruction-live/" + props.pageId}>
+        <RaisedButton
+          label="Let's Go Live!"
+          className="btnn-video-buttons btn-vpb"
+          style={styles.raisedButton}
+          secondary={true}
+        />
+      </Link>
     </div> }
 
     <div className="col-md-12">

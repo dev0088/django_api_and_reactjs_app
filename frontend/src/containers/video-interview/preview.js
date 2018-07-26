@@ -113,13 +113,22 @@ class VideoPreview extends React.Component {
       </div>
 
       <div className="col-md-12">
-        <Link to="/video-practice">
-          <RaisedButton
-            label="Start Practice Questions"
-            className="btnn-video-buttons"
-            style={styles.raisedButton}
-            primary={true}
-          />
+        <Link to={"/video-practice/" + pageId}>
+        {
+        (pageId==='cruise') ? (
+            <RaisedButton
+              label="Start Practice Questions"
+              className="btnn-video-buttons"
+              style={styles.raisedButton}
+              primary={true}
+            />) : (
+            <RaisedButton
+              label="Start Live Questions"
+              className="btnn-video-buttons"
+              style={styles.raisedButton}
+              primary={true}
+            />)
+        }
         </Link>
       </div>
       <div className="col-md-12">
