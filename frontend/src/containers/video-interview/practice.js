@@ -168,9 +168,11 @@ class VideoPractice extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
-              __this.setState({timePos: 1});
+              __this.videoRecordStart();
+              __this.setState({ timePos: 1, isStopped: false, isPlaying: true });
             } else {
-              __this.setState({isStopped: true});
+              __this.setState({ isStopped: true });
+              __this.videoRecordStop();
             }
           } else {
             const newRemaining = [];
@@ -186,7 +188,7 @@ class VideoPractice extends React.Component {
   }
 
   requestUserMedia() {
-    const { resolution, frameRate, bitRate } = this.state;
+    const { resolution, frameRate } = this.state;
     let options = {mandatory: {}};
     if (resolution !== 1 ){
       options['mandatory']['minWidth'] = resolutionSize[resolution][0];
