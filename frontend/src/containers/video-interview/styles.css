@@ -6,7 +6,8 @@
 
 .video-interview-header {
   margin-bottom: 20px;
-  padding-bottom: 35px;
+  padding-top: 5px;
+  padding-bottom: 15px;
   border-bottom: 2px solid #000;
 }
 .video-interview-header:after{
@@ -197,4 +198,20 @@ canvas {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.video-interview-body{
+  margin-top: 140px;
+  font-size: 24px;
+  line-height: 2.4;
+}
+.video-instruction-body{
+  font-size: 17px;
+  text-align: left;
+  line-height: 1.6;
+}
+.video-access-body{
+  height: 600px;
+}
+.video-access-body p{
+  font-size: 24px;
 }

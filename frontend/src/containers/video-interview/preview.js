@@ -11,11 +11,25 @@ const styles={
     width: "240px",
   }
 }
+const title = {
+  "cruise": "Cruise Staff",
+  "audio": "Audio Technician",
+  "light-technician": "Lighting Technician",
+  "vocalist": "Vocalist",
+  "dancer": "Dancer",
+  "actor": "Actor",
+  "aerialist": "Aerialist",
+  "solo-musician": "Solo Musician",
+  "music-group-leader": "Musical Group Leader",
+  "video-technician": "Video Technician",
+  "youth-staff": "Youth Staff"
+}
 class VideoPreview extends React.Component {
   render () {
+    const { pageId } = this.props.match.params;
     return <div className="video-interview">
       <div className="video-interview-header">
-        <h1>My Video Interview (Cruise Staff)</h1>
+        <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
         <h3>Video and Audio Preview</h3>
       </div>
 

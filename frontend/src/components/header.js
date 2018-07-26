@@ -78,7 +78,7 @@ class Header extends Component {
 
           </Link>
           { loggedIn && (
-              <MenuItem href="/video-interview" style={styles.menuitem} primaryText="Video Interview" />
+              <MenuItem href="/interview-start" style={styles.menuitem} primaryText="Video Interview" />
             )
           }
           <NavbarToggler onClick={this.toggleDropDown} />

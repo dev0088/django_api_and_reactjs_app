@@ -40,33 +40,35 @@ class VideoPractice extends React.Component {
       recordVideo: null,
       uploadSuccess: null,
       uploading: false,
+      settings: [],
     };
 
   }
   componentWillMount() {
-    let __this = this;
+    let __this = this, detectError = [];
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
       if (!DetectRTC.hasWebcam)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Video Camera isn't connected. Check your camera");
+        detectError.push("Video Camera isn't connected. Check your camera.");
       }else if (!DetectRTC.isWebsiteHasWebcamPermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Your website doesn't have camera permission."); 
+        detectError.push("Your website doesn't have camera permission."); 
       }
       if (!DetectRTC.hasMicrophone)
       {
         __this.setState({ config: false, alertOpen: true });
-        __this.state.errors.push("Microphone isn't connected. Check your microphone");
+        detectError.push("Microphone isn't connected. Check your microphone.");
       }
       else if (!DetectRTC.isWebsiteHasMicrophonePermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        __this.state.errors.push("Your website doesn't have microphone permission."); 
+        detectError.push("Your website doesn't have microphone permission."); 
       }
+      __this.setState({ errors: detectError });
       __this.requestUserMedia();
     });
     this.props.videoActions.getVideoQuestionsActions();
@@ -327,6 +329,9 @@ class VideoPractice extends React.Component {
       this.onError(fileID, file)
     })
   }
+  onSettings = () => {
+
+  }
   showSpinner = (b) => {
     return b ? (<div className="spinner">
                   <div className="loading_text">
@@ -440,6 +445,7 @@ class VideoPractice extends React.Component {
           <VideoPlayBack
             url={src}
             currentQuestion={currentQuestion}
+            onSettings={this.onSettings}
             onNext={this.onNextQuestion}
             onBack={this.onBack}
           />
