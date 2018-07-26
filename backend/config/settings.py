@@ -43,8 +43,7 @@ THIRD_PARTY_APPS = (
     'rest_framework.authtoken',
     'corsheaders',
 	'rest_framework_swagger',
-    's3direct',
-    'buckets'
+    'coreapi'
 )
 
 LOCAL_APPS = (

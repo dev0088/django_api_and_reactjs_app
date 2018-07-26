@@ -31,9 +31,4 @@ class RegistrationAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        # Create talent
-        user_instance = User.objects.get(username=user['username'])
-        if not user_instance:
-            talent = Talent.objects.create(user=user_instance.id)
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)

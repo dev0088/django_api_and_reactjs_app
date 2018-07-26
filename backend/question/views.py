@@ -1,31 +1,99 @@
 from django.shortcuts import render
-
+import coreapi
+import coreschema
 # Create your views here.
 from question.models import Question
 from question.serializers import QuestionSerializer
+from talent_position_type.models import TalentPositionType
 from talent_position_sub_type.models import TalentPositionSubType
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.filters import BaseFilterBackend
+from rest_framework.schemas import ManualSchema
 import random
 
 
+class QuestionPracticeRamdomList(APIView):
+    """
+    Retrieve 5 practice questions randomly.
+    """
+    def get(self, request, format=None):
+        try:
+            position_type_name = 'Practice'
+            position_type = TalentPositionType.objects.get(name=position_type_name)
+            questions = Question.objects.filter(talent_position_type=position_type.id)
+        except TalentPositionType.DoesNotExist:
+            raise Http404
+
+        if len(questions) > 5:
+            # generate random numbers
+            randnums = random.sample(range(len(questions)), 5)
+
+            # create new question list with the random numbers
+            random_questions = []
+            for index in randnums:
+                random_questions.append(questions[index])
+
+            serializer = QuestionSerializer(random_questions, many=True)
+            return Response(serializer.data)
+        else :
+            serializer = QuestionSerializer(questions, many=True)
+            return Response(serializer.data)
+
+
+class SimpleFilterBackend(BaseFilterBackend):
+    def get_schema_fields(self, view):
+        return [coreapi.Field(
+            "position_type",
+            required=True,
+            location="path",
+            schema=coreschema.String()
+            ),
+            coreapi.Field(
+                "position_sub_type",
+                required=False,
+                location="path",
+                schema=coreschema.String()
+            ),]
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(owner=request.user)
+
 class QuestionRamdomList(APIView):
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "position_type",
+            required=True,
+            location="path",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "position_sub_type",
+            required=False,
+            location="path",
+            schema=coreschema.String()
+        ),
+    ])
+    # filter_backends = (SimpleFilterBackend,)
     """
     Retrieve 5 questions randomly.
     """
     def get(self, request, format=None):
         try:
             position_type = request.query_params.get('position_type') #request.query_params.get('position_type')
-            position_sub_type = request.query_params.get('position_sub_type') #request.qurey_params.get('position_sub_type')
-
-            if not position_type or not position_sub_type:
+            position_sub_type = request.query_params.get('position_sub_type') #request.query_params.get('position_type')
+            
+            if not position_type:
                 questions = Question.objects.all()
             else :
-                position_sub_type = TalentPositionSubType.objects.get(name=position_sub_type)
-                questions = Question.objects.filter(talent_position_sub_type=position_sub_type.id)
-        except TalentPositionSubType.DoesNotExist:
+                position_type = TalentPositionType.objects.get(name=position_type)
+                if not position_sub_type:
+                    print('===== filter question: ', position_type.id)
+                    questions = Question.objects.filter(talent_position_type=position_type.id)
+                else: 
+                    questions = Question.objects.filter(talent_position_type=position_type.id).filter(talent_position_sub_type=position_sub_type)
+        except TalentPositionType.DoesNotExist:
             raise Http404
 
         if len(questions) > 5:
@@ -42,12 +110,7 @@ class QuestionRamdomList(APIView):
         else :
             serializer = QuestionSerializer(questions, many=True)
             return Response(serializer.data)
-    # def post(self, request, format=None):
-    #     serializer = QuestionSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class QuestionDetail(APIView):
     """
@@ -63,16 +126,3 @@ class QuestionDetail(APIView):
         question_item = self.get_object(pk)
         serializer = QuestionSerializer(question_item)
         return Response(serializer.data)
-
-    # def put(self, request, pk, format=None):
-    #     question_item = self.get_object(pk)
-    #     serializer = QuestionSerializer(question_item, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-	#
-    # def delete(self, request, pk, format=None):
-    #     question_item = self.get_object(pk)
-    #     question_item.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
