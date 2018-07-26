@@ -4,7 +4,7 @@
 .profile-image img{
 	width: 100%;
 }
-.profile-buttons > div{
+.profile-buttons > div, .profile-buttons a > div{
 	margin-bottom: 15px;
 }
 .profile-container .details-content{

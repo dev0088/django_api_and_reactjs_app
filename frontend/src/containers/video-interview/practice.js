@@ -28,6 +28,12 @@ const styles={
     color: "#258df2",
   },
 }
+const resolutionSize = {
+  1: [],
+  2: [1920, 1080],
+  3: [1280, 720],
+  4: [640, 480]
+}
 class VideoPractice extends React.Component {
   constructor() {
     super();
@@ -60,6 +66,7 @@ class VideoPractice extends React.Component {
 
   componentWillMount() {
     let __this = this, detectError = [];
+    let { deviceSettings } = this.props;
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
@@ -83,7 +90,13 @@ class VideoPractice extends React.Component {
         detectError.push("Your website doesn't have microphone permission."); 
       }
       __this.setState({ errors: detectError });
-      __this.requestUserMedia();
+      __this.setState({ 
+          resolution: deviceSettings.resolution,
+          frameRate: deviceSettings.frameRate,
+          bitRate: deviceSettings.bitRate
+        }, function(){
+          __this.requestUserMedia();
+        })
     });
     this.props.videoActions.getVideoQuestionsActions();
     this.props.videoActions.getVideoSettingsActions();
@@ -94,7 +107,7 @@ class VideoPractice extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { videoSettings, deviceSettings } = nextProps;
+    let { videoSettings } = nextProps;
     let wait = [], remain = [];
     if (videoSettings['value']['video_interview_prep_countdown'])
       wait[0] = remain[0] = videoSettings['value']['video_interview_prep_countdown'];
@@ -108,9 +121,6 @@ class VideoPractice extends React.Component {
       { 
         waitingTime: wait, 
         remainingTime: remain,
-        resolution: deviceSettings.resolution,
-        frameRate: deviceSettings.frameRate,
-        bitRate: deviceSettings.bitRate
       });
   }
 
@@ -176,9 +186,22 @@ class VideoPractice extends React.Component {
   }
 
   requestUserMedia() {
-    // console.log('requestUserMedia');
-    captureUserMedia((stream) => {
-      this.setState({ src: window.URL.createObjectURL(stream) });
+    const { resolution, frameRate, bitRate } = this.state;
+    let options = {mandatory: {}};
+    if (resolution !== 1 ){
+      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
+      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    }
+    if (frameRate !== 0){
+      options['mandatory']['minFrameRate'] = frameRate;
+    }
+    captureUserMedia(options, (stream) => {
+      try {
+        this.setState({ src: stream });
+      }
+      catch(error) {
+        this.setState({ src: window.URL.createObjectURL(stream) });
+      }
     });
   }
 
@@ -205,10 +228,13 @@ class VideoPractice extends React.Component {
 
   videoRecordStart = () => {
     let mimeType = "video/webm\;codecs=h264";
+    let __this = this;
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
     }
-    let options = {
+    const { resolution, frameRate, bitRate } = this.state;
+    let options = {mandatory: {}};
+    let rtcOptions = {
       checkForInactiveTracks: false,
       disableLogs: false,
       getNativeBlob: false,
@@ -216,9 +242,19 @@ class VideoPractice extends React.Component {
       mimeType: mimeType,
       type: "video"
     }
-    captureUserMedia((stream) => {
-      this.state.recordVideo = RecordRTC(stream, options);
-      this.state.recordVideo.startRecording();
+    if (resolution !== 1 ){
+      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
+      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    }
+    if (frameRate !== 0){
+      options['mandatory']['minFrameRate'] = frameRate;
+    }
+    if (bitRate !== 0)
+      rtcOptions['videoBitsPerSecond'] = bitRate;
+    captureUserMedia(options, (stream) => {
+      __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
+        __this.state.recordVideo.startRecording();
+      })
     });
   }
 
@@ -548,7 +584,7 @@ class VideoPractice extends React.Component {
             <MenuItem value={4} primaryText="480p" />
           </SelectField>
           <SelectField
-            floatingLabelText="FrameRate"
+            floatingLabelText="Frame Rate"
             floatingLabelStyle={styles.floatingLabelStyle}
             className="dlg-select"
             value={frameRate}

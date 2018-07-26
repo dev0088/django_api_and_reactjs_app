@@ -1,6 +1,6 @@
 // handle user media capture
-export function captureUserMedia(callback) {
-  var params = { audio: true, video: true };
+export function captureUserMedia(options, callback) {
+  var params = { audio: true, video: options };
   navigator.mediaDevices.getUserMedia(params).then(callback).catch(function(error) {
   	console.log(error);
       if(error && error.name === 'ConstraintNotSatisfiedError') {

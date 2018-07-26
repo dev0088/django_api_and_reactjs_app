@@ -161,7 +161,7 @@ class VideoPreview extends React.Component {
           <MenuItem value={4} primaryText="480p" />
         </SelectField>
         <SelectField
-          floatingLabelText="FrameRate"
+          floatingLabelText="Frame Rate"
           floatingLabelStyle={styles.floatingLabelStyle}
           className="dlg-select"
           value={frameRate}
