@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from datetime import datetime, timedelta, date
 from authentication.models import User
+from talent_position_sub_type.models import TalentPositionSubType
 
 SEX_CHOICES = (
     ('m', 'Male'),
@@ -19,8 +20,8 @@ class Talent(models.Model):
 
 	### general info
 	sex = models.CharField(choices=SEX_CHOICES, default='Male', max_length=10)
-	# talent_type: has_one -> talent_types table
-  	# skills: has_many -> talent_skills
+	talent_position_sub_type = models.ForeignKey(TalentPositionSubType, related_name='talents', on_delete=models.SET_DEFAULT, null=True, blank=True, default=None)
+  # skills: has_many -> talent_skills
 
 	### business stuff ###
 	# contact info
@@ -94,7 +95,11 @@ class Talent(models.Model):
     Returns a string representation of this `Talent`.
     This string is used when a `Talent` is printed in the console.
     """
-		return self.user.username + ', ' + self.user.email
+		return "{talent_id}, {user_name}, {email}".format(
+						talent_id=self.id,
+						user_name=self.user.username, 
+						email=self.user.email
+					)
 
 	class Meta:
 		db_table = "talent"
