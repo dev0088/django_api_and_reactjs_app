@@ -452,6 +452,7 @@ class VideoPractice extends React.Component {
         }
       </div>) : (<div className="video-black">
         <Dialog
+          title="Error"
           actions={actions}
           modal={false}
           open={this.state.alertOpen}

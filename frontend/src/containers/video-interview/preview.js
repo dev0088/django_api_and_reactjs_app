@@ -1,6 +1,8 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import { connect } from 'react-redux';
 
 import './styles.css'
@@ -29,14 +31,34 @@ class VideoPreview extends React.Component {
   constructor() {
     super();
     this.state = {
-      
+      settingDlg: false,
+      alertOpen: false
     }
   }
   adjustSettings = () => {
-    console.log('adjust');
+    this.setState({ settingDlg: true });
+  }
+  handleUpdateSetting = () => {
+
+  }
+  handleDialogClose = () => {
+    this.setState({ settingDlg: false });
   }
   render () {
     const { pageId } = this.props.match.params;
+    const { settingDlg } = this.state;
+    const actions = [
+      <FlatButton
+        label="Update"
+        primary={true}
+        onClick={this.handleUpdateSetting}
+      />,
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleDialogClose}
+      />,
+    ];
     return <div className="video-interview">
       <div className="video-interview-header">
         <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
@@ -77,6 +99,16 @@ class VideoPreview extends React.Component {
           primary={true}
         />
       </div>
+
+      <Dialog
+        actions={actions}
+        title="Video and Audio Settings"
+        modal={false}
+        open={this.state.settingDlg}
+        onRequestClose={this.handleDialogClose}
+      >
+        
+      </Dialog>
     </div>
   }
 }
