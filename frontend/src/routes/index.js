@@ -18,6 +18,7 @@ import ForgotPasswordScreen from '../containers/forgotPasswordScreen';
 import Error from '../components/error';
 import InterviewStart from "../containers/video-interview/start";
 import InterviewInstruction from "../containers/video-interview/instruction";
+import InterviewInstructionLive from "../containers/video-interview/instruction-live";
 import InterviewDeviceAllow from "../containers/video-interview/allow";
 import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
@@ -94,6 +95,15 @@ const Index = () => (
     />
 
     <Route
+      path="/interview-instruction-live/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <InterviewInstructionLive {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
       path="/interview-device-allow/:pageId"
       render={props => (
         <TemplateTopbar>
@@ -112,7 +122,7 @@ const Index = () => (
     />
 
     <Route
-      path="/video-practice"
+      path="/video-practice/:pageId"
       render={props => (
         <TemplateTopbar>
           <VideoPractice {...props} />

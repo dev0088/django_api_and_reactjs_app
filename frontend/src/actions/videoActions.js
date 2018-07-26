@@ -2,15 +2,15 @@ import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
-export const getVideoQuestionsActions = () => ({
-	  [RSAA]: {
-        endpoint: `${apiConfig.url}/question/practice/random`,
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        types: [
-          types.VIDEO_QUESTION.REQUEST, types.VIDEO_QUESTION.SUCCESS, types.VIDEO_QUESTION.FAILURE
-        ]
-      }
+export const getVideoQuestionsActions = (id) => ({
+  [RSAA]: {
+    endpoint: ((id === 'cruise') ? `${apiConfig.url}/question/practice/random` : `${apiConfig.url}/question/practice/random/position_type=${id}`),
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    types: [
+      types.VIDEO_QUESTION.REQUEST, types.VIDEO_QUESTION.SUCCESS, types.VIDEO_QUESTION.FAILURE
+    ]
+  }
 })
 
 export const getVideoSettingsActions = () => ({
