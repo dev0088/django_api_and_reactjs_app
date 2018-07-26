@@ -41,7 +41,7 @@ class InterviewDeviceAllow extends React.Component {
   componentWillMount() {
     let __this = this, detectError = [];
     DetectRTC.load(function() {
-      // console.log(DetectRTC);
+      console.log(DetectRTC);
       if (!DetectRTC.hasWebcam)
       {
         __this.setState({ videoDevice: false, videoAllow: false })
@@ -64,6 +64,30 @@ class InterviewDeviceAllow extends React.Component {
       }
       __this.setState({ errors: detectError });
     });
+  }
+  updateError = (search) => {
+    let detectError = this.state.errors;
+    detectError = detectError.filter(e => e.indexOf(search) === -1);
+    this.setState({ errors: detectError });
+  }
+  enableDevice = () => {
+    var __this = this;
+    var video = document.createElement('video');
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        __this.setState( {videoAllow: true} );
+        __this.updateError("camera permission");
+      });
+      navigator.getUserMedia({audio:true}, 
+          function(stream) {
+            __this.setState({ audioAllow: true });
+            __this.updateError("microphone permission");
+          },
+          function(e) {
+            alert('Error capturing audio.');
+          }
+        );
+    }
   }
   render() {
     const { pageId } = this.props.match.params;
@@ -95,25 +119,29 @@ class InterviewDeviceAllow extends React.Component {
               />
             </div>
             ) : (
-            (!audioDevice || !videoDevice) ? 
-              (<div className="col-md-8"> 
+              <React.Fragment>
+                <div className="col-md-8"> 
+                  {
+                    errors.map((error, index) => {
+                      console.log(error, index);
+                      return (<Alert color="warning" key={index}>{error}</Alert>);
+                    })
+                  }
+                </div>
                 {
-                  errors.map((error, index) => {
-                    console.log(error, index);
-                    return (<Alert color="warning" key={index}>{error}</Alert>);
-                  })
+                  audioDevice && videoDevice && 
+                    (<div className="col-md-8">
+                      <p>Click <b>Allow</b> when prompted.</p>
+                      <RaisedButton
+                        label="Enable Camera and Microphone"
+                        className="btnn-video-buttons"
+                        style={styles.raisedLongButton}
+                        primary={true}
+                        onClick={this.enableDevice}
+                      />
+                    </div>)
                 }
-              </div>): 
-              (<div className="col-md-8">
-                <p>Click <b>Allow</b> when prompted.</p>
-                <RaisedButton
-                  label="Enable Camera and Microphone"
-                  className="btnn-video-buttons"
-                  style={styles.raisedLongButton}
-                  primary={true}
-                />
-              </div>)
-          )
+              </React.Fragment>)
         }
         </div>
       </div>)
