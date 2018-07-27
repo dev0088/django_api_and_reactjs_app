@@ -3,8 +3,7 @@ import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router-dom';
 import {
   Alert,
 } from 'reactstrap';
@@ -13,14 +12,12 @@ import { bindActionCreators } from 'redux';
 import RecordRTC from 'recordrtc';
 import DetectRTC from "detectrtc";
 
-import * as talentActions from  '../../actions/talentActions';
 import * as videoActions from  '../../actions/videoActions';
 import * as deviceActions from  '../../actions/deviceSettings';
 import AudioMeter from "../../components/audio-meter/index";
 
 import './styles.css';
 import RecordCtl from "../../components/record-ctl/index";
-import VideoPlayBack from "./play-back";
 import apiConfig from '../../constants/api';
 import { captureUserMedia } from '../../utils/appUtils';
 
@@ -35,7 +32,20 @@ const resolutionSize = {
   3: [1280, 720],
   4: [640, 480]
 }
-class VideoPractice extends React.Component {
+const title = {
+  "cruise": "Cruise Staff",
+  "audio": "Audio Technician",
+  "light-technician": "Lighting Technician",
+  "vocalist": "Vocalist",
+  "dancer": "Dancer",
+  "actor": "Actor",
+  "aerialist": "Aerialist",
+  "solo-musician": "Solo Musician",
+  "music-group-leader": "Musical Group Leader",
+  "video-technician": "Video Technician",
+  "youth-staff": "Youth Staff"
+}
+class LiveInterview extends React.Component {
   constructor() {
     super();
 
@@ -44,7 +54,6 @@ class VideoPractice extends React.Component {
       currentQuestion: 0,
       isStopped: false,
       isPlaying: false,
-      isPlayBackOpen: false,
       alertOpen: false,
       errors: [],
       waitingTime: [30, 120],
@@ -57,10 +66,6 @@ class VideoPractice extends React.Component {
       uploading: false,
       settings: [],
 
-      settingDlg: false,
-      resolution: 1,
-      frameRate: 0,
-      bitRate: 0,
     };
 
   }
@@ -100,18 +105,11 @@ class VideoPractice extends React.Component {
         })
     });
     const { pageId } = this.props.match.params;
-    this.props.videoActions.getVideoQuestionsActions(pageId, 'practice');
+    this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
     this.props.videoActions.getVideoSettingsActions();
   }
 
   componentDidMount() {
-    let __this = this;
-    setTimeout(function() {
-      let { access } = __this.props.auth;
-      if (access.user_id){
-        __this.props.talentActions.getTalentInfo(access.user_id);
-      }
-    }, 400);
     this.countDown();
   }
 
@@ -131,38 +129,6 @@ class VideoPractice extends React.Component {
         waitingTime: wait, 
         remainingTime: remain,
       });
-  }
-
-  adjustSettings = () => {
-    this.setState({ settingDlg: true });
-  }
-
-  handleDialogClose = () => {
-    this.setState({ settingDlg: false });
-  }
-
-  handleResolutionChange = (event, index, resolution1) => {
-    const { frameRate, bitRate } = this.state;
-    this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
-    );
-    this.setState({resolution: resolution1});
-  }
-
-  handleFrameChange = (event, index, frameRate1) => {
-    const { resolution, bitRate } = this.state;
-    this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
-    );
-    this.setState({frameRate: frameRate1});
-  }
-
-  handleBitRateChange = (event, index, bitRate1) => {
-    const { resolution, frameRate } = this.state;
-    this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
-    );
-    this.setState({bitRate: bitRate1});
   }
 
   countDown = () => {
@@ -296,7 +262,6 @@ class VideoPractice extends React.Component {
     remainingTime[0] = waitingTime[0];
     remainingTime[1] = waitingTime[1];
     this.setState({
-      isPlayBackOpen: false,
       currentQuestion: this.state.currentQuestion + 1,
       isStopped: false,
       isPlaying: false,
@@ -311,7 +276,6 @@ class VideoPractice extends React.Component {
     remainingTime[0] = waitingTime[0];
     remainingTime[1] = waitingTime[1];
     this.setState({
-      isPlayBackOpen: false,
       currentQuestion: 0,
       isStopped: false,
       isPlaying: false,
@@ -320,10 +284,6 @@ class VideoPractice extends React.Component {
       this.countDown();
     });
   };
-
-  openPlayBack = () => {
-    this.setState({isPlayBackOpen: true});
-  }
 
   handleAlertClose = () => {
     this.setState({alertOpen: false});
@@ -450,26 +410,18 @@ class VideoPractice extends React.Component {
   }
 
   render () {
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
+    const { pageId } = this.props.match.params;
     const { 
       config, 
       errors, 
       currentQuestion, 
       isStopped,
       isPlaying,
-      isPlayBackOpen, 
       waitingTime, 
       remainingTime,
       timePos,
-      src,
       uploading,
 
-      settingDlg,
-      resolution,
-      frameRate,
-      bitRate,
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -485,21 +437,6 @@ class VideoPractice extends React.Component {
         onClick={this.handleAlertClose}
       />,
     ];
-    const settingsAction = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleDialogClose}
-      />,
-    ];
-    const { talentInfo } = this.props;
-    let positionName = "";
-    if (talentInfo.value){
-      const { talent_position_sub_type } = talentInfo.value;
-      if (talent_position_sub_type)
-        positionName = talent_position_sub_type.talent_position_type.toLowerCase();
-    }
-
     if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
       question = videoQuestions.value[currentQuestion]['content'];
     return config ? (<div className="video-practice">
@@ -507,11 +444,12 @@ class VideoPractice extends React.Component {
         <div className="video-interview-header">
           <h3>
             <span className="pull-left">Question {currentQuestion + 1} of 5</span>
-            <span className="pull-right">Video Interview for Practice</span>
+            <span className="pull-right">Video Interview ({title[pageId] && title[pageId]})</span>
           </h3>
+          <h5 className="text-center">Live!</h5>
         </div>
 
-        {!isPlayBackOpen && videoQuestions && videoQuestions.isFetched &&
+        {videoQuestions && videoQuestions.isFetched &&
         <React.Fragment>
           <div className="row">
             <div className="col-sm-12 question-box">
@@ -542,99 +480,61 @@ class VideoPractice extends React.Component {
           </div>
         </React.Fragment>
         }
-        { !isPlayBackOpen && 
-          (<div className="col-md-12 playbackbtn-wrapper">
-            { (!isPlaying && !isStopped && (
-                <RaisedButton
-                  label={'Start Recording'}
-                  className="btn-start-start"
-                  onClick={this.onStartRecord}
-                  primary={true}
-                />
-              ))
-            }
-            {
-              ((isPlaying && !isStopped) && (
-                <RaisedButton
-                  label={'Stop Recording'}
-                  className="btn-start-stop"
-                  onClick={this.onStopRecord}
-                />
-              ))
-            }
-            {isStopped &&
+        <div className="col-md-12 livebuttons-wrapper">
+          { (!isPlaying && !isStopped && (
               <RaisedButton
-                label="Play Back"
-                className="btn-playback"
-                onClick={this.openPlayBack}
+                label={'Start Recording'}
+                className="btn-start-start"
+                onClick={this.onStartRecord}
                 primary={true}
               />
-            }
-          </div>)
-        }
-
-        {isPlayBackOpen &&  // Show playback.
-          <VideoPlayBack
-            url={src}
-            pageId={positionName}
-            currentQuestion={currentQuestion}
-            onSettings={this.adjustSettings}
-            onNext={this.onNextQuestion}
-            onBack={this.onBack}
-          />
-        }
-        <Dialog
-          actions={settingsAction}
-          title="Video and Audio Settings"
-          modal={false}
-          open={settingDlg}
-          onRequestClose={this.handleDialogClose}
-        >
-          <SelectField
-            floatingLabelText="Resolutions"
-            floatingLabelStyle={styles.floatingLabelStyle}
-            className="dlg-select"
-            value={resolution}
-            onChange={this.handleResolutionChange}
-            menuItemStyle={selectItemStyle}
-          >
-            <MenuItem value={1} primaryText="Default" />
-            <MenuItem value={2} primaryText="1080p" />
-            <MenuItem value={3} primaryText="720p" />
-            <MenuItem value={4} primaryText="480p" />
-          </SelectField>
-          <SelectField
-            floatingLabelText="Frame Rate"
-            floatingLabelStyle={styles.floatingLabelStyle}
-            className="dlg-select"
-            value={frameRate}
-            onChange={this.handleFrameChange}
-            menuItemStyle={selectItemStyle}
-          >
-            <MenuItem value={0} primaryText="Default" />
-            <MenuItem value={5} primaryText="5 fps" />
-            <MenuItem value={15} primaryText="15 fps" />
-            <MenuItem value={24} primaryText="24 fps" />
-            <MenuItem value={30} primaryText="30 fps" />
-            <MenuItem value={60} primaryText="60 fps" />
-          </SelectField>
-          <SelectField
-            floatingLabelText="Media BitRate"
-            floatingLabelStyle={styles.floatingLabelStyle}
-            className="dlg-select"
-            value={bitRate}
-            onChange={this.handleBitRateChange}
-            menuItemStyle={selectItemStyle}
-          >
-            <MenuItem value={0} primaryText="Default" />
-            <MenuItem value={8000000000} primaryText="1 GB bps" />
-            <MenuItem value={800000000} primaryText="100 MB bps" />
-            <MenuItem value={8000000} primaryText="1 MB bps" />
-            <MenuItem value={800000} primaryText="100 KB bps" />
-            <MenuItem value={8000} primaryText="1 KB bps" />
-            <MenuItem value={800} primaryText="100 Bytes bps" />
-          </SelectField>
-        </Dialog>
+            ))
+          }
+          {
+            ((isPlaying && !isStopped) && (
+              <RaisedButton
+                label={'Stop Recording'}
+                className="btn-start-stop"
+                onClick={this.onStopRecord}
+              />
+            ))
+          }
+          {isStopped &&
+            (<React.Fragment>
+              {currentQuestion < 3 &&
+                <RaisedButton
+                  label="Next Practice Question"
+                  className="btnn-video-buttons btn-vpb"
+                  style={styles.raisedButton}
+                  primary={true}
+                  onClick={this.onNextQuestion}
+                /> }
+              {currentQuestion === 3 &&
+                <RaisedButton
+                  label="Final Question"
+                  className="btnn-video-buttons btn-vpb"
+                  style={styles.raisedButton}
+                  primary={true}
+                  onClick={this.onNextQuestion}
+                />}
+              {currentQuestion === 4 && 
+                <Link to="/edit-profile">
+                  <RaisedButton
+                    label="Back to My Cruise Staff Audition Videos"
+                    className="btnn-video-buttons btn-vpb"
+                    primary={true}
+                    style={styles.raisedButton}
+                  />
+                </Link>
+              }
+            </React.Fragment>)
+          }
+        </div>
+        <div className="interview-status">
+          { !isPlaying && !isStopped && (<span>Begin Your Response</span>) }
+          { isStopped && currentQuestion < 4 && (<span>Response Completed.  Thank you.</span>)}
+          { isStopped && currentQuestion === 4 && (<span>That’s it!  You’re all done. <br/>Thank you for your responses.</span>)}
+        </div>
       </div>) : (<div className="video-black">
         <Dialog
           title="Error"
@@ -655,14 +555,12 @@ class VideoPractice extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings, deviceSettings, getTalentInfo } = state;
-  // let vq = {value: ["aaa", "bbb"], isFetched: true};
+  const { auth, videoQuestions, videoSettings, deviceSettings } = state;
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
-    talentInfo: getTalentInfo
   }
 }
 
@@ -670,7 +568,6 @@ function mapDispatchToProps(dispatch) {
   return {
     videoActions: bindActionCreators(videoActions, dispatch),
     deviceActions: bindActionCreators(deviceActions, dispatch),
-    talentActions: bindActionCreators(talentActions, dispatch),
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(VideoPractice);
+export default connect(mapStateToProps, mapDispatchToProps)(LiveInterview);

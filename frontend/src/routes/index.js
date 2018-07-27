@@ -22,6 +22,8 @@ import InterviewInstructionLive from "../containers/video-interview/instruction-
 import InterviewDeviceAllow from "../containers/video-interview/allow";
 import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
+import LiveInterview from "../containers/video-interview/live";
+
 
 import MyProfile from "../containers/myProfile";
 import MyAcount from "../containers/myAccount";
@@ -117,6 +119,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <VideoPreview {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/live-interview/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <LiveInterview {...props} />
         </TemplateTopbar>
       )}
     />

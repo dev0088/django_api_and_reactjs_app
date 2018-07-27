@@ -8,6 +8,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as talentActions from  '../../actions/talentActions';
 
 import './styles.css'
 import * as deviceActions from  '../../actions/deviceSettings';
@@ -51,6 +52,16 @@ class VideoPreview extends React.Component {
       frameRate: 0,
       bitRate: 0,
     }
+  }
+
+  componentDidMount() {
+    let __this = this;
+    setTimeout(function() {
+      let { access } = __this.props.auth;
+      if (access.user_id){
+        __this.props.talentActions.getTalentInfo(access.user_id);
+      }
+    }, 400);
   }
 
   adjustSettings = () => {
@@ -98,6 +109,14 @@ class VideoPreview extends React.Component {
         onClick={this.handleDialogClose}
       />,
     ];
+    const { talentInfo } = this.props;
+    let positionName = "";
+    if (talentInfo.value){
+      const { talent_position_sub_type } = talentInfo.value;
+      if (talent_position_sub_type)
+        positionName = talent_position_sub_type.talent_position_type.toLowerCase();
+    }
+
     return <div className="video-interview">
       <div className="video-interview-header">
         <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
@@ -114,21 +133,22 @@ class VideoPreview extends React.Component {
 
       <div className="col-md-12">
         <Link to={"/video-practice/" + pageId}>
-        {
-        (pageId==='cruise') ? (
-            <RaisedButton
-              label="Start Practice Questions"
-              className="btnn-video-buttons"
-              style={styles.raisedButton}
-              primary={true}
-            />) : (
-            <RaisedButton
-              label="Start Live Questions"
-              className="btnn-video-buttons"
-              style={styles.raisedButton}
-              primary={true}
-            />)
-        }
+          <RaisedButton
+            label="Start Practice Questions"
+            className="btnn-video-buttons"
+            style={styles.raisedButton}
+            primary={true}
+          />
+        </Link>
+      </div>
+      <div className="col-md-12">
+        <Link to={"/interview-instruction-live/" + positionName}>
+          <RaisedButton
+            label="Start Live Questions"
+            className="btnn-video-buttons"
+            style={styles.raisedButton}
+            secondary={true}
+          />
         </Link>
       </div>
       <div className="col-md-12">
@@ -141,12 +161,14 @@ class VideoPreview extends React.Component {
         />
       </div>
       <div className="col-md-12">
-        <RaisedButton
-          className="btnn-video-buttons btnn-not-ready"
-          style={styles.raisedButton}
-          label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-          primary={true}
-        />
+        <Link to="/edit-profile">
+          <RaisedButton
+            className="btnn-video-buttons btnn-not-ready"
+            style={styles.raisedButton}
+            label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
+            primary={true}
+          />
+        </Link>
       </div>
 
       <Dialog
@@ -206,14 +228,16 @@ class VideoPreview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth } = state;
+  const { auth, getTalentInfo } = state;
   return {
-    auth: auth
+    auth: auth,
+    talentInfo: getTalentInfo
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     deviceActions: bindActionCreators(deviceActions, dispatch),
+    talentActions: bindActionCreators(talentActions, dispatch),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPreview);

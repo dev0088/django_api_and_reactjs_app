@@ -77,10 +77,9 @@ class InterviewInstructionLive extends React.Component {
           </p>
           <br/><br/>
           {
-            positionName !== 'cruise' &&
-            <Link to={"/video-interview/" + positionName}>
+            <Link to={"/live-interview/" + positionName}>
               <RaisedButton
-                label="Let's Go Live!"
+                label="Begin My Video Interview"
                 className="btnn-video-buttons btn-vpb"
                 style={styles.raisedButton}
                 secondary={true}
