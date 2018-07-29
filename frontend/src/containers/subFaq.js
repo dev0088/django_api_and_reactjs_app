@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Truncate from 'react-truncate-html';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './subFaq.css'
 
+const styles={
+  raisedButton: {
+    whiteSpace: "normal",
+    width: "240px",
+  },
+}
 class SubFaq extends Component {
 
   constructor(props) {
@@ -62,6 +70,16 @@ class SubFaq extends Component {
                __html: this.getValueByName(pageId)
               }}
             />
+          </Col>
+          <Col sm="12" className="text-center">
+            <Link to={"/home"}>
+              <RaisedButton
+                label="Back"
+                className="btnn-video-buttons"
+                style={styles.raisedButton}
+                primary={true}
+              />
+            </Link>
           </Col>
         </Row>
       </div>
