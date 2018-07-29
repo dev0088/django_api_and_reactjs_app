@@ -161,7 +161,7 @@ class VideoPreview extends React.Component {
         />
       </div>
       <div className="col-md-12">
-        { /* <Link to="/edit-profile"> */ }
+        <Link to="/edit-profile">
           <RaisedButton
             className="btnn-video-buttons btnn-not-ready"
             style={styles.raisedButton}
@@ -169,7 +169,7 @@ class VideoPreview extends React.Component {
             primary={true}
             disabled={true}
           />
-        { /* </Link> */ }
+        </Link>
       </div>
 
       <Dialog

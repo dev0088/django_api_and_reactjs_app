@@ -58,13 +58,14 @@ export default function VideoPlayBack(props) {
     </div> }
 
     <div className="col-md-12">
-      <RaisedButton
-        label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-        className="btnn-video-buttons btnn-not-ready"
-        style={styles.raisedButton}
-        onClick={() => {props.onBack()}}
-        primary={true}
-      />
+      <Link to="/edit-profile">
+        <RaisedButton
+          label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
+          className="btnn-video-buttons btnn-not-ready"
+          style={styles.raisedButton}
+          primary={true}
+        />
+      </Link>
     </div>
   </div>)
 }

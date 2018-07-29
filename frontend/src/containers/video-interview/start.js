@@ -13,7 +13,6 @@ class InterviewStart extends React.Component {
     return (<div className="video-interview">
         <div className="video-interview-header">
           <h1>My Video Interview (Cruise Staff)</h1>
-          <h3>(Required for all Video Technicians)</h3>
         </div>
         <div className="video-interview-body">
           <p>You will use your computer’s webcam and microphone to complete your Video Interview. </p>

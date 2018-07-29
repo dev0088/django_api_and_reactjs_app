@@ -46,11 +46,13 @@ class VideoPreview extends React.Component {
               />
 			      </div>
 			      <div className="col-md-12">
-              <RaisedButton
-                className="btnn-not-ready"
-                label="I’m Not Ready. <br/> Take Me Back to My Cruise <br/> Staff Audition Videos"
-                primary={true}
-              />
+			      	<Link to="/edit-profile">
+	              <RaisedButton
+	                className="btnn-not-ready"
+	                label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
+	                primary={true}
+	              />
+							</Link>
 			      </div>
 			    </div>
 				</Col>
