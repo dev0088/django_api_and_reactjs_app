@@ -521,10 +521,10 @@ class VideoPractice extends React.Component {
           <div className="video-box flex-column">
             <div className="row video-status">
               <div className="col-sm-6">
-                <p>Question Time: <b>{remainingTime[1]} second(s)</b></p>
+                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
               </div>
               <div className="col-sm-6">
-                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
+                <p>Response Time: <b>{remainingTime[1]} second(s)</b></p>
               </div>
             </div>
             <div className="row video-webcam"> 
