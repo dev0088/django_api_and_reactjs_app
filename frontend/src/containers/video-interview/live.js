@@ -404,7 +404,7 @@ class LiveInterview extends React.Component {
     return b ? (<div className="spinner">
                   <div className="loading_text">
                     <div className="loading"></div>
-                    Uploading now... Please wait for a while.
+                    Uploading - Please Wait
                   </div>
                 </div>) : null;
   }
