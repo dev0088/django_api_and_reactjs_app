@@ -70,7 +70,7 @@
 }
 .video-webcam {
   width: 100%;
-  background: #333; 
+  /*background: #fff; */
   height: 335; 
 }
 .video-status > div{

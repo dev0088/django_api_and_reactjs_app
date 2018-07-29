@@ -45,7 +45,6 @@ export default function VideoPlayBack(props) {
       />
     </div> }
 
-    { props.currentQuestion === 4 &&
     <div className="col-md-12">
       <Link to={"/interview-instruction-live/" + props.pageId}>
         <RaisedButton
@@ -55,7 +54,7 @@ export default function VideoPlayBack(props) {
           secondary={true}
         />
       </Link>
-    </div> }
+    </div>
 
     <div className="col-md-12">
       <Link to="/edit-profile">
