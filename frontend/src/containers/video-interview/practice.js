@@ -524,7 +524,7 @@ class VideoPractice extends React.Component {
                 <p>Question Time: <b>{remainingTime[1]} second(s)</b></p>
               </div>
               <div className="col-sm-6">
-                <p>Preparation Limit: <b>{remainingTime[0]} second(s)</b></p>
+                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
               </div>
             </div>
             <div className="row video-webcam"> 
