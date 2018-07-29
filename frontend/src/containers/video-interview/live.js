@@ -486,7 +486,7 @@ class LiveInterview extends React.Component {
                 label={'Start Recording'}
                 className="btn-start-start"
                 onClick={this.onStartRecord}
-                primary={true}
+                secondary={true}
               />
             ))
           }
