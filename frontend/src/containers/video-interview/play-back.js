@@ -26,7 +26,7 @@ export default function VideoPlayBack(props) {
     </div>
     <div className="col-md-12">
       <RaisedButton
-        label="Adjust Audio and Video Settings"
+        label="Adjust Video and Audio Settings"
         className="btnn-video-buttons btn-vpb"
         style={styles.raisedButton}
         primary={true}

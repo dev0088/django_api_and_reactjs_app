@@ -51,6 +51,10 @@ class VideoPreview extends React.Component {
       resolution: 1,
       frameRate: 0,
       bitRate: 0,
+      selectedAudio: "",
+      selectedVideo: "",
+      audioDevices: [],
+      videoDevices: [],
     }
   }
 
@@ -64,8 +68,53 @@ class VideoPreview extends React.Component {
     }, 400);
   }
 
+  componentWillMount() {
+    let { deviceSettings } = this.props;
+    this.setState({ 
+      resolution: deviceSettings.resolution,
+      frameRate: deviceSettings.frameRate,
+      bitRate: deviceSettings.bitRate,
+      selectedAudio: deviceSettings.audio,
+      selectedVideo: deviceSettings.video,
+    });
+  }
+
   adjustSettings = () => {
-    this.setState({ settingDlg: true });
+    let __this = this;
+    let aDevice = [], vDevice = [];
+    navigator.mediaDevices.enumerateDevices()
+      .then(gotDevices)
+      .catch(errorCallback);
+    function gotDevices(deviceInfos) {
+      for (var i = 0; i !== deviceInfos.length; ++i) {
+        var deviceInfo = deviceInfos[i];
+        var obj = {};
+        obj.value = deviceInfo.deviceId;
+        if (deviceInfo.kind === 'audioinput') {
+          obj.text = deviceInfo.label || 'Microphone ' + i;
+          aDevice.push(obj);
+        } else if (deviceInfo.kind === 'videoinput') {
+          obj.text = deviceInfo.label || 'Camera ' + i;
+          vDevice.push(obj);
+        }
+      }
+      if (__this.state.selectedAudio === "" && aDevice.length > 0)
+        __this.setState({ selectedAudio: aDevice[0].value });
+      if (__this.state.selectedVideo === "" && vDevice.length > 0)
+        __this.setState({ selectedVideo: vDevice[0].value });
+      __this.setState({ 
+        audioDevices: aDevice, 
+        videoDevices: vDevice
+      }, function() {
+        __this.setState({ settingDlg: true });
+      });
+    }
+    function errorCallback(error) {
+      __this.setState({ audioDevices: [], videoDevices: [], selectedAudio: 0, selectedVideo: 0 }, function() {
+        __this.setState({ settingDlg: true });
+      });
+      // console.log('Error: ', error);
+    }
   }
 
   handleDialogClose = () => {
@@ -73,32 +122,56 @@ class VideoPreview extends React.Component {
   }
 
   handleResolutionChange = (event, index, resolution1) => {
-    const { frameRate, bitRate } = this.state;
+    const { frameRate, bitRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
+      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({resolution: resolution1});
   }
 
   handleFrameChange = (event, index, frameRate1) => {
-    const { resolution, bitRate } = this.state;
+    const { resolution, bitRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
+      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({frameRate: frameRate1});
   }
 
   handleBitRateChange = (event, index, bitRate1) => {
-    const { resolution, frameRate } = this.state;
+    const { resolution, frameRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({bitRate: bitRate1});
   }
 
+  handleAudioChange = (event, index, audio) => {
+    const { resolution, frameRate, bitRate, selectedVideo } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate, audio: audio, video: selectedVideo}
+    );
+    this.setState({selectedAudio: audio});
+  }
+  handleVideoChange = (event, index, video) => {
+    const { resolution, frameRate, bitRate, selectedAudio } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate, audio: selectedAudio, video: video}
+    );
+    this.setState({selectedVideo: video});
+  }
+
   render () {
     const { pageId } = this.props.match.params;
-    const { settingDlg, resolution, frameRate, bitRate } = this.state;
+    const { 
+      settingDlg, 
+      resolution, 
+      frameRate, 
+      bitRate, 
+      audioDevices, 
+      videoDevices, 
+      selectedAudio, 
+      selectedVideo, 
+    } = this.state;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
     }
@@ -179,6 +252,44 @@ class VideoPreview extends React.Component {
         open={settingDlg}
         onRequestClose={this.handleDialogClose}
       >
+        {
+          audioDevices.length > 0 && (
+            <SelectField
+              floatingLabelText="Audio Source"
+              floatingLabelStyle={styles.floatingLabelStyle}
+              className="dlg-select"
+              value={selectedAudio}
+              onChange={this.handleAudioChange}
+              menuItemStyle={selectItemStyle}
+            >
+              {
+                audioDevices.map((obj, index) => {
+                  return (<MenuItem key={index} value={obj.value} primaryText={obj.text} />);
+                })
+              }
+            </SelectField>
+          )
+        }
+
+        {
+          videoDevices.length > 0 && (
+            <SelectField
+              floatingLabelText="Audio Source"
+              floatingLabelStyle={styles.floatingLabelStyle}
+              className="dlg-select"
+              value={selectedVideo}
+              onChange={this.handleVideoChange}
+              menuItemStyle={selectItemStyle}
+            >
+              {
+                videoDevices.map((obj, index) => {
+                  return (<MenuItem key={index} value={obj.value} primaryText={obj.text} />);
+                })
+              }
+            </SelectField>
+          )
+        }
+
         <SelectField
           floatingLabelText="Resolutions"
           floatingLabelStyle={styles.floatingLabelStyle}
@@ -229,10 +340,11 @@ class VideoPreview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, getTalentInfo } = state;
+  const { auth, getTalentInfo, deviceSettings } = state;
   return {
     auth: auth,
-    talentInfo: getTalentInfo
+    talentInfo: getTalentInfo,
+    deviceSettings: deviceSettings
   }
 }
 function mapDispatchToProps(dispatch) {

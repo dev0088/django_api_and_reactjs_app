@@ -229,6 +229,7 @@ class LiveInterview extends React.Component {
     if (bitRate !== 0)
       rtcOptions['videoBitsPerSecond'] = bitRate;
     captureUserMedia(options, (stream) => {
+      // console.log(__this.state);
       __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
         __this.state.recordVideo.startRecording();
       })
@@ -237,11 +238,14 @@ class LiveInterview extends React.Component {
 
   videoRecordStop = () => {
     let __this = this;
-    this.state.recordVideo.stopRecording(() => {
-      let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
-      let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
-      __this.handleUploadInterviewVideos(file);
-    });
+    if (this.state.recordVideo)
+    {
+      this.state.recordVideo.stopRecording(() => {
+        let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
+        let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
+        __this.handleUploadInterviewVideos(file);
+      });
+    }
   }
 
   isMimeTypeSupported = (mimeType) => {
