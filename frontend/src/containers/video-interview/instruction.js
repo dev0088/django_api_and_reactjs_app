@@ -1,4 +1,6 @@
 import React from 'react'
+import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const title = {
   "cruise": "Cruise Staff",
@@ -13,6 +15,13 @@ const title = {
   "video-technician": "Video Technician",
   "youth-staff": "Youth Staff"
 }
+const styles={
+  raisedButton: {
+    whiteSpace: "normal",
+    width: "240px",
+  },
+}
+
 class InterviewInstruction extends React.Component {
   render() {
     const { pageId } = this.props.match.params;
@@ -76,6 +85,17 @@ class InterviewInstruction extends React.Component {
             what’s behind you – to ensure there’s nothing that will distract or 
             take away from your interview responses.
           </p>
+          <p></p>
+          <div className="text-center">
+            <Link to="/interview-start">
+              <RaisedButton
+                label="Back to My Video Interview"
+                className="btnn-video-buttons btnn-not-ready"
+                style={styles.raisedButton}
+                primary={true}
+              />
+            </Link>
+          </div>
         </div>
       </div>)
 

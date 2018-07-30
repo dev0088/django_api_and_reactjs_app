@@ -12,6 +12,9 @@ import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as talentActions from  '../actions/talentActions';
 import { SidebarNavItems } from './sidebar';
 
 import './header.css'
@@ -46,7 +49,23 @@ class Header extends Component {
     };
   }
 
-  onLogout = () => this.props.logout(this.props.auth.access.token).then(() => this.props.history.push('/'));
+  componentDidMount() {
+    let __this = this;
+    setTimeout(function(){
+      let { auth } = __this.props;
+      if (auth.access.user_id){
+        __this.props.talentActions.getTalentInfo(auth.access.user_id);
+      }
+    }, 100);
+  }
+
+  onLogout = () => {
+    this.props.logout(this.props.auth.access.token);
+    if (this.props.history)
+      this.props.history.push('/');
+    else
+      document.location.href="/";
+  }
 
   toggleDropDown = () => this.setState({ isOpen: !this.state.isOpen });
   handleClickTap = (event) => {
@@ -64,10 +83,16 @@ class Header extends Component {
     });
   };
   render() {
-    const { auth } = this.props;
-    // const loggedIn = (member && member.email);
-		// const loggedIn = true
+    const { auth, talentInfo } = this.props;
 		const loggedIn = (auth && auth.access && auth.access.email);
+    let username = "";
+    if (loggedIn) {
+      if (talentInfo && talentInfo.value){
+        username = talentInfo.value['user']['first_name'];
+        if (username != "")
+          username = username.charAt(0).toUpperCase() + username.slice(1);
+      }
+    }
     return (
       <header>
         <Navbar dark color="primary" expand="sm" className="fixed-top">
@@ -92,7 +117,7 @@ class Header extends Component {
               <RaisedButton
                 className="my-account"
                 onClick={this.handleClickTap}
-                label={loggedIn ? `Hi, ${auth.access.email}` : 'My Account'}
+                label={loggedIn ? `Hi, ${username}` : 'My Account'}
               />
               <Popover
                 open={this.state.subMenuOpen}
@@ -133,4 +158,17 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+function mapStateToProps(state) {
+  const { auth, getTalentInfo } = state;
+  return {
+    auth: auth,
+    talentInfo: getTalentInfo
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    talentActions: bindActionCreators(talentActions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -8,3 +8,7 @@
 	padding-top: 0.3rem;
 	width: 100px;
 }
+
+.my-account button span{
+	text-transform: initial !important;
+}

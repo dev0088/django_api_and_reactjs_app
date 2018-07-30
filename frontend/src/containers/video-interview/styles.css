@@ -28,7 +28,7 @@
 .audio-box {
   position: relative;
   margin: 0 auto;
-  top: 2px;
+  top: 3px;
   height: 25px;
 }
 .audio-box img{
@@ -70,7 +70,7 @@
 }
 .video-webcam {
   width: 100%;
-  background: #333; 
+  /*background: #fff; */
   height: 335; 
 }
 .video-status > div{
