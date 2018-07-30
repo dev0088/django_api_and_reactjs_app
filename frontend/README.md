@@ -47,3 +47,22 @@
 	
 	$ docker-compose up -d
 	```
+
+### Troubleshooting Docker
+
+	1. Create the docker group.
+		```
+		$ sudo groupadd docker
+		```
+
+	2. Add the user to the docker group.
+		```
+		$ sudo usermod -aG docker $(whoami)
+		```
+
+	3. Log out and log back in to ensure docker runs with correct permissions.
+
+	4. Start docker.
+		```
+		$ sudo service docker start
+		```

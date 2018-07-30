@@ -2,14 +2,14 @@ from rest_framework import serializers
 
 from .models import User
 from talent.models import Talent
-from talent.serializers import TalentSerializer
+# from talent.serializers import TalentSerializer
 
-class TalentUserSerializer(serializers.ModelSerializer):
-    """Serializers registration requests and creates a new user."""
-    # talent = TalentSerializer(many=False, read_only=False)
-    class Meta:
-        model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'type']
+# class TalentUserSerializer(serializers.ModelSerializer):
+#     """Serializers registration requests and creates a new user."""
+#     # talent = TalentSerializer(many=False, read_only=False)
+#     class Meta:
+#         model = User
+#         fields = ['email', 'username', 'first_name', 'last_name', 'type']
 
 
 class GeneralUserSerializer(serializers.ModelSerializer):
