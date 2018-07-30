@@ -61,6 +61,10 @@ class VideoPractice extends React.Component {
       resolution: 1,
       frameRate: 0,
       bitRate: 0,
+      selectedAudio: "",
+      selectedVideo: "",
+      audioDevices: [],
+      videoDevices: [],
     };
 
   }
@@ -94,7 +98,9 @@ class VideoPractice extends React.Component {
       __this.setState({ 
           resolution: deviceSettings.resolution,
           frameRate: deviceSettings.frameRate,
-          bitRate: deviceSettings.bitRate
+          bitRate: deviceSettings.bitRate,
+          selectedAudio: deviceSettings.audio,
+          selectedVideo: deviceSettings.video,
         }, function(){
           __this.requestUserMedia();
         })
@@ -134,7 +140,40 @@ class VideoPractice extends React.Component {
   }
 
   adjustSettings = () => {
-    this.setState({ settingDlg: true });
+    let __this = this;
+    let aDevice = [], vDevice = [];
+    navigator.mediaDevices.enumerateDevices()
+      .then(gotDevices)
+      .catch(errorCallback);
+    function gotDevices(deviceInfos) {
+      for (var i = 0; i !== deviceInfos.length; ++i) {
+        var deviceInfo = deviceInfos[i];
+        var obj = {};
+        obj.value = deviceInfo.deviceId;
+        if (deviceInfo.kind === 'audioinput') {
+          obj.text = deviceInfo.label || 'Microphone ' + i;
+          aDevice.push(obj);
+        } else if (deviceInfo.kind === 'videoinput') {
+          obj.text = deviceInfo.label || 'Camera ' + i;
+          vDevice.push(obj);
+        }
+      }
+      if (__this.state.selectedAudio === "" && aDevice.length > 0)
+        __this.setState({ selectedAudio: aDevice[0].value });
+      if (__this.state.selectedVideo === "" && vDevice.length > 0)
+        __this.setState({ selectedVideo: vDevice[0].value });
+      __this.setState({ 
+        audioDevices: aDevice, 
+        videoDevices: vDevice
+      }, function() {
+        __this.setState({ settingDlg: true });
+      });
+    }
+    function errorCallback(error) {
+      __this.setState({ audioDevices: [], videoDevices: [], selectedAudio: 0, selectedVideo: 0 }, function() {
+        __this.setState({ settingDlg: true });
+      });
+    }
   }
 
   handleDialogClose = () => {
@@ -142,27 +181,42 @@ class VideoPractice extends React.Component {
   }
 
   handleResolutionChange = (event, index, resolution1) => {
-    const { frameRate, bitRate } = this.state;
+    const { frameRate, bitRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate}
+      {resolution: resolution1, frameRate: frameRate, bitRate: bitRate, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({resolution: resolution1});
   }
 
   handleFrameChange = (event, index, frameRate1) => {
-    const { resolution, bitRate } = this.state;
+    const { resolution, bitRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate}
+      {resolution: resolution, frameRate: frameRate1, bitRate: bitRate, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({frameRate: frameRate1});
   }
 
   handleBitRateChange = (event, index, bitRate1) => {
-    const { resolution, frameRate } = this.state;
+    const { resolution, frameRate, selectedAudio, selectedVideo } = this.state;
     this.props.deviceActions.setDeviceSettingsActions(
-      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1}
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate1, audio: selectedAudio, video: selectedVideo}
     );
     this.setState({bitRate: bitRate1});
+  }
+
+  handleAudioChange = (event, index, audio) => {
+    const { resolution, frameRate, bitRate, selectedVideo } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate, audio: audio, video: selectedVideo}
+    );
+    this.setState({selectedAudio: audio});
+  }
+  handleVideoChange = (event, index, video) => {
+    const { resolution, frameRate, bitRate, selectedAudio } = this.state;
+    this.props.deviceActions.setDeviceSettingsActions(
+      {resolution: resolution, frameRate: frameRate, bitRate: bitRate, audio: selectedAudio, video: video}
+    );
+    this.setState({selectedVideo: video});
   }
 
   countDown = () => {
@@ -177,8 +231,11 @@ class VideoPractice extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
+              const newRemaining = [];
+              newRemaining[0] = remainingTime[0];
+              newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
-              __this.setState({ timePos: 1, isStopped: false, isPlaying: true });
+              __this.setState({ timePos: 1, isStopped: false, isPlaying: true, remainingTime: newRemaining });
             } else {
               __this.setState({ isStopped: true });
               __this.videoRecordStop();
@@ -197,8 +254,16 @@ class VideoPractice extends React.Component {
   }
 
   requestUserMedia() {
-    const { resolution, frameRate } = this.state;
+    const { resolution, frameRate, selectedAudio, selectedVideo } = this.state;
     let options = {mandatory: {}};
+    if (selectedAudio !== "")
+    {
+      options["audio"] = {deviceId: {exact: selectedAudio}};
+    }
+    if (selectedVideo !== "")
+    {
+      options["video"] = {deviceId: {exact: selectedVideo}};
+    }
     if (resolution !== 1 ){
       options['mandatory']['minWidth'] = resolutionSize[resolution][0];
       options['mandatory']['minHeight'] = resolutionSize[resolution][1];
@@ -243,7 +308,7 @@ class VideoPractice extends React.Component {
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
     }
-    const { resolution, frameRate, bitRate } = this.state;
+    const { resolution, frameRate, bitRate, selectedAudio, selectedVideo } = this.state;
     let options = {mandatory: {}};
     let rtcOptions = {
       checkForInactiveTracks: false,
@@ -252,6 +317,14 @@ class VideoPractice extends React.Component {
       ignoreMutedMedia: false,
       mimeType: mimeType,
       type: "video"
+    }
+    if (selectedAudio !== "")
+    {
+      options["audio"] = {deviceId: {exact: selectedAudio}};
+    }
+    if (selectedVideo !== "")
+    {
+      options["video"] = {deviceId: {exact: selectedVideo}};
     }
     if (resolution !== 1 ){
       options['mandatory']['minWidth'] = resolutionSize[resolution][0];
@@ -271,11 +344,14 @@ class VideoPractice extends React.Component {
 
   videoRecordStop = () => {
     let __this = this;
-    this.state.recordVideo.stopRecording(() => {
-      let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
-      let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
-      __this.handleUploadInterviewVideos(file);
-    });
+    if (this.state.recordVideo)
+    {
+      this.state.recordVideo.stopRecording(() => {
+        let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
+        let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
+        __this.handleUploadInterviewVideos(file);
+      });
+    }
   }
 
   isMimeTypeSupported = (mimeType) => {
@@ -444,7 +520,7 @@ class VideoPractice extends React.Component {
     return b ? (<div className="spinner">
                   <div className="loading_text">
                     <div className="loading"></div>
-                    Uploading now... Please wait for a while.
+                    Uploading - Please Wait
                   </div>
                 </div>) : null;
   }
@@ -470,6 +546,10 @@ class VideoPractice extends React.Component {
       resolution,
       frameRate,
       bitRate,
+      audioDevices, 
+      videoDevices, 
+      selectedAudio, 
+      selectedVideo, 
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -521,10 +601,10 @@ class VideoPractice extends React.Component {
           <div className="video-box flex-column">
             <div className="row video-status">
               <div className="col-sm-6">
-                <p>Question Time: <b>{remainingTime[1]} second(s)</b></p>
+                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
               </div>
               <div className="col-sm-6">
-                <p>Preparation Limit: <b>{remainingTime[0]} second(s)</b></p>
+                <p>Response Time: <b>{remainingTime[1]} second(s)</b></p>
               </div>
             </div>
             <div className="row video-webcam"> 
@@ -549,7 +629,7 @@ class VideoPractice extends React.Component {
                   label={'Start Recording'}
                   className="btn-start-start"
                   onClick={this.onStartRecord}
-                  primary={true}
+                  secondary={true}
                 />
               ))
             }
@@ -590,6 +670,43 @@ class VideoPractice extends React.Component {
           open={settingDlg}
           onRequestClose={this.handleDialogClose}
         >
+          {
+            audioDevices.length > 0 && (
+              <SelectField
+                floatingLabelText="Audio Source"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                className="dlg-select"
+                value={selectedAudio}
+                onChange={this.handleAudioChange}
+                menuItemStyle={selectItemStyle}
+              >
+                {
+                  audioDevices.map((obj, index) => {
+                    return (<MenuItem key={index} value={obj.value} primaryText={obj.text} />);
+                  })
+                }
+              </SelectField>
+            )
+          }
+
+          {
+            videoDevices.length > 0 && (
+              <SelectField
+                floatingLabelText="Audio Source"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                className="dlg-select"
+                value={selectedVideo}
+                onChange={this.handleVideoChange}
+                menuItemStyle={selectItemStyle}
+              >
+                {
+                  videoDevices.map((obj, index) => {
+                    return (<MenuItem key={index} value={obj.value} primaryText={obj.text} />);
+                  })
+                }
+              </SelectField>
+            )
+          }
           <SelectField
             floatingLabelText="Resolutions"
             floatingLabelStyle={styles.floatingLabelStyle}

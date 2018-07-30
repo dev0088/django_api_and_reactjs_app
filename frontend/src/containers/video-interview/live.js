@@ -143,8 +143,11 @@ class LiveInterview extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
+              const newRemaining = [];
+              newRemaining[0] = remainingTime[0];
+              newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
-              __this.setState({ timePos: 1, isStopped: false, isPlaying: true });
+              __this.setState({ timePos: 1, isStopped: false, isPlaying: true, remainingTime: newRemaining });
             } else {
               __this.setState({ isStopped: true });
               __this.videoRecordStop();
@@ -229,6 +232,7 @@ class LiveInterview extends React.Component {
     if (bitRate !== 0)
       rtcOptions['videoBitsPerSecond'] = bitRate;
     captureUserMedia(options, (stream) => {
+      // console.log(__this.state);
       __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
         __this.state.recordVideo.startRecording();
       })
@@ -237,11 +241,14 @@ class LiveInterview extends React.Component {
 
   videoRecordStop = () => {
     let __this = this;
-    this.state.recordVideo.stopRecording(() => {
-      let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
-      let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
-      __this.handleUploadInterviewVideos(file);
-    });
+    if (this.state.recordVideo)
+    {
+      this.state.recordVideo.stopRecording(() => {
+        let name = "video_interview_" +  Math.floor(Math.random()*90000) + 10000 + ".mp4";
+        let file = new File([this.state.recordVideo.blob], name, {type: "video/mp4", lastModified: Date.now()});
+        __this.handleUploadInterviewVideos(file);
+      });
+    }
   }
 
   isMimeTypeSupported = (mimeType) => {
@@ -404,7 +411,7 @@ class LiveInterview extends React.Component {
     return b ? (<div className="spinner">
                   <div className="loading_text">
                     <div className="loading"></div>
-                    Uploading now... Please wait for a while.
+                    Uploading - Please Wait
                   </div>
                 </div>) : null;
   }
@@ -459,10 +466,10 @@ class LiveInterview extends React.Component {
           <div className="video-box flex-column">
             <div className="row video-status">
               <div className="col-sm-6">
-                <p>Question Time: <b>{remainingTime[1]} second(s)</b></p>
+                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
               </div>
               <div className="col-sm-6">
-                <p>Preparation Limit: <b>{remainingTime[0]} second(s)</b></p>
+                <p>Response Time: <b>{remainingTime[1]} second(s)</b></p>
               </div>
             </div>
             <div className="row video-webcam"> 
@@ -486,7 +493,7 @@ class LiveInterview extends React.Component {
                 label={'Start Recording'}
                 className="btn-start-start"
                 onClick={this.onStartRecord}
-                primary={true}
+                secondary={true}
               />
             ))
           }
@@ -503,7 +510,7 @@ class LiveInterview extends React.Component {
             (<React.Fragment>
               {currentQuestion < 3 &&
                 <RaisedButton
-                  label="Next Practice Question"
+                  label="Next Question"
                   className="btnn-video-buttons btn-vpb"
                   style={styles.raisedButton}
                   primary={true}

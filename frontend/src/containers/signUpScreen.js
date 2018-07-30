@@ -177,7 +177,7 @@ class SignUp extends React.Component {
               fullWidth={true}
             />
             <div className="pt20">
-              <RaisedButton label="Sing Up" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
+              <RaisedButton label="Sign Up" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
             </div>
           </Form>
 

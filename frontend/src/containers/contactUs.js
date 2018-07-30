@@ -21,8 +21,8 @@ class ContactUs extends Component {
     this.state = {
       fullName: '',
       email: '',
-      title: '',
-      content: '',
+      subject: '',
+      message: '',
       error: false
     };
 
@@ -40,24 +40,24 @@ class ContactUs extends Component {
     // const {
     //   fullName,
     //   email,
-    //   title,
-    //   content
+    //   subject,
+    //   message
     // } = this.state
-    alert("Submit button was clicked!");
+    alert("Thank you.  Your message has been sent.  You will be contacted by a ShipTalent.com Agent within 24 hours.");
     // this.props.registerActions.registerRequest(
     //   fullName,
     //   email,
-    //   title,
-    //   content
+    //   subject,
+    //   message
     // )
   }
   render() {
-    const { error, fullName, email, title, content } = this.state;
+    const { error, fullName, email, subject, message } = this.state;
     return(
       <div className="contact-container">
         <Row className="pt-5">
           <Col sm={{size: 6, offset: 3}}>
-            <h3><i className="icon-map" />Contact US</h3>
+            <h3><i className="icon-map" />Contact Us</h3>
             <hr />
             {!!error && <Alert color="danger">{error}</Alert>}
             <Form>
@@ -82,25 +82,25 @@ class ContactUs extends Component {
                 fullWidth={true}
               />
               <TextField
-                name="title"
-                id="title"
+                name="subject"
+                id="subject"
                 placeholder=""
                 floatingLabelStyle={styles.floatingLabelStyle}
-                value={title}
+                value={subject}
                 onChange={this.handleChange}
-                floatingLabelText="Title"
+                floatingLabelText="Subject"
                 fullWidth={true}
               />
               <TextField
-                name="content"
-                id="content"
+                name="message"
+                id="message"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 multiLine={true}
-                value={content}
+                value={message}
                 onChange={this.handleChange}
                 rows={5}
                 rowsMax={7}
-                floatingLabelText="Content"
+                floatingLabelText="Message"
                 fullWidth={true}
               />
 
