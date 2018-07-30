@@ -231,8 +231,11 @@ class VideoPractice extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
+              const newRemaining = [];
+              newRemaining[0] = remainingTime[0];
+              newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
-              __this.setState({ timePos: 1, isStopped: false, isPlaying: true });
+              __this.setState({ timePos: 1, isStopped: false, isPlaying: true, remainingTime: newRemaining });
             } else {
               __this.setState({ isStopped: true });
               __this.videoRecordStop();
