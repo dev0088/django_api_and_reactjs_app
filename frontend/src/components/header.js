@@ -6,7 +6,7 @@ import {
   Collapse,
   NavbarToggler,
 } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
@@ -89,7 +89,7 @@ class Header extends Component {
     if (loggedIn) {
       if (talentInfo && talentInfo.value){
         username = talentInfo.value['user']['first_name'];
-        if (username != "")
+        if (username !== "")
           username = username.charAt(0).toUpperCase() + username.slice(1);
       }
     }
