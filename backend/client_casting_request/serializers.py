@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from client_casting_request.models import ClientCastingRequest
 from authentication.models import User
-from authentication.serializers import TalentUserSerializer
+from authentication.serializers import GeneralUserSerializer
 
 class ClientCastingRequestSerializer(serializers.ModelSerializer):
-	user = TalentUserSerializer(many=False, read_only=True) #User.StringRelatedField(many=False, read_only=True)
+	user = GeneralUserSerializer(many=False, read_only=True) #User.StringRelatedField(many=False, read_only=True)
 
 	class Meta:
 		model = ClientCastingRequest

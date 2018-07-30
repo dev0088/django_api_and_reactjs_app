@@ -2,11 +2,13 @@ from rest_framework import serializers
 from talent.models import Talent
 from talent_video.serializers import TalentVideoSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
+from authentication.serializers import GeneralUserSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
 	user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 	talent_videos = TalentVideoSerializer(many=True, read_only=True)
 	talent_position_sub_type = TalentPositionSubTypeSerializer(many=False, read_only=True)
+	user = GeneralUserSerializer(many=False, read_only=True)
 	
 	class Meta:
 		model = Talent
