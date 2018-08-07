@@ -19,6 +19,11 @@ const styles={
     whiteSpace: "normal",
     width: "240px",
   },
+  disabledRaisedButton: {
+    whiteSpace: "normal",
+    width: "240px",
+    backgroundColor: 'gray'
+  },
   floatingLabelStyle: {
     color: "#258df2",
   },
@@ -44,7 +49,7 @@ var videoResolution = {
   4: [858, 480],    // 480
 }
 class VideoPreview extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       settingDlg: false,
@@ -55,6 +60,7 @@ class VideoPreview extends React.Component {
       selectedVideo: "",
       audioDevices: [],
       videoDevices: [],
+      has_sub_position_type: props.talentInfo.value && props.talentInfo.value.talent_position_sub_type ? true : false
     }
   }
 
@@ -69,14 +75,33 @@ class VideoPreview extends React.Component {
   }
 
   componentWillMount() {
-    let { deviceSettings } = this.props;
+    let { deviceSettings, talentInfo } = this.props;
     this.setState({ 
       resolution: deviceSettings.resolution,
       frameRate: deviceSettings.frameRate,
       bitRate: deviceSettings.bitRate,
       selectedAudio: deviceSettings.audio,
       selectedVideo: deviceSettings.video,
+      has_sub_position_type: talentInfo.value && talentInfo.value.talent_position_sub_type ? true : false
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { 
+      talentInfo
+    } = nextProps;
+    
+    if (talentInfo.value && 
+        talentInfo.value.talent_position_sub_type && 
+        talentInfo.value.talent_position_sub_type.talent_position_type) {
+      this.setState({
+        has_sub_position_type: true
+      })
+    } else {
+      this.setState({
+        has_sub_position_type:false
+      })
+    }
   }
 
   adjustSettings = () => {
@@ -171,6 +196,7 @@ class VideoPreview extends React.Component {
       videoDevices, 
       selectedAudio, 
       selectedVideo, 
+      has_sub_position_type
     } = this.state;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
@@ -215,14 +241,25 @@ class VideoPreview extends React.Component {
         </Link>
       </div>
       <div className="col-md-12">
-        <Link to={"/interview-instruction-live/" + positionName}>
+      {
+        has_sub_position_type ? (
+          <Link to={"/interview-instruction-live/" + positionName}>
+            <RaisedButton
+              label="Start Live Questions"
+              className="btnn-video-buttons"
+              style={styles.raisedButton}
+              secondary={true}
+            />
+          </Link>
+        ) : (
           <RaisedButton
             label="Start Live Questions"
-            className="btnn-video-buttons"
-            style={styles.raisedButton}
+            className="btnn-video-buttons btnn-not-ready disabled_raied_button"
+            style={styles.disabledRaisedButton}
             secondary={true}
           />
-        </Link>
+        )
+      }
       </div>
       <div className="col-md-12">
         <RaisedButton
@@ -234,15 +271,28 @@ class VideoPreview extends React.Component {
         />
       </div>
       <div className="col-md-12">
-        <Link to="/edit-profile">
-          <RaisedButton
-            className="btnn-video-buttons btnn-not-ready"
-            style={styles.raisedButton}
-            label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-            primary={true}
-            disabled={true}
-          />
-        </Link>
+      {
+        has_sub_position_type ? (
+            <RaisedButton
+              className="btnn-video-buttons btnn-not-ready"
+              style={styles.raisedButton}
+              label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
+              primary={true}
+              disabled={true}
+            />
+        ) : (
+          <Link to="/edit-profile">
+            <RaisedButton
+              style={styles.raisedButton}
+              className="btnn-video-buttons btnn-adjust-settings"
+              label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
+              primary={true}
+            />
+          </Link>
+        )
+      }
+
+
       </div>
 
       <Dialog

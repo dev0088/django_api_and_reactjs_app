@@ -226,3 +226,10 @@ div.dlg-select {
   text-align: center;
   margin-top: 20px;
 }
+
+.disabled_raied_button {
+  background-color: gray;
+}
+.disabled_raied_button button {
+  background-color: gray!important;
+}
