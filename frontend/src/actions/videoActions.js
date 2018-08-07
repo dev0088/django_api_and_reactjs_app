@@ -4,7 +4,7 @@ import * as types from './actionTypes'
 
 export const getVideoQuestionsActions = (id, mode) => ({
   [RSAA]: {
-    endpoint: ((mode === 'practice') ? `${apiConfig.url}/question/practice/random` : `${apiConfig.url}/question/practice/random/position_type=${id}`),
+    endpoint: ((mode === 'practice') ? `${apiConfig.url}/question/practice/static` : `${apiConfig.url}/question/practice/random/position_type=${id}`),
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     types: [

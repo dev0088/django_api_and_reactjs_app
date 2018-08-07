@@ -55,6 +55,12 @@ class ContactUs extends Component {
 
     this.props.contactUsActions.contactUs(post_data)
     alert("Thank you.  Your message has been sent.  You will be contacted by a ShipTalent.com Agent within 24 hours.");
+    this.setState({
+      fullName: "",
+      email: "",
+      subject: "",
+      message: ""
+    })
   }
   render() {
     const { error, fullName, email, subject, message } = this.state;
