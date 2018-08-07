@@ -57,6 +57,7 @@ LOCAL_APPS = (
     'talent_video',
 	'question',
 	'admin_setting',
+    'submission',
 	'client_casting_request',
 )
 

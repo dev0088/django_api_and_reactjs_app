@@ -34,3 +34,6 @@ export const TALENT_UPLOAD_PICTURE = createRequestTypes('@@jwt/TALENT_UPLOAD_PIC
 export const TALENT_INFO = createRequestTypes('@@jwt/TALENT_INFO');
 
 export const DEVICE_SETTINGS_SAVE = 'DEVICE_SETTINGS_SAVE';
+
+export const CONTACT_US = createRequestTypes('CONTACT_US');
+

@@ -74,7 +74,8 @@ class InterviewDeviceAllow extends React.Component {
   enableDevice = () => {
     var __this = this;
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
         __this.setState( {videoAllow: true} );
         __this.updateError("camera permission");
       });

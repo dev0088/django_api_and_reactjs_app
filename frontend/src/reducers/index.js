@@ -7,6 +7,7 @@ import shiptalentInfo from './shiptalentInfo.js'
 import videoQuestions, { videoSettings } from './video.js'
 import talentReducer, { getTalentInfo } from './talent.js'
 import deviceSettings from './deviceSettings.js'
+import contactUs from './contactus.js'
 
 export default combineReducers({
   auth: auth,
@@ -19,6 +20,7 @@ export default combineReducers({
   talentReducer: talentReducer,
   deviceSettings: deviceSettings,
   getTalentInfo: getTalentInfo,
+  contactUs: contactUs
 })
 
 

@@ -14,6 +14,33 @@ from rest_framework.filters import BaseFilterBackend
 from rest_framework.schemas import ManualSchema
 import random
 
+class QuestionPracticeStaticList(APIView):
+    """
+    Retrieve 5 static practice questions.
+    """
+    def get(self, request, format=None):
+        try:
+            position_type_name = 'Practice'
+            position_type = TalentPositionType.objects.get(name=position_type_name)
+            questions = Question.objects.filter(talent_position_type=position_type.id).order_by('created')
+        except TalentPositionType.DoesNotExist:
+            raise Http404
+
+        if len(questions) > 5:
+            # generate random numbers
+            # randnums = random.sample(range(len(questions)), 5)
+
+            # create new question list with the random numbers
+            static_questions = []
+            for index in range(0, 5):
+                print('=== index: ', index)
+                static_questions.append(questions[index])
+
+            serializer = QuestionSerializer(static_questions, many=True)
+            return Response(serializer.data)
+        else :
+            serializer = QuestionSerializer(questions, many=True)
+            return Response(serializer.data)
 
 class QuestionPracticeRamdomList(APIView):
     """

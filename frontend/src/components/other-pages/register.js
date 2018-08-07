@@ -14,7 +14,7 @@ const Register = () => (
         />
         <TextField
           id="last-name"
-          floatingLabelText="Lat name"
+          floatingLabelText="Last name"
           fullWidth={true}
         />
         <TextField
@@ -30,7 +30,7 @@ const Register = () => (
         />
 
         <div className="pt20">
-          <RaisedButton label="Sing Up" primary={true} fullWidth={true}/>
+          <RaisedButton label="Sign Up" primary={true} fullWidth={true}/>
         </div>
       </div>
     </div>
