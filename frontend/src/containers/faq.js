@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 import './faq.css'
 
 class Faq extends Component {
@@ -16,6 +18,15 @@ class Faq extends Component {
               
             </p>
           </Col>
+        </Row>
+        <Row className="pt-5">
+          <Col sm="5" />
+          <Col sm="2">
+            <Link to="/home">
+              <RaisedButton label="< Back" primary={true} fullWidth={true}/>
+            </Link>
+          </Col>
+          <Col sm="5" />
         </Row>
       </div>
     );

@@ -34,5 +34,6 @@ urlpatterns = [
 	url(r'^api/v1/client_casting_request', include('client_casting_request.urls')),
 	url(r'^api/v1/talent_picture', include('talent_picture.urls')),
 	url(r'^api/v1/talent_resume', include('talent_resume.urls')),
-	url(r'^api/v1/talent_video', include('talent_video.urls')),	
+	url(r'^api/v1/talent_video', include('talent_video.urls')),
+	url(r'^api/v1/submission', include('submission.urls')),	
 ]

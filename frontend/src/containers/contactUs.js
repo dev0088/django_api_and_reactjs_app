@@ -6,6 +6,8 @@ import {
   Form,
   Alert,
 } from 'reactstrap';
+import { bindActionCreators } from 'redux';
+import * as contactUsActions from  '../actions/contactusActions';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './contactUs.css'
@@ -37,19 +39,22 @@ class ContactUs extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    // const {
-    //   fullName,
-    //   email,
-    //   subject,
-    //   message
-    // } = this.state
+    const {
+      fullName,
+      email,
+      subject,
+      message
+    } = this.state
+
+    let post_data = {
+      full_name: fullName,
+      email: email,
+      subject: subject,
+      message: message
+    }
+
+    this.props.contactUsActions.contactUs(post_data)
     alert("Thank you.  Your message has been sent.  You will be contacted by a ShipTalent.com Agent within 24 hours.");
-    // this.props.registerActions.registerRequest(
-    //   fullName,
-    //   email,
-    //   subject,
-    //   message
-    // )
   }
   render() {
     const { error, fullName, email, subject, message } = this.state;
@@ -116,14 +121,15 @@ class ContactUs extends Component {
 }
 
 function mapStateToProps(state) {
+  const { contactUs } = state;
   return {
-    
+    contactUs,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+    contactUsActions: bindActionCreators(contactUsActions, dispatch)
   }
 }
 

@@ -34,7 +34,7 @@ const Footer = (props) => (
               style={styles.flatPrimary}
             />
           </Link>  
-					<p className="footer-description">ShipTalent.com<br/>Take the lead in being cast at sea</p>
+					<p className="footer-description">ShipTalent.com</p>
 	      </Col>
 			</Jumbotron>
     </Row>
