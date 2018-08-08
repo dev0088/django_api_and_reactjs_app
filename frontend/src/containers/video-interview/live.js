@@ -105,7 +105,15 @@ class LiveInterview extends React.Component {
         })
     });
     const { pageId } = this.props.match.params;
-    this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
+    console.log('---- pageId: ', pageId, this.props)
+    let position_type = this.props.talentInfo.value 
+      ? this.props.talentInfo.value.talent_position_sub_type.talent_position_type 
+      : pageId
+    console.log('==== position_type: ', position_type)
+    this.props.videoActions.getVideoQuestionsActions(
+      position_type, 
+      'live'
+    );
     this.props.videoActions.getVideoSettingsActions();
   }
 
@@ -562,12 +570,13 @@ class LiveInterview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings, deviceSettings } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings, getTalentInfo } = state;
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
+    talentInfo: getTalentInfo
   }
 }
 
