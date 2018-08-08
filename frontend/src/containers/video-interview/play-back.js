@@ -2,6 +2,7 @@ import React from 'react'
 import ReactPlayer from 'react-player';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
+import {Row, Col} from 'reactstrap';
 
 const styles={
   raisedButton: {
@@ -11,20 +12,24 @@ const styles={
 }
 export default function VideoPlayBack(props) {
   
-  return (<div className="row video-playback">
-    <div className="video-box col-md-12">
+  return (
+    <Row className="video-playback">
+    <Col xs="12" md="4" className="pt-3 pt-md-0"/>
+    <Col xs="12" md="4" className="pt-3 pt-md-0">
+    
       {props.url && 
         (<ReactPlayer
           url={props.url}
           className='react-player'
           playing
-          width='500px'
-          height='250px'
+          width={'100%'}
+          height='100%'
           controls={true}
         />)
       }
-    </div>
-    <div className="col-md-12">
+    </Col>
+    <Col xs="12" md="4" className="pt-3 pt-md-0"/>
+    <Col className="col-md-12">
       <RaisedButton
         label="Adjust Video and Audio Settings"
         className="btnn-video-buttons btn-vpb"
@@ -32,7 +37,7 @@ export default function VideoPlayBack(props) {
         primary={true}
         onClick={() => {props.onSettings()}}
       />
-    </div>
+    </Col>
 
     {props.currentQuestion < 4 &&
     <div className="col-md-12">
@@ -66,5 +71,5 @@ export default function VideoPlayBack(props) {
         />
       </Link>
     </div>
-  </div>)
+  </Row>)
 }

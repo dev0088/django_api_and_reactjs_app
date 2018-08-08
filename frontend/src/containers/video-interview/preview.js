@@ -227,7 +227,7 @@ class VideoPreview extends React.Component {
       </div>
 
       <div className="audio-box">
-        <AudioMeter/>
+        <AudioMeter width={"450px"}/>
       </div>
 
       <div className="col-md-12">

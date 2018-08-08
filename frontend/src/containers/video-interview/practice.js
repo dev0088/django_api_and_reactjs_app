@@ -5,8 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green'
+import red from '@material-ui/core/colors/red'
 import {
   Alert,
+  Row,
+  Col
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -35,6 +42,16 @@ const resolutionSize = {
   3: [1280, 720],
   4: [640, 480]
 }
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#40c741',
+    },
+    secondary: {
+      main: '#C00'
+    }
+  }
+})
 class VideoPractice extends React.Component {
   constructor() {
     super();
@@ -231,7 +248,7 @@ class VideoPractice extends React.Component {
         {
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
-              const newRemaining = [];
+              let newRemaining = [];
               newRemaining[0] = remainingTime[0];
               newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
@@ -241,7 +258,7 @@ class VideoPractice extends React.Component {
               __this.videoRecordStop();
             }
           } else {
-            const newRemaining = [];
+            let newRemaining = [];
             newRemaining[0] = remainingTime[0];
             newRemaining[1] = remainingTime[1];
             newRemaining[timePos]= remainingTime[timePos] - 1;
@@ -525,6 +542,43 @@ class VideoPractice extends React.Component {
                 </div>) : null;
   }
 
+  renderStarAndStopRecordButton () {
+    const { isPlayBackOpen, isPlaying, isStopped } = this.state
+
+    if (isPlayBackOpen) {
+      return (<div />)
+    } else {
+      return (
+        <div className="col-md-12 playbackbtn-wrapper">
+          <MuiThemeProvider theme={theme}>
+
+          { (!isPlaying && !isStopped && (
+              <Button 
+                variant="contained" 
+                color="primary" className='btn-start-start'
+                fullWidth={true}
+                onClick={this.onStartRecord}>
+               {'Start Recording'}
+              </Button>
+            ))
+          }
+          {
+            ((isPlaying && !isStopped) && (
+              <Button 
+                variant="contained" 
+                color="secondary" className='btn-start-stop'
+                fullWidth={true}
+                onClick={this.onStopRecord}>
+               {'Stop Recording'}
+              </Button>
+            ))
+          }
+          </MuiThemeProvider>
+        </div>
+      )
+    }
+  }
+
   render () {
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
@@ -584,75 +638,90 @@ class VideoPractice extends React.Component {
       question = videoQuestions.value[currentQuestion]['content'];
     return config ? (<div className="video-practice">
         {this.showSpinner(uploading)}
-        <div className="video-interview-header">
-          <h3>
-            <span className="pull-left">Question {currentQuestion + 1} of 5</span>
-            <span className="pull-right">Video Interview for Practice</span>
-          </h3>
-        </div>
 
         {!isPlayBackOpen && videoQuestions && videoQuestions.isFetched &&
         <React.Fragment>
-          <div className="row">
-            <div className="col-sm-12 question-box">
-                <p className="question-header text-center">{question}</p>
-            </div>
-          </div>
-          <div className="video-box flex-column">
-            <div className="row video-status">
-              <div className="col-sm-6">
-                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
+          <Row>
+            <Col xs="12" md="1" className="pt-6 pt-md-0"/>
+            <Col xs="12" md="4" className="pt-6 pt-md-0">
+              <div className="video-interview-header">
+                <h3>
+                  <span className="pull-left"><b>Practice Question {currentQuestion + 1} of 5</b></span>
+                </h3>
               </div>
-              <div className="col-sm-6">
-                <p>Response Time: <b>{remainingTime[1]} second(s)</b></p>
+              <p className="question-text">{question}</p>
+            </Col>
+            <Col xs="12" md="1" className="pt-6 pt-md-0"/>
+            <Col xs="12" md="5" className="pt-6 pt-md-0">
+              <div className="">
+                <Row className="question-time-title-row">
+                  <div className="question-time">
+                      Qeustion Time: 2 minutes
+                  </div>
+                </Row>
+                <Row className="video-status">
+                  <Col className="col-sm-9 question-time-title-parent-col">
+                    <Row>
+                      <Col className="col-sm-4 question-time-col">
+                        {
+                          remainingTime[0] > 0 ? (
+                            <div>
+                              <p>Prep Countdown: </p>
+                              <p><b>{remainingTime[0]} second(s)</b></p>
+                            </div>
+                          ) : (
+                            <div>
+                              <p>Response Time: </p>
+                              <p><b>{remainingTime[1]} second(s)</b></p>
+                            </div>
+                          )
+                        }
+                      </Col>
+                      <Col className="col-sm-8 question-time-col"> 
+                        <div className="video-progress">
+                          <RecordCtl
+                            remaining={remainingTime[timePos]}
+                            total={waitingTime[timePos]}
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col className="col-sm-3 question-time-title-parent-button-col">
+                    {this.renderStarAndStopRecordButton()}
+                  </Col>
+                </Row>
+
+                <Row className="video-webcam"> 
+                  <Col className="col-sm-12 video-webcam-col">
+                    <Webcam height="100%" width="100%"/>
+                    <div className="audio-box">
+                      <AudioMeter width={'90%'}/>
+                    </div>
+                  </Col>
+                </Row>
               </div>
-            </div>
-            <div className="row video-webcam"> 
-              <div className="audio-box">
-                <AudioMeter/>
-              </div>
-              <Webcam height="420" width="100%"/>
-              <div className="video-progress">
-                <RecordCtl
-                  remaining={remainingTime[timePos]}
-                  total={waitingTime[timePos]}
-                />
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
-        }
-        { !isPlayBackOpen && 
-          (<div className="col-md-12 playbackbtn-wrapper">
-            { (!isPlaying && !isStopped && (
-                <RaisedButton
-                  label={'Start Recording'}
-                  className="btn-start-start"
-                  onClick={this.onStartRecord}
-                  secondary={true}
-                />
-              ))
-            }
-            {
-              ((isPlaying && !isStopped) && (
-                <RaisedButton
-                  label={'Stop Recording'}
-                  className="btn-start-stop"
-                  onClick={this.onStopRecord}
-                />
-              ))
-            }
-            {isStopped &&
+            </Col>
+            <Col xs="12" md="1" className="pt-6 pt-md-0"/>
+          </Row>
+          {isStopped &&
+            <Row>
+            <Col xs="12" md="4" className="pt-4 pt-md-0" />
+            <Col xs="12" md="4" className="pt-4 pt-md-0" >
               <RaisedButton
                 label="Play Back"
                 className="btn-playback"
+                fullWidth={true}
                 onClick={this.openPlayBack}
                 primary={true}
               />
-            }
-          </div>)
+            </Col>
+            <Col xs="12" md="4" className="pt-4 pt-md-0" />
+            </Row>
+          }
+        </React.Fragment>
         }
-
+        
         {isPlayBackOpen &&  // Show playback.
           <VideoPlayBack
             url={src}

@@ -70,7 +70,7 @@ class AudioMeter extends React.Component {
     return (
       <div>
         <img src="/images/microphone.png" alt="Microphone"/>
-        <canvas ref="canvas" width="350" height="20" />
+        <canvas ref="canvas" height={20} style={{width: this.props.width ? this.props.width : '90%'}}/>
       </div>
     );
   }
