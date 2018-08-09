@@ -138,11 +138,15 @@ class EditProfile extends Component {
     if (talentInfo) {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
-      let subPostionType = { 
-            value: talentInfo.talent_position_sub_type.name, 
-            label: talentInfo.talent_position_sub_type.name,
-            positionType: talentInfo.talent_position_sub_type.talent_position_type
-          }
+      let subPostionType = {}
+      if (talentInfo.talent_position_sub_type) {
+        subPostionType = { 
+          value: talentInfo.talent_position_sub_type.name, 
+          label: talentInfo.talent_position_sub_type.name,
+          positionType: talentInfo.talent_position_sub_type.talent_position_type
+        }
+      }
+      
       let additionalSubPositionTypes = []
       if (talentInfo.talent_additional_position_sub_types) {
         Object.keys(talentInfo.talent_additional_position_sub_types).map((key) => {
