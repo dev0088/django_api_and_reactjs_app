@@ -110,7 +110,7 @@ class EditProfile extends Component {
         relationship: 0
       },
       currentAllPositionTypes: [],
-      currentSubPositionType: props.talentInfo 
+      currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
         ? { value: props.talentInfo.talent_position_sub_type.name, 
             label: props.talentInfo.talent_position_sub_type.name }
         : '',
