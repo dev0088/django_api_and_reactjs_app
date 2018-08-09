@@ -4,8 +4,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green'
+import red from '@material-ui/core/colors/red'
 import {
   Alert,
+  Row,
+  Col
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -32,6 +39,16 @@ const resolutionSize = {
   3: [1280, 720],
   4: [640, 480]
 }
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#40c741',
+    },
+    secondary: {
+      main: '#C00'
+    }
+  }
+})
 const title = {
   "cruise": "Cruise Staff",
   "audio": "Audio Technician",
@@ -105,6 +122,11 @@ class LiveInterview extends React.Component {
         })
     });
     const { pageId } = this.props.match.params;
+    console.log('---- pageId: ', pageId, this.props)
+    let position_type = this.props.talentInfo.value 
+      ? this.props.talentInfo.value.talent_position_sub_type.talent_position_type 
+      : pageId
+    console.log('==== position_type: ', position_type)
     this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
     this.props.videoActions.getVideoSettingsActions();
   }
@@ -416,6 +438,44 @@ class LiveInterview extends React.Component {
                 </div>) : null;
   }
 
+
+  renderStarAndStopRecordButton () {
+    const { isPlayBackOpen, isPlaying, isStopped } = this.state
+
+    if (isPlayBackOpen) {
+      return (<div />)
+    } else {
+      return (
+        <div className="col-md-12 playbackbtn-wrapper">
+          <MuiThemeProvider theme={theme}>
+
+          { (!isPlaying && !isStopped && (
+              <Button 
+                variant="contained" 
+                color="primary" className='btn-start-start'
+                fullWidth={true}
+                onClick={this.onStartRecord}>
+               {'Start Recording'}
+              </Button>
+            ))
+          }
+          {
+            ((isPlaying && !isStopped) && (
+              <Button 
+                variant="contained" 
+                color="secondary" className='btn-start-stop'
+                fullWidth={true}
+                onClick={this.onStopRecord}>
+               {'Stop Recording'}
+              </Button>
+            ))
+          }
+          </MuiThemeProvider>
+        </div>
+      )
+    }
+  }
+
   render () {
     const { pageId } = this.props.match.params;
     const { 
@@ -448,64 +508,79 @@ class LiveInterview extends React.Component {
       question = videoQuestions.value[currentQuestion]['content'];
     return config ? (<div className="video-practice">
         {this.showSpinner(uploading)}
-        <div className="video-interview-header">
-          <h3>
-            <span className="pull-left">Question {currentQuestion + 1} of 5</span>
-            <span className="pull-right">Video Interview ({title[pageId] && title[pageId]})</span>
+        <div className="video-interview-live-header ">
+          <h3 className="text-center">
+            <p>My Video Interview ({title[pageId] && title[pageId]}) </p>
+            <p>Live!</p>
           </h3>
-          <h5 className="text-center">Live!</h5>
         </div>
 
         {videoQuestions && videoQuestions.isFetched &&
         <React.Fragment>
-          <div className="row">
-            <div className="col-sm-12 question-box">
-                <p className="question-header text-center">{question}</p>
-            </div>
-          </div>
-          <div className="video-box flex-column">
-            <div className="row video-status">
-              <div className="col-sm-6">
-                <p>Prep Countdown: <b>{remainingTime[0]} second(s)</b></p>
+          <Row>
+            <Col xs="12" md="1" className="pt-6 pt-md-0"/>
+            <Col xs="12" md="4" className="pt-6 pt-md-0">
+              <div className="video-interview-header">
+                <h5>
+                  <span className="pull-left"><b>Question {currentQuestion + 1} of 5</b></span>
+                </h5>
               </div>
-              <div className="col-sm-6">
-                <p>Response Time: <b>{remainingTime[1]} second(s)</b></p>
+              <p className="question-text">{question}</p>
+            </Col>
+            <Col xs="12" md="1" className="pt-6 pt-md-0"/>
+            <Col xs="12" md="5" className="pt-6 pt-md-0">
+              <div>
+                <Row className="question-time-title-row">
+                  <div className="question-time">
+                      Qeustion Time: 2 minutes
+                  </div>
+                </Row>
+                <Row className="video-status">
+                  <Col className="col-sm-9 question-time-title-parent-col">
+                    <Row>
+                      <Col className="col-sm-4 question-time-col">
+                        {
+                          remainingTime[0] > 0 ? (
+                            <div>
+                              <p>Prep Countdown: </p>
+                              <p><b>{remainingTime[0]} second(s)</b></p>
+                            </div>
+                          ) : (
+                            <div>
+                              <p>Response Time: </p>
+                              <p><b>{remainingTime[1]} second(s)</b></p>
+                            </div>
+                          )
+                        }
+                      </Col>
+                      <Col className="col-sm-8 question-time-col"> 
+                        <div className="video-progress">
+                          <RecordCtl
+                            remaining={remainingTime[timePos]}
+                            total={waitingTime[timePos]}
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col className="col-sm-3 question-time-title-parent-button-col">
+                    {this.renderStarAndStopRecordButton()}
+                  </Col>
+                </Row>
+                <Row className="video-webcam"> 
+                  <Col className="col-sm-12 video-webcam-col">
+                    <Webcam height="100%" width="100%"/>
+                    <div className="audio-box">
+                      <AudioMeter width={'90%'}/>
+                    </div>
+                  </Col>
+                </Row>                                
               </div>
-            </div>
-            <div className="row video-webcam"> 
-              <div className="audio-box">
-                <AudioMeter/>
-              </div>
-              <Webcam height="420" width="100%"/>
-              <div className="video-progress">
-                <RecordCtl
-                  remaining={remainingTime[timePos]}
-                  total={waitingTime[timePos]}
-                />
-              </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </React.Fragment>
         }
         <div className="col-md-12 livebuttons-wrapper">
-          { (!isPlaying && !isStopped && (
-              <RaisedButton
-                label={'Start Recording'}
-                className="btn-start-start"
-                onClick={this.onStartRecord}
-                secondary={true}
-              />
-            ))
-          }
-          {
-            ((isPlaying && !isStopped) && (
-              <RaisedButton
-                label={'Stop Recording'}
-                className="btn-start-stop"
-                onClick={this.onStopRecord}
-              />
-            ))
-          }
           {isStopped &&
             (<React.Fragment>
               {currentQuestion < 3 &&
@@ -562,12 +637,13 @@ class LiveInterview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings, deviceSettings } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings, talentInfo } = state;
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
+    talentInfo: talentInfo
   }
 }
 

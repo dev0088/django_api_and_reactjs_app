@@ -20,7 +20,35 @@ export const getTalentInfo = (id) => ({
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       types: [
-        types.TALENT_INFO.REQUEST, types.TALENT_INFO.SUCCESS, types.TALENT_INFO.FAILURE
+        types.TALENT_INFO.REQUEST, 
+        types.TALENT_INFO.SUCCESS, 
+        types.TALENT_INFO.FAILURE
+      ]
+    }
+})
+
+export const getTalentPositionTypes = (id) => ({
+  [RSAA]: {
+      endpoint: `${apiConfig.url}/talent_position_type/${id}/`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      types: [
+        types.TALENT_POSITION_TYPES.REQUEST, 
+        types.TALENT_POSITION_TYPES.SUCCESS, 
+        types.TALENT_POSITION_TYPES.FAILURE
+      ]
+    }
+})
+
+export const getAllPositionTypes = () => ({
+  [RSAA]: {
+      endpoint: `${apiConfig.url}/talent_position_type/all`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      types: [
+        types.ALL_POSITION_TYPES.REQUEST, 
+        types.ALL_POSITION_TYPES.SUCCESS, 
+        types.ALL_POSITION_TYPES.FAILURE
       ]
     }
 })

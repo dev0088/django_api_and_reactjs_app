@@ -21,7 +21,7 @@ class Talent(models.Model):
 	### general info
 	sex = models.CharField(choices=SEX_CHOICES, default='Male', max_length=10)
 	talent_position_sub_type = models.ForeignKey(TalentPositionSubType, related_name='talents', on_delete=models.SET_DEFAULT, null=True, blank=True, default=None)
-	# secondary_talent_position_sub_types = models.ForeignKey(TalentPositionSubType, related_name='talents', on_delete=models.SET_DEFAULT, null=True, blank=True, default=None)
+	# talent_additional_position_sub_types = models.ForeignKey(TalentAdditionalPositionSubType, related_name='talents', on_delete=models.SET_DEFAULT, null=True, blank=True, default=None)
   # skills: has_many -> talent_skills
 
 	### business stuff ###

@@ -3,13 +3,15 @@ from talent.models import Talent
 from talent_video.serializers import TalentVideoSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
+from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
 	user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 	talent_videos = TalentVideoSerializer(many=True, read_only=True)
 	talent_position_sub_type = TalentPositionSubTypeSerializer(many=False, read_only=True)
 	user = GeneralUserSerializer(many=False, read_only=True)
-	
+	talent_additional_position_sub_types = GeneralTalentAdditionalPositionSubTypeSerializer(many=True, read_only=True)
+
 	class Meta:
 		model = Talent
 		fields = (
@@ -17,7 +19,7 @@ class TalentSerializer(serializers.ModelSerializer):
 			'user',
 			'sex',
 			'talent_position_sub_type',
-			# 'skills',
+			'talent_additional_position_sub_types',
 
 			'phone_number',
 			'mailing_addresse1',

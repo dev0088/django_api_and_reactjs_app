@@ -159,10 +159,10 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, getTalentInfo } = state;
+  const { auth, talentInfo } = state;
   return {
     auth: auth,
-    talentInfo: getTalentInfo
+    talentInfo: talentInfo
   }
 }
 function mapDispatchToProps(dispatch) {

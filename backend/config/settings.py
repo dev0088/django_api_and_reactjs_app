@@ -52,6 +52,7 @@ LOCAL_APPS = (
 	'talent',
 	'talent_position_type',
 	'talent_position_sub_type',
+    'talent_additional_position_sub_type',
     'talent_picture',
     'talent_resume',
     'talent_video',

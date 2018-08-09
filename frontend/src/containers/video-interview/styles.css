@@ -15,7 +15,12 @@
   display: block;
   clear: both;
 }
-
+.video-interview-live-header {
+  margin-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  /*border-bottom: 2px solid #000;*/
+}
 .btnn-start-practice {
   margin: 10px auto;
   font-size: 23px;
@@ -27,18 +32,20 @@
 
 .audio-box {
   position: relative;
-  margin: 0 auto;
+  margin: 1rem auto;
   top: 3px;
   height: 25px;
+  width: 100%;
 }
 .audio-box img{
   vertical-align: top;
   margin-right: 10px;
   height: 20px;
+  display: inline-block;
 }
 
 .video-practice {
-  margin-top: 150px;
+  margin-top: 110px;
 }
 
 .video-practice .camera-box video {
@@ -54,8 +61,33 @@
   font-size: 28px;
 }
 
+.question-text {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.question-time-title-row {
+  width: 100%;
+}
+
+.question-time-title-parent-col {
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+.question-time-title-parent-button-col {
+  padding-right: 0px!important;
+}
+
+.question-time-col {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .question-time {
-  margin-top: 30px;
+  /*margin-top: 30px;*/
+  padding-left: 10px;
+  font-weight: 600;
+  line-height: 1.5rem;
 }
 .video-box{
   width: 70%;
@@ -65,19 +97,23 @@
   display: flex;
 }
 .video-status{
-  border: 1px solid #333;
+  /*border: 1px solid #333;*/
   width: 100%;
 }
 .video-webcam {
   width: 100%;
-  /*background: #fff; */
-  height: 335; 
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.video-webcam-col {
+  height: 100%;
+  padding: 0px!important;
 }
 .video-status > div{
   padding: 10px;
 }
 .video-status > div:first-child{
-  border-right: 1px solid #333;
+  /*border-right: 1px solid #333;*/
 }
 .video-status p {
   margin-bottom: 0px;
@@ -102,8 +138,13 @@
 }
 
 .playbackbtn-wrapper, .livebuttons-wrapper {
-  margin-top: 15px;
+  /*margin-top: 15px;*/
   text-align: center;
+  padding: 0px!important;
+  height: 100%!important;
+}
+.playbackbtn-wrapper button {
+  height: 100%!important;;
 }
 .btnn-video-buttons{
   margin-top: 20px;
@@ -147,8 +188,19 @@ canvas {
     color: white !important;
 }
 .btn-start-start, .btn-start-stop, .btn-playback{
-  width: 240px;
+  /*width: 240px;*/
+  height: 100%;
 }
+.btn-start-start button {
+  height: 100%!important;
+}
+.btn-start-stop button {
+  height: 100%!important;
+}
+.btn-playback button {
+  height: 100%!important;
+}
+
 .spinner{
   display: -ms-flexbox;
   display: flex;

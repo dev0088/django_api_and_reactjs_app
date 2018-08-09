@@ -114,7 +114,7 @@ class QuestionRamdomList(APIView):
             if not position_type:
                 questions = Question.objects.all()
             else :
-                position_type = TalentPositionType.objects.get(name=position_type)
+                position_type = TalentPositionType.objects.get(name__iexact=position_type)
                 if not position_sub_type:
                     print('===== filter question: ', position_type.id)
                     questions = Question.objects.filter(talent_position_type=position_type.id)

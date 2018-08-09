@@ -126,3 +126,25 @@ div[name="emergency_relationship"] {
 		top: 40px;
 	}
 }
+
+.profile-position-sub-type-item {
+	margin-left: 15px;
+}
+
+.profile-group-title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-top: 15px;
+}
+.profile-gender-row {
+	margin-left: 25px!important;
+	margin-right: 25px!important;
+  padding-top: 10px!important;
+  padding-bottom: 10px!important;
+}
+.profile-save-button-group-col {
+	text-align: right;
+}
+.profile-emercy-title {
+	padding-top: 30px;
+}
