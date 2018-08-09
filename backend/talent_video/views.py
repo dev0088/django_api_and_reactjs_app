@@ -60,8 +60,8 @@ class InterviewFileUploadPolicy(APIView):
         talent_video_id = talent_video.id
         _, file_extension = os.path.splitext(object_name)
         
-        upload_start_path = "{images_path}/{talent_id}/".format(
-                images_path=AWS_UPLOAD_VIDEOS_PATH,
+        upload_start_path = "{videos_path}/{talent_id}/".format(
+                videos_path=AWS_UPLOAD_VIDEOS_PATH,
                 talent_id=talent_id,
                 talent_video_id=talent_video_id,
                 file_extension=file_extension

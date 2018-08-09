@@ -12,17 +12,17 @@ class VideoPreview extends React.Component {
   constructor(props) {
     super();
     this.state = {
-    	has_sub_position_type: props.getTalentInfo.value.talent_position_sub_type ? true : false
+    	has_sub_position_type: props.talentInfo.value.talent_position_sub_type ? true : false
     }
   }
 
 	componentWillReceiveProps(nextProps) {
     const { 
-      getTalentInfo
+      talentInfo
     } = nextProps;
     
-    if (getTalentInfo.value.talent_position_sub_type && 
-    	 getTalentInfo.value.talent_position_sub_type.talent_position_type) {
+    if (talentInfo.value.talent_position_sub_type && 
+    	 talentInfo.value.talent_position_sub_type.talent_position_type) {
     	this.setState({
     		has_sub_position_type: true
     	})
@@ -96,9 +96,9 @@ class VideoPreview extends React.Component {
 
 
 function mapStateToProps(state) {
-  const { getTalentInfo } = state;
+  const { talentInfo } = state;
   return {
-    getTalentInfo,
+    talentInfo,
   }
 }
 

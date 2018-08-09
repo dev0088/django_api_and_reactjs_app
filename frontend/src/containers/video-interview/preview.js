@@ -390,10 +390,10 @@ class VideoPreview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, getTalentInfo, deviceSettings } = state;
+  const { auth, talentInfo, deviceSettings } = state;
   return {
     auth: auth,
-    talentInfo: getTalentInfo,
+    talentInfo: talentInfo,
     deviceSettings: deviceSettings
   }
 }

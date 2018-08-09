@@ -841,14 +841,14 @@ class VideoPractice extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings, deviceSettings, getTalentInfo } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings, talentInfo } = state;
   // let vq = {value: ["aaa", "bbb"], isFetched: true};
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
-    talentInfo: getTalentInfo
+    talentInfo: talentInfo
   }
 }
 

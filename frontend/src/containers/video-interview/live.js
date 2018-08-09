@@ -637,13 +637,13 @@ class LiveInterview extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, videoQuestions, videoSettings, deviceSettings, getTalentInfo } = state;
+  const { auth, videoQuestions, videoSettings, deviceSettings, talentInfo } = state;
   return {
     auth: auth,
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
-    talentInfo: getTalentInfo
+    talentInfo: talentInfo
   }
 }
 

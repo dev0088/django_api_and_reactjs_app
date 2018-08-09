@@ -9,20 +9,30 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Panel from '../components/panel'
+import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+// import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+// import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+// import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwipeableViews from 'react-swipeable-views';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
+import TalentAPI from '../apis/talentAPIs'
 import './editProfile.css'
 import apiConfig from '../constants/api';
 import Dropzone from 'react-dropzone';
+import Select from 'react-select';
+import makeAnimated from 'react-select/lib/animated';
+import DropDown from 'react-dropdown';
+import moment from 'moment';
+import 'react-dropdown/style.css'
 
-const styles = {
-  slide: {
-    padding: 10,
-  },
-};
-const const_genders = ["male", "female"];
+const const_genders = ["Male", "Female"];
 const const_skill = ["vocalist", "dancer", "actor", "aerialist", 
     "musician", "staff", "youth staff", "technician", "plays"
 ];
@@ -42,6 +52,29 @@ const const_sub_other_skill = {
   "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
 }
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+  slide: {
+    padding: 10,
+  },
+});
+
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+    secondary: {
+      main: '#C00'
+    }
+  }
+})
+
 // var ReactS3Uploader = require('react-s3-uploader');
 
 class EditProfile extends Component {
@@ -49,8 +82,9 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gender: "male",
-      skill: "vocalist",
+      userID: props.auth.access.user_id,
+      gender: "Male",
+      skill: "Vocalist",
       subskill: ["tenor"],
       other_skill: ["dances"],
       other_sub_skill: [],
@@ -74,8 +108,96 @@ class EditProfile extends Component {
         email: "",
         phone: "",
         relationship: 0
+      },
+      currentAllPositionTypes: [],
+      currentSubPositionType: props.talentInfo 
+        ? { value: props.talentInfo.talent_position_sub_type.name, 
+            label: props.talentInfo.talent_position_sub_type.name }
+        : '',
+      currentAdditionalPositionSubTypes: null
+    }
+  }
+
+  getPositionTypesFromProps(props) {
+    const { 
+      auth,
+      allPositionTypes,
+      talentInfo
+    } = props
+    let currentAllPositionTypes = []
+    let currentSubPositionType = []
+    let currentAdditionalPositionSubTypes = []
+    let userID = auth.access.user_id
+    let gender = 'Male'
+    let contactInfo = {}
+    let emergencyInfo = {}
+
+    if (allPositionTypes && allPositionTypes.value) {
+      currentAllPositionTypes = allPositionTypes.value
+    }
+    if (talentInfo) {
+      gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
+      // Get sub position types for primary and secondary of talent
+      let subPostionType = { 
+            value: talentInfo.talent_position_sub_type.name, 
+            label: talentInfo.talent_position_sub_type.name,
+            positionType: talentInfo.talent_position_sub_type.talent_position_type
+          }
+      let additionalSubPositionTypes = []
+      if (talentInfo.talent_additional_position_sub_types) {
+        Object.keys(talentInfo.talent_additional_position_sub_types).map((key) => {
+          let positionSubType = talentInfo.talent_additional_position_sub_types[key].talent_position_sub_type
+          additionalSubPositionTypes.push({
+            label: positionSubType.name,
+            value: positionSubType.name,
+            group: positionSubType.talent_position_type
+          })
+        })
+      }
+
+      currentSubPositionType = subPostionType,
+      currentAdditionalPositionSubTypes = additionalSubPositionTypes
+
+      // Get contact info
+      contactInfo = {
+        firstName: talentInfo.user.first_name,
+        lastName: talentInfo.user.last_name,
+        email: talentInfo.user.email,
+        mobile: talentInfo.phone_number,
+        address1: talentInfo.mailing_addresse1,
+        address2: talentInfo.mailing_addresse2,
+        address3: talentInfo.mailing_addresse3,
+        address4: talentInfo.mailing_addresse4,
+        birthday: moment(talentInfo.birthday)
+      }
+      emergencyInfo = {
+        firstName: talentInfo.emergency_first_name,
+        lastName: talentInfo.emergency_last_name,
+        email: talentInfo.emergency_email,
+        phone: talentInfo.emergency_phone,
+        relationship: talentInfo.emergency_relationship
       }
     }
+
+    return {
+      userID,
+      gender,
+      currentAllPositionTypes,
+      currentSubPositionType,
+      currentAdditionalPositionSubTypes,
+      contactInfo,
+      emergencyInfo
+    }
+  }
+
+  componentWillMount() {
+    this.props.talentActions.getAllPositionTypes()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.getPositionTypesFromProps(nextProps)
+    })
   }
 
   clickButton = (type, val) =>  {
@@ -264,110 +386,475 @@ class EditProfile extends Component {
     })
   }
 
+  handleSubPositionSelect = (item) => {
+    this.setState({
+      currentSubPositionType: item
+    })
+  }
+
+  handlecurrentAdditionalPositionSubTypesSelect = (selectedOption) => { 
+   this.setState({ currentAdditionalPositionSubTypes: selectedOption });
+  }
+
+  handlePositionTypeCancel = () => {
+    const {
+      gender,
+      currentAllPositionTypes,
+      currentSubPositionType,
+      currentAdditionalPositionSubTypes
+    } = this.getPositionTypesFromProps(this.props)
+
+    this.setState({
+      gender: gender,
+      currentAllPositionTypes: currentAllPositionTypes,
+      currentSubPositionType: currentSubPositionType,
+      currentAdditionalPositionSubTypes: currentAdditionalPositionSubTypes
+    })
+  }
+
+  handlePositionTypeSave = () => {
+    const { auth, talentInfo } = this.props
+    const { 
+      userID,
+      gender,
+      currentSubPositionType,
+      currentAdditionalPositionSubTypes
+    } = this.state
+
+    let talent_additional_position_sub_types = []
+    Object.keys(currentAdditionalPositionSubTypes).map((key) => {
+      const positionSubType = currentAdditionalPositionSubTypes[key]
+      talent_additional_position_sub_types.push({
+        name: positionSubType.value,
+        talent_position_type: positionSubType.group
+      })
+    })
+
+    let data = {
+      sex: gender === "Male" ? "m" : "f",
+      talent_position_sub_type: {
+        name: currentSubPositionType.value,
+        talent_position_type: currentSubPositionType.positionType
+      },
+      talent_additional_position_sub_types: talent_additional_position_sub_types
+    }
+    TalentAPI.saveTalentInfo(userID, data, this.handlePositionTypeSaveResponse)
+  }
+
+  handlePositionTypeSaveResponse = (response, isFailed) => {
+    console.log('==== response: ', response, isFailed)
+    this.props.talentActions.getTalentInfo(this.state.userID)
+  }
+
+  handleBusinessStaffCancel = () => {
+    const {
+      contactInfo,
+      emergencyInfo
+    } = this.getPositionTypesFromProps(this.props)
+
+    this.setState({
+      contactInfo,
+      emergencyInfo
+    })
+  }
+
+  handleBusinessStaffSave = () => {
+    const { auth, talentInfo } = this.props
+    const { 
+      userID,
+      contactInfo,
+      emergencyInfo
+    } = this.state
+    console.log('=== this.state: ', this.state)
+    let data = {
+      user: {
+        email: contactInfo.email,
+        first_name: contactInfo.firstName,
+        last_name: contactInfo.lastName,
+      },
+      phone_number: contactInfo.mobile,
+      mailing_addresse1: contactInfo.address1,
+      mailing_addresse2: contactInfo.address2,
+      mailing_addresse3: contactInfo.address3,
+      mailing_addresse4: contactInfo.address4,
+      birthday: moment(contactInfo.birthday).format('YYYY-MM-DD'),
+      emergency_first_name: emergencyInfo.firstName,
+      emergency_last_name: emergencyInfo.lastName,
+      emergency_email: emergencyInfo.email,
+      emergency_phone: emergencyInfo.phone,
+      emergency_relationship: emergencyInfo.relationship
+    }
+    console.log('==== data: ', data)
+    TalentAPI.saveTalentInfo(userID, data, this.handleBusinessStaffSaveResponse)
+  }
+
+  handleBusinessStaffSaveResponse = (response, isFailed) => {
+    console.log('==== response: ', response, isFailed)
+    this.props.talentActions.getTalentInfo(this.state.userID)
+  }
+
+  renderPositionTypesView() {
+    const { talentInfo, allPositionTypes } = this.props
+    let groups = []
+
+    if (allPositionTypes) {
+      Object.keys(allPositionTypes).map((key) => {
+        const positionType = allPositionTypes[key]
+        let subPositions = []
+        if (positionType.name === 'Practice') {
+          return;
+        }
+        let group = {
+          type: 'group',
+          name: positionType.name,
+          items: []
+        }
+        Object.keys(positionType.talent_position_sub_types).map((key) => {
+          const positionSubType = positionType.talent_position_sub_types[key]
+          group.items.push({
+            value: positionSubType,
+            label: positionSubType,
+            className: 'profile-position-sub-type-item'
+          })
+        })
+        groups.push(group)
+      })
+    }
+
+    return (
+      <DropDown 
+        options={groups} 
+        onChange={this.handleSubPositionSelect} 
+        value={this.state.currentSubPositionType} 
+        placeholder="Select an option" />
+    )
+  }
+
+  renderMultiSelectionPositionTypesView() {
+    const { talentInfo, allPositionTypes } = this.props
+    let groups = []
+
+    if (allPositionTypes) {
+      Object.keys(allPositionTypes).map((key) => {
+        const positionType = allPositionTypes[key]
+        let subPositions = []
+        if (positionType.name === 'Practice') {
+          return;
+        }
+        let group = {
+          label: positionType.name,
+          options: []
+        }
+        Object.keys(positionType.talent_position_sub_types).map((key) => {
+          const positionSubType = positionType.talent_position_sub_types[key]
+          group.options.push({
+            label: positionSubType,
+            value: positionSubType,
+            group: positionType.name
+          })
+        })
+        groups.push(group)
+      })
+    }
+
+    return (
+      <Select 
+        closeMenuOnSelect={false}
+        components={makeAnimated()}
+        options={groups} 
+        isMulti
+        label="Single select" 
+        value={this.state.currentAdditionalPositionSubTypes}
+        onChange={this.handlecurrentAdditionalPositionSubTypesSelect}
+      />
+    )
+  }
+
+  renderBussinessStaff() {
+    const { talentInfo, allPositionTypes, classes } = this.props
+    const {
+      contactInfo,
+      emergencyInfo,
+    } = this.state
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
+
+    return (
+      <Panel title={"The Business Stuff"}>
+        <Row className="profile-gender-row">
+          <Col sm="12">
+            <h5>Contact Information</h5>
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              name="contact_firstName"
+              id="contact_firstName"
+              placeholder=""
+              value={contactInfo.firstName}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="First Name"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_lastName"
+              id="contact_lastName"
+              placeholder=""
+              value={contactInfo.lastName}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Last Name"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              type="email"
+              name="contact_email"
+              id="contact_email"
+              placeholder=""
+              value={contactInfo.email}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Email Address"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_mobile"
+              id="contact_mobile"
+              placeholder=""
+              value={contactInfo.mobile}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Mobile"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              name="contact_address1"
+              id="contact_address1"
+              placeholder=""
+              value={contactInfo.address1}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Mailing Address1"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_address2"
+              id="contact_address2"
+              placeholder=""
+              value={contactInfo.address2}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Mailing Address2"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              name="contact_address3"
+              id="contact_address3"
+              placeholder=""
+              value={contactInfo.address3}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Mailing Address3"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_address4"
+              id="contact_address4"
+              placeholder=""
+              value={contactInfo.address4}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Mailing Address4"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="12">
+            <DatePicker
+              hintText="Date of Birth"
+              className="datePicker"
+              value={contactInfo.birthday}
+              onChange={this.handleBirthdayChange}
+            />
+          </Col>
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col sm="12">
+            <h5 className="profile-emercy-title">Emergency Contact Information</h5>
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              name="emergency_firstName"
+              id="emergency_firstName"
+              placeholder=""
+              value={emergencyInfo.firstName}
+              onChange={this.handleEmergencyInfoChange}
+              floatingLabelText="First Name"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="emergency_lastName"
+              id="emergency_lastName"
+              placeholder=""
+              value={emergencyInfo.lastName}
+              onChange={this.handleEmergencyInfoChange}
+              floatingLabelText="Last Name"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="6">
+            <TextField
+              name="emergency_email"
+              id="emergency_email"
+              placeholder=""
+              value={emergencyInfo.email}
+              onChange={this.handleEmergencyInfoChange}
+              floatingLabelText="Email Address"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="emergency_phone"
+              id="emergency_phone"
+              placeholder=""
+              value={emergencyInfo.phone}
+              onChange={this.handleEmergencyInfoChange}
+              floatingLabelText="Phone"
+              fullWidth={true}
+            />
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col sm="12">
+            <SelectField
+              id="emergency_relationship"
+              name="emergency_relationship"
+              floatingLabelText="Relationship"
+              value={emergencyInfo.relationship}
+              onChange={this.handleRelationshipChange}
+              menuItemStyle={selectItemStyle}
+            >
+              <MenuItem value={1} primaryText="Wife" />
+              <MenuItem value={2} primaryText="Husband" />
+              <MenuItem value={3} primaryText="Father" />
+              <MenuItem value={4} primaryText="Mother" />
+              <MenuItem value={5} primaryText="Brother" />
+              <MenuItem value={6} primaryText="Sister" />
+              <MenuItem value={7} primaryText="Other" />
+            </SelectField>
+          </Col>
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Button size="large" 
+              className={classes.button} 
+              onClick={this.handleBusinessStaffCancel} >
+              {'Cancel'}
+            </Button>
+            <Button size="large" color="primary" 
+              className={classes.button} 
+              onClick={this.handleBusinessStaffSave}>
+              {'Save'}
+            </Button>
+          </Col>
+        </Row>
+      </Panel>
+    )
+  }
+
   render() {
     const { contactInfo, emergencyInfo } = this.state;
+    const { classes } = this.props;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
     }
 
     return(
+      <MuiThemeProvider theme={theme}>
       <div className="profile-edit-container">
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
         <Row className="profile-edit-title">
           <h3>Build/Edit My Profile</h3>
         </Row>
-        <Row>
-          <Col sm="12"> <h5>I am a...</h5> </Col>
-          <Col>
-          {
-            const_genders.map((gender, index) => {
-              return (
-                <FlatButton
-                  key={index}
-                  label={gender}
-                  primary={(gender === this.state.gender)}
-                  onClick={() => this.clickButton('gender', gender)}
-                  className={ (gender === this.state.gender) ? "skill-button-primary" : "normal-button" }
-                />)
-            })
-          }
-          </Col>
-        </Row>
-        <Row>
-          <Col sm="12"> <h5>Who is a...</h5> </Col>
-          <Col sm="12" className="profile-skills">
-          {
-            const_skill.map((skill, index) => {
-              return (
-                <FlatButton
-                  key={index}
-                  label={skill}
-                  primary={(skill === this.state.skill)}
-                  onClick={() => this.clickButton('skill', skill)}
-                  className={ (skill === this.state.skill) ? "skill-button-primary" : "normal-button" }
-                />)
-            })
-          }
-          </Col>
-          <Col sm="12" className="profile-subskills">
-          {
-            const_sub_skill[this.state.skill] && 
-            const_sub_skill[this.state.skill].map((skill, index) => {
-              return (
-                <FlatButton
-                  key={index}
-                  label={skill}
-                  primary={(this.state.subskill.indexOf(skill) > -1)}
-                  className={ (this.state.subskill.indexOf(skill) > -1) ? "skill-button-primary" : "normal-button" }
-                  onClick={() => this.clickButton('subskill', skill)}
-                />)
-            })
-          }
-          </Col>
-        </Row>
-        <Row>
-          <Col sm="12"> <h5>Who also...</h5> </Col>
-          <Col sm="12" className="profile-skills">
-          {
-            const_other_skill.map((other, index) => {
-              return (
-                <FlatButton
-                  key={index}
-                  label={other}
-                  primary={(this.state.other_skill.indexOf(other) > -1)}
-                  onClick={() => this.clickButton('other_skill', other)}
-                  className={ (this.state.other_skill.indexOf(other) > -1) ? "skill-button-primary" : "normal-button" }
-                />)
-            })
-          }
-          </Col>
-          <Col sm="12" className="profile-other-subskills">
-          {
-            this.state.other_skill.map((other, index) => (
-              <div className="profile-other-each-subskills" key={index}>
-              {
-                const_sub_other_skill[other] && 
-                const_sub_other_skill[other].map((skill, index2) => {
-                  return (
-                    <FlatButton
-                      key={index2}
-                      label={skill}
-                      primary={(this.state.other_sub_skill.indexOf(skill) > -1)}
-                      onClick={() => this.clickButton('other_sub_skill', skill)}
-                      className={ (this.state.other_sub_skill.indexOf(skill) > -1) ? "skill-button-primary" : "normal-button" }
-                    />)
-                })
-              }
-              </div>
-            ))
-          }
-          </Col>
-        </Row>
+
+        <Panel title={"General Info"} >
+          <Row className="profile-gender-row">
+            <Col xs="12" md="2" className="pt-3 pt-md-3">
+              <h5>I am a...</h5> 
+            </Col>
+            <Col xs="12" md="10" className="pt-0 pt-md-2">
+            {
+              const_genders.map((gender, index) => {
+                return (
+                  <FlatButton
+                    key={index}
+                    label={gender}
+                    primary={(gender === this.state.gender)}
+                    onClick={() => this.clickButton('gender', gender)}
+                    className={ (gender === this.state.gender) ? "skill-button-primary" : "normal-button" }
+                  />)
+              })
+            }
+            </Col>
+          </Row>
+          <Row className="profile-gender-row">
+            <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who is a...</h5> </Col>
+            <Col xs="12" md="10" className="pt-3 pt-md-3"> {this.renderPositionTypesView()}</Col>
+          </Row>
+          <Row className="profile-gender-row">
+            <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
+            <Col xs="12" md="10" className="pt-3 pt-md-3"> { this.renderMultiSelectionPositionTypesView() } </Col>
+          </Row>
+          <Row className="profile-gender-row">
+            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+              <Button size="large" 
+                className={classes.button} 
+                onClick={this.handlePositionTypeCancel} >
+                {'Cancel'}
+              </Button>
+              <Button size="large" color="primary" 
+                className={classes.button} 
+                onClick={this.handlePositionTypeSave}>
+                {'Save'}
+              </Button>
+            </Col>
+          </Row>
+        </Panel>
+
         <Row className="profile-edit-buttons">
           <Col sm="12">
             <h4>Let's Build or Edit Your Profile...</h4>
           </Col>
         </Row>
+        {this.renderBussinessStaff()}
+
         <Row>
           <Col sm="12">
             <h5>The Business Stuff</h5>
@@ -651,15 +1138,18 @@ class EditProfile extends Component {
           </Col>
         </Row>
       </div>
+      </MuiThemeProvider>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { auth, talentReducer } = state;
+  const { auth, talentReducer,  talentInfo, allPositionTypes} = state;
   return {
     auth,
-    talentReducer
+    talentReducer,
+    talentInfo: talentInfo.value,
+    allPositionTypes: allPositionTypes.value
   }
 }
 
@@ -669,4 +1159,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));
