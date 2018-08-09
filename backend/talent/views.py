@@ -32,8 +32,11 @@ class TalentDetail(APIView):
         print('== request.data: ', request.data)
         talent_item = self.get_object(pk)
         talent_data = request.data
-        user_data = talent_data['user']
-        talent_data.pop('user', None)
+        user_data = {}
+        if "user" in talent_data:
+            user_data = talent_data['user']
+            talent_data.pop('user', None)
+            
         print('=== talent_data: ', talent_data)
         print('=== user_data: ', user_data)
         serializer = TalentSerializer(talent_item, data=talent_data)
