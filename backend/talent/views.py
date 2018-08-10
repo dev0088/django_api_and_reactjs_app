@@ -37,16 +37,10 @@ class TalentDetail(APIView):
             user_data = talent_data['user']
             talent_data.pop('user', None)
             
-        print('=== talent_data: ', talent_data)
-        print('=== user_data: ', user_data)
         serializer = TalentSerializer(talent_item, data=talent_data)
         if serializer.is_valid():
             serializer.save()
             if "talent_position_sub_type" in request.data:
-
-                print('== request.data.talent_position_sub_type.name: ', request.data['talent_position_sub_type']['name'])
-                print('== request.data.talent_additional_position_sub_types', request.data['talent_additional_position_sub_types'])
-
                 # Save primary position sub type
                 position_sub_type = TalentPositionSubType.objects.get(name=request.data['talent_position_sub_type']['name'])
                 if position_sub_type:

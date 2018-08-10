@@ -7,17 +7,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import DatePicker from 'material-ui/DatePicker';
-import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-// import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-// import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-// import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwipeableViews from 'react-swipeable-views';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -146,7 +141,7 @@ class EditProfile extends Component {
           positionType: talentInfo.talent_position_sub_type.talent_position_type
         }
       }
-      
+
       let additionalSubPositionTypes = []
       if (talentInfo.talent_additional_position_sub_types) {
         Object.keys(talentInfo.talent_additional_position_sub_types).map((key) => {
@@ -574,6 +569,56 @@ class EditProfile extends Component {
     )
   }
 
+  renderGeneralInfoView() {
+    const { talentInfo, allPositionTypes, classes } = this.props
+    return (
+      <Panel title={"General Info"} >
+        <Row className="profile-gender-row">
+          <Col xs="12" md="2" className="pt-3 pt-md-3">
+            <h5>I am a...</h5> 
+          </Col>
+          <Col xs="12" md="10" className="pt-0 pt-md-2">
+          {
+            const_genders.map((gender, index) => {
+              return (
+                <FlatButton
+                  key={index}
+                  label={gender}
+                  primary={(gender === this.state.gender)}
+                  onClick={() => this.clickButton('gender', gender)}
+                  className={ (gender === this.state.gender) ? "skill-button-primary" : "normal-button" }
+                />)
+            })
+          }
+          </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who is a...</h5> </Col>
+          <Col xs="12" md="10" className="pt-3 pt-md-3"> {this.renderPositionTypesView()}</Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
+          <Col xs="12" md="10" className="pt-3 pt-md-3"> { this.renderMultiSelectionPositionTypesView() } </Col>
+        </Row>
+        <Row className="profile-gender-row">
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Button size="large" 
+              className={classes.button} 
+              onClick={this.handlePositionTypeCancel} >
+              {'Cancel'}
+            </Button>
+            <Button size="large" color="primary" 
+              className={classes.button} 
+              onClick={this.handlePositionTypeSave}>
+              {'Save'}
+            </Button>
+          </Col>
+        </Row>
+      </Panel>
+    )
+  }
+
   renderBussinessStaff() {
     const { talentInfo, allPositionTypes, classes } = this.props
     const {
@@ -587,212 +632,142 @@ class EditProfile extends Component {
     return (
       <Panel title={"The Business Stuff"}>
         <Row className="profile-gender-row">
-          <Col sm="12">
-            <h5>Contact Information</h5>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_firstName"
-              id="contact_firstName"
-              placeholder=""
-              value={contactInfo.firstName}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="First Name"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_lastName"
-              id="contact_lastName"
-              placeholder=""
-              value={contactInfo.lastName}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Last Name"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              type="email"
-              name="contact_email"
-              id="contact_email"
-              placeholder=""
-              value={contactInfo.email}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Email Address"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_mobile"
-              id="contact_mobile"
-              placeholder=""
-              value={contactInfo.mobile}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mobile"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_address1"
-              id="contact_address1"
-              placeholder=""
-              value={contactInfo.address1}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address1"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_address2"
-              id="contact_address2"
-              placeholder=""
-              value={contactInfo.address2}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address2"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_address3"
-              id="contact_address3"
-              placeholder=""
-              value={contactInfo.address3}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address3"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_address4"
-              id="contact_address4"
-              placeholder=""
-              value={contactInfo.address4}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address4"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="12">
-            <DatePicker
-              hintText="Date of Birth"
-              className="datePicker"
-              value={contactInfo.birthday}
-              onChange={this.handleBirthdayChange}
-            />
-          </Col>
-        </Row>
+          <div className="profile-other-info-button-group">
+            <div className="profile-other-info-button-container">
+              <Link to='/contact-info'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Contact Info"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'completed'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
 
-        <Row className="profile-gender-row">
-          <Col sm="12">
-            <h5 className="profile-emercy-title">Emergency Contact Information</h5>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="emergency_firstName"
-              id="emergency_firstName"
-              placeholder=""
-              value={emergencyInfo.firstName}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="First Name"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="emergency_lastName"
-              id="emergency_lastName"
-              placeholder=""
-              value={emergencyInfo.lastName}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Last Name"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="emergency_email"
-              id="emergency_email"
-              placeholder=""
-              value={emergencyInfo.email}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Email Address"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="emergency_phone"
-              id="emergency_phone"
-              placeholder=""
-              value={emergencyInfo.phone}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Phone"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="12">
-            <SelectField
-              id="emergency_relationship"
-              name="emergency_relationship"
-              floatingLabelText="Relationship"
-              value={emergencyInfo.relationship}
-              onChange={this.handleRelationshipChange}
-              menuItemStyle={selectItemStyle}
-            >
-              <MenuItem value={1} primaryText="Wife" />
-              <MenuItem value={2} primaryText="Husband" />
-              <MenuItem value={3} primaryText="Father" />
-              <MenuItem value={4} primaryText="Mother" />
-              <MenuItem value={5} primaryText="Brother" />
-              <MenuItem value={6} primaryText="Sister" />
-              <MenuItem value={7} primaryText="Other" />
-            </SelectField>
-          </Col>
-        </Row>
+            <div className="profile-other-info-button-container">
+              <Link to='/nationality-info'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Nationality"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+             </div>
 
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Languages"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Height, Weight, & Age Range"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Medical"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Row>
+      </Panel>
+    )
+
+  }
+
+  renderFunStaff() {
+    return (
+      <Panel title={"The Fun Stuff"}>
         <Row className="profile-gender-row">
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Button size="large" 
-              className={classes.button} 
-              onClick={this.handleBusinessStaffCancel} >
-              {'Cancel'}
-            </Button>
-            <Button size="large" color="primary" 
-              className={classes.button} 
-              onClick={this.handleBusinessStaffSave}>
-              {'Save'}
-            </Button>
-          </Col>
+          <div className="profile-other-info-button-group">
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Headline & Bio"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'completed'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Resume"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+             </div>
+
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Pictures"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'under review'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="profile-other-info-button-container">
+              <Link to='/'>
+                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
+                  <div className="profile-other-info-button-title">
+                    {"My Videos"}
+                  </div>
+                  <div className="profile-other-info-button-status">
+                    {'in progress'}
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+          </div>
         </Row>
       </Panel>
     )
   }
 
-  render() {
+  renderRustumViewer() {
     const { contactInfo, emergencyInfo } = this.state;
     const { classes } = this.props;
     const selectItemStyle = {
@@ -807,273 +782,18 @@ class EditProfile extends Component {
           <h3>Build/Edit My Profile</h3>
         </Row>
 
-        <Panel title={"General Info"} >
-          <Row className="profile-gender-row">
-            <Col xs="12" md="2" className="pt-3 pt-md-3">
-              <h5>I am a...</h5> 
-            </Col>
-            <Col xs="12" md="10" className="pt-0 pt-md-2">
-            {
-              const_genders.map((gender, index) => {
-                return (
-                  <FlatButton
-                    key={index}
-                    label={gender}
-                    primary={(gender === this.state.gender)}
-                    onClick={() => this.clickButton('gender', gender)}
-                    className={ (gender === this.state.gender) ? "skill-button-primary" : "normal-button" }
-                  />)
-              })
-            }
-            </Col>
-          </Row>
-          <Row className="profile-gender-row">
-            <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who is a...</h5> </Col>
-            <Col xs="12" md="10" className="pt-3 pt-md-3"> {this.renderPositionTypesView()}</Col>
-          </Row>
-          <Row className="profile-gender-row">
-            <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
-            <Col xs="12" md="10" className="pt-3 pt-md-3"> { this.renderMultiSelectionPositionTypesView() } </Col>
-          </Row>
-          <Row className="profile-gender-row">
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Button size="large" 
-                className={classes.button} 
-                onClick={this.handlePositionTypeCancel} >
-                {'Cancel'}
-              </Button>
-              <Button size="large" color="primary" 
-                className={classes.button} 
-                onClick={this.handlePositionTypeSave}>
-                {'Save'}
-              </Button>
-            </Col>
-          </Row>
-        </Panel>
+        {this.renderGeneralInfoView()}
 
         <Row className="profile-edit-buttons">
           <Col sm="12">
             <h4>Let's Build or Edit Your Profile...</h4>
           </Col>
         </Row>
+
         {this.renderBussinessStaff()}
 
-        <Row>
-          <Col sm="12">
-            <h5>The Business Stuff</h5>
-          </Col>
-          <Col sm="12">
-            <Tabs
-              onChange={this.handleTab1Change}
-              className="tabHead"
-              value={this.state.tab1Value}
-            >
-              <Tab label="My Contact Info" value={0} />
-              <Tab label="My Nationality" value={1} />
-              <Tab label="My Languages" value={2} />
-              <Tab label="My Height, Weight & Age Range" value={3} />
-              <Tab label="My Medical" value={4} />
-            </Tabs>
-            <SwipeableViews
-              className="tabContent"
-              index={this.state.tab1Value}
-              onChangeIndex={this.handleTab1Change}
-            >
-              <div>
-                <h5>Contact Information</h5>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_firstName"
-                      id="contact_firstName"
-                      placeholder=""
-                      value={contactInfo.firstName}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="First Name"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_lastName"
-                      id="contact_lastName"
-                      placeholder=""
-                      value={contactInfo.lastName}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Last Name"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      type="email"
-                      name="contact_email"
-                      id="contact_email"
-                      placeholder=""
-                      value={contactInfo.email}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Email Address"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_mobile"
-                      id="contact_mobile"
-                      placeholder=""
-                      value={contactInfo.mobile}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Mobile"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_address1"
-                      id="contact_address1"
-                      placeholder=""
-                      value={contactInfo.address1}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Mailing Address1"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_address2"
-                      id="contact_address2"
-                      placeholder=""
-                      value={contactInfo.address2}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Mailing Address2"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_address3"
-                      id="contact_address3"
-                      placeholder=""
-                      value={contactInfo.address3}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Mailing Address3"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="contact_address4"
-                      id="contact_address4"
-                      placeholder=""
-                      value={contactInfo.address4}
-                      onChange={this.handleContactInfoChange}
-                      floatingLabelText="Mailing Address4"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="12">
-                    <DatePicker
-                      hintText="Date of Birth"
-                      className="datePicker"
-                      value={contactInfo.birthday}
-                      onChange={this.handleBirthdayChange}
-                    />
-                  </Col>
-                </Row>
-                <h5>Emergency Contact Information</h5>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      name="emergency_firstName"
-                      id="emergency_firstName"
-                      placeholder=""
-                      value={emergencyInfo.firstName}
-                      onChange={this.handleEmergencyInfoChange}
-                      floatingLabelText="First Name"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="emergency_lastName"
-                      id="emergency_lastName"
-                      placeholder=""
-                      value={emergencyInfo.lastName}
-                      onChange={this.handleEmergencyInfoChange}
-                      floatingLabelText="Last Name"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="6">
-                    <TextField
-                      name="emergency_email"
-                      id="emergency_email"
-                      placeholder=""
-                      value={emergencyInfo.email}
-                      onChange={this.handleEmergencyInfoChange}
-                      floatingLabelText="Email Address"
-                      fullWidth={true}
-                    />
-                  </Col>
-                  <Col sm="6">
-                    <TextField
-                      name="emergency_phone"
-                      id="emergency_phone"
-                      placeholder=""
-                      value={emergencyInfo.phone}
-                      onChange={this.handleEmergencyInfoChange}
-                      floatingLabelText="Phone"
-                      fullWidth={true}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm="12">
-                    <SelectField
-                      id="emergency_relationship"
-                      name="emergency_relationship"
-                      floatingLabelText="Relationship"
-                      value={emergencyInfo.relationship}
-                      onChange={this.handleRelationshipChange}
-                      menuItemStyle={selectItemStyle}
-                    >
-                      <MenuItem value={1} primaryText="Wife" />
-                      <MenuItem value={2} primaryText="Husband" />
-                      <MenuItem value={3} primaryText="Father" />
-                      <MenuItem value={4} primaryText="Mother" />
-                      <MenuItem value={5} primaryText="Brother" />
-                      <MenuItem value={6} primaryText="Sister" />
-                      <MenuItem value={7} primaryText="Other" />
-                    </SelectField>
-                  </Col>
-                </Row>
-              </div>
-              <div style={styles.slide}>
-                My Nationality Page
-              </div>
-              <div style={styles.slide}>
-                My Languages Page
-              </div>
-              <div style={styles.slide}>
-                My Height, Weight & Age Range Page
-              </div>
-              <div style={styles.slide}>
-                My Medical Page
-              </div>
-            </SwipeableViews>
-          </Col>
-        </Row>
+        {this.renderFunStaff()}
+        
         <Row>
           <Col sm="12">
             <h5>The Fun Stuff</h5>
@@ -1144,6 +864,58 @@ class EditProfile extends Component {
       </div>
       </MuiThemeProvider>
     );
+  }
+
+  render() {
+    const { contactInfo, emergencyInfo } = this.state;
+    const { classes } = this.props;
+    const selectItemStyle = {
+      'whiteSpace': 'preWrap'
+    }
+
+    return (
+      <MuiThemeProvider theme={theme}>
+        <div className="profile-edit-container">
+          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+          <Row className="profile-edit-title">
+            <h3>Build/Edit My Profile</h3>
+          </Row>
+
+          {this.renderGeneralInfoView()}
+
+          <Row className="profile-edit-buttons">
+            <Col sm="12">
+              <h4>Let's Build or Edit Your Profile...</h4>
+            </Col>
+          </Row>
+
+          {this.renderBussinessStaff()}
+
+          {this.renderFunStaff()}
+
+          <Row>
+            <Col sm="12" className="profile-checkbox">
+              <Checkbox
+                id="worked before"
+                label=""
+              />
+              <label>I have worked on a cruise ship before<span>(select if you have previous ship experience)</span></label>
+            </Col>
+          </Row>
+          <Row >
+            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+              <Link to="/home" className="profile-other-info-button-container">
+                <RaisedButton label="Back to My Home Page" primary={true}/>
+              </Link>
+              <Link to="/profile">
+                <RaisedButton label="View My Profile" primary={true}/>
+              </Link>
+            </Col>
+          </Row>
+        </div>
+      </MuiThemeProvider>
+    )
   }
 }
 

@@ -42,14 +42,16 @@ class Talent(models.Model):
 	emergency_relationship = models.CharField(max_length=100, blank=True)
 
 	# nationality_info
-	# nationality: string(country)
-	# citizenshi: string(passport country)
-	passport_expiration_data = models.DateField(blank=True, default=date.today)
+	nationality = models.CharField(max_length=50, blank=True)
+	citizenship = models.CharField(max_length=50, blank=True)
+	passport_expiration_date = models.DateField(blank=True, default=date.today)
 	passport_number = models.CharField(max_length=100, blank=True)
-	# country_of_current_residence: string(country)
+	country_of_current_residence = models.CharField(max_length=50, blank=True)
 
 	# current visas
-	# visa_type: string -> maybe one of visa_types table
+	have_green_card = models.BooleanField(default=False)
+	green_card_expiration_date = models.DateField(blank=True, default=date.today)
+	visa_type = models.CharField(max_length=50, blank=True)
 	expiration_date = models.DateField(blank=True, default=date.today)
 
 	# language skills
