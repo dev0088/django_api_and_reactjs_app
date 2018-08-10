@@ -660,7 +660,7 @@ class EditProfile extends Component {
              </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Languages"}
@@ -673,7 +673,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Height, Weight, & Age Range"}
@@ -686,7 +686,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Medical"}
@@ -710,7 +710,7 @@ class EditProfile extends Component {
         <Row className="profile-gender-row">
           <div className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Headline & Bio"}
@@ -723,7 +723,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Resume"}
@@ -736,7 +736,7 @@ class EditProfile extends Component {
              </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Pictures"}
@@ -749,7 +749,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Videos"}
