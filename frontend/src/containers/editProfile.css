@@ -127,6 +127,12 @@ div[name="emergency_relationship"] {
 	}
 }
 
+.profile-field-name {
+	font-size: 1rem!important;
+  /*font-weight: 600!important;*/
+  text-align: right!important;
+}
+
 .profile-position-sub-type-item {
 	margin-left: 15px;
 }
@@ -136,15 +142,52 @@ div[name="emergency_relationship"] {
 	font-weight: 600;
 	margin-top: 15px;
 }
+
 .profile-gender-row {
 	margin-left: 25px!important;
 	margin-right: 25px!important;
   padding-top: 10px!important;
   padding-bottom: 10px!important;
 }
+
 .profile-save-button-group-col {
 	text-align: right;
 }
+
 .profile-emercy-title {
 	padding-top: 30px;
+}
+
+.profile-other-info-button {
+	display: block!important;
+}
+
+.profile-other-info-button-title {
+  font-size: 1rem;
+  font-weight: 600;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.profile-other-info-button-status {
+	color: #d6d7d8;
+}
+
+.profile-other-info-button-group {
+	display: inherit;
+}
+
+@media only screen and (max-width: 767px) {
+   .profile-other-info-button-group{
+		display: block;
+	}
+	.profile-other-info-button-container {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+.profile-other-info-button-container {
+	margin-left: 10px;
+	margin-right: 10px;
 }

@@ -1,0 +1,13 @@
+.contact-info-view-container {
+	padding-top: 100px;
+	padding-left: 200px;
+	padding-right: 200px;
+}
+
+@media only screen and (max-width: 900px) {
+  .contact-info-view-container{
+  	padding-top: 100px;
+		padding-left: 0px;
+		padding-right: 00px;
+	}
+}

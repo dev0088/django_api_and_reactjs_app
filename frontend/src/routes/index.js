@@ -26,6 +26,9 @@ import LiveInterview from "../containers/video-interview/live";
 
 
 import MyProfile from "../containers/myProfile";
+import MyContactInfo from "../containers/myContactInfoScreen";
+import MyNatioinality from "../containers/myNationalityScreen";
+
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
 
@@ -155,6 +158,24 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <EditProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/contact-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyContactInfo {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/nationality-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyNatioinality {...props} />
         </TemplateTopbar>
       )}
     />

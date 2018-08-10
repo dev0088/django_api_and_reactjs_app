@@ -34,14 +34,16 @@ class TalentSerializer(serializers.ModelSerializer):
 			'emergency_phone',
 			'emergency_relationship',
 
-			# 'nationality',
-			# 'citizenshi',
-			'passport_expiration_data',
+			'nationality',
+			'citizenship',
+			'passport_expiration_date',
 			'passport_number',
-			# country_of_current_residence,
-
-			# 'visa_type',
+			'country_of_current_residence',
+      'have_green_card',
+      'green_card_expiration_date',
+			'visa_type',
 			'expiration_date',
+			
 			'height',
 			'weight',
 			'bmi',
