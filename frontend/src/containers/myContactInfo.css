@@ -4,6 +4,11 @@
 	padding-right: 200px;
 }
 
+.general-view-container {
+	padding-top: 100px;
+}
+
+
 @media only screen and (max-width: 900px) {
   .contact-info-view-container{
   	padding-top: 100px;
