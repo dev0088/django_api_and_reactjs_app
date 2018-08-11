@@ -94,12 +94,20 @@ class InterviewFileUploadPolicy(APIView):
                 bucket_name=AWS_UPLOAD_BUCKET,
                 final_upload_path=final_upload_path
             )
+
+        position_type = request.data.get('position_type')
+        position_sub_type = request.data.get('position_sub_type')
+        question = request.data.get('question')
+
         if object_name and file_extension:
             """
             Save the eventual path to the Django-stored TalentVideo instance
             """
             talent_video.path = final_upload_path
             talent_video.url = upload_url
+            talent_video.position_type = position_type
+            talent_video.position_sub_type = position_sub_type
+            talent_video.question = question
             talent_video.save()
 
         data = {

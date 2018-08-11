@@ -21,7 +21,7 @@ export default function VideoPlayBack(props) {
         (<ReactPlayer
           url={props.url}
           className='react-player'
-          playing
+          playing={false}
           width={'100%'}
           height='100%'
           controls={true}

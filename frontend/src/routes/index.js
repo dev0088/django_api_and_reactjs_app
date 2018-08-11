@@ -28,6 +28,9 @@ import LiveInterview from "../containers/video-interview/live";
 import MyProfile from "../containers/myProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
 import MyNatioinality from "../containers/myNationalityScreen";
+import MyVideos from "../containers/myVideosScreen";
+import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
+import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
 
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
@@ -176,6 +179,34 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyNatioinality {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+
+    <Route
+      path="/videos-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/practice-interview-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyPracticeInterviewVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/live-interview-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyLiveInterviewVideos {...props} />
         </TemplateTopbar>
       )}
     />

@@ -63,8 +63,8 @@ const title = {
   "youth-staff": "Youth Staff"
 }
 class LiveInterview extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       config: true,
@@ -83,13 +83,16 @@ class LiveInterview extends React.Component {
       uploading: false,
       settings: [],
 
+      position_type: '',
+      positioin_sub_type: '',
+      question: ''
     };
 
   }
 
   componentWillMount() {
     let __this = this, detectError = [];
-    let { deviceSettings } = this.props;
+    let { deviceSettings, talentInfo } = this.props;
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
@@ -122,13 +125,15 @@ class LiveInterview extends React.Component {
         })
     });
     const { pageId } = this.props.match.params;
-    console.log('---- pageId: ', pageId, this.props)
-    let position_type = this.props.talentInfo.value 
-      ? this.props.talentInfo.value.talent_position_sub_type.talent_position_type 
-      : pageId
-    console.log('==== position_type: ', position_type)
+    if (talentInfo && talentInfo.talent_position_sub_type) {
+      this.setState({
+        position_type: talentInfo.talent_position_sub_type.talent_position_type,
+        position_sub_type: talentInfo.talent_position_sub_type.name
+      })
+    }
     this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
     this.props.videoActions.getVideoSettingsActions();
+
   }
 
   componentDidMount() {
@@ -136,7 +141,7 @@ class LiveInterview extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { videoSettings } = nextProps;
+    let { videoSettings, talentInfo } = nextProps;
     let wait = [], remain = [];
     if (videoSettings['value']['video_interview_prep_countdown'])
       wait[0] = remain[0] = videoSettings['value']['video_interview_prep_countdown'];
@@ -146,11 +151,20 @@ class LiveInterview extends React.Component {
       wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
     else
       wait[1] = remain[1] = 0;
+
     this.setState(
       { 
         waitingTime: wait, 
         remainingTime: remain,
       });
+
+    if (talentInfo && talentInfo.talent_position_sub_type) {
+      this.setState({
+        position_type: talentInfo.talent_position_sub_type.talent_position_type,
+        position_sub_type: talentInfo.talent_position_sub_type.name
+      })
+    }
+
   }
 
   countDown = () => {
@@ -332,9 +346,15 @@ class LiveInterview extends React.Component {
   }
 
   uploadToS3 = (signAPI, completeAPI, file) => {
+    const { videoQuestions } = this.props
+    const { currentQuestion, position_type, position_sub_type } = this.state
+
     const params = {
       objectName: file.name,
-      contentType: file.type
+      contentType: file.type,
+      position_type: position_type,
+      position_sub_type: position_sub_type,
+      question: videoQuestions.value[currentQuestion]['content']
     }
     
     fetch(signAPI, {
@@ -643,7 +663,7 @@ function mapStateToProps(state) {
     videoQuestions: videoQuestions,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
-    talentInfo: talentInfo
+    talentInfo: talentInfo.value
   }
 }
 

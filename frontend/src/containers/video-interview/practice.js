@@ -436,9 +436,14 @@ class VideoPractice extends React.Component {
   }
 
   uploadToS3 = (signAPI, completeAPI, file) => {
+    const { videoQuestions } = this.props
+    const { currentQuestion } = this.state
     const params = {
       objectName: file.name,
-      contentType: file.type
+      contentType: file.type,
+      position_type: 'Practice',
+      position_sub_type: '',
+      question: videoQuestions.value[currentQuestion]['content']
     }
     
     fetch(signAPI, {
