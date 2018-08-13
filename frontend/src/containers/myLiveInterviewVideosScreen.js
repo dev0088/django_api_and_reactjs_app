@@ -102,22 +102,20 @@ class MyLiveInterviewVideos extends Component {
     const { classes } = this.props;
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="general-view-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="general-view-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderVideosView()}
+        {this.renderVideosView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/videos-info">
-                <RaisedButton label="Back toMy Videos" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
-        </div>
-      </MuiThemeProvider>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/videos-info">
+              <RaisedButton label="Back toMy Videos" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
+      </div>
     )
   }
 }
@@ -135,4 +133,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyLiveInterviewVideos));
+export default connect(mapStateToProps, mapDispatchToProps)(MyLiveInterviewVideos);

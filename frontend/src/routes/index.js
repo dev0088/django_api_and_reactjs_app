@@ -31,6 +31,7 @@ import MyNatioinality from "../containers/myNationalityScreen";
 import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
+import MyPictures from "../containers/myPicturesScreen";
 
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
@@ -189,6 +190,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/pictures-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyPictures {...props} />
         </TemplateTopbar>
       )}
     />

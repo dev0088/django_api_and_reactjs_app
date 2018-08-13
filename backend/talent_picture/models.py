@@ -13,6 +13,7 @@ class TalentPicture(models.Model):
   updated = models.DateTimeField(auto_now=True)
   uploaded = models.BooleanField(default=False)
   active = models.BooleanField(default=True)
+  caption = models.CharField(max_length=120, null=True, blank=True)
 
   def __str__(self):
     return 'talent: {user_email}, image: {image_url}, {image_size}'.format(
