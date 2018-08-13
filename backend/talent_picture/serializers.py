@@ -6,4 +6,4 @@ class TalentPictureSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = TalentPicture
-    fields = ('id', 'talent', 'name', 'path', 'url','size', 'file_type', 'timestamp', 'updated', 'uploaded', 'active')
+    fields = ('id', 'talent', 'name', 'path', 'url','size', 'file_type', 'timestamp', 'updated', 'uploaded', 'active', 'caption')

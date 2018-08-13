@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
 import './myContactInfo.css'
-
+import './myVideosScreen.css'
 
 const styles = theme => ({
   button: {
@@ -53,7 +53,7 @@ class MyVideos extends Component {
     return (
       <Panel title={"My Videos"}>
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
@@ -66,11 +66,11 @@ class MyVideos extends Component {
                 </Button>
               </Link>
             </div>
-          </div>
+          </Col>
         </Row>
 
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
@@ -96,11 +96,11 @@ class MyVideos extends Component {
                 </Button>
               </Link>
              </div>
-          </div>
+          </Col>
         </Row>
         
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
               <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
@@ -126,11 +126,11 @@ class MyVideos extends Component {
                 </Button>
               </Link>
             </div>
-          </div>
+          </Col>
         </Row>
         
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
               <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
@@ -156,11 +156,11 @@ class MyVideos extends Component {
                 </Button>
               </Link>
             </div>
-          </div>
+          </Col>
         </Row>
         
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
 
             <div className="profile-other-info-button-container">
               <Link to='#'>
@@ -187,11 +187,11 @@ class MyVideos extends Component {
                 </Button>
               </Link>
             </div>
-          </div>
+          </Col>
         </Row>
 
         <Row className="profile-gender-row">
-          <div className="profile-other-info-button-group">
+          <Col className="profile-other-info-button-group">
 
             <div className="profile-other-info-button-container">
               <Link to='/practice-interview-videos'>
@@ -218,9 +218,20 @@ class MyVideos extends Component {
                 </Button>
               </Link>
             </div>
-          </div>
+          </Col>
         </Row>
 
+        <Row >
+          <Col className="profile-other-info-button-description">
+            <Typography gutterBottom variant='Subheading'>
+              <b>Video Interviews (required)</b>
+              {`
+                 are located within the section of your primary discripline 
+                (vocalist, dancer, musician, techinician, cruise staff or youth staff).
+              `}
+            </Typography>
+          </Col>
+        </Row>
       </Panel>
     )
   }

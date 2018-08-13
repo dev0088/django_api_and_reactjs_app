@@ -45,12 +45,13 @@ class TalentPicturePolicy(APIView):
         conn = boto.connect_s3(AWS_UPLOAD_ACCESS_KEY_ID, AWS_UPLOAD_SECRET_KEY)
 
         object_name = request.data.get('objectName')
-        content_type = request.data.get('contentType') #mimetypes.guess_type(object_name)[0]
+        content_type = request.data.get('contentType')
         if not object_name:
             return Response({"message": "A filename is required"}, status=status.HTTP_400_BAD_REQUEST)
         if not content_type:
             return Response({"message": "A content type is required"}, status=status.HTTP_400_BAD_REQUEST)
 
+        caption = request.data.get('caption')
         # Generate bucket sub url
         policy_expires = int(time.time()+5000)
         talent = self.get_object(pk)
@@ -100,6 +101,7 @@ class TalentPicturePolicy(APIView):
             """
             talent_picture.path = final_upload_path
             talent_picture.url = upload_url
+            talent_picture.caption = caption
             talent_picture.save()
 
         data = {
@@ -135,7 +137,6 @@ class TalentPictureList(APIView):
     """
     List all talent pictures.
     """
-
     def get(self, request, pk, format=None):
         try:
             user = User.objects.get(pk=pk)
