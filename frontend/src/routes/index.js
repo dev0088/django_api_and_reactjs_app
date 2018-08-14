@@ -32,6 +32,7 @@ import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
 import MyPictures from "../containers/myPicturesScreen";
+import MyResume from "../containers/myResumeScreen";
 
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
@@ -184,6 +185,7 @@ const Index = () => (
       )}
     />
 
+
     <Route
       path="/videos-info"
       render={props => (
@@ -198,6 +200,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyPictures {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/resume-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyResume {...props} />
         </TemplateTopbar>
       )}
     />
