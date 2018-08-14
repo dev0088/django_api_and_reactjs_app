@@ -256,6 +256,28 @@ class MyMetrics extends Component {
             </NativeSelect>
             </FormControl>
             </Col>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             </Row>
             <Row className="profile-gender-row">
             <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
