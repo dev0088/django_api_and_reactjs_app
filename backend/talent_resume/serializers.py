@@ -6,4 +6,17 @@ class TalentResumeSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = TalentResume
-    fields = ('id', 'talent', 'name', 'path', 'url','size', 'file_type', 'timestamp', 'updated', 'uploaded', 'active')
+    fields = (
+	    	'id', 
+	    	'talent', 
+	    	'name', 
+	    	'path', 
+	    	'url',
+	    	'size', 
+	    	'file_type', 
+	    	'timestamp', 
+	    	'updated', 
+	    	'uploaded', 
+	    	'active', 
+	    	'preview_path'
+    	)
