@@ -184,7 +184,6 @@ const Index = () => (
       )}
     />
 
-
     <Route
       path="/videos-info"
       render={props => (
