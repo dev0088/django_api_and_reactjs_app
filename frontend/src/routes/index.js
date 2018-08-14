@@ -32,6 +32,8 @@ import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
 import MyPictures from "../containers/myPicturesScreen";
+import MyBio from "../containers/myBioScreen"
+import MyMetrics from "../containers/myMetricScreen"
 
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
