@@ -245,12 +245,12 @@ class MyVideos extends Component {
     }
 
     return (
-      <MuiThemeProvider theme={theme}>
+  
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-
-          {this.renderButtonsGroup()}
-
+          <MuiThemeProvider theme={theme}>
+            {this.renderButtonsGroup()}
+          </MuiThemeProvider>
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
@@ -259,8 +259,9 @@ class MyVideos extends Component {
               </Link>
             </Col>
           </Row>
+
         </div>
-      </MuiThemeProvider>
+
     )
   }
 }

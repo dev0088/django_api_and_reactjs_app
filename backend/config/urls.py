@@ -18,12 +18,15 @@ from django.contrib import admin
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_swagger.views import get_swagger_view
 from django.views.generic.base import TemplateView
+from django.conf import settings
+from django.views.static import serve
 
 schema_view = get_swagger_view(title='ShipTalent API')
 
 urlpatterns = [
 	url(r'^apis', schema_view),
   url(r'^admin/', admin.site.urls),
+  url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
 	url(r'^api/v1/auth/', include('authentication.urls')),
 	url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
 	url(r'^api/v1/talent', include('talent.urls')),

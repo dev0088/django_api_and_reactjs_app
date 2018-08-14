@@ -2,12 +2,14 @@ from rest_framework import serializers
 from talent.models import Talent
 from talent_picture.serializers import TalentPictureSerializer
 from talent_video.serializers import TalentVideoSerializer
+from talent_resume.serializers import TalentResumeSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+  talent_resume = TalentResumeSerializer(many=True, read_only=True)
   talent_pictures = TalentPictureSerializer(many=True, read_only=True)
   talent_videos = TalentVideoSerializer(many=True, read_only=True)
   talent_position_sub_type = TalentPositionSubTypeSerializer(many=False, read_only=True)
@@ -57,6 +59,7 @@ class TalentSerializer(serializers.ModelSerializer):
       # pictures,
       'talent_pictures',
       'talent_videos',
+      'talent_resume',
 
       'worked_cruise_ship',
 
