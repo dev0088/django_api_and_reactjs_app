@@ -186,6 +186,23 @@ const Index = () => (
       )}
     />
 
+    <Route
+      path="/bio-info"
+        render={props => (
+          <TemplateTopbar>
+            <MyBio {...props} />
+        </TemplateTopbar>
+      )}
+     />
+
+     <Route
+        path="/metrics-info"
+         render={props => (
+          <TemplateTopbar>
+            <MyMetrics {...props} />
+           </TemplateTopbar>
+       )}
+     />
 
     <Route
       path="/videos-info"
