@@ -1,7 +1,20 @@
+import boto
+import mimetypes
+import json
+import time
+import os
+from werkzeug.utils import secure_filename
+
 from django.shortcuts import render
 from django.http import Http404
 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+
 from rest_framework import permissions, status, authentication
+from rest_framework.exceptions import ParseError
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from talent_picture.config_aws import (
@@ -15,12 +28,11 @@ from .models import TalentResume
 from .serializers import TalentResumeSerializer
 from talent.models import Talent
 from authentication.models import User
+from preview_generator.manager import PreviewManager
+from talent_resume.text2pdf import text_image
 
-import boto
-import mimetypes
-import json
-import time
-import os
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 class TalentResumeFileUploadPolicy(APIView):
     """
@@ -55,8 +67,11 @@ class TalentResumeFileUploadPolicy(APIView):
         talent = self.get_object(pk)
         talent_id = talent.id
         user_id = talent.user.username
-        if not talent.talent_resume and not talent.talent_resume.id:
-        	talent_resume = TalentResume.objects.get(id=talent.talent_resume.id)
+        talent_resumes = TalentResume.objects.filter(talent=talent)
+        print('==== talent_resumes: ', talent_resumes)
+        print('==== talent.talent_resume.count: ', len(talent_resumes))
+        if len(talent_resumes) > 0:
+        	talent_resume = talent_resumes.first()
         else:
         	talent_resume = TalentResume.objects.create(talent=talent, name=object_name)
 
@@ -104,6 +119,7 @@ class TalentResumeFileUploadPolicy(APIView):
             """
             talent_resume.path = final_upload_path
             talent_resume.url = upload_url
+            talent_resume.file_type = file_extension
             talent_resume.save()
 
         data = {
@@ -116,22 +132,135 @@ class TalentResumeFileUploadPolicy(APIView):
 class TalentResumeFileUploadCompleteHandler(APIView):
     # permission_classes = [permissions.IsAuthenticated]
     # authentication_classes = [authentication.SessionAuthentication]
-
+    # Save uploaded file path and mark active state of it.
+    """
+    Save uploaded file path and mark active state of it.
+    """
     def post(self, request, *args, **kwargs):
+        print('==== request.data: ', request.data)
         file_id = request.data.get('fileID')
         size = request.data.get('fileSize')
         course_obj = None
         data = {}
-        type_ = request.data.get('fileType')
-        print(file_id, size, type_)
+        file_type = request.data.get('fileType')
+        tmp = file_type.split('/')
+        file_type = tmp[len(tmp) - 1]
+        print(file_id, size, file_type)
         if file_id:
             obj = TalentResume.objects.get(id=int(file_id))
             obj.size = int(size)
             obj.uploaded = True
-            obj.type = type_
+            # obj.file_type = file_type
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class TalentResumeGeneratePrevew(APIView):
+    parser_class = (FileUploadParser,)
+    height = 1024
+    width = 526
+    page_id = 1
+
+    def get_object(self, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            talent = Talent.objects.get(user=user.id)
+            return talent
+        except Talent.DoesNotExist:
+            raise Http404
+ 
+
+    def convert_pdf_to_image(self, preview_manager, file):
+        preview = preview_manager.get_jpeg_preview(file, height=self.height,width=self.width)
+        return preview
+
+    def convert_text_to_pdf(self, preview_manager, file):
+        pdf_file = preview_manager.get_pdf_preview(file, page=self.page_id)
+        preview = self.convert_pdf_to_image(preview_manager, pdf_file)
+        return preview
+
+    def convert_text_to_png(self, text_file):
+        file_name, file_extension = os.path.splitext(text_file)
+        image_file_name = '{file_name}{extension}'.format(
+                file_name = file_name,
+                extension = '.png'
+            )
+        image = text_image(text_file)
+        image.save(image_file_name)
+        return image_file_name
+
+    def convert_doc_to_pdf(self, preview_manager, file):
+        # pdf_file = preview_manager.get_pdf_preview(file, page=self.page_id)
+        # preview = self.convert_pdf_to_image(preview_manager, pdf_file)
+        preview = preview_manager.get_jpeg_preview(file, height=self.height,width=self.width)
+        return preview
+
+    def convert_docx_to_pdf(self, preview_manager, file):
+        pdf_file = preview_manager.get_pdf_preview(file, page=page_id)
+        preview = self.convert_pdf_to_image(preview_manager, pdf_file)
+        return preview
+
+
+    """
+    Generate preview resume file in pdf, doc, docx format files and return image path.
+    """   
+    def put(self, request, pk, format=None):
+        talent = self.get_object(pk)
+
+        if 'file' not in request.data:
+            raise ParseError("Empty content")
+
+        if not talent:
+            raise ParseError("Not found the talent or user")
+
+        # Save temp file
+        f = request.data['file']
+
+        file_name = secure_filename(request.data['fileName'])
+        file_id = request.data['fileID']
+        tmp_file_dir = 'resumes/{talent_id}/'.format(
+                talent_id = talent.id
+            )
+        tmp_file_path = '{tmp_file_dir}/{file_name}'.format(
+                tmp_file_dir = tmp_file_dir,
+                file_name = file_name
+            )
+        stored_path = default_storage.save(tmp_file_path, ContentFile(f.read()))
+
+        # Generate preview file in image file
+        media_root = settings.MEDIA_ROOT
+        full_dir = os.path.join(media_root, tmp_file_dir)
+        full_path = os.path.join(media_root, stored_path)
+        preview_manager = PreviewManager(full_dir, create_folder= True)
+
+        # Get extension
+        _, file_extension = os.path.splitext(stored_path)
+        print('==== file_extension: ', file_extension)
+
+        if file_extension == '.txt':
+            preview = self.convert_text_to_png(full_path)
+        elif file_extension == '.doc':
+            preview = self.convert_doc_to_pdf(preview_manager, full_path)
+        elif file_extension == '.docx':
+            preview = self.convert_docx_to_pdf(preview_manager, full_path)
+        elif file_extension == '.pdf':
+            preview = self.convert_pdf_to_image(preview_manager, full_path)
+
+        tmp = preview.split('/')
+        preview_file_name = tmp[len(tmp) - 1]
+        preview_file_path = os.path.join('media', tmp_file_dir, preview_file_name)
+        
+        # Save generated preview image file path
+        data = {}
+        obj = TalentResume.objects.get(id=int(file_id))
+        obj.uploaded = True
+        obj.preview_path = preview_file_path
+        obj.save()
+
+        data['id'] = obj.id
+        data['preview_path'] = stored_path
         return Response(data, status=status.HTTP_200_OK)
 
 
