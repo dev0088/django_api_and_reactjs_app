@@ -28,6 +28,8 @@ import LiveInterview from "../containers/video-interview/live";
 import MyProfile from "../containers/myProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
 import MyNatioinality from "../containers/myNationalityScreen";
+import MyBio from "../containers/myBioScreen"
+import MyMetrics from "../containers/myMetricScreen"
 import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
@@ -183,6 +185,23 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+   <Route
+      path="/bio-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyBio {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+       path="/metrics-info"
+       render={props => (
+         <TemplateTopbar>
+            <MyMetrics {...props} />
+         </TemplateTopbar>
+            )}
+     />
 
     <Route
       path="/videos-info"
