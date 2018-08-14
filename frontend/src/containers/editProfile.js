@@ -723,7 +723,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='#'>
+              <Link to='/resume-info'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Resume"}
