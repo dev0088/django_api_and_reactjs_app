@@ -2,7 +2,7 @@ const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
 const RECEIVED = 'RECEIVED';
-const INIT 		= 'INIT';
+const INIT     = 'INIT';
 
 function createRequestTypes(base) {
   const res = {};

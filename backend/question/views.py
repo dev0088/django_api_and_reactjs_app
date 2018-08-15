@@ -124,7 +124,7 @@ class QuestionRamdomList(APIView):
             raise Http404
 
         if len(questions) > 5:
-			# generate random numbers
+      # generate random numbers
             randnums = random.sample(range(len(questions)), 5)
 
             # create new question list with the random numbers

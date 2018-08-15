@@ -7,13 +7,13 @@ class TalentPositionTypeManager(models.Manager):
         return super(TalentPositionTypeManager, self).get_queryset().filter(active=True)
 
 class TalentPositionType(models.Model):
-	name = models.CharField(blank=False, max_length=50)
+  name = models.CharField(blank=False, max_length=50)
 
-	def __str__(self):
-		return self.name
+  def __str__(self):
+    return self.name
 
-	class Meta:
-		db_table = "talent_position_type"
-		ordering = ('name',)
-		managed = True
-		unique_together = ('name', 'id')
+  class Meta:
+    db_table = "talent_position_type"
+    ordering = ('name',)
+    managed = True
+    unique_together = ('name', 'id')

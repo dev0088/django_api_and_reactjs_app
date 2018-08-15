@@ -14,7 +14,7 @@ export const getVideoQuestionsActions = (id, mode) => ({
 })
 
 export const getVideoSettingsActions = () => ({
-	  [RSAA]: {
+    [RSAA]: {
         endpoint: `${apiConfig.url}/video_interview_settings/time`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },

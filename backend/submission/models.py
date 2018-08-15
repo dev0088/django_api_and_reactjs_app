@@ -16,8 +16,8 @@ class Submission(models.Model):
     This string is used when a `Question` is printed in the console.
     """
     return '{subject}: From {user}'.format(
-	      subject = self.subject,
-	      user = self.full_name
+        subject = self.subject,
+        user = self.full_name
       )
 
   class Meta:

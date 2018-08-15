@@ -4,17 +4,17 @@ const initialState = {
   isFetched: false,
   isFetching: false,
   errorMessage: false,
-	value: {}
+  value: {}
 };
 
 export default function contactUs(state = initialState, action) {
-	switch(action.type) {
+  switch(action.type) {
     case types.CONTACT_US.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isFetched: true,
         failure: false,
-				errorMessage: false,
+        errorMessage: false,
         value: action.payload,
       });
     case types.CONTACT_US.FAILURE:
@@ -29,7 +29,7 @@ export default function contactUs(state = initialState, action) {
         isFetched: false,
         isFetching: false,
         errorMessage: false,
-				value: {}
+        value: {}
       });
     default:
       return state;

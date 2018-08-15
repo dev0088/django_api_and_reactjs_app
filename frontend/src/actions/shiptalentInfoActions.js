@@ -3,7 +3,7 @@ import apiConfig from '../constants/api';
 import * as types from './actionTypes'
 
 export const getShipTalentInfo = () => ({
-	  [RSAA]: {
+    [RSAA]: {
         endpoint: `${apiConfig.url}/shiptalent_info/all`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },

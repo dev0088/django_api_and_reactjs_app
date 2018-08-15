@@ -25,9 +25,9 @@ export default (history) => {
 
   const store = createStore(
     reducer, {},
-		composeWithDevTools(
-			applyMiddleware(apiMiddleware, routerMiddleware(history)),
-		)
+    composeWithDevTools(
+      applyMiddleware(apiMiddleware, routerMiddleware(history)),
+    )
   )
 
   persistStore(store)

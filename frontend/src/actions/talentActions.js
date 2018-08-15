@@ -15,7 +15,7 @@ export const getSignedUrl = (url, params) => ({
 })
 
 export const getTalentInfo = (id) => ({
-	[RSAA]: {
+  [RSAA]: {
       endpoint: `${apiConfig.url}/talent/${id}/`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },

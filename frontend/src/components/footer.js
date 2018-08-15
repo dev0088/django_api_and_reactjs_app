@@ -12,8 +12,8 @@ const styles = {
 const Footer = (props) => (
   <footer className="mt-3 footer-layout" style={props.position ? {position: props.position} : {}}>
     <Row>
-			<Jumbotron className="bg-primary text-white text-center footer-background">
-	      <Col sm="12" className="text-center pt-3">
+      <Jumbotron className="bg-primary text-white text-center footer-background">
+        <Col sm="12" className="text-center pt-3">
           <Link to="/terms">
             <FlatButton
               label="Terms & Conditions"
@@ -34,9 +34,9 @@ const Footer = (props) => (
               style={styles.flatPrimary}
             />
           </Link>  
-					<p className="footer-description">ShipTalent.com</p>
-	      </Col>
-			</Jumbotron>
+          <p className="footer-description">ShipTalent.com</p>
+        </Col>
+      </Jumbotron>
     </Row>
   </footer>
 );

@@ -5,17 +5,17 @@ import jwtDecode from 'jwt-decode';
 const initialState = {
   access: false,
   errors: false,
-	isAuthenticated: false,
+  isAuthenticated: false,
 }
 
 export default (state=initialState, action) => {
-	// console.log('=== action, state:', action, state)
+  // console.log('=== action, state:', action, state)
   switch(action.type) {
-		case types.LOGIN.REQUEST:
+    case types.LOGIN.REQUEST:
       return {
         access: {},
         errors: false,
-				isAuthenticated: false,
+        isAuthenticated: false,
     }
     case types.LOGIN.SUCCESS:
       return {
@@ -24,7 +24,7 @@ export default (state=initialState, action) => {
           ...jwtDecode(action.payload.token)
         },
         errors: false,
-				isAuthenticated: true,
+        isAuthenticated: true,
     }
     case types.TOKEN.RECEIVED:
       return {
@@ -39,21 +39,21 @@ export default (state=initialState, action) => {
       return {
          access: {},
          errors: action.payload.response || {'non_field_errors': action.payload.statusText},
-				 isAuthenticated: false,
+         isAuthenticated: false,
       }
-		case types.LOGOUT.REQUEST:
-		case types.LOGOUT.SUCCESS:
-			return {
-				access: {},
-				errors: false,
-				isAuthenticated: false
-			}
-		case types.LOGOUT.FAILURE:
-			return {
-				access: {},
-				isAuthenticated: false,
-				errors: action.payload.response || {'non_field_errors': action.payload.statusText},
-			}
+    case types.LOGOUT.REQUEST:
+    case types.LOGOUT.SUCCESS:
+      return {
+        access: {},
+        errors: false,
+        isAuthenticated: false
+      }
+    case types.LOGOUT.FAILURE:
+      return {
+        access: {},
+        isAuthenticated: false,
+        errors: action.payload.response || {'non_field_errors': action.payload.statusText},
+      }
     default:
       return state
     }

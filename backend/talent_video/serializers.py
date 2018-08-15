@@ -7,18 +7,18 @@ class TalentVideoSerializer(serializers.ModelSerializer):
   class Meta:
     model = TalentVideo
     fields = (
-    	'id', 
-    	'talent', 
-    	'name', 
-    	'path', 
-    	'url',
-    	'size', 
-    	'file_type', 
-    	'timestamp', 
-    	'position_type',
-    	'position_sub_type',
-    	'question',
-    	'updated', 
-    	'uploaded', 
-    	'active'
+      'id', 
+      'talent', 
+      'name', 
+      'path', 
+      'url',
+      'size', 
+      'file_type', 
+      'timestamp', 
+      'position_type',
+      'position_sub_type',
+      'question',
+      'updated', 
+      'uploaded', 
+      'active'
     )

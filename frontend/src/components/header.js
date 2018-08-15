@@ -38,11 +38,11 @@ class Header extends Component {
 
   static defaultProps = {
     member: {},
-		auth: {}
+    auth: {}
   }
   constructor(props) {
     super(props);
-		this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.toggleDropDown = this.toggleDropDown.bind(this);
     this.state = {
       isOpen: false,
       subMenuOpen: false
@@ -84,7 +84,7 @@ class Header extends Component {
   };
   render() {
     const { auth, talentInfo } = this.props;
-		const loggedIn = (auth && auth.access && auth.access.email);
+    const loggedIn = (auth && auth.access && auth.access.email);
     let username = "";
     if (loggedIn) {
       if (talentInfo && talentInfo.value){
@@ -97,9 +97,9 @@ class Header extends Component {
       <header>
         <Navbar dark color="primary" expand="sm" className="fixed-top">
           <Link to="/home" className="navbar-brand" style={{ color: '#FFF' }}>
-						<img className="brand-image"
+            <img className="brand-image"
               alt="Logo"
-							src={require('../images/logo.png')} />
+              src={require('../images/logo.png')} />
 
           </Link>
           { loggedIn && (
