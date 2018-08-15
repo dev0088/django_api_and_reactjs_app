@@ -28,9 +28,9 @@ from .models import TalentResume
 from .serializers import TalentResumeSerializer
 from talent.models import Talent
 from authentication.models import User
-from preview_generator.manager import PreviewManager
-from talent_resume.text2pdf import text_image
-
+from talent_resume.text2pdf import text_to_image
+from talent_resume.pdf2jpg import pdf_to_image
+from talent_resume.doc2pdf import doc_to_pdf, docx_to_pdf
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -172,34 +172,25 @@ class TalentResumeGeneratePrevew(APIView):
             raise Http404
  
 
-    def convert_pdf_to_image(self, preview_manager, file):
-        preview = preview_manager.get_jpeg_preview(file, height=self.height,width=self.width)
-        return preview
+    def convert_pdf_to_image(self, cach_dir_path, file_path):
+        return pdf_to_image(cach_dir_path, file_path)
 
-    def convert_text_to_pdf(self, preview_manager, file):
-        pdf_file = preview_manager.get_pdf_preview(file, page=self.page_id)
-        preview = self.convert_pdf_to_image(preview_manager, pdf_file)
-        return preview
-
-    def convert_text_to_png(self, text_file):
+    def convert_text_to_png(self, file_path):
         file_name, file_extension = os.path.splitext(text_file)
         image_file_name = '{file_name}{extension}'.format(
                 file_name = file_name,
                 extension = '.png'
             )
-        image = text_image(text_file)
+        image = text_to_image(text_file)
         image.save(image_file_name)
         return image_file_name
 
-    def convert_doc_to_pdf(self, preview_manager, file):
-        # pdf_file = preview_manager.get_pdf_preview(file, page=self.page_id)
-        # preview = self.convert_pdf_to_image(preview_manager, pdf_file)
-        preview = preview_manager.get_jpeg_preview(file, height=self.height,width=self.width)
+    def convert_doc_to_pdf(self, file_path):
+        preview = ''
         return preview
 
-    def convert_docx_to_pdf(self, preview_manager, file):
-        pdf_file = preview_manager.get_pdf_preview(file, page=page_id)
-        preview = self.convert_pdf_to_image(preview_manager, pdf_file)
+    def convert_docx_to_pdf(self, file_path):
+        preview = ''
         return preview
 
 
@@ -233,20 +224,18 @@ class TalentResumeGeneratePrevew(APIView):
         media_root = settings.MEDIA_ROOT
         full_dir = os.path.join(media_root, tmp_file_dir)
         full_path = os.path.join(media_root, stored_path)
-        preview_manager = PreviewManager(full_dir, create_folder= True)
 
         # Get extension
         _, file_extension = os.path.splitext(stored_path)
-        print('==== file_extension: ', file_extension)
 
         if file_extension == '.txt':
             preview = self.convert_text_to_png(full_path)
         elif file_extension == '.doc':
-            preview = self.convert_doc_to_pdf(preview_manager, full_path)
+            preview = self.convert_doc_to_pdf(full_path)
         elif file_extension == '.docx':
-            preview = self.convert_docx_to_pdf(preview_manager, full_path)
+            preview = self.convert_docx_to_pdf(full_path)
         elif file_extension == '.pdf':
-            preview = self.convert_pdf_to_image(preview_manager, full_path)
+            preview = self.convert_pdf_to_image(full_dir, full_path)
 
         tmp = preview.split('/')
         preview_file_name = tmp[len(tmp) - 1]

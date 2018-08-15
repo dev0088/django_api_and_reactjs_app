@@ -14,7 +14,7 @@ def main():
     image.save('content.png')
 
 
-def text_image(text_path, font_path=None):
+def text_to_image(text_path, font_path=None):
     """Convert text file to a grayscale image with black characters on a white background.
 
     arguments:
