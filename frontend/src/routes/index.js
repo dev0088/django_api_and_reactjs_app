@@ -27,8 +27,6 @@ import LiveInterview from "../containers/video-interview/live";
 import MyProfile from "../containers/myProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
 import MyNatioinality from "../containers/myNationalityScreen";
-import MyBio from "../containers/myBioScreen"
-import MyMetrics from "../containers/myMetricScreen"
 import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
@@ -37,7 +35,7 @@ import MyResume from "../containers/myResumeScreen";
 import MyBio from "../containers/myBioScreen"
 import MyMetrics from "../containers/myMetricScreen"
 
-import MyAcount from "../containers/myAccount";
+import MyAccount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
 
 import SubFaq from "../containers/subFaq";
@@ -271,7 +269,7 @@ const Index = () => (
       path="/account"
       render={props => (
         <TemplateTopbar>
-          <MyAcount {...props} />
+          <MyAccount {...props} />
         </TemplateTopbar>
       )}
     />
