@@ -265,7 +265,7 @@ class MyResume extends Component {
                 className="profile-picture-dropzone"
                 onDrop={ (files) => this.handleUploadResume(files) } 
                 size={ 150 } 
-                accept="application/pdf, application/msword, application/docx, text/plain ">
+                accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain ">
                 <div className="profile-picture-dropzone-description">
                   {`To upload or change Drop resume here`}
                 </div>

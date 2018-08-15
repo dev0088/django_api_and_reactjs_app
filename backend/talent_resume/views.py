@@ -3,6 +3,8 @@ import mimetypes
 import json
 import time
 import os
+import sys
+
 from werkzeug.utils import secure_filename
 
 from django.shortcuts import render
@@ -176,21 +178,21 @@ class TalentResumeGeneratePrevew(APIView):
         return pdf_to_image(cach_dir_path, file_path)
 
     def convert_text_to_png(self, file_path):
-        file_name, file_extension = os.path.splitext(text_file)
+        file_name, file_extension = os.path.splitext(file_path)
         image_file_name = '{file_name}{extension}'.format(
                 file_name = file_name,
                 extension = '.png'
             )
-        image = text_to_image(text_file)
+        image = text_to_image(file_path)
         image.save(image_file_name)
         return image_file_name
 
     def convert_doc_to_pdf(self, file_path):
-        preview = ''
+        preview = doc_to_pdf(file_path)
         return preview
 
     def convert_docx_to_pdf(self, file_path):
-        preview = ''
+        preview = docx_to_pdf(file_path)
         return preview
 
 
@@ -227,14 +229,18 @@ class TalentResumeGeneratePrevew(APIView):
 
         # Get extension
         _, file_extension = os.path.splitext(stored_path)
-
-        if file_extension == '.txt':
-            preview = self.convert_text_to_png(full_path)
-        elif file_extension == '.doc':
-            preview = self.convert_doc_to_pdf(full_path)
-        elif file_extension == '.docx':
-            preview = self.convert_docx_to_pdf(full_path)
-        elif file_extension == '.pdf':
+        if sys.platform == 'darwin':
+            if file_extension == '.txt':
+                preview = self.convert_text_to_png(full_path)
+            elif file_extension == '.doc':
+                preview = self.convert_doc_to_pdf(full_path)
+                preview = self.convert_pdf_to_image(full_dir, preview)
+            elif file_extension == '.docx':
+                preview = self.convert_docx_to_pdf(full_path)
+                preview = self.convert_pdf_to_image(full_dir, preview)
+            elif file_extension == '.pdf':
+                preview = self.convert_pdf_to_image(full_dir, full_path)
+        else:
             preview = self.convert_pdf_to_image(full_dir, full_path)
 
         tmp = preview.split('/')

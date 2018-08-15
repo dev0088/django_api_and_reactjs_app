@@ -22,6 +22,9 @@ def docx_to_pdf(source, timeout=None):
     else:
         return filename.group(1)
 
+def doc_to_pdf(source, timeout=None):
+    return docx_to_pdf(source, timeout=None)
+
 def libreoffice_exec():
     # TODO: Provide support for more platforms
     if sys.platform == 'darwin':
