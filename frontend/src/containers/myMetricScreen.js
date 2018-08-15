@@ -35,7 +35,6 @@ const styles = theme => ({
   slide: {
     padding: 10,
   },
-
 });
 
 const theme = createMuiTheme ({
@@ -51,6 +50,7 @@ const theme = createMuiTheme ({
 
 
 class MyMetrics extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -311,4 +311,5 @@ function mapDispatchToProps(dispatch) {
     talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyMetrics));
