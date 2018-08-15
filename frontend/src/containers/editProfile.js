@@ -673,7 +673,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='metrics-info'>
+              <Link to='/metrics-info'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Height, Weight, & Age Range"}
