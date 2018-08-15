@@ -24,7 +24,6 @@ import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
 import LiveInterview from "../containers/video-interview/live";
 
-
 import MyProfile from "../containers/myProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
 import MyNatioinality from "../containers/myNationalityScreen";
@@ -34,6 +33,9 @@ import MyVideos from "../containers/myVideosScreen";
 import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
 import MyPictures from "../containers/myPicturesScreen";
+import MyResume from "../containers/myResumeScreen";
+import MyBio from "../containers/myBioScreen"
+import MyMetrics from "../containers/myMetricScreen"
 
 import MyAcount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
@@ -203,6 +205,23 @@ const Index = () => (
             )}
      />
 
+   <Route
+      path="/bio-info"
+        render={props => (
+          <TemplateTopbar>
+            <MyBio {...props} />
+        </TemplateTopbar>
+      )}
+     />
+      <Route
+        path="/metrics-info"
+         render={props => (
+          <TemplateTopbar>
+            <MyMetrics {...props} />
+           </TemplateTopbar>
+       )}
+     />
+
     <Route
       path="/videos-info"
       render={props => (
@@ -217,6 +236,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyPictures {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/resume-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyResume {...props} />
         </TemplateTopbar>
       )}
     />

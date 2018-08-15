@@ -216,7 +216,7 @@ S3UPLOAD_DESTINATIONS = {
     # Allow staff users to upload any MIME type
     'pdfs': {
         'key': 'uploads/pdfs',
-        'auth': lambda u: u.is_staff
+        'auth': lambda u: u.is_staff,
     },
 
     # Allow anybody to upload jpeg's and png's. Limit sizes to 5kb - 20mb
