@@ -5,22 +5,22 @@ const initialState = {
   isRegistered: false,
   isFetching: false,
   errorMessage: false,
-	value: defaultValue.DEFAULT_SHIPTALENT_INFO
+  value: defaultValue.DEFAULT_SHIPTALENT_INFO
 };
 
 export default function shiptalentInfo(state = initialState, action) {
   // console.log("==shipTalent==", state, action);
-	switch(action.type) {
+  switch(action.type) {
     case types.SHIPTALENT_INFO.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isRegistered: true,
         failure: false,
-				errorMessage: false,
+        errorMessage: false,
         value: action.payload,
       });
     case types.SHIPTALENT_INFO.FAILURE:
-			console.log('=== SHIPTALENT_INFO.FAILURE: ', action.payload)
+      console.log('=== SHIPTALENT_INFO.FAILURE: ', action.payload)
       return Object.assign({}, state, {
         isFetching: false,
         isRegistered: false,
@@ -32,7 +32,7 @@ export default function shiptalentInfo(state = initialState, action) {
         isRegistered: false,
         isFetching: false,
         errorMessage: false,
-				value: defaultValue.DEFAULT_SHIPTALENT_INFO
+        value: defaultValue.DEFAULT_SHIPTALENT_INFO
       });
     default:
       return state;

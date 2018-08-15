@@ -29,13 +29,13 @@ class App extends Component {
   }
   render() {
     return (
-			<Provider store={store}>
-				<MuiThemeProvider muiTheme={muiTheme}>
-		          <Router>
-					<Routes />
-				</Router>
-		        </MuiThemeProvider>
-			</Provider>
+      <Provider store={store}>
+        <MuiThemeProvider muiTheme={muiTheme}>
+              <Router>
+          <Routes />
+        </Router>
+            </MuiThemeProvider>
+      </Provider>
     );
   }
 }

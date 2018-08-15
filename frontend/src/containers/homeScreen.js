@@ -11,44 +11,44 @@ import './homeScreen.css'
 
 class HomeScreen extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			shiptalentInfo: props.shiptalentInfo.value,
-		};
+  constructor(props) {
+    super(props);
+    this.state = {
+      shiptalentInfo: props.shiptalentInfo.value,
+    };
 
-	}
-	componentWillMount() {
-		this.props.shiptalentInfoActions.getShipTalentInfo()
-		this.setState({
-			shiptalentInfo: this.props.shiptalentInfo.value
-		})
-	}
+  }
+  componentWillMount() {
+    this.props.shiptalentInfoActions.getShipTalentInfo()
+    this.setState({
+      shiptalentInfo: this.props.shiptalentInfo.value
+    })
+  }
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			shiptalentInfo: nextProps.shiptalentInfo.value
-		})
-	}
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      shiptalentInfo: nextProps.shiptalentInfo.value
+    })
+  }
 
-	getValueByName(name) {
-		try {
-			if (this.state.shiptalentInfo) {
-				let info = this.state.shiptalentInfo.find(function(info) {
-					return info.name === name;
-				})
+  getValueByName(name) {
+    try {
+      if (this.state.shiptalentInfo) {
+        let info = this.state.shiptalentInfo.find(function(info) {
+          return info.name === name;
+        })
 
-				return info ? info.value : ''
-			}
-		} catch (error) {
+        return info ? info.value : ''
+      }
+    } catch (error) {
 
-		}
+    }
 
-		return '';
-	}
+    return '';
+  }
 
   render() {
-		// const { shiptalentInfo } = this.state
+    // const { shiptalentInfo } = this.state
     return(
       <div>
         <Row>
@@ -63,12 +63,12 @@ class HomeScreen extends Component {
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
               <h3><i className="icon-map" />What is ShipTalent.com?</h3>
-  							<Truncate
-  							  lines={9}
-  							  dangerouslySetInnerHTML={{
-  							   __html: this.getValueByName('what_is_shiptalent')
-  							  }}
-  							/>
+                <Truncate
+                  lines={9}
+                  dangerouslySetInnerHTML={{
+                   __html: this.getValueByName('what_is_shiptalent')
+                  }}
+                />
               <Link to="/faq/what_is_shiptalent">
                 <RaisedButton
                   label="More details ..."
@@ -80,12 +80,12 @@ class HomeScreen extends Component {
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
               <h3><i className="icon-fire" /> How Does ShipTalent.com Work?</h3>
-  						<Truncate
-  							lines={9}
-  							dangerouslySetInnerHTML={{
-  							 __html: this.getValueByName('how_does_shiptalent_work')
-  							}}
-  						/>
+              <Truncate
+                lines={9}
+                dangerouslySetInnerHTML={{
+                 __html: this.getValueByName('how_does_shiptalent_work')
+                }}
+              />
               <Link to="/faq/how_does_shiptalent_work">
                 <RaisedButton
                   label="More details ..."
@@ -97,12 +97,12 @@ class HomeScreen extends Component {
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
               <h3><i className="icon-organization" /> Why use ShipTalent.com?</h3>
-  						<Truncate
-  							lines={9}
-  							dangerouslySetInnerHTML={{
-  							 __html: this.getValueByName('why_use_shiptalent')
-  							}}
-  						/>
+              <Truncate
+                lines={9}
+                dangerouslySetInnerHTML={{
+                 __html: this.getValueByName('why_use_shiptalent')
+                }}
+              />
               <Link to="/faq/why_use_shiptalent">
                 <RaisedButton
                   label="More details ..."
@@ -116,12 +116,12 @@ class HomeScreen extends Component {
           <Col xs="12" md="4" className="pt-3 pt-md-0">
             <div className="details-content">
               <h3><i className="icon-layers" /> The ShipTalent.com Difference</h3>
-  							<Truncate
-  								lines={9}
-  								dangerouslySetInnerHTML={{
-  								 __html: this.getValueByName('the_shiptalent_difference')
-  								}}
-  							/>
+                <Truncate
+                  lines={9}
+                  dangerouslySetInnerHTML={{
+                   __html: this.getValueByName('the_shiptalent_difference')
+                  }}
+                />
               <Link to="/faq/the_shiptalent_difference">
                 <RaisedButton
                   label="More details ..."
@@ -173,7 +173,7 @@ class HomeScreen extends Component {
 function mapStateToProps(state) {
   const { shiptalentInfo } = state;
   return {
-		shiptalentInfo: shiptalentInfo,
+    shiptalentInfo: shiptalentInfo,
   }
 }
 

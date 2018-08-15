@@ -4,7 +4,7 @@ import * as types from './actionTypes'
 // import { withAuth } from '../reducers';
 
 export const login = (email, password) => ({
-	  [RSAA]: {
+    [RSAA]: {
         endpoint: `${apiConfig.url}/auth/login/`,
         method: 'POST',
         body: JSON.stringify({email, password}),
@@ -19,7 +19,7 @@ export const logout = (token) => ({
     [RSAA]: {
         endpoint: `${apiConfig.url}/auth/logout/`,
         method: 'POST',
-		body: JSON.stringify({token: token}),
+    body: JSON.stringify({token: token}),
         headers: { 'Content-Type': 'application/json' },
         types: [
             types.LOGOUT.REQUEST, types.LOGOUT.SUCCESS, types.LOGOUT.FAILURE

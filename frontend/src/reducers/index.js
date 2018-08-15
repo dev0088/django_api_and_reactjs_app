@@ -13,9 +13,9 @@ import contactUs from './contactus.js'
 export default combineReducers({
   auth: auth,
   echo: echo,
-	register: register,
-	shiptalentInfo: shiptalentInfo,
-	videoQuestions: videoQuestions,
+  register: register,
+  shiptalentInfo: shiptalentInfo,
+  videoQuestions: videoQuestions,
   videoSettings: videoSettings,
   router: routerReducer,
   talentReducer: talentReducer,

@@ -73,9 +73,9 @@ class TalentResumeFileUploadPolicy(APIView):
         print('==== talent_resumes: ', talent_resumes)
         print('==== talent.talent_resume.count: ', len(talent_resumes))
         if len(talent_resumes) > 0:
-        	talent_resume = talent_resumes.first()
+          talent_resume = talent_resumes.first()
         else:
-        	talent_resume = TalentResume.objects.create(talent=talent, name=object_name)
+          talent_resume = TalentResume.objects.create(talent=talent, name=object_name)
 
         talent_resume_id = talent_resume.id
         _, file_extension = os.path.splitext(object_name)

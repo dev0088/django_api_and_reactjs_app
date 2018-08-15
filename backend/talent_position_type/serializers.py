@@ -4,10 +4,10 @@ from talent_position_type.models import TalentPositionType
 
 class TalentPositionTypeSerializer(serializers.ModelSerializer):
   talent_position_sub_types = serializers.SlugRelatedField(
-												        many=True,
-												        read_only=True,
-												        slug_field='name'
-												      )
+                                many=True,
+                                read_only=True,
+                                slug_field='name'
+                              )
 
   class Meta:
     model = TalentPositionType

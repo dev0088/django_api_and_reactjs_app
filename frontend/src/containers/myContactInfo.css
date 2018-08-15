@@ -1,18 +1,18 @@
 .contact-info-view-container {
-	padding-top: 100px;
-	padding-left: 200px;
-	padding-right: 200px;
+  padding-top: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
 }
 
 .general-view-container {
-	padding-top: 100px;
+  padding-top: 100px;
 }
 
 
 @media only screen and (max-width: 900px) {
   .contact-info-view-container{
-  	padding-top: 100px;
-		padding-left: 0px;
-		padding-right: 00px;
-	}
+    padding-top: 100px;
+    padding-left: 0px;
+    padding-right: 00px;
+  }
 }

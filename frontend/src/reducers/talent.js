@@ -5,12 +5,12 @@ const initialState = {
   isFetched: false,
   errorMessage: false,
   isFailure: false,
-	value: []
+  value: []
 };
 
 export default function talentReducer(state = initialState, action) {
   // console.log("==video==", state, action);
-	switch(action.type) {
+  switch(action.type) {
     case types.TALENT_UPLOAD_PICTURE.SUCCESS:
       return Object.assign({}, state, {
         init: false,

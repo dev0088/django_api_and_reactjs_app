@@ -11,7 +11,7 @@ class MemberScreen extends Component {
   //     loading: PropTypes.bool.isRequired,
   //     error: PropTypes.string,
   //   }).isRequired,
-	// 	auth: {}
+  //   auth: {}
   // }
 
   // componentDidMount = () => this.props.getMemberData();
@@ -25,7 +25,7 @@ class MemberScreen extends Component {
 
 const mapStateToProps = state => ({
   member: state.member || {},
-	auth: state.auth || {}
+  auth: state.auth || {}
 });
 
 const mapDispatchToProps = {

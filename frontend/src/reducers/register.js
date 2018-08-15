@@ -20,7 +20,7 @@ export default function register(state = initialState, action) {
         isFetching: false,
         isRegistered: true,
         failure: false,
-				errorMessage: false,
+        errorMessage: false,
         userId: action.userId,
       });
     case types.REGISTER.FAILURE:

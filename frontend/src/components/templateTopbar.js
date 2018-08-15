@@ -11,7 +11,7 @@ const Template = ({ children }) => (
     <Container fluid>
       {children}
     </Container>
-		<Footer />
+    <Footer />
   </div>
 );
 

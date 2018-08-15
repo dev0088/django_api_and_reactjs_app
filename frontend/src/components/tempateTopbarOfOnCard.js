@@ -11,7 +11,7 @@ const Template = ({ children }) => (
     <Container fluid style={{height: '100vh'}}>
       {children}
     </Container>
-		<Footer position='absolute'/>
+    <Footer position='absolute'/>
   </div>
 );
 

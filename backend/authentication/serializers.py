@@ -33,7 +33,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # request. Making `token` read-only handles that for us.
     token = serializers.CharField(max_length=255, read_only=True)
 
-	# Talent profile
+  # Talent profile
     # talent = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:

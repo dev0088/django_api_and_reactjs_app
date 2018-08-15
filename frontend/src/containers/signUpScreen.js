@@ -35,36 +35,36 @@ class SignUp extends React.Component {
     }).isRequired,
   }
 
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-			userName: '',
+      userName: '',
       firstName: '',
       lastName: '',
       email: '',
       password: '',
       password2: '',
-			type: 1,
-			error: false,
+      type: 1,
+      error: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-	componentWillReceiveProps(nextProps) {
-		// console.log('=== nextProps: ', nextProps)
-		this.setState({
-			error: nextProps.register && nextProps.register.failure ? nextProps.register.errorMessage : false
-		})
-	}
+  componentWillReceiveProps(nextProps) {
+    // console.log('=== nextProps: ', nextProps)
+    this.setState({
+      error: nextProps.register && nextProps.register.failure ? nextProps.register.errorMessage : false
+    })
+  }
 
-	componentDidUpdate() {
-		if (this.props.register && this.props.register.isRegistered) {
-			// Go to video interview page for the demo.
-			this.props.history.push('/login')
-		}
-	}
+  componentDidUpdate() {
+    if (this.props.register && this.props.register.isRegistered) {
+      // Go to video interview page for the demo.
+      this.props.history.push('/login')
+    }
+  }
 
   handleChange = (event) => {
     this.setState({
@@ -76,25 +76,25 @@ class SignUp extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const typeArray = {1: "talent", 2: "client"}
-		const {
-			userName,
-		  email,
-		  password,
-		  passwordConfirm,
-		  firstName,
-		  lastName,
-		  type
-		} = this.state
+    const {
+      userName,
+      email,
+      password,
+      passwordConfirm,
+      firstName,
+      lastName,
+      type
+    } = this.state
     console.log(typeArray[type]);
-		this.props.registerActions.registerRequest(
-			userName,
-			email,
-			password,
-			passwordConfirm,
-			firstName,
-			lastName,
-			typeArray[type]
-		)
+    this.props.registerActions.registerRequest(
+      userName,
+      email,
+      password,
+      passwordConfirm,
+      firstName,
+      lastName,
+      typeArray[type]
+    )
   }
   handleSelectChange = (event, index, value) => this.setState({ type: value });
   render() {
@@ -209,17 +209,17 @@ class SignUp extends React.Component {
 }
 
 function mapStateToProps(state) {
-	const { register } = state
+  const { register } = state
 
-	return {
-		register
-	}
+  return {
+    register
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		registerActions: bindActionCreators(registerActions, dispatch),
-	}
+  return {
+    registerActions: bindActionCreators(registerActions, dispatch),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

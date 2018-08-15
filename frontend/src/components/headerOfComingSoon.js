@@ -31,7 +31,7 @@ class HeaderOfComingSoon extends Component {
           <NavbarToggler onClick={this.toggleDropDown} className="header-comingsoon-navbar-toggler"/>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-							<Link to="/login">
+              <Link to="/login">
                 Login
               </Link>
             </Nav>

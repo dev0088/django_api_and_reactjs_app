@@ -5,12 +5,12 @@ const initialState = {
   isFetched: false,
   errorMessage: false,
   isFailure: false,
-	value: []
+  value: []
 };
 
 export default function videoQuestions(state = initialState, action) {
   // console.log("==video==", action.type);
-	switch(action.type) {
+  switch(action.type) {
     case types.VIDEO_QUESTION.SUCCESS:
       return Object.assign({}, state, {
         init: false,

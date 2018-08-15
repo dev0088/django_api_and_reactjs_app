@@ -8,7 +8,7 @@ const initialSettings = {
   video: "",
 };
 export default (state=initialSettings, action) => {
-	switch(action.type) {
+  switch(action.type) {
     case types.DEVICE_SETTINGS_SAVE:
       return Object.assign({}, state, {
         resolution: action.resolution,
