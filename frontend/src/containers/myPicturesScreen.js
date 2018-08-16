@@ -260,17 +260,17 @@ class MyPictures extends Component {
   renderMainPicturesView() {
     return (
       <Row className="profile-gender-row">
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-        <Col xs="12" md="3" className="pt-0 pt-md-0">
+        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="6" lg="4" xl="3" className="pt-0 pt-md-0">
           {this.renderPictureView("My Current Headshot")}
         </Col>
-        <Col xs="12" md="4" className="pt-0 pt-md-0">
+        <Col sm="12" md="6" lg="4" xl="4" className="pt-0 pt-md-0">
           {this.renderPictureView("My Current Body Shot 1")}
         </Col>
-        <Col xs="12" md="3" className="pt-0 pt-md-0">
+        <Col sm="12" md="6" lg="4" xl="3" className="pt-0 pt-md-0">
           {this.renderPictureView("My Current Body Shot 2")}
         </Col>
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
       </Row>
     )
   }
@@ -278,23 +278,23 @@ class MyPictures extends Component {
   renderOtherPicturesView() {
     return (
       <Row className="profile-gender-row">
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 1")}
         </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 2")}
         </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 3")}
         </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 4")}
         </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 5")}
         </Col>
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
       </Row>
     )
   }
@@ -305,7 +305,7 @@ class MyPictures extends Component {
 
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="contact-info-view-container">
+        <div className="profile-picture-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           <Panel title={"My Pictures"}>
             {this.renderMainPicturesView()}

@@ -3,8 +3,27 @@
   height: 180px;
 }
 
-.profile-picture-image-container {
+.profile-picture-info-view-container {
+  padding-top: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
 
+
+@media only screen and (max-width: 900px) {
+  .profile-picture-info-view-container{
+    padding-top: 100px;
+    padding-left: 0px;
+    padding-right: 00px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .profile-picture-info-view-container{
+    padding-top: 100px;
+    padding-left: 0px;
+    padding-right: 00px;
+  }
 }
 
 .profile-picture-image-col {
