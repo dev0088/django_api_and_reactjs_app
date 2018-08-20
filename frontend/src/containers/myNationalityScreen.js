@@ -3,38 +3,23 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 
-// import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
-import SelectField from 'material-ui/SelectField';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-
-import SwipeableViews from 'react-swipeable-views';
-import Dropzone from 'react-dropzone';
-import Select from 'react-select';
-import makeAnimated from 'react-select/lib/animated';
-import DropDown from 'react-dropdown';
 import moment from 'moment';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 import Panel from '../components/panel';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
-import apiConfig from '../constants/api';
 
 import 'react-dropdown/style.css';
 import './myContactInfo.css';
@@ -104,7 +89,6 @@ class MyNatioinality extends Component {
     super(props);
     this.state = {
       notification: false,
-      nationality: "",
       nationality: "",
       citizenship: "",
       passport_expiration_date: null,
@@ -355,10 +339,6 @@ class MyNatioinality extends Component {
       passport_expiration_date,
       passport_number,
       country_of_current_residence,
-      have_green_card,
-      green_card_expiration_date,
-      visa_type,
-      expiration_date,
     } = this.state
 
     return (
@@ -536,11 +516,7 @@ class MyNatioinality extends Component {
   }
 
 
-
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-nationality-container">

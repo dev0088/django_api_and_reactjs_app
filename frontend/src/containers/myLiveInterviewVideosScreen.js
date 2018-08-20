@@ -3,7 +3,6 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import Panel from '../components/panel'
-import { createMuiTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
