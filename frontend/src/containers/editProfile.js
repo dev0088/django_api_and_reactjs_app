@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import DatePicker from 'material-ui/DatePicker';
-import MenuItem from 'material-ui/MenuItem';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -28,24 +23,6 @@ import moment from 'moment';
 import 'react-dropdown/style.css'
 
 const const_genders = ["Male", "Female"];
-const const_skill = ["vocalist", "dancer", "actor", "aerialist", 
-    "musician", "staff", "youth staff", "technician", "plays"
-];
-const const_sub_skill = {
-  "vocalist": ["soprano", "alto", "tenor", "baritone"],
-  "dancer": ["jazz", "tap", "bullet", "contemp", "hip-Hop", "lyrical", "ballroom", "gymnastics"],
-  "musician": ["solo", "duo", "trio", "quartet", "band"],
-  "technician": ["audio", "lighting", "video"],
-  "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
-};
-const const_other_skill = ["sings", "dances", "moves", "acts", "plays"];
-const const_sub_other_skill = {
-  "sings": ["soprano", "alto", "tenor", "baritone"],
-  "dances": ["jazz", "tap", "ballet", "contemp", "hip-Hop", "lyrical", "ballroom", "gymnastics"],
-  "moves": [],
-  "acts": [],
-  "plays": ["piano", "bass", "drums", "strings", "winds", "brass", "percussion"]
-}
 
 const styles = theme => ({
   button: {
@@ -154,7 +131,7 @@ class EditProfile extends Component {
         })
       }
 
-      currentSubPositionType = subPostionType,
+      currentSubPositionType = subPostionType
       currentAdditionalPositionSubTypes = additionalSubPositionTypes
 
       // Get contact info
@@ -412,7 +389,6 @@ class EditProfile extends Component {
   }
 
   handlePositionTypeSave = () => {
-    const { auth, talentInfo } = this.props
     const { 
       userID,
       gender,
@@ -458,7 +434,6 @@ class EditProfile extends Component {
   }
 
   handleBusinessStaffSave = () => {
-    const { auth, talentInfo } = this.props
     const { 
       userID,
       contactInfo,
@@ -493,15 +468,14 @@ class EditProfile extends Component {
   }
 
   renderPositionTypesView() {
-    const { talentInfo, allPositionTypes } = this.props
+    const { allPositionTypes } = this.props
     let groups = []
 
     if (allPositionTypes) {
       Object.keys(allPositionTypes).map((key) => {
         const positionType = allPositionTypes[key]
-        let subPositions = []
         if (positionType.name === 'Practice') {
-          return;
+          return positionType;
         }
         let group = {
           type: 'group',
@@ -530,13 +504,12 @@ class EditProfile extends Component {
   }
 
   renderMultiSelectionPositionTypesView() {
-    const { talentInfo, allPositionTypes } = this.props
+    const { allPositionTypes } = this.props
     let groups = []
 
     if (allPositionTypes) {
       Object.keys(allPositionTypes).map((key) => {
         const positionType = allPositionTypes[key]
-        let subPositions = []
         if (positionType.name === 'Practice') {
           return;
         }
@@ -570,7 +543,8 @@ class EditProfile extends Component {
   }
 
   renderGeneralInfoView() {
-    const { talentInfo, allPositionTypes, classes } = this.props
+    const { classes } = this.props;
+
     return (
       <Panel title={"General Info"} >
         <Row className="profile-gender-row">
@@ -620,15 +594,6 @@ class EditProfile extends Component {
   }
 
   renderBussinessStaff() {
-    const { talentInfo, allPositionTypes, classes } = this.props
-    const {
-      contactInfo,
-      emergencyInfo,
-    } = this.state
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
-
     return (
       <Panel title={"The Business Stuff"}>
         <Row className="profile-gender-row">
@@ -768,12 +733,6 @@ class EditProfile extends Component {
   }
 
   renderRustumViewer() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
-
     return(
       <MuiThemeProvider theme={theme}>
       <div className="profile-edit-container">
@@ -867,12 +826,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-edit-container">

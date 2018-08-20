@@ -1,44 +1,15 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import ReactPlayer from 'react-player';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Panel from '../components/panel'
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
 import VideoListView from '../components/videoListView';
-import TalentAPI from '../apis/talentAPIs';
 import './myContactInfo.css';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyLiveInterviewVideos extends Component {
 
@@ -98,8 +69,6 @@ class MyLiveInterviewVideos extends Component {
   }
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
 
     return (
       <div className="general-view-container">
