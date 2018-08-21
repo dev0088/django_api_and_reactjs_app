@@ -6,6 +6,7 @@ from talent_resume.serializers import TalentResumeSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
+from talent_language.serializers import TalentLanguageSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
@@ -15,6 +16,7 @@ class TalentSerializer(serializers.ModelSerializer):
   talent_position_sub_type = TalentPositionSubTypeSerializer(many=False, read_only=True)
   user = GeneralUserSerializer(many=False, read_only=True)
   talent_additional_position_sub_types = GeneralTalentAdditionalPositionSubTypeSerializer(many=True, read_only=True)
+  talent_languages = TalentLanguageSerializer(many=True, read_only=True)
 
   class Meta:
     model = Talent
@@ -56,7 +58,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'bio',
       # 'resume_file_path'
 
-      # pictures,
+      'talent_languages',
       'talent_pictures',
       'talent_videos',
       'talent_resume',

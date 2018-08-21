@@ -1,29 +1,22 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import DatePicker from 'material-ui/DatePicker';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import Panel from '../components/panel'
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Panel from '../components/panel'
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
-import Dropzone from 'react-dropzone';
-import Select from 'react-select';
-import makeAnimated from 'react-select/lib/animated';
-import DropDown from 'react-dropdown';
-import moment from 'moment';
-import 'react-dropdown/style.css'
-import './myContactInfo.css'
+import './myLanguages.css'
 
 
 const styles = theme => ({
@@ -49,370 +42,461 @@ const theme = createMuiTheme ({
   }
 })
 
+const LANGUAGES = [
+  'English',
+  'Spanish',
+  'Portuguese',
+  'German',
+  'French',
+  'Italian',
+  'Japanese',
+  'Mandarin',
+  'Cantonese',
+  'Russian',
+]
+
+const FLUENCY_TYPES = [
+  'Fluent',
+  'Conversational',
+  'Basic'
+]
+
+const OTHER_LANGUAGES_COUNT = 2
+
 class MyLanguage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      userID: props.auth.access.user_id,
-      notification: false,
-      contactInfo: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobile: "",
-        address1: "",
-        address2: "",
-        address3: "",
-        address4: "",
-        birthday: null
-      },
-      emergencyInfo: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        relationship: 0
-      }
+      languages: [],
+      checkedLanguages: []
     }
   }
 
-  getContactInfoFromProps(props) {
+  getInfoFromProps(props) {
     const { 
       auth,
       talentInfo
     } = props
-    let userID = auth.access.user_id
-    let contactInfo = {}
-    let emergencyInfo = {}
 
-    if (talentInfo && talentInfo.user) {
+    let languages = []
+    let checkedLanguages = []
+
+    if (talentInfo && talentInfo.talent_languages) {
       // Get contact info
-      contactInfo = {
-        firstName: talentInfo.user.first_name,
-        lastName: talentInfo.user.last_name,
-        email: talentInfo.user.email,
-        mobile: talentInfo.phone_number,
-        address1: talentInfo.mailing_addresse1,
-        address2: talentInfo.mailing_addresse2,
-        address3: talentInfo.mailing_addresse3,
-        address4: talentInfo.mailing_addresse4,
-        birthday: moment(talentInfo.birthday)
+      languages = talentInfo.talent_languages
+
+      for (let i = 0; i < LANGUAGES.length; i ++) {
+        let language = this.getLanguageByName(LANGUAGES[i], languages)
+        checkedLanguages.push({
+          language: LANGUAGES[i], 
+          checked: language ? true : false, 
+          fluency: language ? language.fluency : 'Basic' 
+        })
       }
-      emergencyInfo = {
-        firstName: talentInfo.emergency_first_name,
-        lastName: talentInfo.emergency_last_name,
-        email: talentInfo.emergency_email,
-        phone: talentInfo.emergency_phone,
-        relationship: talentInfo.emergency_relationship
-      }
+
     }
 
     return {
-      userID,
-      contactInfo,
-      emergencyInfo
+      languages,
+      checkedLanguages
     }
   }
 
   componentWillMount() {
-    if (this.state.userID) {
-      this.props.talentActions.getTalentInfo(this.state.userID)  
-    }
+    this.setState({
+      ...this.getInfoFromProps(this.props)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getContactInfoFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps)
+    })
+  }
+
+  handleFluencyChange = (event) => {
+    const { checkedLanguages } = this.state;
+    let key = this.getKeyOfCheckedLanguageByName(event.target.name)
+    checkedLanguages[key].fluency = event.target.value
+
+    this.setState({
+      checkedLanguages
+    })
+  }
+
+  handleChange = name => event => {
+    const { talentInfo } = this.props
+    const { checkedLanguages } = this.state;
+    let key = this.getKeyOfCheckedLanguageByName(name)
+    checkedLanguages[key].checked = event.target.checked
+
+    this.setState({
+      checkedLanguages
     })
   }
 
 
-  handleContactInfoChange = (event) => {
-    const { contactInfo } = this.state;
-    contactInfo[event.target.name.substring(8)] = event.target.value;
+  handleCancel = () => {
     this.setState({
-      contactInfo: contactInfo,
-    });
-  }
-
-  handleBirthdayChange = (event, date) => {
-    const { contactInfo } = this.state;
-    contactInfo['birthday'] = date;
-    this.setState({ contactInfo: contactInfo })
-  }
-
-  handleEmergencyInfoChange = (event) => {
-    const { emergencyInfo } = this.state;
-    emergencyInfo[event.target.name.substring(10)] = event.target.value;
-    this.setState({
-      emergencyInfo: emergencyInfo,
-    });
-  }
-
-  handleRelationshipChange = (event, index, value) => {
-    const { emergencyInfo } = this.state;
-    emergencyInfo['relationship'] = value;
-    this.setState({ emergencyInfo: emergencyInfo });
-  }
-
-  handleBusinessStaffCancel = () => {
-    const {
-      contactInfo,
-      emergencyInfo
-    } = this.getContactInfoFromProps(this.props)
-
-    this.setState({
-      contactInfo,
-      emergencyInfo
+      ...this.getInfoFromProps(this.props)
     })
   }
 
-  handleBusinessStaffSave = () => {
+  handleSave = () => {
     const { auth, talentInfo } = this.props
-    const { 
-      userID,
-      contactInfo,
-      emergencyInfo
-    } = this.state
-
-    let data = {
-      user: {
-        email: contactInfo.email,
-        first_name: contactInfo.firstName,
-        last_name: contactInfo.lastName,
-      },
-      phone_number: contactInfo.mobile,
-      mailing_addresse1: contactInfo.address1,
-      mailing_addresse2: contactInfo.address2,
-      mailing_addresse3: contactInfo.address3,
-      mailing_addresse4: contactInfo.address4,
-      birthday: moment(contactInfo.birthday).format('YYYY-MM-DD'),
-      emergency_first_name: emergencyInfo.firstName,
-      emergency_last_name: emergencyInfo.lastName,
-      emergency_email: emergencyInfo.email,
-      emergency_phone: emergencyInfo.phone,
-      emergency_relationship: emergencyInfo.relationship
-    }
-    console.log('==== data: ', data)
-    TalentAPI.saveTalentInfo(userID, data, this.handleBusinessStaffSaveResponse)
-  }
-
-  handleBusinessStaffSaveResponse = (response, isFailed) => {
-    console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getTalentInfo(this.state.userID)
-  }
-
-  renderBussinessStaff() {
-    const { talentInfo, classes } = this.props
     const {
-      contactInfo,
-      emergencyInfo,
+      languages,
+      checkedLanguages
     } = this.state
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
+
+    let talent_languages = []
+    Object.keys(checkedLanguages).map((key) => {
+      let checkedLanguage = checkedLanguages[key]
+      if (checkedLanguage.checked) {
+        talent_languages.push({
+          talent: talentInfo.id,
+          language: checkedLanguage.language,
+          fluency: checkedLanguage.fluency
+        })
+      }
+    })
+    let data = {
+      talent_languages: talent_languages
     }
+    console.log('==== talent_languages: ', talent_languages)
+    TalentAPI.saveLanguages(auth.access.user_id, data, this.handleSaveResponse)
+  }
+
+  handleSaveResponse = (response, isFailed) => {
+    const { auth } = this.props
+    console.log('==== response: ', response, isFailed)
+    this.props.talentActions.getTalentInfo(auth.access.user_id)
+  }
+
+  isCheckedLanguage = name => {
+    const { checkedLanguages } = this.state
+    let key = this.getKeyOfCheckedLanguageByName(name)
+    return key ? checkedLanguages[key].checked : false
+  }
+
+  getKeyOfCheckedLanguageByName = (name) => {
+    const { checkedLanguages } = this.state
+    let res = null
+    Object.keys(checkedLanguages).map((key) => {
+      if (checkedLanguages[key].language === name) {
+        res = key
+      }
+    })
+    return res
+  }
+
+  getCheckedLanguageByName = (name) => {
+    const { checkedLanguages } = this.state
+    let res = null
+    Object.keys(checkedLanguages).map((key) => {
+      if (checkedLanguages[key].language === name) {
+        res = checkedLanguages[key]
+      }
+    })
+    return res
+  }
+
+  getLanguageByName = (name, languageList) => {
+    const { languages } = this.state
+    let res = null
+    let searchLanguages = languageList ? languageList : languages
+    Object.keys(searchLanguages).map((key) => {
+      if (searchLanguages[key].language === name) {
+        res = searchLanguages[key]
+      }
+    })
+    return res
+  }
+
+  renderFluencyView(name) {
+    let checkedLanguage = this.getCheckedLanguageByName(name)
+    let fluency = checkedLanguage ? checkedLanguage.fluency : ''
+    let disabled = checkedLanguage ? !checkedLanguage.checked : true
 
     return (
-      <Panel title={"My Contact Info"}>
+      <RadioGroup
+        aria-label={`${name}_fluency`}
+        name={name}
+        className="profile-have-green-card-radio-button-group"
+        value={fluency}
+        onChange={this.handleFluencyChange}>
+
+        <FormControlLabel
+          value="Fluent"
+          control={<Radio color="primary" />}
+          label="Fluent"
+          disabled={disabled}
+        />
+        <FormControlLabel
+          value="Conversational"
+          control={<Radio color="primary" />}
+          label="Conversational"
+          disabled={disabled}
+        />
+        <FormControlLabel
+          value="Basic"
+          control={<Radio color="primary" />}
+          label="Basic"
+          disabled={disabled}
+        />
+
+      </RadioGroup>
+    )
+  }
+
+  renderLanguagesView() {
+    const { talentInfo, classes } = this.props
+    const {
+      languages,
+    } = this.state
+
+    return (
+      <Panel title={"My Languages"}>
+        <Typography>
+          Speeking more than one language is a big deal at sea. 
+          Tell use the languages you speak and your fluency in each.
+          Be honest and realistic. The cruise line will test you.
+        </Typography>
+
         <Row className="profile-gender-row">
-          <Col sm="12">
-            <h5>Contact Information</h5>
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('English')}
+                      onChange={this.handleChange('English')}
+                      value="English"
+                      color="primary"
+                    />
+                  }
+                  label="English"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('English') }
+              </Col>
+            </Row>            
           </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_firstName"
-              id="contact_firstName"
-              placeholder=""
-              value={contactInfo.firstName}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="First Name"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_lastName"
-              id="contact_lastName"
-              placeholder=""
-              value={contactInfo.lastName}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Last Name"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              type="email"
-              name="contact_email"
-              id="contact_email"
-              placeholder=""
-              value={contactInfo.email}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Email Address"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_mobile"
-              id="contact_mobile"
-              placeholder=""
-              value={contactInfo.mobile}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mobile"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_address1"
-              id="contact_address1"
-              placeholder=""
-              value={contactInfo.address1}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address1"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_address2"
-              id="contact_address2"
-              placeholder=""
-              value={contactInfo.address2}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address2"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="contact_address3"
-              id="contact_address3"
-              placeholder=""
-              value={contactInfo.address3}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address3"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="contact_address4"
-              id="contact_address4"
-              placeholder=""
-              value={contactInfo.address4}
-              onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address4"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="12">
-            <DatePicker
-              hintText="Date of Birth"
-              className="datePicker"
-              value={contactInfo.birthday}
-              onChange={this.handleBirthdayChange}
-            />
+
+
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Italian')}
+                      onChange={this.handleChange('Italian')}
+                      value="Italian"
+                      color="primary"
+                    />
+                  }
+                  label="Italian"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Italian') }
+              </Col>
+            </Row>            
           </Col>
         </Row>
 
         <Row className="profile-gender-row">
-          <Col sm="12">
-            <h5 className="profile-emercy-title">Emergency Contact Information</h5>
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Spanish')}
+                      onChange={this.handleChange('Spanish')}
+                      value="Spanish"
+                      color="primary"
+                    />
+                  }
+                  label="Spanish"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Spanish') }
+              </Col>
+            </Row>            
           </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="emergency_firstName"
-              id="emergency_firstName"
-              placeholder=""
-              value={emergencyInfo.firstName}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="First Name"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="emergency_lastName"
-              id="emergency_lastName"
-              placeholder=""
-              value={emergencyInfo.lastName}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Last Name"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="6">
-            <TextField
-              name="emergency_email"
-              id="emergency_email"
-              placeholder=""
-              value={emergencyInfo.email}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Email Address"
-              fullWidth={true}
-            />
-          </Col>
-          <Col sm="6">
-            <TextField
-              name="emergency_phone"
-              id="emergency_phone"
-              placeholder=""
-              value={emergencyInfo.phone}
-              onChange={this.handleEmergencyInfoChange}
-              floatingLabelText="Phone"
-              fullWidth={true}
-            />
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col sm="12">
-            <SelectField
-              id="emergency_relationship"
-              name="emergency_relationship"
-              floatingLabelText="Relationship"
-              value={emergencyInfo.relationship}
-              onChange={this.handleRelationshipChange}
-              menuItemStyle={selectItemStyle}
-            >
-              <MenuItem value={1} primaryText="Wife" />
-              <MenuItem value={2} primaryText="Husband" />
-              <MenuItem value={3} primaryText="Father" />
-              <MenuItem value={4} primaryText="Mother" />
-              <MenuItem value={5} primaryText="Brother" />
-              <MenuItem value={6} primaryText="Sister" />
-              <MenuItem value={7} primaryText="Other" />
-            </SelectField>
+
+
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Japanese')}
+                      onChange={this.handleChange('Japanese')}
+                      value="Japanese"
+                      color="primary"
+                    />
+                  }
+                  label="Japanese"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Japanese') }
+              </Col>
+            </Row>            
           </Col>
         </Row>
 
         <Row className="profile-gender-row">
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Portuguese')}
+                      onChange={this.handleChange('Portuguese')}
+                      value="Portuguese"
+                      color="primary"
+                    />
+                  }
+                  label="Portuguese"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Portuguese') }
+              </Col>
+            </Row>            
+          </Col>
+
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Mandarin')}
+                      onChange={this.handleChange('Mandarin')}
+                      value="Mandarin"
+                      color="primary"
+                    />
+                  }
+                  label="Mandarin"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Mandarin') }
+              </Col>
+            </Row>            
+          </Col>
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('German')}
+                      onChange={this.handleChange('German')}
+                      value="German"
+                      color="primary"
+                    />
+                  }
+                  label="German"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('German') }
+              </Col>
+            </Row>            
+          </Col>
+
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Cantonese')}
+                      onChange={this.handleChange('Cantonese')}
+                      value="Cantonese"
+                      color="primary"
+                    />
+                  }
+                  label="Cantonese"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Cantonese') }
+              </Col>
+            </Row>            
+          </Col>
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('French')}
+                      onChange={this.handleChange('French')}
+                      value="French"
+                      color="primary"
+                    />
+                  }
+                  label="French"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('French') }
+              </Col>
+            </Row>            
+          </Col>
+
+          <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
+            <Row>
+              <Col xs="12" className="pt-0 pt-md-0">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.isCheckedLanguage('Russian')}
+                      onChange={this.handleChange('Russian')}
+                      value="Russian"
+                      color="primary"
+                    />
+                  }
+                  label="Russian"
+                />
+              </Col>
+              <Col xs="12" className="pt-0 pt-md-0">
+                { this.renderFluencyView('Russian') }
+              </Col>
+            </Row>            
+          </Col>
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="5" className="pt-3 pt-md-3 profile-save-button-group-col">
             <Button size="large" 
               className={classes.button} 
-              onClick={this.handleBusinessStaffCancel} >
+              onClick={this.handleCancel} >
               {'Cancel'}
             </Button>
             <Button size="large" color="primary" 
               className={classes.button} 
-              onClick={this.handleBusinessStaffSave}>
+              onClick={this.handleSave}>
               {'Save'}
             </Button>
           </Col>
@@ -423,18 +507,13 @@ class MyLanguage extends Component {
 
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
 
     return (
       <MuiThemeProvider theme={theme}>
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderBussinessStaff()}
+          {this.renderLanguagesView()}
 
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>

@@ -17,13 +17,13 @@ SECRET_KEY = '!pp45o$8uagf%rkj79pne099ff=10c-zv-^qndduaua)d@#!wy'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  'www.shiptalent.com',
-  'shiptalent.com',
-  'staging.shiptalent.com',
-  '34.193.87.115',
-  'localhost',
-  '127.0.0.1',
-  '192.168.0.121'
+    'www.shiptalent.com',
+    'shiptalent.com',
+    'staging.shiptalent.com',
+    '34.193.87.115',
+    'localhost',
+    '127.0.0.1',
+    '192.168.0.121'
 ]
 # ALLOWED_HOSTS = []
 
@@ -39,27 +39,28 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-  'rest_framework',
+    'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-  'rest_framework_swagger',
+    'rest_framework_swagger',
     'coreapi'
 )
 
 LOCAL_APPS = (
-  'authentication',
-  'shiptalent_info',
-  'talent',
-  'talent_position_type',
-  'talent_position_sub_type',
+    'authentication',
+    'shiptalent_info',
+    'talent',
+    'talent_position_type',
+    'talent_position_sub_type',
     'talent_additional_position_sub_type',
     'talent_picture',
     'talent_resume',
     'talent_video',
-  'question',
-  'admin_setting',
+    'talent_language',
+    'question',
+    'admin_setting',
     'submission',
-  'client_casting_request',
+    'client_casting_request',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -103,7 +104,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shiptalent',
-    'USER': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
@@ -138,7 +139,7 @@ STATICFILES_DIRS = (
     ("css", os.path.join(STATIC_ROOT,'css')),
     ("images", os.path.join(STATIC_ROOT,'images')),
     ("fonts", os.path.join(STATIC_ROOT,'fonts')),
-  ("rest_framework", os.path.join(STATIC_ROOT,'rest_framework'))
+    ("rest_framework", os.path.join(STATIC_ROOT,'rest_framework'))
 )
 
 MEDIA_URL = '/media/'
