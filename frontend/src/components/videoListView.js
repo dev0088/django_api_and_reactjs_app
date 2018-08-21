@@ -12,7 +12,6 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -22,9 +21,7 @@ import ReactPlayer from 'react-player';
 import moment from 'moment';
 import './videoInterviewView.css';
 
-let counter = 0;
 function createData(id, position_type, position_sub_type, question, url, updated, size) {
-  counter += 1;
   return { 
     id: id, 
     position_type: position_type ? position_type : "None", 

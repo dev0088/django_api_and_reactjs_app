@@ -1,38 +1,17 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import Panel from '../components/panel'
-import Button from '@material-ui/core/Button';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
+import RaisedButton from 'material-ui/RaisedButton';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
-import FilePreview from 'react-preview-file';
-import moment from 'moment';
+import Panel from '../components/panel'
+import apiConfig from '../constants/api';
+import TalentAPI from '../apis/talentAPIs';
+import * as talentActions from '../actions/talentActions';
 import './myResumeScreen.css';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
 
 const theme = createMuiTheme ({
   palette: {
@@ -290,9 +269,7 @@ class MyResume extends Component {
   }
 
   renderResumeViewWithFilePreview() {
-    const { classes } = this.props
     const {
-      resume,
       file
     } = this.state
     return (
@@ -307,7 +284,7 @@ class MyResume extends Component {
                   loading={() => <div className="profile-picture-image">Loading...</div>}
                   error={() => <div>Error</div>} />
               ) : (
-                <img
+                <img alt="None image"
                   className="profile-picture-image"
                   src={require('../images/missing.png')} />
               )
@@ -361,9 +338,6 @@ class MyResume extends Component {
   }
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="contact-info-view-container">
