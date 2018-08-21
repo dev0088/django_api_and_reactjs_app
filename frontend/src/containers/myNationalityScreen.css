@@ -1,4 +1,4 @@
-.profile-nationality-container {
+/*.profile-nationality-container {
   padding-top: 100px;
   padding-left: 200px;
   padding-right: 200px;
@@ -28,10 +28,12 @@
 
 .profile-nationality-field-name {
 	font-size: 1rem!important;
-  /*font-weight: 600!important;*/
   text-align: left!important;
 }
 
 .profile-nationality-date-picker {
 	margin-top: 0px!important;
+}*/
+.profile-metric-dropdown-option-col-cm {
+  text-align: right!important;
 }
