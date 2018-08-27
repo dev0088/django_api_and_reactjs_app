@@ -1,19 +1,37 @@
-.profile-container{
+.profile-container {
   margin-top: 100px;
 }
-.profile-image img{
+.profile-image img {
   width: 100%;
 }
-.profile-buttons > div, .profile-buttons a > div{
+.profile-buttons > div, .profile-buttons a > div {
   margin-bottom: 15px;
 }
-.profile-container .details-content{
+.profile-container .details-content {
   margin-left: 0px;
   margin-right: 0px;
 }
 .profile-container .details-content img {
     height: auto;
 }
-.profile-name{
+.profile-name {
+  text-align: center;
+}
+.profile-general-info-name {
+  font-size: 1rem!important;
+  font-weight: 600!important;
   text-align: left;
+}
+.profile-general-info-value {
+  font-size: 1rem!important;
+  font-weight: 400!important;
+  text-align: left;
+}
+.profile-picture-name {
+  font-size: 1.25rem!important;
+  font-weight: 600!important;
+  text-align: center;
+}
+.profile-view-divider {
+	height: 2rem;
 }

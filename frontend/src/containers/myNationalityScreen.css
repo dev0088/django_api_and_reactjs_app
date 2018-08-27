@@ -1,4 +1,4 @@
-/*.profile-nationality-container {
+.profile-nationality-container {
   padding-top: 100px;
   padding-left: 200px;
   padding-right: 200px;
@@ -12,12 +12,18 @@
   }
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1530px) {
   .profile-nationality-container {
     padding-top: 100px;
     padding-left: 0px;
     padding-right: 00px;
   }
+}
+
+.profile-have-green-card-radio-button-group {
+  padding-left: 18px;
+  flex-wrap: nowrap!important;
+  display: block!important;
 }
 
 .profile-have-green-card-radio-button-group {
@@ -33,7 +39,7 @@
 
 .profile-nationality-date-picker {
 	margin-top: 0px!important;
-}*/
+}
 .profile-metric-dropdown-option-col-cm {
   text-align: right!important;
 }

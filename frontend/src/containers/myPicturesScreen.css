@@ -5,8 +5,8 @@
 
 .profile-picture-info-view-container {
   padding-top: 100px;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 
@@ -14,7 +14,7 @@
   .profile-picture-info-view-container{
     padding-top: 100px;
     padding-left: 0px;
-    padding-right: 00px;
+    padding-right: 0px;
   }
 }
 
@@ -22,7 +22,7 @@
   .profile-picture-info-view-container{
     padding-top: 100px;
     padding-left: 0px;
-    padding-right: 00px;
+    padding-right: 0px;
   }
 }
 

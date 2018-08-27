@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+// import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Panel from '../components/panel'
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import Panel from '../components/panel';
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
-import 'react-dropdown/style.css'
-import './myContactInfo.css'
+import TalentAPI from '../apis/talentAPIs';
+import 'react-dropdown/style.css';
+import './myBio.css';
+
 
 
 const styles = theme => ({
@@ -50,7 +51,7 @@ class MyBio extends Component {
     }
   }
 
-  getBioFromProps(props) {
+  getInfoFromProps(props) {
     const {
       talentInfo
     } = props
@@ -59,11 +60,11 @@ class MyBio extends Component {
       headline: "",
       bio: "",
     }
-
+    console.log('==== talentInfo: ', talentInfo)
     if (talentInfo && talentInfo.user) {
       bioInfo = {
-        headline: "",
-        bio: "",
+        headline: talentInfo.head_line,
+        bio: talentInfo.bio,
       }
     }
 
@@ -80,11 +81,14 @@ class MyBio extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getBioFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps)
     })
   }
 
   handleChange = (event) => {
+    if ((event.target.name === 'headline') && (event.target.value.length > 100)) {
+      return
+    }
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -92,7 +96,7 @@ class MyBio extends Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.getBioFromProps(this.props)
+      ...this.getInfoFromProps(this.props)
     })
   }
 
@@ -104,7 +108,8 @@ class MyBio extends Component {
     } = this.state
 
     let data = {
-      ...this.state,
+      head_line: headline,
+      bio
     }
     console.log('==== data: ', data)
     TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
@@ -125,47 +130,41 @@ class MyBio extends Component {
     return (
       <Panel title={"My Headline & Biography"}>
           <br/>
-          <h5 align="center">Write a brief headline the best describes what you do.
-                  Your headline will be the first thing casting directors see, so be creative and accurate.</h5>
+          <h5 align="center" className="profile-bio-description">
+            Write a brief headline the best describes what you do.<br/>
+            Your headline will be the first thing casting directors see, so be creative and accurate.</h5>
           <br/>
-          <h5 >Examples:</h5>
+          <h5 align="center">Examples: <br/>
+            "Vocalist with strong dance abilities and previous cruise experience"<br/>
+            "Experienced ballet dancer with strong vocal skills"
+          </h5>
           <br/>
-          <h5 >"Vocalist with strong dance abilities and previous cruise experience"</h5>
-          <h5 >"Experienced ballet dancer with strong vocal skills"</h5>
-          <br/>
-          <h6>Type headline here…</h6>
+
           <TextField
             id="headline"
             name="headline"
-            label="headline"
-            className={classes.textField}
+            label="Type headline here…"
+            className="bioTextEdit"
             value={headline}
             onChange={this.handleChange}
             margin="normal"
             fullWidth={true}
-            multiLine = {true}
-            rows = {3}
-            maxLength = "100"/>
-          <h6 align="right">Characters: {this.state.headline.length} of max 100</h6>
+            multiline = {false}/>
+
+          <h6 align="right" className="profile-bio-title">Characters: {this.state.headline.length} of max 100</h6>
           <br/>
-          <h6>Type brief bio/work summary here…</h6>
-          <TextField
-            id="bio"
-            name="bio"
-            disabled={false}
-            label="bio"
-            className={classes.textField}
-            value={bio}
-            onChange={this.handleChange}
-            margin="normal"
-            fullWidth={true}
-            multiLine = {true}
-            rows = "8"
-            rowsMax = "8"/>
-          <h6 align="right">8 lines maximum</h6>
+          <h6 className="profile-bio-title">Type brief bio/work summary here…</h6>
+          
+          <div>
+            <textarea id="bio" name="bio" className="bioTextEdit" rows="8" 
+              value={bio}
+              onChange={this.handleChange} />
+          </div>
+
+          <h6 align="right" className="profile-bio-title">8 lines maximum</h6>
             <Row className="profile-gender-row">
-                <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
-                <Col xs="12" md="5" className="pt-3 pt-md-3 profile-save-button-group-col">
+                <Col xs="12" md="3" lg="6" xl="7" className="pt-4 pt-md-4"> </Col>
+                <Col xs="12" md="9" lg="6" xl="5" className="pt-3 pt-md-3 profile-save-button-group-col">
                   <Button size="large"
                     className={classes.button}
                     onClick={this.handleCancel} >

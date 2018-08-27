@@ -142,6 +142,9 @@ class Header extends Component {
                     <Link to="/profile">
                       <MenuItem primaryText="View My Profile" />
                     </Link>
+                    <Link to="/edit-profile">
+                      <MenuItem primaryText="Build/Edit My Profile" />
+                    </Link>
                     <Link to="/account">
                       <MenuItem primaryText="Account Settings" />
                     </Link>
