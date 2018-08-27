@@ -1,0 +1,15 @@
+.bioTextEdit {
+  width: 100%;
+  border: solid 1.25px;
+}
+
+.profile-bio-description {
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.profile-bio-title {
+	font-style: italic;
+	color: #0000008a!important;
+}

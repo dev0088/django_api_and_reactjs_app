@@ -14,6 +14,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { FormGroup, Label, Input } from 'reactstrap';
+
 import moment from 'moment';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
@@ -63,18 +65,18 @@ const theme = createMuiTheme ({
   }
 })
 
-const visa_types = [
+const VISA_TYPES = [
   'B-1',
+  'M-1',
   'B-2',
+  'O',
   'B-1/B-2',
+  'P-2',
   'C1/D',
+  'Schengen',
   'F',
   'H1-B',
   'J-1',
-  'M-1',
-  'O',
-  'P-2',
-  'Schengen'
 ]
 
 const other_types = [
@@ -103,7 +105,7 @@ class MyNatioinality extends Component {
   }
 
   getIndexByVisaType(visaType) {
-    return visa_types.findIndex(function(visa){
+    return VISA_TYPES.findIndex(function(visa){
       return visaType === visa
     })
   }
@@ -127,8 +129,8 @@ class MyNatioinality extends Component {
 
     let expiration_date = []
 
-    for (let i = 0; i < visa_types.length; i ++) {
-      expiration_date[visa_types[i]] = null
+    for (let i = 0; i < VISA_TYPES.length; i ++) {
+      expiration_date[VISA_TYPES[i]] = null
     }
 
     if (talentInfo && talentInfo.user) {
@@ -147,7 +149,6 @@ class MyNatioinality extends Component {
 
       nationalityInfo.expiration_date[talentInfo.visa_type] = talentInfo.expiration_date
     }
-    console.log('===== nationalityInfo: ', nationalityInfo)
 
     return {
       ...nationalityInfo
@@ -167,7 +168,6 @@ class MyNatioinality extends Component {
   }
 
   handleChange = (event) => {
-    console.log('==== name: value: ', event.target.name, event.target.value)
     if (event.target.name === 'selected_visa_type') {
       this.getIndexByVisaType(event.target.value)
     }
@@ -198,13 +198,19 @@ class MyNatioinality extends Component {
     })
   }
 
-  handleGreenCardeExpirationDateChange = (event, date) => {
-    this.setState({ green_card_expiration_date: moment(date).format('YYYY-MM-DD') })
+  handleHaveGreenCardeChange = (event) => {
+    this.setState({
+      have_green_card: event.target.value === "Yes" ? true : false
+    })
   }
 
-  handleExpirationDateChange = (event, date) => {
-    const { selected_visa_type, expiration_date } = this.state
-    expiration_date[selected_visa_type] = moment(date).format('YYYY-MM-DD')
+  handleGreenCardeExpirationDateChange = (event) => {
+    this.setState({ green_card_expiration_date: moment(event.target.value).format('YYYY-MM-DD') })
+  }
+
+  handleExpirationDateChange = (event) => {
+    const { expiration_date } = this.state
+    expiration_date[event.target.name] = event.target.value
     this.setState({ expiration_date: expiration_date })
   }
 
@@ -226,104 +232,143 @@ class MyNatioinality extends Component {
       green_card_expiration_date,
 
       selected_visa_type,
-      visa_type,
       expiration_date,
     } = this.state
 
-    let data = {
-      ...this.state,
-    }
     // let data = {
-    //   nationality: nationality,
-    //   citizenship: citizenship,
-    //   passport_expiration_date: passport_expiration_date,
-    //   passport_number: passport_number,
-    //   country_of_current_residence: country_of_current_residence,
-    //   have_green_card: have_green_card,
-    //   green_card_expiration_date: green_card_expiration_date,
-    //   visa_type: visa_type,
-    //   expiration_date: expiration_date,
+    //   ...this.state,
     // }
-    console.log('==== data: ', data)
+    let data = {
+      nationality: nationality,
+      citizenship: citizenship,
+      passport_expiration_date: passport_expiration_date,
+      passport_number: passport_number,
+      country_of_current_residence: country_of_current_residence,
+      have_green_card: have_green_card,
+      green_card_expiration_date: green_card_expiration_date,
+      visa_type: selected_visa_type,
+      expiration_date: expiration_date[selected_visa_type],
+    }
     TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
   }
 
   handleSaveResponse = (response, isFailed) => {
-    console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
   }
 
-  renderVisaTypeView() {
+
+  renderVisaTypeItem(index) {
     const {
       selected_visa_type,
       expiration_date
     } = this.state
-    const { classes } = this.props;
+    const {classes} = this.props
 
-    let visaTypeRadioComponents = []
-    let visaTypeExpireDateComponents = []
     let indexOfEnableExpireDate = this.getIndexByVisaType(selected_visa_type)
-
-    for (let i = 0; i < visa_types.length; i ++) {
-      let visaTypeRadioComponent = (
-          <FormControlLabel
-            value={visa_types[i]}
-            control={<Radio color="primary" />}
-            label={visa_types[i]}
-          />
-        )
-      let visaTypeExpireDateComponent = (
-          <Row>
-            <Col xs="12" md="6" className="pt-0 pt-md-0">
-              <Typography className="profile-nationality-field-name">
-                {"Expiration Date"}
-              </Typography>
-            </Col>
-            <Col xs="12" md="6" className="pt-0 pt-md-0">
-              <DatePicker
-                hintText="Expiration Date"
-                container="inline" 
-                disabled = {i === indexOfEnableExpireDate ? false : true}
-                className="datePicker profile-nationality-date-picker"
-                value={new Date(expiration_date[visa_types[i]] ? expiration_date[visa_types[i]] : new Date())}
-                onChange={this.handleExpirationDateChange}
+    return (
+      <Row className="profile-gender-row">
+        <Col xs="12" md="6" lg="6" xl="5" className="pt-0 pt-md-0" >
+          <FormGroup check>
+            <Label check>
+              <Input type="radio" 
+                name="selected_visa_type" 
+                value={VISA_TYPES[index]} 
+                onChange={this.handleChange}
+                checked={index === indexOfEnableExpireDate ? true : false}
               />
-            </Col>
-          </Row>
-      )
-
-      let visaTypeExpireDateTextComponet = (
-      <Row>
-        <Col xs="12" md="12" className="pt-0 pt-md-0">
-        <TextField
-          id="date"
-          label="Expiration Date"
-          disabled = {i === indexOfEnableExpireDate ? false : true}
-          type="date"
-          defaultValue={moment().format('MM-DD-YYYY')}
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+              {VISA_TYPES[index]}
+            </Label>
+          </FormGroup>
+        </Col>
+        <Col xs="12" md="6" lg="6" xl="7" className="pt-0 pt-md-0" >
+           <TextField
+            id={VISA_TYPES[index]}
+            name={VISA_TYPES[index]}
+            label="Expiration Date"
+            disabled = {index === indexOfEnableExpireDate ? false : true}
+            type="date"
+            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : moment().format('YYYY-MM-DD')}            
+            className={classes.textField}
+            onChange={this.handleExpirationDateChange}
+          />
         </Col>
       </Row>
-      )
+    )
+  }
 
-      visaTypeRadioComponents.push(visaTypeRadioComponent)
-      // visaTypeRadioComponents.push(visaTypeExpireDateComponent)
-      visaTypeRadioComponents.push(visaTypeExpireDateTextComponet)
-    }
+  renderVisaTypeViewWithReactStrap() {
+    const {
+      selected_visa_type,
+    } = this.state
+
+    let indexOfEnableExpireDate = this.getIndexByVisaType(selected_visa_type)
 
     return (
-      <RadioGroup
-        aria-label="visa_type"
-        name="selected_visa_type"
-        className="profile-have-green-card-radio-button-group"
-        value={selected_visa_type}
-        onChange={this.handleChange}>
-          { visaTypeRadioComponents }
-      </RadioGroup>
+      <div>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(0)}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+            {this.renderVisaTypeItem(1)}
+          </Col>
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(2)}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+            {this.renderVisaTypeItem(3)}
+          </Col>
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(4)}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+            {this.renderVisaTypeItem(5)}
+          </Col>
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>        
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(6)}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+            {this.renderVisaTypeItem(7)}
+          </Col>
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>        
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(8)}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+            {this.renderVisaTypeItem(9)}
+          </Col>
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem(8)}
+          </Col>
+        </Row>
+
+      </div>
     )
   }
 
@@ -339,6 +384,8 @@ class MyNatioinality extends Component {
       passport_expiration_date,
       passport_number,
       country_of_current_residence,
+      have_green_card,
+      green_card_expiration_date
     } = this.state
 
     return (
@@ -440,59 +487,49 @@ class MyNatioinality extends Component {
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="1" className="pt-0 pt-md-0" />
-          <Col sm="12" md="5" lg="6" xl="6" className="pt-0 pt-md-0">
+          <Col sm="12" md="5" lg="5" xl="6" className="pt-0 pt-md-0">
             <Typography className="profile-nationality-field-name">
               {"Do you have a U.S. Permanent Resident Card (Green Card)?"}
             </Typography>
           </Col>
-          <Col xs="12" md="4" lg="3" xl="3" className="pt-0 pt-md-0"> 
-            <FormControl component="fieldset" className={classes.formControl}>
-              <RadioGroup
-                aria-label="have_green_card"
-                name="have_green_card"
-                className="profile-have-green-card-radio-button-group"
-                value={this.state.have_green_card}
-                onChange={this.handleChange}>
-                <FormControlLabel
-                  value="yes"
-                  control={<Radio color="primary" />}
-                  label="Yes"
-                />
-                <FormControlLabel
-                  value="no"
-                  control={<Radio color="primary" />}
-                  label="No"
-                />
-
-              </RadioGroup>
-            </FormControl>
+          <Col xs="12" md="4" lg="4" xl="3" className="pt-0 pt-md-0"> 
+            <RadioGroup
+              aria-label="have_green_card"
+              name="have_green_card"
+              className="profile-have-green-card-radio-button-group"
+              value={have_green_card}
+              onChange={this.handleChange}>
+              <FormControlLabel
+                value="yes"
+                control={<Radio color="primary" />}
+                label="Yes"
+              />
+              <FormControlLabel
+                value="no"
+                control={<Radio color="primary" />}
+                label="No"
+              />
+            </RadioGroup>
           </Col>
 
           <Col xs="12" md="2" lg="2" xl="2" className="pt-0 pt-md-0"> 
-
             <TextField
               id="date"
               label="Expiration Date"
               type="date"
-              defaultValue={moment().format('MM-DD-YYYY')}
+              defaultValue={moment().format('YYYY-MM-DD')}
+              value={green_card_expiration_date}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
               }}
+              disabled={have_green_card}
               onChange={this.handleGreenCardeExpirationDateChange}
             />
           </Col>
         </Row>
 
-        <Row className="profile-gender-row">
-          <Col xs="0" md="1" lg="2" xl="3" className="pt-0 pt-md-0" />
-          <Col xs="12" md="10" lg="8" xl="6" className="pt-0 pt-md-0"> 
-            { this.renderVisaTypeView() }
-          </Col>
-
-          <Col xs="0" md="1" lg="2" xl="3" className="pt-0 pt-md-0" />
-        </Row>
-
+        { this.renderVisaTypeViewWithReactStrap() }
 
         <Row className="profile-gender-row">
           <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>

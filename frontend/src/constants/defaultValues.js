@@ -50,5 +50,6 @@ export default {
       "value": "<p>The bigger question is why would you not?</p>\r\n<p>Are you frustrated with going to audition after audition? Tired of sending application after application only to wonder if you're even being considered? Don't know how to stand out from the rest of the crowd and get your big your big break into the exciting world of cruise ship entertainment? ...</p>",
       "description": "Why use ShipTalent.com"
     }
-  ]
+  ],
+  DEFAULT_PRACTICE_POSITION_TYPE: 'Practice'
 };

@@ -223,7 +223,7 @@ class MyLanguage extends Component {
       <RadioGroup
         aria-label={`${name}_fluency`}
         name={name}
-        className="profile-have-green-card-radio-button-group"
+        className="profile-language-fluency-group"
         value={fluency}
         onChange={this.handleFluencyChange}>
 
@@ -510,7 +510,7 @@ class MyLanguage extends Component {
 
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="contact-info-view-container">
+        <div className="profile-language-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
           {this.renderLanguagesView()}
