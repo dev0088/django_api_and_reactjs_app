@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
@@ -7,18 +9,24 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import red from '@material-ui/core/colors/red';
+import ClearRounded from '@material-ui/icons/ClearRounded';
+import Divider from '@material-ui/core/Divider';
+import Panel from '../components/panel'
+import Spacer from '../components/spacer';
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
+import TalentAPI from '../apis/talentAPIs';
 import apiConfig from '../constants/api';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
+import ImageLightbox from 'react-image-lightbox';
 import moment from 'moment';
+
+import 'react-image-lightbox/style.css'; 
 import './myPicturesScreen.css';
 
 const styles = theme => ({
@@ -30,6 +38,15 @@ const styles = theme => ({
   },
   slide: {
     padding: 10,
+  },
+  icon: {
+    margin: theme.spacing.unit * 2,
+  },
+  iconHover: {
+    margin: theme.spacing.unit * 2,
+    '&:hover': {
+      color: red[800],
+    },
   },
 });
 
@@ -60,7 +77,9 @@ class MyPictures extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pictures: []
+      pictures: [],
+      currentPicture: null,
+      openImageModal: false
     }
   }
 
@@ -194,10 +213,26 @@ class MyPictures extends Component {
     })
   }
 
+  showImage = (picture) => {
+    const { currentPicture, openImageModal } = this.state
+    this.setState({
+      currentPicture: picture,
+      openImageModal: true
+    })
+  }
+
+  deleteImage = (picture) => {
+    TalentAPI.deletePicture(picture.id, this.handleDeleteResponse)
+  }
+
+  handleDeleteResponse = (response, failed) => {
+    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+  }
+
   renderPictureView(caption) {
     const { classes } = this.props
     const {
-      pictures
+      pictures,
     } = this.state
 
     let picture = pictures.find(function(picture) {
@@ -209,15 +244,34 @@ class MyPictures extends Component {
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
             {(picture && picture.url && picture.uploaded && picture.active) ? 
               (
-                <ImageLoader
-                  className="profile-picture-image"
-                  src={picture.url}
-                  loading={() => <div className="profile-picture-image">Loading...</div>}
-                  error={() => <div>Error</div>} />
+                <Row>
+                  <Col xs="12" md="12" className="pt-0 pt-md-0">
+                    <div onClick={() => this.deleteImage(picture)}>
+                      <ClearRounded className="profile-picture-delete-icon" color="seconday" />
+                    </div>
+                    <div onClick={() => this.showImage(picture)}>
+                      <ImageLoader
+                        className="profile-picture-image"
+                        src={picture.url}
+                        loading={() => <div className="profile-picture-image">Loading...</div>}
+                        error={() => <div>Error</div>} 
+                        />
+                    </div>
+                  </Col>
+                </Row>
               ) : (
-                <img
-                  className="profile-picture-image"
-                  src={require('../images/missing.png')} />
+                <Row>
+                  <Col xs="12" md="12" className="pt-0 pt-md-0">
+                    <div>
+                      <ClearRounded className="profile-picture-delete-icon-disabled" color="disabled" />
+                    </div>
+                    <div>
+                      <img
+                       className="profile-picture-image"
+                       src={require('../images/missing.png')} />
+                     </div>
+                  </Col>
+                </Row>
               )
             }
           </Col>
@@ -258,6 +312,7 @@ class MyPictures extends Component {
   }
 
   renderMainPicturesView() {
+    const { classes } = this.props;
     return (
       <Row className="profile-gender-row">
         <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
@@ -278,29 +333,29 @@ class MyPictures extends Component {
   renderOtherPicturesView() {
     return (
       <Row className="profile-gender-row">
-        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="0" lg="0" xl="0" className="pt-0 pt-md-0" />
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 1")}
         </Col>
-        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="3" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 2")}
         </Col>
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 3")}
         </Col>
-        <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
+        <Col sm="12" md="6" lg="4" xl="3" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 4")}
         </Col>
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
           {this.renderPictureView("My Other Pic 5")}
         </Col>
-        <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
+        <Col sm="12" md="0" lg="0" xl="0" className="pt-0 pt-md-0" />
       </Row>
     )
   }
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
+    const { currentPicture, openImageModal } = this.state;
     const { classes } = this.props;
 
     return (
@@ -309,6 +364,9 @@ class MyPictures extends Component {
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           <Panel title={"My Pictures"}>
             {this.renderMainPicturesView()}
+            <Spacer size={20} />
+            <Divider />
+            <Spacer size={10} />
             {this.renderOtherPicturesView()}
           </Panel>
           <Row>
@@ -319,6 +377,12 @@ class MyPictures extends Component {
               </Link>
             </Col>
           </Row>
+          {openImageModal && (
+            <ImageLightbox
+              mainSrc={currentPicture.url}
+              onCloseRequest={() => this.setState({ openImageModal: false })}
+            />
+          )}
         </div>
       </MuiThemeProvider>
     )
@@ -339,4 +403,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyPictures);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyPictures));

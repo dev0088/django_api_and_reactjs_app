@@ -13,26 +13,20 @@ import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
-// import Loading from '../components/loading';
-// import { bindActionCreators } from 'redux';
-// import { translate } from '../i18n';
+// import keydown from 'react-keydown';
 import { login } from  '../actions/auth';
 import { authErrors, isAuthenticated } from '../reducers';
-// import defaultValues from '../constants/defaultValues'
 import './loginScreen.css'
-// import apiConfig from '../const styles = {
+
 const styles = {
   flatPrimary: {
     color: "#258df2",
   },
 };
 
-class LoginScreen extends Component {
+// @keydown
+class LoginScreen extends React.Component {
   static propTypes = {
-    // member: PropTypes.shape({
-    //   email: PropTypes.string,
-    // }),
-    // loading: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -61,6 +55,16 @@ class LoginScreen extends Component {
       this.props.history.push('/home')
     }
   }
+
+  handleKeyPress = (event) => {
+    console.log('event.key: ', event.key)
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const { email, password } = this.state;
+      this.props.onSubmit(email, password);
+    }
+  }
+
   handleChange = (event) => {
     this.setState({
       ...this.state,
@@ -83,7 +87,7 @@ class LoginScreen extends Component {
       return <Redirect to='/home' />
     }
     return (
-      <div className="login-layout">
+      <div className="login-layout" onKeyPress={this.handleKeyPress} >
         <div className="login-wrapper">
           <div className="login-fields" id="loginForm">
             <h3>Login</h3>
@@ -96,6 +100,7 @@ class LoginScreen extends Component {
                 onChange={this.handleChange}
                 floatingLabelText="Email"
                 fullWidth={true}
+                autoFocus={true}
               />
               <TextField
                 name="password"
@@ -112,8 +117,14 @@ class LoginScreen extends Component {
                   label="Remember Me"
                 />
               </div>
-              <div className="pt20">
-                <RaisedButton label="Log In" primary={true} fullWidth={true} onClick={this.handleSubmit}/>
+              <div className="pt20" autofocus>
+                <RaisedButton 
+                  label="Log In" 
+                  primary={true} 
+                  fullWidth={true} 
+                  focusVisible={true} 
+                  onClick={this.handleSubmit} 
+                />
               </div>
             </Form>
             <hr />

@@ -63,5 +63,67 @@ class TalentAPI {
     })
   }
 
+  static deletePicture(picture_id, handleResponse) {
+    console.log('==== deletePicture: ', picture_id)
+    fetch(`${apiConfig.url}/talent_picture/${picture_id}/`, {
+      method: 'delete',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('=== response: ', response)
+      if(response.error) {
+        console.log('error: ', response.error)
+        handleResponse(response.error, true) 
+      }
+      else {
+        if (response){
+          console.log('success: ', response)
+          handleResponse(response, false) 
+        } else {
+          console.log('error: ', response)
+          handleResponse(response.error, true) 
+        }
+      }
+    })
+    .catch(error => {
+      console.log('error: ', error)
+      handleResponse(error, true)
+    })
+  }
+
+  static deleteResume(resume_id, handleResponse) {
+    console.log('==== deleteResume: ', resume_id)
+    fetch(`${apiConfig.url}/talent_resume/${resume_id}/`, {
+      method: 'delete',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('=== response: ', response)
+      if(response.error) {
+        console.log('error: ', response.error)
+        handleResponse(response.error, true) 
+      }
+      else {
+        if (response){
+          console.log('success: ', response)
+          handleResponse(response, false) 
+        } else {
+          console.log('error: ', response)
+          handleResponse(response.error, true) 
+        }
+      }
+    })
+    .catch(error => {
+      console.log('error: ', error)
+      handleResponse(error, true)
+    })
+  }
+
 }
 export default TalentAPI

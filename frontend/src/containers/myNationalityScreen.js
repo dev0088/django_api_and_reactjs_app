@@ -96,7 +96,7 @@ class MyNatioinality extends Component {
       passport_expiration_date: null,
       passport_number: "",
       country_of_current_residence: "",
-      have_green_card: "yes",
+      have_green_card: false,
       green_card_expiration_date: null,
       expiration_date: [],
       selected_visa_type: "",
@@ -141,7 +141,7 @@ class MyNatioinality extends Component {
         passport_expiration_date: talentInfo.passport_expiration_date,
         passport_number: talentInfo.passport_number,
         country_of_current_residence: talentInfo.country_of_current_residence,
-        have_green_card: talentInfo.have_green_card ? 'yes' : 'no',
+        have_green_card: talentInfo.have_green_card ? 'YES' : 'NO',
         green_card_expiration_date: talentInfo.green_card_expiration_date,
         selected_visa_type: talentInfo.visa_type,
         expiration_date: expiration_date,
@@ -182,14 +182,14 @@ class MyNatioinality extends Component {
     })
   }
 
-  handleRegionChange = (value) => {
+  handleCitizenShipChange = (value) => {
     this.setState({
       citizenship: value
     })
   }
 
-  handlePassportExpirationDateChange = (event, date) => {
-    this.setState({ passport_expiration_date: moment(date).format('YYYY-MM-DD') })
+  handlePassportExpirationDateChange = (event) => {
+    this.setState({ passport_expiration_date: event.target.value })
   }
   
   handleCountryOfCurrentResidenceChange = (value) => {
@@ -200,7 +200,7 @@ class MyNatioinality extends Component {
 
   handleHaveGreenCardeChange = (event) => {
     this.setState({
-      have_green_card: event.target.value === "Yes" ? true : false
+      have_green_card: event.target.value === "YES" ? true : false
     })
   }
 
@@ -287,7 +287,7 @@ class MyNatioinality extends Component {
             label="Expiration Date"
             disabled = {index === indexOfEnableExpireDate ? false : true}
             type="date"
-            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : moment().format('YYYY-MM-DD')}            
+            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : moment().format('YYYY-MM-DD')}
             className={classes.textField}
             onChange={this.handleExpirationDateChange}
           />
@@ -416,12 +416,10 @@ class MyNatioinality extends Component {
             </Typography>
           </Col>
           <Col xs="12" md="8" className="pt-3 pt-md-3"> 
-            <RegionDropdown
-              blankOptionLabel="No nationality selected."
-              defaultOptionLabel="Now select a region, pal."
-              country={nationality}
+            <CountryDropdown
+              defaultOptionLabel="Select a citizenship."
               value={citizenship}
-              onChange={this.handleRegionChange} />
+              onChange={this.handleCitizenShipChange} />
           </Col>
         </Row>
 
@@ -432,12 +430,14 @@ class MyNatioinality extends Component {
               {"Passport Expiration Date"}
             </Typography>
           </Col>
-          <Col xs="12" md="8" className="pt-3 pt-md-3"> 
-            <DatePicker
-              hintText="Passport Expiration Date"
-              container="inline" 
-              className="datePicker"
-              value={new Date(passport_expiration_date)}
+          <Col xs="12" md="8" className="pt-3 pt-md-3">
+            <TextField
+              id="passport_expiration_date"
+              name="passport_expiration_date"
+              label="Passport Expiration Date"
+              type="date"
+              value={passport_expiration_date ? passport_expiration_date : moment().format('YYYY-MM-DD')}
+              className="profile-passport-expiration-date"
               onChange={this.handlePassportExpirationDateChange}
             />
           </Col>
@@ -455,7 +455,7 @@ class MyNatioinality extends Component {
               id="passport_number"
               name="passport_number"
               disabled={true}
-              label="passport_number"
+              placeholder="to be completed by ShipTalent.com"
               className={classes.textField}
               value={passport_number}
               onChange={this.handleChange}
@@ -468,7 +468,7 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" className="pt-4 pt-md-4" />
           <Col xs="12" md="3" className="pt-4 pt-md-4"> 
-            <Typography className="profile-nationality-field-name">Nationality</Typography>
+            <Typography className="profile-nationality-field-name">Country of Current Residence</Typography>
           </Col>
           <Col xs="12" md="8" className="pt-3 pt-md-3"> 
             <CountryDropdown
@@ -497,15 +497,15 @@ class MyNatioinality extends Component {
               aria-label="have_green_card"
               name="have_green_card"
               className="profile-have-green-card-radio-button-group"
-              value={have_green_card}
-              onChange={this.handleChange}>
+              value={have_green_card ? "YES" : "NO"}
+              onChange={this.handleHaveGreenCardeChange}>
               <FormControlLabel
-                value="yes"
+                value="YES"
                 control={<Radio color="primary" />}
                 label="Yes"
               />
               <FormControlLabel
-                value="no"
+                value="NO"
                 control={<Radio color="primary" />}
                 label="No"
               />
@@ -523,7 +523,7 @@ class MyNatioinality extends Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              disabled={have_green_card}
+              disabled={!have_green_card}
               onChange={this.handleGreenCardeExpirationDateChange}
             />
           </Col>

@@ -19,6 +19,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
+import FileSize from 'file-size';
 import './videoInterviewView.css';
 
 function createData(id, position_type, position_sub_type, question, url, updated, size) {
@@ -212,7 +213,7 @@ class VideoListView extends React.Component {
             videoUrl.question, 
             videoUrl.url,
             videoUrl.updated,
-            videoUrl.size
+            FileSize(videoUrl.size).to('MB', 'si') + ' MB'
           )
         )
       })

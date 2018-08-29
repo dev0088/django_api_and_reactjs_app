@@ -10,6 +10,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
+import UpdatedTextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,11 @@ const styles = theme => ({
   },
   slide: {
     padding: 10,
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
   },
 });
 
@@ -65,6 +71,8 @@ class MyContactInfo extends Component {
         address2: "",
         address3: "",
         address4: "",
+        address5: "",
+        address6: "",
         birthday: null
       },
       emergencyInfo: {
@@ -97,7 +105,9 @@ class MyContactInfo extends Component {
         address2: talentInfo.mailing_addresse2,
         address3: talentInfo.mailing_addresse3,
         address4: talentInfo.mailing_addresse4,
-        birthday: moment(talentInfo.birthday)
+        address5: talentInfo.mailing_addresse5,
+        address6: talentInfo.mailing_addresse6,
+        birthday: talentInfo.birthday
       }
       emergencyInfo = {
         firstName: talentInfo.emergency_first_name,
@@ -136,9 +146,9 @@ class MyContactInfo extends Component {
     });
   }
 
-  handleBirthdayChange = (event, date) => {
+  handleBirthdayChange = (event) => {
     const { contactInfo } = this.state;
-    contactInfo['birthday'] = date;
+    contactInfo['birthday'] = event.target.value;
     this.setState({ contactInfo: contactInfo })
   }
 
@@ -187,7 +197,9 @@ class MyContactInfo extends Component {
       mailing_addresse2: contactInfo.address2,
       mailing_addresse3: contactInfo.address3,
       mailing_addresse4: contactInfo.address4,
-      birthday: moment(contactInfo.birthday).format('YYYY-MM-DD'),
+      mailing_addresse5: contactInfo.address5,
+      mailing_addresse6: contactInfo.address6,
+      birthday: contactInfo.birthday,
       emergency_first_name: emergencyInfo.firstName,
       emergency_last_name: emergencyInfo.lastName,
       emergency_email: emergencyInfo.email,
@@ -277,7 +289,7 @@ class MyContactInfo extends Component {
               placeholder=""
               value={contactInfo.address1}
               onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address1"
+              floatingLabelText="Mailing Address Line 1"
               fullWidth={true}
             />
           </Col>
@@ -288,7 +300,7 @@ class MyContactInfo extends Component {
               placeholder=""
               value={contactInfo.address2}
               onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address2"
+              floatingLabelText="Mailing Address Line 2"
               fullWidth={true}
             />
           </Col>
@@ -301,7 +313,7 @@ class MyContactInfo extends Component {
               placeholder=""
               value={contactInfo.address3}
               onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address3"
+              floatingLabelText="City"
               fullWidth={true}
             />
           </Col>
@@ -312,19 +324,45 @@ class MyContactInfo extends Component {
               placeholder=""
               value={contactInfo.address4}
               onChange={this.handleContactInfoChange}
-              floatingLabelText="Mailing Address4"
+              floatingLabelText="State"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_address5"
+              id="contact_address5"
+              placeholder=""
+              value={contactInfo.address5}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Zip/Postal Code"
+              fullWidth={true}
+            />
+          </Col>
+          <Col sm="6">
+            <TextField
+              name="contact_address6"
+              id="contact_address6"
+              placeholder=""
+              value={contactInfo.address6}
+              onChange={this.handleContactInfoChange}
+              floatingLabelText="Country"
               fullWidth={true}
             />
           </Col>
         </Row>
         <Row className="profile-gender-row">
           <Col sm="12">
-            <DatePicker
-              hintText="Date of Birth"
+            <UpdatedTextField
+              id="birthday"
+              name="birthday"
+              label="Date of Birth"
+              type="date"
+              value={contactInfo.birthday ? contactInfo.birthday : moment().format('YYYY-MM-DD')}
               className="datePicker"
-              value={contactInfo.birthday}
               onChange={this.handleBirthdayChange}
             />
+
           </Col>
         </Row>
 
