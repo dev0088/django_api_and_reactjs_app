@@ -591,7 +591,9 @@ class MyProfile extends Component {
                         <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
                       </Col>
                       <Col md="12" className="pt-1 pt-md-1">
-                        <Gallery images={this.makeResumes(talent_resume)} />
+                        {talent_resume[0] &&
+                          (<Gallery images={this.makeResumes(talent_resume)} />)
+                        }
                       </Col>
                     </Row>
                   </Col>
