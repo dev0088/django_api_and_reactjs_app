@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Panel from '../components/panel'
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import ReactPlayer from 'react-player';
+import Panel from '../components/panel'
 import VideoListView from '../components/videoListView';
 import './myContactInfo.css';
 
@@ -55,9 +55,9 @@ class MyPracticeInterviewVideos extends Component {
         let video = talentInfo.talent_videos[key]
         if (video.active && video.uploaded) {
           if (video.position_type === 'Practice'
-             || 
-            video.position_type === null ||
-            video.position_type === ""
+             // || 
+            // video.position_type === null ||
+            // video.position_type === ""
             ) {
             interviewVideoUrls.push(video)
           }        

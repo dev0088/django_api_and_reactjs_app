@@ -88,7 +88,7 @@ class MyVideos extends Component {
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
-                    {"Dancing Audition Videos"}
+                    {"My Dancing Audition Videos"}
                   </div>
                   <div className="profile-other-info-button-status">
                     {'in progress'}

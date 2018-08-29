@@ -32,6 +32,8 @@ class TalentSerializer(serializers.ModelSerializer):
       'mailing_addresse2',
       'mailing_addresse3',
       'mailing_addresse4',
+      'mailing_addresse5',
+      'mailing_addresse6',
       'birthday',
 
       'emergency_first_name',

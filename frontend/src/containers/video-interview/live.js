@@ -137,26 +137,38 @@ class LiveInterview extends React.Component {
   }
 
   componentDidMount() {
-    this.countDown();
+    // this.setState({
+    //   waitingTime: [30, 120],
+    //   remainingTime: [30, 120],
+    //   timePos: 0
+    // }, () => {
+    //   this.countDown();  
+    // })
   }
 
   componentWillReceiveProps(nextProps) {
     let { videoSettings, talentInfo } = nextProps;
     let wait = [], remain = [];
-    if (videoSettings['value']['video_interview_prep_countdown'])
-      wait[0] = remain[0] = videoSettings['value']['video_interview_prep_countdown'];
-    else
-      wait[0] = remain[0] = 0;
-    if (videoSettings['value']['video_interview_response_time'])
-      wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
-    else
-      wait[1] = remain[1] = 0;
-
-    this.setState(
-      { 
-        waitingTime: wait, 
-        remainingTime: remain,
-      });
+    const __this = this
+    if (videoSettings['value']) {
+        if (videoSettings['value']['video_interview_prep_countdown'])
+          wait[0] = remain[0] = videoSettings['value']['video_interview_prep_countdown'];
+        else
+          wait[0] = remain[0] = 0;
+        if (videoSettings['value']['video_interview_response_time'])
+          wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
+        else
+          wait[1] = remain[1] = 0;
+    
+        this.setState(
+          { 
+            waitingTime: wait, 
+            remainingTime: remain,
+          }, () => {
+          const { remainingTime, timePos } = __this.state;
+          __this.countDown(remainingTime, timePos);  
+        });
+      }
 
     if (talentInfo && talentInfo.talent_position_sub_type) {
       this.setState({
@@ -175,15 +187,22 @@ class LiveInterview extends React.Component {
       setTimeout(function () {
         const { remainingTime, timePos } = __this.state;
         let isStopped1 = __this.state.isStopped;
+        console.log('===== Live: coutnDown: timePos: ', timePos)
         if (!isStopped1)
         {
+          console.log('==== Live: countDown: remainingTime: ', remainingTime)
           if (remainingTime[timePos] === 0) {
             if (timePos === 0) {
               const newRemaining = [];
               newRemaining[0] = remainingTime[0];
               newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
-              __this.setState({ timePos: 1, isStopped: false, isPlaying: true, remainingTime: newRemaining });
+              __this.setState({ 
+                timePos: 1, 
+                isStopped: false, 
+                isPlaying: true, 
+                remainingTime: newRemaining 
+              });
             } else {
               __this.setState({ isStopped: true });
               __this.videoRecordStop();
@@ -193,9 +212,11 @@ class LiveInterview extends React.Component {
             newRemaining[0] = remainingTime[0];
             newRemaining[1] = remainingTime[1];
             newRemaining[timePos]= remainingTime[timePos] - 1;
-            __this.setState({remainingTime: newRemaining});
+            __this.setState({
+              remainingTime: newRemaining
+            });
           }
-          __this.countDown();
+          __this.countDown()
         }
       }, 1000)
     }
@@ -229,17 +250,22 @@ class LiveInterview extends React.Component {
   };
 
   onStartRecord = () => {
-    const { remainingTime } = this.state;
+    const { remainingTime, timePos } = this.state;
+    const __this = this
+
     remainingTime[0] = 0;
     this.setState({
         isStopped: false, 
         isPlaying: true, 
         timePos: 1, 
-        remainingTime: remainingTime}, 
+        remainingTime: remainingTime
+      }, 
       function() {
+        const { remainingTime, timePos } = __this.state;
         this.countDown();
         this.videoRecordStart();
-      });
+      }
+    );
   };
 
   videoRecordStart = () => {
@@ -302,6 +328,7 @@ class LiveInterview extends React.Component {
 
   onNextQuestion = () => {
     const { remainingTime, waitingTime } = this.state;
+    const __this = this
     remainingTime[0] = waitingTime[0];
     remainingTime[1] = waitingTime[1];
     this.setState({
@@ -310,12 +337,14 @@ class LiveInterview extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
-      this.countDown();
+      const { remainingTime, timePos } = __this.state;
+      __this.countDown();
     });
   };
 
   onBack = () => {
     const { remainingTime, waitingTime } = this.state;
+    const __this = this
     remainingTime[0] = waitingTime[0];
     remainingTime[1] = waitingTime[1];
     this.setState({
@@ -324,7 +353,8 @@ class LiveInterview extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
-      this.countDown();
+      const { remainingTime, timePos } = __this.state;
+      __this.countDown();
     });
   };
 
@@ -552,7 +582,7 @@ class LiveInterview extends React.Component {
               <div>
                 <Row className="question-time-title-row">
                   <div className="question-time">
-                      Qeustion Time: 2 minutes
+                      Question Time: 2 minutes
                   </div>
                 </Row>
                 <Row className="video-status">

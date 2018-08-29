@@ -146,3 +146,31 @@ class TalentPictureList(APIView):
             return Response(serializer.data)
         except Talent.DoesNotExist:
             raise Http404
+
+class TalentPictureDetail(APIView):
+    """
+    Retrieve a talent picture instance.
+    """
+    def get_object(self, pk):
+        try:
+            return TalentPicture.objects.get(pk=pk)
+        except TalentPicture.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        talent_picture_item = self.get_object(pk)
+        serializer = TalentPictureSerializer(talent_picture_item)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        talent_picture_item = self.get_object(pk)
+        serializer = TalentPictureSerializer(talent_picture_item, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        talent_picture_item = self.get_object(pk)
+        talent_picture_item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

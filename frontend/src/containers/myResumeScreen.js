@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import ClearRounded from '@material-ui/icons/ClearRounded';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
+import ImageLightbox from 'react-image-lightbox';
 import Panel from '../components/panel'
 import apiConfig from '../constants/api';
 import TalentAPI from '../apis/talentAPIs';
@@ -201,6 +203,14 @@ class MyResume extends Component {
     })
   }
 
+  deleteResume = () => {
+    const { resume } = this.state
+    TalentAPI.deleteResume(resume.id, this.handleDeleteResponse)
+  }
+
+  handleDeleteResponse = () => {
+    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+  }
 
   renderResumeView(caption) {
     const { classes } = this.props
@@ -213,15 +223,25 @@ class MyResume extends Component {
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
             {(resume && resume.url && resume.uploaded && resume.active && resume.preview_path) ? 
               (
-                <ImageLoader
-                  className="profile-resume-image"
-                  src={`${apiConfig.server}/${resume.preview_path}`}
-                  loading={() => <div className="profile-resume-image">Loading...</div>}
-                  error={() => <div>Error</div>} />
+                <div>
+                  <ImageLoader
+                    className="profile-resume-image"
+                    src={`${apiConfig.server}/${resume.preview_path}`}
+                    loading={() => <div className="profile-resume-image">Loading...</div>}
+                    error={() => <div>Error</div>} />
+                  <div onClick={() => this.deleteResume()}>
+                    <ClearRounded className="profile-resume-delete-icon" color="seconday" />
+                  </div>
+                </div>
               ) : (
-                <img
-                  className="profile-resume-image"
-                  src={require('../images/missing.png')} />
+                <div>
+                  <img
+                    className="profile-resume-image"
+                    src={require('../images/missing.png')} />
+                  <div>
+                    <ClearRounded className="profile-resume-delete-icon-disabled" color="seconday" />
+                  </div>
+                </div>
               )
             }
           </Col>
@@ -278,62 +298,30 @@ class MyResume extends Component {
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
             <input type="file" onChange={this.onInputChange} />
             { (file && file.url && file.preview_path) ? (
-                <ImageLoader
-                  className="profile-picture-image"
-                  src={file.preview_path}
-                  loading={() => <div className="profile-picture-image">Loading...</div>}
-                  error={() => <div>Error</div>} />
+                <div>
+                  <ImageLoader
+                    className="profile-picture-image"
+                    src={file.preview_path}
+                    loading={() => <div className="profile-picture-image">Loading...</div>}
+                    error={() => <div>Error</div>} />
+                  <div onClick={() => this.deleteResume()}>
+                    <ClearRounded className="profile-picture-delete-icon" color="seconday" />
+                  </div>
+                </div>
               ) : (
-                <img alt="None image"
-                  className="profile-picture-image"
-                  src={require('../images/missing.png')} />
+                <div>
+                  <img alt="None image"
+                    className="profile-picture-image"
+                    src={require('../images/missing.png')} />
+                  <div>
+                    <ClearRounded className="profile-picture-delete-icon-disabled" color="disabled" />
+                  </div>
+                </div>
               )
             }
           </Col>
         </Row>
       </div>
-    )
-  }
-
-  renderMainPicturesView() {
-    return (
-      <Row className="profile-gender-row">
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-        <Col xs="12" md="3" className="pt-0 pt-md-0">
-          {this.renderResumeView("My Current Headshot")}
-        </Col>
-        <Col xs="12" md="4" className="pt-0 pt-md-0">
-          {this.renderResumeView("My Current Body Shot 1")}
-        </Col>
-        <Col xs="12" md="3" className="pt-0 pt-md-0">
-          {this.renderResumeView("My Current Body Shot 2")}
-        </Col>
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-      </Row>
-    )
-  }
-
-  renderOtherPicturesView() {
-    return (
-      <Row className="profile-gender-row">
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
-          {this.renderResumeView("My Other Pic 1")}
-        </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
-          {this.renderResumeView("My Other Pic 2")}
-        </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
-          {this.renderResumeView("My Other Pic 3")}
-        </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
-          {this.renderResumeView("My Other Pic 4")}
-        </Col>
-        <Col xs="12" md="2" className="pt-1 pt-md-1">
-          {this.renderResumeView("My Other Pic 5")}
-        </Col>
-        <Col xs="12" md="1" className="pt-0 pt-md-0" />
-      </Row>
     )
   }
 

@@ -20,6 +20,10 @@
   }
 }
 
+.profile-passport-expiration-date {
+  width: 200px!important;
+}
+
 .profile-have-green-card-radio-button-group {
   padding-left: 18px;
   flex-wrap: nowrap!important;

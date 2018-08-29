@@ -2,3 +2,28 @@
   width: 300px;
   height: 360px;
 }
+
+.profile-resume-delete-icon {
+  color: white;
+  border-radius: 2px;
+  background: red;
+  font-weight: 600;
+  position: relative;
+  top: -48px;
+  left: 192px;
+}
+
+.profile-resume-delete-icon:hover{
+  color: rgb(255, 255, 255, 0.7);
+  background: rgb(255, 0, 0, 0.7);
+}
+
+.profile-resume-delete-icon-disabled {
+  color: #FFFFFF;
+  border-radius: 2px;
+  background: #FFFFFF;
+  font-weight: 600;
+  position: relative;
+  top: -48px;
+  left: 192px;
+}

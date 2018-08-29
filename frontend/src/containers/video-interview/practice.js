@@ -661,7 +661,7 @@ class VideoPractice extends React.Component {
               <div className="">
                 <Row className="question-time-title-row">
                   <div className="question-time">
-                      Qeustion Time: 2 minutes
+                      Question Time: 2 minutes
                   </div>
                 </Row>
                 <Row className="video-status">

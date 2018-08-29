@@ -32,6 +32,8 @@ class Talent(models.Model):
   mailing_addresse2 = models.CharField(max_length=100, blank=True)
   mailing_addresse3 = models.CharField(max_length=100, blank=True)
   mailing_addresse4 = models.CharField(max_length=100, blank=True)
+  mailing_addresse5 = models.CharField(max_length=100, blank=True)
+  mailing_addresse6 = models.CharField(max_length=100, blank=True)
   birthday = models.DateField(blank=True, default=date.today)
 
   # emergency contact info
