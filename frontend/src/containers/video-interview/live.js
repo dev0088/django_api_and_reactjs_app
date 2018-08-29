@@ -179,13 +179,13 @@ class LiveInterview extends React.Component {
 
   }
 
-  countDown = (remainingTime, timePos) => {
+  countDown = () => {
     const { isStopped } = this.state;
     const __this = this;
     if (!isStopped)
     {
       setTimeout(function () {
-        // const { remainingTime, timePos } = __this.state;
+        const { remainingTime, timePos } = __this.state;
         let isStopped1 = __this.state.isStopped;
         console.log('===== Live: coutnDown: timePos: ', timePos)
         if (!isStopped1)
@@ -216,7 +216,7 @@ class LiveInterview extends React.Component {
               remainingTime: newRemaining
             });
           }
-          __this.countDown(remainingTime, timePos)
+          __this.countDown()
         }
       }, 1000)
     }
@@ -262,7 +262,7 @@ class LiveInterview extends React.Component {
       }, 
       function() {
         const { remainingTime, timePos } = __this.state;
-        this.countDown(remainingTime, timePos);
+        this.countDown();
         this.videoRecordStart();
       }
     );
