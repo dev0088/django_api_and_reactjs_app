@@ -6,12 +6,16 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import ImageLoader from 'react-loading-image';
+import ImageLightbox from 'react-image-lightbox';
 import Panel from '../components/panel';
 import Spacer from '../components/spacer';
 import Truncate from 'react-truncate-html';
-import Gallery from 'react-grid-gallery';
 import apiConfig from '../constants/api';
 import defaultValues from '../constants/defaultValues';
+
+import 'react-image-lightbox/style.css';
 import './myProfile.css'
 
 const styles = {
@@ -26,7 +30,9 @@ class MyProfile extends Component {
     this.state = {
       title: "",
       skills: [],
-      notification: false
+      notification: false,
+			openImageModal: false,
+			currentImageUrl: null
     }
   }
 
@@ -78,7 +84,7 @@ class MyProfile extends Component {
         skills.push(position_type_name)
       }
     })
-    
+
     // Make title with all position types
     title = title + ((skills.length > 1) ? " Who " : '')
     for (let i = 1; i < skills.length; i++) {
@@ -102,7 +108,7 @@ class MyProfile extends Component {
     const { talentInfo } = this.props
     if (talentInfo) {
       this.setState({
-        ...this.getInfoFromProps(this.props)  
+        ...this.getInfoFromProps(this.props)
       })
     }
   }
@@ -130,33 +136,17 @@ class MyProfile extends Component {
     Object.keys(talent_pictures).map((key, index) => {
       let talent_picture = talent_pictures[key]
       if (parseInt(key) < 5) {
-        images.push({
-          src: talent_picture.url,
-          thumbnail: talent_picture.url,
-          thumbnailWidth: 240,
-          thumbnailHeight: 320,
-        })
+        images.push(talent_picture.url)
       }
     })
     return images
-  }
-
-  makeResumes = (talent_resume) => {
-    let resumes = [{
-      src: `${apiConfig.server}/${talent_resume[0].preview_path}`,
-      thumbnail: `${apiConfig.server}/${talent_resume[0].preview_path}`,
-      thumbnailWidth: 300,
-      thumbnailHeight: 150,
-    }]
-    
-    return resumes
   }
 
   getPracticVideoNumbers = (talent_videos) => {
     let res = 0
     Object.keys(talent_videos).map((key, index) => {
       let talent_video = talent_videos[key]
-      if (talent_video.position_type === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE || 
+      if (talent_video.position_type === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE ||
         talent_video.position_type === null) {
         res ++
       }
@@ -168,13 +158,66 @@ class MyProfile extends Component {
     let res = 0
     Object.keys(talent_videos).map((key, index) => {
       let talent_video = talent_videos[key]
-      if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE && 
+      if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
         talent_video.position_type !== null) {
         res ++
       }
     })
     return res
   }
+
+	showImage = (url) => {
+    this.setState({
+      openImageModal: true,
+			currentImageUrl: url
+    })
+  }
+
+	renderPictureView(caption) {
+    const { classes, talentInfo } = this.props
+		const { talent_pictures } = talentInfo
+
+    let picture = talent_pictures.find(function(picture) {
+      return (picture.caption === caption);
+    });
+
+    return (picture && picture.url && picture.uploaded && picture.active) ? (
+			<div onClick={() => this.showImage(picture.url)} 	className="profile-picture-container-div">
+				<ImageLoader
+					src={picture.url}
+					className="profile-picture-size"
+					loading={() => <div className="profile-picture-size">Loading...</div>}
+					error={() => <div>Error</div>} />
+			</div>
+    ) : (
+      <div>
+        <img
+         className="profile-picture-image"
+         src={require('../images/missing.png')} />
+       </div>
+    )
+  }
+
+	renderPicturesView() {
+		return (
+			<div className="profile-picture-view-container">
+				<Row>
+					<Col md="12" className="profile-picture-view-container-col">
+						{ this.renderPictureView("My Current Headshot") }
+						{ this.renderPictureView("My Current Body Shot 1") }
+						{ this.renderPictureView("My Current Body Shot 2") }
+					</Col>
+				</Row>
+				<Row>
+					<Col md="12" className="profile-picture-view-container-col">
+						{ this.renderPictureView("My Other Pic 1") }
+						{ this.renderPictureView("My Other Pic 2") }
+					</Col>
+				</Row>
+			</div>
+
+		)
+	}
 
   renderVideoButtonsGroup() {
     const { classes } = this.props
@@ -229,7 +272,7 @@ class MyProfile extends Component {
              </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
@@ -260,7 +303,7 @@ class MyProfile extends Component {
             </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
@@ -291,7 +334,7 @@ class MyProfile extends Component {
             </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
@@ -451,7 +494,7 @@ class MyProfile extends Component {
       worked_cruise_ship,
       created
     } = this.props.talentInfo
-    const { skills, title } = this.state
+    const { skills, title, currentImageUrl, openImageModal } = this.state
 
     return(
       <div className="profile-container">
@@ -534,10 +577,10 @@ class MyProfile extends Component {
                 </Row>
                 <Row>
                   <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-name">{`${visa_type}:`}</Typography>
+                    <Typography className="profile-general-info-name">{visa_type ? `${visa_type}:` : 'Visa'}</Typography>
                   </Col>
                   <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{'YES'}</Typography>
+                    <Typography className="profile-general-info-value">{visa_type ? 'YES' : 'No'}</Typography>
                   </Col>
                 </Row>
                 <Row>
@@ -573,59 +616,77 @@ class MyProfile extends Component {
                   </Col>
                 </Row>
               </Col>
-              <Col md="2" className="profile-bio">
-                <Row>
-                  <Col md="12" className="pt-1 pt-md-1">
-                    <Typography className="profile-picture-name">{"Pictures"}</Typography>
-                  </Col>
-                  <Col md="12" className="pt-1 pt-md-1">
-                    <Gallery images={this.makeImages(talent_pictures)} />
-                  </Col>
-                </Row>
-              </Col>
-              <Col md="7">
-                <Row>
-                  <Col md="2" className="profile-bio">
-                    <Row>
-                      <Col md="12" className="pt-1 pt-md-1">
-                        <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
-                      </Col>
-                      <Col md="12" className="pt-1 pt-md-1">
-                        {talent_resume[0] &&
-                          (<Gallery images={this.makeResumes(talent_resume)} />)
-                        }
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md="10" className="profile-bio">
-                    <Row>
-                      <Col md="12" className="pt-1 pt-md-1">
-                        <Typography className="profile-picture-name">{"Biography"}</Typography>
-                      </Col>
-                      <Col md="12" className="profile-general-info-value pt-1 pt-md-1">
-                        <Truncate
-                          lines={5}
-                          dangerouslySetInnerHTML={{
-                           __html: bio
-                          }}
-                        />
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="8">
-                    {this.renderVideoButtonsGroup()}
-                  </Col>
-                  <Col md="4">
-                    {this.renderOtherButtonsGroup()}
-                  </Col>
-                </Row>
-              </Col>
+							<Col md="9" className="profile-bio">
+								<Row>
+		              <Col md="3" className="profile-bio">
+		                <Row>
+		                  <Col md="12" className="pt-1 pt-md-1">
+		                    <Typography className="profile-picture-name">{"Pictures"}</Typography>
+		                  </Col>
+		                  <Col md="12" className="pt-1 pt-md-1">
+												{ this.renderPicturesView() }
+		                  </Col>
+		                </Row>
+		              </Col>
+		              <Col md="9">
+		                <Row>
+		                  <Col md="4" className="profile-bio">
+		                    <Row>
+		                      <Col md="12" className="pt-1 pt-md-1">
+		                        <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
+		                      </Col>
+		                      <Col md="12" className="pt-1 pt-md-1">
+		                        {(talent_resume[0] && talent_resume[0].preview_path) ?
+															(<div onClick={() => this.showImage(talent_resume[0].preview_path)}
+																className="profile-picture-container-div">
+							                  <ImageLoader
+							                    className="profile-resume-image-viewer"
+							                    src={`${apiConfig.server}/${talent_resume[0].preview_path}`}
+							                    loading={() => <div className="profile-resume-image-viewer">Loading...</div>}
+							                    error={() => <div>Error</div>} />
+															</div>
+														) : (
+															<div>None</div>
+														)}
+		                      </Col>
+		                    </Row>
+		                  </Col>
+											<Col md="8" className="profile-bio">
+		                    <Row>
+		                      <Col md="12" className="pt-1 pt-md-1">
+		                        <Typography className="profile-picture-name">{"Biography"}</Typography>
+		                      </Col>
+		                      <Col md="12" className="profile-general-info-value pt-1 pt-md-1">
+														<TextField
+										          id="multiline-static"
+										          multiline
+										          rows="8"
+										          value={bio}
+															fullWidth
+															className="profile-bio-textfield"
+										        />
+		                      </Col>
+		                    </Row>
+		                  </Col>
+		                </Row>
+		              </Col>
+								</Row>
+								<Row>
+									<Col md="12">
+										<Spacer size={50} />
+									</Col>
+								</Row>
+								<Row>
+									<Col md="8">
+										{this.renderVideoButtonsGroup()}
+									</Col>
+									<Col md="4">
+										{this.renderOtherButtonsGroup()}
+									</Col>
+								</Row>
+							</Col>
             </Row>
           </Col>
-
-
         </Row>
 
         <Row >
@@ -636,6 +697,12 @@ class MyProfile extends Component {
             </Link>
           </Col>
         </Row>
+				{openImageModal && (
+					<ImageLightbox
+						mainSrc={currentImageUrl}
+						onCloseRequest={() => this.setState({ openImageModal: false, currentImageUrl: null })}
+					/>
+				)}
       </div>
     );
   }
@@ -651,7 +718,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   }
 }
 

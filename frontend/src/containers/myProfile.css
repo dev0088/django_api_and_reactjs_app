@@ -35,3 +35,20 @@
 .profile-view-divider {
 	height: 2rem;
 }
+.profile-resume-image-viewer {
+	width: 100%;
+}
+.profile-picture-view-container-col {
+	padding: 0px!important;
+}
+.profile-picture-container-div {
+	display: inline-block;
+	border: solid 3px;
+}
+.profile-picture-size {
+	width: 70px;
+	height: 100px!important;
+}
+.profile-bio-textfield {
+	border: solid!important;
+}
