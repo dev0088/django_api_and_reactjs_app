@@ -13,6 +13,8 @@ import Panel from '../components/panel'
 import apiConfig from '../constants/api';
 import TalentAPI from '../apis/talentAPIs';
 import * as talentActions from '../actions/talentActions';
+
+import 'react-image-lightbox/style.css';
 import './myResumeScreen.css';
 
 const theme = createMuiTheme ({
@@ -32,12 +34,13 @@ class MyResume extends Component {
     super(props);
     this.state = {
       resume: {},
-      file: null
+      file: null,
+			openImageModal: false
     }
   }
 
   getInfoFromProps(props) {
-    const { 
+    const {
       talentInfo
     } = props
 
@@ -55,7 +58,7 @@ class MyResume extends Component {
 
   componentWillMount() {
     if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
     }
   }
 
@@ -81,7 +84,7 @@ class MyResume extends Component {
       objectName: file.name,
       contentType: file.type
     }
-    
+
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -98,10 +101,10 @@ class MyResume extends Component {
         if (response.signedUrl){
           console.log('success: ', response, response.signedUrl)
           this.uploadFile(
-            response.signedUrl, 
-            completeAPI, 
-            generatePreviewAPI, 
-            response.fileID, 
+            response.signedUrl,
+            completeAPI,
+            generatePreviewAPI,
+            response.fileID,
             file)
         } else {
           console.log('error: ', response)
@@ -145,9 +148,9 @@ class MyResume extends Component {
     console.log('==== Error: ', file)
   }
 
-  onFinish = (completeAPI, generatePreviewAPI, fileID, file) => {    
+  onFinish = (completeAPI, generatePreviewAPI, fileID, file) => {
     let params = {
-      fileID: fileID, 
+      fileID: fileID,
       fileSize: file.size,
       fileType: file.type,
     }
@@ -164,7 +167,7 @@ class MyResume extends Component {
       }
       else {
         // Update resume from server
-        // this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+        // this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
         this.uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
       }
     })
@@ -174,7 +177,7 @@ class MyResume extends Component {
   }
 
   uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file) {
-    
+
     let data = new FormData();
     console.log('=== file: ', file, file.name)
     data.append('file', file)
@@ -195,7 +198,7 @@ class MyResume extends Component {
       }
       else {
         // Update resume from server
-        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
       }
     })
     .catch(error => {
@@ -212,18 +215,26 @@ class MyResume extends Component {
     this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
   }
 
+	showImage = (picture) => {
+    const { openImageModal } = this.state
+    this.setState({
+      openImageModal: true
+    })
+  }
+
   renderResumeView(caption) {
     const { classes } = this.props
     const {
-      resume
+      resume,
+			openImageModal
     } = this.state
     return (
       <div>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {(resume && resume.url && resume.uploaded && resume.active && resume.preview_path) ? 
+            {(resume && resume.url && resume.uploaded && resume.active && resume.preview_path) ?
               (
-                <div>
+                <div onClick={() => this.showImage()}>
                   <ImageLoader
                     className="profile-resume-image"
                     src={`${apiConfig.server}/${resume.preview_path}`}
@@ -232,6 +243,12 @@ class MyResume extends Component {
                   <div onClick={() => this.deleteResume()}>
                     <ClearRounded className="profile-resume-delete-icon" color="seconday" />
                   </div>
+									{openImageModal && (
+										<ImageLightbox
+											mainSrc={resume.preview_path}
+											onCloseRequest={() => this.setState({ openImageModal: false })}
+										/>
+									)}
                 </div>
               ) : (
                 <div>
@@ -260,10 +277,10 @@ class MyResume extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-              <Dropzone 
+              <Dropzone
                 className="profile-picture-dropzone"
-                onDrop={ (files) => this.handleUploadResume(files) } 
-                size={ 150 } 
+                onDrop={ (files) => this.handleUploadResume(files) }
+                size={ 150 }
                 accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain ">
                 <div className="profile-picture-dropzone-description">
                   {`To upload or change Drop resume here`}
@@ -290,7 +307,8 @@ class MyResume extends Component {
 
   renderResumeViewWithFilePreview() {
     const {
-      file
+      file,
+			openImageModal
     } = this.state
     return (
       <div>

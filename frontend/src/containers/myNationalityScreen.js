@@ -111,7 +111,7 @@ class MyNatioinality extends Component {
   }
 
   getNationalityInfoFromProps(props) {
-    const { 
+    const {
       talentInfo
     } = props
 
@@ -157,7 +157,7 @@ class MyNatioinality extends Component {
 
   componentWillMount() {
     if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
     }
   }
 
@@ -191,7 +191,7 @@ class MyNatioinality extends Component {
   handlePassportExpirationDateChange = (event) => {
     this.setState({ passport_expiration_date: event.target.value })
   }
-  
+
   handleCountryOfCurrentResidenceChange = (value) => {
     this.setState({
       country_of_current_residence: value
@@ -222,7 +222,7 @@ class MyNatioinality extends Component {
 
   handleSave = () => {
     const { auth } = this.props
-    const { 
+    const {
       nationality,
       citizenship,
       passport_expiration_date,
@@ -270,9 +270,9 @@ class MyNatioinality extends Component {
         <Col xs="12" md="6" lg="6" xl="5" className="pt-0 pt-md-0" >
           <FormGroup check>
             <Label check>
-              <Input type="radio" 
-                name="selected_visa_type" 
-                value={VISA_TYPES[index]} 
+              <Input type="radio"
+                name="selected_visa_type"
+                value={VISA_TYPES[index]}
                 onChange={this.handleChange}
                 checked={index === indexOfEnableExpireDate ? true : false}
               />
@@ -337,7 +337,7 @@ class MyNatioinality extends Component {
             {this.renderVisaTypeItem(5)}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
-        </Row>        
+        </Row>
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
@@ -348,7 +348,7 @@ class MyNatioinality extends Component {
             {this.renderVisaTypeItem(7)}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
-        </Row>        
+        </Row>
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
@@ -397,35 +397,35 @@ class MyNatioinality extends Component {
           </Col>
         </Row>
         <Row className="profile-gender-row">
-          <Col xs="0" md="1" className="pt-4 pt-md-4" /> 
-          <Col xs="12" md="3" className="pt-4 pt-md-4"> 
+          <Col xs="0" md="1" className="pt-4 pt-md-4" />
+          <Col xs="12" md="3" className="pt-4 pt-md-4">
             <Typography className="profile-nationality-field-name">Nationality</Typography>
           </Col>
-          <Col xs="12" md="8" className="pt-3 pt-md-3"> 
+          <Col xs="12" md="8" className="pt-3 pt-md-3">
             <CountryDropdown
-              defaultOptionLabel="Select a nationality."
+              defaultOptionLabel="Select a country"
               value={nationality}
               onChange={this.handleNationalityChange} />
           </Col>
         </Row>
         <Row className="profile-gender-row">
-          <Col xs="0" md="1" className="pt-4 pt-md-4" /> 
-          <Col xs="12" md="3" className="pt-4 pt-md-4"> 
+          <Col xs="0" md="1" className="pt-4 pt-md-4" />
+          <Col xs="12" md="3" className="pt-4 pt-md-4">
             <Typography className="profile-nationality-field-name">
               {"Citizenship (Passport Country)"}
             </Typography>
           </Col>
-          <Col xs="12" md="8" className="pt-3 pt-md-3"> 
+          <Col xs="12" md="8" className="pt-3 pt-md-3">
             <CountryDropdown
-              defaultOptionLabel="Select a citizenship."
+              defaultOptionLabel="Select a country"
               value={citizenship}
               onChange={this.handleCitizenShipChange} />
           </Col>
         </Row>
 
         <Row className="profile-gender-row">
-          <Col xs="0" md="1" className="pt-4 pt-md-4" /> 
-          <Col xs="12" md="3" className="pt-4 pt-md-4"> 
+          <Col xs="0" md="1" className="pt-4 pt-md-4" />
+          <Col xs="12" md="3" className="pt-4 pt-md-4">
             <Typography className="profile-nationality-field-name">
               {"Passport Expiration Date"}
             </Typography>
@@ -444,14 +444,14 @@ class MyNatioinality extends Component {
         </Row>
 
         <Row className="profile-gender-row">
-          <Col xs="0" md="1" className="pt-4 pt-md-4" /> 
-          <Col xs="12" md="3" className="pt-4 pt-md-4"> 
+          <Col xs="0" md="1" className="pt-4 pt-md-4" />
+          <Col xs="12" md="3" className="pt-4 pt-md-4">
             <Typography className="profile-nationality-field-name">
               {"Passport Number"}
             </Typography>
           </Col>
-          <Col xs="12" md="8" className="pt-3 pt-md-3"> 
-            <TextField 
+          <Col xs="12" md="8" className="pt-3 pt-md-3">
+            <TextField
               id="passport_number"
               name="passport_number"
               disabled={true}
@@ -467,12 +467,12 @@ class MyNatioinality extends Component {
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" className="pt-4 pt-md-4" />
-          <Col xs="12" md="3" className="pt-4 pt-md-4"> 
+          <Col xs="12" md="3" className="pt-4 pt-md-4">
             <Typography className="profile-nationality-field-name">Country of Current Residence</Typography>
           </Col>
-          <Col xs="12" md="8" className="pt-3 pt-md-3"> 
+          <Col xs="12" md="8" className="pt-3 pt-md-3">
             <CountryDropdown
-              defaultOptionLabel="Select a nationality."
+              defaultOptionLabel="Select a country"
               value={country_of_current_residence}
               onChange={this.handleCountryOfCurrentResidenceChange} />
           </Col>
@@ -481,7 +481,7 @@ class MyNatioinality extends Component {
 
         <Row className="profile-gender-row">
           <Col sm="12" className="pt-4 pt-md-4">
-            <h5 className="profile-emercy-title">{"Current Visa"}</h5>
+            <h5 className="profile-emercy-title">{"Current Visas"}</h5>
           </Col>
         </Row>
 
@@ -492,7 +492,7 @@ class MyNatioinality extends Component {
               {"Do you have a U.S. Permanent Resident Card (Green Card)?"}
             </Typography>
           </Col>
-          <Col xs="12" md="4" lg="4" xl="3" className="pt-0 pt-md-0"> 
+          <Col xs="12" md="4" lg="4" xl="3" className="pt-0 pt-md-0">
             <RadioGroup
               aria-label="have_green_card"
               name="have_green_card"
@@ -512,7 +512,7 @@ class MyNatioinality extends Component {
             </RadioGroup>
           </Col>
 
-          <Col xs="12" md="2" lg="2" xl="2" className="pt-0 pt-md-0"> 
+          <Col xs="12" md="2" lg="2" xl="2" className="pt-0 pt-md-0">
             <TextField
               id="date"
               label="Expiration Date"
@@ -534,13 +534,13 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
           <Col xs="12" md="5" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Button size="large" 
-              className={classes.button} 
+            <Button size="large"
+              className={classes.button}
               onClick={this.handleCancel} >
               {'Cancel'}
             </Button>
-            <Button size="large" color="primary" 
-              className={classes.button} 
+            <Button size="large" color="primary"
+              className={classes.button}
               onClick={this.handleSave}>
               {'Save'}
             </Button>
