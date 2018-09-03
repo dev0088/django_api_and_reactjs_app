@@ -27,6 +27,7 @@ import Panel from '../components/panel'
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
 import apiConfig from '../constants/api';
+import defaultValue from '../constants/defaultValues';
 
 import './myContactInfo.css'
 
@@ -53,79 +54,8 @@ const theme = createMuiTheme ({
   }
 })
 
-// Unit is cm
-const HEIGHTS = [
-  '147',
-  '150',
-  '155',
-  '157',
-  '160',
-  '163',
-  '165',
-  '168',
-  '170',
-  '173',
-  '175',
-  '178',
-  '180',
-  '183',
-  '185',
-  '188',
-  '191',
-  '193',
-  '196',
-  '198',
-  '>198'
-]
-
-// Unit is kg
-const WEIGHTS = [
-  '45',
-  '48',
-  '50',
-  '52',
-  '54',
-  '57',
-  '59',
-  '61',
-  '64',
-  '66',
-  '68',
-  '70',
-  '73',
-  '75',
-  '77',
-  '79',
-  '82',
-  '84',
-  '86',
-  '88',
-  '91',
-  '93',
-  '95',
-  '98',
-  '100',
-  '102',
-  '104',
-  '107',
-  '109',
-  '111',
-  '113',
-  '>113'
-]
-
-const AGES = [
-  '18-21',
-  '22-25',
-  '26-30',
-  '31-35',
-  '36-40',
-  '41-45',
-  '46-50',
-  '51+'
-]
 class MyMetrics extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -133,6 +63,9 @@ class MyMetrics extends Component {
       weight: "",
       bmi: "",
       age_range:"",
+			HEIGHTS: defaultValue.HEIGHTS,
+			WEIGHTS: defaultValue.WEIGHTS,
+			AGES: defaultValue.AGES
     };
   }
 
@@ -150,8 +83,8 @@ class MyMetrics extends Component {
 
     if (talentInfo && talentInfo.user) {
       metricsInfo = {
-        height: talentInfo.height.toString(),
-        weight: talentInfo.weight.toString(),
+        height: talentInfo.height,
+        weight: talentInfo.weight,
         bmi: talentInfo.bmi.toString(),
         age_range: talentInfo.age_range,
       }
@@ -177,16 +110,17 @@ class MyMetrics extends Component {
 
   handleChange = name => event => {
     this.setState(
-      { 
-        [name]: event.target.value 
-      }, 
+      {
+        [name]: event.target.value
+      },
       () => {
-        if (name === 'height' || name === 'weight'){
+        if (name === 'height' || name === 'weight') {
           const {height, weight} = this.state
-          console.log('height, weight: ', height, weight)
-          let bmiRessult = BmiCalculator(parseInt(weight), parseInt(height)/100, false)
+					console.log('height, weight: ', height, weight)
+          let bmiRessult = BmiCalculator(parseInt(weight),
+						parseInt(height)/100, false)
           let bmi = Math.round(bmiRessult.value * 10) / 10
-  
+
           this.setState({
             bmi: isNaN(bmi) ? 'None' : bmi // + ' ' + bmiRessult.name
           })
@@ -211,7 +145,10 @@ class MyMetrics extends Component {
     } = this.state
 
     let data = {
-      ...this.state,
+			height: height,
+			weight: weight,
+			bmi: bmi,
+			age: age,
     }
     console.log('==== data: ', data)
     TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
@@ -223,9 +160,8 @@ class MyMetrics extends Component {
   }
 
   renderMetricsView (){
-    const { height, weight, bmi, age_range } = this.state
+    const { height, weight, bmi, age_range, HEIGHTS, WEIGHTS, AGES } = this.state
     const { classes } = this.props
-
     return (
       <Panel title={"My Height, Weight, & Age Range"}>
         <Row className="profile-gender-row">
@@ -246,32 +182,34 @@ class MyMetrics extends Component {
           <Col xs="12" md="3" className="pt-3 pt-md-3">
             <FormControl >
               <FormLabel htmlFor="uncontrolled-native">&nbsp;USA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EUROPE</FormLabel>
-              <Select 
-                value={height} 
-                onChange={this.handleChange('height')} 
-                defaultValue={HEIGHTS[0]} 
-                input={<Input name="height" 
+              <Select
+                value={height}
+                onChange={this.handleChange('height')}
+                defaultValue={HEIGHTS[0]}
+                input={<Input name="height"
                 id="uncontrolled-native" />}>
                   {
-                    Object.keys(HEIGHTS).map((key) => {
-                      let height = HEIGHTS[key]
-                      let heightInFeet = 0
-                      let heightIntegerInFeet = 0
-                      let heightDecimalInInch = 0
-                      if (height === '>198') {
-                        heightIntegerInFeet = ">6"
-                        heightDecimalInInch = "6"
-                      } else {
-                        heightInFeet = UnitConverter(parseInt(height)).from('cm').to('ft-us')
-                        heightIntegerInFeet = Math.floor(heightInFeet)
-                        heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
-                      }
-                      return (
-                        <MenuItem key={key} value={height} >
-                          &nbsp;{heightIntegerInFeet}'{heightDecimalInInch}"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{height}cm
-                        </MenuItem>      
-                      )
-                    })
+                  HEIGHTS.map((height, index) => {
+                    let heightInFeet = 0
+                    let heightIntegerInFeet = 0
+                    let heightDecimalInInch = 0
+										let prefix = ''
+										let tmp_height = height
+										if (index == (HEIGHTS.length - 1)) {
+											tmp_height = HEIGHTS[HEIGHTS.length - 2]
+											prefix = '>'
+										}
+
+                    heightInFeet = UnitConverter(parseInt(tmp_height))
+											.from('cm').to('ft-us')
+                    heightIntegerInFeet = Math.floor(heightInFeet)
+                    heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
+                    return (
+                      <MenuItem key={index} value={height} >
+                        &nbsp;{prefix}{heightIntegerInFeet}'{heightDecimalInInch}"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{prefix}{tmp_height}cm
+                      </MenuItem>
+                    )
+                  })
                   }
               </Select>
             </FormControl>
@@ -279,24 +217,26 @@ class MyMetrics extends Component {
           <Col xs="12" md="3" className="pt-3 pt-md-3">
             <FormControl>
               <FormLabel htmlFor="uncontrolled-native">&nbsp;USA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EUROPE</FormLabel>
-              <Select 
-                value={weight} 
-                onChange={this.handleChange('weight')} 
-                defaultValue={WEIGHTS[0]} 
+              <Select
+                value={weight}
+                onChange={this.handleChange('weight')}
+                defaultValue={WEIGHTS[0]}
                 input={<Input name="weight" id="uncontrolled-native" />}>
                   {
-                    Object.keys(WEIGHTS).map((key) => {
-                      let weight = WEIGHTS[key]
+                    WEIGHTS.map((weight, index) => {
                       let weightInLb = 0
-                      if (weight === '>113') {
-                        weightInLb = '>250'
-                      } else {
-                        weightInLb = Math.round(UnitConverter(parseInt(weight)).from('kg').to('lb'))
-                      }
+											let prefix = ''
+											let tmp_weight = weight
+											if (index == (WEIGHTS.length - 1)) {
+												tmp_weight = WEIGHTS[WEIGHTS.length - 2]
+												prefix = '>'
+											}
+                      weightInLb = Math.round(UnitConverter(tmp_weight).from('lb').to('kg') * 10) / 10
                       return (
-                        <MenuItem key={key} value={weight} >
-                          &nbsp;{weightInLb} lbs. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{weight} kg
-                        </MenuItem>      
+                        <MenuItem key={index}
+													value={weight} >
+                          &nbsp;{prefix}{tmp_weight} lbs. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{prefix}{weightInLb} kg
+                        </MenuItem>
                       )
                     })
                   }
@@ -310,10 +250,10 @@ class MyMetrics extends Component {
           </Col>
           <Col xs="12" md="3" className="pt-3 pt-md-3">
             <FormControl>
-              <Select 
-                value={age_range} 
-                onChange={this.handleChange('age_range')} 
-                defaultValue={AGES[0]} 
+              <Select
+                value={age_range}
+                onChange={this.handleChange('age_range')}
+                defaultValue={AGES[0]}
                 input={<Input name="age_range" id="uncontrolled-native"/>}
               >
                 {

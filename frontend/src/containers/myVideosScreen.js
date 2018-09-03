@@ -88,7 +88,7 @@ class MyVideos extends Component {
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
-                    {"My Dancing Audition Videos"}
+                    {"My Dance Audition Videos"}
                   </div>
                   <div className="profile-other-info-button-status">
                     {'in progress'}
@@ -98,7 +98,7 @@ class MyVideos extends Component {
              </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
@@ -128,7 +128,7 @@ class MyVideos extends Component {
             </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
@@ -158,7 +158,7 @@ class MyVideos extends Component {
             </div>
           </Col>
         </Row>
-        
+
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
 
@@ -226,7 +226,7 @@ class MyVideos extends Component {
             <Typography gutterBottom variant='Subheading'>
               <b>Video Interviews (required)</b>
               {`
-                 are located within the section of your primary discripline 
+                 are located within the section of your primary discripline
                 (vocalist, dancer, musician, techinician, cruise staff or youth staff).
               `}
             </Typography>
@@ -245,7 +245,7 @@ class MyVideos extends Component {
     }
 
     return (
-  
+
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           <MuiThemeProvider theme={theme}>

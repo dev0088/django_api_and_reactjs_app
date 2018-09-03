@@ -13,15 +13,15 @@ class TalentAPI {
     .then(response => {
       if(response.error) {
         console.log('error: ', response.error)
-        handleResponse(response.error, true) 
+        handleResponse(response.error, true)
       }
       else {
         if (response){
           console.log('success: ', response)
-          handleResponse(response, false) 
+          handleResponse(response, false)
         } else {
           console.log('error: ', response)
-          handleResponse(response.error, true) 
+          handleResponse(response.error, true)
         }
       }
     })
@@ -45,15 +45,47 @@ class TalentAPI {
       console.log('=== response: ', response)
       if(response.error) {
         console.log('error: ', response.error)
-        handleResponse(response.error, true) 
+        handleResponse(response.error, true)
       }
       else {
         if (response){
           console.log('success: ', response)
-          handleResponse(response, false) 
+          handleResponse(response, false)
         } else {
           console.log('error: ', response)
-          handleResponse(response.error, true) 
+          handleResponse(response.error, true)
+        }
+      }
+    })
+    .catch(error => {
+      console.log('error: ', error)
+      handleResponse(error, true)
+    })
+  }
+
+	static saveMedicals(user_id, data, handleResponse) {
+    console.log('==== saveMedicals: ', user_id, data)
+    fetch(`${apiConfig.url}/talent_medical/${user_id}/all`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('=== response: ', response)
+      if(response.error) {
+        console.log('error: ', response.error)
+        handleResponse(response.error, true)
+      }
+      else {
+        if (response){
+          console.log('success: ', response)
+          handleResponse(response, false)
+        } else {
+          console.log('error: ', response)
+          handleResponse(response.error, true)
         }
       }
     })
@@ -76,15 +108,15 @@ class TalentAPI {
       console.log('=== response: ', response)
       if(response.error) {
         console.log('error: ', response.error)
-        handleResponse(response.error, true) 
+        handleResponse(response.error, true)
       }
       else {
         if (response){
           console.log('success: ', response)
-          handleResponse(response, false) 
+          handleResponse(response, false)
         } else {
           console.log('error: ', response)
-          handleResponse(response.error, true) 
+          handleResponse(response.error, true)
         }
       }
     })
@@ -107,15 +139,15 @@ class TalentAPI {
       console.log('=== response: ', response)
       if(response.error) {
         console.log('error: ', response.error)
-        handleResponse(response.error, true) 
+        handleResponse(response.error, true)
       }
       else {
         if (response){
           console.log('success: ', response)
-          handleResponse(response, false) 
+          handleResponse(response, false)
         } else {
           console.log('error: ', response)
-          handleResponse(response.error, true) 
+          handleResponse(response.error, true)
         }
       }
     })

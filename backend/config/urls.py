@@ -36,6 +36,7 @@ urlpatterns = [
   url(r'^api/v1/talent_picture', include('talent_picture.urls')),
   url(r'^api/v1/talent_resume', include('talent_resume.urls')),
   url(r'^api/v1/talent_video', include('talent_video.urls')),
+  url(r'^api/v1/talent_medical', include('talent_medical.urls')),
   url(r'^api/v1/question', include('question.urls')),
   url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
   url(r'^api/v1/submission', include('submission.urls')),
