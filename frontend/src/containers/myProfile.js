@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
+import UnitConverter from 'convert-units'
 import Panel from '../components/panel';
 import Spacer from '../components/spacer';
 import Truncate from 'react-truncate-html';
@@ -32,7 +33,9 @@ class MyProfile extends Component {
       skills: [],
       notification: false,
 			openImageModal: false,
-			currentImageUrl: null
+			currentImageUrl: null,
+			HEIGHTS: defaultValues.HEIGHTS,
+			WEIGHTS: defaultValues.WEIGHTS
     }
   }
 
@@ -122,6 +125,49 @@ class MyProfile extends Component {
     }
   }
 
+	makeHeight = (height) => {
+		const { HEIGHTS } = this.state
+		let heightInFeet = 0
+		let heightIntegerInFeet = 0
+		let heightDecimalInInch = 0
+		let prefix = ''
+		let tmp_height = height
+
+		// Find index
+		let index = HEIGHTS.findIndex(function(h) {
+			return h === height
+		})
+		if (index == (HEIGHTS.length - 1)) {
+			tmp_height = HEIGHTS[HEIGHTS.length - 2]
+			prefix = '>'
+		}
+
+		heightInFeet = UnitConverter(parseInt(tmp_height))
+			.from('cm').to('ft-us')
+		heightIntegerInFeet = Math.floor(heightInFeet)
+		heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
+
+		return `${prefix}${heightIntegerInFeet}'${heightDecimalInInch}" / ${prefix}${height}cm`
+	}
+
+	makeWeight = (weight) => {
+		const { WEIGHTS } = this.state
+		let weightInLb = 0
+		let prefix = ''
+		let tmp_weight = weight
+
+		let index = WEIGHTS.findIndex(function(w) {
+			return w === weight
+		})
+
+		if (index == (WEIGHTS.length - 1)) {
+			tmp_weight = WEIGHTS[WEIGHTS.length - 2]
+			prefix = '>'
+		}
+		weightInLb = Math.round(UnitConverter(tmp_weight).from('lb').to('kg') * 10) / 10
+		return `${prefix}${tmp_weight} lbs. / ${prefix}${weightInLb} kg`
+	}
+
   makeLanguages = (talent_languages) => {
     let res = ''
     Object.keys(talent_languages).map((key) => {
@@ -172,6 +218,52 @@ class MyProfile extends Component {
 			currentImageUrl: url
     })
   }
+
+	checkPreviousShipMedical = (medicals) => {
+		let checkingMedicals = [
+			'Pregnancy',
+			'Epilepsy',
+			'Insulin dependent diabetes',
+			'Anxiety, mental or mood disorders',
+			'Alcohol or drug addiction problems',
+			'Eating disorders',
+			'Body Mass Index greater than 30 or less than 18',
+			'Diseases of the heart or arteries',
+			'Hypertension',
+			'Coronary bypass surgery or angioplasty', //
+			'Other conditions which can lead to sudden incapacity',
+			'Conditions which limit mobility and stamina both under normal and emergency conditions',
+			'Medication with side effects which reduce performance or alertness',//
+			'Irregular heart rhythm',
+			'Use of a pacemaker',
+			'Diseases of the lungs',
+			'Unexplained loss of consciousness',
+			'Severe head injury or major brain surgery',
+			'Severe deafness',
+			'Joint replacements',
+			'Limb prostheses',
+			'Organ transplants'
+		]
+		let res = false
+
+		medicals.map((medical, index) => {
+			checkingMedicals.map((chekingMedical, index) => {
+				if ((medical.condition_title === chekingMedical) && medical.condition_value) {
+					res = true
+				}
+			})
+		})
+
+		return res
+	}
+
+	checkCPR = (medicals) => {
+		let cprMedical = medicals.find((medical) => {
+			return medical.condition_title === 'I am certified in CPR.'
+		})
+		console.log('==== checkCPR: ', cprMedical, medicals)
+		return cprMedical ? cprMedical.condition_value : false
+	}
 
 	renderPictureView(caption) {
     const { classes, talentInfo } = this.props
@@ -422,7 +514,7 @@ class MyProfile extends Component {
         <Row className="profile-gender-row">
           <Col md="12" className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='/medical-info'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Medical"}
@@ -491,6 +583,7 @@ class MyProfile extends Component {
       talent_pictures,
       talent_videos,
       talent_resume,
+			talent_medicals,
       worked_cruise_ship,
       created
     } = this.props.talentInfo
@@ -520,99 +613,99 @@ class MyProfile extends Component {
             <Row>
               <Col md="3" className="profile-bio">
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Height:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{height}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+                    <Typography className="profile-general-info-value">{this.makeHeight(height)}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Weight:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{weight}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+                    <Typography className="profile-general-info-value">{this.makeWeight(weight)}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"BMI:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{bmi}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Age Range:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{age_range}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Languages:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{this.makeLanguages(talent_languages)}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Nationality:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{nationality}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Citizenship:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{citizenship}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{visa_type ? `${visa_type}:` : 'Visa'}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{visa_type ? 'YES' : 'No'}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2">
+                    <Typography className="profile-general-info-value profile-general-info-value-col">{visa_type ? 'YES' : 'No'}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Green Card:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
                     <Typography className="profile-general-info-value">{have_green_card ? "YES" : "NO"}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Previous Ship Experiences:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{"YES"}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+                    <Typography className="profile-general-info-value">{worked_cruise_ship ? "YES" : "NO"}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Previous Ship Medical:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{"YES"}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+                    <Typography className="profile-general-info-value">{this.checkPreviousShipMedical(talent_medicals) ? "YES" : "NO"}</Typography>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6" className="pt-1 pt-md-1">
+                  <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"CPR:"}</Typography>
                   </Col>
-                  <Col md="6" className="pt-1 pt-md-1">
-                    <Typography className="profile-general-info-value">{"NO"}</Typography>
+                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+                    <Typography className="profile-general-info-value">{this.checkCPR(talent_medicals) ? 'YES' : 'NO'}</Typography>
                   </Col>
                 </Row>
               </Col>
@@ -620,10 +713,10 @@ class MyProfile extends Component {
 								<Row>
 		              <Col md="3" className="profile-bio">
 		                <Row>
-		                  <Col md="12" className="pt-1 pt-md-1">
+		                  <Col md="12" className="pt-2 pt-md-2">
 		                    <Typography className="profile-picture-name">{"Pictures"}</Typography>
 		                  </Col>
-		                  <Col md="12" className="pt-1 pt-md-1">
+		                  <Col md="12" className="pt-2 pt-md-2">
 												{ this.renderPicturesView() }
 		                  </Col>
 		                </Row>
@@ -632,10 +725,10 @@ class MyProfile extends Component {
 		                <Row>
 		                  <Col md="4" className="profile-bio">
 		                    <Row>
-		                      <Col md="12" className="pt-1 pt-md-1">
+		                      <Col md="12" className="pt-2 pt-md-2">
 		                        <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
 		                      </Col>
-		                      <Col md="12" className="pt-1 pt-md-1">
+		                      <Col md="12" className="pt-2 pt-md-2">
 		                        {(talent_resume[0] && talent_resume[0].preview_path) ?
 															(<div onClick={() => this.showImage(talent_resume[0].preview_path)}
 																className="profile-picture-container-div">
@@ -653,7 +746,7 @@ class MyProfile extends Component {
 		                  </Col>
 											<Col md="8" className="profile-bio">
 		                    <Row>
-		                      <Col md="12" className="pt-1 pt-md-1">
+		                      <Col md="12" className="pt-2 pt-md-2">
 		                        <Typography className="profile-picture-name">{"Biography"}</Typography>
 		                      </Col>
 		                      <Col md="12" className="profile-general-info-value pt-1 pt-md-1">

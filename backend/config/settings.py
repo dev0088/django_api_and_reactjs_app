@@ -25,7 +25,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.0.121'
 ]
-# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -57,6 +56,7 @@ LOCAL_APPS = (
     'talent_resume',
     'talent_video',
     'talent_language',
+	'talent_medical',
     'question',
     'admin_setting',
     'submission',

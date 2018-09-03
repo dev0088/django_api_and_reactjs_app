@@ -94,19 +94,7 @@
 .profile-edit-container button span{
   text-transform: capitalize !important;
 }
-.profile-checkbox{
-  position: relative;
-}
-.profile-checkbox > label{
-  position: absolute;
-  top: 5px;
-  left: 50px;
-  line-height: 15px;
-}
-.profile-checkbox > label span{
-  margin-left: 5px;
-  font-size: 80%;
-}
+
 .profile-go-buttons {
   position: absolute;
   top: 0px;

@@ -1,25 +1,26 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import Checkbox from 'material-ui/Checkbox';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Panel from '../components/panel'
-import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SwipeableViews from 'react-swipeable-views';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
-import './editProfile.css'
-import apiConfig from '../constants/api';
 import Dropzone from 'react-dropzone';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
+import Panel from '../components/panel'
+import * as talentActions from  '../actions/talentActions';
+import TalentAPI from '../apis/talentAPIs'
+import './editProfile.css'
+import apiConfig from '../constants/api';
 import 'react-dropdown/style.css'
 
 const const_genders = ["Male", "Female"];
@@ -83,15 +84,16 @@ class EditProfile extends Component {
       },
       currentAllPositionTypes: [],
       currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
-        ? { value: props.talentInfo.talent_position_sub_type.name, 
+        ? { value: props.talentInfo.talent_position_sub_type.name,
             label: props.talentInfo.talent_position_sub_type.name }
         : '',
-      currentAdditionalPositionSubTypes: null
+      currentAdditionalPositionSubTypes: null,
+			worked_cruise_ship: false
     }
   }
 
   getPositionTypesFromProps(props) {
-    const { 
+    const {
       auth,
       allPositionTypes,
       talentInfo
@@ -103,6 +105,7 @@ class EditProfile extends Component {
     let gender = 'Male'
     let contactInfo = {}
     let emergencyInfo = {}
+		let worked_cruise_ship = false
 
     if (allPositionTypes && allPositionTypes.value) {
       currentAllPositionTypes = allPositionTypes.value
@@ -112,8 +115,8 @@ class EditProfile extends Component {
       // Get sub position types for primary and secondary of talent
       let subPostionType = {}
       if (talentInfo.talent_position_sub_type) {
-        subPostionType = { 
-          value: talentInfo.talent_position_sub_type.name, 
+        subPostionType = {
+          value: talentInfo.talent_position_sub_type.name,
           label: talentInfo.talent_position_sub_type.name,
           positionType: talentInfo.talent_position_sub_type.talent_position_type
         }
@@ -153,6 +156,7 @@ class EditProfile extends Component {
         phone: talentInfo.emergency_phone,
         relationship: talentInfo.emergency_relationship
       }
+			worked_cruise_ship = talentInfo.worked_cruise_ship
     }
 
     return {
@@ -162,7 +166,8 @@ class EditProfile extends Component {
       currentSubPositionType,
       currentAdditionalPositionSubTypes,
       contactInfo,
-      emergencyInfo
+      emergencyInfo,
+			worked_cruise_ship
     }
   }
 
@@ -268,7 +273,7 @@ class EditProfile extends Component {
       objectName: file.name,
       contentType: file.type
     }
-    
+
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -307,9 +312,9 @@ class EditProfile extends Component {
 
   onFinish = (completeAPI, fileID, file) => {
     console.log('=== Finish: ', fileID, file)
-    // const {user_id} = this.props.auth.access    
+    // const {user_id} = this.props.auth.access
     let params = {
-      fileID: fileID, 
+      fileID: fileID,
       fileSize: file.size,
       fileType: file.type,
     }
@@ -325,7 +330,7 @@ class EditProfile extends Component {
         console.log('error: ', response.error)
       }
       else {
-        
+
       }
     })
     .catch(error => {
@@ -335,7 +340,7 @@ class EditProfile extends Component {
 
   uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
     // const filename = file.name;
-    // Get signedUrl 
+    // Get signedUrl
     // var that = this;
     fetch(s3PutUrl, {
       method: 'put',
@@ -368,7 +373,7 @@ class EditProfile extends Component {
     })
   }
 
-  handlecurrentAdditionalPositionSubTypesSelect = (selectedOption) => { 
+  handlecurrentAdditionalPositionSubTypesSelect = (selectedOption) => {
    this.setState({ currentAdditionalPositionSubTypes: selectedOption });
   }
 
@@ -389,7 +394,7 @@ class EditProfile extends Component {
   }
 
   handlePositionTypeSave = () => {
-    const { 
+    const {
       userID,
       gender,
       currentSubPositionType,
@@ -434,7 +439,7 @@ class EditProfile extends Component {
   }
 
   handleBusinessStaffSave = () => {
-    const { 
+    const {
       userID,
       contactInfo,
       emergencyInfo
@@ -463,9 +468,24 @@ class EditProfile extends Component {
   }
 
   handleBusinessStaffSaveResponse = (response, isFailed) => {
-    console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
   }
+
+	handleChangeWorkedCruiseShip = name => event => {
+		let checked = event.target.checked
+		this.setState({
+			worked_cruise_ship: checked
+		}, () => {
+			let data = {
+				worked_cruise_ship: checked
+			}
+			TalentAPI.saveTalentInfo(this.state.userID, data, this.handleWorkedCruiseShipSaveResponse)
+		})
+	}
+
+	handleWorkedCruiseShipSaveResponse = (response, isFailed) => {
+		this.props.talentActions.getTalentInfo(this.state.userID)
+	}
 
   renderPositionTypesView() {
     const { allPositionTypes } = this.props
@@ -495,10 +515,10 @@ class EditProfile extends Component {
     }
 
     return (
-      <DropDown 
-        options={groups} 
-        onChange={this.handleSubPositionSelect} 
-        value={this.state.currentSubPositionType} 
+      <DropDown
+        options={groups}
+        onChange={this.handleSubPositionSelect}
+        value={this.state.currentSubPositionType}
         placeholder="Select an option" />
     )
   }
@@ -530,12 +550,12 @@ class EditProfile extends Component {
     }
 
     return (
-      <Select 
+      <Select
         closeMenuOnSelect={false}
         components={makeAnimated()}
-        options={groups} 
+        options={groups}
         isMulti
-        label="Single select" 
+        label="Single select"
         value={this.state.currentAdditionalPositionSubTypes}
         onChange={this.handlecurrentAdditionalPositionSubTypesSelect}
       />
@@ -549,7 +569,7 @@ class EditProfile extends Component {
       <Panel title={"General Info"} >
         <Row className="profile-gender-row">
           <Col xs="12" md="2" className="pt-3 pt-md-3">
-            <h5>I am a...</h5> 
+            <h5>I am a...</h5>
           </Col>
           <Col xs="12" md="10" className="pt-0 pt-md-2">
           {
@@ -577,13 +597,13 @@ class EditProfile extends Component {
         <Row className="profile-gender-row">
           <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Button size="large" 
-              className={classes.button} 
+            <Button size="large"
+              className={classes.button}
               onClick={this.handlePositionTypeCancel} >
               {'Cancel'}
             </Button>
-            <Button size="large" color="primary" 
-              className={classes.button} 
+            <Button size="large" color="primary"
+              className={classes.button}
               onClick={this.handlePositionTypeSave}>
               {'Save'}
             </Button>
@@ -651,7 +671,7 @@ class EditProfile extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='#'>
+              <Link to='/medical-info'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Medical"}
@@ -732,100 +752,9 @@ class EditProfile extends Component {
     )
   }
 
-  renderRustumViewer() {
-    return(
-      <MuiThemeProvider theme={theme}>
-      <div className="profile-edit-container">
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-        <Row className="profile-edit-title">
-          <h3>Build/Edit My Profile</h3>
-        </Row>
-
-        {this.renderGeneralInfoView()}
-
-        <Row className="profile-edit-buttons">
-          <Col sm="12">
-            <h4>Let's Build or Edit Your Profile...</h4>
-          </Col>
-        </Row>
-
-        {this.renderBussinessStaff()}
-
-        {this.renderFunStaff()}
-        
-        <Row>
-          <Col sm="12">
-            <h5>The Fun Stuff</h5>
-          </Col>
-          <Col sm="12">
-            <Tabs
-              onChange={this.handleTab2Change}
-              className="tabHead"
-              value={this.state.tab2Value}
-            >
-              <Tab label="My Headline & Bio" value={0} />
-              <Tab label="My Resume" value={1} />
-              <Tab label="My Pictures" value={2} />
-              <Tab label="My Videos" value={3} />
-            </Tabs>
-            <SwipeableViews
-              className="tabContent"
-              index={this.state.tab2Value}
-              onChangeIndex={this.handleTab2Change}
-            >
-              <div>
-                My Headline & Bio Page
-              </div>
-              <div style={styles.slide}>
-                My Resume Page
-                <Dropzone onDrop={ this.handleUploadResume } size={ 150 } accept="application/pdf">
-                  <div>
-                    Drop pdf files here!
-                  </div>
-                </Dropzone>
-              </div>
-              <div style={styles.slide}>
-                My Pictures Page
-                <Dropzone onDrop={ this.handleUploadMyPictures } size={ 150 } accept="image/*">
-                  <div>
-                    Drop image files here!
-                  </div>
-                </Dropzone>
-              </div>
- 
-              <div style={styles.slide}>
-                My Videos Page
-                <Dropzone onDrop={ this.handleUploadInterviewVideos } size={ 150 } accept="video/mp4">
-                  <div>
-                    Drop mp4 video files here!
-                  </div>
-                </Dropzone>
-              </div>
-            </SwipeableViews>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm="12" className="profile-checkbox">
-            <Checkbox
-              id="worked before"
-              label=""
-            />
-            <label>I have worked on a cruise ship before<span>(select if you have previous ship experience)</span></label>
-          </Col>
-        </Row>
-        <Row className="profile-go-buttons">
-          <Col sm="12">
-            <Link to="/profile">
-              <RaisedButton label="View My Profile" primary={true}/>
-            </Link>
-          </Col>
-        </Row>
-      </div>
-      </MuiThemeProvider>
-    );
-  }
-
   render() {
+		const { worked_cruise_ship } = this.state
+		console.log('=== worked_cruise_ship: ', worked_cruise_ship)
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-edit-container">
@@ -847,12 +776,18 @@ class EditProfile extends Component {
           {this.renderFunStaff()}
 
           <Row>
-            <Col sm="12" className="profile-checkbox">
-              <Checkbox
-                id="worked before"
-                label=""
-              />
-              <label>I have worked on a cruise ship before<span>(select if you have previous ship experience)</span></label>
+            <Col sm="12" className="pt-0 pt-md-0">
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={worked_cruise_ship}
+										onChange={this.handleChangeWorkedCruiseShip('worked_cruise_ship')}
+										value={'worked_cruise_ship'}
+										color="primary"
+									/>
+								}
+								label={"I have worked on a cruise ship before (select if you have previous ship experience)"}
+							/>
             </Col>
           </Row>
           <Row >

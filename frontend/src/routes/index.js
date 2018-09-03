@@ -35,6 +35,7 @@ import MyResume from "../containers/myResumeScreen";
 import MyBio from "../containers/myBioScreen";
 import MyMetrics from "../containers/myMetricScreen";
 import MyLanguage from "../containers/myLanguagesScreen";
+import MyMedical from "../containers/myMedicalScreen";
 
 import MyAccount from "../containers/myAccount";
 import EditProfile from "../containers/editProfile";
@@ -212,11 +213,21 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+
     <Route
       path="/language-info"
        render={props => (
         <TemplateTopbar>
           <MyLanguage {...props} />
+         </TemplateTopbar>
+      )}
+    />
+
+		<Route
+      path="/medical-info"
+       render={props => (
+        <TemplateTopbar>
+          <MyMedical {...props} />
          </TemplateTopbar>
       )}
     />
@@ -301,7 +312,7 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
-    
+
     <Route
       path="/contact-us"
       render={props => (

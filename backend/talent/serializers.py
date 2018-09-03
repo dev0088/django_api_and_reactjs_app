@@ -7,6 +7,7 @@ from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
 from talent_language.serializers import TalentLanguageSerializer
+from talent_medical.serializers import TalentMedicalSerializer
 
 class TalentSerializer(serializers.ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
@@ -17,6 +18,7 @@ class TalentSerializer(serializers.ModelSerializer):
   user = GeneralUserSerializer(many=False, read_only=True)
   talent_additional_position_sub_types = GeneralTalentAdditionalPositionSubTypeSerializer(many=True, read_only=True)
   talent_languages = TalentLanguageSerializer(many=True, read_only=True)
+  talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
 
   class Meta:
     model = Talent
@@ -51,7 +53,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'green_card_expiration_date',
       'visa_type',
       'expiration_date',
-      
+
       'height',
       'weight',
       'bmi',
@@ -64,6 +66,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'talent_pictures',
       'talent_videos',
       'talent_resume',
+	  'talent_medicals',
 
       'worked_cruise_ship',
 

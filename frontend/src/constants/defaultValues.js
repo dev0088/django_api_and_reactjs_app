@@ -51,5 +51,77 @@ export default {
       "description": "Why use ShipTalent.com"
     }
   ],
-  DEFAULT_PRACTICE_POSITION_TYPE: 'Practice'
+  DEFAULT_PRACTICE_POSITION_TYPE: 'Practice',
+
+	// Unit is cm
+	HEIGHTS: [
+	  147,
+	  150,
+	  155,
+	  157,
+	  160,
+	  163,
+	  165,
+	  168,
+	  170,
+	  173,
+	  175,
+	  178,
+	  180,
+	  183,
+	  185,
+	  188,
+	  191,
+	  193,
+	  196,
+	  198,
+		199,
+	],
+	WEIGHTS: generateWeightConst(),
+	AGES : [
+	  '18-21',
+	  '22-25',
+	  '26-30',
+	  '31-35',
+	  '36-40',
+	  '41-45',
+	  '46-50',
+	  '51+'
+	],
+	MEDICALS: [
+		'Pregnancy',
+		'Epilepsy',
+		'Insulin dependent diabetes',
+		'Anxiety, mental or mood disorders',
+		'Alcohol or drug addiction problems',
+		'Eating disorders',
+		'Body Mass Index greater than 30 or less than 18',
+		'Diseases of the heart or arteries',
+		'Hypertension',
+		'Coronary bypass surgery or angioplasty', //
+		'Other conditions which can lead to sudden incapacity',
+		'Conditions which limit mobility and stamina both under normal and emergency conditions',
+		'Medication with side effects which reduce performance or alertness',//
+		'Irregular heart rhythm',
+		'Use of a pacemaker',
+		'Diseases of the lungs',
+		'Unexplained loss of consciousness',
+		'Severe head injury or major brain surgery',
+		'Severe deafness',
+		'Joint replacements',
+		'Limb prostheses',
+		'Organ transplants',
+		'I have no pre-existing medical conditions to report.',
+		'I am certified in CPR.',
+		'I have successfully completed a cruise line pre-employment physical in the past.'
+	]
 };
+
+function generateWeightConst() {
+	let weights = []
+	for (let i = 99; i <= 251; i ++) {
+		Math.round()
+		weights.push(i)
+	}
+	return weights
+}
