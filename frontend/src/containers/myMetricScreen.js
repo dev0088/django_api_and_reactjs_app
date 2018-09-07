@@ -23,6 +23,7 @@ import UnitConverter from 'convert-units'
 import BmiCalculator from 'bmi-calc'
 
 import Panel from '../components/panel'
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
 
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
@@ -65,7 +66,9 @@ class MyMetrics extends Component {
       age_range:"",
 			HEIGHTS: defaultValue.HEIGHTS,
 			WEIGHTS: defaultValue.WEIGHTS,
-			AGES: defaultValue.AGES
+			AGES: defaultValue.AGES,
+			isChanged: false,
+			showConfirmChanges: false
     };
   }
 
@@ -104,20 +107,22 @@ class MyMetrics extends Component {
   componentWillReceiveProps(nextProps) {
     console.log('nextProps: ', this.getInfoFromProps(nextProps))
     this.setState({
-      ...this.getInfoFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
   handleChange = name => event => {
     this.setState(
       {
-        [name]: event.target.value
+        [name]: event.target.value,
+				isChanged: true
       },
       () => {
         if (name === 'height' || name === 'weight') {
           const {height, weight} = this.state
 					console.log('height, weight: ', height, weight)
-          let bmiRessult = BmiCalculator(parseInt(weight),
+          let bmiRessult = BmiCalculator(UnitConverter(parseInt(weight)).from('lb').to('kg'),
 						parseInt(height)/100, false)
           let bmi = Math.round(bmiRessult.value * 10) / 10
 
@@ -131,7 +136,8 @@ class MyMetrics extends Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -157,7 +163,26 @@ class MyMetrics extends Component {
   handleSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+		this.setState({
+			isChanged: false
+		})
   }
+
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
 
   renderMetricsView (){
     const { height, weight, bmi, age_range, HEIGHTS, WEIGHTS, AGES } = this.state
@@ -287,19 +312,26 @@ class MyMetrics extends Component {
   }
 
   render() {
+		const {showConfirmChanges} = this.state
     return (
       <MuiThemeProvider theme={theme}>
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           {this.renderMetricsView()}
+					
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
               <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
+              <Link to="/edit-profile" onClick={this.checkChanges}>
                 <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
       </MuiThemeProvider>
     )

@@ -23,8 +23,9 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
-import 'react-dropdown/style.css'
-import './myContactInfo.css'
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
+import 'react-dropdown/style.css';
+import './myContactInfo.css';
 
 
 const styles = theme => ({
@@ -81,12 +82,14 @@ class MyContactInfo extends Component {
         email: "",
         phone: "",
         relationship: 0
-      }
+      },
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
   getContactInfoFromProps(props) {
-    const { 
+    const {
       auth,
       talentInfo
     } = props
@@ -127,13 +130,14 @@ class MyContactInfo extends Component {
 
   componentWillMount() {
     if (this.state.userID) {
-      this.props.talentActions.getTalentInfo(this.state.userID)  
+      this.props.talentActions.getTalentInfo(this.state.userID)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getContactInfoFromProps(nextProps)
+      ...this.getContactInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
@@ -143,13 +147,17 @@ class MyContactInfo extends Component {
     contactInfo[event.target.name.substring(8)] = event.target.value;
     this.setState({
       contactInfo: contactInfo,
+			isChanged: true
     });
   }
 
   handleBirthdayChange = (event) => {
     const { contactInfo } = this.state;
     contactInfo['birthday'] = event.target.value;
-    this.setState({ contactInfo: contactInfo })
+    this.setState({
+			contactInfo: contactInfo,
+			isChanged: true
+		})
   }
 
   handleEmergencyInfoChange = (event) => {
@@ -157,13 +165,17 @@ class MyContactInfo extends Component {
     emergencyInfo[event.target.name.substring(10)] = event.target.value;
     this.setState({
       emergencyInfo: emergencyInfo,
+			isChanged: true
     });
   }
 
   handleRelationshipChange = (event, index, value) => {
     const { emergencyInfo } = this.state;
     emergencyInfo['relationship'] = value;
-    this.setState({ emergencyInfo: emergencyInfo });
+    this.setState({
+			emergencyInfo: emergencyInfo,
+			isChanged: true
+		});
   }
 
   handleBusinessStaffCancel = () => {
@@ -174,13 +186,14 @@ class MyContactInfo extends Component {
 
     this.setState({
       contactInfo,
-      emergencyInfo
+      emergencyInfo,
+			isChanged: false
     })
   }
 
   handleBusinessStaffSave = () => {
     const { auth, talentInfo } = this.props
-    const { 
+    const {
       userID,
       contactInfo,
       emergencyInfo
@@ -213,7 +226,26 @@ class MyContactInfo extends Component {
   handleBusinessStaffSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
+		this.setState({
+			isChanged: false
+		})
   }
+
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
 
   renderBussinessStaff() {
     const { talentInfo, classes } = this.props
@@ -443,13 +475,13 @@ class MyContactInfo extends Component {
         <Row className="profile-gender-row">
           <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Button size="large" 
-              className={classes.button} 
+            <Button size="large"
+              className={classes.button}
               onClick={this.handleBusinessStaffCancel} >
               {'Cancel'}
             </Button>
-            <Button size="large" color="primary" 
-              className={classes.button} 
+            <Button size="large" color="primary"
+              className={classes.button}
               onClick={this.handleBusinessStaffSave}>
               {'Save'}
             </Button>
@@ -459,9 +491,8 @@ class MyContactInfo extends Component {
     )
   }
 
-
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
+    const { contactInfo, emergencyInfo, showConfirmChanges } = this.state;
     const { classes } = this.props;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
@@ -477,11 +508,16 @@ class MyContactInfo extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
+              <Link to="/edit-profile" onClick={this.checkChanges} >
                 <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
       </MuiThemeProvider>
     )

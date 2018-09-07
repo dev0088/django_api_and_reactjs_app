@@ -10,20 +10,29 @@ import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import SwipeableViews from 'react-swipeable-views';
 import Dropzone from 'react-dropzone';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
+
 import Panel from '../components/panel';
 import MultipleSelect from '../components/multipleSelect';
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
-import './editProfile.css'
 import apiConfig from '../constants/api';
 import defaultValues from '../constants/defaultValues';
+
 import 'react-dropdown/style.css'
+import './editProfile.css'
 
 const const_genders = ["Male", "Female"];
 
@@ -59,10 +68,6 @@ class EditProfile extends Component {
     this.state = {
       userID: props.auth.access.user_id,
       gender: "Male",
-      skill: "Vocalist",
-      subskill: ["tenor"],
-      other_skill: ["dances"],
-      other_sub_skill: [],
       notification: false,
       tab1Value: 0,
       tab2Value: 0,
@@ -94,29 +99,22 @@ class EditProfile extends Component {
 
 			currentAdditionalGroups: [],
 
-			worked_cruise_ship: false
+			worked_cruise_ship: false,
+
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
 	exitType = (typeName, name, items) => {
-		console.log('==== items: ', items)
-		console.log('==== typeName: ', typeName)
 		for(let i = 0; i < items.length; i ++) {
 			if (items[i][typeName].name === name) {
 				return true
 			}
 		}
+
 		return false
 	}
-
-	// exitPositionSubType = (name, items) => {
-	// 	for(let i = 0; i < items.length; i ++) {
-	// 		if (items[i].talent_position_sub_type.name === name) {
-	// 			return true
-	// 		}
-	// 	}
-	// 	return false
-	// }
 
 	generateGroupsFromTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
 		let groups = []
@@ -242,68 +240,27 @@ class EditProfile extends Component {
   }
 
   clickButton = (type, val) =>  {
-    if (type === 'other_sub_skill')
-    {
-      let temp_skill = this.state[type].slice(), pos;
-      if ((pos = temp_skill.indexOf(val)) > -1){
-        temp_skill.splice(pos, 1);
-      }
-      else
-        temp_skill.push(val);
-      this.setState({ [type]: temp_skill });
-    }
-    else if (type === 'other_skill' || type === 'subskill') {
-      let temp_skill = [val];
-      this.setState({ [type]: temp_skill });
-    }
-    else{
-      this.setState({ [type]: val, 'subskill': [] });
-    }
+  	this.setState({ [type]: val});
   }
 
   handleTab1Change = (value) => {
     this.setState({
       tab1Value: value,
+			isChanged: true
     });
   };
 
   handleTab2Change = (value) => {
     this.setState({
       tab2Value: value,
+			isChanged: true
     });
-  }
-
-  handleContactInfoChange = (event) => {
-    const { contactInfo } = this.state;
-    contactInfo[event.target.name.substring(8)] = event.target.value;
-    this.setState({
-      contactInfo: contactInfo,
-    });
-  }
-
-  handleBirthdayChange = (event, date) => {
-    const { contactInfo } = this.state;
-    contactInfo['birthday'] = date;
-    this.setState({ contactInfo: contactInfo })
-  }
-
-  handleEmergencyInfoChange = (event) => {
-    const { emergencyInfo } = this.state;
-    emergencyInfo[event.target.name.substring(10)] = event.target.value;
-    this.setState({
-      emergencyInfo: emergencyInfo,
-    });
-  }
-
-  handleRelationshipChange = (event, index, value) => {
-    const { emergencyInfo } = this.state;
-    emergencyInfo['relationship'] = value;
-    this.setState({ emergencyInfo: emergencyInfo });
   }
 
   handleSubPositionSelect = (item) => {
     this.setState({
-      currentSubPositionType: item
+      currentSubPositionType: item,
+			isChanged: true
     })
   }
 
@@ -320,14 +277,16 @@ class EditProfile extends Component {
 
   handleCurrentAdditionalPositionSubTypesSelect = (groups) => {
     this.setState({
-			currentAdditionalGroups: groups
+			currentAdditionalGroups: groups,
+			isChanged: true
 	  });
   }
 
 	// handleMultipleSelect = (selectedItems) =>
   handlePositionTypeCancel = () => {
     this.setState({
-      ...this.getPositionTypesFromProps(this.props)
+      ...this.getPositionTypesFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -388,51 +347,9 @@ class EditProfile extends Component {
   handlePositionTypeSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
-  }
-
-  handleBusinessStaffCancel = () => {
-    const {
-      contactInfo,
-      emergencyInfo
-    } = this.getPositionTypesFromProps(this.props)
-
-    this.setState({
-      contactInfo,
-      emergencyInfo
-    })
-  }
-
-  handleBusinessStaffSave = () => {
-    const {
-      userID,
-      contactInfo,
-      emergencyInfo
-    } = this.state
-    console.log('=== this.state: ', this.state)
-    let data = {
-      user: {
-        email: contactInfo.email,
-        first_name: contactInfo.firstName,
-        last_name: contactInfo.lastName,
-      },
-      phone_number: contactInfo.mobile,
-      mailing_addresse1: contactInfo.address1,
-      mailing_addresse2: contactInfo.address2,
-      mailing_addresse3: contactInfo.address3,
-      mailing_addresse4: contactInfo.address4,
-      birthday: moment(contactInfo.birthday).format('YYYY-MM-DD'),
-      emergency_first_name: emergencyInfo.firstName,
-      emergency_last_name: emergencyInfo.lastName,
-      emergency_email: emergencyInfo.email,
-      emergency_phone: emergencyInfo.phone,
-      emergency_relationship: emergencyInfo.relationship
-    }
-    console.log('==== data: ', data)
-    TalentAPI.saveTalentInfo(userID, data, this.handleBusinessStaffSaveResponse)
-  }
-
-  handleBusinessStaffSaveResponse = (response, isFailed) => {
-    this.props.talentActions.getTalentInfo(this.state.userID)
+		this.setState({
+			isChanged: false
+		})
   }
 
 	handleChangeWorkedCruiseShip = name => event => {
@@ -451,6 +368,22 @@ class EditProfile extends Component {
 		this.props.talentActions.getTalentInfo(this.state.userID)
 	}
 
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
+
   renderPositionTypesView() {
     const { allPositionTypes } = this.props
     let groups = []
@@ -458,14 +391,16 @@ class EditProfile extends Component {
     if (allPositionTypes) {
       Object.keys(allPositionTypes).map((key) => {
         const positionType = allPositionTypes[key]
-        if (positionType.name === 'Practice') {
-          return positionType;
+        if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+          return;
         }
+
         let group = {
           type: 'group',
           name: positionType.name,
           items: []
         }
+
         Object.keys(positionType.talent_position_sub_types).map((key) => {
           const positionSubType = positionType.talent_position_sub_types[key]
           group.items.push({
@@ -474,6 +409,7 @@ class EditProfile extends Component {
             className: 'profile-position-sub-type-item'
           })
         })
+				
         groups.push(group)
       })
     }
@@ -486,45 +422,6 @@ class EditProfile extends Component {
         placeholder="Select an option" />
     )
   }
-
-  // renderMultiSelectionPositionTypesView() {
-  //   const { allPositionTypes } = this.props
-  //   let groups = []
-	//
-  //   if (allPositionTypes) {
-  //     Object.keys(allPositionTypes).map((key) => {
-  //       const positionType = allPositionTypes[key]
-  //       if (positionType.name === 'Practice') {
-  //         return;
-  //       }
-  //       let group = {
-  //         label: positionType.name,
-  //         options: []
-  //       }
-  //       Object.keys(positionType.talent_position_sub_types).map((key) => {
-  //         const positionSubType = positionType.talent_position_sub_types[key]
-  //         group.options.push({
-  //           label: positionSubType,
-  //           value: positionSubType,
-  //           group: positionType.name
-  //         })
-  //       })
-  //       groups.push(group)
-  //     })
-  //   }
-	//
-  //   return (
-  //     <Select
-  //       closeMenuOnSelect={false}
-  //       components={makeAnimated()}
-  //       options={groups}
-  //       isMulti
-  //       label="Single select"
-  //       value={this.state.currentAdditionalPositionSubTypes}
-  //       onChange={this.handleCurrentAdditionalPositionSubTypesSelect}
-  //     />
-  //   )
-  // }
 
 	renderMultipleSelectView() {
     const { currentAdditionalGroups } = this.state
@@ -734,8 +631,7 @@ class EditProfile extends Component {
   }
 
   render() {
-		const { worked_cruise_ship } = this.state
-		console.log('=== worked_cruise_ship: ', worked_cruise_ship)
+		const { worked_cruise_ship, showConfirmChanges } = this.state
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-edit-container">
@@ -774,14 +670,20 @@ class EditProfile extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/home" className="profile-other-info-button-container">
+              <Link to="/home" onClick={this.checkChanges} className="profile-other-info-button-container">
                 <RaisedButton label="Back to My Home Page" primary={true}/>
               </Link>
-              <Link to="/profile">
+              <Link to="/profile" onClick={this.checkChanges}>
                 <RaisedButton label="View My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
+
         </div>
       </MuiThemeProvider>
     )

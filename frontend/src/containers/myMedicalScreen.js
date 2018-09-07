@@ -13,8 +13,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
+
 import Spacer from '../components/spacer';
 import Panel from '../components/panel'
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
+
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
 import defaultValues from '../constants/defaultValues';
@@ -49,6 +52,8 @@ class MyMedical extends Component {
     super(props);
     this.state = {
       medicals: [],
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
@@ -73,13 +78,15 @@ class MyMedical extends Component {
 
   componentWillMount() {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getInfoFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
@@ -89,7 +96,8 @@ class MyMedical extends Component {
     checkedMedicals[key].condition_value = event.target.value
 
     this.setState({
-      checkedMedicals
+      checkedMedicals,
+			isChanged: true
     })
   }
 
@@ -108,13 +116,15 @@ class MyMedical extends Component {
 		}
 
     this.setState({
-      medicals
+      medicals,
+			isChanged: true
     })
   }
 
   handleCancel = () => {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -135,7 +145,26 @@ class MyMedical extends Component {
     const { auth } = this.props
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(auth.access.user_id)
+		this.setState({
+			isChanged: false
+		})
   }
+
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
 
   isCheckedMedical = name => {
     const { medicals } = this.state
@@ -285,8 +314,8 @@ class MyMedical extends Component {
     )
   }
 
-
   render() {
+		const {showConfirmChanges} = this.state
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -298,11 +327,16 @@ class MyMedical extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
+              <Link to="/edit-profile" onClick={this.checkChanges}>
                 <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
       </MuiThemeProvider>
     )
