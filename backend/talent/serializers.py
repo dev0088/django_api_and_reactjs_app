@@ -7,6 +7,7 @@ from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
 from talent_additional_position_type.serializers import GeneralTalentAdditionalPositionTypeSerializer
+from talent_visa.serializers import TalentVisaSerializer
 from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
 
@@ -19,6 +20,7 @@ class TalentSerializer(serializers.ModelSerializer):
   user = GeneralUserSerializer(many=False, read_only=True)
   talent_additional_position_sub_types = GeneralTalentAdditionalPositionSubTypeSerializer(many=True, read_only=True)
   talent_additional_position_types = GeneralTalentAdditionalPositionTypeSerializer(many=True, read_only=True)
+  talent_visas = TalentVisaSerializer(many=True, read_only=True)
   talent_languages = TalentLanguageSerializer(many=True, read_only=True)
   talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
 
@@ -63,8 +65,8 @@ class TalentSerializer(serializers.ModelSerializer):
       'age_range',
       'head_line',
       'bio',
-      # 'resume_file_path'
 
+	  'talent_visas',
       'talent_languages',
       'talent_pictures',
       'talent_videos',

@@ -13,12 +13,15 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Checkbox from '@material-ui/core/Checkbox';
 import { FormGroup, Label, Input } from 'reactstrap';
 
 import moment from 'moment';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 import Panel from '../components/panel';
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
+import defaultValues from '../constants/defaultValues';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
 
@@ -64,20 +67,6 @@ const theme = createMuiTheme ({
   }
 })
 
-const VISA_TYPES = [
-  'B-1',
-  'M-1',
-  'B-2',
-  'O',
-  'B-1/B-2',
-  'P-2',
-  'C1/D',
-  'Schengen',
-  'F',
-  'H1-B',
-  'J-1',
-]
-
 const other_types = [
   'other1',
   'other2',
@@ -97,14 +86,16 @@ class MyNatioinality extends Component {
       country_of_current_residence: "",
       have_green_card: false,
       green_card_expiration_date: null,
-      expiration_date: [],
-      selected_visa_type: "",
-      selected_expiration_date: null
+			visaTypes: [],
+			orgVisas: [],
+
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
   getIndexByVisaType(visaType) {
-    return VISA_TYPES.findIndex(function(visa){
+    return defaultValues.VISA_TYPES.findIndex(function(visa){
       return visaType === visa
     })
   }
@@ -122,17 +113,24 @@ class MyNatioinality extends Component {
       country_of_current_residence: "",
       have_green_card: false,
       green_card_expiration_date: null,
-      expiration_date: [],
-      selected_expiration_date: null
+			visaTypes: [],
+			orgVisas: []
     }
 
-    let expiration_date = []
+		console.log
+    if (talentInfo) {
+			let visaTypes = []
+			let orgVisas = talentInfo.talent_visas
 
-    for (let i = 0; i < VISA_TYPES.length; i ++) {
-      expiration_date[VISA_TYPES[i]] = null
-    }
+			for (let i = 0; i < defaultValues.VISA_TYPES.length; i ++) {
+				let visa = this.getVisaByName(defaultValues.VISA_TYPES[i], orgVisas)
+				visaTypes.push({
+					name: defaultValues.VISA_TYPES[i],
+					expiration_date: (visa && visa.expiration_date) ? visa.expiration_date : null,
+					checked: visa ? true : false,
+				})
+			}
 
-    if (talentInfo && talentInfo.user) {
       // Get nationality info
       nationalityInfo = {
         nationality: talentInfo.nationality,
@@ -142,11 +140,9 @@ class MyNatioinality extends Component {
         country_of_current_residence: talentInfo.country_of_current_residence,
         have_green_card: talentInfo.have_green_card ? 'YES' : 'NO',
         green_card_expiration_date: talentInfo.green_card_expiration_date,
-        selected_visa_type: talentInfo.visa_type,
-        expiration_date: expiration_date,
+				visaTypes: visaTypes,
+				orgVisas: orgVisas
       }
-
-      nationalityInfo.expiration_date[talentInfo.visa_type] = talentInfo.expiration_date
     }
 
     return {
@@ -162,60 +158,91 @@ class MyNatioinality extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getNationalityInfoFromProps(nextProps)
+      ...this.getNationalityInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
   handleChange = (event) => {
-    if (event.target.name === 'selected_visa_type') {
-      this.getIndexByVisaType(event.target.value)
-    }
     this.setState({
       [event.target.name]: event.target.value,
+			isChanged: true
     });
   }
 
   handleNationalityChange = (value) => {
     this.setState({
-      nationality: value
+      nationality: value,
+			isChanged: true
     })
   }
 
   handleCitizenShipChange = (value) => {
     this.setState({
-      citizenship: value
+      citizenship: value,
+			isChanged: true
     })
   }
 
   handlePassportExpirationDateChange = (event) => {
-    this.setState({ passport_expiration_date: event.target.value })
+    this.setState({
+			passport_expiration_date: event.target.value,
+			isChanged: true
+		})
   }
 
   handleCountryOfCurrentResidenceChange = (value) => {
     this.setState({
-      country_of_current_residence: value
+      country_of_current_residence: value,
+			isChanged: true
     })
   }
 
   handleHaveGreenCardeChange = (event) => {
     this.setState({
-      have_green_card: event.target.value === "YES" ? true : false
+      have_green_card: event.target.value === "YES" ? true : false,
+			isChanged: true
     })
   }
 
   handleGreenCardeExpirationDateChange = (event) => {
-    this.setState({ green_card_expiration_date: moment(event.target.value).format('YYYY-MM-DD') })
+    this.setState({
+			green_card_expiration_date: moment(event.target.value).format('YYYY-MM-DD'),
+			isChanged: true
+		})
   }
 
-  handleExpirationDateChange = (event) => {
-    const { expiration_date } = this.state
-    expiration_date[event.target.name] = event.target.value
-    this.setState({ expiration_date: expiration_date })
+  handleVisaExpirationDateChange = name => (event) => {
+		const { visaTypes } = this.state
+		let key = this.getKeyOfVisaByName(name, visaTypes)
+
+		if (key) {
+			visaTypes[key].expiration_date = event.target.value
+			this.setState({
+				visaTypes,
+				isChanged: true
+			})
+		}
+  }
+
+	handleVisaChange = name => event => {
+    const { visaTypes } = this.state;
+    let key = this.getKeyOfVisaByName(name, visaTypes)
+
+		if (key) {
+	    visaTypes[key].checked = event.target.checked
+
+	    this.setState({
+	      visaTypes,
+				isChanged: true
+	    })
+		}
   }
 
   handleCancel = () => {
     this.setState({
-      ...this.getNationalityInfoFromProps(this.props)
+      ...this.getNationalityInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -229,14 +256,20 @@ class MyNatioinality extends Component {
       country_of_current_residence,
       have_green_card,
       green_card_expiration_date,
-
-      selected_visa_type,
-      expiration_date,
+			visaTypes,
     } = this.state
 
-    // let data = {
-    //   ...this.state,
-    // }
+		// Filter checked visaTypes
+		let visas = []
+		visaTypes.map((visa, index) => {
+			if (visa.checked) {
+				visas.push({
+					name: visa.name,
+					expiration_date: visa.expiration_date
+				})
+			}
+		})
+
     let data = {
       nationality: nationality,
       citizenship: citizenship,
@@ -245,73 +278,108 @@ class MyNatioinality extends Component {
       country_of_current_residence: country_of_current_residence,
       have_green_card: have_green_card,
       green_card_expiration_date: green_card_expiration_date,
-      visa_type: selected_visa_type,
-      expiration_date: expiration_date[selected_visa_type],
+			talent_visas: visas
+      // visa_type: selected_visa_type,
+      // expiration_date: expiration_date[selected_visa_type],
     }
     TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
   }
 
   handleSaveResponse = (response, isFailed) => {
     this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+		this.setState({
+			isChanged: false
+		})
   }
 
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
 
-  renderVisaTypeItem(index) {
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
+
+	getKeyOfVisaByName(name, visaTypes) {
+		let res = null
+
+		Object.keys(visaTypes).map((key) => {
+			if (visaTypes[key].name === name) {
+				res = key
+			}
+		})
+
+		return res
+	}
+
+	getVisaByName(name, visaTypes) {
+		return visaTypes.find(function(visa) {
+			return (visa.name === name)
+		})
+	}
+
+  renderVisaTypeItem(name) {
     const {
-      selected_visa_type,
-      expiration_date
+			visaTypes
     } = this.state
     const {classes} = this.props
 
-    let indexOfEnableExpireDate = this.getIndexByVisaType(selected_visa_type)
-    return (
-      <Row className="profile-gender-row">
-        <Col xs="12" md="6" lg="6" xl="5" className="pt-0 pt-md-0" >
-          <FormGroup check>
-            <Label check>
-              <Input type="radio"
-                name="selected_visa_type"
-                value={VISA_TYPES[index]}
-                onChange={this.handleChange}
-                checked={index === indexOfEnableExpireDate ? true : false}
-              />
-              {VISA_TYPES[index]}
-            </Label>
-          </FormGroup>
-        </Col>
-        <Col xs="12" md="6" lg="6" xl="7" className="pt-0 pt-md-0" >
-           <TextField
-            id={VISA_TYPES[index]}
-            name={VISA_TYPES[index]}
-            label="Expiration Date"
-            disabled = {index === indexOfEnableExpireDate ? false : true}
-            type="date"
-            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : 'YYYY/MM/DD'}
-            className={classes.textField}
-            onChange={this.handleExpirationDateChange}
-          />
-        </Col>
-      </Row>
-    )
+    // let indexOfEnableExpireDate = this.getIndexByVisaType(selected_visa_type)
+		let visa = this.getVisaByName(name, visaTypes)
+		if (visa) {
+	    return (
+	      <Row className="profile-gender-row">
+	        <Col xs="12" md="6" lg="6" xl="5" className="pt-0 pt-md-0" >
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={visa.checked}
+									onChange={this.handleVisaChange(visa.name)}
+									value={visa.name}
+									color="primary"
+								/>
+							}
+							label={visa.name}
+						/>
+	        </Col>
+	        <Col xs="12" md="6" lg="6" xl="7" className="pt-0 pt-md-0" >
+	           <TextField
+	            id={visa.name}
+	            name={visa.name}
+	            label="Expiration Date"
+	            disabled = {visa.checked ? false : true}
+	            type="date"
+	            value={visa.expiration_date ? visa.expiration_date : 'YYYY/MM/DD'}
+	            className={classes.textField}
+	            onChange={this.handleVisaExpirationDateChange(visa.name)}
+	          />
+	        </Col>
+	      </Row>
+	    )
+		} else {
+			<Row />
+		}
   }
 
-  renderVisaTypeViewWithReactStrap() {
-    const {
-      selected_visa_type,
-    } = this.state
-
-    let indexOfEnableExpireDate = this.getIndexByVisaType(selected_visa_type)
-
+  renderVisaTypeView() {
     return (
       <div>
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(0)}
+            {this.renderVisaTypeItem('B-1')}
           </Col>
           <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem(1)}
+            {this.renderVisaTypeItem('M-1')}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
@@ -319,10 +387,10 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(2)}
+            {this.renderVisaTypeItem('O')}
           </Col>
           <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem(3)}
+            {this.renderVisaTypeItem('B-1/B-2')}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
@@ -330,10 +398,10 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(4)}
+            {this.renderVisaTypeItem('P-2')}
           </Col>
           <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem(5)}
+            {this.renderVisaTypeItem('C1/D')}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
@@ -341,10 +409,10 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(6)}
+            {this.renderVisaTypeItem('Schengen')}
           </Col>
           <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem(7)}
+            {this.renderVisaTypeItem('F')}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
@@ -352,10 +420,10 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(8)}
+            {this.renderVisaTypeItem('H1-B')}
           </Col>
           <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem(9)}
+            {this.renderVisaTypeItem('J-1')}
           </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
@@ -369,10 +437,6 @@ class MyNatioinality extends Component {
 
       </div>
     )
-  }
-
-  renderVisaOtherTypeView() {
-
   }
 
   renderNationalityView() {
@@ -527,7 +591,7 @@ class MyNatioinality extends Component {
           </Col>
         </Row>
 
-        { this.renderVisaTypeViewWithReactStrap() }
+        { this.renderVisaTypeView() }
 
         <Row className="profile-gender-row">
           <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
@@ -550,8 +614,9 @@ class MyNatioinality extends Component {
     )
   }
 
-
   render() {
+		const {showConfirmChanges} = this.state
+		console.log('=== state: ', this.state)
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-nationality-container">
@@ -562,11 +627,16 @@ class MyNatioinality extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
+              <Link to="/edit-profile" onClick={this.checkChanges} >
                 <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
       </MuiThemeProvider>
     )

@@ -52,7 +52,19 @@ export default {
     }
   ],
   DEFAULT_PRACTICE_POSITION_TYPE: 'Practice',
-
+	VISA_TYPES: [
+		'B-1',
+		'M-1',
+		'B-2',
+		'O',
+		'B-1/B-2',
+		'P-2',
+		'C1/D',
+		'Schengen',
+		'F',
+		'H1-B',
+		'J-1'
+	],
 	// Unit is cm
 	HEIGHTS: [
 	  147,

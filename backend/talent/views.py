@@ -12,6 +12,7 @@ from talent_position_type.models import TalentPositionType
 from talent_position_sub_type.models import TalentPositionSubType
 from talent_additional_position_type.models import TalentAdditionalPositionType
 from talent_additional_position_sub_type.models import TalentAdditionalPositionSubType
+from talent_visa.models import TalentVisa
 
 class TalentDetail(APIView):
     """
@@ -50,7 +51,7 @@ class TalentDetail(APIView):
                     talent_item.talent_position_sub_type = position_sub_type
                     talent_item.save()
 
-            #Check and save additional position type
+            # Check and save additional position type
             if "talent_additional_position_types" in request.data:
                 # Delete all secondary position types of talent
                 TalentAdditionalPositionType.objects.filter(
@@ -69,7 +70,7 @@ class TalentDetail(APIView):
                         )
                     new_additional_position_type_item.save()
 
-            #Check and save additional position type
+            # Check and save additional position type
             if "talent_additional_position_sub_types" in request.data:
                 # Delete all secondary position sub types of talent
                 TalentAdditionalPositionSubType.objects.filter(
@@ -87,6 +88,24 @@ class TalentDetail(APIView):
                             talent = talent_item
                         )
                     new_additional_position_sub_type_item.save()
+
+            # Check and save visa types
+            if "talent_visas" in request.data:
+                # Delete all visas of talent
+                TalentVisa.objects.filter(
+                    talent = talent_item
+                ).delete()
+
+                # Save visas
+                talent_visas = request.data['talent_visas']
+                for visa in talent_visas:
+                    print('=== visa: ', visa)
+                    new_visa = TalentVisa.objects.create(
+                            talent = talent_item,
+                            name = visa['name'],
+                            expiration_date = visa['expiration_date']
+                        )
+                    new_visa.save()
 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
