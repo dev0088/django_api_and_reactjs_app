@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 from datetime import datetime, timedelta, date
 from authentication.models import User
 from talent_position_sub_type.models import TalentPositionSubType

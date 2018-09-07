@@ -56,6 +56,7 @@ LOCAL_APPS = (
     'talent_picture',
     'talent_resume',
     'talent_video',
+	'talent_visa',
     'talent_language',
 	'talent_medical',
     'question',

@@ -580,7 +580,6 @@ class ViewProfile extends Component {
       country_of_current_residence,
       have_green_card,
       green_card_expiration_date,
-      visa_type,
       expiration_date,
       height,
       weight,
@@ -588,6 +587,7 @@ class ViewProfile extends Component {
       age_range,
       head_line,
       bio,
+			talent_visas,
       talent_languages,
       talent_pictures,
       talent_videos,
@@ -677,14 +677,30 @@ class ViewProfile extends Component {
                     <Typography className="profile-general-info-value">{citizenship}</Typography>
                   </Col>
                 </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{visa_type ? `${visa_type} Visa:` : 'Visa'}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-value profile-general-info-value-col">{visa_type ? 'YES' : 'NO'}</Typography>
-                  </Col>
-                </Row>
+								{ talent_visas.length > 0 ? (
+										talent_visas.map((visa, index) => {
+											return (
+												<Row>
+													<Col md="6" className="pt-2 pt-md-2">
+														<Typography className="profile-general-info-name">{`${visa.name} Visa:`}</Typography>
+													</Col>
+													<Col md="6" className="pt-2 pt-md-2">
+														<Typography className="profile-general-info-value profile-general-info-value-col">{'YES'}</Typography>
+													</Col>
+												</Row>
+											)
+										})
+									) : (
+										<Row>
+		                  <Col md="6" className="pt-2 pt-md-2">
+		                    <Typography className="profile-general-info-name">{'Visa'}</Typography>
+		                  </Col>
+		                  <Col md="6" className="pt-2 pt-md-2">
+		                    <Typography className="profile-general-info-value profile-general-info-value-col">{'NO'}</Typography>
+		                  </Col>
+		                </Row>
+									)
+								}
                 <Row>
                   <Col md="6" className="pt-2 pt-md-2">
                     <Typography className="profile-general-info-name">{"Green Card:"}</Typography>

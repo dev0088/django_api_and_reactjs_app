@@ -33,6 +33,7 @@ urlpatterns = [
   url(r'^api/v1/talent_position_sub_type', include('talent_position_sub_type.urls')),
   url(r'^api/v1/talent_additional_position_type', include('talent_additional_position_type.urls')),
   url(r'^api/v1/talent_additional_position_sub_type', include('talent_additional_position_sub_type.urls')),
+  url(r'^api/v1/talent_visa', include('talent_visa.urls')),
   url(r'^api/v1/talent_language', include('talent_language.urls')),
   url(r'^api/v1/talent_picture', include('talent_picture.urls')),
   url(r'^api/v1/talent_resume', include('talent_resume.urls')),
