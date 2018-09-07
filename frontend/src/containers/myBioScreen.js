@@ -11,7 +11,10 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
 import Panel from '../components/panel';
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
+
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
 import 'react-dropdown/style.css';
@@ -48,6 +51,8 @@ class MyBio extends Component {
     this.state = {
       headline: "",
       bio: "",
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
@@ -60,7 +65,7 @@ class MyBio extends Component {
       headline: "",
       bio: "",
     }
-    console.log('==== talentInfo: ', talentInfo)
+
     if (talentInfo && talentInfo.user) {
       bioInfo = {
         headline: talentInfo.head_line,
@@ -81,7 +86,8 @@ class MyBio extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getInfoFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
@@ -91,12 +97,14 @@ class MyBio extends Component {
     }
     this.setState({
       [event.target.name]: event.target.value,
+			isChanged: true
     });
   }
 
   handleCancel = () => {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -118,7 +126,26 @@ class MyBio extends Component {
   handleSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+		this.setState({
+			isChanged: false
+		})
   }
+
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
 
   renderBioView() {
     const { classes } = this.props
@@ -154,9 +181,9 @@ class MyBio extends Component {
           <h6 align="right" className="profile-bio-title">Characters: {this.state.headline.length} of max 100</h6>
           <br/>
           <h6 className="profile-bio-title">Type brief bio/work summary here…</h6>
-          
+
           <div>
-            <textarea id="bio" name="bio" className="bioTextEdit" rows="8" 
+            <textarea id="bio" name="bio" className="bioTextEdit" rows="8"
               value={bio}
               onChange={this.handleChange} />
           </div>
@@ -182,12 +209,12 @@ class MyBio extends Component {
   }
 
   render() {
-    const { headline, bio } = this.state;
+    const { headline, bio, showConfirmChanges } = this.state;
     const { classes } = this.props;
 
     return (
       <MuiThemeProvider theme={theme}>
-          <div className="contact-info-view-container">
+        <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
           {this.renderBioView()}
@@ -195,11 +222,16 @@ class MyBio extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
               <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-                  <Link to="/edit-profile">
-                    <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-                  </Link>
+                <Link to="/edit-profile" onClick={this.checkChanges}>
+                  <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+                </Link>
               </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
     </MuiThemeProvider>
   )

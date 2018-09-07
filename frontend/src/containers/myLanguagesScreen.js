@@ -14,6 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Panel from '../components/panel'
+import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
 import './myLanguages.css'
@@ -69,12 +70,14 @@ class MyLanguage extends Component {
     super(props);
     this.state = {
       languages: [],
-      checkedLanguages: []
+      checkedLanguages: [],
+			isChanged: false,
+			showConfirmChanges: false
     }
   }
 
   getInfoFromProps(props) {
-    const { 
+    const {
       auth,
       talentInfo
     } = props
@@ -89,9 +92,9 @@ class MyLanguage extends Component {
       for (let i = 0; i < LANGUAGES.length; i ++) {
         let language = this.getLanguageByName(LANGUAGES[i], languages)
         checkedLanguages.push({
-          language: LANGUAGES[i], 
-          checked: language ? true : false, 
-          fluency: language ? language.fluency : 'Basic' 
+          language: LANGUAGES[i],
+          checked: language ? true : false,
+          fluency: language ? language.fluency : 'Basic'
         })
       }
 
@@ -105,13 +108,15 @@ class MyLanguage extends Component {
 
   componentWillMount() {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getInfoFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps),
+			isChanged: false
     })
   }
 
@@ -121,7 +126,8 @@ class MyLanguage extends Component {
     checkedLanguages[key].fluency = event.target.value
 
     this.setState({
-      checkedLanguages
+      checkedLanguages,
+			isChanged: true
     })
   }
 
@@ -132,14 +138,16 @@ class MyLanguage extends Component {
     checkedLanguages[key].checked = event.target.checked
 
     this.setState({
-      checkedLanguages
+      checkedLanguages,
+			isChanged: true
     })
   }
 
 
   handleCancel = () => {
     this.setState({
-      ...this.getInfoFromProps(this.props)
+      ...this.getInfoFromProps(this.props),
+			isChanged: false
     })
   }
 
@@ -172,6 +180,9 @@ class MyLanguage extends Component {
     const { auth } = this.props
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(auth.access.user_id)
+		this.setState({
+			isChanged: false
+		})
   }
 
   isCheckedLanguage = name => {
@@ -213,6 +224,22 @@ class MyLanguage extends Component {
     })
     return res
   }
+
+	checkChanges = (event) => {
+		const { isChanged } = this.state
+		if (isChanged) {
+			event.preventDefault()
+			this.setState({
+				showConfirmChanges: true
+			})
+		}
+	}
+
+	handleCloseConfirm = () => {
+		this.setState({
+			showConfirmChanges: false
+		})
+	}
 
   renderFluencyView(name) {
     let checkedLanguage = this.getCheckedLanguageByName(name)
@@ -259,7 +286,7 @@ class MyLanguage extends Component {
     return (
       <Panel title={"My Languages"}>
         <Typography>
-          Speeking more than one language is a big deal at sea. 
+          Speeking more than one language is a big deal at sea.
           Tell use the languages you speak and your fluency in each.
           Be honest and realistic. The cruise line will test you.
         </Typography>
@@ -283,7 +310,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('English') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
 
 
@@ -305,7 +332,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Italian') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
         </Row>
 
@@ -328,7 +355,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Spanish') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
 
 
@@ -350,7 +377,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Japanese') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
         </Row>
 
@@ -373,7 +400,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Portuguese') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
 
           <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
@@ -394,7 +421,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Mandarin') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
         </Row>
 
@@ -417,7 +444,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('German') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
 
           <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
@@ -438,7 +465,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Cantonese') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
         </Row>
 
@@ -461,7 +488,7 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('French') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
 
           <Col xs="12" md="6" lg="6" xl="6" className="pt-0 pt-md-0" >
@@ -482,20 +509,20 @@ class MyLanguage extends Component {
               <Col xs="12" className="pt-0 pt-md-0">
                 { this.renderFluencyView('Russian') }
               </Col>
-            </Row>            
+            </Row>
           </Col>
         </Row>
 
         <Row className="profile-gender-row">
           <Col xs="12" md="7" className="pt-4 pt-md-4"> </Col>
           <Col xs="12" md="5" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Button size="large" 
-              className={classes.button} 
+            <Button size="large"
+              className={classes.button}
               onClick={this.handleCancel} >
               {'Cancel'}
             </Button>
-            <Button size="large" color="primary" 
-              className={classes.button} 
+            <Button size="large" color="primary"
+              className={classes.button}
               onClick={this.handleSave}>
               {'Save'}
             </Button>
@@ -507,7 +534,7 @@ class MyLanguage extends Component {
 
 
   render() {
-
+		const {showConfirmChanges} = this.state
     return (
       <MuiThemeProvider theme={theme}>
         <div className="profile-language-container">
@@ -518,11 +545,16 @@ class MyLanguage extends Component {
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
             <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
+              <Link to="/edit-profile" onClick={this.checkChanges}>
                 <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
               </Link>
             </Col>
           </Row>
+
+					<ConfirmChangesDialog
+						open={showConfirmChanges}
+						onClose={this.handleCloseConfirm}
+					/>
         </div>
       </MuiThemeProvider>
     )

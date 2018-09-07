@@ -282,10 +282,12 @@ class ViewProfile extends Component {
 					error={() => <div>Error</div>} />
 			</div>
     ) : (
-      <div>
-        <img
-         className="profile-picture-image"
-         src={require('../images/missing.png')} />
+      <div className="profile-picture-container-div">
+				<ImageLoader
+					src={require('../images/missing.png')}
+					className="profile-picture-size"
+					loading={() => <div className="profile-picture-size">Loading...</div>}
+					error={() => <div>Error</div>} />
        </div>
     )
   }
@@ -304,6 +306,13 @@ class ViewProfile extends Component {
 					<Col md="12" className="profile-picture-view-container-col">
 						{ this.renderPictureView("My Other Pic 1") }
 						{ this.renderPictureView("My Other Pic 2") }
+						{ this.renderPictureView("My Other Pic 3") }
+					</Col>
+				</Row>
+				<Row>
+					<Col md="12" className="profile-picture-view-container-col">
+						{ this.renderPictureView("My Other Pic 4") }
+						{ this.renderPictureView("My Other Pic 5") }
 					</Col>
 				</Row>
 			</div>
