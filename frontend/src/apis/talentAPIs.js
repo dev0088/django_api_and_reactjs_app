@@ -9,8 +9,7 @@ class TalentAPI {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(response => response.json())
-    .then(response => {
+    }).then(response => {
       if(response.error) {
         console.log('error: ', response.error)
         handleResponse(response.error, true)

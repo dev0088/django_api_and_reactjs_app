@@ -16,11 +16,13 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
-import Panel from '../components/panel'
+import Panel from '../components/panel';
+import MultipleSelect from '../components/multipleSelect';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
 import './editProfile.css'
 import apiConfig from '../constants/api';
+import defaultValues from '../constants/defaultValues';
 import 'react-dropdown/style.css'
 
 const const_genders = ["Male", "Female"];
@@ -82,15 +84,79 @@ class EditProfile extends Component {
         phone: "",
         relationship: 0
       },
-      currentAllPositionTypes: [],
+      allPositionTypes: [],
       currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
         ? { value: props.talentInfo.talent_position_sub_type.name,
             label: props.talentInfo.talent_position_sub_type.name }
         : '',
+			currentAdditionalPositionTypes: null,
       currentAdditionalPositionSubTypes: null,
+
+			currentAdditionalGroups: [],
+
 			worked_cruise_ship: false
     }
   }
+
+	exitType = (typeName, name, items) => {
+		console.log('==== items: ', items)
+		console.log('==== typeName: ', typeName)
+		for(let i = 0; i < items.length; i ++) {
+			if (items[i][typeName].name === name) {
+				return true
+			}
+		}
+		return false
+	}
+
+	// exitPositionSubType = (name, items) => {
+	// 	for(let i = 0; i < items.length; i ++) {
+	// 		if (items[i].talent_position_sub_type.name === name) {
+	// 			return true
+	// 		}
+	// 	}
+	// 	return false
+	// }
+
+	generateGroupsFromTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
+		let groups = []
+		allPositionTypes.map((positionType, index) => {
+			let options = []
+			if (positionType.name != defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+				positionType.talent_position_sub_types.map((positionSubType, index) => {
+					options.push({
+						label: positionSubType,
+						value: positionSubType,
+						group: positionType.name,
+						isGroup: false,
+						isChecked: this.exitType(
+												'talent_position_sub_type',
+												positionSubType,
+												currentPositionSubTypes)
+					})
+				})
+				groups.push({
+					label: positionType.name,
+					value: positionType.name,
+					isGroup: true,
+					isChecked: this.exitType('talent_position_type',
+											positionType.name,
+											currentPositionTypes),
+					options: options
+				})
+			}
+		})
+		return groups
+	}
+
+	isChckedPositionType = (name, positionTypes) => {
+		for(let i = 0; i < positionTypes.length; i ++ ) {
+			if (positionTypes[i].name === name) {
+				return true
+			}
+		}
+		return false
+	}
 
   getPositionTypesFromProps(props) {
     const {
@@ -98,18 +164,19 @@ class EditProfile extends Component {
       allPositionTypes,
       talentInfo
     } = props
-    let currentAllPositionTypes = []
+    let positionTypes = []
     let currentSubPositionType = []
+		let currentAdditionalPositionTypes = []
     let currentAdditionalPositionSubTypes = []
+		let currentAdditionalGroups = []
     let userID = auth.access.user_id
     let gender = 'Male'
     let contactInfo = {}
     let emergencyInfo = {}
 		let worked_cruise_ship = false
-
-    if (allPositionTypes && allPositionTypes.value) {
-      currentAllPositionTypes = allPositionTypes.value
-    }
+    // if (allPositionTypes) {
+    //   positionTypes = allPositionTypes
+    // }
     if (talentInfo) {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
@@ -122,21 +189,14 @@ class EditProfile extends Component {
         }
       }
 
-      let additionalSubPositionTypes = []
-      if (talentInfo.talent_additional_position_sub_types) {
-        Object.keys(talentInfo.talent_additional_position_sub_types).map((key) => {
-          let positionSubType = talentInfo.talent_additional_position_sub_types[key].talent_position_sub_type
-          additionalSubPositionTypes.push({
-            label: positionSubType.name,
-            value: positionSubType.name,
-            group: positionSubType.talent_position_type
-          })
-        })
-      }
-
       currentSubPositionType = subPostionType
-      currentAdditionalPositionSubTypes = additionalSubPositionTypes
 
+			currentAdditionalGroups = this.generateGroupsFromTypes(
+					allPositionTypes ? allPositionTypes : [],
+					talentInfo.talent_additional_position_types,
+					talentInfo.talent_additional_position_sub_types
+				)
+			console.log('=== currentAdditionalGroups: ', currentAdditionalGroups)
       // Get contact info
       contactInfo = {
         firstName: talentInfo.user.first_name,
@@ -162,9 +222,9 @@ class EditProfile extends Component {
     return {
       userID,
       gender,
-      currentAllPositionTypes,
+      allPositionTypes,
       currentSubPositionType,
-      currentAdditionalPositionSubTypes,
+			currentAdditionalGroups,
       contactInfo,
       emergencyInfo,
 			worked_cruise_ship
@@ -241,174 +301,76 @@ class EditProfile extends Component {
     this.setState({ emergencyInfo: emergencyInfo });
   }
 
-  handleUploadResume = (files) => {
-    // Upload pdf files
-    let file = files[0]
-    const {user_id} = this.props.auth.access
-    const signAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/policy/`
-    const completeAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/complete/`
-    this.uploadToS3(signAPI, completeAPI, file)
-  }
-
-  handleUploadInterviewVideos = (files) => {
-    // Upload video files
-    let file = files[0]
-    const {user_id} = this.props.auth.access
-    const signAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/policy/?objectName=${file.name}&contentType=${file.type}`
-    const completeAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/complete/`
-    this.uploadToS3(signAPI, completeAPI, file)
-  }
-
-  handleUploadMyPictures = (files) => {
-    // Upload image files
-    let file = files[0]
-    const {user_id} = this.props.auth.access
-    const signAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/policy/`
-    const completeAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/complete/`
-    this.uploadToS3(signAPI, completeAPI, file)
-  }
-
-  uploadToS3 = (signAPI, completeAPI, file) => {
-    const params = {
-      objectName: file.name,
-      contentType: file.type
-    }
-
-    fetch(signAPI, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).then(response => response.json())
-    .then(response => {
-      if(response.error) {
-        console.log('error: ', response.error)
-        this.onError(file)
-      }
-      else {
-        if (response.signedUrl){
-          console.log('success: ', response, response.signedUrl)
-          this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
-        } else {
-          console.log('error: ', response)
-          this.onError(file)
-        }
-      }
-    })
-    .catch(error => {
-      console.log('error: ', error)
-      this.onError(file)
-    })
-  }
-
-  onProgress = () => {
-    console.log('=== progress')
-  }
-
-  onError = (file) => {
-    console.log('==== Error: ', file)
-  }
-
-  onFinish = (completeAPI, fileID, file) => {
-    console.log('=== Finish: ', fileID, file)
-    // const {user_id} = this.props.auth.access
-    let params = {
-      fileID: fileID,
-      fileSize: file.size,
-      fileType: file.type,
-    }
-    fetch(completeAPI, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).then(response => response.json())
-    .then(response => {
-      if(response.error) {
-        console.log('error: ', response.error)
-      }
-      else {
-
-      }
-    })
-    .catch(error => {
-      console.log('error: ', error)
-    })
-  }
-
-  uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
-    // const filename = file.name;
-    // Get signedUrl
-    // var that = this;
-    fetch(s3PutUrl, {
-      method: 'put',
-      // contentType: file.type,
-      headers: {
-        'x-amz-acl': 'public-read',
-        'Content-Type': file.type,
-      },
-      body: file
-    })
-    .then(response => {
-      if(response.error) {
-        console.log('=== uploadFile: error: ', response.error)
-        this.onError(fileID, file)
-      }
-      else {
-        console.log('== uploadFile: success: ', response)
-        this.onFinish(completeAPI, fileID, file)
-      }
-    })
-    .catch(error => {
-      console.log('== uploadFile: error: ', error)
-      this.onError(fileID, file)
-    })
-  }
-
   handleSubPositionSelect = (item) => {
     this.setState({
       currentSubPositionType: item
     })
   }
 
-  handlecurrentAdditionalPositionSubTypesSelect = (selectedOption) => {
-   this.setState({ currentAdditionalPositionSubTypes: selectedOption });
+	isPositionType = (name) => {
+		const { allPositionTypes } = this.props
+		let res = false
+		allPositionTypes.map((positionType, index) => {
+			if (positionType.name === name) {
+				res = true
+			}
+		})
+		return res
+	}
+
+  handleCurrentAdditionalPositionSubTypesSelect = (groups) => {
+    this.setState({
+			currentAdditionalGroups: groups
+	  });
   }
 
+	// handleMultipleSelect = (selectedItems) =>
   handlePositionTypeCancel = () => {
-    const {
-      gender,
-      currentAllPositionTypes,
-      currentSubPositionType,
-      currentAdditionalPositionSubTypes
-    } = this.getPositionTypesFromProps(this.props)
-
     this.setState({
-      gender: gender,
-      currentAllPositionTypes: currentAllPositionTypes,
-      currentSubPositionType: currentSubPositionType,
-      currentAdditionalPositionSubTypes: currentAdditionalPositionSubTypes
+      ...this.getPositionTypesFromProps(this.props)
     })
   }
+
+	groups2PositionSubTypes(groups) {
+		let talent_additional_position_types = []
+		let talent_additional_position_sub_types = []
+
+    groups.map((group, index) => {
+			if (group.isChecked) {
+				talent_additional_position_types.push({
+					name: group.value
+				})
+			}
+
+			group.options.map((option, index) => {
+				if (option.isChecked) {
+					talent_additional_position_sub_types.push({
+		        name: option.value,
+		        talent_position_type: group.value
+		      })
+				}
+			})
+
+    })
+
+		return {
+			talent_additional_position_types,
+			talent_additional_position_sub_types
+		}
+	}
 
   handlePositionTypeSave = () => {
     const {
       userID,
       gender,
       currentSubPositionType,
-      currentAdditionalPositionSubTypes
+      currentAdditionalGroups
     } = this.state
 
-    let talent_additional_position_sub_types = []
-    Object.keys(currentAdditionalPositionSubTypes).map((key) => {
-      const positionSubType = currentAdditionalPositionSubTypes[key]
-      talent_additional_position_sub_types.push({
-        name: positionSubType.value,
-        talent_position_type: positionSubType.group
-      })
-    })
+    const {
+			talent_additional_position_types,
+			talent_additional_position_sub_types
+		} = this.groups2PositionSubTypes(currentAdditionalGroups)
 
     let data = {
       sex: gender === "Male" ? "m" : "f",
@@ -416,8 +378,10 @@ class EditProfile extends Component {
         name: currentSubPositionType.value,
         talent_position_type: currentSubPositionType.positionType
       },
+			talent_additional_position_types: talent_additional_position_types,
       talent_additional_position_sub_types: talent_additional_position_sub_types
     }
+
     TalentAPI.saveTalentInfo(userID, data, this.handlePositionTypeSaveResponse)
   }
 
@@ -523,41 +487,53 @@ class EditProfile extends Component {
     )
   }
 
-  renderMultiSelectionPositionTypesView() {
-    const { allPositionTypes } = this.props
-    let groups = []
+  // renderMultiSelectionPositionTypesView() {
+  //   const { allPositionTypes } = this.props
+  //   let groups = []
+	//
+  //   if (allPositionTypes) {
+  //     Object.keys(allPositionTypes).map((key) => {
+  //       const positionType = allPositionTypes[key]
+  //       if (positionType.name === 'Practice') {
+  //         return;
+  //       }
+  //       let group = {
+  //         label: positionType.name,
+  //         options: []
+  //       }
+  //       Object.keys(positionType.talent_position_sub_types).map((key) => {
+  //         const positionSubType = positionType.talent_position_sub_types[key]
+  //         group.options.push({
+  //           label: positionSubType,
+  //           value: positionSubType,
+  //           group: positionType.name
+  //         })
+  //       })
+  //       groups.push(group)
+  //     })
+  //   }
+	//
+  //   return (
+  //     <Select
+  //       closeMenuOnSelect={false}
+  //       components={makeAnimated()}
+  //       options={groups}
+  //       isMulti
+  //       label="Single select"
+  //       value={this.state.currentAdditionalPositionSubTypes}
+  //       onChange={this.handleCurrentAdditionalPositionSubTypesSelect}
+  //     />
+  //   )
+  // }
 
-    if (allPositionTypes) {
-      Object.keys(allPositionTypes).map((key) => {
-        const positionType = allPositionTypes[key]
-        if (positionType.name === 'Practice') {
-          return;
-        }
-        let group = {
-          label: positionType.name,
-          options: []
-        }
-        Object.keys(positionType.talent_position_sub_types).map((key) => {
-          const positionSubType = positionType.talent_position_sub_types[key]
-          group.options.push({
-            label: positionSubType,
-            value: positionSubType,
-            group: positionType.name
-          })
-        })
-        groups.push(group)
-      })
-    }
+	renderMultipleSelectView() {
+    const { currentAdditionalGroups } = this.state
 
     return (
-      <Select
-        closeMenuOnSelect={false}
-        components={makeAnimated()}
-        options={groups}
-        isMulti
-        label="Single select"
-        value={this.state.currentAdditionalPositionSubTypes}
-        onChange={this.handlecurrentAdditionalPositionSubTypesSelect}
+      <MultipleSelect
+				label={"Select your positions"}
+        groups={currentAdditionalGroups}
+				onChange={this.handleCurrentAdditionalPositionSubTypesSelect}
       />
     )
   }
@@ -588,11 +564,16 @@ class EditProfile extends Component {
         </Row>
         <Row className="profile-gender-row">
           <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who is a...</h5> </Col>
-          <Col xs="12" md="10" className="pt-3 pt-md-3"> {this.renderPositionTypesView()}</Col>
+          <Col xs="12" md="10" className="pt-3 pt-md-3">
+						{ this.renderPositionTypesView() }
+					</Col>
         </Row>
         <Row className="profile-gender-row">
           <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
-          <Col xs="12" md="10" className="pt-3 pt-md-3"> { this.renderMultiSelectionPositionTypesView() } </Col>
+          <Col xs="12" md="10" className="pt-3 pt-md-3">
+						{/* { this.renderMultiSelectionPositionTypesView() } */}
+						{ this.renderMultipleSelectView() }
+					</Col>
         </Row>
         <Row className="profile-gender-row">
           <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>

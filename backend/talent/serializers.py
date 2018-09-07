@@ -6,6 +6,7 @@ from talent_resume.serializers import TalentResumeSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_additional_position_sub_type.serializers import GeneralTalentAdditionalPositionSubTypeSerializer
+from talent_additional_position_type.serializers import GeneralTalentAdditionalPositionTypeSerializer
 from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
 
@@ -17,6 +18,7 @@ class TalentSerializer(serializers.ModelSerializer):
   talent_position_sub_type = TalentPositionSubTypeSerializer(many=False, read_only=True)
   user = GeneralUserSerializer(many=False, read_only=True)
   talent_additional_position_sub_types = GeneralTalentAdditionalPositionSubTypeSerializer(many=True, read_only=True)
+  talent_additional_position_types = GeneralTalentAdditionalPositionTypeSerializer(many=True, read_only=True)
   talent_languages = TalentLanguageSerializer(many=True, read_only=True)
   talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
 
@@ -28,6 +30,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'sex',
       'talent_position_sub_type',
       'talent_additional_position_sub_types',
+	  'talent_additional_position_types',
 
       'phone_number',
       'mailing_addresse1',

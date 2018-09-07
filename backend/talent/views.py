@@ -8,7 +8,9 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from talent_position_type.models import TalentPositionType
 from talent_position_sub_type.models import TalentPositionSubType
+from talent_additional_position_type.models import TalentAdditionalPositionType
 from talent_additional_position_sub_type.models import TalentAdditionalPositionSubType
 
 class TalentDetail(APIView):
@@ -36,10 +38,11 @@ class TalentDetail(APIView):
         if "user" in talent_data:
             user_data = talent_data['user']
             talent_data.pop('user', None)
-            
+
         serializer = TalentSerializer(talent_item, data=talent_data)
         if serializer.is_valid():
             serializer.save()
+            # Check and save position sub type
             if "talent_position_sub_type" in request.data:
                 # Save primary position sub type
                 position_sub_type = TalentPositionSubType.objects.get(name=request.data['talent_position_sub_type']['name'])
@@ -47,6 +50,27 @@ class TalentDetail(APIView):
                     talent_item.talent_position_sub_type = position_sub_type
                     talent_item.save()
 
+            #Check and save additional position type
+            if "talent_additional_position_types" in request.data:
+                # Delete all secondary position types of talent
+                TalentAdditionalPositionType.objects.filter(
+                    talent = talent_item
+                ).delete()
+
+                # Save secondary position type
+                talent_additional_position_types = request.data['talent_additional_position_types']
+                for additional_position_type in talent_additional_position_types:
+                    position_type_item = TalentPositionType.objects.get(
+                            name=additional_position_type['name']
+                        )
+                    new_additional_position_type_item = TalentAdditionalPositionType.objects.create(
+                            talent_position_type = position_type_item,
+                            talent = talent_item
+                        )
+                    new_additional_position_type_item.save()
+
+            #Check and save additional position type
+            if "talent_additional_position_sub_types" in request.data:
                 # Delete all secondary position sub types of talent
                 TalentAdditionalPositionSubType.objects.filter(
                     talent = talent_item

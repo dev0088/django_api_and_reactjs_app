@@ -6,10 +6,50 @@
   background-color: transparent!important;
   position: absolute;
 }
-.slogan-description-background h1, 
+.slogan-description-background h1,
 .slogan-description-background p {
   color: #20426f!important;
 }
+.home-buttons-container {
+  width: 100%;
+  border-radius: 0rem;
+  margin-bottom: 0rem;
+  margin-top: 3.5rem;
+	background-color: transparent!important;
+  position: absolute;
+}
+
+.home-button {
+  display: block!important;
+	width: 100%;
+	border-radius: 13px!important;
+}
+
+.home-button-title {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-top: 0.8rem;
+	line-height: 1.3;
+	text-transform: none;
+}
+
+.home-button-title-only {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-top: 0.8rem;
+	padding-bottom: 0.8rem;
+	line-height: 1.3;
+	text-transform: none;
+}
+
+.home-button-status {
+  color: #d6d7d8;
+	text-transform: none;
+	padding-top: 1rem;
+	padding-bottom: 0.2rem;
+	font-weight: 500;
+}
+
 .home-background-image {
   width: 100%;
 }

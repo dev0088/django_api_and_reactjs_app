@@ -155,6 +155,7 @@ div[name="emergency_relationship"] {
   font-weight: 600;
   padding-top: 5px;
   padding-bottom: 5px;
+	text-transform: none;
 }
 
 .profile-other-info-button-status {
