@@ -279,8 +279,6 @@ class MyNatioinality extends Component {
       have_green_card: have_green_card,
       green_card_expiration_date: green_card_expiration_date,
 			talent_visas: visas
-      // visa_type: selected_visa_type,
-      // expiration_date: expiration_date[selected_visa_type],
     }
     TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
   }
@@ -387,51 +385,51 @@ class MyNatioinality extends Component {
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+            {this.renderVisaTypeItem('B-2')}
+          </Col>
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
             {this.renderVisaTypeItem('O')}
           </Col>
-          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
             {this.renderVisaTypeItem('B-1/B-2')}
           </Col>
-          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
-          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
             {this.renderVisaTypeItem('P-2')}
           </Col>
-          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
             {this.renderVisaTypeItem('C1/D')}
           </Col>
-          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
-          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
             {this.renderVisaTypeItem('Schengen')}
           </Col>
-          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
+          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
+        </Row>
+
+        <Row className="profile-gender-row">
+          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
+          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
             {this.renderVisaTypeItem('F')}
           </Col>
-          <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
-          <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
+          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
             {this.renderVisaTypeItem('H1-B')}
           </Col>
-          <Col xs="12" md="6" lg="5" xl="4" className="pt-1 pt-md-1" >
-            {this.renderVisaTypeItem('J-1')}
-          </Col>
           <Col xs="0" md="0" lg="1" xl="2" className="pt-1 pt-md-1" />
         </Row>
 
         <Row className="profile-gender-row">
           <Col xs="0" md="1" lg="1" xl="2" className="pt-1 pt-md-1" />
           <Col xs="12" md="5" lg="5" xl="4" className="pt-0 pt-md-0" >
-            {this.renderVisaTypeItem(8)}
+            {this.renderVisaTypeItem('J-1')}
           </Col>
         </Row>
 
