@@ -2,12 +2,37 @@ import React, {Component} from 'react';
 import { Row, Col, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player'
 import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router-dom';
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
 import './homeScreen.css'
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+  slide: {
+    padding: 10,
+  },
+});
+
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+    secondary: {
+      main: '#C00'
+    }
+  }
+})
 
 class HomeScreen extends Component {
 
@@ -49,14 +74,74 @@ class HomeScreen extends Component {
 
   render() {
     // const { shiptalentInfo } = this.state
+		const { classes } = this.props
+
     return(
-      <div>
+      <MuiThemeProvider theme={theme}>
         <Row>
           <Jumbotron className="text-center slogan-description-background">
             <h1>{this.getValueByName('slogan')}</h1>
             <p></p>
             <p className="lead">{this.getValueByName('slogan_description')}</p>
           </Jumbotron>
+					<Jumbotron className="text-center home-buttons-container">
+						<Row>
+							<Col xs="12" md="3" className="pt-4 pt-md-4" />
+							<Col xs="12" md="3" className="pt-4 pt-md-4">
+								<Link to="/my-profile">
+									<Button variant="contained"  color="primary" className={"home-button"} >
+										<div className="home-button-title">
+											{"My Profile"}
+										</div>
+										<div className="home-button-status">
+											{'Build, edit and view what employers see'}
+										</div>
+									</Button>
+								</Link>
+							</Col>
+							<Col xs="12" md="3" className="pt-4 pt-md-4">
+								<Link to="/home">
+									<Button variant="contained"  color="primary" className={"home-button"} >
+										<div className="home-button-title">
+											{"My Availability"}
+										</div>
+										<div className="home-button-status">
+											{'Set and update your schedule'}
+										</div>
+									</Button>
+								</Link>
+							</Col>
+							<Col xs="12" md="3" className="pt-4 pt-md-4" />
+						</Row>
+						<Row>
+							<Col xs="12" md="3" className="pt-4 pt-md-4" />
+							<Col xs="12" md="3" className="pt-4 pt-md-4">
+								<Link to="/home">
+									<Button variant="contained"  color="primary" className={"home-button"} >
+										<div className="home-button-title">
+											{"My Auditions"}
+										</div>
+										<div className="home-button-status">
+											{'Who has seen me?'}
+										</div>
+									</Button>
+								</Link>
+							</Col>
+							<Col xs="12" md="3" className="pt-4 pt-md-4">
+								<Link to="/home">
+									<Button variant="contained"  color="primary" className={"home-button"} >
+										<div className="home-button-title">
+											{"My Account"}
+										</div>
+										<div className="home-button-status">
+											{'Change password; Finance summary'}
+										</div>
+									</Button>
+								</Link>
+							</Col>
+							<Col xs="12" md="3" className="pt-4 pt-md-4" />
+						</Row>
+					</Jumbotron>
           <img src={require('../images/backgrounds/background_side.png')} alt="home background" className="home-background-image"/>
         </Row>
         <Row className="pt-5">
@@ -165,7 +250,7 @@ class HomeScreen extends Component {
             </div>
           </Col>
         </Row>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
@@ -183,4 +268,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HomeScreen));

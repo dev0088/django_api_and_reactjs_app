@@ -25,6 +25,7 @@ import VideoPractice from "../containers/video-interview/practice";
 import LiveInterview from "../containers/video-interview/live";
 
 import MyProfile from "../containers/myProfile";
+import ViewProfile from "../containers/viewProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
 import MyNatioinality from "../containers/myNationalityScreen";
 import MyVideos from "../containers/myVideosScreen";
@@ -152,11 +153,20 @@ const Index = () => (
       )}
     />
 
+		<Route
+      path="/my-profile"
+      render={props => (
+        <TemplateTopbar>
+          <MyProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
     <Route
       path="/profile"
       render={props => (
         <TemplateTopbar>
-          <MyProfile {...props} />
+          <ViewProfile {...props} />
         </TemplateTopbar>
       )}
     />

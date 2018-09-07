@@ -1,0 +1,61 @@
+.profile-container {
+  margin-top: 100px;
+}
+.profile-image img {
+  width: 100%;
+}
+.profile-buttons > div, .profile-buttons a > div {
+  margin-bottom: 15px;
+}
+.profile-container .details-content {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.profile-container .details-content img {
+    height: auto;
+}
+.profile-name {
+  text-align: center;
+}
+.profile-general-info-name {
+  font-size: 1rem!important;
+  font-weight: 600!important;
+  text-align: left;
+}
+.profile-general-info-value {
+  font-size: 1rem!important;
+  font-weight: 400!important;
+  text-align: left;
+}
+.profile-general-info-value-col {
+	margin-top: auto!important;
+  margin-bottom: auto!important;
+}
+.profile-picture-name {
+  font-size: 1.25rem!important;
+  font-weight: 600!important;
+  text-align: center;
+}
+.profile-view-divider {
+	height: 2rem;
+}
+.profile-resume-image-viewer {
+	width: 100%;
+}
+.profile-picture-view-container-col {
+	padding: 0px!important;
+}
+.profile-picture-container-div {
+	display: inline-block;
+	border: solid 3px;
+}
+.profile-picture-size {
+	width: 70px;
+	height: 100px!important;
+}
+.profile-bio-textfield {
+	padding-left: 5px!important;
+	padding-right: 5px!important;
+	padding-top: 5px!important;
+	border: solid!important;
+}

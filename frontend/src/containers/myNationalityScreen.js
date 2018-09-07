@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import RaisedButton from 'material-ui/RaisedButton';
-import DatePicker from 'material-ui/DatePicker';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -287,7 +286,7 @@ class MyNatioinality extends Component {
             label="Expiration Date"
             disabled = {index === indexOfEnableExpireDate ? false : true}
             type="date"
-            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : moment().format('YYYY-MM-DD')}
+            value={expiration_date[VISA_TYPES[index]] ? expiration_date[VISA_TYPES[index]] : 'YYYY/MM/DD'}
             className={classes.textField}
             onChange={this.handleExpirationDateChange}
           />
@@ -436,7 +435,7 @@ class MyNatioinality extends Component {
               name="passport_expiration_date"
               label="Passport Expiration Date"
               type="date"
-              value={passport_expiration_date ? passport_expiration_date : moment().format('YYYY-MM-DD')}
+              value={passport_expiration_date ? passport_expiration_date : 'YYYY/MM/DD'}
               className="profile-passport-expiration-date"
               onChange={this.handlePassportExpirationDateChange}
             />
@@ -517,8 +516,7 @@ class MyNatioinality extends Component {
               id="date"
               label="Expiration Date"
               type="date"
-              defaultValue={moment().format('YYYY-MM-DD')}
-              value={green_card_expiration_date}
+              value={green_card_expiration_date ? green_card_expiration_date : 'YYYY/MM/DD'}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
