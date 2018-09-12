@@ -1,28 +1,13 @@
 import React, {Component} from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Panel from '../components/panel';
 
 import './myProfile.css'
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-	flatPrimary: {
-		color: "#258df2",
-	},
-});
 
 const theme = createMuiTheme ({
   palette: {

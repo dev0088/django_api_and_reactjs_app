@@ -5,16 +5,11 @@ import { connect } from 'react-redux';
 
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import { Row, Col, Alert } from 'reactstrap';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -27,7 +22,6 @@ import ConfirmChangesDialog from '../components/confirmChangesDialog';
 
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
 import defaultValue from '../constants/defaultValues';
 
 import './myContactInfo.css'
@@ -122,8 +116,8 @@ class MyMetrics extends Component {
         if (name === 'height' || name === 'weight') {
           const {height, weight} = this.state
 					console.log('height, weight: ', height, weight)
-          let bmiRessult = BmiCalculator(UnitConverter(parseInt(weight)).from('lb').to('kg'),
-						parseInt(height)/100, false)
+          let bmiRessult = BmiCalculator(UnitConverter(parseInt(weight, 10)).from('lb').to('kg'),
+						parseInt(height, 10)/100, false)
           let bmi = Math.round(bmiRessult.value * 10) / 10
 
           this.setState({
@@ -220,12 +214,12 @@ class MyMetrics extends Component {
                     let heightDecimalInInch = 0
 										let prefix = ''
 										let tmp_height = height
-										if (index == (HEIGHTS.length - 1)) {
+										if (index === (HEIGHTS.length - 1)) {
 											tmp_height = HEIGHTS[HEIGHTS.length - 2]
 											prefix = '>'
 										}
 
-                    heightInFeet = UnitConverter(parseInt(tmp_height))
+                    heightInFeet = UnitConverter(parseInt(tmp_height, 10))
 											.from('cm').to('ft-us')
                     heightIntegerInFeet = Math.floor(heightInFeet)
                     heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
@@ -252,7 +246,7 @@ class MyMetrics extends Component {
                       let weightInLb = 0
 											let prefix = ''
 											let tmp_weight = weight
-											if (index == (WEIGHTS.length - 1)) {
+											if (index === (WEIGHTS.length - 1)) {
 												tmp_weight = WEIGHTS[WEIGHTS.length - 2]
 												prefix = '>'
 											}
@@ -318,7 +312,7 @@ class MyMetrics extends Component {
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           {this.renderMetricsView()}
-					
+
           <Row >
             <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
               <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">

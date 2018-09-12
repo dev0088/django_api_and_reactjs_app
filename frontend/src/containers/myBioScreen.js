@@ -3,11 +3,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-// import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -19,8 +15,6 @@ import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
 import 'react-dropdown/style.css';
 import './myBio.css';
-
-
 
 const styles = theme => ({
   button: {
@@ -209,8 +203,7 @@ class MyBio extends Component {
   }
 
   render() {
-    const { headline, bio, showConfirmChanges } = this.state;
-    const { classes } = this.props;
+    const { showConfirmChanges } = this.state;
 
     return (
       <MuiThemeProvider theme={theme}>

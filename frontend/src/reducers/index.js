@@ -6,7 +6,7 @@ import echo, * as fromEcho from './echo.js'
 import shiptalentInfo from './shiptalentInfo.js'
 import videoQuestions, { videoSettings } from './video.js'
 import talentReducer, { getTalentInfo } from './talent.js'
-import { getAllPositionTypes, getTalentPositionTypes } from './positionTypes.js'
+import { getAllPositionTypes } from './positionTypes.js'
 import deviceSettings from './deviceSettings.js'
 import contactUs from './contactus.js'
 

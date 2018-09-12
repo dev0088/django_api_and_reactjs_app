@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -10,20 +9,13 @@ import TextField from '@material-ui/core/TextField';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import UnitConverter from 'convert-units'
-import Panel from '../components/panel';
 import Spacer from '../components/spacer';
-import Truncate from 'react-truncate-html';
 import apiConfig from '../constants/api';
 import defaultValues from '../constants/defaultValues';
 
 import 'react-image-lightbox/style.css';
 import './viewProfile.css'
 
-const styles = {
-  flatPrimary: {
-    color: "#258df2",
-  },
-};
 class ViewProfile extends Component {
 
   constructor(props) {
@@ -41,57 +33,27 @@ class ViewProfile extends Component {
 
   getInfoFromProps(props) {
     const {
-      user,
       talent_position_sub_type,
-      talent_additional_position_sub_types,
-      sex,
-      phone_number,
-      birthday,
-      emergency_first_name,
-      emergency_last_name,
-      emergency_email,
-      emergency_phone,
-      emergency_relationship,
-      nationality,
-      citizenship,
-      passport_expiration_date,
-      passport_number,
-      country_of_current_residence,
-      have_green_card,
-      green_card_expiration_date,
-      visa_type,
-      expiration_date,
-      height,
-      weight,
-      bmi,
-      age_range,
-      head_line,
-      bio,
-      talent_languages,
-      talent_pictures,
-      talent_videos,
-      talent_resume,
-      worked_cruise_ship,
-      created
+      talent_additional_position_sub_types
     } = props.talentInfo
 
     let skills = []
     let title = talent_position_sub_type.talent_position_type
     skills.push(title)
 
-    Object.keys(talent_additional_position_sub_types).map((key) => {
-      let skill = talent_additional_position_sub_types[key]
+		for (let i = 0; i < talent_additional_position_sub_types.length; i ++) {
+			let skill = talent_additional_position_sub_types[i]
       let position_type_name = skill.talent_position_sub_type.talent_position_type
       // Check duplication
       if (!this.existSkill(skills, position_type_name)) {
         skills.push(position_type_name)
       }
-    })
+		}
 
     // Make title with all position types
     title = title + ((skills.length > 1) ? " Who " : '')
     for (let i = 1; i < skills.length; i++) {
-      title = title + ((i == (skills.length - 1)) ? ', ' : '')
+      title = title + ((i === (skills.length - 1)) ? ', ' : '')
     }
 
     return {
@@ -137,12 +99,12 @@ class ViewProfile extends Component {
 		let index = HEIGHTS.findIndex(function(h) {
 			return h === height
 		})
-		if (index == (HEIGHTS.length - 1)) {
+		if (index === (HEIGHTS.length - 1)) {
 			tmp_height = HEIGHTS[HEIGHTS.length - 2]
 			prefix = '>'
 		}
 
-		heightInFeet = UnitConverter(parseInt(tmp_height))
+		heightInFeet = UnitConverter(parseInt(tmp_height, 10))
 			.from('cm').to('ft-us')
 		heightIntegerInFeet = Math.floor(heightInFeet)
 		heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
@@ -160,7 +122,7 @@ class ViewProfile extends Component {
 			return w === weight
 		})
 
-		if (index == (WEIGHTS.length - 1)) {
+		if (index === (WEIGHTS.length - 1)) {
 			tmp_weight = WEIGHTS[WEIGHTS.length - 2]
 			prefix = '>'
 		}
@@ -170,45 +132,54 @@ class ViewProfile extends Component {
 
   makeLanguages = (talent_languages) => {
     let res = ''
-    Object.keys(talent_languages).map((key) => {
-      let talent_language = talent_languages[key]
+
+		for (let i = 0; i < talent_languages.length; i ++) {
+			let talent_language = talent_languages[i]
       res = res + talent_language.language + ' '
-    })
+		}
+
     return res
   }
 
   makeImages = (talent_pictures) => {
     let images = []
-    Object.keys(talent_pictures).map((key, index) => {
-      let talent_picture = talent_pictures[key]
-      if (parseInt(key) < 5) {
+
+		for (let i = 0; i < talent_pictures.length; i ++) {
+			let talent_picture = talent_pictures[i]
+      if (i < 5) {
         images.push(talent_picture.url)
       }
-    })
+		}
+
     return images
   }
 
   getPracticVideoNumbers = (talent_videos) => {
     let res = 0
-    Object.keys(talent_videos).map((key, index) => {
-      let talent_video = talent_videos[key]
+
+		for (let i = 0; i < talent_videos.length; i ++) {
+			let talent_video = talent_videos[i]
+
       if (talent_video.position_type === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE ||
         talent_video.position_type === null) {
         res ++
       }
-    })
+		}
+
     return res
   }
 
   getLiveVideoNumbers = (talent_videos) => {
     let res = 0
-    Object.keys(talent_videos).map((key, index) => {
-      let talent_video = talent_videos[key]
+
+		for (let i = 0; i < talent_videos.length; i ++) {
+			let talent_video = talent_videos[i]
       if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
         talent_video.position_type !== null) {
         res ++
       }
-    })
+		}
+
     return res
   }
 
@@ -246,13 +217,17 @@ class ViewProfile extends Component {
 		]
 		let res = false
 
-		medicals.map((medical, index) => {
-			checkingMedicals.map((chekingMedical, index) => {
+		for (let i = 0; i < medicals.length; i ++) {
+			let medical = medicals[i]
+
+			for (let j = 0; j < checkingMedicals.length; j ++) {
+				let chekingMedical = checkingMedicals[j]
+
 				if ((medical.condition_title === chekingMedical) && medical.condition_value) {
 					res = true
 				}
-			})
-		})
+			}
+		}
 
 		return res
 	}
@@ -266,7 +241,7 @@ class ViewProfile extends Component {
 	}
 
 	renderPictureView(caption) {
-    const { classes, talentInfo } = this.props
+    const { talentInfo } = this.props
 		const { talent_pictures } = talentInfo
 
     let picture = talent_pictures.find(function(picture) {
@@ -321,7 +296,6 @@ class ViewProfile extends Component {
 	}
 
   renderVideoButtonsGroup() {
-    const { classes } = this.props
     const { talent_videos } = this.props.talentInfo
 
     return (
@@ -563,24 +537,9 @@ class ViewProfile extends Component {
 
     const {
       user,
-      talent_position_sub_type,
-      talent_additional_position_sub_types,
-      sex,
-      phone_number,
-      birthday,
-      emergency_first_name,
-      emergency_last_name,
-      emergency_email,
-      emergency_phone,
-      emergency_relationship,
       nationality,
       citizenship,
-      passport_expiration_date,
-      passport_number,
-      country_of_current_residence,
       have_green_card,
-      green_card_expiration_date,
-      expiration_date,
       height,
       weight,
       bmi,
@@ -589,14 +548,11 @@ class ViewProfile extends Component {
       bio,
 			talent_visas,
       talent_languages,
-      talent_pictures,
-      talent_videos,
       talent_resume,
 			talent_medicals,
-      worked_cruise_ship,
-      created
+      worked_cruise_ship
     } = this.props.talentInfo
-    const { skills, title, currentImageUrl, openImageModal } = this.state
+    const { title, currentImageUrl, openImageModal } = this.state
 
     return(
       <div className="profile-container">

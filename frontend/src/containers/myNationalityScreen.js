@@ -12,12 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
-import { FormGroup, Label, Input } from 'reactstrap';
 
 import moment from 'moment';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 
 import Panel from '../components/panel';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
@@ -67,11 +65,11 @@ const theme = createMuiTheme ({
   }
 })
 
-const other_types = [
-  'other1',
-  'other2',
-  'other3'
-]
+// const other_types = [
+//   'other1',
+//   'other2',
+//   'other3'
+// ]
 
 class MyNatioinality extends Component {
 
@@ -117,8 +115,7 @@ class MyNatioinality extends Component {
 			orgVisas: []
     }
 
-		console.log
-    if (talentInfo) {
+		if (talentInfo) {
 			let visaTypes = []
 			let orgVisas = talentInfo.talent_visas
 
@@ -261,14 +258,15 @@ class MyNatioinality extends Component {
 
 		// Filter checked visaTypes
 		let visas = []
-		visaTypes.map((visa, index) => {
+		for (let i = 0; i < visaTypes.length; i ++) {
+			let visa = visaTypes[i]
 			if (visa.checked) {
 				visas.push({
 					name: visa.name,
 					expiration_date: visa.expiration_date
 				})
 			}
-		})
+		}
 
     let data = {
       nationality: nationality,
@@ -309,11 +307,11 @@ class MyNatioinality extends Component {
 	getKeyOfVisaByName(name, visaTypes) {
 		let res = null
 
-		Object.keys(visaTypes).map((key) => {
-			if (visaTypes[key].name === name) {
-				res = key
+		for (let i = 0; i < visaTypes.length; i ++) {
+			if (visaTypes[i].name === name) {
+				res = i
 			}
-		})
+		}
 
 		return res
 	}
@@ -363,7 +361,7 @@ class MyNatioinality extends Component {
 	      </Row>
 	    )
 		} else {
-			<Row />
+			return (<Row />)
 		}
   }
 

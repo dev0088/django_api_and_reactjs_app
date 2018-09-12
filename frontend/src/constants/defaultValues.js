@@ -126,6 +126,23 @@ export default {
 		'I have no pre-existing medical conditions to report.',
 		'I am certified in CPR.',
 		'I have successfully completed a cruise line pre-employment physical in the past.'
+	],
+	LANGUAGES: [
+		'English',
+		'Spanish',
+		'Portuguese',
+		'German',
+		'French',
+		'Italian',
+		'Japanese',
+		'Mandarin',
+		'Cantonese',
+		'Russian'
+	],
+	FLUENCY_TYPES: [
+	  'Fluent',
+	  'Conversational',
+	  'Basic'
 	]
 };
 

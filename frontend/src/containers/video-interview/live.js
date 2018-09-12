@@ -5,10 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
   Alert,
   Row,
@@ -28,7 +25,7 @@ import RecordCtl from "../../components/record-ctl/index";
 import apiConfig from '../../constants/api';
 import { captureUserMedia } from '../../utils/appUtils';
 
-const styles={ 
+const styles={
   floatingLabelStyle: {
     color: "#258df2",
   },
@@ -103,7 +100,7 @@ class LiveInterview extends React.Component {
       }else if (!DetectRTC.isWebsiteHasWebcamPermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        detectError.push("Your website doesn't have camera permission."); 
+        detectError.push("Your website doesn't have camera permission.");
       }
       if (!DetectRTC.hasMicrophone)
       {
@@ -113,10 +110,10 @@ class LiveInterview extends React.Component {
       else if (!DetectRTC.isWebsiteHasMicrophonePermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        detectError.push("Your website doesn't have microphone permission."); 
+        detectError.push("Your website doesn't have microphone permission.");
       }
       __this.setState({ errors: detectError });
-      __this.setState({ 
+      __this.setState({
           resolution: deviceSettings.resolution,
           frameRate: deviceSettings.frameRate,
           bitRate: deviceSettings.bitRate
@@ -142,7 +139,7 @@ class LiveInterview extends React.Component {
     //   remainingTime: [30, 120],
     //   timePos: 0
     // }, () => {
-    //   this.countDown();  
+    //   this.countDown();
     // })
   }
 
@@ -159,14 +156,14 @@ class LiveInterview extends React.Component {
           wait[1] = remain[1] = videoSettings['value']['video_interview_response_time'];
         else
           wait[1] = remain[1] = 0;
-    
+
         this.setState(
-          { 
-            waitingTime: wait, 
+          {
+            waitingTime: wait,
             remainingTime: remain,
           }, () => {
           const { remainingTime, timePos } = __this.state;
-          __this.countDown(remainingTime, timePos);  
+          __this.countDown(remainingTime, timePos);
         });
       }
 
@@ -197,11 +194,11 @@ class LiveInterview extends React.Component {
               newRemaining[0] = remainingTime[0];
               newRemaining[1] = remainingTime[1] - 1;
               __this.videoRecordStart();
-              __this.setState({ 
-                timePos: 1, 
-                isStopped: false, 
-                isPlaying: true, 
-                remainingTime: newRemaining 
+              __this.setState({
+                timePos: 1,
+                isStopped: false,
+                isPlaying: true,
+                remainingTime: newRemaining
               });
             } else {
               __this.setState({ isStopped: true });
@@ -250,18 +247,16 @@ class LiveInterview extends React.Component {
   };
 
   onStartRecord = () => {
-    const { remainingTime, timePos } = this.state;
-    const __this = this
+    const { remainingTime } = this.state;
 
     remainingTime[0] = 0;
     this.setState({
-        isStopped: false, 
-        isPlaying: true, 
-        timePos: 1, 
+        isStopped: false,
+        isPlaying: true,
+        timePos: 1,
         remainingTime: remainingTime
-      }, 
+      },
       function() {
-        const { remainingTime, timePos } = __this.state;
         this.countDown();
         this.videoRecordStart();
       }
@@ -269,7 +264,7 @@ class LiveInterview extends React.Component {
   };
 
   videoRecordStart = () => {
-    let mimeType = "video/webm\;codecs=h264";
+    let mimeType = "video/webm;codecs=h264";
     let __this = this;
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
@@ -314,8 +309,8 @@ class LiveInterview extends React.Component {
   }
 
   isMimeTypeSupported = (mimeType) => {
-    if(DetectRTC.browser.name === 'Edge' || 
-      DetectRTC.browser.name === 'Safari' || 
+    if(DetectRTC.browser.name === 'Edge' ||
+      DetectRTC.browser.name === 'Safari' ||
       typeof MediaRecorder === 'undefined') {
         return false;
     }
@@ -337,7 +332,6 @@ class LiveInterview extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
-      const { remainingTime, timePos } = __this.state;
       __this.countDown();
     });
   };
@@ -353,7 +347,6 @@ class LiveInterview extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
-      const { remainingTime, timePos } = __this.state;
       __this.countDown();
     });
   };
@@ -386,7 +379,7 @@ class LiveInterview extends React.Component {
       position_sub_type: position_sub_type,
       question: videoQuestions.value[currentQuestion]['content']
     }
-    
+
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -423,7 +416,7 @@ class LiveInterview extends React.Component {
   onFinish = (completeAPI, fileID, file, response) => {
     let __this = this;
     let params = {
-      fileID: fileID, 
+      fileID: fileID,
       fileSize: file.size,
       fileType: file.type,
     }
@@ -442,7 +435,7 @@ class LiveInterview extends React.Component {
         // console.log('error: ', response.error)
       }
       else {
-        
+
       }
     })
     .catch(error => {
@@ -452,7 +445,7 @@ class LiveInterview extends React.Component {
   }
 
   uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
-    // Get signedUrl 
+    // Get signedUrl
     // var that = this;
     fetch(s3PutUrl, {
       method: 'put',
@@ -500,8 +493,8 @@ class LiveInterview extends React.Component {
           <MuiThemeProvider theme={theme}>
 
           { (!isPlaying && !isStopped && (
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 color="primary" className='btn-start-start'
                 fullWidth={true}
                 onClick={this.onStartRecord}>
@@ -511,8 +504,8 @@ class LiveInterview extends React.Component {
           }
           {
             ((isPlaying && !isStopped) && (
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 color="secondary" className='btn-start-stop'
                 fullWidth={true}
                 onClick={this.onStopRecord}>
@@ -528,13 +521,13 @@ class LiveInterview extends React.Component {
 
   render () {
     const { pageId } = this.props.match.params;
-    const { 
-      config, 
-      errors, 
-      currentQuestion, 
+    const {
+      config,
+      errors,
+      currentQuestion,
       isStopped,
       isPlaying,
-      waitingTime, 
+      waitingTime,
       remainingTime,
       timePos,
       uploading,
@@ -603,7 +596,7 @@ class LiveInterview extends React.Component {
                           )
                         }
                       </Col>
-                      <Col className="col-sm-8 question-time-col"> 
+                      <Col className="col-sm-8 question-time-col">
                         <div className="video-progress">
                           <RecordCtl
                             remaining={remainingTime[timePos]}
@@ -617,14 +610,14 @@ class LiveInterview extends React.Component {
                     {this.renderStarAndStopRecordButton()}
                   </Col>
                 </Row>
-                <Row className="video-webcam"> 
+                <Row className="video-webcam">
                   <Col className="col-sm-12 video-webcam-col">
                     <Webcam height="100%" width="100%"/>
                     <div className="audio-box">
                       <AudioMeter width={'90%'}/>
                     </div>
                   </Col>
-                </Row>                                
+                </Row>
               </div>
             </Col>
           </Row>
@@ -649,7 +642,7 @@ class LiveInterview extends React.Component {
                   primary={true}
                   onClick={this.onNextQuestion}
                 />}
-              {currentQuestion === 4 && 
+              {currentQuestion === 4 &&
                 <Link to="/edit-profile">
                   <RaisedButton
                     label="Back to My Cruise Staff Audition Videos"

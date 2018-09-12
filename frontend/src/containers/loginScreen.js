@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
@@ -118,19 +118,19 @@ class LoginScreen extends React.Component {
                 />
               </div>
               <div className="pt20" autofocus>
-                <RaisedButton 
-                  label="Log In" 
-                  primary={true} 
-                  fullWidth={true} 
-                  focusVisible={true} 
-                  onClick={this.handleSubmit} 
+                <RaisedButton
+                  label="Log In"
+                  primary={true}
+                  fullWidth={true}
+                  focusVisible={true}
+                  onClick={this.handleSubmit}
                 />
               </div>
             </Form>
             <hr />
             <Row>
               <Col sm="7">
-                Need an account ? 
+                Need an account ?
                 <Link to="/sign-up">
                   <FlatButton
                     label="Sign Up"

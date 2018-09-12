@@ -6,10 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
   Alert,
   Row,
@@ -31,7 +28,7 @@ import VideoPlayBack from "./play-back";
 import apiConfig from '../../constants/api';
 import { captureUserMedia } from '../../utils/appUtils';
 
-const styles={ 
+const styles={
   floatingLabelStyle: {
     color: "#258df2",
   },
@@ -99,7 +96,7 @@ class VideoPractice extends React.Component {
       }else if (!DetectRTC.isWebsiteHasWebcamPermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        detectError.push("Your website doesn't have camera permission."); 
+        detectError.push("Your website doesn't have camera permission.");
       }
       if (!DetectRTC.hasMicrophone)
       {
@@ -109,10 +106,10 @@ class VideoPractice extends React.Component {
       else if (!DetectRTC.isWebsiteHasMicrophonePermissions)
       {
         __this.setState({ config: false, alertOpen: true })
-        detectError.push("Your website doesn't have microphone permission."); 
+        detectError.push("Your website doesn't have microphone permission.");
       }
       __this.setState({ errors: detectError });
-      __this.setState({ 
+      __this.setState({
           resolution: deviceSettings.resolution,
           frameRate: deviceSettings.frameRate,
           bitRate: deviceSettings.bitRate,
@@ -150,8 +147,8 @@ class VideoPractice extends React.Component {
     else
       wait[1] = remain[1] = 0;
     this.setState(
-      { 
-        waitingTime: wait, 
+      {
+        waitingTime: wait,
         remainingTime: remain,
       });
   }
@@ -179,8 +176,8 @@ class VideoPractice extends React.Component {
         __this.setState({ selectedAudio: aDevice[0].value });
       if (__this.state.selectedVideo === "" && vDevice.length > 0)
         __this.setState({ selectedVideo: vDevice[0].value });
-      __this.setState({ 
-        audioDevices: aDevice, 
+      __this.setState({
+        audioDevices: aDevice,
         videoDevices: vDevice
       }, function() {
         __this.setState({ settingDlg: true });
@@ -309,10 +306,10 @@ class VideoPractice extends React.Component {
     const { remainingTime } = this.state;
     remainingTime[0] = 0;
     this.setState({
-        isStopped: false, 
-        isPlaying: true, 
-        timePos: 1, 
-        remainingTime: remainingTime}, 
+        isStopped: false,
+        isPlaying: true,
+        timePos: 1,
+        remainingTime: remainingTime},
       function() {
         this.countDown();
         this.videoRecordStart();
@@ -320,7 +317,7 @@ class VideoPractice extends React.Component {
   };
 
   videoRecordStart = () => {
-    let mimeType = "video/webm\;codecs=h264";
+    let mimeType = "video/webm;codecs=h264";
     let __this = this;
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
@@ -372,8 +369,8 @@ class VideoPractice extends React.Component {
   }
 
   isMimeTypeSupported = (mimeType) => {
-    if(DetectRTC.browser.name === 'Edge' || 
-      DetectRTC.browser.name === 'Safari' || 
+    if(DetectRTC.browser.name === 'Edge' ||
+      DetectRTC.browser.name === 'Safari' ||
       typeof MediaRecorder === 'undefined') {
         return false;
     }
@@ -445,7 +442,7 @@ class VideoPractice extends React.Component {
       position_sub_type: '',
       question: videoQuestions.value[currentQuestion]['content']
     }
-    
+
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -482,7 +479,7 @@ class VideoPractice extends React.Component {
   onFinish = (completeAPI, fileID, file, response) => {
     let __this = this;
     let params = {
-      fileID: fileID, 
+      fileID: fileID,
       fileSize: file.size,
       fileType: file.type,
     }
@@ -501,7 +498,7 @@ class VideoPractice extends React.Component {
         // console.log('error: ', response.error)
       }
       else {
-        
+
       }
     })
     .catch(error => {
@@ -511,7 +508,7 @@ class VideoPractice extends React.Component {
   }
 
   uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
-    // Get signedUrl 
+    // Get signedUrl
     // var that = this;
     fetch(s3PutUrl, {
       method: 'put',
@@ -558,8 +555,8 @@ class VideoPractice extends React.Component {
           <MuiThemeProvider theme={theme}>
 
           { (!isPlaying && !isStopped && (
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 color="primary" className='btn-start-start'
                 fullWidth={true}
                 onClick={this.onStartRecord}>
@@ -569,8 +566,8 @@ class VideoPractice extends React.Component {
           }
           {
             ((isPlaying && !isStopped) && (
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 color="secondary" className='btn-start-stop'
                 fullWidth={true}
                 onClick={this.onStopRecord}>
@@ -588,14 +585,13 @@ class VideoPractice extends React.Component {
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
     }
-    const { 
-      config, 
-      errors, 
-      currentQuestion, 
+    const {
+      config,
+      errors,
+      currentQuestion,
       isStopped,
-      isPlaying,
-      isPlayBackOpen, 
-      waitingTime, 
+      isPlayBackOpen,
+      waitingTime,
       remainingTime,
       timePos,
       src,
@@ -605,10 +601,10 @@ class VideoPractice extends React.Component {
       resolution,
       frameRate,
       bitRate,
-      audioDevices, 
-      videoDevices, 
-      selectedAudio, 
-      selectedVideo, 
+      audioDevices,
+      videoDevices,
+      selectedAudio,
+      selectedVideo,
     } = this.state;
     const { videoQuestions } = this.props;
     let question = "";
@@ -682,7 +678,7 @@ class VideoPractice extends React.Component {
                           )
                         }
                       </Col>
-                      <Col className="col-sm-8 question-time-col"> 
+                      <Col className="col-sm-8 question-time-col">
                         <div className="video-progress">
                           <RecordCtl
                             remaining={remainingTime[timePos]}
@@ -697,7 +693,7 @@ class VideoPractice extends React.Component {
                   </Col>
                 </Row>
 
-                <Row className="video-webcam"> 
+                <Row className="video-webcam">
                   <Col className="col-sm-12 video-webcam-col">
                     <Webcam height="100%" width="100%"/>
                     <div className="audio-box">
@@ -726,7 +722,7 @@ class VideoPractice extends React.Component {
           }
         </React.Fragment>
         }
-        
+
         {isPlayBackOpen &&  // Show playback.
           <VideoPlayBack
             url={src}

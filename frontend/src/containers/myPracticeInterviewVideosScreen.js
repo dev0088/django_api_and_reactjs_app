@@ -2,14 +2,8 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import ReactPlayer from 'react-player';
 import Panel from '../components/panel'
 import VideoListView from '../components/videoListView';
 import './myContactInfo.css';
@@ -51,18 +45,14 @@ class MyPracticeInterviewVideos extends Component {
     const { talentInfo } = this.props
     let interviewVideoUrls = []
     if (talentInfo && talentInfo.talent_videos) {
-      Object.keys(talentInfo.talent_videos).map((key) => {
-        let video = talentInfo.talent_videos[key]
-        if (video.active && video.uploaded) {
-          if (video.position_type === 'Practice'
-             // || 
-            // video.position_type === null ||
-            // video.position_type === ""
-            ) {
-            interviewVideoUrls.push(video)
-          }        
-        }
-      })
+			for (let i = 0; i < talentInfo.talent_videos.length; i ++) {
+				let video = talentInfo.talent_videos[i]
+				if (video.active && video.uploaded) {
+					if (video.position_type === 'Practice') {
+						interviewVideoUrls.push(video)
+					}
+				}
+			}
     }
 
     return {
@@ -85,19 +75,14 @@ class MyPracticeInterviewVideos extends Component {
   renderVideosView() {
     const { interviewVideoUrls } = this.state
 
-    let videoItems = []
-
     return (
       <Panel title={`My Practice Interview Videos`} >
-        <VideoListView videoUrls={interviewVideoUrls} />  
+        <VideoListView videoUrls={interviewVideoUrls} />
       </Panel>
     )
   }
 
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="general-view-container">
@@ -129,7 +114,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   }
 }
 

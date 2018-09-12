@@ -216,18 +216,17 @@ class MyResume extends Component {
   }
 
 	showImage = (picture) => {
-    const { openImageModal } = this.state
     this.setState({
       openImageModal: true
     })
   }
 
   renderResumeView(caption) {
-    const { classes } = this.props
     const {
       resume,
 			openImageModal
     } = this.state
+
     return (
       <div>
         <Row className="profile-picture-image-container">
@@ -252,9 +251,11 @@ class MyResume extends Component {
                 </div>
               ) : (
                 <div>
-                  <img
-                    className="profile-resume-image"
-                    src={require('../images/missing.png')} />
+									<ImageLoader
+										className="profile-resume-image"
+										src={'../images/missing.png'}
+										loading={() => <div className="profile-resume-image">None image</div>}
+										error={() => <div>Error</div>} />
                   <div>
                     <ClearRounded className="profile-resume-delete-icon-disabled" color="seconday" />
                   </div>
@@ -307,8 +308,7 @@ class MyResume extends Component {
 
   renderResumeViewWithFilePreview() {
     const {
-      file,
-			openImageModal
+      file
     } = this.state
     return (
       <div>
@@ -328,9 +328,11 @@ class MyResume extends Component {
                 </div>
               ) : (
                 <div>
-                  <img alt="None image"
-                    className="profile-picture-image"
-                    src={require('../images/missing.png')} />
+									<ImageLoader
+										className="profile-picture-image"
+										src={'../images/missing.png'}
+										loading={() => <div className="profile-picture-image">None image</div>}
+										error={() => <div>Error</div>} />
                   <div>
                     <ClearRounded className="profile-picture-delete-icon-disabled" color="disabled" />
                   </div>

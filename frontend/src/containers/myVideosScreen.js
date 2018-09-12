@@ -2,16 +2,13 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
 import './myContactInfo.css'
 import './myVideosScreen.css'
 
@@ -47,9 +44,6 @@ class MyVideos extends Component {
   }
 
   renderButtonsGroup() {
-    const { classes } = this.props
-
-
     return (
       <Panel title={"My Videos"}>
         <Row className="profile-gender-row">
@@ -236,16 +230,8 @@ class MyVideos extends Component {
     )
   }
 
-
   render() {
-    const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
-
     return (
-
         <div className="contact-info-view-container">
           {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
           <MuiThemeProvider theme={theme}>

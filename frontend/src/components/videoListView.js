@@ -23,13 +23,13 @@ import FileSize from 'file-size';
 import './videoInterviewView.css';
 
 function createData(id, position_type, position_sub_type, question, url, updated, size) {
-  return { 
-    id: id, 
-    position_type: position_type ? position_type : "None", 
-    position_sub_type: position_sub_type ? position_sub_type: "None", 
-    question: question ? question : "None", 
-    url, 
-    updated, 
+  return {
+    id: id,
+    position_type: position_type ? position_type : "None",
+    position_sub_type: position_sub_type ? position_sub_type: "None",
+    question: question ? question : "None",
+    url,
+    updated,
     size
   };
 }
@@ -52,7 +52,7 @@ class EnhancedTableHead extends React.Component {
   };
 
   render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const { order, orderBy } = this.props;
 
     return (
       <TableHead>
@@ -202,22 +202,25 @@ class VideoListView extends React.Component {
 
   converUrlToData(videoUrls) {
     let data = []
-    if (videoUrls){
-      Object.keys(videoUrls).map((key) => {
-        let videoUrl = videoUrls[key]
+
+    if (videoUrls) {
+			for (let i = 0; i < videoUrls.length; i ++) {
+				let videoUrl = videoUrls[i]
+
         data.push(
           createData(
             videoUrl.id,
-            videoUrl.position_type, 
+            videoUrl.position_type,
             videoUrl.position_sub_type,
-            videoUrl.question, 
+            videoUrl.question,
             videoUrl.url,
             videoUrl.updated,
             FileSize(videoUrl.size).to('MB', 'si') + ' MB'
           )
         )
-      })
+			}
     }
+
     return data
   }
 

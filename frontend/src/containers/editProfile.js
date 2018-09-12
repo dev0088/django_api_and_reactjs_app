@@ -5,21 +5,11 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
-import SwipeableViews from 'react-swipeable-views';
-import Dropzone from 'react-dropzone';
-import Select from 'react-select';
-import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
 
@@ -28,7 +18,6 @@ import MultipleSelect from '../components/multipleSelect';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
 import defaultValues from '../constants/defaultValues';
 
 import 'react-dropdown/style.css'
@@ -118,10 +107,13 @@ class EditProfile extends Component {
 
 	generateGroupsFromTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
 		let groups = []
-		allPositionTypes.map((positionType, index) => {
+		for (let i = 0; i < allPositionTypes.length; i ++) {
+			let positionType = allPositionTypes[i]
 			let options = []
-			if (positionType.name != defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-				positionType.talent_position_sub_types.map((positionSubType, index) => {
+
+			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+				for (let j = 0; j < positionType.talent_position_sub_types.length; j ++) {
+					let positionSubType = positionType.talent_position_sub_types[j]
 					options.push({
 						label: positionSubType,
 						value: positionSubType,
@@ -132,7 +124,7 @@ class EditProfile extends Component {
 												positionSubType,
 												currentPositionSubTypes)
 					})
-				})
+				}
 				groups.push({
 					label: positionType.name,
 					value: positionType.name,
@@ -143,7 +135,7 @@ class EditProfile extends Component {
 					options: options
 				})
 			}
-		})
+		}
 		return groups
 	}
 
@@ -162,10 +154,7 @@ class EditProfile extends Component {
       allPositionTypes,
       talentInfo
     } = props
-    let positionTypes = []
     let currentSubPositionType = []
-		let currentAdditionalPositionTypes = []
-    let currentAdditionalPositionSubTypes = []
 		let currentAdditionalGroups = []
     let userID = auth.access.user_id
     let gender = 'Male'
@@ -267,11 +256,14 @@ class EditProfile extends Component {
 	isPositionType = (name) => {
 		const { allPositionTypes } = this.props
 		let res = false
-		allPositionTypes.map((positionType, index) => {
+
+		for (let i = 0; i < allPositionTypes.length; i ++) {
+			let positionType = allPositionTypes[i]
 			if (positionType.name === name) {
 				res = true
 			}
-		})
+		}
+
 		return res
 	}
 
@@ -294,23 +286,26 @@ class EditProfile extends Component {
 		let talent_additional_position_types = []
 		let talent_additional_position_sub_types = []
 
-    groups.map((group, index) => {
+    for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
+
 			if (group.isChecked) {
 				talent_additional_position_types.push({
 					name: group.value
 				})
 			}
 
-			group.options.map((option, index) => {
+			for (let j = 0; j < group.options.length; i ++) {
+				let option = group.options[i]
+
 				if (option.isChecked) {
 					talent_additional_position_sub_types.push({
 		        name: option.value,
 		        talent_position_type: group.value
 		      })
 				}
-			})
-
-    })
+			}
+    }
 
 		return {
 			talent_additional_position_types,
@@ -389,10 +384,12 @@ class EditProfile extends Component {
     let groups = []
 
     if (allPositionTypes) {
-      Object.keys(allPositionTypes).map((key) => {
-        const positionType = allPositionTypes[key]
+
+			for (let i = 0; i < allPositionTypes.length; i ++) {
+        const positionType = allPositionTypes[i]
+
         if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-          return;
+          continue;
         }
 
         let group = {
@@ -401,17 +398,17 @@ class EditProfile extends Component {
           items: []
         }
 
-        Object.keys(positionType.talent_position_sub_types).map((key) => {
-          const positionSubType = positionType.talent_position_sub_types[key]
-          group.items.push({
-            value: positionSubType,
-            label: positionSubType,
-            className: 'profile-position-sub-type-item'
-          })
-        })
-				
+				for (let j = 0; j < positionType.talent_position_sub_types.length; i ++) {
+					const positionSubType = positionType.talent_position_sub_types[j]
+					group.items.push({
+						value: positionSubType,
+						label: positionSubType,
+						className: 'profile-position-sub-type-item'
+					})
+				}
+
         groups.push(group)
-      })
+      }
     }
 
     return (

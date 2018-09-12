@@ -7,10 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 
@@ -20,7 +17,6 @@ import ConfirmChangesDialog from '../components/confirmChangesDialog';
 
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
-import defaultValues from '../constants/defaultValues';
 import './myMedical.css'
 
 const styles = theme => ({
@@ -59,12 +55,10 @@ class MyMedical extends Component {
 
   getInfoFromProps(props) {
     const {
-      auth,
       talentInfo
     } = props
 
     let medicals = []
-    let checkedMedicals = []
 
     if (talentInfo && talentInfo.talent_medicals) {
       // Get contact info
@@ -102,7 +96,6 @@ class MyMedical extends Component {
   }
 
   handleChange = name => event => {
-    const { talentInfo } = this.props
     const { medicals } = this.state;
     let key = this.getKeyOfCheckedMedicalByName(name, medicals)
 		console.log('=== key: ', key, medicals, name)
@@ -129,7 +122,7 @@ class MyMedical extends Component {
   }
 
   handleSave = () => {
-    const { auth, talentInfo } = this.props
+    const { auth } = this.props
     const {
       medicals,
     } = this.state
@@ -137,13 +130,13 @@ class MyMedical extends Component {
     let data = {
       talent_medicals: medicals
     }
-    console.log('==== talent_medicals: ', data)
+
     TalentAPI.saveMedicals(auth.access.user_id, data, this.handleSaveResponse)
   }
 
   handleSaveResponse = (response, isFailed) => {
     const { auth } = this.props
-    console.log('==== response: ', response, isFailed)
+
     this.props.talentActions.getTalentInfo(auth.access.user_id)
 		this.setState({
 			isChanged: false
@@ -152,6 +145,7 @@ class MyMedical extends Component {
 
 	checkChanges = (event) => {
 		const { isChanged } = this.state
+
 		if (isChanged) {
 			event.preventDefault()
 			this.setState({
@@ -175,22 +169,26 @@ class MyMedical extends Component {
   getKeyOfCheckedMedicalByName = (name) => {
     const { medicals } = this.state
     let res = null
-    Object.keys(medicals).map((key) => {
-      if (medicals[key].condition_title === name) {
-        res = key
-      }
-    })
+
+		for (let i = 0; i < medicals.length; i ++) {
+			if (medicals[i].condition_title === name) {
+				res = i
+			}
+		}
+
     return res
   }
 
   getCheckedMedicalByName = (name) => {
     const { medicals } = this.state
     let res = null
-    Object.keys(medicals).map((key) => {
-      if (medicals[key].condition_title === name) {
-        res = medicals[key]
-      }
-    })
+
+		for (let i = 0; i < medicals.length; i ++) {
+			if (medicals[i].condition_title === name) {
+				res = medicals[i]
+			}
+		}
+
     return res
   }
 
@@ -198,11 +196,12 @@ class MyMedical extends Component {
     const { medicals } = this.state
     let res = null
     let searchMedical = medicalList ? medicalList : medicals
-    Object.keys(searchMedical).map((key) => {
-      if (searchMedical[key].condition_title === name) {
-        res = searchMedical[key]
+		for (let i = 0; i < searchMedical.length; i ++) {
+			if (searchMedical[i].condition_title === name) {
+        res = searchMedical[i]
       }
-    })
+		}
+
     return res
   }
 
@@ -227,10 +226,7 @@ class MyMedical extends Component {
 	}
 
   renderMedicalsView() {
-    const { talentInfo, classes } = this.props
-    const {
-      medicals,
-    } = this.state
+    const { classes } = this.props
 
     return (
       <Panel title={"My Medical"}>

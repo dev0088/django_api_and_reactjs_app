@@ -73,9 +73,6 @@ class HomeScreen extends Component {
   }
 
   render() {
-    // const { shiptalentInfo } = this.state
-		const { classes } = this.props
-
     return(
       <MuiThemeProvider theme={theme}>
         <Row>
