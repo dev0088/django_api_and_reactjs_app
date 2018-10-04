@@ -13,8 +13,8 @@ class TalentAdditionalPositionSubType(models.Model):
   def __str__(self):
     return '{username}: {talent_position_name} -> {talent_position_sub_type_name}'.format(
         username = self.talent.user.username,
-        talent_position_name = self.talent_position_sub_type.talent_position_type.name,
-        talent_position_sub_type_name = self.talent_position_sub_type.name
+        talent_position_name = self.talent_position_sub_type.talent_position_type.position_type.name,
+        talent_position_sub_type_name = self.talent_position_sub_type.position_sub_type.name
       )
 
   class Meta:

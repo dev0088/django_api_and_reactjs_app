@@ -1,7 +1,8 @@
 from django.db import models
 from datetime import datetime, timedelta, date
 from authentication.models import User
-from talent_position_sub_type.models import TalentPositionSubType
+# from talent_position_sub_type.models import TalentPositionSubType
+# from talent_position_type.models import TalentPositionType
 
 SEX_CHOICES = (
     ('m', 'Male'),
@@ -18,12 +19,6 @@ class Talent(models.Model):
 
   ### general info
   sex = models.CharField(choices=SEX_CHOICES, default='Male', max_length=10)
-  talent_position_sub_type = models.ForeignKey(TalentPositionSubType,
-    related_name='talents',
-	on_delete=models.SET_DEFAULT,
-	null=True,
-	blank=True,
-	default=None)
 
   ### business stuff ###
   # contact info

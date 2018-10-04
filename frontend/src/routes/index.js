@@ -24,6 +24,10 @@ import VideoPreview from "../containers/video-interview/preview";
 import VideoPractice from "../containers/video-interview/practice";
 import LiveInterview from "../containers/video-interview/live";
 
+import WelcomeBuildProfileWizard from "../containers/profile-wizard/welcomeBuildProfileWizard";
+import SelectMaleWizard from "../containers/profile-wizard/selectMaleWizard";
+import SelectPositionTypeWizard from "../containers/profile-wizard/selectPositionTypeWizard";
+
 import MyProfile from "../containers/myProfile";
 import ViewProfile from "../containers/viewProfile";
 import MyContactInfo from "../containers/myContactInfoScreen";
@@ -161,6 +165,35 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+
+		<Route
+      path="/profile-wizard/welcome"
+      render={props => (
+        <TemplateTopbar>
+          <WelcomeBuildProfileWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+		<Route
+      path="/profile-wizard/select-male"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMaleWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/profile-wizard/select-position-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectPositionTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+
 
     <Route
       path="/profile"

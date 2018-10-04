@@ -11,7 +11,9 @@ import {
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 // import keydown from 'react-keydown';
 import { login } from  '../actions/auth';
@@ -117,14 +119,17 @@ class LoginScreen extends React.Component {
                   label="Remember Me"
                 />
               </div>
-              <div className="pt20" autofocus>
-                <RaisedButton
-                  label="Log In"
+              <div className="pt20">
+                <Button
+									variant="contained"
+									color="primary"
                   primary={true}
                   fullWidth={true}
                   focusVisible={true}
                   onClick={this.handleSubmit}
-                />
+                >
+									Log In
+								</Button>
               </div>
             </Form>
             <hr />
@@ -180,4 +185,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoginScreen));

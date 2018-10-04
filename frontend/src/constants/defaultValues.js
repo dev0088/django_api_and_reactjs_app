@@ -52,6 +52,7 @@ export default {
     }
   ],
   DEFAULT_PRACTICE_POSITION_TYPE: 'Practice',
+	GENDERS: ["Male", "Female"],
 	VISA_TYPES: [
 		'B-1',
 		'B-2',

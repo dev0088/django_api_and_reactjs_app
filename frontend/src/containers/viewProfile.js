@@ -337,7 +337,7 @@ class ViewProfile extends Component {
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
-                    {"Dancing Audition Videos"}
+                    {"Dance Audition Videos"}
                   </div>
                   <div className="profile-other-info-button-status">
                     {0}
@@ -516,7 +516,7 @@ class ViewProfile extends Component {
               <Link to='/#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
-                    {"Vailability"}
+                    {"Availability"}
                   </div>
                   <div className="profile-other-info-button-status">
                     {'completed'}
@@ -636,7 +636,7 @@ class ViewProfile extends Component {
 								{ talent_visas.length > 0 ? (
 										talent_visas.map((visa, index) => {
 											return (
-												<Row>
+												<Row key={index}>
 													<Col md="6" className="pt-2 pt-md-2">
 														<Typography className="profile-general-info-name">{`${visa.name} Visa:`}</Typography>
 													</Col>

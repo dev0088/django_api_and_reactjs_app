@@ -34,6 +34,22 @@ class MyProfile extends Component {
 				<Row>
 					<Col xs="12" md="4" className="pt-4 pt-md-4" />
 					<Col xs="12" md="4" className="pt-4 pt-md-4">
+						<Link to="/profile-wizard/welcome">
+							<Button variant="contained"  color="primary" className={"home-button"} >
+								<div className="home-button-title-only">
+									{"Build My Profile"}
+								</div>
+								<div className="home-button-status">
+									{'(Wizard)'}
+								</div>
+							</Button>
+						</Link>
+					</Col>
+					<Col xs="12" md="4" className="pt-4 pt-md-4" />
+				</Row>
+				<Row>
+					<Col xs="12" md="4" className="pt-4 pt-md-4" />
+					<Col xs="12" md="4" className="pt-4 pt-md-4">
 						<Link to="/edit-profile">
 							<Button variant="contained"  color="primary" className={"home-button"} >
 								<div className="home-button-title-only">

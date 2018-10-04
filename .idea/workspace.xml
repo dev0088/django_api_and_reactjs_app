@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="10861761-ab04-4efa-8823-d955a111feda" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/components/dropdown/multiSelectDropdown.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/question/migrations/0002_auto_20180726_0147.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/question/migrations/0003_auto_20180726_0150.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/question/migrations/0004_question_talent_position_sub_type.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0002_auto_20180724_1201.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0003_auto_20180724_1632.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0004_talent_talent_position_sub_type.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0005_auto_20180726_1926.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0006_auto_20180810_0215.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0007_remove_talent_passport_expiration_data.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0008_auto_20180810_0358.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent/migrations/0009_auto_20180829_0213.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_language/migrations/0002_auto_20180821_0243.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_language/migrations/0003_auto_20180821_0248.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_picture/migrations/0002_talentpicture_url.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_picture/migrations/0003_talentpicture_caption.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_resume/migrations/0002_talentresume_preview_path.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0002_auto_20180723_0015.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0003_auto_20180723_0018.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0004_auto_20180724_1336.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0005_talentvideo_question.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0006_auto_20180810_1706.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/package-lock.json" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/README.md" afterPath="$PROJECT_DIR$/backend/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/admin_setting/admin.py" afterPath="$PROJECT_DIR$/backend/admin_setting/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/admin_setting/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/admin_setting/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/authentication/admin.py" afterPath="$PROJECT_DIR$/backend/authentication/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/authentication/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/authentication/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/authentication/models.py" afterPath="$PROJECT_DIR$/backend/authentication/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/client_casting_request/admin.py" afterPath="$PROJECT_DIR$/backend/client_casting_request/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/client_casting_request/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/client_casting_request/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/config/settings.py" afterPath="$PROJECT_DIR$/backend/config/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/config/urls.py" afterPath="$PROJECT_DIR$/backend/config/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/question/admin.py" afterPath="$PROJECT_DIR$/backend/question/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/question/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/question/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/question/models.py" afterPath="$PROJECT_DIR$/backend/question/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/question/serializers.py" afterPath="$PROJECT_DIR$/backend/question/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/question/views.py" afterPath="$PROJECT_DIR$/backend/question/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/shiptalent_info/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/shiptalent_info/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/submission/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/submission/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent/admin.py" afterPath="$PROJECT_DIR$/backend/talent/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent/models.py" afterPath="$PROJECT_DIR$/backend/talent/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent/serializers.py" afterPath="$PROJECT_DIR$/backend/talent/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_additional_position_sub_type/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_additional_position_sub_type/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_additional_position_sub_type/models.py" afterPath="$PROJECT_DIR$/backend/talent_additional_position_sub_type/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_additional_position_type/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_additional_position_type/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_language/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_language/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_medical/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_medical/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_picture/admin.py" afterPath="$PROJECT_DIR$/backend/talent_picture/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_picture/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_picture/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_sub_type/admin.py" afterPath="$PROJECT_DIR$/backend/talent_position_sub_type/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_sub_type/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_position_sub_type/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_sub_type/models.py" afterPath="$PROJECT_DIR$/backend/talent_position_sub_type/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_sub_type/serializers.py" afterPath="$PROJECT_DIR$/backend/talent_position_sub_type/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_type/admin.py" afterPath="$PROJECT_DIR$/backend/talent_position_type/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_type/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_position_type/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_type/models.py" afterPath="$PROJECT_DIR$/backend/talent_position_type/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_position_type/serializers.py" afterPath="$PROJECT_DIR$/backend/talent_position_type/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_resume/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_resume/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_video/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_video/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent_visa/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/backend/talent_visa/migrations/0001_initial.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/App.js" afterPath="$PROJECT_DIR$/frontend/src/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/actions/actionTypes.js" afterPath="$PROJECT_DIR$/frontend/src/actions/actionTypes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/actions/talentActions.js" afterPath="$PROJECT_DIR$/frontend/src/actions/talentActions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/constants/defaultValues.js" afterPath="$PROJECT_DIR$/frontend/src/constants/defaultValues.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/editProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/editProfile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/editProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/editProfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/homeScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/homeScreen.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/loginScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/loginScreen.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/myProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/myProfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/reducers/index.js" afterPath="$PROJECT_DIR$/frontend/src/reducers/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/routes/index.js" afterPath="$PROJECT_DIR$/frontend/src/routes/index.js" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="editProfile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="403" column="7" lean-forward="false" selection-start-line="403" selection-start-column="7" selection-end-line="403" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="n#!!block;n#renderBussinessStaff#0;n#EditProfile#0" expanded="false" />
+                <element signature="n#!!block;n#renderFunStaff#0;n#EditProfile#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homeScreen.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/containers/homeScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="56" column="40" lean-forward="false" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+              <folding>
+                <element signature="n#!!block;n#render#0;n#HomeScreen#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiSelectDropdown.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/dropdown/multiSelectDropdown.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="989">
+              <caret line="75" column="5" lean-forward="false" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+              <folding>
+                <element signature="e#473#902#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>talentActions</find>
+      <find>handleClickGenderButton</find>
+      <find>Link</find>
+      <find>FlatButton</find>
+      <find>DEFAULT_PRACTICE_POSITION_TYPE</find>
+      <find>talentReducer</find>
+      <find>MultipleSelect</find>
+      <find>multipleSelect</find>
+      <find>multiSelectDropdown</find>
+      <find>DropdownDropDown</find>
+      <find>&lt;DropDown</find>
+      <find>currentAdditionalGroups</find>
+      <find>allPositionTypes</find>
+      <find>getPositionTypesFromProps</find>
+      <find>exitType</find>
+      <find>generateGroupsFromTypes</find>
+      <find>generateGroupsFromPositionTypes</find>
+      <find>groups2SubSkills</find>
+      <find>handleCurrentAdditionalPositionSubTypesSelect</find>
+      <find>handleSubPositionSelect</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>handleClickPositionTypeButton</replace>
+      <replace>MultipleSelectDropDown</replace>
+      <replace>multipleSelectDropdown</replace>
+      <replace>Dropdown</replace>
+      <replace>MultiSelectDropdown</replace>
+      <replace>generateGroupsFromPositionTypes</replace>
+      <replace>handleCurrentSubSkillsSelect</replace>
+      <replace>handlePositionsAndSkillsSave</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/frontend/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectMaleWizard.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" />
+        <option value="$PROJECT_DIR$/backend/talent/models.py" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" />
+        <option value="$PROJECT_DIR$/frontend/src/App.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/homeScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/reducers/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/dropdown/multiSelectDropdown.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/editProfile.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <exe-path />
+    <config-path />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/frontend/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="69" />
+    <option name="y" value="23" />
+    <option name="width" value="1848" />
+    <option name="height" value="1057" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <selected-state>
+          <State>
+            <id>AngularJS</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="dropdown" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.selected.package.stylelint" value="" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="10861761-ab04-4efa-8823-d955a111feda" name="Default" comment="" />
+      <created>1537281851532</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1537281851532</updated>
+      <workItem from="1537281857834" duration="6882000" />
+      <workItem from="1537353990736" duration="882000" />
+      <workItem from="1537414872595" duration="621000" />
+      <workItem from="1537736648705" duration="3515000" />
+      <workItem from="1538377016682" duration="6962000" />
+      <workItem from="1538387149039" duration="4288000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="23150000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="69" y="23" width="1848" height="1057" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22276957" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24986272" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/frontend/node_modules/aws-sdk/scripts/services-table-generator.js" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="n#!!block;n#renderBussinessStaff#0;n#EditProfile#0" expanded="false" />
+            <element signature="n#!!block;n#renderFunStaff#0;n#EditProfile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/homeScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="851">
+          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!block;n#render#0;n#HomeScreen#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/dropdown/multiSelectDropdown.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="989">
+          <caret line="75" column="5" lean-forward="true" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+          <folding>
+            <element signature="e#473#902#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/welcomeBuildProfileWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectMaleWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1608">
+          <caret line="77" column="50" lean-forward="false" selection-start-line="77" selection-start-column="50" selection-end-line="77" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1392">
+          <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="35" column="10" lean-forward="false" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/constants/defaultValues.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1272">
+          <caret line="53" column="32" lean-forward="false" selection-start-line="53" selection-start-column="2" selection-end-line="53" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3432">
+          <caret line="187" column="48" lean-forward="false" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+            <element signature="e#366#428#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15936">
+          <caret line="687" column="44" lean-forward="false" selection-start-line="687" selection-start-column="4" selection-end-line="687" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/talent/models.py">
+      <provider selected="true" editor-type-id="live-pycharm">
+        <state>
+          <first_editor relative-caret-position="408">
+            <caret line="17" column="35" lean-forward="false" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+          </first_editor>
+          <second_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/welcomeBuildProfileWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectMaleWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1848">
+          <caret line="77" column="50" lean-forward="false" selection-start-line="77" selection-start-column="50" selection-end-line="77" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1392">
+          <caret line="68" column="37" lean-forward="true" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="35" column="10" lean-forward="true" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/constants/defaultValues.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1272">
+          <caret line="53" column="32" lean-forward="false" selection-start-line="53" selection-start-column="2" selection-end-line="53" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3432">
+          <caret line="187" column="48" lean-forward="false" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+            <element signature="e#366#428#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15936">
+          <caret line="687" column="44" lean-forward="false" selection-start-line="687" selection-start-column="4" selection-end-line="687" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/talent/models.py">
+      <provider selected="true" editor-type-id="live-pycharm">
+        <state>
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/welcomeBuildProfileWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/talent/models.py">
+      <provider selected="true" editor-type-id="live-pycharm">
+        <state>
+          <first_editor relative-caret-position="456">
+            <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          </first_editor>
+          <second_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </second_editor>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectMaleWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="77" column="50" lean-forward="false" selection-start-line="77" selection-start-column="50" selection-end-line="77" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/constants/defaultValues.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="853">
+          <caret line="53" column="32" lean-forward="false" selection-start-line="53" selection-start-column="2" selection-end-line="53" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="187" column="48" lean-forward="false" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+            <element signature="e#366#428#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/reducers/talent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/actions/talentActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="55" column="25" lean-forward="false" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/multipleSelect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/node_modules/react-dropdown/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/node_modules/@types/react/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="309" column="8" lean-forward="false" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/dropdown/multiSelectDropdown.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="989">
+          <caret line="75" column="5" lean-forward="false" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+          <folding>
+            <element signature="e#473#902#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="403" column="7" lean-forward="false" selection-start-line="403" selection-start-column="7" selection-end-line="403" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="n#!!block;n#renderBussinessStaff#0;n#EditProfile#0" expanded="false" />
+            <element signature="n#!!block;n#renderFunStaff#0;n#EditProfile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/homeScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="56" column="40" lean-forward="false" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+          <folding>
+            <element signature="n#!!block;n#render#0;n#HomeScreen#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

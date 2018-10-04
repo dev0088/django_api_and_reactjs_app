@@ -36,6 +36,7 @@ export const SAVE_TALENT_INFO = createRequestTypes('@@jwt/SAVE_TALENT_INFO');
 export const TALENT_POSITION_TYPES = createRequestTypes('@@jwt/TALENT_POSITION_TYPES')
 
 export const ALL_POSITION_TYPES = createRequestTypes('ALL_POSITION_TYPES')
+export const ALL_SKILLS = createRequestTypes('ALL_SKILLS')
 export const CONTACT_US = createRequestTypes('CONTACT_US');
 export const DEVICE_SETTINGS_SAVE = 'DEVICE_SETTINGS_SAVE';
 

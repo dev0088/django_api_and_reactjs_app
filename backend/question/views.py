@@ -4,8 +4,8 @@ import coreschema
 # Create your views here.
 from question.models import Question
 from question.serializers import QuestionSerializer
-from talent_position_type.models import TalentPositionType
-from talent_position_sub_type.models import TalentPositionSubType
+from position_type.models import PositionType
+from position_sub_type.models import PositionSubType
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -21,9 +21,9 @@ class QuestionPracticeStaticList(APIView):
     def get(self, request, format=None):
         try:
             position_type_name = 'Practice'
-            position_type = TalentPositionType.objects.get(name=position_type_name)
-            questions = Question.objects.filter(talent_position_type=position_type.id).order_by('created')
-        except TalentPositionType.DoesNotExist:
+            position_type = PositionType.objects.get(name=position_type_name)
+            questions = Question.objects.filter(position_type=position_type.id).order_by('created')
+        except PositionType.DoesNotExist:
             raise Http404
 
         if len(questions) > 5:
@@ -49,9 +49,9 @@ class QuestionPracticeRamdomList(APIView):
     def get(self, request, format=None):
         try:
             position_type_name = 'Practice'
-            position_type = TalentPositionType.objects.get(name=position_type_name)
-            questions = Question.objects.filter(talent_position_type=position_type.id)
-        except TalentPositionType.DoesNotExist:
+            position_type = PositionType.objects.get(name=position_type_name)
+            questions = Question.objects.filter(position_type=position_type.id)
+        except PositionType.DoesNotExist:
             raise Http404
 
         if len(questions) > 5:
@@ -114,13 +114,13 @@ class QuestionRamdomList(APIView):
             if not position_type:
                 questions = Question.objects.all()
             else :
-                position_type = TalentPositionType.objects.get(name__iexact=position_type)
+                position_type = PositionType.objects.get(name__iexact=position_type)
                 if not position_sub_type:
                     print('===== filter question: ', position_type.id)
-                    questions = Question.objects.filter(talent_position_type=position_type.id)
+                    questions = Question.objects.filter(position_type=position_type.id)
                 else: 
-                    questions = Question.objects.filter(talent_position_type=position_type.id).filter(talent_position_sub_type=position_sub_type)
-        except TalentPositionType.DoesNotExist:
+                    questions = Question.objects.filter(position_type=position_type.id).filter(position_sub_type=position_sub_type)
+        except PositionType.DoesNotExist:
             raise Http404
 
         if len(questions) > 5:

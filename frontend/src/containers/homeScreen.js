@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
+import * as talentActions from  '../actions/talentActions'
 import './homeScreen.css'
 
 const styles = theme => ({
@@ -45,6 +46,9 @@ class HomeScreen extends Component {
   }
   componentWillMount() {
     this.props.shiptalentInfoActions.getShipTalentInfo()
+    this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
+
     this.setState({
       shiptalentInfo: this.props.shiptalentInfo.value
     })
@@ -261,7 +265,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    shiptalentInfoActions: bindActionCreators(shiptalentInfoActions, dispatch)
+    shiptalentInfoActions: bindActionCreators(shiptalentInfoActions, dispatch),
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
 

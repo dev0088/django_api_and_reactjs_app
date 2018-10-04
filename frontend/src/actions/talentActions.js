@@ -42,13 +42,26 @@ export const getTalentPositionTypes = (id) => ({
 
 export const getAllPositionTypes = () => ({
   [RSAA]: {
-      endpoint: `${apiConfig.url}/talent_position_type/all`,
+      endpoint: `${apiConfig.url}/position_type/all`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       types: [
         types.ALL_POSITION_TYPES.REQUEST, 
         types.ALL_POSITION_TYPES.SUCCESS, 
         types.ALL_POSITION_TYPES.FAILURE
+      ]
+    }
+})
+
+export const getAllSkills = () => ({
+  [RSAA]: {
+      endpoint: `${apiConfig.url}/skill/all`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      types: [
+        types.ALL_SKILLS.REQUEST, 
+        types.ALL_SKILLS.SUCCESS, 
+        types.ALL_SKILLS.FAILURE
       ]
     }
 })

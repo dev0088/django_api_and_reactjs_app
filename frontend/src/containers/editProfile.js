@@ -14,16 +14,15 @@ import DropDown from 'react-dropdown';
 import moment from 'moment';
 
 import Panel from '../components/panel';
-import MultipleSelect from '../components/multipleSelect';
+import MultiSelectDropdown from '../components/dropdown/multiSelectDropdown';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
+import TalentAPI from '../apis/talentAPIs';
 import defaultValues from '../constants/defaultValues';
 
 import 'react-dropdown/style.css'
 import './editProfile.css'
 
-const const_genders = ["Male", "Female"];
 
 const styles = theme => ({
   button: {
@@ -79,6 +78,7 @@ class EditProfile extends Component {
         relationship: 0
       },
       allPositionTypes: [],
+      allSkills: [],
       currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
         ? { value: props.talentInfo.talent_position_sub_type.name,
             label: props.talentInfo.talent_position_sub_type.name }
@@ -86,7 +86,7 @@ class EditProfile extends Component {
 			currentAdditionalPositionTypes: null,
       currentAdditionalPositionSubTypes: null,
 
-			currentAdditionalGroups: [],
+			currentSkillGroups: [],
 
 			worked_cruise_ship: false,
 
@@ -96,24 +96,26 @@ class EditProfile extends Component {
   }
 
 	exitType = (typeName, name, items) => {
-		for(let i = 0; i < items.length; i ++) {
-			if (items[i][typeName].name === name) {
-				return true
-			}
-		}
+    if (typeName && name && items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i][typeName].name === name) {
+          return true
+        }
+      }
+    }
 
 		return false
 	}
 
-	generateGroupsFromTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
+	generateGroupsFromPositionTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
 		let groups = []
 		for (let i = 0; i < allPositionTypes.length; i ++) {
 			let positionType = allPositionTypes[i]
 			let options = []
 
 			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-				for (let j = 0; j < positionType.talent_position_sub_types.length; j ++) {
-					let positionSubType = positionType.talent_position_sub_types[j]
+				for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
+					let positionSubType = positionType.position_sub_types[j]
 					options.push({
 						label: positionSubType,
 						value: positionSubType,
@@ -125,6 +127,7 @@ class EditProfile extends Component {
 												currentPositionSubTypes)
 					})
 				}
+
 				groups.push({
 					label: positionType.name,
 					value: positionType.name,
@@ -136,8 +139,50 @@ class EditProfile extends Component {
 				})
 			}
 		}
+
 		return groups
 	}
+
+  generateGroupsFromSkills = (allSkills, currentSkills, currentSubSkills) => {
+    let groups = []
+    console.log('===== allSkills: ', allSkills)
+    console.log('===== currentSkills: ', currentSkills)
+    console.log('===== currentSubSkills: ', currentSubSkills)
+    for (let i = 0; i < allSkills.length; i ++) {
+      let skill = allSkills[i]
+      let options = []
+
+      if (skill.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+        for (let j = 0; j < skill.sub_skills.length; j ++ ) {
+          let subSkill = skill.sub_skills[j]
+          options.push({
+            label: subSkill,
+            value: subSkill,
+            group: skill.name,
+            isGroup: false,
+            isChecked: this.exitType(
+              'sub_skill',
+              subSkill,
+              currentSubSkills)
+          })
+        }
+
+        groups.push({
+          label: skill.name,
+          value: skill.name,
+          isGroup: true,
+          isChecked: this.exitType('skill',
+            skill.name,
+            currentSkills),
+          options: options,
+          multiSelection: skill.multi_selection,
+          data: skill
+        })
+      }
+    }
+
+    return groups
+  }
 
 	isChckedPositionType = (name, positionTypes) => {
 		for(let i = 0; i < positionTypes.length; i ++ ) {
@@ -148,42 +193,43 @@ class EditProfile extends Component {
 		return false
 	}
 
-  getPositionTypesFromProps(props) {
+  getInfoFromProps(props) {
     const {
       auth,
       allPositionTypes,
+      allSkills,
       talentInfo
     } = props
     let currentSubPositionType = []
-		let currentAdditionalGroups = []
+		let currentSkillGroups = []
     let userID = auth.access.user_id
     let gender = 'Male'
     let contactInfo = {}
     let emergencyInfo = {}
 		let worked_cruise_ship = false
-    // if (allPositionTypes) {
-    //   positionTypes = allPositionTypes
-    // }
+
     if (talentInfo) {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
       let subPostionType = {}
-      if (talentInfo.talent_position_sub_type) {
+      if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0) {
+        let talent_position_sub_type = talentInfo.talent_position_sub_types[0].position_sub_type
+        console.log('====== talent_position_sub_type: ', talent_position_sub_type)
         subPostionType = {
-          value: talentInfo.talent_position_sub_type.name,
-          label: talentInfo.talent_position_sub_type.name,
-          positionType: talentInfo.talent_position_sub_type.talent_position_type
+          value: talent_position_sub_type.name,
+          label: `${talent_position_sub_type.position_type}: ${talent_position_sub_type.name}`,
+          positionType: talent_position_sub_type.position_type.name
         }
       }
 
       currentSubPositionType = subPostionType
 
-			currentAdditionalGroups = this.generateGroupsFromTypes(
-					allPositionTypes ? allPositionTypes : [],
-					talentInfo.talent_additional_position_types,
-					talentInfo.talent_additional_position_sub_types
+			currentSkillGroups = this.generateGroupsFromSkills(
+        	allSkills ? allSkills : [],
+					talentInfo.talent_skills,
+          talentInfo.talent_sub_skills,
 				)
-			console.log('=== currentAdditionalGroups: ', currentAdditionalGroups)
+			console.log('=== currentSkillGroups: ', currentSkillGroups)
       // Get contact info
       contactInfo = {
         firstName: talentInfo.user.first_name,
@@ -211,7 +257,7 @@ class EditProfile extends Component {
       gender,
       allPositionTypes,
       currentSubPositionType,
-			currentAdditionalGroups,
+			currentSkillGroups,
       contactInfo,
       emergencyInfo,
 			worked_cruise_ship
@@ -220,11 +266,12 @@ class EditProfile extends Component {
 
   componentWillMount() {
     this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getPositionTypesFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps)
     })
   }
 
@@ -247,6 +294,7 @@ class EditProfile extends Component {
   }
 
   handleSubPositionSelect = (item) => {
+    console.log('==== item: ', item)
     this.setState({
       currentSubPositionType: item,
 			isChanged: true
@@ -261,85 +309,84 @@ class EditProfile extends Component {
 			let positionType = allPositionTypes[i]
 			if (positionType.name === name) {
 				res = true
+				break
 			}
 		}
 
 		return res
 	}
 
-  handleCurrentAdditionalPositionSubTypesSelect = (groups) => {
+  handleCurrentSubSkillsSelect = (groups) => {
     this.setState({
-			currentAdditionalGroups: groups,
+			currentSkillGroups: groups,
 			isChanged: true
 	  });
   }
 
-	// handleMultipleSelect = (selectedItems) =>
   handlePositionTypeCancel = () => {
     this.setState({
-      ...this.getPositionTypesFromProps(this.props),
+      ...this.getInfoFromProps(this.props),
 			isChanged: false
     })
   }
 
-	groups2PositionSubTypes(groups) {
-		let talent_additional_position_types = []
-		let talent_additional_position_sub_types = []
-
-    for (let i = 0; i < groups.length; i ++) {
+	groups2SubSkills(groups) {
+		let talent_skills = []
+		let talent_sub_skills = []
+    console.log('===== groups2SubSkills: groups: ', groups)
+		for (let i = 0; i < groups.length; i ++) {
 			let group = groups[i]
-
 			if (group.isChecked) {
-				talent_additional_position_types.push({
+				talent_skills.push({
 					name: group.value
 				})
 			}
 
-			for (let j = 0; j < group.options.length; i ++) {
-				let option = group.options[i]
-
+			for (let j = 0; j < group.options.length; j ++) {
+				let option = group.options[j]
 				if (option.isChecked) {
-					talent_additional_position_sub_types.push({
-		        name: option.value,
-		        talent_position_type: group.value
-		      })
+					talent_sub_skills.push({
+						name: option.value,
+						talent_position_type: group.value
+					})
 				}
 			}
-    }
+		}
 
 		return {
-			talent_additional_position_types,
-			talent_additional_position_sub_types
+			talent_skills,
+			talent_sub_skills
 		}
 	}
 
-  handlePositionTypeSave = () => {
+  handlePositionsAndSkillsSave = () => {
     const {
       userID,
       gender,
       currentSubPositionType,
-      currentAdditionalGroups
+      currentSkillGroups
     } = this.state
 
     const {
-			talent_additional_position_types,
-			talent_additional_position_sub_types
-		} = this.groups2PositionSubTypes(currentAdditionalGroups)
-
+			talent_skills,
+			talent_sub_skills
+		} = this.groups2SubSkills(currentSkillGroups)
+    console.log('===== currentSubPositionType: ', currentSubPositionType)
     let data = {
       sex: gender === "Male" ? "m" : "f",
       talent_position_sub_type: {
         name: currentSubPositionType.value,
-        talent_position_type: currentSubPositionType.positionType
+        position_type: currentSubPositionType.positionType
       },
-			talent_additional_position_types: talent_additional_position_types,
-      talent_additional_position_sub_types: talent_additional_position_sub_types
+			talent_skills: talent_skills,
+      talent_sub_skills: talent_sub_skills
     }
 
-    TalentAPI.saveTalentInfo(userID, data, this.handlePositionTypeSaveResponse)
+    console.log('===== data: ', data)
+    // TalentAPI.saveTalentInfo(userID, data, this.handlePositionsAndSkillsSaveResponse)
   }
 
-  handlePositionTypeSaveResponse = (response, isFailed) => {
+  handlePositionsAndSkillsSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
 		this.setState({
@@ -384,31 +431,30 @@ class EditProfile extends Component {
     let groups = []
 
     if (allPositionTypes) {
-
 			for (let i = 0; i < allPositionTypes.length; i ++) {
-        const positionType = allPositionTypes[i]
+				const positionType = allPositionTypes[i]
+				if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+					continue;
+				}
 
-        if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-          continue;
-        }
+				let group = {
+					type: 'group',
+					name: positionType.name,
+					items: []
+				}
 
-        let group = {
-          type: 'group',
-          name: positionType.name,
-          items: []
-        }
-
-				for (let j = 0; j < positionType.talent_position_sub_types.length; i ++) {
-					const positionSubType = positionType.talent_position_sub_types[j]
+				for (let j = 0; j < positionType.position_sub_types.length; j ++) {
+					const positionSubType = positionType.position_sub_types[j]
 					group.items.push({
 						value: positionSubType,
-						label: positionSubType,
+						label: `${positionType.name}: ${positionSubType}`,
+            position_type: positionType.name,
 						className: 'profile-position-sub-type-item'
 					})
 				}
 
-        groups.push(group)
-      }
+				groups.push(group)
+			}
     }
 
     return (
@@ -420,14 +466,14 @@ class EditProfile extends Component {
     )
   }
 
-	renderMultipleSelectView() {
-    const { currentAdditionalGroups } = this.state
+	renderMultiSelectDropdownView() {
+    const { currentSkillGroups } = this.state
 
     return (
-      <MultipleSelect
+      <MultiSelectDropdown
 				label={"Select your positions"}
-        groups={currentAdditionalGroups}
-				onChange={this.handleCurrentAdditionalPositionSubTypesSelect}
+        groups={currentSkillGroups}
+				onChange={this.handleCurrentSubSkillsSelect}
       />
     )
   }
@@ -443,7 +489,7 @@ class EditProfile extends Component {
           </Col>
           <Col xs="12" md="10" className="pt-0 pt-md-2">
           {
-            const_genders.map((gender, index) => {
+            defaultValues.GENDERS.map((gender, index) => {
               return (
                 <FlatButton
                   key={index}
@@ -465,8 +511,7 @@ class EditProfile extends Component {
         <Row className="profile-gender-row">
           <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
           <Col xs="12" md="10" className="pt-3 pt-md-3">
-						{/* { this.renderMultiSelectionPositionTypesView() } */}
-						{ this.renderMultipleSelectView() }
+						{ this.renderMultiSelectDropdownView() }
 					</Col>
         </Row>
         <Row className="profile-gender-row">
@@ -479,7 +524,7 @@ class EditProfile extends Component {
             </Button>
             <Button size="large" color="primary"
               className={classes.button}
-              onClick={this.handlePositionTypeSave}>
+              onClick={this.handlePositionsAndSkillsSave}>
               {'Save'}
             </Button>
           </Col>
@@ -644,11 +689,8 @@ class EditProfile extends Component {
               <h4>Let's Build or Edit Your Profile...</h4>
             </Col>
           </Row>
-
           {this.renderBussinessStaff()}
-
           {this.renderFunStaff()}
-
           <Row>
             <Col sm="12" className="pt-0 pt-md-0">
 							<FormControlLabel
@@ -675,12 +717,10 @@ class EditProfile extends Component {
               </Link>
             </Col>
           </Row>
-
 					<ConfirmChangesDialog
 						open={showConfirmChanges}
 						onClose={this.handleCloseConfirm}
 					/>
-
         </div>
       </MuiThemeProvider>
     )
@@ -688,19 +728,18 @@ class EditProfile extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, talentReducer,  talentInfo, allPositionTypes} = state;
+  const { auth, talentReducer,  talentInfo, allPositionTypes, allSkills} = state;
   return {
     auth,
     talentReducer,
     talentInfo: talentInfo.value,
-    allPositionTypes: allPositionTypes.value
+    allPositionTypes: allPositionTypes.value,
+    allSkills: allSkills.value
   }
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));

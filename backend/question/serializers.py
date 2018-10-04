@@ -7,7 +7,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     model = Question
     fields = (
       'id',
-      'talent_position_type',
-      'talent_position_sub_type',
+      'position_type',
+      'position_sub_type',
       'content'
     )
