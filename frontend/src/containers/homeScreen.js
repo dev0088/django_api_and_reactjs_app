@@ -42,8 +42,8 @@ class HomeScreen extends Component {
     this.state = {
       shiptalentInfo: props.shiptalentInfo.value,
     };
-
   }
+
   componentWillMount() {
     this.props.shiptalentInfoActions.getShipTalentInfo()
     this.props.talentActions.getAllPositionTypes()

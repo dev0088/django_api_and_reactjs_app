@@ -6,8 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   root: {
@@ -46,48 +46,48 @@ const MenuProps = {
   },
 };
 
-class MultiSelectDropdown extends React.Component {
+class SingleSelectDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       label: props.label,
       groups: props.groups,
-      currentSelectedItems: this.getSelectedItemFromGroups(props.groups),
+      selectedItemIndex: this.getSelectedItemFromGroups(props.groups),
       callbackOnChange: props.callbackOnChange
     }
   }
 
   getSelectedItemFromGroups = (groups) => {
-    let selectedItems = []
+    let selectedItemIndex = -1
 
     for (let i = 0; i < groups.length; i ++) {
       let group = groups[i]
 
       if (group.isChecked) {
-        selectedItems.push(group.value)
-      }
+        selectedItemIndex = group.value
+      } else {
+        for (let j = 0; j < group.options.length; j ++) {
+          let option = group.options[j]
 
-      for (let j = 0; j < group.options.length; j ++) {
-        let option = group.options[j]
-
-        if (option.isChecked) {
-          selectedItems.push(option.value)
+          if (option.isChecked) {
+            selectedItemIndex = option.value
+          }
         }
       }
     }
 
-    return selectedItems
+    return selectedItemIndex
   }
 
   componentWillReceiveProps(nextProps) {
     const { label, groups, onChange } = nextProps
-    console.log('==== groups: ', groups)
-    let currentSelectedItems = this.getSelectedItemFromGroups(groups)
+    console.log('==== SingleSelectDropdowon: groups: ', groups)
+    let selectedItemIndex = this.getSelectedItemFromGroups(groups)
 
     this.setState({
       label,
       groups,
-      currentSelectedItems,
+      selectedItemIndex,
       callbackOnChange: onChange
     })
   }
@@ -279,11 +279,31 @@ class MultiSelectDropdown extends React.Component {
 
   handleChange = event => {
     const { callbackOnChange, groups } = this.state
-    const selectedItems = this.reviseGroupsbySelectedItems(event.target.value)
-    const newGroups = this.selectedItems2Groups(selectedItems, groups)
+    // const selectedItems = this.reviseGroupsbySelectedItems(event.target.value)
+    // const newGroups = this.selectedItems2Groups(selectedItems, groups)
+    let newGroups = groups
+    let selectedItemIndex = event.target.value
+
+    for (let i = 0; i < newGroups.length; i++) {
+      let group = newGroups[i]
+      if (group.value === event.target.value) {
+        group.isChecked = true
+      } else {
+        group.isChecked = false
+      }
+        for (let j = 0; j < group.options.length; j++) {
+          let option = group.options[j]
+          if (option.value === event.target.value) {
+            option.isChecked = true
+          } else {
+            option.isChecked = false
+          }
+        }
+
+    }
 
     this.setState({
-      currentSelectedItems: selectedItems,
+      selectedItemIndex: selectedItemIndex,
       groups: newGroups
     }, () => {
       const { groups } = this.state
@@ -293,35 +313,55 @@ class MultiSelectDropdown extends React.Component {
     })
   }
 
+  renderValueByIndex = (index) => {
+    const { groups } = this.state
+
+    for (let i = 0; i < groups.length; i++) {
+      let group = groups[i]
+      if (group.value === index) {
+        return (
+          <Typography variant="subheading" gutterBottom>
+            {group.label}
+          </Typography>
+        )
+      }
+      for (let j = 0; j < group.options.length; j++) {
+        let option = group.options[j]
+        if (option.value === index) {
+          return  (
+            <Typography variant="subheading" gutterBottom>
+              {`${group.label}: ${option.label}`}
+            </Typography>
+          )
+        }
+      }
+    }
+
+    return <Typography />
+  }
+
   render () {
     const { classes } = this.props;
-    const { label, groups, currentSelectedItems } = this.state;
+    const { label, groups, selectedItemIndex } = this.state;
 
     return (
       <div className={classes.root}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="select-multiple-checkbox">{label}</InputLabel>
           <Select
-            multiple
             autoWidth = {true}
-            value={currentSelectedItems}
+            value={selectedItemIndex}
             onChange={this.handleChange}
             input={<Input id="select-multiple-checkbox" />}
-            renderValue={selected => (
-              <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip key={value} label={value} className={classes.chip} />
-                ))}
-              </div>
-            )}
             MenuProps={MenuProps}
+            renderValue={selected => this.renderValueByIndex(selectedItemIndex)}
           >
             {groups && groups.map((group, index) => {
               let group_items = []
               group_items.push(
                 <MenuItem key={`position_${index}`} value={group.value} className={classes.groupMenuItem} >
-                  <Checkbox checked={currentSelectedItems.indexOf(group.value) > -1} color="primary"/>
-                  <ListItemText primary={group.value} />
+                  {<Checkbox checked={selectedItemIndex === group.value} color="primary"/>}
+                  <ListItemText primary={group.label} />
                 </MenuItem>
               )
               let group_sub_items = []
@@ -329,10 +369,10 @@ class MultiSelectDropdown extends React.Component {
                 group_sub_items = group.options.map((option, index) => {
                   return (
                     <MenuItem key={`sub_position_${index}`} value={option.value} className={classes.optionMenuItem}>
-                      <Checkbox
-                        checked={currentSelectedItems.indexOf(option.value) > -1}
-                        color="primary"/>
-                      <ListItemText primary={option.value} />
+                      {<Checkbox
+                        checked={selectedItemIndex === option.value}
+                        color="primary"/>}
+                      <ListItemText primary={option.label} />
                     </MenuItem>
                   )}
                 )
@@ -350,9 +390,9 @@ class MultiSelectDropdown extends React.Component {
   }
 }
 
-// MultiSelectDropdown.propTypes = {
+// SingleSelectDropdown.propTypes = {
 //   classes: PropTypes.object.isRequired,
 //   theme: PropTypes.object.isRequired,
 // };
 
-export default withStyles(styles, { withTheme: true })(MultiSelectDropdown);
+export default withStyles(styles, { withTheme: true })(SingleSelectDropdown);

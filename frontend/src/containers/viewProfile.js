@@ -33,33 +33,26 @@ class ViewProfile extends Component {
 
   getInfoFromProps(props) {
     const {
-      talent_position_sub_type,
-      talent_additional_position_sub_types
+      talent_position_sub_types,
+      talent_skills
     } = props.talentInfo
 
-    let skills = []
-    let title = talent_position_sub_type.talent_position_type
-    skills.push(title)
+    return {
+      skills: talent_skills,
+      title: this.makeTitleWithAllPositionTypes(talent_position_sub_types, talent_skills)
+    }
+  }
 
-		for (let i = 0; i < talent_additional_position_sub_types.length; i ++) {
-			let skill = talent_additional_position_sub_types[i]
-      let position_type_name = skill.talent_position_sub_type.talent_position_type
-      // Check duplication
-      if (!this.existSkill(skills, position_type_name)) {
-        skills.push(position_type_name)
-      }
-		}
+  makeTitleWithAllPositionTypes(talent_position_sub_types, talent_skills) {
+    let title = talent_position_sub_types[0].position_sub_type.position_type
 
     // Make title with all position types
-    title = title + ((skills.length > 1) ? " Who " : '')
-    for (let i = 1; i < skills.length; i++) {
-      title = title + ((i === (skills.length - 1)) ? ', ' : '')
+    title = title + ((talent_skills.length > 0) ? ` who ${talent_skills[0].skill} ` : '')
+    for (let i = 1; i < talent_skills.length; i ++) {
+      title = `${title} ${(i === (talent_skills.length - 1)) ? 'and' : ','} ${talent_skills[i].skill}`
     }
 
-    return {
-      skills,
-      title
-    }
+    return title
   }
 
   existSkill(skills, name) {

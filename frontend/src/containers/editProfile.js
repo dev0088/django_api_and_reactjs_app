@@ -15,6 +15,7 @@ import moment from 'moment';
 
 import Panel from '../components/panel';
 import MultiSelectDropdown from '../components/dropdown/multiSelectDropdown';
+import SingleSelectDropdown from '../components/dropdown/singleSelectDropdown';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
@@ -86,6 +87,7 @@ class EditProfile extends Component {
 			currentAdditionalPositionTypes: null,
       currentAdditionalPositionSubTypes: null,
 
+      currentPositionTypesGroup: [],
 			currentSkillGroups: [],
 
 			worked_cruise_ship: false,
@@ -107,36 +109,58 @@ class EditProfile extends Component {
 		return false
 	}
 
-	generateGroupsFromPositionTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
+	exitPositionTypes(typeName, subTypeName, allTypes) {
+    for (let i = 0; i < allTypes.length; i++) {
+      if (allTypes[i].name === typeName) {
+        if (allTypes.position_sub_types) {
+          for (let j = 0; j < allTypes[i].position_sub_types.length; j ++) {
+            if (allTypes[i].position_sub_types[j] === subTypeName) {
+              return true
+            }
+          }
+        } else {
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+	generateGroupFromPositionSubTypes = (allPositionTypes, talent_position_sub_types) => {
 		let groups = []
+    let index = 0
+
 		for (let i = 0; i < allPositionTypes.length; i ++) {
 			let positionType = allPositionTypes[i]
-			let options = []
 
 			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-				for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
+        let options = []
+			  let group = {
+          label: positionType.name,
+          value: index ++,
+          // index: index ++,
+          isGroup: true,
+          isChecked: false, //this.exitPositionTypes(positionType.name, currentPositionTypes),
+          options: []
+        }
+
+			  for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
 					let positionSubType = positionType.position_sub_types[j]
 					options.push({
 						label: positionSubType,
-						value: positionSubType,
+						value: index ++,
 						group: positionType.name,
+            // index: index ++,
 						isGroup: false,
-						isChecked: this.exitType(
-												'talent_position_sub_type',
-												positionSubType,
-												currentPositionSubTypes)
+						isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
+                          positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
+                          positionSubType === talent_position_sub_types[0].position_sub_type.name
+                        )
 					})
 				}
+        group.options = options
 
-				groups.push({
-					label: positionType.name,
-					value: positionType.name,
-					isGroup: true,
-					isChecked: this.exitType('talent_position_type',
-											positionType.name,
-											currentPositionTypes),
-					options: options
-				})
+				groups.push(group)
 			}
 		}
 
@@ -145,20 +169,33 @@ class EditProfile extends Component {
 
   generateGroupsFromSkills = (allSkills, currentSkills, currentSubSkills) => {
     let groups = []
-    console.log('===== allSkills: ', allSkills)
-    console.log('===== currentSkills: ', currentSkills)
-    console.log('===== currentSubSkills: ', currentSubSkills)
+    let index = 0
+
     for (let i = 0; i < allSkills.length; i ++) {
       let skill = allSkills[i]
-      let options = []
 
       if (skill.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+        let options = []
+        let group = {
+          label: skill.name,
+          value: skill.name,
+          index: index ++,
+          isGroup: true,
+          isChecked: this.exitType('skill',
+            skill.name,
+            currentSkills),
+          options: [],
+          multiSelection: skill.multi_selection,
+          data: skill
+        }
+
         for (let j = 0; j < skill.sub_skills.length; j ++ ) {
           let subSkill = skill.sub_skills[j]
           options.push({
             label: subSkill,
             value: subSkill,
             group: skill.name,
+            index: index ++,
             isGroup: false,
             isChecked: this.exitType(
               'sub_skill',
@@ -166,18 +203,9 @@ class EditProfile extends Component {
               currentSubSkills)
           })
         }
+        group.options = options
 
-        groups.push({
-          label: skill.name,
-          value: skill.name,
-          isGroup: true,
-          isChecked: this.exitType('skill',
-            skill.name,
-            currentSkills),
-          options: options,
-          multiSelection: skill.multi_selection,
-          data: skill
-        })
+        groups.push(group)
       }
     }
 
@@ -200,7 +228,8 @@ class EditProfile extends Component {
       allSkills,
       talentInfo
     } = props
-    let currentSubPositionType = []
+    let currentSubPositionType = {}
+    let currentPositionTypesGroup = []
 		let currentSkillGroups = []
     let userID = auth.access.user_id
     let gender = 'Male'
@@ -212,23 +241,27 @@ class EditProfile extends Component {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
       let subPostionType = {}
-      if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0) {
-        let talent_position_sub_type = talentInfo.talent_position_sub_types[0].position_sub_type
-        console.log('====== talent_position_sub_type: ', talent_position_sub_type)
-        subPostionType = {
-          value: talent_position_sub_type.name,
-          label: `${talent_position_sub_type.position_type}: ${talent_position_sub_type.name}`,
-          positionType: talent_position_sub_type.position_type.name
-        }
-      }
+      // if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0) {
+      //   let talent_position_sub_type = talentInfo.talent_position_sub_types[0].position_sub_type
+      //   console.log('====== talent_position_sub_type: ', talent_position_sub_type)
+      //   subPostionType = {
+      //     value: talent_position_sub_type.name,
+      //     label: `${talent_position_sub_type.position_type}: ${talent_position_sub_type.name}`,
+      //     positionType: talent_position_sub_type.position_type.name
+      //   }
+      // }
 
       currentSubPositionType = subPostionType
-
+      currentPositionTypesGroup = this.generateGroupFromPositionSubTypes(
+                                    allPositionTypes ? allPositionTypes : [],
+                                    talentInfo.talent_position_sub_types
+                                  )
 			currentSkillGroups = this.generateGroupsFromSkills(
-        	allSkills ? allSkills : [],
-					talentInfo.talent_skills,
-          talentInfo.talent_sub_skills,
-				)
+                              allSkills ? allSkills : [],
+                              talentInfo.talent_skills,
+                              talentInfo.talent_sub_skills,
+                            )
+      console.log('=== currentPositionTypesGroup: ', currentSkillGroups)
 			console.log('=== currentSkillGroups: ', currentSkillGroups)
       // Get contact info
       contactInfo = {
@@ -257,6 +290,7 @@ class EditProfile extends Component {
       gender,
       allPositionTypes,
       currentSubPositionType,
+      currentPositionTypesGroup,
 			currentSkillGroups,
       contactInfo,
       emergencyInfo,
@@ -293,10 +327,11 @@ class EditProfile extends Component {
     });
   }
 
-  handleSubPositionSelect = (item) => {
-    console.log('==== item: ', item)
+  handleSubPositionSelect = (groups) => {
+    console.log('==== handleSubPositionSelect: groups: ', groups)
     this.setState({
-      currentSubPositionType: item,
+      // currentSubPositionType: item,
+      currentPositionTypesGroup: groups,
 			isChanged: true
     })
   }
@@ -371,6 +406,7 @@ class EditProfile extends Component {
 			talent_skills,
 			talent_sub_skills
 		} = this.groups2SubSkills(currentSkillGroups)
+    console.log('===== currentSkillGroups: ', currentSkillGroups)
     console.log('===== currentSubPositionType: ', currentSubPositionType)
     let data = {
       sex: gender === "Male" ? "m" : "f",
@@ -427,42 +463,51 @@ class EditProfile extends Component {
 	}
 
   renderPositionTypesView() {
-    const { allPositionTypes } = this.props
-    let groups = []
+    const { currentPositionTypesGroup } = this.state
+    // const { allPositionTypes } = this.props
+    // let groups = []
 
-    if (allPositionTypes) {
-			for (let i = 0; i < allPositionTypes.length; i ++) {
-				const positionType = allPositionTypes[i]
-				if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-					continue;
-				}
+    // if (allPositionTypes) {
+			// for (let i = 0; i < allPositionTypes.length; i ++) {
+			// 	const positionType = allPositionTypes[i]
+			// 	if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+			// 		continue;
+			// 	}
+    //
+			// 	let group = {
+			// 		type: 'group',
+			// 		name: positionType.name,
+			// 		items: []
+			// 	}
+    //
+			// 	for (let j = 0; j < positionType.position_sub_types.length; j ++) {
+			// 		const positionSubType = positionType.position_sub_types[j]
+			// 		group.items.push({
+			// 			value: positionSubType,
+			// 			label: `${positionType.name}: ${positionSubType}`,
+    //         position_type: positionType.name,
+			// 			className: 'profile-position-sub-type-item'
+			// 		})
+			// 	}
+    //
+			// 	groups.push(group)
+			// }
+    // }
 
-				let group = {
-					type: 'group',
-					name: positionType.name,
-					items: []
-				}
-
-				for (let j = 0; j < positionType.position_sub_types.length; j ++) {
-					const positionSubType = positionType.position_sub_types[j]
-					group.items.push({
-						value: positionSubType,
-						label: `${positionType.name}: ${positionSubType}`,
-            position_type: positionType.name,
-						className: 'profile-position-sub-type-item'
-					})
-				}
-
-				groups.push(group)
-			}
-    }
+    // return (
+    //   <DropDown
+    //     options={groups}
+    //     onChange={this.handleSubPositionSelect}
+    //     value={this.state.currentSubPositionType}
+    //     placeholder="Select an option" />
+    // )
 
     return (
-      <DropDown
-        options={groups}
+      <SingleSelectDropdown
+        label={"Select an option"}
+        groups={currentPositionTypesGroup}
         onChange={this.handleSubPositionSelect}
-        value={this.state.currentSubPositionType}
-        placeholder="Select an option" />
+      />
     )
   }
 
