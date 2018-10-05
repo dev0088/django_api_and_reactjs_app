@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import ClearRounded from '@material-ui/icons/ClearRounded';
 import Divider from '@material-ui/core/Divider';
 import Panel from '../components/panel'
@@ -19,38 +18,7 @@ import ImageLightbox from 'react-image-lightbox';
 
 import 'react-image-lightbox/style.css';
 import './myPicturesScreen.css';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-  icon: {
-    margin: theme.spacing.unit * 2,
-  },
-  iconHover: {
-    margin: theme.spacing.unit * 2,
-    '&:hover': {
-      color: red[800],
-    },
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
+import {styles, theme} from '../styles.js';
 
 class MyPictures extends Component {
 

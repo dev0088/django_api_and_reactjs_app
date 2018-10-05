@@ -23,30 +23,7 @@ import defaultValues from '../constants/defaultValues';
 
 import 'react-dropdown/style.css'
 import './editProfile.css'
-
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
+import { styles, theme } from '../styles';
 
 // var ReactS3Uploader = require('react-s3-uploader');
 
@@ -80,12 +57,12 @@ class EditProfile extends Component {
       },
       allPositionTypes: [],
       allSkills: [],
-      currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
-        ? { value: props.talentInfo.talent_position_sub_type.name,
-            label: props.talentInfo.talent_position_sub_type.name }
-        : '',
-			currentAdditionalPositionTypes: null,
-      currentAdditionalPositionSubTypes: null,
+      // currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
+      //   ? { value: props.talentInfo.talent_position_sub_type.name,
+      //       label: props.talentInfo.talent_position_sub_type.name }
+      //   : '',
+      // currentAdditionalPositionTypes: null,
+      // currentAdditionalPositionSubTypes: null,
 
       currentPositionTypesGroup: [],
 			currentSkillGroups: [],
@@ -108,6 +85,18 @@ class EditProfile extends Component {
 
 		return false
 	}
+
+  exitSkill = (typeName, name, items) => {
+    if (typeName && name && items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i][typeName] === name) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
 
 	exitPositionTypes(typeName, subTypeName, allTypes) {
     for (let i = 0; i < allTypes.length; i++) {
@@ -140,7 +129,7 @@ class EditProfile extends Component {
           value: index ++,
           // index: index ++,
           isGroup: true,
-          isChecked: false, //this.exitPositionTypes(positionType.name, currentPositionTypes),
+          isChecked: false,
           options: []
         }
 
@@ -181,10 +170,8 @@ class EditProfile extends Component {
           value: skill.name,
           index: index ++,
           isGroup: true,
-          isChecked: this.exitType('skill',
-            skill.name,
-            currentSkills),
           options: [],
+          isChecked: this.exitSkill('skill', skill.name, currentSkills),
           multiSelection: skill.multi_selection,
           data: skill
         }
@@ -365,6 +352,36 @@ class EditProfile extends Component {
     })
   }
 
+  groups2SubPositionType(groups) {
+    let talent_sub_position_type = ''
+    let talent_position_type = ''
+
+    for (let i = 0; i < groups.length; i ++) {
+      let group = groups[i]
+      if (group.isChecked) {
+        talent_position_type = group.label
+        break
+      }
+
+      for (let j = 0; j < group.options.length; j ++) {
+        let option = group.options[j]
+        if (option.isChecked) {
+          talent_position_type = group.label
+          talent_sub_position_type = option.label
+          return {
+            talent_sub_position_type,
+            talent_position_type
+          }
+        }
+      }
+    }
+
+    return {
+      talent_sub_position_type,
+      talent_position_type
+    }
+  }
+
 	groups2SubSkills(groups) {
 		let talent_skills = []
 		let talent_sub_skills = []
@@ -398,7 +415,7 @@ class EditProfile extends Component {
     const {
       userID,
       gender,
-      currentSubPositionType,
+      currentPositionTypesGroup,
       currentSkillGroups
     } = this.state
 
@@ -406,20 +423,23 @@ class EditProfile extends Component {
 			talent_skills,
 			talent_sub_skills
 		} = this.groups2SubSkills(currentSkillGroups)
-    console.log('===== currentSkillGroups: ', currentSkillGroups)
-    console.log('===== currentSubPositionType: ', currentSubPositionType)
+    const {
+      talent_sub_position_type,
+      talent_position_type,
+    } = this.groups2SubPositionType(currentPositionTypesGroup)
+
     let data = {
       sex: gender === "Male" ? "m" : "f",
       talent_position_sub_type: {
-        name: currentSubPositionType.value,
-        position_type: currentSubPositionType.positionType
+        name: talent_sub_position_type,
+        position_type: talent_position_type
       },
 			talent_skills: talent_skills,
       talent_sub_skills: talent_sub_skills
     }
 
     console.log('===== data: ', data)
-    // TalentAPI.saveTalentInfo(userID, data, this.handlePositionsAndSkillsSaveResponse)
+    TalentAPI.saveTalentInfo(userID, data, this.handlePositionsAndSkillsSaveResponse)
   }
 
   handlePositionsAndSkillsSaveResponse = (response, isFailed) => {
@@ -464,43 +484,6 @@ class EditProfile extends Component {
 
   renderPositionTypesView() {
     const { currentPositionTypesGroup } = this.state
-    // const { allPositionTypes } = this.props
-    // let groups = []
-
-    // if (allPositionTypes) {
-			// for (let i = 0; i < allPositionTypes.length; i ++) {
-			// 	const positionType = allPositionTypes[i]
-			// 	if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-			// 		continue;
-			// 	}
-    //
-			// 	let group = {
-			// 		type: 'group',
-			// 		name: positionType.name,
-			// 		items: []
-			// 	}
-    //
-			// 	for (let j = 0; j < positionType.position_sub_types.length; j ++) {
-			// 		const positionSubType = positionType.position_sub_types[j]
-			// 		group.items.push({
-			// 			value: positionSubType,
-			// 			label: `${positionType.name}: ${positionSubType}`,
-    //         position_type: positionType.name,
-			// 			className: 'profile-position-sub-type-item'
-			// 		})
-			// 	}
-    //
-			// 	groups.push(group)
-			// }
-    // }
-
-    // return (
-    //   <DropDown
-    //     options={groups}
-    //     onChange={this.handleSubPositionSelect}
-    //     value={this.state.currentSubPositionType}
-    //     placeholder="Select an option" />
-    // )
 
     return (
       <SingleSelectDropdown
@@ -720,54 +703,52 @@ class EditProfile extends Component {
   render() {
 		const { worked_cruise_ship, showConfirmChanges } = this.state
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="profile-edit-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-          <Row className="profile-edit-title">
-            <h3>Build/Edit My Profile</h3>
-          </Row>
+      <div className="profile-edit-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        <Row className="profile-edit-title">
+          <h3>Build/Edit My Profile</h3>
+        </Row>
 
-          {this.renderGeneralInfoView()}
+        {this.renderGeneralInfoView()}
 
-          <Row className="profile-edit-buttons">
-            <Col sm="12">
-              <h4>Let's Build or Edit Your Profile...</h4>
-            </Col>
-          </Row>
-          {this.renderBussinessStaff()}
-          {this.renderFunStaff()}
-          <Row>
-            <Col sm="12" className="pt-0 pt-md-0">
-							<FormControlLabel
-								control={
-									<Checkbox
-										checked={worked_cruise_ship}
-										onChange={this.handleChangeWorkedCruiseShip('worked_cruise_ship')}
-										value={'worked_cruise_ship'}
-										color="primary"
-									/>
-								}
-								label={"I have worked on a cruise ship before (select if you have previous ship experience)"}
-							/>
-            </Col>
-          </Row>
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/home" onClick={this.checkChanges} className="profile-other-info-button-container">
-                <RaisedButton label="Back to My Home Page" primary={true}/>
-              </Link>
-              <Link to="/profile" onClick={this.checkChanges}>
-                <RaisedButton label="View My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <Row className="profile-edit-buttons">
+          <Col sm="12">
+            <h4>Let's Build or Edit Your Profile...</h4>
+          </Col>
+        </Row>
+        {this.renderBussinessStaff()}
+        {this.renderFunStaff()}
+        <Row>
+          <Col sm="12" className="pt-0 pt-md-0">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={worked_cruise_ship}
+                  onChange={this.handleChangeWorkedCruiseShip('worked_cruise_ship')}
+                  value={'worked_cruise_ship'}
+                  color="primary"
+                />
+              }
+              label={"I have worked on a cruise ship before (select if you have previous ship experience)"}
+            />
+          </Col>
+        </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/home" onClick={this.checkChanges} className="profile-other-info-button-container">
+              <RaisedButton label="Back to My Home Page" primary={true}/>
+            </Link>
+            <Link to="/profile" onClick={this.checkChanges}>
+              <RaisedButton label="View My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

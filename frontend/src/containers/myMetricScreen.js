@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -21,33 +21,12 @@ import Panel from '../components/panel'
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
+import TalentAPI from '../apis/talentAPIs';
 import defaultValue from '../constants/defaultValues';
 
-import './myContactInfo.css'
+import './myContactInfo.css';
+import { styles } from '../styles';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyMetrics extends Component {
 
@@ -308,26 +287,24 @@ class MyMetrics extends Component {
   render() {
 		const {showConfirmChanges} = this.state
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="contact-info-view-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-          {this.renderMetricsView()}
+      <div className="contact-info-view-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        {this.renderMetricsView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-              <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile" onClick={this.checkChanges}>
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile" onClick={this.checkChanges}>
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
 
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

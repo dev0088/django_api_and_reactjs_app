@@ -5,11 +5,13 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Panel from '../../components/panel';
+import { withStyles } from '@material-ui/core/styles';
 import defaultValues from '../../constants/defaultValues';
 import * as talentActions from  '../../actions/talentActions';
 import TalentAPI from '../../apis/talentAPIs';
-
+import styles from '../../styles.js';
 
 class SelectPositionTypeWizard extends Component {
   constructor(props) {
@@ -29,7 +31,8 @@ class SelectPositionTypeWizard extends Component {
 
     if (talentInfo) {
       res.allPositionTypes = allPositionTypes ? allPositionTypes : []
-      res.selectedPositionType = talentInfo.talent_position_sub_type.talent_position_typ
+      res.selectedPositionType = talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 ?
+        talentInfo.talent_position_sub_types[0].talent_position_type: null
     }
 
     return res
@@ -86,6 +89,7 @@ class SelectPositionTypeWizard extends Component {
 
   renderButtons() {
     const { allPositionTypes, selectedPositionType } = this.state
+    const { classes } = this.props;
 
     return (
       <Panel title={"Build My Profile Wizard"}>
@@ -96,32 +100,31 @@ class SelectPositionTypeWizard extends Component {
           {"(select one)"}
         </h5>
         <br/>
+
+        <Grid container className={classes.root} spacing={16}>
         {
           allPositionTypes.map((positionType, index) => {
             if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
               return (
-                <Row className="profile-gender-row" key={index}>
-                  <Col xs="12" md="4" className="pt-3 pt-md-3"/>
-                  <Col xs="12" md="4" className="pt-0 pt-md-2">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={"home-button"}
-                      disabled={(positionType.name === selectedPositionType)}
-                      fullWidth={false}
-                      onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
-                    >
-                      <div className="home-button-title-only">
-                        {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
-                      </div>
-                    </Button>
-                  </Col>
-                  <Col xs="12" md="4" className="pt-3 pt-md-3"/>
-                </Row>
+                <Grid item xs={6} key={index}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={"home-button"}
+                    disabled={(positionType.name === selectedPositionType)}
+                    fullWidth={false}
+                    onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
+                  >
+                    <div className="home-button-title-only">
+                      {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
+                    </div>
+                  </Button>
+                </Grid>
               )
             }
           })
         }
+        </Grid>
       </Panel>
     )
   }
@@ -167,4 +170,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectPositionTypeWizard);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectPositionTypeWizard));

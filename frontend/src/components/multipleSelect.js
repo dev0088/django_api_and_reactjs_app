@@ -7,32 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
+import { styles } from '../styles';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 190,
-		width: '100%'
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: theme.spacing.unit / 4,
-  },
-	groupMenuItem: {
-		backgroundColor: 'rgba(0, 0, 0, 0.05)'
-	},
-	optionMenuItem: {
-		backgroundColor: 'rgba(0, 0, 0, 0)!important',
-		paddingLeft: '40px',
-	}
-});
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

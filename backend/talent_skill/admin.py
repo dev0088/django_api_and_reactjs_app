@@ -6,7 +6,7 @@ from rest_framework.authtoken.admin import TokenAdmin
 @admin.register(models.TalentSkill)
 class TalentSkillAdmin(admin.ModelAdmin):
   list_display = ('id', 'talent_display', 'skill_display', 'sub_skills_display')
-  list_display_links = ('id', )
+  list_display_links = ('id', 'talent_display', 'skill_display', 'sub_skills_display')
   list_per_page = 25
 
   def talent_display(self, obj):

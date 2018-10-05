@@ -18,29 +18,9 @@ import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs';
 import './myMedical.css'
+import './myContactInfo.css';
+import { styles } from '../styles';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyMedical extends Component {
 
@@ -314,27 +294,25 @@ class MyMedical extends Component {
 		const {showConfirmChanges} = this.state
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="profile-language-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="profile-language-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderMedicalsView()}
+        {this.renderMedicalsView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile" onClick={this.checkChanges}>
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile" onClick={this.checkChanges}>
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
 
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

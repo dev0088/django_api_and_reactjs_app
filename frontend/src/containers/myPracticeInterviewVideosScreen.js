@@ -7,30 +7,8 @@ import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/
 import Panel from '../components/panel'
 import VideoListView from '../components/videoListView';
 import './myContactInfo.css';
+import { styles } from '../styles';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyPracticeInterviewVideos extends Component {
 
@@ -84,23 +62,21 @@ class MyPracticeInterviewVideos extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="general-view-container">
+      <div className="general-view-container">
 
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderVideosView()}
+        {this.renderVideosView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/videos-info">
-                <RaisedButton label="Back to My Videos" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
-        </div>
-      </MuiThemeProvider>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/videos-info">
+              <RaisedButton label="Back to My Videos" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

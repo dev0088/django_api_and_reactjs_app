@@ -37,9 +37,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'talent_position_sub_types',
       'talent_skills',
       'talent_sub_skills',
-      'talent_additional_position_sub_types',
-      'talent_additional_position_types',
-
+      
       'phone_number',
       'mailing_addresse1',
       'mailing_addresse2',
