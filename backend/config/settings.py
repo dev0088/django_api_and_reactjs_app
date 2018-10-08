@@ -165,6 +165,7 @@ REST_FRAMEWORK = {
     #     'rest_framework.authentication.SessionAuthentication',
     #     'rest_framework.authentication.BasicAuthentication',
     ),
+    # 'VIEW_DESCRIPTION_FUNCTION': 'rest_framework_swagger.views.get_restructuredtext'
 }
 
 JWT_AUTH = {
@@ -283,4 +284,13 @@ LOGGING = {
             'level': 'DEBUG',
         }
     }
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': True,
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
 }

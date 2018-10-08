@@ -15,16 +15,21 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_swagger.views import get_swagger_view
+
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.views.static import serve
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_swagger.views import get_swagger_view
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework import renderers, response, schemas
+from talent import views
 
-schema_view = get_swagger_view(title='ShipTalent API')
+swagger_schema_view = get_swagger_view(title='ShipTalent API')
+
 
 urlpatterns = [
-  url(r'^apis', schema_view),
+  url(r'^apis', swagger_schema_view),
   url(r'^admin/', admin.site.urls),
   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
   url(r'^api/v1/auth/', include('authentication.urls')),

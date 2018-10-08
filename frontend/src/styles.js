@@ -26,6 +26,12 @@ export const styles = theme => ({
     minWidth: 190,
     width: '100%'
   },
+  flatPrimary: {
+    color: "#FFFFFF",
+  },
+  grow: {
+    flexGrow: 1,
+  },
   group: {
     margin: `${theme.spacing.unit}px 0`,
   },
@@ -43,6 +49,13 @@ export const styles = theme => ({
     '&:hover': {
       color: red[800],
     },
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  menuitem: {
+    color: '#FFFFFF'
   },
   optionMenuItem: {
     backgroundColor: 'rgba(0, 0, 0, 0)!important',

@@ -115,7 +115,7 @@ class EditProfile extends Component {
     return false
   }
 
-	generateGroupFromPositionSubTypes = (allPositionTypes, talent_position_sub_types) => {
+	generateGroupFromPositionSubTypes = (allPositionTypes, talent_position_types, talent_position_sub_types) => {
 		let groups = []
     let index = 0
 
@@ -124,12 +124,15 @@ class EditProfile extends Component {
 
 			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
         let options = []
+        console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types[0].position_type)
 			  let group = {
           label: positionType.name,
           value: index ++,
           // index: index ++,
           isGroup: true,
-          isChecked: false,
+          isChecked: (talent_position_types && talent_position_types.length > 0 &&
+                      positionType.name === talent_position_types[0].position_type &&
+                      talent_position_sub_types &&  talent_position_sub_types.length === 0),
           options: []
         }
 
@@ -143,8 +146,7 @@ class EditProfile extends Component {
 						isGroup: false,
 						isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
                           positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
-                          positionSubType === talent_position_sub_types[0].position_sub_type.name
-                        )
+                          positionSubType === talent_position_sub_types[0].position_sub_type.name)
 					})
 				}
         group.options = options
@@ -228,28 +230,18 @@ class EditProfile extends Component {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
       let subPostionType = {}
-      // if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0) {
-      //   let talent_position_sub_type = talentInfo.talent_position_sub_types[0].position_sub_type
-      //   console.log('====== talent_position_sub_type: ', talent_position_sub_type)
-      //   subPostionType = {
-      //     value: talent_position_sub_type.name,
-      //     label: `${talent_position_sub_type.position_type}: ${talent_position_sub_type.name}`,
-      //     positionType: talent_position_sub_type.position_type.name
-      //   }
-      // }
 
       currentSubPositionType = subPostionType
       currentPositionTypesGroup = this.generateGroupFromPositionSubTypes(
                                     allPositionTypes ? allPositionTypes : [],
-                                    talentInfo.talent_position_sub_types
-                                  )
+                                    talentInfo.talent_position_types,
+                                    talentInfo.talent_position_sub_types)
 			currentSkillGroups = this.generateGroupsFromSkills(
                               allSkills ? allSkills : [],
                               talentInfo.talent_skills,
                               talentInfo.talent_sub_skills,
                             )
-      console.log('=== currentPositionTypesGroup: ', currentSkillGroups)
-			console.log('=== currentSkillGroups: ', currentSkillGroups)
+
       // Get contact info
       contactInfo = {
         firstName: talentInfo.user.first_name,
@@ -298,20 +290,6 @@ class EditProfile extends Component {
 
   clickButton = (type, val) =>  {
   	this.setState({ [type]: val});
-  }
-
-  handleTab1Change = (value) => {
-    this.setState({
-      tab1Value: value,
-			isChanged: true
-    });
-  };
-
-  handleTab2Change = (value) => {
-    this.setState({
-      tab2Value: value,
-			isChanged: true
-    });
   }
 
   handleSubPositionSelect = (groups) => {
@@ -430,11 +408,9 @@ class EditProfile extends Component {
 
     let data = {
       sex: gender === "Male" ? "m" : "f",
-      talent_position_sub_type: {
-        name: talent_sub_position_type,
-        position_type: talent_position_type
-      },
 			talent_skills: talent_skills,
+      talent_position_type: talent_position_type,
+      talent_position_sub_type: talent_sub_position_type,
       talent_sub_skills: talent_sub_skills
     }
 

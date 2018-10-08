@@ -3,6 +3,7 @@ from talent.models import Talent
 from talent_picture.serializers import TalentPictureSerializer
 from talent_video.serializers import TalentVideoSerializer
 from talent_resume.serializers import TalentResumeSerializer
+from talent_position_type.serializers import TalentPositionTypeSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer, GeneralTalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
 from talent_skill.serializers import TalentSkillSerializer, GeneralTalentSkillSerializerWithTalent
@@ -18,6 +19,7 @@ class TalentSerializer(serializers.ModelSerializer):
   talent_resume = TalentResumeSerializer(many=True, read_only=True)
   talent_pictures = TalentPictureSerializer(many=True, read_only=True)
   talent_videos = TalentVideoSerializer(many=True, read_only=True)
+  talent_position_types = TalentPositionTypeSerializer(many=True, read_only=True)
   talent_position_sub_types = GeneralTalentPositionSubTypeSerializer(many=True, read_only=True)
   talent_skills = TalentSkillSerializer(many=True, read_only=True)
   talent_sub_skills = GeneralTalentSubSkillSerializer(many=True, read_only=True)
@@ -34,6 +36,7 @@ class TalentSerializer(serializers.ModelSerializer):
       'id',
       'user',
       'sex',
+      'talent_position_types',
       'talent_position_sub_types',
       'talent_skills',
       'talent_sub_skills',

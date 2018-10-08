@@ -56,8 +56,9 @@ class SelectPositionTypeWizard extends Component {
   handleClickNextButton = () => {
     const { selectedPositionType } = this.state
     const { auth } = this.props
+    console.log('==== selectedPositionType: ', selectedPositionType)
     let data = {
-      // talent_position_type: selectedPositionType
+      talent_position_type: selectedPositionType
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)

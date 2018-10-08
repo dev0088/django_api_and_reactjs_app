@@ -20,6 +20,17 @@ from talent_visa.models import TalentVisa
 from talent_skill.models import TalentSkill
 from talent_sub_skill.models import TalentSubSkill
 
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+
+
+# Create your views here.
+class TalentViewSet(viewsets.ModelViewSet):
+    queryset = Talent.objects.all()
+    serializer_class = TalentSerializer
+    # permission_classes = (IsAuthenticated,)
+
+
 class TalentDetail(APIView):
     """
     Retrieve, update or delete a talent.
@@ -35,6 +46,9 @@ class TalentDetail(APIView):
     def save_talent_position_type(self, talent, position_type_name):
         # delete all position types of talent
         TalentPositionType.objects.filter(talent=talent).delete()
+        # delete all sub skills of talent
+        TalentPositionSubType.objects.filter(talent=talent).delete()
+
         # save position type
         position_type = PositionType.objects.get(name=position_type_name)
         if position_type:
@@ -44,11 +58,13 @@ class TalentDetail(APIView):
                 )
             new_talent_position_type.save()
 
-    def save_talent_position_sub_type(self, talent, position_sub_type_name):
+    def save_talent_position_sub_type(self, talent, position_sub_type_name, position_type_name):
+        print('=== position_sub_type_name: ', position_sub_type_name)
         # delete all position sub types of talent
         TalentPositionSubType.objects.filter(talent=talent).delete()
         # save position type
-        position_sub_type = PositionSubType.objects.get(name=position_sub_type_name)
+        position_type = PositionType.objects.get(name=position_type_name)
+        position_sub_type = PositionSubType.objects.filter(name=position_sub_type_name, position_type=position_type).first()
         if position_sub_type:
             new_talent_position_sub_type = TalentPositionSubType.objects.create(
                     talent = talent,
@@ -116,6 +132,9 @@ class TalentDetail(APIView):
         user_data = self.pickout_data(talent_data, 'user')
 
         # pick out position sub type data
+        talent_position_type_data = self.pickout_data(talent_data, 'talent_position_type')
+
+        # pick out position sub type data
         talent_position_sub_type_data = self.pickout_data(talent_data, 'talent_position_sub_type')
 
         # pick out skills data
@@ -135,10 +154,14 @@ class TalentDetail(APIView):
         serializer = TalentSerializer(talent_item, data=talent_data)
         if serializer.is_valid():
             serializer.save()
+
             # Check and save position sub type
-            if talent_position_sub_type_data:
-                self.save_talent_position_type(talent_item, talent_position_sub_type_data['position_type'])
-                self.save_talent_position_sub_type(talent_item, talent_position_sub_type_data['name'])
+            if talent_position_type_data:
+                self.save_talent_position_type(talent_item, talent_position_type_data)
+                
+                # Check and save position sub type
+                if talent_position_sub_type_data:
+                    self.save_talent_position_sub_type(talent_item, talent_position_sub_type_data, talent_position_type_data)
 
             # Check and save skills
             if talent_skills_data:

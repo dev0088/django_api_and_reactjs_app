@@ -1,13 +1,18 @@
 from django.shortcuts import render
-
-# Create your views here.
-from talent_position_type.models import TalentPositionType
-from talent_position_type.serializers import TalentPositionTypeSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
+from talent_position_type.models import TalentPositionType
+from talent_position_type.serializers import TalentPositionTypeSerializer
+from .serializers import TalentPositionTypeSerializer
 
+
+class TalentPositionTypeViewSet(viewsets.ModelViewSet):
+    queryset = TalentPositionType.objects.all()
+    serializer_class = TalentPositionTypeSerializer
+    # permission_classes = (IsAuthenticated,)
 
 class TalentPositionTypeList(APIView):
     """

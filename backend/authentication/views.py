@@ -5,16 +5,27 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from rest_framework.decorators import api_view
+from rest_framework import viewsets
+from .models import User
 from .serializers import RegistrationSerializer
 from talent.models import Talent
-from .models import User
+
+class RegisterViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = RegistrationSerializer
+    # permission_classes = (IsAuthenticated,)
+
 
 class RegistrationAPIView(APIView):
     # Allow any user (authenticated or not) to hit this endpoint.
     permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer
 
+    def get_serializer_class(self):
+        return RegistrationSerializer
+
+    
     def post(self, request):
         user = {
             'email': request.data.get('email'),
@@ -30,5 +41,7 @@ class RegistrationAPIView(APIView):
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        # return super(RegistrationAPIView, self).post(request, *args, **kwargs)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
