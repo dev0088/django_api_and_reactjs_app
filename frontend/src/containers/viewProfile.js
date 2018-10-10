@@ -33,18 +33,31 @@ class ViewProfile extends Component {
 
   getInfoFromProps(props) {
     const {
+      talent_position_types,
       talent_position_sub_types,
       talent_skills
     } = props.talentInfo
 
     return {
       skills: talent_skills,
-      title: this.makeTitleWithAllPositionTypes(talent_position_sub_types, talent_skills)
+      title: this.makeTitleWithAllPositionTypes(talent_position_types, talent_position_sub_types, talent_skills)
     }
   }
 
-  makeTitleWithAllPositionTypes(talent_position_sub_types, talent_skills) {
-    let title = talent_position_sub_types[0].position_sub_type.position_type
+  makeTitleWithAllPositionTypes(talent_position_types, talent_position_sub_types, talent_skills) {
+    console.log('==== makeTitleWithAllPositionTypes: ', talent_position_sub_types)
+    let title = ''
+    if (talent_position_types && talent_position_types.length > 0) {
+      title = talent_position_types[0]
+    }
+
+    if (talent_position_types && talent_position_types.length > 0) {
+      title =  talent_position_types[0].position_type
+    }
+    if (talent_position_sub_types && talent_position_sub_types.length > 0 &&
+      talent_position_sub_types[0].position_sub_type) {
+      title = `${title}(${talent_position_sub_types[0].position_sub_type.namee})`
+    }
 
     // Make title with all position types
     title = title + ((talent_skills.length > 0) ? ` who ${talent_skills[0].skill} ` : '')

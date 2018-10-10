@@ -59,7 +59,6 @@ class TalentDetail(APIView):
             new_talent_position_type.save()
 
     def save_talent_position_sub_type(self, talent, position_sub_type_name, position_type_name):
-        print('=== position_sub_type_name: ', position_sub_type_name)
         # delete all position sub types of talent
         TalentPositionSubType.objects.filter(talent=talent).delete()
         # save position type
@@ -73,7 +72,6 @@ class TalentDetail(APIView):
             new_talent_position_sub_type.save()
 
     def save_talent_skills(self, talent, talent_skills):
-        print('====== save_talent_skills: ', talent_skills)
         # delete all skills of talent
         TalentSkill.objects.filter(talent=talent).delete()
         # save all talent skills

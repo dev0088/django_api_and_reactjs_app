@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import {
-  Nav,
-  Navbar,
-  Collapse,
-  NavbarToggler,
-} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,20 +6,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import RaisedButton from 'material-ui/RaisedButton';
-import {PopoverAnimationVertical} from 'material-ui/Popover';
 import Divider from 'material-ui/Divider';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
-import { SidebarNavItems } from './sidebar';
 import './header.css'
 import { styles } from '../styles'
 
@@ -123,11 +109,15 @@ class Header extends Component {
             </Link>
 
             { loggedIn && (
-                <Typography variant="title" color="inherit" className={classes.grow}>
+                <div className={classes.grow}>
                   <Link to="/interview-start">
-                      {"Video Interview"}
+                    <Button>
+                      <Typography className={classes.menuItemText}>
+                        {"Video Interview"}
+                      </Typography>
+                    </Button>
                   </Link>
-                </Typography>
+              </div>
             )}
 
             {loggedIn ? (
@@ -211,90 +201,7 @@ class Header extends Component {
           </Toolbar>
         </AppBar>
       </div>
-    );
-    // return (
-    //   <header>
-    //     <Navbar dark color="primary" expand="sm" className="fixed-top">
-    //       <Link to="/home" className="navbar-brand" style={{ color: '#FFF' }}>
-    //         <img className="brand-image"
-    //           alt="Logo"
-    //           src={require('../images/logo.png')} />
-    //
-    //       </Link>
-    //       { loggedIn && (
-    //           <Link to="/interview-start">
-    //             <MenuItem style={styles.menuitem}>
-    //               {"Video Interview"}
-    //             </MenuItem>
-    //           </Link>
-    //         )
-    //       }
-    //       <NavbarToggler onClick={this.toggleDropDown} />
-    //       <Collapse isOpen={this.state.isOpen} navbar>
-    //         <Nav className="ml-auto" navbar>
-    //           <div className="d-block d-sm-none">
-    //             {SidebarNavItems()}
-    //           </div>
-              {/*<RaisedButton*/}
-                {/*className="my-account"*/}
-                {/*onClick={this.handleClick}*/}
-                {/*label={loggedIn ? `Hi, ${username}` : 'My Account'}*/}
-              {/*/>*/}
-    //           <Popover
-    //             open={open}
-    //             anchorEl={anchorEl}
-    //             onClose={this.handleClose}
-    //             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-    //             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-    //             animation={PopoverAnimationVertical}
-    //           >
-    //             {!loggedIn &&
-    //               <Menu id="logout-menu"
-    //                     anchorEl={anchorEl}
-    //                     open={open}
-    //                     onClose={this.handleClose}>
-    //                 <Link to="/login" onClick={this.handleClose}>
-    //                   <MenuItem primaryText="Login" />
-    //                 </Link>
-    //                 <Link to="/sign-up" onClick={this.handleClose}>
-    //                   <MenuItem primaryText="Sign Up" />
-    //                 </Link>
-    //               </Menu>
-    //             }
-    //             {loggedIn &&
-    //               <Menu id="login-menu"
-    //                     anchorEl={anchorEl}
-    //                     open={open}
-    //                     onClose={this.handleClose}>
-    //                 <Link to="/profile">
-    //                   <MenuItem onClick={this.handleClose}>
-    //                     {"View My Profile"}
-    //                   </MenuItem>
-    //                 </Link>
-    //                 <Link to="/edit-profile">
-    //                   <MenuItem onClick={this.handleClose}>
-    //                     {"Build/Edit My Profile"}
-    //                   </MenuItem>
-    //                 </Link>
-    //                 <Link to="/account">
-    //                   <MenuItem onClick={this.handleClose}>
-    //                     {"Account Settings"}
-    //                   </MenuItem>
-    //                 </Link>
-    //                 <Divider />
-    //                 <Link to="/login">
-    //                   <MenuItem onClick={this.hanldeClickLogout}>
-    //                     {"Logout"}
-    //                   </MenuItem>
-    //                 </Link>
-    //               </Menu>
-    //             }
-    //           </Popover>
-    //         </Nav>
-    //       </Collapse>
-    //     </Navbar>
-    //   </header>
-    // );
+    )
   }
 }
 

@@ -43,6 +43,7 @@ class SelectPositionTypeWizard extends Component {
   }
 
   componentWillMount() {
+    console.log('==== auth: ', this.props)
     this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getTalentInfo(this.props.auth.user_id)
   }
@@ -70,6 +71,8 @@ class SelectPositionTypeWizard extends Component {
 
   handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
+    const { auth } = this.props
+    this.props.talentActions.getTalentInfo(auth.user_id)
   }
 
   getPrefixByWord(positionTypeName) {

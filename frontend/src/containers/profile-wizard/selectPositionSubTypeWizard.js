@@ -18,6 +18,7 @@ class SelectPositionSubTypeWizard extends Component {
     super(props);
     this.state = {
       allPositionTypes: [],
+      currentPositionType: null,
       selectedPositionType: null,
       selectedPositionSubType: null
     }
@@ -27,6 +28,7 @@ class SelectPositionSubTypeWizard extends Component {
     const { talentInfo, allPositionTypes } = props
     let res = {
       allPositionTypes: [],
+      currentPositionType: null,
       selectedPositionType: null,
       selectedPositionSubType: null
     }
@@ -35,37 +37,59 @@ class SelectPositionSubTypeWizard extends Component {
       res.allPositionTypes = allPositionTypes ? allPositionTypes : []
       if (talentInfo.talent_position_types && talentInfo.talent_position_types.length > 0) {
         res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
-      } else if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
+        console.log('==== res.selectedPositionType: ', res.selectedPositionType)
+      }
+      if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
         talentInfo.talent_position_sub_types[0].position_sub_type) {
         res.selectedPositionType = talentInfo.talent_position_sub_types[0].position_sub_type.position_type
         res.selectedPositionSubType = talentInfo.talent_position_sub_types[0].position_sub_type.name
+        console.log('==== 1res.selectedPositionType: ', res.selectedPositionType)
       }
     }
+    res.currentPositionType = this.findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
+    console.log('==== getInfoFromProps: res: ', res)
 
     return res
   }
 
-  componentWillMount() {
+  findPositionTypeByName(allPositionTypes, name) {
+    return allPositionTypes.find(function(positionType) {
+      return positionType.name === name;
+    });
+  }
+
+  componentDidMount() {
     this.props.talentActions.getAllPositionTypes()
-    this.props.talentActions.getTalentInfo(this.props.auth.user_id)
+    console.log('==== props: ', this.props)
+
+    this.setState({
+      ...this.getInfoFromProps(this.props)
+    }, () => {
+      const { auth } = this.props
+      this.props.talentActions.getTalentInfo(auth.user_id)
+    })
+
+
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('==== componentWillReceiveProps')
     this.setState({
       ...this.getInfoFromProps(nextProps)
     })
   }
 
-  handleClickPositionTypeButton = (type, val) =>  {
+  handleClickPositionSubTypeButton = (type, val) =>  {
     this.setState({ [type]: val});
   }
 
   handleClickNextButton = () => {
-    const { selectedPositionType } = this.state
+    const { selectedPositionType, selectedPositionSubType } = this.state
     const { auth } = this.props
-    console.log('==== selectedPositionType: ', selectedPositionType)
+    console.log('==== selectedPositionSubType: ', selectedPositionSubType)
     let data = {
       talent_position_type: selectedPositionType,
+      talent_position_sub_type: selectedPositionSubType,
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -95,41 +119,41 @@ class SelectPositionSubTypeWizard extends Component {
     return res
   }
 
+  
   renderButtons() {
-    const { allPositionTypes, selectedPositionType } = this.state
+    const { selectedPositionSubType, currentPositionType } = this.state
     const { classes } = this.props;
-
+    
     return (
       <Panel title={"Build My Profile Wizard"}>
         <h5 align="center" className="profile-bio-description">
-          {"Next, tell us what your primary position is "}
+          {`What is your ${selectedPositionSubType ? selectedPositionSubType.toLowerCase() : 'position sub type'} range?`}
         </h5>
         <h5 align="center" className="profile-bio-description">
-          {"(select one)"}
+          {currentPositionType && (currentPositionType.multi_selection ? "(select all that apply)" : "(select one)")}
         </h5>
         <br/>
 
         <Grid container className={classes.root} spacing={16}>
           {
-            allPositionTypes.map((positionType, index) => {
-              if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+            (currentPositionType && currentPositionType.position_sub_types) && 
+              currentPositionType.position_sub_types.map((positionSubType, index) => {
                 return (
                   <Grid item xs={6} key={index}>
                     <Button
                       variant="contained"
                       color="primary"
                       className={"home-button"}
-                      disabled={(positionType.name === selectedPositionType)}
+                      disabled={(positionSubType === selectedPositionSubType)}
                       fullWidth={false}
-                      onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
+                      onClick={() => this.handleClickPositionSubTypeButton('selectedPositionSubType', positionSubType)}
                     >
                       <div className="home-button-title-only">
-                        {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
+                        {positionSubType}
                       </div>
                     </Button>
                   </Grid>
                 )
-              }
             })
           }
         </Grid>
@@ -143,13 +167,13 @@ class SelectPositionSubTypeWizard extends Component {
         {this.renderButtons()}
         <Row>
           <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to="/profile-wizard/select-male">
+            <Link to="/profile-wizard/select-position-type">
               <RaisedButton label="Back" primary={true}/>
             </Link>
           </Col>
           <Col xs="4" md="4" className="pt-4 pt-md-4" />
           <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/profile-wizard/select-position-type">
+            <Link to="/profile-wizard/lastWizard">
               <RaisedButton
                 label="Next"
                 primary={true}

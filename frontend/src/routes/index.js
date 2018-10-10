@@ -28,6 +28,7 @@ import WelcomeBuildProfileWizard from "../containers/profile-wizard/welcomeBuild
 import SelectMaleWizard from "../containers/profile-wizard/selectMaleWizard";
 import SelectPositionTypeWizard from "../containers/profile-wizard/selectPositionTypeWizard";
 import SelectPositionSubTypeWizard from "../containers/profile-wizard/selectPositionSubTypeWizard";
+import LastWizard from "../containers/profile-wizard/lastWizard";
 
 import MyProfile from "../containers/myProfile";
 import ViewProfile from "../containers/viewProfile";
@@ -199,6 +200,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <SelectPositionSubTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/profile-wizard/lastWizard"
+      render={props => (
+        <TemplateTopbar>
+          <LastWizard {...props} />
         </TemplateTopbar>
       )}
     />
