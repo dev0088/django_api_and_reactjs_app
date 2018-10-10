@@ -31,14 +31,19 @@ class SelectPositionTypeWizard extends Component {
 
     if (talentInfo) {
       res.allPositionTypes = allPositionTypes ? allPositionTypes : []
-      res.selectedPositionType = talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 ?
-        talentInfo.talent_position_sub_types[0].talent_position_type: null
+      if (talentInfo.talent_position_types && talentInfo.talent_position_types.length > 0) {
+        res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
+      } else if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
+                 talentInfo.talent_position_sub_types[0].position_sub_type) {
+        res.selectedPositionType = talentInfo.talent_position_sub_types[0].position_sub_type.position_type
+      }
     }
 
     return res
   }
 
   componentWillMount() {
+    this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getTalentInfo(this.props.auth.user_id)
   }
 
@@ -57,10 +62,7 @@ class SelectPositionTypeWizard extends Component {
     const { auth } = this.props
     console.log('==== selectedPositionType: ', selectedPositionType)
     let data = {
-      talent_position_sub_type: {
-        name: '',
-        position_type: selectedPositionType
-      },
+      talent_position_type: selectedPositionType,
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -68,9 +70,6 @@ class SelectPositionTypeWizard extends Component {
 
   handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
-    const { auth } = this.props
-
-    this.props.talentActions.getTalentInfo(auth.user_id)
   }
 
   getPrefixByWord(positionTypeName) {
@@ -145,7 +144,7 @@ class SelectPositionTypeWizard extends Component {
           </Col>
           <Col xs="4" md="4" className="pt-4 pt-md-4" />
           <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/profile-wizard/select-position-type">
+            <Link to="/profile-wizard/select-position-sub-type">
               <RaisedButton
                 label="Next"
                 primary={true}

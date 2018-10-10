@@ -5,20 +5,21 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Panel from '../../components/panel';
+import { withStyles } from '@material-ui/core/styles';
 import defaultValues from '../../constants/defaultValues';
 import * as talentActions from  '../../actions/talentActions';
 import TalentAPI from '../../apis/talentAPIs';
+import styles from '../../styles.js';
 
-
-class SelectPositionTypeWizard extends Component {
+class SelectPositionSubTypeWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       allPositionTypes: [],
       selectedPositionType: null,
-      selectedPositionSubType: [],
-      multiSelection: false
+      selectedPositionSubType: null
     }
   }
 
@@ -26,13 +27,18 @@ class SelectPositionTypeWizard extends Component {
     const { talentInfo, allPositionTypes } = props
     let res = {
       allPositionTypes: [],
-      selectedPositionType: null
+      selectedPositionType: null,
+      selectedPositionSubType: null
     }
 
     if (talentInfo) {
-      res = {
-        allPositionTypes: allPositionTypes ? allPositionTypes : [],
-        selectedPositionType: talentInfo.talent_position_sub_type.talent_position_type
+      res.allPositionTypes = allPositionTypes ? allPositionTypes : []
+      if (talentInfo.talent_position_types && talentInfo.talent_position_types.length > 0) {
+        res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
+      } else if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
+        talentInfo.talent_position_sub_types[0].position_sub_type) {
+        res.selectedPositionType = talentInfo.talent_position_sub_types[0].position_sub_type.position_type
+        res.selectedPositionSubType = talentInfo.talent_position_sub_types[0].position_sub_type.name
       }
     }
 
@@ -40,6 +46,7 @@ class SelectPositionTypeWizard extends Component {
   }
 
   componentWillMount() {
+    this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getTalentInfo(this.props.auth.user_id)
   }
 
@@ -58,7 +65,7 @@ class SelectPositionTypeWizard extends Component {
     const { auth } = this.props
     console.log('==== selectedPositionType: ', selectedPositionType)
     let data = {
-      talent_position_type: selectedPositionType
+      talent_position_type: selectedPositionType,
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -67,8 +74,7 @@ class SelectPositionTypeWizard extends Component {
   handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     const { auth } = this.props
-
-    this.props.talentActions.getTalentInfo(auth.user_id)
+    // this.props.talentActions.getTalentInfo(auth.user_id)
   }
 
   getPrefixByWord(positionTypeName) {
@@ -91,6 +97,7 @@ class SelectPositionTypeWizard extends Component {
 
   renderButtons() {
     const { allPositionTypes, selectedPositionType } = this.state
+    const { classes } = this.props;
 
     return (
       <Panel title={"Build My Profile Wizard"}>
@@ -101,13 +108,13 @@ class SelectPositionTypeWizard extends Component {
           {"(select one)"}
         </h5>
         <br/>
-        {
-          allPositionTypes.map((positionType, index) => {
-            if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-              return (
-                <Row className="profile-gender-row" key={index}>
-                  <Col xs="12" md="4" className="pt-3 pt-md-3"/>
-                  <Col xs="12" md="4" className="pt-0 pt-md-2">
+
+        <Grid container className={classes.root} spacing={16}>
+          {
+            allPositionTypes.map((positionType, index) => {
+              if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+                return (
+                  <Grid item xs={6} key={index}>
                     <Button
                       variant="contained"
                       color="primary"
@@ -120,13 +127,12 @@ class SelectPositionTypeWizard extends Component {
                         {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
                       </div>
                     </Button>
-                  </Col>
-                  <Col xs="12" md="4" className="pt-3 pt-md-3"/>
-                </Row>
-              )
-            }
-          })
-        }
+                  </Grid>
+                )
+              }
+            })
+          }
+        </Grid>
       </Panel>
     )
   }
@@ -172,4 +178,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectPositionTypeWizard);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectPositionSubTypeWizard));

@@ -389,7 +389,7 @@ class EditProfile extends Component {
 		}
 	}
 
-  handlePositionsAndSkillsSave = () => {
+  handleSavePositionsAndSkills = () => {
     const {
       userID,
       gender,
@@ -415,10 +415,10 @@ class EditProfile extends Component {
     }
 
     console.log('===== data: ', data)
-    TalentAPI.saveTalentInfo(userID, data, this.handlePositionsAndSkillsSaveResponse)
+    TalentAPI.saveTalentInfo(userID, data, this.handleSavePositionsAndSkillsResponse)
   }
 
-  handlePositionsAndSkillsSaveResponse = (response, isFailed) => {
+  handleSavePositionsAndSkillsResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
 		this.setState({
@@ -528,7 +528,7 @@ class EditProfile extends Component {
             </Button>
             <Button size="large" color="primary"
               className={classes.button}
-              onClick={this.handlePositionsAndSkillsSave}>
+              onClick={this.handleSavePositionsAndSkills}>
               {'Save'}
             </Button>
           </Col>

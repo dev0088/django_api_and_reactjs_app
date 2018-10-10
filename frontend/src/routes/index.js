@@ -27,6 +27,7 @@ import LiveInterview from "../containers/video-interview/live";
 import WelcomeBuildProfileWizard from "../containers/profile-wizard/welcomeBuildProfileWizard";
 import SelectMaleWizard from "../containers/profile-wizard/selectMaleWizard";
 import SelectPositionTypeWizard from "../containers/profile-wizard/selectPositionTypeWizard";
+import SelectPositionSubTypeWizard from "../containers/profile-wizard/selectPositionSubTypeWizard";
 
 import MyProfile from "../containers/myProfile";
 import ViewProfile from "../containers/viewProfile";
@@ -193,7 +194,14 @@ const Index = () => (
       )}
     />
 
-
+    <Route
+      path="/profile-wizard/select-position-sub-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectPositionSubTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
     <Route
       path="/profile"

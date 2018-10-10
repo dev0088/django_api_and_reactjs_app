@@ -56,9 +56,6 @@ class SelectMaleWizard extends Component {
 
 	handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
-		const { auth } = this.props
-    this.props.talentActions.getTalentInfo(auth.user_id)
-    this.props.talentActions.getAllPositionTypes()
   }
 
   renderButtons() {
