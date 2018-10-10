@@ -30,13 +30,13 @@ class MyLiveInterviewVideos extends Component {
     if (talentInfo && talentInfo.talent_videos) {
       position_type = talentInfo.talent_position_sub_type.talent_position_type
       position_sub_type = talentInfo.talent_position_sub_type.name
-      Object.keys(talentInfo.talent_videos).map((key) => {
-        let video = talentInfo.talent_videos[key]
+			for (let i = 0; i < talentInfo.talent_videos.length; i ++) {
+				let video = talentInfo.talent_videos[i]
         if (video.active && video.uploaded && (video.position_type === position_type)) {
           // In the case Live video interview
           interviewVideoUrls.push(video)
         }
-      })
+			}
     }
     return {
       position_type,
@@ -58,10 +58,10 @@ class MyLiveInterviewVideos extends Component {
   }
 
   renderVideosView() {
-    const { position_type, position_sub_type, interviewVideoUrls } = this.state
+    const { position_type, interviewVideoUrls } = this.state
 
     return (
-      <Panel title={`My ${position_type} Interview Videos`} >   
+      <Panel title={`My ${position_type} Interview Videos`} >
         <VideoListView videoUrls={interviewVideoUrls} />
       </Panel>
     )

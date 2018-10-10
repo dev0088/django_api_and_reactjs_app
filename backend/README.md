@@ -77,3 +77,21 @@ Python/Django + JWT auth backend
 - http://127.0.0.1:8000/api/auth/token/obtain/
 
 - http://127.0.0.1:8000/api/echo
+
+### Troubleshooting
+- Remove migration files
+	After faking the migrations for all apps we need to delete the migrations files inside migrations folder in each app.
+
+	You can use the previous bash script to automate this process in Unix bases OSs.
+
+	```
+	$ find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+	$ find . -path "*/migrations/*.pyc"  -delete
+	```
+	This will delete Python source files and also compiled Python files for migrations except for the special Python file init.py
+
+- Make migrations again
+	Now you need to re-create the initial database migrations with the usual commands
+	```
+	$ python manage.py makemigrations
+	```

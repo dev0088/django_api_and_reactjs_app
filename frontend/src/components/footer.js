@@ -1,14 +1,12 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import { withStyles } from '@material-ui/core/styles';
 import { Row, Col, Jumbotron } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './footer.css'
+import { styles } from '../styles'
 
-const styles = {
-  flatPrimary: {
-    color: "#FFFFFF",
-  },
-};
+
 const Footer = (props) => (
   <footer className="mt-3 footer-layout" style={props.position ? {position: props.position} : {}}>
     <Row>
@@ -41,4 +39,4 @@ const Footer = (props) => (
   </footer>
 );
 
-export default Footer;
+export default withStyles(styles)(Footer);

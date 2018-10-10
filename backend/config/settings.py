@@ -49,16 +49,22 @@ LOCAL_APPS = (
     'authentication',
     'shiptalent_info',
     'talent',
+    'position_type',
+    'position_sub_type',
+    'skill',
+    'sub_skill',
     'talent_position_type',
     'talent_position_sub_type',
-	'talent_additional_position_type',
+    'talent_skill',
+    'talent_sub_skill',
+    'talent_additional_position_type',
     'talent_additional_position_sub_type',
     'talent_picture',
     'talent_resume',
     'talent_video',
-	'talent_visa',
+    'talent_visa',
     'talent_language',
-	'talent_medical',
+    'talent_medical',
     'question',
     'admin_setting',
     'submission',
@@ -159,6 +165,7 @@ REST_FRAMEWORK = {
     #     'rest_framework.authentication.SessionAuthentication',
     #     'rest_framework.authentication.BasicAuthentication',
     ),
+    # 'VIEW_DESCRIPTION_FUNCTION': 'rest_framework_swagger.views.get_restructuredtext'
 }
 
 JWT_AUTH = {
@@ -277,4 +284,13 @@ LOGGING = {
             'level': 'DEBUG',
         }
     }
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': True,
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
 }

@@ -2,39 +2,36 @@ import React, { Component } from 'react';
 import createHistory from 'history/createBrowserHistory'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, } from '@material-ui/core/styles'; // v1.x
+import { MuiThemeProvider as V0MuiThemeProvider} from 'material-ui';
 
 import configureStore from './store'
 import Routes from './routes/index';
 
 import './static/css/App.css';
 import './static/css/vendor-styles.css';
+import { theme, themeV0 } from './styles';
 
 const history = createHistory()
 
 const store = configureStore(history)
-
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: '#258df2',
-    accent1Color: '#40c741',
-  }
-});
 
 
 class App extends Component {
   componentDidMount(){
     document.title = "ShipTalent";
   }
+
   render() {
     return (
       <Provider store={store}>
-        <MuiThemeProvider muiTheme={muiTheme}>
-              <Router>
-          <Routes />
-        </Router>
-            </MuiThemeProvider>
+				<MuiThemeProvider theme={theme}>
+	        <V0MuiThemeProvider muiTheme={themeV0}>
+						<Router>
+	          	<Routes />
+	        	</Router>
+	        </V0MuiThemeProvider>
+				</MuiThemeProvider>
       </Provider>
     );
   }

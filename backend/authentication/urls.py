@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
+
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
@@ -10,10 +11,18 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from rest_framework.routers import DefaultRouter
 
 from .serializers import RegistrationSerializer
 from .models import User
-from .views import RegistrationAPIView
+from .views import RegistrationAPIView, RegisterViewSet
+
+router = DefaultRouter()
+router.register(r'^', RegisterViewSet)
+
+register = RegisterViewSet.as_view({
+    'post': 'create'
+})
 #
 # class AuthRegister(APIView):
 #     """
@@ -28,6 +37,7 @@ from .views import RegistrationAPIView
 #             serializer.save()
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -45,8 +55,9 @@ class CustomAuthToken(ObtainAuthToken):
 
 urlpatterns = [
     url(r'^login/', obtain_jwt_token),
-  url(r'^logout/', refresh_jwt_token),
-  url(r'^token/refresh/', refresh_jwt_token),
+    url(r'^logout/', refresh_jwt_token),
+    url(r'^token/refresh/', refresh_jwt_token),
     url(r'^token/verify/', verify_jwt_token),
-  url(r'^register/?$', RegistrationAPIView.as_view()),
+    # url(r'^register/?$', RegistrationAPIView.as_view()),
+    url(r'^register', register, name='register'),
 ]

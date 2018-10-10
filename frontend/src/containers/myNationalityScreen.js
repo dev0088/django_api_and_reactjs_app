@@ -12,12 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
-import { FormGroup, Label, Input } from 'reactstrap';
 
 import moment from 'moment';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 
 import Panel from '../components/panel';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
@@ -28,50 +26,8 @@ import TalentAPI from '../apis/talentAPIs';
 import 'react-dropdown/style.css';
 import './myContactInfo.css';
 import './myNationalityScreen.css';
+import { styles } from '../styles';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-  root: {
-    display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing.unit * 3,
-  },
-  group: {
-    margin: `${theme.spacing.unit}px 0`,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    },
-    green: {
-      main: '#28a745'
-    },
-    teal: {
-      main: '#20c997'
-    }
-  }
-})
-
-const other_types = [
-  'other1',
-  'other2',
-  'other3'
-]
 
 class MyNatioinality extends Component {
 
@@ -117,8 +73,7 @@ class MyNatioinality extends Component {
 			orgVisas: []
     }
 
-		console.log
-    if (talentInfo) {
+		if (talentInfo) {
 			let visaTypes = []
 			let orgVisas = talentInfo.talent_visas
 
@@ -261,14 +216,15 @@ class MyNatioinality extends Component {
 
 		// Filter checked visaTypes
 		let visas = []
-		visaTypes.map((visa, index) => {
+		for (let i = 0; i < visaTypes.length; i ++) {
+			let visa = visaTypes[i]
 			if (visa.checked) {
 				visas.push({
 					name: visa.name,
 					expiration_date: visa.expiration_date
 				})
 			}
-		})
+		}
 
     let data = {
       nationality: nationality,
@@ -309,11 +265,11 @@ class MyNatioinality extends Component {
 	getKeyOfVisaByName(name, visaTypes) {
 		let res = null
 
-		Object.keys(visaTypes).map((key) => {
-			if (visaTypes[key].name === name) {
-				res = key
+		for (let i = 0; i < visaTypes.length; i ++) {
+			if (visaTypes[i].name === name) {
+				res = i
 			}
-		})
+		}
 
 		return res
 	}
@@ -363,7 +319,7 @@ class MyNatioinality extends Component {
 	      </Row>
 	    )
 		} else {
-			<Row />
+			return (<Row />)
 		}
   }
 
@@ -450,7 +406,6 @@ class MyNatioinality extends Component {
     } = this.state
 
     return (
-      <MuiThemeProvider theme={theme}>
       <Panel title={"Nationality & Immigration Infomation"}>
         <Row className="profile-gender-row">
           <Col sm="12">
@@ -608,7 +563,6 @@ class MyNatioinality extends Component {
         </Row>
 
       </Panel>
-      </MuiThemeProvider>
     )
   }
 
@@ -616,27 +570,25 @@ class MyNatioinality extends Component {
 		const {showConfirmChanges} = this.state
 		console.log('=== state: ', this.state)
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="profile-nationality-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="profile-nationality-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderNationalityView()}
+        {this.renderNationalityView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile" onClick={this.checkChanges} >
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile" onClick={this.checkChanges} >
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
 
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

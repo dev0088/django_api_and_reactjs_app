@@ -3,17 +3,8 @@ import { Row, Col, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import Button from '@material-ui/core/Button';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import ClearRounded from '@material-ui/icons/ClearRounded';
 import Divider from '@material-ui/core/Divider';
 import Panel from '../components/panel'
@@ -24,53 +15,10 @@ import apiConfig from '../constants/api';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
-import moment from 'moment';
 
-import 'react-image-lightbox/style.css'; 
+import 'react-image-lightbox/style.css';
 import './myPicturesScreen.css';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-  icon: {
-    margin: theme.spacing.unit * 2,
-  },
-  iconHover: {
-    margin: theme.spacing.unit * 2,
-    '&:hover': {
-      color: red[800],
-    },
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
-
-const picture_caption = [
-  'My Current Headshot',
-  'My Current Body Shot1',
-  'My Current Body Shot2',
-  'My Other Pic 1',
-  'My Other Pic 2',
-  'My Other Pic 3',
-  'My Other Pic 4',
-  'My Other Pic 5',
-]
+import {styles, theme} from '../styles.js';
 
 class MyPictures extends Component {
 
@@ -84,7 +32,7 @@ class MyPictures extends Component {
   }
 
   getInfoFromProps(props) {
-    const { 
+    const {
       talentInfo
     } = props
 
@@ -102,7 +50,7 @@ class MyPictures extends Component {
 
   componentWillMount() {
     if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
     }
   }
 
@@ -127,7 +75,7 @@ class MyPictures extends Component {
       contentType: file.type,
       caption: caption
     }
-    
+
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -186,9 +134,9 @@ class MyPictures extends Component {
     console.log('==== Error: ', file)
   }
 
-  onFinish = (completeAPI, fileID, file) => {    
+  onFinish = (completeAPI, fileID, file) => {
     let params = {
-      fileID: fileID, 
+      fileID: fileID,
       fileSize: file.size,
       fileType: file.type,
     }
@@ -205,7 +153,7 @@ class MyPictures extends Component {
       }
       else {
         // Update pictures from server
-        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
       }
     })
     .catch(error => {
@@ -214,7 +162,6 @@ class MyPictures extends Component {
   }
 
   showImage = (picture) => {
-    const { currentPicture, openImageModal } = this.state
     this.setState({
       currentPicture: picture,
       openImageModal: true
@@ -226,11 +173,10 @@ class MyPictures extends Component {
   }
 
   handleDeleteResponse = (response, failed) => {
-    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)  
+    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
   }
 
   renderPictureView(caption) {
-    const { classes } = this.props
     const {
       pictures,
     } = this.state
@@ -242,7 +188,7 @@ class MyPictures extends Component {
       <div>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {(picture && picture.url && picture.uploaded && picture.active) ? 
+            {(picture && picture.url && picture.uploaded && picture.active) ?
               (
                 <Row>
                   <Col xs="12" md="12" className="pt-0 pt-md-0">
@@ -254,7 +200,7 @@ class MyPictures extends Component {
                         className="profile-picture-image"
                         src={picture.url}
                         loading={() => <div className="profile-picture-image">Loading...</div>}
-                        error={() => <div>Error</div>} 
+                        error={() => <div>Error</div>}
                         />
                     </div>
                   </Col>
@@ -266,9 +212,12 @@ class MyPictures extends Component {
                       <ClearRounded className="profile-picture-delete-icon-disabled" color="disabled" />
                     </div>
                     <div>
-                      <img
-                       className="profile-picture-image"
-                       src={require('../images/missing.png')} />
+											<ImageLoader
+												className="profile-picture-image"
+												src={'../images/missing.png'}
+												loading={() => <div className="profile-picture-image">Loading...</div>}
+												error={() => <div>Error</div>}
+												/>
                      </div>
                   </Col>
                 </Row>
@@ -290,10 +239,10 @@ class MyPictures extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-              <Dropzone 
+              <Dropzone
                 className="profile-picture-dropzone"
-                onDrop={ (files) => this.handleUploadMyPictures(files, caption) } 
-                size={ 150 } 
+                onDrop={ (files) => this.handleUploadMyPictures(files, caption) }
+                size={ 150 }
                 accept="image/*">
                 <div className="profile-picture-dropzone-description">
                   {`To upload or change Drop picture here`}
@@ -312,7 +261,6 @@ class MyPictures extends Component {
   }
 
   renderMainPicturesView() {
-    const { classes } = this.props;
     return (
       <Row className="profile-gender-row">
         <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
@@ -356,7 +304,6 @@ class MyPictures extends Component {
 
   render() {
     const { currentPicture, openImageModal } = this.state;
-    const { classes } = this.props;
 
     return (
       <MuiThemeProvider theme={theme}>

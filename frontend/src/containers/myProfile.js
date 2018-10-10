@@ -1,28 +1,13 @@
 import React, {Component} from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Panel from '../components/panel';
 
 import './myProfile.css'
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-	flatPrimary: {
-		color: "#258df2",
-	},
-});
 
 const theme = createMuiTheme ({
   palette: {
@@ -46,6 +31,22 @@ class MyProfile extends Component {
 	renderButtonsGroup() {
     return (
       <Panel title={""}>
+				<Row>
+					<Col xs="12" md="4" className="pt-4 pt-md-4" />
+					<Col xs="12" md="4" className="pt-4 pt-md-4">
+						<Link to="/profile-wizard/welcome">
+							<Button variant="contained"  color="primary" className={"home-button"} >
+								<div className="home-button-title-only">
+									{"Build My Profile"}
+								</div>
+								<div className="home-button-status">
+									{'(Wizard)'}
+								</div>
+							</Button>
+						</Link>
+					</Col>
+					<Col xs="12" md="4" className="pt-4 pt-md-4" />
+				</Row>
 				<Row>
 					<Col xs="12" md="4" className="pt-4 pt-md-4" />
 					<Col xs="12" md="4" className="pt-4 pt-md-4">

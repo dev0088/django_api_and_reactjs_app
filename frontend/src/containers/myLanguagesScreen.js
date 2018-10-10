@@ -10,59 +10,16 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Panel from '../components/panel'
-import ConfirmChangesDialog from '../components/confirmChangesDialog';
-import * as talentActions from  '../actions/talentActions';
+import ConfirmChangesDialog from '../components/confirmChangesDialog'
+import * as talentActions from  '../actions/talentActions'
 import TalentAPI from '../apis/talentAPIs'
+import defaultValues from '../constants/defaultValues'
 import './myLanguages.css'
+import { styles } from '../styles';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
-
-const LANGUAGES = [
-  'English',
-  'Spanish',
-  'Portuguese',
-  'German',
-  'French',
-  'Italian',
-  'Japanese',
-  'Mandarin',
-  'Cantonese',
-  'Russian',
-]
-
-const FLUENCY_TYPES = [
-  'Fluent',
-  'Conversational',
-  'Basic'
-]
-
-const OTHER_LANGUAGES_COUNT = 2
 
 class MyLanguage extends Component {
 
@@ -78,7 +35,6 @@ class MyLanguage extends Component {
 
   getInfoFromProps(props) {
     const {
-      auth,
       talentInfo
     } = props
 
@@ -89,10 +45,10 @@ class MyLanguage extends Component {
       // Get contact info
       languages = talentInfo.talent_languages
 
-      for (let i = 0; i < LANGUAGES.length; i ++) {
-        let language = this.getLanguageByName(LANGUAGES[i], languages)
+      for (let i = 0; i < defaultValues.LANGUAGES.length; i ++) {
+        let language = this.getLanguageByName(defaultValues.LANGUAGES[i], languages)
         checkedLanguages.push({
-          language: LANGUAGES[i],
+          language: defaultValues.LANGUAGES[i],
           checked: language ? true : false,
           fluency: language ? language.fluency : 'Basic'
         })
@@ -132,7 +88,6 @@ class MyLanguage extends Component {
   }
 
   handleChange = name => event => {
-    const { talentInfo } = this.props
     const { checkedLanguages } = this.state;
     let key = this.getKeyOfCheckedLanguageByName(name)
     checkedLanguages[key].checked = event.target.checked
@@ -154,32 +109,32 @@ class MyLanguage extends Component {
   handleSave = () => {
     const { auth, talentInfo } = this.props
     const {
-      languages,
       checkedLanguages
     } = this.state
 
     let talent_languages = []
-    Object.keys(checkedLanguages).map((key) => {
-      let checkedLanguage = checkedLanguages[key]
-      if (checkedLanguage.checked) {
-        talent_languages.push({
-          talent: talentInfo.id,
-          language: checkedLanguage.language,
-          fluency: checkedLanguage.fluency
-        })
-      }
-    })
+		for (let i = 0; i < checkedLanguages.length; i ++) {
+			let checkedLanguage = checkedLanguages[i]
+			if (checkedLanguage.checked) {
+				talent_languages.push({
+					talent: talentInfo.id,
+					language: checkedLanguage.language,
+					fluency: checkedLanguage.fluency
+				})
+			}
+		}
+
     let data = {
       talent_languages: talent_languages
     }
-    console.log('==== talent_languages: ', talent_languages)
+
     TalentAPI.saveLanguages(auth.access.user_id, data, this.handleSaveResponse)
   }
 
   handleSaveResponse = (response, isFailed) => {
     const { auth } = this.props
-    console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getTalentInfo(auth.access.user_id)
+
+		this.props.talentActions.getTalentInfo(auth.access.user_id)
 		this.setState({
 			isChanged: false
 		})
@@ -194,22 +149,26 @@ class MyLanguage extends Component {
   getKeyOfCheckedLanguageByName = (name) => {
     const { checkedLanguages } = this.state
     let res = null
-    Object.keys(checkedLanguages).map((key) => {
-      if (checkedLanguages[key].language === name) {
-        res = key
-      }
-    })
+
+		for (let i = 0; i < checkedLanguages.length; i++) {
+			if (checkedLanguages[i].language === name) {
+				res = i
+			}
+		}
+
     return res
   }
 
   getCheckedLanguageByName = (name) => {
     const { checkedLanguages } = this.state
     let res = null
-    Object.keys(checkedLanguages).map((key) => {
-      if (checkedLanguages[key].language === name) {
-        res = checkedLanguages[key]
+
+		for (let i = 0; i < checkedLanguages.length; i ++) {
+			if (checkedLanguages[i].language === name) {
+        res = checkedLanguages[i]
       }
-    })
+		}
+
     return res
   }
 
@@ -217,11 +176,13 @@ class MyLanguage extends Component {
     const { languages } = this.state
     let res = null
     let searchLanguages = languageList ? languageList : languages
-    Object.keys(searchLanguages).map((key) => {
-      if (searchLanguages[key].language === name) {
-        res = searchLanguages[key]
-      }
-    })
+
+		for (let i = 0; i < searchLanguages.length; i ++) {
+			if (searchLanguages[i].language === name) {
+				res = searchLanguages[i]
+			}
+		}
+
     return res
   }
 
@@ -278,10 +239,7 @@ class MyLanguage extends Component {
   }
 
   renderLanguagesView() {
-    const { talentInfo, classes } = this.props
-    const {
-      languages,
-    } = this.state
+    const { classes } = this.props
 
     return (
       <Panel title={"My Languages"}>
@@ -536,27 +494,25 @@ class MyLanguage extends Component {
   render() {
 		const {showConfirmChanges} = this.state
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="profile-language-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="profile-language-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderLanguagesView()}
+        {this.renderLanguagesView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile" onClick={this.checkChanges}>
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile" onClick={this.checkChanges}>
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
 
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

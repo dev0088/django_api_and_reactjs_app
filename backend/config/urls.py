@@ -15,16 +15,21 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_swagger.views import get_swagger_view
+
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.views.static import serve
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_swagger.views import get_swagger_view
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework import renderers, response, schemas
+from talent import views
 
-schema_view = get_swagger_view(title='ShipTalent API')
+swagger_schema_view = get_swagger_view(title='ShipTalent API')
+
 
 urlpatterns = [
-  url(r'^apis', schema_view),
+  url(r'^apis', swagger_schema_view),
   url(r'^admin/', admin.site.urls),
   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
   url(r'^api/v1/auth/', include('authentication.urls')),
@@ -33,12 +38,18 @@ urlpatterns = [
   url(r'^api/v1/talent_position_sub_type', include('talent_position_sub_type.urls')),
   url(r'^api/v1/talent_additional_position_type', include('talent_additional_position_type.urls')),
   url(r'^api/v1/talent_additional_position_sub_type', include('talent_additional_position_sub_type.urls')),
+  url(r'^api/v1/talent_skill', include('talent_skill.urls')),
+  url(r'^api/v1/talent_sub_skill', include('talent_sub_skill.urls')),
   url(r'^api/v1/talent_visa', include('talent_visa.urls')),
   url(r'^api/v1/talent_language', include('talent_language.urls')),
   url(r'^api/v1/talent_picture', include('talent_picture.urls')),
   url(r'^api/v1/talent_resume', include('talent_resume.urls')),
   url(r'^api/v1/talent_video', include('talent_video.urls')),
   url(r'^api/v1/talent_medical', include('talent_medical.urls')),
+  url(r'^api/v1/position_type', include('position_type.urls')),
+  url(r'^api/v1/position_sub_type', include('position_sub_type.urls')),
+  url(r'^api/v1/skill', include('skill.urls')),
+  url(r'^api/v1/sub_skill', include('sub_skill.urls')),
   url(r'^api/v1/question', include('question.urls')),
   url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
   url(r'^api/v1/submission', include('submission.urls')),

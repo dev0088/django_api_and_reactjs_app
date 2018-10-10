@@ -2,43 +2,15 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Panel from '../components/panel'
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
-import VideoListView from '../components/videoListView';
-import TalentAPI from '../apis/talentAPIs';
 import './myContactInfo.css';
+import { styles } from '../styles';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyVideos extends Component {
 
@@ -132,28 +104,22 @@ class MyVideos extends Component {
 
   render() {
     const { contactInfo, emergencyInfo } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="contact-info-view-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="contact-info-view-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderVideosView()}
+        {this.renderVideosView()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile">
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
-        </div>
-      </MuiThemeProvider>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile">
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

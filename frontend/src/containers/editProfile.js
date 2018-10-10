@@ -5,59 +5,25 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
-import SwipeableViews from 'react-swipeable-views';
-import Dropzone from 'react-dropzone';
-import Select from 'react-select';
-import makeAnimated from 'react-select/lib/animated';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
 
 import Panel from '../components/panel';
-import MultipleSelect from '../components/multipleSelect';
+import MultiSelectDropdown from '../components/dropdown/multiSelectDropdown';
+import SingleSelectDropdown from '../components/dropdown/singleSelectDropdown';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import * as talentActions from  '../actions/talentActions';
-import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
+import TalentAPI from '../apis/talentAPIs';
 import defaultValues from '../constants/defaultValues';
 
 import 'react-dropdown/style.css'
 import './editProfile.css'
-
-const const_genders = ["Male", "Female"];
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
+import { styles, theme } from '../styles';
 
 // var ReactS3Uploader = require('react-s3-uploader');
 
@@ -90,14 +56,16 @@ class EditProfile extends Component {
         relationship: 0
       },
       allPositionTypes: [],
-      currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
-        ? { value: props.talentInfo.talent_position_sub_type.name,
-            label: props.talentInfo.talent_position_sub_type.name }
-        : '',
-			currentAdditionalPositionTypes: null,
-      currentAdditionalPositionSubTypes: null,
+      allSkills: [],
+      // currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
+      //   ? { value: props.talentInfo.talent_position_sub_type.name,
+      //       label: props.talentInfo.talent_position_sub_type.name }
+      //   : '',
+      // currentAdditionalPositionTypes: null,
+      // currentAdditionalPositionSubTypes: null,
 
-			currentAdditionalGroups: [],
+      currentPositionTypesGroup: [],
+			currentSkillGroups: [],
 
 			worked_cruise_ship: false,
 
@@ -107,45 +75,131 @@ class EditProfile extends Component {
   }
 
 	exitType = (typeName, name, items) => {
-		for(let i = 0; i < items.length; i ++) {
-			if (items[i][typeName].name === name) {
-				return true
-			}
-		}
+    if (typeName && name && items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i][typeName].name === name) {
+          return true
+        }
+      }
+    }
 
 		return false
 	}
 
-	generateGroupsFromTypes = (allPositionTypes, currentPositionTypes, currentPositionSubTypes) => {
+  exitSkill = (typeName, name, items) => {
+    if (typeName && name && items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i][typeName] === name) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
+	exitPositionTypes(typeName, subTypeName, allTypes) {
+    for (let i = 0; i < allTypes.length; i++) {
+      if (allTypes[i].name === typeName) {
+        if (allTypes.position_sub_types) {
+          for (let j = 0; j < allTypes[i].position_sub_types.length; j ++) {
+            if (allTypes[i].position_sub_types[j] === subTypeName) {
+              return true
+            }
+          }
+        } else {
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+	generateGroupFromPositionSubTypes = (allPositionTypes, talent_position_types, talent_position_sub_types) => {
 		let groups = []
-		allPositionTypes.map((positionType, index) => {
-			let options = []
-			if (positionType.name != defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-				positionType.talent_position_sub_types.map((positionSubType, index) => {
+    let index = 0
+
+		for (let i = 0; i < allPositionTypes.length; i ++) {
+			let positionType = allPositionTypes[i]
+
+			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+        let options = []
+        console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types[0].position_type)
+			  let group = {
+          label: positionType.name,
+          value: index ++,
+          // index: index ++,
+          isGroup: true,
+          isChecked: (talent_position_types && talent_position_types.length > 0 &&
+                      positionType.name === talent_position_types[0].position_type &&
+                      talent_position_sub_types &&  talent_position_sub_types.length === 0),
+          options: []
+        }
+
+			  for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
+					let positionSubType = positionType.position_sub_types[j]
 					options.push({
 						label: positionSubType,
-						value: positionSubType,
+						value: index ++,
 						group: positionType.name,
+            // index: index ++,
 						isGroup: false,
-						isChecked: this.exitType(
-												'talent_position_sub_type',
-												positionSubType,
-												currentPositionSubTypes)
+						isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
+                          positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
+                          positionSubType === talent_position_sub_types[0].position_sub_type.name)
 					})
-				})
-				groups.push({
-					label: positionType.name,
-					value: positionType.name,
-					isGroup: true,
-					isChecked: this.exitType('talent_position_type',
-											positionType.name,
-											currentPositionTypes),
-					options: options
-				})
+				}
+        group.options = options
+
+				groups.push(group)
 			}
-		})
+		}
+
 		return groups
 	}
+
+  generateGroupsFromSkills = (allSkills, currentSkills, currentSubSkills) => {
+    let groups = []
+    let index = 0
+
+    for (let i = 0; i < allSkills.length; i ++) {
+      let skill = allSkills[i]
+
+      if (skill.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+        let options = []
+        let group = {
+          label: skill.name,
+          value: skill.name,
+          index: index ++,
+          isGroup: true,
+          options: [],
+          isChecked: this.exitSkill('skill', skill.name, currentSkills),
+          multiSelection: skill.multi_selection,
+          data: skill
+        }
+
+        for (let j = 0; j < skill.sub_skills.length; j ++ ) {
+          let subSkill = skill.sub_skills[j]
+          options.push({
+            label: subSkill,
+            value: subSkill,
+            group: skill.name,
+            index: index ++,
+            isGroup: false,
+            isChecked: this.exitType(
+              'sub_skill',
+              subSkill,
+              currentSubSkills)
+          })
+        }
+        group.options = options
+
+        groups.push(group)
+      }
+    }
+
+    return groups
+  }
 
 	isChckedPositionType = (name, positionTypes) => {
 		for(let i = 0; i < positionTypes.length; i ++ ) {
@@ -156,45 +210,38 @@ class EditProfile extends Component {
 		return false
 	}
 
-  getPositionTypesFromProps(props) {
+  getInfoFromProps(props) {
     const {
       auth,
       allPositionTypes,
+      allSkills,
       talentInfo
     } = props
-    let positionTypes = []
-    let currentSubPositionType = []
-		let currentAdditionalPositionTypes = []
-    let currentAdditionalPositionSubTypes = []
-		let currentAdditionalGroups = []
+    let currentSubPositionType = {}
+    let currentPositionTypesGroup = []
+		let currentSkillGroups = []
     let userID = auth.access.user_id
     let gender = 'Male'
     let contactInfo = {}
     let emergencyInfo = {}
 		let worked_cruise_ship = false
-    // if (allPositionTypes) {
-    //   positionTypes = allPositionTypes
-    // }
+
     if (talentInfo) {
       gender = talentInfo.sex === 'm' ? 'Male' : 'Female'
       // Get sub position types for primary and secondary of talent
       let subPostionType = {}
-      if (talentInfo.talent_position_sub_type) {
-        subPostionType = {
-          value: talentInfo.talent_position_sub_type.name,
-          label: talentInfo.talent_position_sub_type.name,
-          positionType: talentInfo.talent_position_sub_type.talent_position_type
-        }
-      }
 
       currentSubPositionType = subPostionType
+      currentPositionTypesGroup = this.generateGroupFromPositionSubTypes(
+                                    allPositionTypes ? allPositionTypes : [],
+                                    talentInfo.talent_position_types,
+                                    talentInfo.talent_position_sub_types)
+			currentSkillGroups = this.generateGroupsFromSkills(
+                              allSkills ? allSkills : [],
+                              talentInfo.talent_skills,
+                              talentInfo.talent_sub_skills,
+                            )
 
-			currentAdditionalGroups = this.generateGroupsFromTypes(
-					allPositionTypes ? allPositionTypes : [],
-					talentInfo.talent_additional_position_types,
-					talentInfo.talent_additional_position_sub_types
-				)
-			console.log('=== currentAdditionalGroups: ', currentAdditionalGroups)
       // Get contact info
       contactInfo = {
         firstName: talentInfo.user.first_name,
@@ -222,7 +269,8 @@ class EditProfile extends Component {
       gender,
       allPositionTypes,
       currentSubPositionType,
-			currentAdditionalGroups,
+      currentPositionTypesGroup,
+			currentSkillGroups,
       contactInfo,
       emergencyInfo,
 			worked_cruise_ship
@@ -231,11 +279,12 @@ class EditProfile extends Component {
 
   componentWillMount() {
     this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ...this.getPositionTypesFromProps(nextProps)
+      ...this.getInfoFromProps(nextProps)
     })
   }
 
@@ -243,23 +292,11 @@ class EditProfile extends Component {
   	this.setState({ [type]: val});
   }
 
-  handleTab1Change = (value) => {
+  handleSubPositionSelect = (groups) => {
+    console.log('==== handleSubPositionSelect: groups: ', groups)
     this.setState({
-      tab1Value: value,
-			isChanged: true
-    });
-  };
-
-  handleTab2Change = (value) => {
-    this.setState({
-      tab2Value: value,
-			isChanged: true
-    });
-  }
-
-  handleSubPositionSelect = (item) => {
-    this.setState({
-      currentSubPositionType: item,
+      // currentSubPositionType: item,
+      currentPositionTypesGroup: groups,
 			isChanged: true
     })
   }
@@ -267,84 +304,121 @@ class EditProfile extends Component {
 	isPositionType = (name) => {
 		const { allPositionTypes } = this.props
 		let res = false
-		allPositionTypes.map((positionType, index) => {
+
+		for (let i = 0; i < allPositionTypes.length; i ++) {
+			let positionType = allPositionTypes[i]
 			if (positionType.name === name) {
 				res = true
+				break
 			}
-		})
+		}
+
 		return res
 	}
 
-  handleCurrentAdditionalPositionSubTypesSelect = (groups) => {
+  handleCurrentSubSkillsSelect = (groups) => {
     this.setState({
-			currentAdditionalGroups: groups,
+			currentSkillGroups: groups,
 			isChanged: true
 	  });
   }
 
-	// handleMultipleSelect = (selectedItems) =>
   handlePositionTypeCancel = () => {
     this.setState({
-      ...this.getPositionTypesFromProps(this.props),
+      ...this.getInfoFromProps(this.props),
 			isChanged: false
     })
   }
 
-	groups2PositionSubTypes(groups) {
-		let talent_additional_position_types = []
-		let talent_additional_position_sub_types = []
+  groups2SubPositionType(groups) {
+    let talent_sub_position_type = ''
+    let talent_position_type = ''
 
-    groups.map((group, index) => {
+    for (let i = 0; i < groups.length; i ++) {
+      let group = groups[i]
+      if (group.isChecked) {
+        talent_position_type = group.label
+        break
+      }
+
+      for (let j = 0; j < group.options.length; j ++) {
+        let option = group.options[j]
+        if (option.isChecked) {
+          talent_position_type = group.label
+          talent_sub_position_type = option.label
+          return {
+            talent_sub_position_type,
+            talent_position_type
+          }
+        }
+      }
+    }
+
+    return {
+      talent_sub_position_type,
+      talent_position_type
+    }
+  }
+
+	groups2SubSkills(groups) {
+		let talent_skills = []
+		let talent_sub_skills = []
+    console.log('===== groups2SubSkills: groups: ', groups)
+		for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
 			if (group.isChecked) {
-				talent_additional_position_types.push({
+				talent_skills.push({
 					name: group.value
 				})
 			}
 
-			group.options.map((option, index) => {
+			for (let j = 0; j < group.options.length; j ++) {
+				let option = group.options[j]
 				if (option.isChecked) {
-					talent_additional_position_sub_types.push({
-		        name: option.value,
-		        talent_position_type: group.value
-		      })
+					talent_sub_skills.push({
+						name: option.value,
+						talent_position_type: group.value
+					})
 				}
-			})
-
-    })
+			}
+		}
 
 		return {
-			talent_additional_position_types,
-			talent_additional_position_sub_types
+			talent_skills,
+			talent_sub_skills
 		}
 	}
 
-  handlePositionTypeSave = () => {
+  handleSavePositionsAndSkills = () => {
     const {
       userID,
       gender,
-      currentSubPositionType,
-      currentAdditionalGroups
+      currentPositionTypesGroup,
+      currentSkillGroups
     } = this.state
 
     const {
-			talent_additional_position_types,
-			talent_additional_position_sub_types
-		} = this.groups2PositionSubTypes(currentAdditionalGroups)
+			talent_skills,
+			talent_sub_skills
+		} = this.groups2SubSkills(currentSkillGroups)
+    const {
+      talent_sub_position_type,
+      talent_position_type,
+    } = this.groups2SubPositionType(currentPositionTypesGroup)
 
     let data = {
       sex: gender === "Male" ? "m" : "f",
-      talent_position_sub_type: {
-        name: currentSubPositionType.value,
-        talent_position_type: currentSubPositionType.positionType
-      },
-			talent_additional_position_types: talent_additional_position_types,
-      talent_additional_position_sub_types: talent_additional_position_sub_types
+			talent_skills: talent_skills,
+      talent_position_type: talent_position_type,
+      talent_position_sub_type: talent_sub_position_type,
+      talent_sub_skills: talent_sub_skills
     }
 
-    TalentAPI.saveTalentInfo(userID, data, this.handlePositionTypeSaveResponse)
+    console.log('===== data: ', data)
+    TalentAPI.saveTalentInfo(userID, data, this.handleSavePositionsAndSkillsResponse)
   }
 
-  handlePositionTypeSaveResponse = (response, isFailed) => {
+  handleSavePositionsAndSkillsResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     this.props.talentActions.getTalentInfo(this.state.userID)
 		this.setState({
@@ -385,52 +459,25 @@ class EditProfile extends Component {
 	}
 
   renderPositionTypesView() {
-    const { allPositionTypes } = this.props
-    let groups = []
-
-    if (allPositionTypes) {
-      Object.keys(allPositionTypes).map((key) => {
-        const positionType = allPositionTypes[key]
-        if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-          return;
-        }
-
-        let group = {
-          type: 'group',
-          name: positionType.name,
-          items: []
-        }
-
-        Object.keys(positionType.talent_position_sub_types).map((key) => {
-          const positionSubType = positionType.talent_position_sub_types[key]
-          group.items.push({
-            value: positionSubType,
-            label: positionSubType,
-            className: 'profile-position-sub-type-item'
-          })
-        })
-				
-        groups.push(group)
-      })
-    }
+    const { currentPositionTypesGroup } = this.state
 
     return (
-      <DropDown
-        options={groups}
+      <SingleSelectDropdown
+        label={"Select an option"}
+        groups={currentPositionTypesGroup}
         onChange={this.handleSubPositionSelect}
-        value={this.state.currentSubPositionType}
-        placeholder="Select an option" />
+      />
     )
   }
 
-	renderMultipleSelectView() {
-    const { currentAdditionalGroups } = this.state
+	renderMultiSelectDropdownView() {
+    const { currentSkillGroups } = this.state
 
     return (
-      <MultipleSelect
+      <MultiSelectDropdown
 				label={"Select your positions"}
-        groups={currentAdditionalGroups}
-				onChange={this.handleCurrentAdditionalPositionSubTypesSelect}
+        groups={currentSkillGroups}
+				onChange={this.handleCurrentSubSkillsSelect}
       />
     )
   }
@@ -446,7 +493,7 @@ class EditProfile extends Component {
           </Col>
           <Col xs="12" md="10" className="pt-0 pt-md-2">
           {
-            const_genders.map((gender, index) => {
+            defaultValues.GENDERS.map((gender, index) => {
               return (
                 <FlatButton
                   key={index}
@@ -468,8 +515,7 @@ class EditProfile extends Component {
         <Row className="profile-gender-row">
           <Col xs="12" md="2" className="pt-4 pt-md-4"> <h5>Who also...</h5> </Col>
           <Col xs="12" md="10" className="pt-3 pt-md-3">
-						{/* { this.renderMultiSelectionPositionTypesView() } */}
-						{ this.renderMultipleSelectView() }
+						{ this.renderMultiSelectDropdownView() }
 					</Col>
         </Row>
         <Row className="profile-gender-row">
@@ -482,7 +528,7 @@ class EditProfile extends Component {
             </Button>
             <Button size="large" color="primary"
               className={classes.button}
-              onClick={this.handlePositionTypeSave}>
+              onClick={this.handleSavePositionsAndSkills}>
               {'Save'}
             </Button>
           </Col>
@@ -633,77 +679,69 @@ class EditProfile extends Component {
   render() {
 		const { worked_cruise_ship, showConfirmChanges } = this.state
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="profile-edit-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-          <Row className="profile-edit-title">
-            <h3>Build/Edit My Profile</h3>
-          </Row>
+      <div className="profile-edit-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        <Row className="profile-edit-title">
+          <h3>Build/Edit My Profile</h3>
+        </Row>
 
-          {this.renderGeneralInfoView()}
+        {this.renderGeneralInfoView()}
 
-          <Row className="profile-edit-buttons">
-            <Col sm="12">
-              <h4>Let's Build or Edit Your Profile...</h4>
-            </Col>
-          </Row>
-
-          {this.renderBussinessStaff()}
-
-          {this.renderFunStaff()}
-
-          <Row>
-            <Col sm="12" className="pt-0 pt-md-0">
-							<FormControlLabel
-								control={
-									<Checkbox
-										checked={worked_cruise_ship}
-										onChange={this.handleChangeWorkedCruiseShip('worked_cruise_ship')}
-										value={'worked_cruise_ship'}
-										color="primary"
-									/>
-								}
-								label={"I have worked on a cruise ship before (select if you have previous ship experience)"}
-							/>
-            </Col>
-          </Row>
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/home" onClick={this.checkChanges} className="profile-other-info-button-container">
-                <RaisedButton label="Back to My Home Page" primary={true}/>
-              </Link>
-              <Link to="/profile" onClick={this.checkChanges}>
-                <RaisedButton label="View My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
-
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-
-        </div>
-      </MuiThemeProvider>
+        <Row className="profile-edit-buttons">
+          <Col sm="12">
+            <h4>Let's Build or Edit Your Profile...</h4>
+          </Col>
+        </Row>
+        {this.renderBussinessStaff()}
+        {this.renderFunStaff()}
+        <Row>
+          <Col sm="12" className="pt-0 pt-md-0">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={worked_cruise_ship}
+                  onChange={this.handleChangeWorkedCruiseShip('worked_cruise_ship')}
+                  value={'worked_cruise_ship'}
+                  color="primary"
+                />
+              }
+              label={"I have worked on a cruise ship before (select if you have previous ship experience)"}
+            />
+          </Col>
+        </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/home" onClick={this.checkChanges} className="profile-other-info-button-container">
+              <RaisedButton label="Back to My Home Page" primary={true}/>
+            </Link>
+            <Link to="/profile" onClick={this.checkChanges}>
+              <RaisedButton label="View My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { auth, talentReducer,  talentInfo, allPositionTypes} = state;
+  const { auth, talentReducer,  talentInfo, allPositionTypes, allSkills} = state;
   return {
     auth,
     talentReducer,
     talentInfo: talentInfo.value,
-    allPositionTypes: allPositionTypes.value
+    allPositionTypes: allPositionTypes.value,
+    allSkills: allSkills.value
   }
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));

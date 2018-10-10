@@ -2,59 +2,23 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Panel from '../components/panel'
 import Button from '@material-ui/core/Button';
 import UpdatedTextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
 import TalentAPI from '../apis/talentAPIs'
-import apiConfig from '../constants/api';
-import Dropzone from 'react-dropzone';
-import Select from 'react-select';
-import makeAnimated from 'react-select/lib/animated';
-import DropDown from 'react-dropdown';
 import moment from 'moment';
 import ConfirmChangesDialog from '../components/confirmChangesDialog';
 import 'react-dropdown/style.css';
 import './myContactInfo.css';
+import { styles } from '../styles';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
 
 class MyContactInfo extends Component {
 
@@ -192,7 +156,6 @@ class MyContactInfo extends Component {
   }
 
   handleBusinessStaffSave = () => {
-    const { auth, talentInfo } = this.props
     const {
       userID,
       contactInfo,
@@ -248,7 +211,7 @@ class MyContactInfo extends Component {
 	}
 
   renderBussinessStaff() {
-    const { talentInfo, classes } = this.props
+    const { classes } = this.props
     const {
       contactInfo,
       emergencyInfo,
@@ -492,34 +455,28 @@ class MyContactInfo extends Component {
   }
 
   render() {
-    const { contactInfo, emergencyInfo, showConfirmChanges } = this.state;
-    const { classes } = this.props;
-    const selectItemStyle = {
-      'whiteSpace': 'preWrap'
-    }
+    const { showConfirmChanges } = this.state;
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="contact-info-view-container">
-          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <div className="contact-info-view-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-          {this.renderBussinessStaff()}
+        {this.renderBussinessStaff()}
 
-          <Row >
-            <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-            <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-              <Link to="/edit-profile" onClick={this.checkChanges} >
-                <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-              </Link>
-            </Col>
-          </Row>
+        <Row >
+          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
+          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/edit-profile" onClick={this.checkChanges} >
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Col>
+        </Row>
 
-					<ConfirmChangesDialog
-						open={showConfirmChanges}
-						onClose={this.handleCloseConfirm}
-					/>
-        </div>
-      </MuiThemeProvider>
+        <ConfirmChangesDialog
+          open={showConfirmChanges}
+          onClose={this.handleCloseConfirm}
+        />
+      </div>
     )
   }
 }

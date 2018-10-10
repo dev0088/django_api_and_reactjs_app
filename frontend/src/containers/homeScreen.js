@@ -6,33 +6,12 @@ import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player'
 import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
+import * as talentActions from  '../actions/talentActions'
 import './homeScreen.css'
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  slide: {
-    padding: 10,
-  },
-});
-
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
+import { styles } from '../styles'
 
 class HomeScreen extends Component {
 
@@ -41,10 +20,13 @@ class HomeScreen extends Component {
     this.state = {
       shiptalentInfo: props.shiptalentInfo.value,
     };
-
   }
+
   componentWillMount() {
     this.props.shiptalentInfoActions.getShipTalentInfo()
+    this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
+
     this.setState({
       shiptalentInfo: this.props.shiptalentInfo.value
     })
@@ -73,11 +55,8 @@ class HomeScreen extends Component {
   }
 
   render() {
-    // const { shiptalentInfo } = this.state
-		const { classes } = this.props
-
     return(
-      <MuiThemeProvider theme={theme}>
+      <div>
         <Row>
           <Jumbotron className="text-center slogan-description-background">
             <h1>{this.getValueByName('slogan')}</h1>
@@ -250,7 +229,7 @@ class HomeScreen extends Component {
             </div>
           </Col>
         </Row>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
@@ -264,7 +243,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    shiptalentInfoActions: bindActionCreators(shiptalentInfoActions, dispatch)
+    shiptalentInfoActions: bindActionCreators(shiptalentInfoActions, dispatch),
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
 

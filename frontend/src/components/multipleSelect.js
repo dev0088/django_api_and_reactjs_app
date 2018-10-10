@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -9,33 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
+import { styles } from '../styles';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 190,
-		width: '100%'
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: theme.spacing.unit / 4,
-  },
-	groupMenuItem: {
-		backgroundColor: 'rgba(0, 0, 0, 0.05)'
-	},
-	optionMenuItem: {
-		backgroundColor: 'rgba(0, 0, 0, 0)!important',
-		paddingLeft: '40px',
-	}
-});
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -62,16 +35,21 @@ class MultipleSelect extends React.Component {
 	getSelectedItemFromGroups = (groups) => {
 		let selectedItems = []
 
-		groups.map((group, index) => {
+		for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
+
 			if (group.isChecked) {
 				selectedItems.push(group.value)
 			}
-			group.options.map((option, index) => {
+
+			for (let j = 0; j < group.options.length; j ++) {
+				let option = group.options[j]
+
 				if (option.isChecked) {
 					selectedItems.push(option.value)
 				}
-			})
-		})
+			}
+		}
 
 		return selectedItems
 	}
@@ -92,11 +70,14 @@ class MultipleSelect extends React.Component {
 		const { groups } = this.state
 		let res = false
 
-		groups.map((group, index) => {
+		for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
+
 			if (group.value === name) {
 				res = true
+				break
 			}
-		})
+		}
 
 		return res
 	}
@@ -105,28 +86,37 @@ class MultipleSelect extends React.Component {
 		const { groups } = this.state
 		let res = null
 
-		groups.map((group, index) => {
+		for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
+
 			if (group.options && group.options.length > 0) {
-				group.options.map((option, index) => {
-					res = option
-				})
+				for (let j = 0; j < group.options.length; j ++) {
+					let option = group.options[j]
+					if (option === name) {
+						res = option
+						break
+					}
+				}
 			}
-		})
+		}
 
 		return res
 	}
 
 	checkOptions = (groups, selectedItems) => {
 		let newSelectedItems = selectedItems
-		groups.map((group, index) => {
+		for (let i = 0; i < groups.length; i ++) {
+			let group = groups[i]
 			// Check all options with selectedItems
 			if (group.options && group.options.length > 0) {
 				let count = 0
-				group.options.map((option, index) => {
+
+				for (let j = 0; j < group.options.length; j ++) {
+					let option = group.options[j]
 					if (selectedItems.indexOf(option.value) > -1) {
 						count ++
 					}
-				})
+				}
 				let groupIndexInItems = selectedItems.indexOf(group.value)
 				if (count === group.options.length) {
 					if (groupIndexInItems === -1) {
@@ -138,7 +128,7 @@ class MultipleSelect extends React.Component {
 					}
 				}
 			}
-		})
+		}
 
 		return newSelectedItems
 	}
@@ -176,12 +166,13 @@ class MultipleSelect extends React.Component {
 		})
 
 		if (selectedGroup.options) {
-			selectedGroup.options.map((option) => {
+			for (let i = 0; i < selectedGroup.options.length; i ++) {
+				let option = selectedGroup.options[i]
 				// select all
 				if (updatedItems.indexOf(option.value) === -1) {
 					updatedItems.push(option.value)
 				}
-			})
+			}
 		}
 
 		return updatedItems
@@ -212,9 +203,10 @@ class MultipleSelect extends React.Component {
 
 		// Remove options of the group
 		if (selectedGroup.options) {
-			selectedGroup.options.map((option) => {
+			for (let i = 0; i < selectedGroup.options.length; i ++) {
+				let option = selectedGroup.options[i]
 				removedItems = this.removeItem(option.value, removedItems)
-			})
+			}
 		}
 
 		return removedItems
@@ -235,8 +227,9 @@ class MultipleSelect extends React.Component {
 
 	selectedItems2Groups = (selectedItems, groups) => {
 		let newGroups = groups
+		for (let i = 0; i < newGroups.length; i ++) {
+			let group = newGroups[i]
 
-		newGroups.map((group, index) => {
 			// Check groups
 			if (selectedItems.indexOf(group.value) > -1 ) {
 				group.isChecked = true
@@ -245,14 +238,15 @@ class MultipleSelect extends React.Component {
 			}
 
 			// Check options
-			group.options.map((option, index) => {
+			for (let j = 0; j < group.options.length; j ++) {
+				let option = group.options[j]
 				if (selectedItems.indexOf(option.value) > -1 ) {
 					option.isChecked = true
 				} else {
 					option.isChecked = false
 				}
-			})
-		})
+			}
+		}
 
 		return newGroups
 	}
@@ -274,7 +268,7 @@ class MultipleSelect extends React.Component {
   }
 
   render () {
-		const { classes, theme } = this.props;
+		const { classes } = this.props;
 		const { label, groups, currentSelectedItems } = this.state;
 
     return (

@@ -9,8 +9,8 @@ from django.contrib.auth.models import (
 from django.db import models
 
 TYPE_CHOICES = (
-    ('talent', 'talent'),
-    ('client', 'client'),
+    ('talent', 'Talent'),
+    ('client', 'Client'),
 )
 
 class UserManager(BaseUserManager):
@@ -126,6 +126,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         not store the user's real name, we return their username instead.
         """
         return self.first_name + ' ' + self.last_name
+    
+    get_full_name.short_description = 'Full name'
 
     def get_short_name(self):
         """
