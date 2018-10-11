@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10861761-ab04-4efa-8823-d955a111feda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/talent/views.py" afterPath="$PROJECT_DIR$/backend/talent/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/package.json" afterPath="$PROJECT_DIR$/frontend/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/header.js" afterPath="$PROJECT_DIR$/frontend/src/components/header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/routes/index.js" afterPath="$PROJECT_DIR$/frontend/src/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/styles.js" afterPath="$PROJECT_DIR$/frontend/src/styles.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
-              <caret line="127" column="23" lean-forward="true" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
+              <caret line="127" column="23" lean-forward="false" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -62,8 +57,8 @@
       <file leaf-file-name="header.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/header.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="114" column="58" lean-forward="false" selection-start-line="114" selection-start-column="58" selection-end-line="114" selection-end-column="58" />
+            <state relative-caret-position="229">
+              <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -71,21 +66,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/styles.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
+            <state relative-caret-position="270">
+              <caret line="140" column="12" lean-forward="true" selection-start-line="140" selection-start-column="12" selection-end-line="140" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lastWizard.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="666">
+              <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lastWizard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="67" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state relative-caret-position="514">
+              <caret line="100" column="31" lean-forward="false" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -104,10 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>generateGroupsFromSkills</find>
-      <find>const styles = theme</find>
-      <find>theme</find>
-      <find>MuiThemeProvider</find>
       <find>menuitem</find>
       <find>require</find>
       <find>requir</find>
@@ -134,6 +135,10 @@
       <find>optionButton</find>
       <find>taht</find>
       <find>.access</find>
+      <find>&lt;Spacer</find>
+      <find>&lt;Row</find>
+      <find>Account Settings</find>
+      <find>#258df2</find>
     </findStrings>
     <replaceStrings>
       <replace>handleClickPositionTypeButton</replace>
@@ -147,9 +152,9 @@
       <replace>SingleSelectDropdown</replace>
       <replace>handleSavePositionsAndSkills</replace>
       <replace>SelectPositionSubTypeWizard</replace>
-      <replace>LastWizard</replace>
       <replace>selectedButton</replace>
       <replace>handleClickPositionSubTypeButton</replace>
+      <replace>LastWizard</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -175,10 +180,11 @@
         <option value="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" />
         <option value="$PROJECT_DIR$/frontend/src/routes/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" />
-        <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/header.js" />
         <option value="$PROJECT_DIR$/frontend/src/styles.js" />
+        <option value="$PROJECT_DIR$/frontend/package.json" />
+        <option value="$PROJECT_DIR$/frontend/src/components/header.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" />
       </list>
     </option>
   </component>
@@ -259,6 +265,13 @@
               <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -331,12 +344,12 @@
       <workItem from="1538693100964" duration="29836000" />
       <workItem from="1538949196847" duration="8624000" />
       <workItem from="1539140256740" duration="1118000" />
-      <workItem from="1539147352197" duration="15630000" />
+      <workItem from="1539147352197" duration="17989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78358000" />
+    <option name="totallyTimeSpent" value="80717000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="153" y="23" width="1747" height="990" extended-state="0" />
@@ -393,16 +406,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3432">
-          <caret line="187" column="48" lean-forward="false" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="48" />
-          <folding>
-            <element signature="e#366#428#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/containers/editProfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15936">
@@ -659,6 +662,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1978">
           <caret line="99" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -760,16 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/templateTopbar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -781,7 +777,7 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
-          <caret line="127" column="23" lean-forward="true" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
+          <caret line="127" column="23" lean-forward="false" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -798,21 +794,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="140" column="12" lean-forward="true" selection-start-line="140" selection-start-column="12" selection-end-line="140" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/header.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="114" column="58" lean-forward="false" selection-start-line="114" selection-start-column="58" selection-end-line="114" selection-end-column="58" />
+        <state relative-caret-position="229">
+          <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/styles.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="514">
+          <caret line="100" column="31" lean-forward="false" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

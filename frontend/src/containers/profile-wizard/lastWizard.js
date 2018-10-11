@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Panel from '../../components/panel';
+import Spacer from "../../components/spacer";
 import * as talentActions from  '../../actions/talentActions';
 import styles from '../../styles';
 
@@ -63,12 +64,14 @@ class LastWizard extends Component {
           {"Great."}
         </Typography>
         <Typography align="center" component="h3" variant="h3" gutterBottom>
-          {"Now that we know what you do, let's get some more information."}
+          {"Now that we know what you do, "}
+          <br/>
+          {"let's get some more information."}
         </Typography>
         <br/>
         <Grid container spacing={40}>
           <Grid item xs />
-            <Grid item xs={12} md={4}>
+            <Grid item xs={8} md={4} sm>
               <Link to='/contact-info'>
                 <Button
                   variant="contained"
@@ -86,26 +89,25 @@ class LastWizard extends Component {
           <Grid item xs />
 
           <Grid item xs={12}>
-            <Grid container justify="center" alignItems="center" spacing={24}>
-              <Paper elevation={1} className={classes.paperDescription}>
-                <Grid container direction="column" spacing={24}>
-                  <Grid item xs={12} sm>
-                    <Typography variant="title" align="center" colorTextPrimary>
-                      {"From here, the wizard takes Talent through each section:"}
-                    </Typography>
+            <Grid container justify="center" direction="column" alignItems="center" spacing={24}>
+              <Grid item xl={6} md={8} xs={12}>
+                <Paper elevation={1} className={classes.paperDescription}>
+                  <Grid container direction="column" alignItems="center"  spacing={24}>
+                    <Grid item xs={12}>
+                      <Typography variant="title" align="center" colorTextPrimary>
+                        {"From here, the wizard takes Talent through each section:"}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography align="center" variant="body1">
+                        {"My Contact Info → My Nationality → My Languages → My Height, Weight & Age Range → My Medical →My Headline & Bio → My Resume → My Pictures → My Videos"}
+                        <br/>
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm>
-                    <Typography align="center" variant="body1">
-                      {"My Contact Info → My Nationality → My Languages → "}
-                      <br/>
-                      {"My Height, Weight & Age Range → My Medical →"}
-                      <br/>
-                      {"My Headline & Bio → My Resume → My Pictures → My Videos"}
-                      <br/>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm />
             </Grid>
           </Grid>
         </Grid>

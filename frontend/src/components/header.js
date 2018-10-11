@@ -158,11 +158,7 @@ class Header extends Component {
                       {"Profile Wizard"}
                     </MenuItem>
                   </Link>
-                  <Link to="/account">
-                    <MenuItem onClick={this.handleClose}>
-                      {"Account Settings"}
-                    </MenuItem>
-                  </Link>
+
                   <Divider />
                   <Link to="/login">
                     <MenuItem onClick={this.hanldeClickLogout}>
