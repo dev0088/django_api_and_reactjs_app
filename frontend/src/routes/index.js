@@ -52,6 +52,15 @@ import Faq from "../containers/faq";
 import Terms from "../containers/terms";
 import ContactUs from "../containers/contactUs";
 
+// client side
+import ClientLogin from "../containers/client/login";
+import WelcomePage from "../containers/client/welcome"
+import TalentSearch from '../containers/client/talent.seach'
+import TalentSearchResult from "../containers/client/talent.search.result";
+import RequestSelection from "../containers/client/request.selection";
+import CastingRequestNew from "../containers/client/casting.request.new";
+import CastingRequestAddConfirm from "../containers/client/casting.request.add.confirm";
+
 const Index = () => (
   <Switch>
     <Route
@@ -94,6 +103,57 @@ const Index = () => (
           <ForgotPasswordScreen {...props} />
         </TemplateNothing>
       )}
+    />
+
+	<Route
+        path="/client/login"
+        render={props => (
+            <TemplateNothing>
+                <ClientLogin {...props}/>
+            </TemplateNothing>
+        )}
+    />
+    <Route
+        path="/client/welcome"
+        render={props => (
+            <TemplateNothing>
+                <WelcomePage {...props}/>
+            </TemplateNothing>
+        )}
+    />
+    <Route
+        path="/client/talent_search"
+        render={props => (
+            <TemplateNothing>
+                <TalentSearch {...props}/>
+            </TemplateNothing>
+        )}
+    />
+    <Route
+        path="/client/talent_search_result"
+        render={props => (
+            <TemplateNothing>
+                <TalentSearchResult {...props}/>
+            </TemplateNothing>
+        )}
+    />
+    <Route
+        path="/client/request_selection"
+        render={props => (
+            <RequestSelection {...props} />
+        )}
+    />
+    <Route
+        path="/client/casting_request/new"
+        render={props => (
+            <CastingRequestNew {...props} />
+        )}
+    />
+    <Route
+        path="/client/casting_request/confirm"
+        render={props => (
+            <CastingRequestAddConfirm {...props} />
+        )}
     />
 
     <Route

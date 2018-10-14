@@ -1,0 +1,137 @@
+.save-title {
+    margin: auto;
+    padding-top: 10rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.master-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.client-login-table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+}
+
+.client-login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 5rem;
+}
+
+.client-login-label {
+    font-weight: bold;
+}
+
+.search-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.master-select {
+    border: 1px solid #4c4c4c;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 8rem;
+    text-align: center;
+}
+
+.master-select-empty {
+    width: 8rem;
+    text-align: center;
+    height: 100%;
+}
+
+.sub-select {
+    border: 1px solid #4c4c4c;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.search-face {
+    width: 4rem;
+    height: 4rem;
+    border: 4px solid #3e3e3e;
+    box-shadow: 2px 2px 1px 1px #acacac;
+    cursor: pointer;
+}
+
+.result-title {
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.result-subtitle {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.menu-box {
+    width: 18rem;
+    background-color: #2883ef;
+    color: #f3f3f3;
+    border: 2px solid #16498b;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    cursor: pointer;
+    height: 5rem;
+}
+
+.menu-box:hover {
+    background-color: #133171;
+}
+
+.menu-box:active {
+    background-color: #2883ef;
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.menu-subtitle {
+    font-size: 0.8rem;
+}
+
+.logout {
+    font-size: 0.8rem !important;
+    padding: 5px !important;
+}
+
+.welcome-menu-button {
+    font-size: 0.8rem !important;
+    width: 10rem;
+    padding: 1px !important;
+}
+
+.welcome-title {
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.welcome-subtitle {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
