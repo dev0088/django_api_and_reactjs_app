@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import './client.css'
+import '../client.css'
 
 class CastingRequestAddConfirm extends Component {
     btnStyle = {
         position: 'absolute',
         bottom: '1rem',
         right: '1rem'
+    };
+
+    goMyCasting=() => {
+        window.location.href = "/client/casting_request/view"
     };
 
     render() {
@@ -17,7 +21,7 @@ class CastingRequestAddConfirm extends Component {
                     </div>
                 </div>
                 <div>
-                    <button className="btn btn-dark font-weight-bold" style={this.btnStyle}>
+                    <button className="btn btn-dark font-weight-bold" style={this.btnStyle} onClick={this.goMyCasting}>
                         Go to My Casting Requests
                     </button>
                 </div>

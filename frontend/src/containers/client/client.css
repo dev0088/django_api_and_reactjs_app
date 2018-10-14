@@ -1,5 +1,6 @@
 .save-title {
     margin: auto;
+    font-size: 2rem;
     padding-top: 10rem;
 }
 
@@ -134,4 +135,10 @@
 .welcome-subtitle {
     font-weight: bold;
     font-size: 1.4rem;
+}
+
+.talent-img {
+    width: 4rem;
+    height: 4rem;
+    border: 3px solid #123123;
 }

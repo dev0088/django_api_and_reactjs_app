@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './client.css'
+import '../client.css'
 import {connect} from "react-redux";
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -136,6 +136,10 @@ class TalentSearch extends Component {
         window.location.href = '/client/talent_search_result'
     };
 
+    goWelcomePage = () => {
+        window.location.href = "/client/welcome"
+    };
+
     render() {
         return (
             <div>
@@ -180,36 +184,41 @@ class TalentSearch extends Component {
                 <div className="master-title mb-1 mt-3">And is available...</div>
                 <div className="d-flex">
                     <div className="mr-2">Between</div>
-                    <DatePicker className="mr-4" selected={this.state.startDate} onChange={this.handleChangeStartDate} dropdownMode="scroll" />
+                    <DatePicker className="mr-4" selected={this.state.startDate} onChange={this.handleChangeStartDate}
+                                dropdownMode="scroll"/>
                     <div className="mr-2">And</div>
-                    <DatePicker selected={this.state.endDate} onChange={this.handleChangeEndDate} dropdownMode="scroll" />
+                    <DatePicker selected={this.state.endDate} onChange={this.handleChangeEndDate}
+                                dropdownMode="scroll"/>
                 </div>
 
                 <div className="master-title mb-1 mt-3">Age Range (select all that apply)</div>
                 <div className="d-flex">
                     {this.state.ages.map(age => (
-                        <div className="mr-3"><input key={age[0]} className="mr-1" type="checkbox" />{this.renderAge(age)}</div>
+                        <div className="mr-3"><input key={age[0]} className="mr-1"
+                                                     type="checkbox"/>{this.renderAge(age)}</div>
                     ))}
                 </div>
 
                 <div className="master-title mb-1 mt-3">Height (select all that apply)</div>
                 <div className="d-flex">
                     {this.state.heights.map(height => (
-                        <div className="mr-3"><input key={height[0]} className="mr-1" type="checkbox" />{this.renderHeight(height)}</div>
+                        <div className="mr-3"><input key={height[0]} className="mr-1"
+                                                     type="checkbox"/>{this.renderHeight(height)}</div>
                     ))}
                 </div>
 
                 <div className="master-title mb-1 mt-3">Languages Spoken (select all that apply)</div>
                 <div className="d-flex">
                     {this.state.langs.map(lang => (
-                        <div className="mr-3"><input key={lang[0]} className="mr-1" type="checkbox" />{lang}</div>
+                        <div className="mr-3"><input key={lang[0]} className="mr-1" type="checkbox"/>{lang}</div>
                     ))}
                 </div>
 
                 <div className="master-title mb-1 mt-3">Average Cruise Line Rating (select all that apply)</div>
                 <div className="d-flex">
                     {this.state.ratings.map(rate => (
-                        <div className="mr-3"><input key={rate[0]} className="mr-1" type="checkbox" />{this.renderRate(rate)}</div>
+                        <div className="mr-3"><input key={rate[0]} className="mr-1"
+                                                     type="checkbox"/>{this.renderRate(rate)}</div>
                     ))}
                 </div>
 
@@ -218,16 +227,22 @@ class TalentSearch extends Component {
                     <div className="col-5">
                         <div className="d-flex">
                             <small>SEARCH BY NAME:</small>
-                            <input className="form-control form-control-sm" width="100%" type="text" />
+                            <input className="form-control form-control-sm" width="100%" type="text"/>
                         </div>
                         <div className="d-flex">
                             <small>SEARCH BY TALENT ID:</small>
-                            <input className="form-control form-control-sm" type="text" />
+                            <input className="form-control form-control-sm" type="text"/>
                         </div>
                     </div>
                     <div className="col-7 my-auto">
                         <button className="btn btn-primary" onClick={this.onSearch}>Search</button>
                     </div>
+                </div>
+
+                <div className="mt-2 d-flex justify-content-end mr-3 pb-4">
+                    <button className="btn btn-dark" style={this.btnStyle} onClick={this.goWelcomePage}>
+                        Back to My Home Page
+                    </button>
                 </div>
             </div>
         )

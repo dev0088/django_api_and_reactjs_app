@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import './client.css'
+import '../client.css'
 
-import face from '../../images/faces/a.jpg'
+import face from '../../../images/faces/a.jpg'
 
 class TalentSearchResult extends Component {
     state = {
@@ -33,7 +33,12 @@ class TalentSearchResult extends Component {
         ]
     };
 
-    onView = () => {
+    goWelcomeScreen = () => {
+        window.location.href = "/client/welcome"
+    };
+
+    goTalentSearch = () => {
+        window.location.href = "/client/talent_search"
     };
 
     render() {
@@ -44,7 +49,7 @@ class TalentSearchResult extends Component {
 
                 {this.state.result_list.map(each => (
                     <div className="d-flex mb-2">
-                        <img src={each.img} className="search-face mr-2" onClick={this.onView}/>
+                        <img src={each.img} className="search-face mr-2" />
                         <div>
                             <div>{each.name}(VDA{each.vda_no}) - {each.role}</div>
                             <div className="font-weight-bold">"{each.description}"</div>
@@ -67,6 +72,19 @@ class TalentSearchResult extends Component {
                         </div>
                     </div>
                 ))}
+
+                <div className="mt-5 pb-4">
+                    <div className="d-flex justify-content-end mr-3">
+                        <button className="btn btn-dark" style={this.btnStyle} onClick={this.goWelcomeScreen}>
+                            Back to My Home Page
+                        </button>
+                    </div>
+                    <div className="mt-2 d-flex justify-content-end mr-3">
+                        <button className="btn btn-dark" style={this.btnStyle} onClick={this.goTalentSearch}>
+                            Back to Search Results
+                        </button>
+                    </div>
+                </div>
             </div>
         )
     }

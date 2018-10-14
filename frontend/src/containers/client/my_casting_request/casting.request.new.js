@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './client.css'
+import '../client.css'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
