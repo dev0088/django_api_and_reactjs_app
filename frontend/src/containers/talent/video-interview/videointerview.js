@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './styles.css'
-import AudioMeter from "../../../components/audio-meter/index";
+import AudioMeter from "components/audio-meter/index";
 
 class VideoPreview extends React.Component {
   constructor(props) {

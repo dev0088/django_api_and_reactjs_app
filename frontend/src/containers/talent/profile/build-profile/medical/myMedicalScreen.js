@@ -8,18 +8,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 
-import Spacer from '../../components/spacer';
-import Panel from '../../components/panel'
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
+import Spacer from 'components/spacer';
+import Panel from 'components/panel'
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
 
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
 import './myMedical.css'
-import './myContactInfo.css';
-import { styles } from '../../styles';
+import 'containers/talent/profile/build-profile/contact-info/myContactInfo.css';
+import { styles } from 'styles';
 
 
 class MyMedical extends Component {

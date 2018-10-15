@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import Panel from '../../components/panel'
+import Panel from 'components/panel'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as talentActions from '../../actions/talentActions';
-import './myContactInfo.css'
+import * as talentActions from 'actions/talentActions';
+import '../contact-info/myContactInfo.css'
 import './myVideosScreen.css'
-import { styles } from '../../styles';
+import { styles } from 'styles';
 
 
 class MyVideos extends Component {

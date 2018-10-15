@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Panel from '../../../components/panel';
+import Panel from '../../../../components/panel';
 import { withStyles } from '@material-ui/core/styles';
-import defaultValues from '../../../constants/defaultValues';
-import * as talentActions from '../../../actions/talentActions';
-import TalentAPI from '../../../apis/talentAPIs';
-import styles from '../../../styles.js';
+import defaultValues from '../../../../constants/defaultValues';
+import * as talentActions from '../../../../actions/talentActions';
+import TalentAPI from '../../../../apis/talentAPIs';
+import styles from '../../../../styles.js';
 
 class SelectPositionSubTypeWizard extends Component {
   constructor(props) {

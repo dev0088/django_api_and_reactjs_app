@@ -7,18 +7,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import ClearRounded from '@material-ui/icons/ClearRounded';
 import Divider from '@material-ui/core/Divider';
-import Panel from '../../components/panel'
-import Spacer from '../../components/spacer';
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
-import apiConfig from '../../constants/api';
+import Panel from 'components/panel'
+import Spacer from 'components/spacer';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
+import apiConfig from 'constants/api';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 
 import 'react-image-lightbox/style.css';
 import './myPicturesScreen.css';
-import {styles, theme} from '../../styles.js';
+import {styles, theme} from 'styles.js';
 
 class MyPictures extends Component {
 

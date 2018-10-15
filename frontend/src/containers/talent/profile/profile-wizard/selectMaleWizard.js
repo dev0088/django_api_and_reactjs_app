@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
-import Panel from '../../../components/panel';
-import defaultValues from '../../../constants/defaultValues';
-import * as talentActions from '../../../actions/talentActions';
-import TalentAPI from '../../../apis/talentAPIs';
+import Panel from '../../../../components/panel';
+import defaultValues from '../../../../constants/defaultValues';
+import * as talentActions from '../../../../actions/talentActions';
+import TalentAPI from '../../../../apis/talentAPIs';
 
 
 class SelectMaleWizard extends Component {

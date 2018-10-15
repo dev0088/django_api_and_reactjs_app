@@ -5,19 +5,19 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Panel from '../../components/panel'
+import Panel from 'components/panel'
 import Button from '@material-ui/core/Button';
 import UpdatedTextField from '@material-ui/core/TextField';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs'
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs'
 import moment from 'moment';
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
 import 'react-dropdown/style.css';
 import './myContactInfo.css';
-import { styles } from '../../styles';
+import { styles } from 'styles';
 
 
 class MyContactInfo extends Component {

@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import Panel from '../../../components/panel';
-import Spacer from "../../../components/spacer";
-import * as talentActions from '../../../actions/talentActions';
-import styles from '../../../styles';
+import Panel from '../../../../components/panel';
+import Spacer from "../../../../components/spacer";
+import * as talentActions from '../../../../actions/talentActions';
+import styles from '../../../../styles';
 
 class LastWizard extends Component {
   constructor(props) {

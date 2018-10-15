@@ -6,16 +6,16 @@ import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import Panel from '../../components/panel';
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
+import Panel from 'components/panel';
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
 
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
 import 'react-dropdown/style.css';
 import './myBio.css';
-import { styles } from '../../styles';
+import { styles } from 'styles';
 
 
 class MyBio extends Component {

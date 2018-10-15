@@ -2,71 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10861761-ab04-4efa-8823-d955a111feda" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/build/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/build/images/backgrounds/background_out.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/build/images/backgrounds/background_side.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/build/manifest.json" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/editProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/editProfile.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/editProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/editProfile.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/homeScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/homeScreen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/homeScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/homeScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/localeScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/localeScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/memberScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/memberScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myAccount.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myAccount.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myAccount.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myAccount.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myBio.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myBio.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myBioScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myBioScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myContactInfo.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myContactInfo.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myContactInfoScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myContactInfoScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myInterviewVideosScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myLanguages.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myLanguages.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myLanguagesScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myLanguagesScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myLiveInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myLiveInterviewVideosScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myMedical.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myMedical.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myMedicalScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myMedicalScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myMetricScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myMetricScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myNationalityScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myNationalityScreen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myNationalityScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myNationalityScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myPicturesScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myPicturesScreen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myPicturesScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myPicturesScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myPracticeInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myPracticeInterviewVideosScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myProfile.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myProfile.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myResumeScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myResumeScreen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myResumeScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myResumeScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myVideosScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myVideosScreen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/myVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/myVideosScreen.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/lastWizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectMaleWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectMaleWizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionSubTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionSubTypeWizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/selectPositionTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionTypeWizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/welcomeBuildProfileWizard.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/welcomeBuildProfileWizard.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/profile-wizard/welcomeBuildProfileWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/welcomeBuildProfileWizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/allow.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/allow.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/constants.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/constants.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/instruction-live.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/instruction-live.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/instruction.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/instruction.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/live.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/live.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/play-back.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/play-back.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/practice.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/practice.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/preview.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/preview.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/preview.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/preview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/start.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/start.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/styles.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/styles.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/video-interview/videointerview.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/viewProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/viewProfile.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/viewProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/viewProfile.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myAccount.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/editProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/general/editProfile.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/editProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/general/editProfile.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myAccount.css" afterPath="$PROJECT_DIR$/frontend/.env" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myBio.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/bio/myBio.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myBioScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/bio/myBioScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myContactInfo.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/contact-info/myContactInfo.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myContactInfoScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myLanguages.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/language/myLanguages.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myLanguagesScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/language/myLanguagesScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myLiveInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myMedical.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/medical/myMedical.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myMedicalScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/medical/myMedicalScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myMetricScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/metric/myMetricScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myNationalityScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myNationalityScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myPicturesScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myPicturesScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myPracticeInterviewVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/myProfile.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/myProfile.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myResumeScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/resume/myResumeScreen.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myResumeScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/resume/myResumeScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myVideosScreen.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myVideosScreen.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/myVideosScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myVideosScreen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/lastWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/lastWizard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectMaleWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectMaleWizard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionSubTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionTypeWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectPositionTypeWizard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/welcomeBuildProfileWizard.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/welcomeBuildProfileWizard.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/viewProfile.css" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/view-profile/viewProfile.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/viewProfile.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/view-profile/viewProfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/tempateTopbarOfOnCard.js" afterPath="$PROJECT_DIR$/frontend/src/components/tempateTopbarOfOnCard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/templateSidebar.js" afterPath="$PROJECT_DIR$/frontend/src/components/templateSidebar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/templateTopbar.js" afterPath="$PROJECT_DIR$/frontend/src/components/templateTopbar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/templateTopbarOfComingSoon.js" afterPath="$PROJECT_DIR$/frontend/src/components/templateTopbarOfComingSoon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/comingSoonScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/comingSoonScreen.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/contactUs.js" afterPath="$PROJECT_DIR$/frontend/src/containers/contactUs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/loginScreen.js" afterPath="$PROJECT_DIR$/frontend/src/containers/loginScreen.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/privateRoute.js" afterPath="$PROJECT_DIR$/frontend/src/containers/privateRoute.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/subFaq.js" afterPath="$PROJECT_DIR$/frontend/src/containers/subFaq.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js" afterPath="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/routes/index.js" afterPath="$PROJECT_DIR$/frontend/src/routes/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/yarn.lock" afterPath="$PROJECT_DIR$/frontend/yarn.lock" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -80,38 +53,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="privateRoute.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/containers/privateRoute.js">
+      <file leaf-file-name="editProfile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/general/editProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="103">
+              <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="videointerview.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js">
+      <file leaf-file-name="myContactInfoScreen.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="92">
+              <caret line="13" column="32" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="comingSoonScreen.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/src/containers/comingSoonScreen.js">
+      <file leaf-file-name="myBioScreen.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/bio/myBioScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="287">
+              <caret line="13" column="40" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -127,20 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>groups2SubPositionType</find>
-      <find>handlePositionsAndSkillsSave</find>
-      <find>getAllPositionTypes</find>
-      <find>push</find>
-      <find>Actions.p</find>
-      <find>SelectPositionTypeWizard</find>
-      <find>handleClickPositionTypeButton</find>
-      <find>findPositionTypeByName</find>
-      <find>makeTitleWithAllPositionTypes</find>
-      <find>Contact</find>
-      <find>Biography</find>
-      <find>SelectMaleWizard</find>
-      <find>withStyles</find>
-      <find>.home-button-title-only</find>
       <find>optionButton</find>
       <find>taht</find>
       <find>.access</find>
@@ -152,11 +115,25 @@
       <find>Database</find>
       <find>/containers/editProfile</find>
       <find>/containers/homeScreen</find>
-      <find>editProfile</find>
       <find>../../actions/deviceSettings</find>
       <find>../../../components/audio-meter/index&quot;</find>
       <find>../../components/record-ctl/index</find>
+      <find>myAccount</find>
+      <find>../containers/talent/editProfile</find>
+      <find>/editProfile</find>
+      <find>material-ui</find>
       <find>../../images/coming_soon.png</find>
+      <find>editProfile</find>
+      <find>myBioScreen</find>
+      <find>/build-profile/</find>
+      <find>./containers/talent/build-profile/</find>
+      <find>../../../../actions/talentActions</find>
+      <find>../../../../images/missing.png</find>
+      <find>@actions</find>
+      <find>@apis</find>
+      <find>@components</find>
+      <find>@constants</find>
+      <find>@styles</find>
     </findStrings>
     <replaceStrings>
       <replace>handleClickPositionTypeButton</replace>
@@ -173,7 +150,18 @@
       <replace>selectedButton</replace>
       <replace>handleClickPositionSubTypeButton</replace>
       <replace>LastWizard</replace>
+      <replace>./containers/talent/profile/build-profile/</replace>
+      <replace>actions</replace>
+      <replace>apis</replace>
+      <replace>components</replace>
+      <replace>constants</replace>
+      <replace>styles</replace>
     </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/frontend/src/containers</dir>
+      <dir>$PROJECT_DIR$/frontend/</dir>
+      <dir>$PROJECT_DIR$/frontend</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -202,9 +190,27 @@
         <option value="$PROJECT_DIR$/frontend/package.json" />
         <option value="$PROJECT_DIR$/frontend/src/components/header.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/profile-wizard/lastWizard.js" />
-        <option value="$PROJECT_DIR$/frontend/src/routes/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js" />
         <option value="$PROJECT_DIR$/frontend/src/containers/comingSoonScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/myLiveInterviewVideosScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/metric/myMetricScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/myProfile.js" />
+        <option value="$PROJECT_DIR$/frontend/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myVideosScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/language/myLanguagesScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/metric/myMetricScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/resume/myResumeScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/view-profile/viewProfile.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/medical/myMedicalScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/general/editProfile.js" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/bio/myBioScreen.js" />
+        <option value="$PROJECT_DIR$/frontend/.env" />
+        <option value="$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js" />
       </list>
     </option>
   </component>
@@ -286,6 +292,44 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+              <item name="build-profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shiptalent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+              <item name="build-profile" type="462c0819:PsiDirectoryNode" />
+              <item name="contact-info" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -317,8 +361,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/src/containers" />
-      <recent name="$PROJECT_DIR$/frontend/src/containers/talent" />
+      <recent name="$PROJECT_DIR$/frontend/src/containers/talent/profile" />
+      <recent name="$PROJECT_DIR$/frontend/src/containers/talent/build-profile" />
+      <recent name="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/general" />
+      <recent name="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/resume" />
+      <recent name="$PROJECT_DIR$/frontend/src/containers/talent/build-profile/pictures" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -358,12 +405,12 @@
       <workItem from="1539147352197" duration="17989000" />
       <workItem from="1539258526035" duration="847000" />
       <workItem from="1539388442381" duration="3658000" />
-      <workItem from="1539612675542" duration="1547000" />
+      <workItem from="1539612675542" duration="4750000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86769000" />
+    <option name="totallyTimeSpent" value="89972000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="153" y="23" width="1747" height="990" extended-state="0" />
@@ -372,7 +419,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23522596" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22018349" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22018349" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24931507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -420,48 +467,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/multipleSelect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/node_modules/react-dropdown/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/menus/dropdownMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="19" column="12" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/constants/defaultValues.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="53" column="32" lean-forward="false" selection-start-line="53" selection-start-column="2" selection-end-line="53" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/constants/errors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/constants/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/constants/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -476,73 +481,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myContactInfoScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myInterviewVideosScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myLanguagesScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myPracticeInterviewVideosScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myNationalityScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="41" column="39" lean-forward="false" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myMetricScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myVideosScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="216" column="0" lean-forward="false" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/dropdown/singleSelectDropdown.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="919">
           <caret line="367" column="0" lean-forward="true" selection-start-line="367" selection-start-column="0" selection-end-line="367" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myPicturesScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="316" column="31" lean-forward="false" selection-start-line="316" selection-start-column="31" selection-end-line="316" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/homeScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1978">
-          <caret line="99" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -574,17 +516,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/welcomeBuildProfileWizard.css">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/viewProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -611,22 +546,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionSubTypeWizard.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="644">
           <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="46" />
           <folding>
             <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1219">
-          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="20" />
-          <folding>
-            <marker date="1539381023000" expanded="true" signature="83:1771" ph="{&quot;@material-ui/core&quot;: &quot;^3.0.1&quot;...}" />
           </folding>
         </state>
       </provider>
@@ -687,27 +612,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="45" column="19" lean-forward="true" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/memberScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-141">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectMaleWizard.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectMaleWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
@@ -715,7 +620,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/selectPositionTypeWizard.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/selectPositionTypeWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="770">
           <caret line="127" column="23" lean-forward="false" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
@@ -723,7 +628,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile-wizard/lastWizard.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/profile-wizard/lastWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
           <caret line="69" column="20" lean-forward="false" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="20" />
@@ -767,49 +672,203 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/editProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="545" column="39" lean-forward="false" selection-start-line="545" selection-start-column="14" selection-end-line="545" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/containers/privateRoute.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/containers/comingSoonScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        <state relative-caret-position="345">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/homeScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="127" column="38" lean-forward="false" selection-start-line="127" selection-start-column="38" selection-end-line="127" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/myAccount.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="17" column="10" lean-forward="true" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/myProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/memberScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <element signature="e#3314#3367#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/language/myLanguagesScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/metric/myMetricScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/resume/myResumeScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="46" lean-forward="true" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/view-profile/viewProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="267" column="25" lean-forward="false" selection-start-line="267" selection-start-column="25" selection-end-line="267" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/video-interview/videointerview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myVideosScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/medical/myMedicalScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="20" column="62" lean-forward="false" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/general/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/bio/myBioScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="13" column="40" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="13" column="32" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

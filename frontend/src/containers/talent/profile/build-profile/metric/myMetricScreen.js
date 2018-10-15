@@ -17,15 +17,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import UnitConverter from 'convert-units'
 import BmiCalculator from 'bmi-calc'
 
-import Panel from '../../components/panel'
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
+import Panel from 'components/panel'
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
 
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
-import defaultValue from '../../constants/defaultValues';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
+import defaultValue from 'constants/defaultValues';
 
-import './myContactInfo.css';
-import { styles } from '../../styles';
+import '../contact-info/myContactInfo.css';
+import { styles } from 'styles';
 
 
 class MyMetrics extends Component {

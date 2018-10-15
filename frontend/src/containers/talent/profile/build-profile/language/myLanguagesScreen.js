@@ -10,15 +10,14 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Panel from '../../components/panel'
-import ConfirmChangesDialog from '../../components/confirmChangesDialog'
-import * as talentActions from '../../actions/talentActions'
-import TalentAPI from '../../apis/talentAPIs'
-import defaultValues from '../../constants/defaultValues'
+import { withStyles} from '@material-ui/core/styles';
+import Panel from 'components/panel'
+import ConfirmChangesDialog from 'components/confirmChangesDialog'
+import * as talentActions from 'actions/talentActions'
+import TalentAPI from 'apis/talentAPIs'
+import defaultValues from 'constants/defaultValues'
 import './myLanguages.css'
-import { styles } from '../../styles';
+import { styles } from 'styles';
 
 
 class MyLanguage extends Component {

@@ -13,17 +13,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
 
-import Panel from '../../components/panel';
-import MultiSelectDropdown from '../../components/dropdown/multiSelectDropdown';
-import SingleSelectDropdown from '../../components/dropdown/singleSelectDropdown';
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
-import defaultValues from '../../constants/defaultValues';
+import Panel from 'components/panel';
+import MultiSelectDropdown from 'components/dropdown/multiSelectDropdown';
+import SingleSelectDropdown from 'components/dropdown/singleSelectDropdown';
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
+import defaultValues from 'constants/defaultValues';
 
 import 'react-dropdown/style.css'
 import './editProfile.css'
-import { styles, theme } from '../../styles';
+import { styles, theme } from 'styles';
 
 // var ReactS3Uploader = require('react-s3-uploader');
 

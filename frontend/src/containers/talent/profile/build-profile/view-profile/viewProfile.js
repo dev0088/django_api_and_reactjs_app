@@ -9,9 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import UnitConverter from 'convert-units'
-import Spacer from '../../components/spacer';
-import apiConfig from '../../constants/api';
-import defaultValues from '../../constants/defaultValues';
+import Spacer from 'components/spacer';
+import apiConfig from 'constants/api';
+import defaultValues from 'constants/defaultValues';
 
 import 'react-image-lightbox/style.css';
 import './viewProfile.css'
@@ -265,7 +265,7 @@ class ViewProfile extends Component {
     ) : (
       <div className="profile-picture-container-div">
 				<ImageLoader
-					src={require('../../images/missing.png')}
+					src={require('images/missing.png')}
 					className="profile-picture-size"
 					loading={() => <div className="profile-picture-size">Loading...</div>}
 					error={() => <div>Error</div>} />

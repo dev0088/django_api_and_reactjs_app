@@ -24,28 +24,27 @@ import VideoPreview from "../containers/talent/video-interview/preview";
 import VideoPractice from "../containers/talent/video-interview/practice";
 import LiveInterview from "../containers/talent/video-interview/live";
 
-import WelcomeBuildProfileWizard from "../containers/talent/profile-wizard/welcomeBuildProfileWizard";
-import SelectMaleWizard from "../containers/talent/profile-wizard/selectMaleWizard";
-import SelectPositionTypeWizard from "../containers/talent/profile-wizard/selectPositionTypeWizard";
-import SelectPositionSubTypeWizard from "../containers/talent/profile-wizard/selectPositionSubTypeWizard";
-import LastWizard from "../containers/talent/profile-wizard/lastWizard";
+import WelcomeBuildProfileWizard from "../containers/talent/profile/profile-wizard/welcomeBuildProfileWizard";
+import SelectMaleWizard from "../containers/talent/profile/profile-wizard/selectMaleWizard";
+import SelectPositionTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionTypeWizard";
+import SelectPositionSubTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
+import LastWizard from "../containers/talent/profile/profile-wizard/lastWizard";
 
-import MyProfile from "../containers/talent/myProfile";
-import ViewProfile from "../containers/talent/viewProfile";
-import MyContactInfo from "../containers/talent/myContactInfoScreen";
-import MyNatioinality from "../containers/talent/myNationalityScreen";
-import MyVideos from "../containers/talent/myVideosScreen";
-import MyPracticeInterviewVideos from "../containers/talent/myPracticeInterviewVideosScreen";
-import MyLiveInterviewVideos from "../containers/talent/myLiveInterviewVideosScreen";
-import MyPictures from "../containers/talent/myPicturesScreen";
-import MyResume from "../containers/talent/myResumeScreen";
-import MyBio from "../containers/talent/myBioScreen";
-import MyMetrics from "../containers/talent/myMetricScreen";
-import MyLanguage from "../containers/talent/myLanguagesScreen";
-import MyMedical from "../containers/talent/myMedicalScreen";
+import MyProfile from "../containers/talent/profile/myProfile";
+import ViewProfile from "../containers/talent/profile/build-profile/view-profile/viewProfile";
+import MyContactInfo from "../containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
+import MyNatioinality from "../containers/talent/profile/build-profile/nationality/myNationalityScreen";
+import MyVideos from "../containers/talent/profile/build-profile/interview-videos/myVideosScreen";
+import MyPracticeInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
+import MyLiveInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
+import MyPictures from "../containers/talent/profile/build-profile/pictures/myPicturesScreen";
+import MyResume from "../containers/talent/profile/build-profile/resume/myResumeScreen";
+import MyBio from "../containers/talent/profile/build-profile/bio/myBioScreen";
+import MyMetrics from "../containers/talent/profile/build-profile/metric/myMetricScreen";
+import MyLanguage from "../containers/talent/profile/build-profile/language/myLanguagesScreen";
+import MyMedical from "../containers/talent/profile/build-profile/medical/myMedicalScreen";
 
-import MyAccount from "../containers/talent/myAccount";
-import EditProfile from "../containers/talent/editProfile";
+import EditProfile from "../containers/talent/profile/build-profile/general/editProfile";
 
 import SubFaq from "../containers/subFaq";
 import Faq from "../containers/faq";
@@ -480,15 +479,6 @@ const Index = () => (
             render={props => (
                 <TemplateTopbar>
                     <MyLiveInterviewVideos {...props} />
-                </TemplateTopbar>
-            )}
-        />
-
-        <Route
-            path="/account"
-            render={props => (
-                <TemplateTopbar>
-                    <MyAccount {...props} />
                 </TemplateTopbar>
             )}
         />

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -17,16 +17,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
 import { CountryDropdown } from 'react-country-region-selector';
 
-import Panel from '../../components/panel';
-import ConfirmChangesDialog from '../../components/confirmChangesDialog';
-import defaultValues from '../../constants/defaultValues';
-import * as talentActions from '../../actions/talentActions';
-import TalentAPI from '../../apis/talentAPIs';
+import Panel from 'components/panel';
+import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import defaultValues from 'constants/defaultValues';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
 
 import 'react-dropdown/style.css';
-import './myContactInfo.css';
+import '../contact-info/myContactInfo.css';
 import './myNationalityScreen.css';
-import { styles } from '../../styles';
+import { styles } from 'styles';
 
 
 class MyNatioinality extends Component {

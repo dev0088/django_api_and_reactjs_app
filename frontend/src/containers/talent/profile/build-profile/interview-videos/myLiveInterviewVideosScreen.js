@@ -1,39 +1,46 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Panel from '../../components/panel'
-import VideoListView from '../../components/videoListView';
-import './myContactInfo.css';
-import { styles } from '../../styles';
+import Panel from 'components/panel'
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import * as talentActions from 'actions/talentActions';
+import VideoListView from 'components/videoListView';
+import '../contact-info/myContactInfo.css';
 
 
-class MyPracticeInterviewVideos extends Component {
+class MyLiveInterviewVideos extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      position_type: '',
+      position_sub_type: '',
       interviewVideoUrls: []
     }
   }
 
   getFromPops = (props) => {
     const { talentInfo } = this.props
+    let position_type = ''
+    let position_sub_type = ''
     let interviewVideoUrls = []
+
     if (talentInfo && talentInfo.talent_videos) {
+      position_type = talentInfo.talent_position_sub_type.talent_position_type
+      position_sub_type = talentInfo.talent_position_sub_type.name
 			for (let i = 0; i < talentInfo.talent_videos.length; i ++) {
 				let video = talentInfo.talent_videos[i]
-				if (video.active && video.uploaded) {
-					if (video.position_type === 'Practice') {
-						interviewVideoUrls.push(video)
-					}
-				}
+        if (video.active && video.uploaded && (video.position_type === position_type)) {
+          // In the case Live video interview
+          interviewVideoUrls.push(video)
+        }
 			}
     }
-
     return {
+      position_type,
+      position_sub_type,
       interviewVideoUrls
     }
   }
@@ -51,19 +58,19 @@ class MyPracticeInterviewVideos extends Component {
   }
 
   renderVideosView() {
-    const { interviewVideoUrls } = this.state
+    const { position_type, interviewVideoUrls } = this.state
 
     return (
-      <Panel title={`My Practice Interview Videos`} >
+      <Panel title={`My ${position_type} Interview Videos`} >
         <VideoListView videoUrls={interviewVideoUrls} />
       </Panel>
     )
   }
 
   render() {
+
     return (
       <div className="general-view-container">
-
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
         {this.renderVideosView()}
@@ -72,7 +79,7 @@ class MyPracticeInterviewVideos extends Component {
           <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
           <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
             <Link to="/videos-info">
-              <RaisedButton label="Back to My Videos" primary={true}/>
+              <RaisedButton label="Back toMy Videos" primary={true}/>
             </Link>
           </Col>
         </Row>
@@ -90,8 +97,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyPracticeInterviewVideos));
+export default connect(mapStateToProps, mapDispatchToProps)(MyLiveInterviewVideos);
