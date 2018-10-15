@@ -16,8 +16,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 // import keydown from 'react-keydown';
-import { login } from  '../actions/auth';
-import { authErrors, isAuthenticated } from '../reducers';
+import { login } from '../actions/auth';
+import { authErrors, isAuthenticated } from '../reducers/index';
 import './loginScreen.css'
 
 const styles = {

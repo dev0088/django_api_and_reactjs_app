@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Truncate from 'react-truncate-html';
-import * as shiptalentInfoActions from  '../actions/shiptalentInfoActions'
+import * as shiptalentInfoActions from '../actions/shiptalentInfoActions'
 import './subFaq.css'
 
 const styles={

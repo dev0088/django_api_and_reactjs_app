@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'reactstrap';
 import { bindActionCreators } from 'redux';
-import * as contactUsActions from  '../actions/contactusActions';
+import * as contactUsActions from '../actions/contactusActions';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './contactUs.css'
