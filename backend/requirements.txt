@@ -11,7 +11,7 @@ coreapi==2.3.1
 coreschema==0.0.4
 cryptography==2.3
 dj-static==0.0.6
-Django==2.0.2
+Django==2.0.5
 django-buckets==0.1.25
 django-cors-headers==2.3.0
 django-environ==0.4.5
@@ -53,7 +53,7 @@ python-dateutil==2.7.3
 python-docx==0.8.6
 python-magic==0.4.15
 python-magic-bin==0.4.14
-pytz==2017.2
+pytz==2018.5
 PyYAML==3.13
 reportlab==3.5.4
 requests==2.18.4
