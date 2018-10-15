@@ -8,12 +8,12 @@ import TemplateTopbar from '../components/templateTopbar';
 import TemplateTopbarOfComingSoon from '../components/templateTopbarOfComingSoon';
 
 // Routes
-import ComingSoonScreen from '../containers/comingSoonScreen';
+import ComingSoonScreen from '../containers/common/comingSoonScreen';
 import HomeScreen from '../containers/talent/homeScreen';
-import SignUpScreen from '../containers/signUpScreen';
+import SignUpScreen from '../containers/common/signUpScreen';
 
-import LoginScreen from '../containers/loginScreen';
-import ForgotPasswordScreen from '../containers/forgotPasswordScreen';
+import LoginScreen from '../containers/common/loginScreen';
+import ForgotPasswordScreen from '../containers/common/forgotPasswordScreen';
 
 import Error from '../components/error';
 import InterviewStart from "../containers/talent/video-interview/start";
@@ -46,10 +46,10 @@ import MyMedical from "../containers/talent/profile/build-profile/medical/myMedi
 
 import EditProfile from "../containers/talent/profile/build-profile/general/editProfile";
 
-import SubFaq from "../containers/subFaq";
-import Faq from "../containers/faq";
-import Terms from "../containers/terms";
-import ContactUs from "../containers/contactUs";
+import SubFaq from "../containers/common/subFaq";
+import Faq from "../containers/common/faq";
+import Terms from "../containers/common/terms";
+import ContactUs from "../containers/common/contactUs";
 
 // client side
 import ClientLogin from "../containers/client/login";

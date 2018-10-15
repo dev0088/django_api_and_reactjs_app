@@ -9,7 +9,7 @@ class ComingSoonScreen extends Component {
       <Row className="justify-content-center" style={{height: "100%"}}>
         <Col sm="6" offset-sm="3">
           <Card className="comingsoon-layout">
-            <img src={require('../images/coming_soon.png')} alt="Comingson Background" className="comingsoon-background-image"/>
+            <img src={require('../../images/coming_soon.png')} alt="Comingson Background" className="comingsoon-background-image"/>
           </Card>
         </Col>
       </Row>
