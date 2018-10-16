@@ -31,9 +31,7 @@ export function getAllSkills(state = initialState, action) {
         init: true,
         isFetched: false,
         isFailure: true,
-        errorMessage: action.payload.response 
-                      ? action.payload.response[Object.keys(action.payload.response)[0]][0] 
-                      : action.payload,
+        errorMessage: action.payload,
         value: null
       });
     default:

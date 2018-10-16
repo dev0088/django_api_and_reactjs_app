@@ -49,9 +49,7 @@ class MyPictures extends Component {
   }
 
   componentWillMount() {
-    if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
-    }
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -153,7 +151,7 @@ class MyPictures extends Component {
       }
       else {
         // Update pictures from server
-        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+        this.props.talentActions.getCurrentTalentInfo()
       }
     })
     .catch(error => {
@@ -173,7 +171,7 @@ class MyPictures extends Component {
   }
 
   handleDeleteResponse = (response, failed) => {
-    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   renderPictureView(caption) {

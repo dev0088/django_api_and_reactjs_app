@@ -1,4 +1,5 @@
 import apiConfig from '../constants/api';
+import { getToken, getUserID } from "../service/storage";
 
 class TalentAPI {
   static saveTalentInfo(user_id, data, handleResponse) {
@@ -6,7 +7,7 @@ class TalentAPI {
     fetch(`${apiConfig.url}/talent/${user_id}/`, {
       method: 'put',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data)
     }).then(response => {

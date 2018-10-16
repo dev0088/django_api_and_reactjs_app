@@ -420,7 +420,7 @@ class EditProfile extends Component {
 
   handleSavePositionsAndSkillsResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getTalentInfo(this.state.userID)
+    this.props.talentActions.getCurrentTalentInfo(this.state.userID)
 		this.setState({
 			isChanged: false
 		})
@@ -439,7 +439,7 @@ class EditProfile extends Component {
 	}
 
 	handleWorkedCruiseShipSaveResponse = (response, isFailed) => {
-		this.props.talentActions.getTalentInfo(this.state.userID)
+		this.props.talentActions.getCurrentTalentInfo(this.state.userID)
 	}
 
 	checkChanges = (event) => {

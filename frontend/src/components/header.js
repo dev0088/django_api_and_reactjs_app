@@ -45,10 +45,7 @@ class Header extends Component {
   componentDidMount() {
     let __this = this;
     setTimeout(function(){
-      let { auth } = __this.props;
-      if (auth.access.user_id){
-        __this.props.talentActions.getTalentInfo(auth.access.user_id);
-      }
+      __this.props.talentActions.getCurrentTalentInfo();
     }, 100);
   }
 

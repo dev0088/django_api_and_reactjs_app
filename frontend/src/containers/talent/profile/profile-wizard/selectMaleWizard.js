@@ -30,7 +30,7 @@ class SelectMaleWizard extends Component {
 	}
 
 	componentWillMount() {
-    this.props.talentActions.getTalentInfo(this.props.auth.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {

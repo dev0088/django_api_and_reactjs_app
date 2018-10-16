@@ -93,9 +93,7 @@ class MyContactInfo extends Component {
   }
 
   componentWillMount() {
-    if (this.state.userID) {
-      this.props.talentActions.getTalentInfo(this.state.userID)
-    }
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -188,7 +186,7 @@ class MyContactInfo extends Component {
 
   handleBusinessStaffSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getTalentInfo(this.state.userID)
+    this.props.talentActions.getCurrentTalentInfo()
 		this.setState({
 			isChanged: false
 		})

@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
 from position_type.models import PositionType
 from position_type.serializers import PositionTypeSerializer
 from django.http import Http404

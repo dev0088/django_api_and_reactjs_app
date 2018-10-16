@@ -2,6 +2,10 @@ import os
 from datetime import timedelta
 import datetime
 import psycopg2
+import json
+from six.moves.urllib import request
+from cryptography.x509 import load_pem_x509_certificate
+from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,9 +44,10 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_jwt',
     'corsheaders',
     'rest_framework_swagger',
-    'coreapi'
+    'coreapi',
 )
 
 LOCAL_APPS = (
@@ -65,10 +70,12 @@ LOCAL_APPS = (
     'talent_visa',
     'talent_language',
     'talent_medical',
+    'talent_availability',
     'question',
     'admin_setting',
     'submission',
     'client_casting_request',
+    'common'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -156,48 +163,24 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-          'rest_framework.authentication.TokenAuthentication',
-    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'rest_framework.authentication.BasicAuthentication',
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
+    ),
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ]
     # 'VIEW_DESCRIPTION_FUNCTION': 'rest_framework_swagger.views.get_restructuredtext'
 }
 
-JWT_AUTH = {
-    'JWT_ENCODE_HANDLER':
-    'rest_framework_jwt.utils.jwt_encode_handler',
-
-    'JWT_DECODE_HANDLER':
-    'rest_framework_jwt.utils.jwt_decode_handler',
-
-    'JWT_PAYLOAD_HANDLER':
-    'rest_framework_jwt.utils.jwt_payload_handler',
-
-    'JWT_PAYLOAD_GET_USER_ID_HANDLER':
-    'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
-
-    'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'rest_framework_jwt.utils.jwt_response_payload_handler',
-
-    'JWT_SECRET_KEY': SECRET_KEY,
-    'JWT_ALGORITHM': 'HS256',
-    'JWT_VERIFY': True,
-    'JWT_VERIFY_EXPIRATION': True,
-    'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
-    'JWT_AUDIENCE': None,
-    'JWT_ISSUER': None,
-
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
-}
 
 AUTH_USER_MODEL = 'authentication.User'
 CORS_ORIGIN_ALLOW_ALL = True
@@ -286,11 +269,49 @@ LOGGING = {
     }
 }
 
+
+JWT_AUTH = {
+    'JWT_ENCODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_encode_handler',
+
+    'JWT_DECODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_decode_handler',
+
+    'JWT_PAYLOAD_HANDLER':
+    'rest_framework_jwt.utils.jwt_payload_handler',
+
+    'JWT_PAYLOAD_GET_USER_ID_HANDLER':
+    'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
+
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'rest_framework_jwt.utils.jwt_response_payload_handler',
+
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LEEWAY': 0,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    'JWT_AUDIENCE': None,
+    'JWT_ISSUER': None,
+
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
+
 SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': True,
+    'SHOW_REQUEST_HEADERS': True,
     'SECURITY_DEFINITIONS': {
-        'basic': {
-            'type': 'basic'
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
         }
     },
+    'USE_SESSION_AUTH': False,
+    'JSON_EDITOR': True,
+    'LOGIN_URL': '/admin/login/',
+    'LOGOUT_URL': '/admin/logout/',
 }

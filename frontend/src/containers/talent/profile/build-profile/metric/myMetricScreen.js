@@ -72,9 +72,7 @@ class MyMetrics extends Component {
   }
 
   componentWillMount() {
-    if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
-    }
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,7 +133,7 @@ class MyMetrics extends Component {
 
   handleSaveResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
 		this.setState({
 			isChanged: false
 		})

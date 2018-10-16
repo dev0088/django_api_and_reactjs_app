@@ -67,10 +67,7 @@ class VideoPreview extends React.Component {
   componentDidMount() {
     let __this = this;
     setTimeout(function() {
-      let { access } = __this.props.auth;
-      if (access.user_id){
-        __this.props.talentActions.getTalentInfo(access.user_id);
-      }
+      __this.props.talentActions.getCurrentTalentInfo();
     }, 400);
   }
 

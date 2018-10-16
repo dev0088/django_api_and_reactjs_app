@@ -18,6 +18,11 @@ export default (state=initialState, action) => {
         isAuthenticated: false,
     }
     case types.LOGIN.SUCCESS:
+      localStorage.setItem('auth', JSON.stringify({
+          token: action.payload.token,
+          access: jwtDecode(action.payload.token)
+        })
+      );
       return {
         access: {
           token: action.payload.token,

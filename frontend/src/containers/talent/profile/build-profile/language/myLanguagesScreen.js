@@ -131,9 +131,7 @@ class MyLanguage extends Component {
   }
 
   handleSaveResponse = (response, isFailed) => {
-    const { auth } = this.props
-
-		this.props.talentActions.getTalentInfo(auth.access.user_id)
+		this.props.talentActions.getCurrentTalentInfo()
 		this.setState({
 			isChanged: false
 		})

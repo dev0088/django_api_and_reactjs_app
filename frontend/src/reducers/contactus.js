@@ -22,7 +22,7 @@ export default function contactUs(state = initialState, action) {
         isFetching: false,
         isFetched: true,
         failure: true,
-        errorMessage: action.payload.response,
+        errorMessage: action.payload
       });
     case types.CONTACT_US.INIT:
       return Object.assign({}, state, {

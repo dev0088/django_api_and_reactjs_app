@@ -43,7 +43,7 @@ import MyBio from "../containers/talent/profile/build-profile/bio/myBioScreen";
 import MyMetrics from "../containers/talent/profile/build-profile/metric/myMetricScreen";
 import MyLanguage from "../containers/talent/profile/build-profile/language/myLanguagesScreen";
 import MyMedical from "../containers/talent/profile/build-profile/medical/myMedicalScreen";
-
+import MyAvailability from "containers/talent/profile/build-profile//availability/myAvailabilityScreen";
 import EditProfile from "../containers/talent/profile/build-profile/general/editProfile";
 
 import SubFaq from "../containers/common/subFaq";
@@ -481,6 +481,15 @@ const Index = () => (
                     <MyLiveInterviewVideos {...props} />
                 </TemplateTopbar>
             )}
+        />
+
+        <Route
+          path="/availability-info"
+          render={props => (
+            <TemplateTopbar>
+              <MyAvailability {...props} />
+            </TemplateTopbar>
+          )}
         />
 
         <Route

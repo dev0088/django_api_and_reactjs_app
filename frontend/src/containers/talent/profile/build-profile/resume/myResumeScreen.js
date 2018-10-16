@@ -57,9 +57,7 @@ class MyResume extends Component {
   }
 
   componentWillMount() {
-    if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
-    }
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -167,7 +165,7 @@ class MyResume extends Component {
       }
       else {
         // Update resume from server
-        // this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+        // this.props.talentActions.getCurrentTalentInfo()
         this.uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
       }
     })
@@ -198,7 +196,7 @@ class MyResume extends Component {
       }
       else {
         // Update resume from server
-        this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+        this.props.talentActions.getCurrentTalentInfo()
       }
     })
     .catch(error => {
@@ -212,7 +210,7 @@ class MyResume extends Component {
   }
 
   handleDeleteResponse = () => {
-    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
 	showImage = (picture) => {

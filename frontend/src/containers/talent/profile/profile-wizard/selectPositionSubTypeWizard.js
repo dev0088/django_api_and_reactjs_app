@@ -60,20 +60,15 @@ class SelectPositionSubTypeWizard extends Component {
 
   componentDidMount() {
     this.props.talentActions.getAllPositionTypes()
-    console.log('==== props: ', this.props)
 
     this.setState({
       ...this.getInfoFromProps(this.props)
     }, () => {
-      const { auth } = this.props
-      this.props.talentActions.getTalentInfo(auth.user_id)
+      this.props.talentActions.getCurrentTalentInfo()
     })
-
-
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('==== componentWillReceiveProps')
     this.setState({
       ...this.getInfoFromProps(nextProps)
     })
@@ -98,7 +93,7 @@ class SelectPositionSubTypeWizard extends Component {
   handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     const { auth } = this.props
-    // this.props.talentActions.getTalentInfo(auth.user_id)
+    // this.props.talentActions.getCurrentTalentInfo(auth.user_id)
   }
 
   getPrefixByWord(positionTypeName) {

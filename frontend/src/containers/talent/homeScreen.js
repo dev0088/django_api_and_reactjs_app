@@ -79,7 +79,7 @@ class HomeScreen extends Component {
 								</Link>
 							</Col>
 							<Col xs="12" md="3" className="pt-4 pt-md-4">
-								<Link to="/home">
+								<Link to="/availability-info">
 									<Button variant="contained"  color="primary" className={"home-button"} >
 										<div className="home-button-title">
 											{"My Availability"}

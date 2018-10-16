@@ -33,8 +33,7 @@ class LastWizard extends Component {
   }
 
   componentWillMount() {
-    console.log('==== auth: ', this.props)
-    this.props.talentActions.getTalentInfo(this.props.auth.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {

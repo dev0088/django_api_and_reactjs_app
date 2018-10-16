@@ -107,7 +107,7 @@ class MyNatioinality extends Component {
 
   componentWillMount() {
     if (this.props.auth.access && this.props.auth.access.user_id) {
-      this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+      this.props.talentActions.getCurrentTalentInfo()
     }
   }
 
@@ -240,7 +240,7 @@ class MyNatioinality extends Component {
   }
 
   handleSaveResponse = (response, isFailed) => {
-    this.props.talentActions.getTalentInfo(this.props.auth.access.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
 		this.setState({
 			isChanged: false
 		})
