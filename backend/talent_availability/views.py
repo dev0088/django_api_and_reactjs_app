@@ -29,7 +29,7 @@ class TalentAvailabilityList(APIView):
 
 
 class TalentAvailabilityDetail(APIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     """
     Retrieve a talent_availability_item instance.
     """

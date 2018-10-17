@@ -15,13 +15,19 @@ import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
 import Spacer from "components/spacer";
 import ConfirmChangesDialog from 'components/confirmChangesDialog';
-import DatePicker from 'react-datepicker';
+import { DateRangePicker, DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-import styles from 'styles';
-import 'react-datepicker/dist/react-datepicker.css';
+import styles from './styles';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
+
+const FIRST_YEAR = (new Date().getFullYear()).toString()
+const SECOND_YEAR = (parseInt(FIRST_YEAR) + 1).toString()
+const THIRD_YEAR = (parseInt(FIRST_YEAR) + 2).toString()
+const YEARES = [ FIRST_YEAR, SECOND_YEAR, THIRD_YEAR ]
 
 function TabContainer({ children, dir }) {
   return (
@@ -40,19 +46,100 @@ class MyAvailability extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      availability: [],
+      availabilities: [],
       yearIndex: 0,
       isChanged: false,
-      showConfirmChanges: false
+      showConfirmChanges: false,
+      selectionRange: null
     }
+  }
+
+  filterAvailabiilities(availabilities) {
+
+    let res = {
+      [FIRST_YEAR]: [],
+      [SECOND_YEAR]: [],
+      [THIRD_YEAR]: []
+    }
+    console.log('===== res: ', res, res[FIRST_YEAR])
+
+    for(let i = 0; i < availabilities.length; i ++) {
+      let availability = availabilities[i]
+      console.log('==== availability.start_date: ', availability.start_date, FIRST_YEAR, SECOND_YEAR, THIRD_YEAR)
+      let year = moment(availability.start_date).format('YYYY')
+      if ( year === FIRST_YEAR) {
+        res[FIRST_YEAR].push(availability)
+      } else if ( year === SECOND_YEAR) {
+        res[SECOND_YEAR].push(availability)
+      } else if ( year === THIRD_YEAR) {
+        res[THIRD_YEAR].push(availability)
+      }
+    }
+
+    console.log('===== filterAvailabiilities: res: ', res)
+    return res
+  }
+
+  initializeSelectionRange() {
+    let res = {
+      [FIRST_YEAR]: [],
+      [SECOND_YEAR]: [],
+      [THIRD_YEAR]: []
+    }
+
+    Object.keys(res).map(key => {
+      for (let i = 0; i < 12; i ++) {
+        res[key].push({
+          startDate: '', //new Date(moment(`${key}-${i + 1}-1`).format()),
+          endDate: '', //new Date(moment(`${key}-${i + 1}-1`).format()),
+          key: `selection${i}`
+        })
+      }
+    })
+
+    console.log('==== initializeSelectionRange: res: ', res)
+    return res
+  }
+
+
+  convertAvailabilities2SelectionRange(availabilities) {
+    let selectionRange = this.initializeSelectionRange()
+    console.log('==== convertAvailabilities2SelectionRange: availabilities: ', availabilities)
+
+    Object.keys(availabilities).map(key => {
+      for (let i = 0; i < availabilities[key].length; i++) {
+        let availability = availabilities[key][i]
+        let year = moment(availability.start_date).format('YYYY')
+        let month = parseInt(moment(availability.start_date).format('M')) - 1
+        selectionRange[year][month].startDate = new Date(availability.start_date)
+        selectionRange[year][month].endDate = new Date(availability.end_date)
+        console.log('===== selectionRange[year][month]: ', selectionRange[year][month])
+      }
+    })
+    console.log('==== convertAvailabilities2SelectionRange: selectionRange: ', selectionRange)
+    return selectionRange
   }
 
   getInfoFromProps(props) {
     const { talentInfo } = props
+    let availabilities = []
+    let yearIndex = 0
+    let currentYear = FIRST_YEAR
+    let selectionRange = null
+    console.log('==== talentInfo: ', talentInfo)
+
     if (talentInfo) {
-      this.setState({
-        availability: talentInfo.availability
-      })
+      availabilities = this.filterAvailabiilities(talentInfo.talent_availabilities)
+      selectionRange = this.convertAvailabilities2SelectionRange(availabilities)
+    }
+    console.log('==== selectionRange: ', selectionRange)
+    return {
+      availabilities,
+      yearIndex,
+      currentYear,
+      selectionRange,
+      isChanged: false,
+      showConfirmChanges: false
     }
   }
 
@@ -73,8 +160,6 @@ class MyAvailability extends Component {
   handleChangeYearIndex = index => {
     this.setState({ yearIndex: index });
   };
-
-
 
   handleCancel = () => {
     const {
@@ -129,21 +214,55 @@ class MyAvailability extends Component {
     })
   }
 
-  renderCalendars = (year) => {
+  handleCalendarSelect = (ranges, year, month) => {
+    console.log('==== ranges: ', ranges, year, month)
+  }
+
+  renderCalendars = (yearIndex) => {
+    const { selectionRange } = this.state
+    console.log('==== renderCalendars: selectionRange: ', selectionRange)
+    const year = YEARES[yearIndex]
+
+    if (selectionRange) {
+
+      // const monthIndex = 9
+      return (
+        <Grid container spacing={24}>
+          {
+            Object.keys(selectionRange[year]).map(key => {
+              let monthRange = selectionRange[year][key]
+              console.log('==== monthRange, index: ', monthRange, key, parseInt(key))
+
+              return (
+                <Grid item xs={12} md={4} sm key={key}>
+                  <DateRange
+                    showMonthAndYearPickers={false}
+                    showDateDisplay={false}
+                    shownDate={new Date(moment(`${year}-${parseInt(key) + 1}-1`).format())}
+                    moveRangeOnFirstSelection={false}
+                    minDate={new Date(moment(`${year}-${parseInt(key) + 1}-1`).format())}
+                    maxDate={new Date(moment(`${year}-${parseInt(key) + 1}-31`).format())}
+                    ranges={monthRange.startDate ? [monthRange] : []}
+                    onChange={range => this.handleCalendarSelect(range, year, key)}
+                    className={'PreviewArea'}
+                  />
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+      )
+    }
     return (
-      <DatePicker
-        inline
-        selected={this.state.startDate}
-        selectsStart
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}
-        onChange={this.handleChangeStart}
-      />
+      <div/>
     )
+
   }
 
   renderContents() {
-    const { classes } = this.props;
+    const { classes } = this.props
+    const { years } = this.state
+
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -181,9 +300,7 @@ class MyAvailability extends Component {
                 index={this.state.yearIndex}
                 onChangeIndex={this.handleChangeYearIndex}
               >
-                <TabContainer dir={'x'}>Item One</TabContainer>
-                <TabContainer dir={'x'}>Item Two</TabContainer>
-                <TabContainer dir={'x'}>Item Three</TabContainer>
+                <TabContainer dir={'x'}>{this.renderCalendars(0)}</TabContainer>
               </SwipeableViews>
             </Grid>
             <Grid item xs={1} />
