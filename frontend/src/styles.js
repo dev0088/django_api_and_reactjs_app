@@ -11,6 +11,9 @@ export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  buttonIcon: {
+    margin: 0,
+  },
   selectedButton: {
     display: 'block!important',
     width: '100%',
@@ -84,6 +87,11 @@ export const styles = theme => ({
   paper: {
     height: 140,
     width: 100,
+  },
+  paperContent: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   paperDescription: {
     ...theme.mixins.gutters(),

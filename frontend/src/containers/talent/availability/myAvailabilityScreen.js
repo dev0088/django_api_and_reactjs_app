@@ -10,17 +10,17 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
-import Icon from '@material-ui/core/Icon';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Spacer from "components/spacer";
 import ConfirmChangesDialog from 'components/confirmChangesDialog';
 import { DateRangePicker, DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-// import styles from './styles';
+import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/SaveCancelButtonGroup';
+
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { styles } from 'styles';
@@ -49,9 +49,9 @@ class MyAvailability extends Component {
     this.state = {
       availabilities: [],
       yearIndex: 0,
-      isChanged: false,
       showConfirmChanges: false,
-      selectionRange: null
+      selectionRange: null,
+      isChanged: false
     }
   }
 
@@ -64,8 +64,8 @@ class MyAvailability extends Component {
 
     for(let i = 0; i < availabilities.length; i ++) {
       let availability = availabilities[i]
-      console.log('==== availability.start_date: ', availability.start_date, FIRST_YEAR, SECOND_YEAR, THIRD_YEAR)
       let year = moment(availability.start_date).format('YYYY')
+
       if ( year === FIRST_YEAR) {
         res[FIRST_YEAR].push(availability)
       } else if ( year === SECOND_YEAR) {
@@ -75,7 +75,6 @@ class MyAvailability extends Component {
       }
     }
 
-    console.log('===== filterAvailabiilities: res: ', res)
     return res
   }
 
@@ -96,14 +95,12 @@ class MyAvailability extends Component {
       }
     })
 
-    console.log('==== initializeSelectionRange: res: ', res)
     return res
   }
 
 
   convertAvailabilities2SelectionRange(availabilities) {
     let selectionRange = this.initializeSelectionRange()
-    console.log('==== convertAvailabilities2SelectionRange: availabilities: ', availabilities)
 
     Object.keys(availabilities).map(key => {
       for (let i = 0; i < availabilities[key].length; i++) {
@@ -112,11 +109,30 @@ class MyAvailability extends Component {
         let month = parseInt(moment(availability.start_date).format('M')) - 1
         selectionRange[year][month].startDate = new Date(availability.start_date)
         selectionRange[year][month].endDate = new Date(availability.end_date)
-        console.log('===== selectionRange[year][month]: ', selectionRange[year][month])
       }
     })
-    console.log('==== convertAvailabilities2SelectionRange: selectionRange: ', selectionRange)
+
     return selectionRange
+  }
+
+  convertSelectionRange2Availabilities(selectionRange) {
+    let res = []
+    let result = Object.keys(selectionRange).map(yearKey => {
+      let yearRanges = selectionRange[yearKey]
+      let result = Object.keys(yearRanges).map(monthKey => {
+        let monthRange = yearRanges[monthKey]
+        let start_date = moment(monthRange.startDate).format('YYYY-MM-DD')
+        let end_date = moment(monthRange.endDate).format('YYYY-MM-DD')
+        if (start_date !== end_date) {
+          // Add updated date range
+          res.push({ start_date, end_date })
+        }
+        return ''
+      })
+      return ''
+    })
+
+    return res
   }
 
   getInfoFromProps(props) {
@@ -125,13 +141,12 @@ class MyAvailability extends Component {
     let yearIndex = 0
     let currentYear = FIRST_YEAR
     let selectionRange = null
-    console.log('==== talentInfo: ', talentInfo)
 
     if (talentInfo) {
       availabilities = this.filterAvailabiilities(talentInfo.talent_availabilities)
       selectionRange = this.convertAvailabilities2SelectionRange(availabilities)
     }
-    console.log('==== selectionRange: ', selectionRange)
+
     return {
       availabilities,
       yearIndex,
@@ -153,52 +168,38 @@ class MyAvailability extends Component {
   }
 
   handleClickPreviousYear = (yearIndex) => {
-    console.log('==== handleClickPreviousYear: ', yearIndex)
     this.setState({ yearIndex: (yearIndex - 1) });
   };
 
   handleClickNextYear = (yearIndex) => {
-    console.log('==== handleClickNextYear: ', yearIndex)
     this.setState({ yearIndex: (yearIndex + 1) });
   }
 
   handleChangeYearIndex = (index, value) => {
-    console.log('==== handleChangeYearIndex: ', index, value)
     this.setState({ yearIndex: index });
   };
 
   handleCancel = () => {
-    const {
-      contactInfo,
-      emergencyInfo
-    } = this.getContactInfoFromProps(this.props)
-
     this.setState({
-      contactInfo,
-      emergencyInfo,
+      ...this.getContactInfoFromProps(this.props),
       isChanged: false
     })
   }
 
   handleSave = () => {
-    const { availability } = this.state
+    const { selectionRange } = this.state
     const { auth } = this.props
 
     let data = {
-      user: {
-        availability
-      },
-     
+      talent_availabilities: this.convertSelectionRange2Availabilities(selectionRange)
     }
-    console.log('==== data: ', data)
-    TalentAPI.saveTalentInfo(auth.access.user_id, data, this.handleSaveResponse)
+
+    TalentAPI.saveAvailabilityWithToken(data, this.handleSaveResponse)
   }
 
 
   handleSaveResponse = (response, isFailed) => {
-    const { auth } = this.props
-    console.log('==== response: ', response, isFailed)
-    this.props.talentActions.getCurrentTalentInfo(auth.access.user_id)
+    this.props.talentActions.getCurrentTalentInfo()
     this.setState({
       isChanged: false
     })
@@ -221,11 +222,12 @@ class MyAvailability extends Component {
   }
 
   handleCalendarSelect = (range, year, month) => {
-    console.log('==== range: ', range, range[`selection${month}`], year, month)
     const { selectionRange } = this.state
     let updatedSelectionRange = selectionRange
+
     updatedSelectionRange[year][month].startDate = range[`selection${month}`].startDate
     updatedSelectionRange[year][month].endDate = range[`selection${month}`].endDate
+
     this.setState({
       selectionRange: updatedSelectionRange
     })
@@ -234,10 +236,11 @@ class MyAvailability extends Component {
   renderYearButton = () => {
     const { classes } = this.props
     const { yearIndex } = this.state
-    console.log('==== yearIndex: ', yearIndex)
+
     return (
-      <div>
-          <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
+      <Grid container spacing={40}>
+        <Grid item xs={6} sm>
+          <Grid container direction="column" justify="center" alignItems="flex-start" spacing={24}>
             <Grid item xs={12} sm >
               {
                 (yearIndex >= 1) ? (
@@ -247,8 +250,8 @@ class MyAvailability extends Component {
                     className={classes.button}
                     onClick={() => this.handleClickPreviousYear(yearIndex)}
                   >
+                    <NavigateBeforeIcon className={classes.buttonIcon}/>
                     {YEARES[yearIndex - 1]}
-                    <Icon className={classes.rightIcon}>send</Icon>
                   </Button>
                 ) : (
                   <div />
@@ -256,10 +259,11 @@ class MyAvailability extends Component {
               }
             </Grid>
           </Grid>
+        </Grid>
 
 
-
-          <Grid container direction="row" justify="flex-end" alignItems="center" spacing={24}>
+        <Grid item xs={6} sm>
+          <Grid container direction="column" justify="center" alignItems="flex-end" spacing={24}>
             <Grid item xs={12} sm>
               {
                 (yearIndex <= 1) ? (
@@ -270,7 +274,7 @@ class MyAvailability extends Component {
                     onClick={() => this.handleClickNextYear(yearIndex)}
                   >
                     {YEARES[yearIndex + 1]}
-                    <Icon className={classes.rightIcon}>send</Icon>
+                    <NavigateNextIcon className={classes.buttonIcon}/>
                   </Button>
                 ) : (
                   <div />
@@ -278,26 +282,23 @@ class MyAvailability extends Component {
               }
             </Grid>
           </Grid>
-
-      </div>
+        </Grid>
+      </Grid>
     )
   }
 
   renderCalendars = (yearIndex) => {
-    const { classes } = this.props
     const { selectionRange } = this.state
     const year = YEARES[yearIndex]
 
     if (selectionRange) {
-
-      // const monthIndex = 9
       return (
         <Grid container spacing={24}>
           {
             Object.keys(selectionRange[year]).map(key => {
               let monthRange = selectionRange[year][key]
               return (
-                <Grid item xs={12} md={4} sm key={key}>
+                <Grid item xl={3} md={4} sm={6} xs={12} key={key}>
                   <DateRange
                     showMonthAndYearPickers={false}
                     showDateDisplay={false}
@@ -328,16 +329,17 @@ class MyAvailability extends Component {
     const { yearIndex } = this.state
     return (
       <div>
-        <Paper className={classes.root} elevation={1}>
-          <Grid container spacing={40}>
+        <Paper className={classes.paperContent} elevation={1}>
+          <Grid container spacing={30}>
+            <Grid item xs={12} />
             <Grid item xs={12} >
               <Typography align="center" component="h3" variant="h3" gutterBottom>
                 My Availability Calendar
               </Typography>
             </Grid>
 
-            <Grid item xs={1} />
-            <Grid item xs={10} >
+            <Grid item xs={12} />
+            <Grid item xs={12} >
               <Typography align="left" variant="body1">
                 On the calendar below, click on the dates when you are NOT available.  These dates will then grey-out.  To select multiple dates, click on the first date, press and hold CONTROL and click on the second date.  All dates within this range will be selected.
               </Typography>
@@ -354,23 +356,31 @@ class MyAvailability extends Component {
                 <b>MOST IMPORTANTLY:</b> Availability must always be up to date.  The only thing worse than not appearing in a cruise line’s search is appearing in the search and then not being available.  You don’t want  to be remembered for the wrong reasons.
               </Typography>
             </Grid>
-            <Grid item xs={1} />
-
 
             <Grid item xs={12} md={12} sd>
-              <SwipeableViews
-                enableMouseEvents
-                axis={'x'}
-                index={yearIndex}
-                onChangeIndex={(index) => this.handleChangeYearIndex(index, yearIndex)}
-              >
-                <TabContainer dir={'x'}>{this.renderCalendars(0)}</TabContainer>
-                <TabContainer dir={'x'}>{this.renderCalendars(1)}</TabContainer>
-                <TabContainer dir={'x'}>{this.renderCalendars(2)}</TabContainer>
-              </SwipeableViews>
+              <Grid container spacing={40}>
+                <Grid item xs={12} md={12} sd>
+                  <SwipeableViews
+                    axis={'x'}
+                    index={yearIndex}
+                    onChangeIndex={(index) => this.handleChangeYearIndex(index, yearIndex)}
+                  >
+                    <TabContainer dir={'x'}>{this.renderCalendars(0)}</TabContainer>
+                    <TabContainer dir={'x'}>{this.renderCalendars(1)}</TabContainer>
+                    <TabContainer dir={'x'}>{this.renderCalendars(2)}</TabContainer>
+                  </SwipeableViews>
+                </Grid>
+                <Grid item xs={12} md={12} sd>
+                  { this.renderYearButton() }
+                </Grid>
+              </Grid>
             </Grid>
+
             <Grid item xs={12} md={12} sd>
-              {/*{ this.renderYearButton() }*/}
+              <SaveCancelButtonGroup
+                onSave={this.handleSave}
+                onCancel={this.handleCancel}
+              />
             </Grid>
           </Grid>
         </Paper>

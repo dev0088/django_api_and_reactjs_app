@@ -1,58 +1,51 @@
 from django.shortcuts import render
+
 from talent_availability.models import TalentAvailability
 from talent_availability.serializers import TalentAvailabilitySerializer
+from talent.models import Talent
+from authentication.models import User
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
-from django.http import HttpResponse
-from rest_framework import permissions
-from auth_permission.permission import IsOwnerOrReadOnly
 
 class TalentAvailabilityList(APIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    """
-    List all talent_availability.
-    """
-    def get(self, request, format=None):
-        talent_availability = TalentAvailability.objects.all()
-        serializer = TalentAvailabilitySerializer(talent_availability, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = TalentAvailabilitySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class TalentAvailabilityDetail(APIView):
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    """
-    Retrieve a talent_availability_item instance.
-    """
     def get_object(self, pk):
         try:
-            return TalentAvailability.objects.get(pk=pk)
-        except TalentAvailability.DoesNotExist:
+            user = User.objects.get(pk=pk)
+            talent = Talent.objects.get(user=user.id)
+            return talent
+        except Talent.DoesNotExist:
+            raise Http404
+    """
+    List all condition_titles of a user.
+    """
+    def get(self, request, pk, format=None):
+        try:
+            talent = self.get_object(pk)
+            talent_availabilities = TalentAvailability.objects.filter(talent=talent.id)
+            serializer = TalentAvailabilitySerializer(talent_availabilities, many=True)
+            return Response(serializer.data)
+        except Talent.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        talent_availability_item = self.get_object(pk)
-        serializer = TalentAvailabilitySerializer(talent_availability_item)
-        return Response(serializer.data)
+    """
+    Reset all availabilities of a user.
+    """
+    def post(self, request, pk, format=None):
+        talent = self.get_object(pk)
+        data = request.data['talent_availabilities']
 
-    def put(self, request, pk, format=None):
-        talent_availability_item = self.get_object(pk)
-        serializer = TalentAvailabilitySerializer(talent_availability_item, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Remove previouse total condition_titles of talent
+        talent_availabilities = TalentAvailability.objects.filter(talent=talent.id)
+        talent_availabilities.delete()
+        # Save condition_titles from client
+        for availability in data:
+            talent_availability = TalentAvailability.objects.create(
+                    talent = talent,
+                    start_date = availability['start_date'],
+                    end_date = availability['end_date']
+                )
+            talent_availability.save()
 
-    def delete(self, request, pk, format=None):
-        talent_availability_item = self.get_object(pk)
-        talent_availability_item.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_201_CREATED)
