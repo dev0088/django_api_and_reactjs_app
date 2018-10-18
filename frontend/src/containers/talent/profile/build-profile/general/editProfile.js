@@ -124,7 +124,7 @@ class EditProfile extends Component {
 
 			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
         let options = []
-        console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types[0].position_type)
+        console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types)
 			  let group = {
           label: positionType.name,
           value: index ++,

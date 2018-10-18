@@ -16,3 +16,4 @@ frontend/package-lock.json
 frontend/yarn.lock
 logs
 backend/talent_picture/config_aws.py
+.idea

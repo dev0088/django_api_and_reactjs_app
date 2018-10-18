@@ -13,16 +13,17 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SwipeableViews from 'react-swipeable-views';
+import Icon from '@material-ui/core/Icon';
 import Spacer from "components/spacer";
 import ConfirmChangesDialog from 'components/confirmChangesDialog';
 import { DateRangePicker, DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-import styles from './styles';
+// import styles from './styles';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-
+import { styles } from 'styles';
 
 const FIRST_YEAR = (new Date().getFullYear()).toString()
 const SECOND_YEAR = (parseInt(FIRST_YEAR) + 1).toString()
@@ -55,13 +56,11 @@ class MyAvailability extends Component {
   }
 
   filterAvailabiilities(availabilities) {
-
     let res = {
       [FIRST_YEAR]: [],
       [SECOND_YEAR]: [],
       [THIRD_YEAR]: []
     }
-    console.log('===== res: ', res, res[FIRST_YEAR])
 
     for(let i = 0; i < availabilities.length; i ++) {
       let availability = availabilities[i]
@@ -90,8 +89,8 @@ class MyAvailability extends Component {
     Object.keys(res).map(key => {
       for (let i = 0; i < 12; i ++) {
         res[key].push({
-          startDate: '', //new Date(moment(`${key}-${i + 1}-1`).format()),
-          endDate: '', //new Date(moment(`${key}-${i + 1}-1`).format()),
+          startDate: new Date(`${key}-${i + 1}-1`),
+          endDate: new Date(`${key}-${i + 1}-1`),
           key: `selection${i}`
         })
       }
@@ -153,11 +152,18 @@ class MyAvailability extends Component {
     })
   }
 
-  handleYearChange = (event, value) => {
-    this.setState({ yearIndex: value });
+  handleClickPreviousYear = (yearIndex) => {
+    console.log('==== handleClickPreviousYear: ', yearIndex)
+    this.setState({ yearIndex: (yearIndex - 1) });
   };
 
-  handleChangeYearIndex = index => {
+  handleClickNextYear = (yearIndex) => {
+    console.log('==== handleClickNextYear: ', yearIndex)
+    this.setState({ yearIndex: (yearIndex + 1) });
+  }
+
+  handleChangeYearIndex = (index, value) => {
+    console.log('==== handleChangeYearIndex: ', index, value)
     this.setState({ yearIndex: index });
   };
 
@@ -214,13 +220,72 @@ class MyAvailability extends Component {
     })
   }
 
-  handleCalendarSelect = (ranges, year, month) => {
-    console.log('==== ranges: ', ranges, year, month)
+  handleCalendarSelect = (range, year, month) => {
+    console.log('==== range: ', range, range[`selection${month}`], year, month)
+    const { selectionRange } = this.state
+    let updatedSelectionRange = selectionRange
+    updatedSelectionRange[year][month].startDate = range[`selection${month}`].startDate
+    updatedSelectionRange[year][month].endDate = range[`selection${month}`].endDate
+    this.setState({
+      selectionRange: updatedSelectionRange
+    })
+  }
+
+  renderYearButton = () => {
+    const { classes } = this.props
+    const { yearIndex } = this.state
+    console.log('==== yearIndex: ', yearIndex)
+    return (
+      <div>
+          <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
+            <Grid item xs={12} sm >
+              {
+                (yearIndex >= 1) ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => this.handleClickPreviousYear(yearIndex)}
+                  >
+                    {YEARES[yearIndex - 1]}
+                    <Icon className={classes.rightIcon}>send</Icon>
+                  </Button>
+                ) : (
+                  <div />
+                )
+              }
+            </Grid>
+          </Grid>
+
+
+
+          <Grid container direction="row" justify="flex-end" alignItems="center" spacing={24}>
+            <Grid item xs={12} sm>
+              {
+                (yearIndex <= 1) ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => this.handleClickNextYear(yearIndex)}
+                  >
+                    {YEARES[yearIndex + 1]}
+                    <Icon className={classes.rightIcon}>send</Icon>
+                  </Button>
+                ) : (
+                  <div />
+                )
+              }
+            </Grid>
+          </Grid>
+
+      </div>
+    )
   }
 
   renderCalendars = (yearIndex) => {
+    const { classes } = this.props
     const { selectionRange } = this.state
-    console.log('==== renderCalendars: selectionRange: ', selectionRange)
     const year = YEARES[yearIndex]
 
     if (selectionRange) {
@@ -231,17 +296,16 @@ class MyAvailability extends Component {
           {
             Object.keys(selectionRange[year]).map(key => {
               let monthRange = selectionRange[year][key]
-              console.log('==== monthRange, index: ', monthRange, key, parseInt(key))
-
               return (
                 <Grid item xs={12} md={4} sm key={key}>
                   <DateRange
                     showMonthAndYearPickers={false}
                     showDateDisplay={false}
-                    shownDate={new Date(moment(`${year}-${parseInt(key) + 1}-1`).format())}
+                    shownDate={new Date(`${year}-${parseInt(key) + 1}-1`)}
+                    date={new Date(`${year}-${parseInt(key) + 1}-1`)}
                     moveRangeOnFirstSelection={false}
-                    minDate={new Date(moment(`${year}-${parseInt(key) + 1}-1`).format())}
-                    maxDate={new Date(moment(`${year}-${parseInt(key) + 1}-31`).format())}
+                    minDate={new Date(`${year}-${parseInt(key) + 1}-${1}`)}
+                    maxDate={new Date(`${year}-${parseInt(key) + 1}-${31}`)}
                     ranges={monthRange.startDate ? [monthRange] : []}
                     onChange={range => this.handleCalendarSelect(range, year, key)}
                     className={'PreviewArea'}
@@ -261,8 +325,7 @@ class MyAvailability extends Component {
 
   renderContents() {
     const { classes } = this.props
-    const { years } = this.state
-
+    const { yearIndex } = this.state
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -293,20 +356,21 @@ class MyAvailability extends Component {
             </Grid>
             <Grid item xs={1} />
 
-            <Grid item xs={1} />
-            <Grid item xs={10} >
+
+            <Grid item xs={12} md={12} sd>
               <SwipeableViews
+                enableMouseEvents
                 axis={'x'}
-                index={this.state.yearIndex}
-                onChangeIndex={this.handleChangeYearIndex}
+                index={yearIndex}
+                onChangeIndex={(index) => this.handleChangeYearIndex(index, yearIndex)}
               >
                 <TabContainer dir={'x'}>{this.renderCalendars(0)}</TabContainer>
+                <TabContainer dir={'x'}>{this.renderCalendars(1)}</TabContainer>
+                <TabContainer dir={'x'}>{this.renderCalendars(2)}</TabContainer>
               </SwipeableViews>
             </Grid>
-            <Grid item xs={1} />
-
-            <Grid item xs={10} >
-
+            <Grid item xs={12} md={12} sd>
+              {/*{ this.renderYearButton() }*/}
             </Grid>
           </Grid>
         </Paper>

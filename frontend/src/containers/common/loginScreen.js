@@ -59,7 +59,6 @@ class LoginScreen extends React.Component {
   }
 
   handleKeyPress = (event) => {
-    console.log('event.key: ', event.key)
     if (event.key === "Enter") {
       event.preventDefault();
       const { email, password } = this.state;

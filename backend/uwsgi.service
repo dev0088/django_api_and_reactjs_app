@@ -1,0 +1,12 @@
+# file: /etc/systemd/system/uwsgi.service
+[Unit]
+Description=uWSGI instance to serve shiptalentbakend
+
+[Service]
+ExecStartPre=-/usr/bin/bash -c 'mkdir -p /run/uwsgi; chown centos:nginx /run/uwsgi'
+ExecStart=/usr/bin/bash -c 'cd /home/centos/shiptalent/backend; source env3/bin/activate; uwsgi --ini shiptalentbackend.ini --thunder-lock'
+
+# /home/centos/shiptalent/backend/env3/bin/uwsgi --ini shiptalentbackend.ini --thunder-lock'
+
+[Install]
+WantedBy=multi-user.target

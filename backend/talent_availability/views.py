@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from rest_framework import permissions
-from common.permission import IsOwnerOrReadOnly
+from auth_permission.permission import IsOwnerOrReadOnly
 
 class TalentAvailabilityList(APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

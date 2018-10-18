@@ -75,7 +75,7 @@ LOCAL_APPS = (
     'admin_setting',
     'submission',
     'client_casting_request',
-    'common'
+    'auth_permission'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -31,7 +31,7 @@ import SelectPositionSubTypeWizard from "../containers/talent/profile/profile-wi
 import LastWizard from "../containers/talent/profile/profile-wizard/lastWizard";
 
 import MyProfile from "../containers/talent/profile/myProfile";
-import ViewProfile from "../containers/talent/profile/build-profile/view-profile/viewProfile";
+import ViewProfile from "../containers/talent/profile/view-profile/viewProfile";
 import MyContactInfo from "../containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
 import MyNatioinality from "../containers/talent/profile/build-profile/nationality/myNationalityScreen";
 import MyVideos from "../containers/talent/profile/build-profile/interview-videos/myVideosScreen";

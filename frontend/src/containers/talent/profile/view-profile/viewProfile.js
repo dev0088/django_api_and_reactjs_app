@@ -56,7 +56,7 @@ class ViewProfile extends Component {
     }
     if (talent_position_sub_types && talent_position_sub_types.length > 0 &&
       talent_position_sub_types[0].position_sub_type) {
-      title = `${title}(${talent_position_sub_types[0].position_sub_type.namee})`
+      title = `${title}(${talent_position_sub_types[0].position_sub_type.name})`
     }
 
     // Make title with all position types
