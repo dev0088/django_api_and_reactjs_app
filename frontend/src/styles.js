@@ -28,6 +28,18 @@ export const styles = theme => ({
     lineHeight: 1.3,
     textTransform: 'none',
   },
+  wizardSettingHeaderTitle: {
+    whiteSpace: 'nowrap'
+  },
+  wizardSettingHeaderButton: {
+    display: 'block!important',
+    borderRadius: '4px!important',
+  },
+  wizardSettingHeaderText: {
+    color: theme.button.primaryColor,
+    fontWeight: 400,
+    textTransform: 'none'
+  },
   chips: {
     display: 'flex',
     flexWrap: 'wrap',

@@ -203,25 +203,6 @@ class TalentDetail(APIView):
             if talent_sub_skills_data:
                 self.save_talent_sub_skills(talent_item, talent_sub_skills_data)
 
-            # # Check and save additional position type
-            # if "talent_additional_position_sub_types" in request.data:
-            #     # Delete all secondary position sub types of talent
-            #     TalentAdditionalPositionSubType.objects.filter(
-            #         talent = talent_item
-            #     ).delete()
-
-            #     # Save secondary position sub type
-            #     talent_additional_position_sub_types = request.data['talent_additional_position_sub_types']
-            #     for additional_position_sub_type in talent_additional_position_sub_types:
-            #         position_sub_type_item = TalentPositionSubType.objects.get(
-            #                 name=additional_position_sub_type['name']
-            #             )
-            #         new_additional_position_sub_type_item = TalentAdditionalPositionSubType.objects.create(
-            #                 talent_position_sub_type = position_sub_type_item,
-            #                 talent = talent_item
-            #             )
-            #         new_additional_position_sub_type_item.save()
-
             # Check and save visa types
             if talent_visa_data:
                 self.save_talent_visas(talent_item, talent_visas_data)

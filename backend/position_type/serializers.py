@@ -10,7 +10,7 @@ class PositionTypeSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = PositionType
-    fields = ('name', 'multi_selection', 'position_sub_types')
+    fields = ('name', 'multi_selection', 'position_sub_types', 'question')
 
 
 class PositionTypeNameSerializer(serializers.ModelSerializer):

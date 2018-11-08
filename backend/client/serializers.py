@@ -5,6 +5,10 @@ from client.models import *
 class TalentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Talent
-        fields = (
-        'talent_id', 'name', 'sex', 'type', 'role', 'role_description', 'able_in', 'able_out', 'age', 'height', 'lang',
-        'avg_rating', 'comment')
+        fields = ('name', 'image', 'vda_number', 'role_description', 'comment', 'avg_rating')
+
+
+class RequestViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CastingRequestModel
+        fields = ('pk', 'name', 'venue', 'start_date', 'end_date', 'status', 'request_date')

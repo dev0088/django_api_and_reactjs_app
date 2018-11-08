@@ -10,6 +10,7 @@ import { getAllPositionTypes } from './positionTypes.js'
 import { getAllSkills } from './skills.js'
 import deviceSettings from './deviceSettings.js'
 import contactUs from './contactus.js'
+import {talentSearchReducer, requestViewReducer, searchViewReducer} from './client.reducer'
 
 export default combineReducers({
   auth: auth,
@@ -24,7 +25,10 @@ export default combineReducers({
   talentInfo: getCurrentTalentInfo,
   contactUs: contactUs,
   allPositionTypes: getAllPositionTypes,
-  allSkills: getAllSkills
+  allSkills: getAllSkills,
+  talentSearchReducer,
+  requestViewReducer,
+  searchViewReducer
 })
 
 

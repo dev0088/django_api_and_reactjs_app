@@ -1,26 +1,25 @@
 import React, {Component} from 'react';
+import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Panel from 'components/panel';
 import { withStyles } from '@material-ui/core/styles';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
-import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
-import Spacer from 'components/spacer';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
 import styles from 'styles';
 
-class SelectPositionSubTypeWizard extends Component {
+class SelectSkillWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       allPositionTypes: [],
-      currentPositionType: null,
-      selectedPositionType: null,
-      selectedPositionSubType: null
+      selectedPositionType: null
     }
   }
 
@@ -28,44 +27,25 @@ class SelectPositionSubTypeWizard extends Component {
     const { talentInfo, allPositionTypes } = props
     let res = {
       allPositionTypes: [],
-      currentPositionType: null,
-      selectedPositionType: null,
-      selectedPositionSubType: null
+      selectedPositionType: null
     }
 
     if (talentInfo) {
       res.allPositionTypes = allPositionTypes ? allPositionTypes : []
       if (talentInfo.talent_position_types && talentInfo.talent_position_types.length > 0) {
         res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
-        console.log('==== res.selectedPositionType: ', res.selectedPositionType)
-      }
-      if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
+      } else if (talentInfo.talent_position_sub_types && talentInfo.talent_position_sub_types.length > 0 &&
         talentInfo.talent_position_sub_types[0].position_sub_type) {
         res.selectedPositionType = talentInfo.talent_position_sub_types[0].position_sub_type.position_type
-        res.selectedPositionSubType = talentInfo.talent_position_sub_types[0].position_sub_type.name
-        console.log('==== 1res.selectedPositionType: ', res.selectedPositionType)
       }
     }
-    res.currentPositionType = this.findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
-    console.log('==== getInfoFromProps: res: ', res)
 
     return res
   }
 
-  findPositionTypeByName(allPositionTypes, name) {
-    return allPositionTypes.find(function(positionType) {
-      return positionType.name === name;
-    });
-  }
-
-  componentDidMount() {
+  componentWillMount() {
     this.props.talentActions.getAllPositionTypes()
-
-    this.setState({
-      ...this.getInfoFromProps(this.props)
-    }, () => {
-      this.props.talentActions.getCurrentTalentInfo()
-    })
+    this.props.talentActions.getCurrentTalentInfo()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,17 +54,16 @@ class SelectPositionSubTypeWizard extends Component {
     })
   }
 
-  handleClickPositionSubTypeButton = (type, val) =>  {
+  handleClickPositionTypeButton = (type, val) =>  {
     this.setState({ [type]: val});
   }
 
   handleClickNextButton = () => {
-    const { selectedPositionType, selectedPositionSubType } = this.state
+    const { selectedPositionType } = this.state
     const { auth } = this.props
-    console.log('==== selectedPositionSubType: ', selectedPositionSubType)
+    console.log('==== selectedPositionType: ', selectedPositionType)
     let data = {
       talent_position_type: selectedPositionType,
-      talent_position_sub_type: selectedPositionSubType,
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -93,7 +72,7 @@ class SelectPositionSubTypeWizard extends Component {
   handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
     const { auth } = this.props
-    // this.props.talentActions.getCurrentTalentInfo(auth.user_id)
+    this.props.talentActions.getCurrentTalentInfo(auth.user_id)
   }
 
   getPrefixByWord(positionTypeName) {
@@ -115,51 +94,46 @@ class SelectPositionSubTypeWizard extends Component {
   }
 
   renderButtons() {
-    const { selectedPositionSubType, currentPositionType } = this.state;
+    const { allPositionTypes, selectedPositionType } = this.state
     const { classes } = this.props;
-    
+
     return (
       <Panel title={"Build My Profile Wizard"}>
         <WizardSettingHeader
           talentInfo={this.props.talentInfo}
           showSex={true}
-          showPositionType={true}
+          showPositionType={false}
           showSkill={false}
         />
-        <Spacer size={15} />
-        <Grid container className={classes.root} spacing={30}>
-          <Grid item md={12}>
-            <h5 align="center" className="profile-bio-description">
-              {currentPositionType && (currentPositionType.question ? currentPositionType.question : '')}
-            </h5>
-          </Grid>
-          <Grid item md={12}>
-            <h5 align="center" className="profile-bio-description">
-              {currentPositionType && (currentPositionType.multi_selection ? "(select all that apply)" : "(select one)")}
-            </h5>
-          </Grid>
-        </Grid>
-        <Spacer size={15} />
+        <h5 align="center" className="profile-bio-description">
+          {"Next, tell us what your primary position is "}
+        </h5>
+        <h5 align="center" className="profile-bio-description">
+          {"(select one)"}
+        </h5>
+        <br/>
+
         <Grid container className={classes.root} spacing={16}>
           {
-            (currentPositionType && currentPositionType.position_sub_types) && 
-              currentPositionType.position_sub_types.map((positionSubType, index) => {
+            allPositionTypes.map((positionType, index) => {
+              if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
                 return (
                   <Grid item xs={6} key={index}>
                     <Button
                       variant="contained"
                       color="primary"
                       className={"home-button"}
-                      disabled={(positionSubType === selectedPositionSubType)}
+                      disabled={(positionType.name === selectedPositionType)}
                       fullWidth={false}
-                      onClick={() => this.handleClickPositionSubTypeButton('selectedPositionSubType', positionSubType)}
+                      onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
                     >
                       <div className="home-button-title-only">
-                        {positionSubType}
+                        {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
                       </div>
                     </Button>
                   </Grid>
                 )
+              }
             })
           }
         </Grid>
@@ -169,12 +143,25 @@ class SelectPositionSubTypeWizard extends Component {
 
   render() {
     return (
-      <ProfileWizardForm
-        backLink="/profile-wizard/select-position-type"
-        nextLink="/profile-wizard/lastWizard"
-        handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderButtons()}
-      />
+      <div className="contact-info-view-container">
+        {this.renderButtons()}
+        <Row>
+          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
+            <Link to="/profile-wizard/select-male">
+              <RaisedButton label="Back" primary={true}/>
+            </Link>
+          </Col>
+          <Col xs="4" md="4" className="pt-4 pt-md-4" />
+          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
+            <Link to="/profile-wizard/select-position-sub-type">
+              <RaisedButton
+                label="Next"
+                primary={true}
+                onClick={() => this.handleClickNextButton()} />
+            </Link>
+          </Col>
+        </Row>
+      </div>
     )
   }
 }
@@ -195,4 +182,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectPositionSubTypeWizard));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectSkillWizard));

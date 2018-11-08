@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
-import Panel from '../../../../components/panel';
-import defaultValues from '../../../../constants/defaultValues';
-import * as talentActions from '../../../../actions/talentActions';
-import TalentAPI from '../../../../apis/talentAPIs';
+import Panel from 'components/panel';
+import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
+import defaultValues from 'constants/defaultValues';
+import * as talentActions from 'actions/talentActions';
+import TalentAPI from 'apis/talentAPIs';
 
 
 class SelectMaleWizard extends Component {
@@ -100,25 +99,12 @@ class SelectMaleWizard extends Component {
 
   render() {
     return (
-      <div className="contact-info-view-container">
-        {this.renderButtons()}
-        <Row>
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to="/profile-wizard/welcome">
-              <RaisedButton label="Back" primary={true}/>
-            </Link>
-          </Col>
-          <Col xs="4" md="4" className="pt-4 pt-md-4"> </Col>
-					<Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/profile-wizard/select-position-type">
-              <RaisedButton
-								label="Next"
-								primary={true}
-								onClick={() => this.handleClickNextButton()} />
-            </Link>
-          </Col>
-        </Row>
-      </div>
+      <ProfileWizardForm
+        backLink="/profile-wizard/welcome"
+        nextLink="/profile-wizard/select-position-type"
+        handleClickNextButton={this.handleClickNextButton}
+        contents={this.renderButtons()}
+      />
     )
   }
 }

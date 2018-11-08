@@ -39,6 +39,7 @@ class Talent(models.Model):
 
     name = models.CharField(max_length=50, default='')
     sex = models.IntegerField(choices=sexes, default=0)
+    image = models.ImageField(upload_to="profile_image", blank=True)
 
     vda_number = models.IntegerField(default=0)
 
@@ -49,8 +50,7 @@ class Talent(models.Model):
     sub_role = models.IntegerField(choices=sub_roles, default=0)
     role_description = models.CharField(max_length=100, default='')
 
-    able_in = models.DateField(default=datetime.date.today)
-    able_out = models.DateField(default=datetime.date.today)
+    able_date = models.DateField(default=datetime.date.today)
     age = models.IntegerField(default=0)
     height = models.IntegerField(default=0)
 
@@ -58,5 +58,46 @@ class Talent(models.Model):
     lang2 = models.IntegerField(choices=langs, default=0)
     lang3 = models.IntegerField(choices=langs, default=0)
 
-    avg_rating = models.CharField(max_length=10, default='')
+    avg_rating = models.FloatField(default=0)
     comment = models.TextField(max_length=500, default='')
+
+
+class CastingRequestModel(models.Model):
+    status_list = (
+        (0, 'Not Yet Submitted'), (1, 'Requested'), (2, 'In Progress'),
+        (3, 'Completed')
+    )
+
+    name = models.CharField(max_length=100, default='')
+    venue = models.CharField(max_length=50, default='')
+    start_date = models.DateField(default=datetime.date.today)
+    end_date = models.DateField(default=datetime.date.today)
+
+    status = models.IntegerField(choices=status_list, default=0)
+    request_date = models.DateField(default=datetime.date.today)
+
+    request_name = models.CharField(max_length=100, default='')
+    ship_name = models.CharField(max_length=100, default='')
+
+    employStartDate = models.DateField(default=datetime.date.today)
+    employEndDate = models.DateField(default=datetime.date.today)
+    joinDate = models.DateField(default=datetime.date.today)
+    rehearsalPlace = models.CharField(max_length=50, default='')
+
+    rehearsalStartDate = models.DateField(default=datetime.date.today)
+    rehearsalEndDate = models.DateField(default=datetime.date.today)
+    performanceStartDate = models.DateField(default=datetime.date.today)
+    performanceEndDate = models.DateField(default=datetime.date.today)
+
+    visa_requirement = models.TextField(default='')
+    comment = models.TextField(default='')
+
+
+class ClientCallbackModel(models.Model):
+    client_id = models.IntegerField(default=0)
+    talent_id = models.ForeignKey(Talent, on_delete=models.CASCADE)
+
+
+class ClientFavoriteModel(models.Model):
+    client_id = models.IntegerField(default=0)
+    talent_id = models.ForeignKey(Talent, on_delete=models.CASCADE)
