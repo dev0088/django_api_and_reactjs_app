@@ -13,6 +13,8 @@ from talent_sub_skill.serializers import TalentSubSkillSerializer, GeneralTalent
 from talent_visa.serializers import TalentVisaSerializer
 from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
+from talent_availability.serializers import TalentAvailabilitySerializerWithoutTalentID
+
 
 class TalentSerializer(serializers.ModelSerializer):
   user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
@@ -29,6 +31,7 @@ class TalentSerializer(serializers.ModelSerializer):
   talent_visas = TalentVisaSerializer(many=True, read_only=True)
   talent_languages = TalentLanguageSerializer(many=True, read_only=True)
   talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
+  talent_availabilities = TalentAvailabilitySerializerWithoutTalentID(many=True, read_only=True)
 
   class Meta:
     model = Talent
@@ -80,9 +83,9 @@ class TalentSerializer(serializers.ModelSerializer):
       'talent_resume',
       'talent_medicals',
 
-      'worked_cruise_ship',
+      'talent_availabilities',
 
-      # 'availabilities',
+      'worked_cruise_ship',
       # 'auditions',
 
       'created'

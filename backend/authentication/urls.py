@@ -23,21 +23,6 @@ router.register(r'^', RegisterViewSet)
 register = RegisterViewSet.as_view({
     'post': 'create'
 })
-#
-# class AuthRegister(APIView):
-#     """
-#     Register a new user.
-#     """
-#     serializer_class = AccountSerializer
-#     permission_classes = (AllowAny,)
-#
-#     def post(self, request, format=None):
-#         serializer = self.serializer_class(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -58,6 +43,6 @@ urlpatterns = [
     url(r'^logout/', refresh_jwt_token),
     url(r'^token/refresh/', refresh_jwt_token),
     url(r'^token/verify/', verify_jwt_token),
-    # url(r'^register/?$', RegistrationAPIView.as_view()),
     url(r'^register', register, name='register'),
+    # url(r'^api-token-auth/', CustomAuthToken.as_view())
 ]

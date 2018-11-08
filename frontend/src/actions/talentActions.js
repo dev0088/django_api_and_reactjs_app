@@ -1,6 +1,8 @@
 import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
 import * as types from './actionTypes'
+import { getToken, getUserID } from "../service/storage";
+import { processRequest } from "../service/api";
 
 export const getSignedUrl = (url, params) => ({
   [RSAA]: {
@@ -14,18 +16,57 @@ export const getSignedUrl = (url, params) => ({
     }
 })
 
-export const getTalentInfo = (id) => ({
-  [RSAA]: {
-      endpoint: `${apiConfig.url}/talent/${id}/`,
+
+export const getCurrentTalentInfo = () => {
+  let token = getToken()
+
+  if (token) {
+    return {
+      [RSAA]: {
+        endpoint: `${apiConfig.url}/talent/currentTalentInfo/`,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        types: [
+          types.TALENT_INFO.REQUEST,
+          types.TALENT_INFO.SUCCESS,
+          types.TALENT_INFO.FAILURE
+        ]
+      }}
+  } else {
+    return {
+      [RSAA]: {
+        endpoint: `${apiConfig.url}/talent/currentTalentInfo/`,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        types: [
+          types.TALENT_INFO.REQUEST,
+          types.TALENT_INFO.SUCCESS,
+          types.TALENT_INFO.FAILURE
+        ]
+      }}
+  }
+};
+
+export const getTalentInfo = (id) => {
+  return {
+    [RSAA]: {
+    endpoint: `${apiConfig.url}/talent/${id}/`,
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      types: [
-        types.TALENT_INFO.REQUEST, 
-        types.TALENT_INFO.SUCCESS, 
-        types.TALENT_INFO.FAILURE
-      ]
-    }
-})
+      headers: {
+        'Content-Type': 'application/json',
+    },
+    types: [
+      types.TALENT_INFO.REQUEST,
+      types.TALENT_INFO.SUCCESS,
+      types.TALENT_INFO.FAILURE
+    ]
+  }}
+};
 
 export const getTalentPositionTypes = (id) => ({
   [RSAA]: {

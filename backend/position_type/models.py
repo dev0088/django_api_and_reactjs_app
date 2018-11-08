@@ -5,14 +5,15 @@ class PositionTypeManager(models.Manager):
         return super(PositionTypeManager, self).get_queryset().filter(active=True)
 
 class PositionType(models.Model):
-  name = models.CharField(blank=False, max_length=50)
-  multi_selection = models.BooleanField(default=False)
-  
-  def __str__(self):
-    return self.name
+    name = models.CharField(blank=False, max_length=50)
+    multi_selection = models.BooleanField(default=False)
+    question = models.TextField(max_length=300, blank=True)
 
-  class Meta:
-    db_table = "position_type"
-    ordering = ('name',)
-    managed = True
-    unique_together = ('name', 'id')
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "position_type"
+        ordering = ('name',)
+        managed = True
+        unique_together = ('name', 'id')

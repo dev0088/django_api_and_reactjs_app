@@ -28,7 +28,7 @@ export default function register(state = initialState, action) {
         isFetching: false,
         isRegistered: false,
         failure: true,
-        errorMessage: action.payload.response[Object.keys(action.payload.response)[0]][0],
+        errorMessage: action.payload,
       });
     case types.REGISTER.INIT:
       return Object.assign({}, state, {

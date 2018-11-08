@@ -8,49 +8,48 @@ import TemplateTopbar from '../components/templateTopbar';
 import TemplateTopbarOfComingSoon from '../components/templateTopbarOfComingSoon';
 
 // Routes
-import ComingSoonScreen from '../containers/comingSoonScreen';
-import HomeScreen from '../containers/homeScreen';
-import SignUpScreen from '../containers/signUpScreen';
+import ComingSoonScreen from '../containers/common/comingSoonScreen';
+import HomeScreen from '../containers/talent/homeScreen';
+import SignUpScreen from '../containers/common/signUpScreen';
 
-import LoginScreen from '../containers/loginScreen';
-import ForgotPasswordScreen from '../containers/forgotPasswordScreen';
+import LoginScreen from '../containers/common/loginScreen';
+import ForgotPasswordScreen from '../containers/common/forgotPasswordScreen';
 
 import Error from '../components/error';
-import InterviewStart from "../containers/video-interview/start";
-import InterviewInstruction from "../containers/video-interview/instruction";
-import InterviewInstructionLive from "../containers/video-interview/instruction-live";
-import InterviewDeviceAllow from "../containers/video-interview/allow";
-import VideoPreview from "../containers/video-interview/preview";
-import VideoPractice from "../containers/video-interview/practice";
-import LiveInterview from "../containers/video-interview/live";
+import InterviewStart from "../containers/talent/video-interview/start";
+import InterviewInstruction from "../containers/talent/video-interview/instruction";
+import InterviewInstructionLive from "../containers/talent/video-interview/instruction-live";
+import InterviewDeviceAllow from "../containers/talent/video-interview/allow";
+import VideoPreview from "../containers/talent/video-interview/preview";
+import VideoPractice from "../containers/talent/video-interview/practice";
+import LiveInterview from "../containers/talent/video-interview/live";
 
-import WelcomeBuildProfileWizard from "../containers/profile-wizard/welcomeBuildProfileWizard";
-import SelectMaleWizard from "../containers/profile-wizard/selectMaleWizard";
-import SelectPositionTypeWizard from "../containers/profile-wizard/selectPositionTypeWizard";
-import SelectPositionSubTypeWizard from "../containers/profile-wizard/selectPositionSubTypeWizard";
-import LastWizard from "../containers/profile-wizard/lastWizard";
+import WelcomeBuildProfileWizard from "../containers/talent/profile/profile-wizard/welcomeBuildProfileWizard";
+import SelectMaleWizard from "../containers/talent/profile/profile-wizard/selectMaleWizard";
+import SelectPositionTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionTypeWizard";
+import SelectPositionSubTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
+import LastWizard from "../containers/talent/profile/profile-wizard/lastWizard";
 
-import MyProfile from "../containers/myProfile";
-import ViewProfile from "../containers/viewProfile";
-import MyContactInfo from "../containers/myContactInfoScreen";
-import MyNatioinality from "../containers/myNationalityScreen";
-import MyVideos from "../containers/myVideosScreen";
-import MyPracticeInterviewVideos from "../containers/myPracticeInterviewVideosScreen";
-import MyLiveInterviewVideos from "../containers/myLiveInterviewVideosScreen";
-import MyPictures from "../containers/myPicturesScreen";
-import MyResume from "../containers/myResumeScreen";
-import MyBio from "../containers/myBioScreen";
-import MyMetrics from "../containers/myMetricScreen";
-import MyLanguage from "../containers/myLanguagesScreen";
-import MyMedical from "../containers/myMedicalScreen";
+import MyProfile from "../containers/talent/profile/myProfile";
+import ViewProfile from "../containers/talent/profile/view-profile/viewProfile";
+import MyContactInfo from "../containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
+import MyNatioinality from "../containers/talent/profile/build-profile/nationality/myNationalityScreen";
+import MyVideos from "../containers/talent/profile/build-profile/interview-videos/myVideosScreen";
+import MyPracticeInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
+import MyLiveInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
+import MyPictures from "../containers/talent/profile/build-profile/pictures/myPicturesScreen";
+import MyResume from "../containers/talent/profile/build-profile/resume/myResumeScreen";
+import MyBio from "../containers/talent/profile/build-profile/bio/myBioScreen";
+import MyMetrics from "../containers/talent/profile/build-profile/metric/myMetricScreen";
+import MyLanguage from "../containers/talent/profile/build-profile/language/myLanguagesScreen";
+import MyMedical from "../containers/talent/profile/build-profile/medical/myMedicalScreen";
+import EditProfile from "../containers/talent/profile/build-profile/general/editProfile";
+import MyAvailability from "../containers/talent/availability/myAvailabilityScreen";
 
-import MyAccount from "../containers/myAccount";
-import EditProfile from "../containers/editProfile";
-
-import SubFaq from "../containers/subFaq";
-import Faq from "../containers/faq";
-import Terms from "../containers/terms";
-import ContactUs from "../containers/contactUs";
+import SubFaq from "../containers/common/subFaq";
+import Faq from "../containers/common/faq";
+import Terms from "../containers/common/terms";
+import ContactUs from "../containers/common/contactUs";
 
 // client side
 import ClientLogin from "../containers/client/login";
@@ -485,12 +484,12 @@ const Index = () => (
         />
 
         <Route
-            path="/account"
-            render={props => (
-                <TemplateTopbar>
-                    <MyAccount {...props} />
-                </TemplateTopbar>
-            )}
+          path="/availability-info"
+          render={props => (
+            <TemplateTopbar>
+              <MyAvailability {...props} />
+            </TemplateTopbar>
+          )}
         />
 
         <Route

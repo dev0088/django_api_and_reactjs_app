@@ -11,6 +11,9 @@ export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  buttonIcon: {
+    margin: 0,
+  },
   selectedButton: {
     display: 'block!important',
     width: '100%',
@@ -24,6 +27,18 @@ export const styles = theme => ({
     paddingBottom: '0.8rem',
     lineHeight: 1.3,
     textTransform: 'none',
+  },
+  wizardSettingHeaderTitle: {
+    whiteSpace: 'nowrap'
+  },
+  wizardSettingHeaderButton: {
+    display: 'block!important',
+    borderRadius: '4px!important',
+  },
+  wizardSettingHeaderText: {
+    color: theme.button.primaryColor,
+    fontWeight: 400,
+    textTransform: 'none'
   },
   chips: {
     display: 'flex',
@@ -84,6 +99,11 @@ export const styles = theme => ({
   paper: {
     height: 140,
     width: 100,
+  },
+  paperContent: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   paperDescription: {
     ...theme.mixins.gutters(),

@@ -24,7 +24,7 @@ export default function videoQuestions(state = initialState, action) {
         init: false,
         isFetched: false,
         failure: true,
-        errorMessage: action.payload.response[Object.keys(action.payload.response)[0]][0],
+        errorMessage: action.payload,
       });
     case types.VIDEO_QUESTION.INIT:
       return Object.assign({}, state, {
@@ -63,7 +63,7 @@ export function videoSettings(state = initialSettingState, action) {
         init: false,
         isFetched: false,
         failure: true,
-        errorMessage: action.payload.response[Object.keys(action.payload.response)[0]][0],
+        errorMessage: action.payload,
       });
     case types.VIDEO_SETTINGS.INIT:
       return Object.assign({}, state, {

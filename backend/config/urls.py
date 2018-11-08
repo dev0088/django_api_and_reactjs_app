@@ -27,7 +27,6 @@ from talent import views
 
 swagger_schema_view = get_swagger_view(title='ShipTalent API')
 
-
 urlpatterns = [
   url(r'^apis', swagger_schema_view),
   url(r'^admin/', admin.site.urls),
@@ -46,6 +45,7 @@ urlpatterns = [
   url(r'^api/v1/talent_resume', include('talent_resume.urls')),
   url(r'^api/v1/talent_video', include('talent_video.urls')),
   url(r'^api/v1/talent_medical', include('talent_medical.urls')),
+  url(r'^api/v1/talent_availability', include('talent_availability.urls')),
   url(r'^api/v1/position_type', include('position_type.urls')),
   url(r'^api/v1/position_sub_type', include('position_sub_type.urls')),
   url(r'^api/v1/skill', include('skill.urls')),
@@ -55,4 +55,5 @@ urlpatterns = [
   url(r'^api/v1/submission', include('submission.urls')),
   url(r'^api/v1/video_interview_settings', include('admin_setting.urls')),
   url(r'^api/v1/client_casting_request', include('client_casting_request.urls')),
+  url(r'^api/v1/client', include('client.urls')),
 ]

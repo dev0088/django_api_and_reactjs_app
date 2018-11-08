@@ -1,11 +1,12 @@
 from django.shortcuts import render
-
-# Create your views here.
 from talent.models import Talent
 from authentication.models import User
 from talent.serializers import TalentSerializer
 from django.http import Http404
+# import coreapi
+from rest_framework.compat import coreapi, coreschema
 from rest_framework.views import APIView
+from rest_framework.schemas import AutoSchema
 from rest_framework.response import Response
 from rest_framework import status
 from position_type.models import PositionType
@@ -20,7 +21,7 @@ from talent_visa.models import TalentVisa
 from talent_skill.models import TalentSkill
 from talent_sub_skill.models import TalentSubSkill
 
-from rest_framework import viewsets
+from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -30,8 +31,41 @@ class TalentViewSet(viewsets.ModelViewSet):
     serializer_class = TalentSerializer
     # permission_classes = (IsAuthenticated,)
 
+class CurrentTalent(APIView):
+    # authentication_classes = (authentication.TokenAuthentication, )
+    # permission_classes = (permissions.IsAuthenticated,)
+    schema = AutoSchema(manual_fields=[
+        coreapi.Field(
+            "Authorization",
+            required=True,
+            location="header",
+            description="Use bearer token from login: ex: Bearer \{token\}",
+            schema=coreschema.String()
+        ),
+    ])
+
+    def get_object(self, user):
+      try:
+        user = User.objects.get(pk=user.pk)
+        talent = Talent.objects.get(user=user.id)
+        return talent
+      except Talent.DoesNotExist:
+        raise Http404
+    """
+    Get current talent info
+    """
+    def get(self, request, format=None):
+        print('==== request.user: ', request.user)
+        talent_item = self.get_object(request.user)
+        serializer = TalentSerializer(talent_item)
+        return Response(serializer.data)
+
 
 class TalentDetail(APIView):
+    # authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication)
+    # permission_classes = (permissions.IsAuthenticated,)
+
+    
     """
     Retrieve, update or delete a talent.
     """
@@ -168,25 +202,6 @@ class TalentDetail(APIView):
             # Check and save skills
             if talent_sub_skills_data:
                 self.save_talent_sub_skills(talent_item, talent_sub_skills_data)
-
-            # # Check and save additional position type
-            # if "talent_additional_position_sub_types" in request.data:
-            #     # Delete all secondary position sub types of talent
-            #     TalentAdditionalPositionSubType.objects.filter(
-            #         talent = talent_item
-            #     ).delete()
-
-            #     # Save secondary position sub type
-            #     talent_additional_position_sub_types = request.data['talent_additional_position_sub_types']
-            #     for additional_position_sub_type in talent_additional_position_sub_types:
-            #         position_sub_type_item = TalentPositionSubType.objects.get(
-            #                 name=additional_position_sub_type['name']
-            #             )
-            #         new_additional_position_sub_type_item = TalentAdditionalPositionSubType.objects.create(
-            #                 talent_position_sub_type = position_sub_type_item,
-            #                 talent = talent_item
-            #             )
-            #         new_additional_position_sub_type_item.save()
 
             # Check and save visa types
             if talent_visa_data:

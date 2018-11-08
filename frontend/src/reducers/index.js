@@ -5,11 +5,12 @@ import register from './register.js'
 import echo, * as fromEcho from './echo.js'
 import shiptalentInfo from './shiptalentInfo.js'
 import videoQuestions, { videoSettings } from './video.js'
-import { getTalentInfo } from './talent.js'
+import { getCurrentTalentInfo } from './talent.js'
 import { getAllPositionTypes } from './positionTypes.js'
 import { getAllSkills } from './skills.js'
 import deviceSettings from './deviceSettings.js'
 import contactUs from './contactus.js'
+import {talentSearchReducer, requestViewReducer, searchViewReducer} from './client.reducer'
 
 export default combineReducers({
   auth: auth,
@@ -21,10 +22,13 @@ export default combineReducers({
   router: routerReducer,
   // talentReducer: talentReducer,
   deviceSettings: deviceSettings,
-  talentInfo: getTalentInfo,
+  talentInfo: getCurrentTalentInfo,
   contactUs: contactUs,
   allPositionTypes: getAllPositionTypes,
-  allSkills: getAllSkills
+  allSkills: getAllSkills,
+  talentSearchReducer,
+  requestViewReducer,
+  searchViewReducer
 })
 
 
