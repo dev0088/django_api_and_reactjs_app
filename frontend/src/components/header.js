@@ -7,9 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Divider from 'material-ui/Divider';
+import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as talentActions from  '../actions/talentActions';
@@ -81,18 +83,34 @@ class Header extends Component {
     });
   };
 
+  getUserAvatarFromProps() {
+    const { talentInfo } = this.props
+
+    if (talentInfo && talentInfo.talent_pictures.length > 0) {
+      for (let i = 0; i < talentInfo.talent_pictures.length; i ++) {
+        if (talentInfo.talent_pictures[i].url) {
+          return talentInfo.talent_pictures[i].url
+        }
+      }
+    }
+
+    return null
+  }
+
   render() {
     const { auth, talentInfo, classes } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const loggedIn = (auth && auth.access && auth.access.email);
     let username = "";
+    let userAvatar = null;
 
     if (loggedIn) {
-      if (talentInfo && talentInfo.value){
-        username = talentInfo.value['user']['first_name'];
+      if (talentInfo){
+        username = talentInfo.user.first_name;
         if (username !== "")
           username = username.charAt(0).toUpperCase() + username.slice(1);
+        userAvatar = this.getUserAvatarFromProps()
       }
     }
     return (
@@ -124,7 +142,18 @@ class Header extends Component {
                   aria-haspopup="true"
                   onClick={this.handleClick}
                   color="inherit">
-                  <AccountCircle />
+                  { userAvatar  ? (
+                    <ImageLoader
+                      className={classes.avatarImage}
+                      src={userAvatar}
+                      loading={() => <AccountCircle />}
+                      error={() => <AccountCircle />} />
+                    ) : (
+                      <AccountCircle />
+                    )
+                  }
+                  <Typography className={classes.avatarMenuItemText}> {username} </Typography>
+                  <ExpandMore />
                 </IconButton>
 
                 <Menu id="menu-appbar"
@@ -202,7 +231,7 @@ function mapStateToProps(state) {
   const { auth, talentInfo } = state;
   return {
     auth: auth,
-    talentInfo: talentInfo
+    talentInfo: talentInfo.value
   }
 }
 function mapDispatchToProps(dispatch) {

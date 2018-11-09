@@ -92,6 +92,18 @@ export const styles = theme => ({
     fontWeight: 'bold',
     paddingTop: '3px'
   },
+  avatarImage: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+  },
+  avatarMenuItemText: {
+    color: '#FFFFFF',
+    fontSize: '1rem',
+    fontWeight: 400,
+    paddingLeft: '7px'
+  },
   optionMenuItem: {
     backgroundColor: 'rgba(0, 0, 0, 0)!important',
     paddingLeft: '40px',

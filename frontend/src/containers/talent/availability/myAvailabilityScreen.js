@@ -19,7 +19,7 @@ import { DateRangePicker, DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/SaveCancelButtonGroup';
+import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/saveCancelButtonGroup';
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -181,7 +181,7 @@ class MyAvailability extends Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.getContactInfoFromProps(this.props),
+      ...this.getInfoFromProps(this.props),
       isChanged: false
     })
   }
