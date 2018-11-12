@@ -2,8 +2,8 @@ from django.contrib import admin
 from . import models
 from rest_framework.authtoken.admin import TokenAdmin
 
-@admin.register(models.Talent)
 
+@admin.register(models.Talent)
 class TalentAdmin(admin.ModelAdmin):
   list_display = ('id', 
                   'user_id_display',

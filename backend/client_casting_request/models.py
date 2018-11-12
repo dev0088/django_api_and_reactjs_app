@@ -1,7 +1,7 @@
 from django.db import models
 
-# Create your models here.
 from datetime import datetime, timedelta
+from client.models import Client
 from authentication.models import User
 
 STATUS_CHOICES = (
@@ -13,7 +13,7 @@ STATUS_CHOICES = (
 
 class ClientCastingRequest(models.Model):
   ### Relation with user
-  user = models.ForeignKey(User, related_name='client', on_delete=models.CASCADE)
+  client = models.ForeignKey(Client, related_name='client', on_delete=models.CASCADE)
 
   ### general info
   casting_request_name = models.CharField(blank=False, default='', max_length=100)
@@ -36,7 +36,7 @@ class ClientCastingRequest(models.Model):
         Returns a string representation of this `ClientCastingRequest`.
         This string is used when a `ClientCastingRequest` is printed in the console.
         """
-    return self.user.username + '(' + self.user.email + '), ' + 'ship: ' + self.ship_name + ', ' +  'casting_request: ' + self.casting_request_name
+    return self.cient.user.username + '(' + self.client.user.email + '), ' + 'ship: ' + self.ship_name + ', ' +  'casting_request: ' + self.casting_request_name
 
   class Meta:
     db_table = "client_casting_request"

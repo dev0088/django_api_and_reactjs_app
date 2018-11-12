@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Panel from 'components/panel';
+import Panel from 'components/general/panel';
 import { withStyles } from '@material-ui/core/styles';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
 import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';

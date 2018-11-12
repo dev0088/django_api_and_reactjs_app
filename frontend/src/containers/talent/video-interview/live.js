@@ -18,10 +18,10 @@ import DetectRTC from "detectrtc";
 
 import * as videoActions from '../../../actions/videoActions';
 import * as deviceActions from '../../../actions/deviceSettings';
-import AudioMeter from "../../../components/audio-meter/index";
+import AudioMeter from "../../../components/general/audio-meter/index";
 
 import './styles.css';
-import RecordCtl from "../../../components/record-ctl/index";
+import RecordCtl from "../../../components/general/record-ctl/index";
 import apiConfig from '../../../constants/api';
 import { captureUserMedia } from '../../../utils/appUtils';
 

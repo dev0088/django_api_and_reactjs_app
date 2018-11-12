@@ -6,7 +6,7 @@ import './client.css'
 class ClientLogin extends Component {
     loginFunction = (e) => {
         e.preventDefault();
-        window.location.href = "/client/welcome";
+        window.location.href = "/client/home";
     };
 
     render() {

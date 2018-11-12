@@ -1,8 +1,6 @@
 from django.db import models
-from datetime import datetime, timedelta, date
+from datetime import date
 from authentication.models import User
-# from talent_position_sub_type.models import TalentPositionSubType
-# from talent_position_type.models import TalentPositionType
 
 SEX_CHOICES = (
     ('m', 'Male'),

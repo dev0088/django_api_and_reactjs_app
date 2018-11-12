@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
     'corsheaders',
     'rest_framework_swagger',
     'coreapi',
+    'drf_yasg'
 )
 
 LOCAL_APPS = (
@@ -61,8 +62,6 @@ LOCAL_APPS = (
     'talent_position_sub_type',
     'talent_skill',
     'talent_sub_skill',
-    'talent_additional_position_type',
-    'talent_additional_position_sub_type',
     'talent_picture',
     'talent_resume',
     'talent_video',
@@ -70,6 +69,7 @@ LOCAL_APPS = (
     'talent_language',
     'talent_medical',
     'talent_availability',
+    'talent_rating',
     'question',
     'admin_setting',
     'submission',
@@ -175,8 +175,9 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.JSONParser',
-    ]
-    # 'VIEW_DESCRIPTION_FUNCTION': 'rest_framework_swagger.views.get_restructuredtext'
+    ],
+    # 'VIEW_DESCRIPTION_FUNCTION': 'rest_framework_swagger.views.get_restructuredtext',
+    # 'VIEW_NAME_FUNCTION': 'module.path.to.custom.view.name.function'
 }
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -299,10 +300,18 @@ JWT_AUTH = {
 SWAGGER_SETTINGS = {
     'SHOW_REQUEST_HEADERS': True,
     'SECURITY_DEFINITIONS': {
-        'api_key': {
+        # 'api_key': {
+        #     'type': 'apiKey',
+        #     'in': 'header',
+        #     'name': 'Authorization'
+        # }
+        'Basic': {
+            'type': 'basic'
+        },
+        'Bearer': {
             'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
+            'name': 'Authorization',
+            'in': 'header'
         }
     },
     'USE_SESSION_AUTH': False,

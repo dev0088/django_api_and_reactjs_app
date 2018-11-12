@@ -12,7 +12,7 @@ import * as talentActions from '../../../actions/talentActions';
 
 import './styles.css'
 import * as deviceActions from  '../../../actions/deviceSettings';
-import AudioMeter from "../../../components/audio-meter/index";
+import AudioMeter from "../../../components/general/audio-meter/index";
 
 const styles={
   raisedButton: {

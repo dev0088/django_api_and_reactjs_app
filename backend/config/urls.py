@@ -24,19 +24,38 @@ from rest_framework_swagger.views import get_swagger_view
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import renderers, response, schemas
 from talent import views
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
 
 swagger_schema_view = get_swagger_view(title='ShipTalent API')
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Shiptalent API",
+      default_version='v1',
+      description="RESTful API for www.shiptalent.com",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   # validators=['flex', 'ssv'],
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
+
 urlpatterns = [
   url(r'^apis', swagger_schema_view),
+  url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+  url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+  url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
   url(r'^admin/', admin.site.urls),
   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
   url(r'^api/v1/auth/', include('authentication.urls')),
   url(r'^api/v1/talent', include('talent.urls')),
   url(r'^api/v1/talent_position_type', include('talent_position_type.urls')),
   url(r'^api/v1/talent_position_sub_type', include('talent_position_sub_type.urls')),
-  url(r'^api/v1/talent_additional_position_type', include('talent_additional_position_type.urls')),
-  url(r'^api/v1/talent_additional_position_sub_type', include('talent_additional_position_sub_type.urls')),
   url(r'^api/v1/talent_skill', include('talent_skill.urls')),
   url(r'^api/v1/talent_sub_skill', include('talent_sub_skill.urls')),
   url(r'^api/v1/talent_visa', include('talent_visa.urls')),
@@ -46,6 +65,7 @@ urlpatterns = [
   url(r'^api/v1/talent_video', include('talent_video.urls')),
   url(r'^api/v1/talent_medical', include('talent_medical.urls')),
   url(r'^api/v1/talent_availability', include('talent_availability.urls')),
+  url(r'^api/v1/talent_rating', include('talent_rating.urls')),
   url(r'^api/v1/position_type', include('position_type.urls')),
   url(r'^api/v1/position_sub_type', include('position_sub_type.urls')),
   url(r'^api/v1/skill', include('skill.urls')),

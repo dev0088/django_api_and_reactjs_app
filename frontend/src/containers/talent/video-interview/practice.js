@@ -20,10 +20,10 @@ import DetectRTC from "detectrtc";
 import * as talentActions from '../../../actions/talentActions';
 import * as videoActions from '../../../actions/videoActions';
 import * as deviceActions from '../../../actions/deviceSettings';
-import AudioMeter from "../../../components/audio-meter/index";
+import AudioMeter from "../../../components/general/audio-meter/index";
 
 import './styles.css';
-import RecordCtl from "../../../components/record-ctl/index";
+import RecordCtl from "../../../components/general/record-ctl/index";
 import VideoPlayBack from "./play-back";
 import apiConfig from '../../../constants/api';
 import { captureUserMedia } from '../../../utils/appUtils';

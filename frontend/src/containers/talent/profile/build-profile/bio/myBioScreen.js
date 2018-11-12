@@ -8,8 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-import Panel from 'components/panel';
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Panel from 'components/general/panel';
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';

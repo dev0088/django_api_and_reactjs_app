@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
-import Panel from 'components/panel';
+import Panel from 'components/general/panel';
 import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';

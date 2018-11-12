@@ -2,13 +2,15 @@ from rest_framework import serializers
 
 from .models import User
 from talent.models import Talent
+from client.models import Client
 
 
 class GeneralUserSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
     class Meta:
         model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'type']
+        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'type']
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """Serializers registration requests and creates a new user."""
@@ -37,6 +39,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.
         user = User.objects.create_user(**validated_data)
-        # Create talent
-        talent = Talent.objects.create(user_id=user.id)
+        if user.type == "talent":
+            # Create talent
+            talent = Talent.objects.create(user_id=user.id)
+        elif user.type == "client":
+            # Create client
+            client = Client.objects.create(user_id=user.id)
         return user

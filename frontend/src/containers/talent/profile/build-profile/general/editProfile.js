@@ -13,10 +13,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DropDown from 'react-dropdown';
 import moment from 'moment';
 
-import Panel from 'components/panel';
-import MultiSelectDropdown from 'components/dropdown/multiSelectDropdown';
-import SingleSelectDropdown from 'components/dropdown/singleSelectDropdown';
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Panel from 'components/general/panel';
+import MultiSelectDropdown from 'components/shiptalent/dropdowns/multiSelectDropdown';
+import SingleSelectDropdown from 'components/shiptalent/dropdowns/singleSelectDropdown';
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
 import defaultValues from 'constants/defaultValues';

@@ -95,6 +95,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # In this case we want it to be the email field.
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    # REQUIRED_FIELDS = ['email']
 
     # Tells Django that the UserManager class defined above should manage
     # objects of this type.
@@ -146,6 +147,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         token = jwt.encode({
             'id': self.pk,
+            'type': self.type,
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
 

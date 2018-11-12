@@ -2,75 +2,75 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 
 // Templates
-import TemplateNothing from '../components/templateNothing';
-import TemplateSidebar from '../components/templateSidebar';
-import TemplateTopbar from '../components/templateTopbar';
-import TemplateTopbarOfComingSoon from '../components/templateTopbarOfComingSoon';
+import TemplateNothing from 'components/shiptalent/template/templateNothing';
+import TemplateSidebar from 'components/shiptalent/template/templateSidebar';
+import TemplateTopbar from 'components/shiptalent/template/templateTopbar';
+import TemplateTopbarOfComingSoon from 'components/shiptalent/template/templateTopbarOfComingSoon';
+import TemplateClientTopbar from 'components/shiptalent/template/templateClientTopbar';
 
 // Routes
-import ComingSoonScreen from '../containers/common/comingSoonScreen';
-import HomeScreen from '../containers/talent/homeScreen';
-import SignUpScreen from '../containers/common/signUpScreen';
+import ComingSoonScreen from 'containers/common/comingSoonScreen';
+import HomeScreen from 'containers/talent/homeScreen';
+import SignUpScreen from 'containers/common/signUpScreen';
+import LoginScreen from 'containers/common/loginScreen';
+import ForgotPasswordScreen from 'containers/common/forgotPasswordScreen';
 
-import LoginScreen from '../containers/common/loginScreen';
-import ForgotPasswordScreen from '../containers/common/forgotPasswordScreen';
+import Error from 'components/general/error';
+import InterviewStart from "containers/talent/video-interview/start";
+import InterviewInstruction from "containers/talent/video-interview/instruction";
+import InterviewInstructionLive from "containers/talent/video-interview/instruction-live";
+import InterviewDeviceAllow from "containers/talent/video-interview/allow";
+import VideoPreview from "containers/talent/video-interview/preview";
+import VideoPractice from "containers/talent/video-interview/practice";
+import LiveInterview from "containers/talent/video-interview/live";
 
-import Error from '../components/error';
-import InterviewStart from "../containers/talent/video-interview/start";
-import InterviewInstruction from "../containers/talent/video-interview/instruction";
-import InterviewInstructionLive from "../containers/talent/video-interview/instruction-live";
-import InterviewDeviceAllow from "../containers/talent/video-interview/allow";
-import VideoPreview from "../containers/talent/video-interview/preview";
-import VideoPractice from "../containers/talent/video-interview/practice";
-import LiveInterview from "../containers/talent/video-interview/live";
+import WelcomeBuildProfileWizard from "containers/talent/profile/profile-wizard/welcomeBuildProfileWizard";
+import SelectMaleWizard from "containers/talent/profile/profile-wizard/selectMaleWizard";
+import SelectPositionTypeWizard from "containers/talent/profile/profile-wizard/selectPositionTypeWizard";
+import SelectPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
+import LastWizard from "containers/talent/profile/profile-wizard/lastWizard";
 
-import WelcomeBuildProfileWizard from "../containers/talent/profile/profile-wizard/welcomeBuildProfileWizard";
-import SelectMaleWizard from "../containers/talent/profile/profile-wizard/selectMaleWizard";
-import SelectPositionTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionTypeWizard";
-import SelectPositionSubTypeWizard from "../containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
-import LastWizard from "../containers/talent/profile/profile-wizard/lastWizard";
+import MyProfile from "containers/talent/profile/myProfile";
+import ViewProfile from "containers/talent/profile/view-profile/viewProfile";
+import MyContactInfo from "containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
+import MyNatioinality from "containers/talent/profile/build-profile/nationality/myNationalityScreen";
+import MyVideos from "containers/talent/profile/build-profile/interview-videos/myVideosScreen";
+import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
+import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
+import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
+import MyResume from "containers/talent/profile/build-profile/resume/myResumeScreen";
+import MyBio from "containers/talent/profile/build-profile/bio/myBioScreen";
+import MyMetrics from "containers/talent/profile/build-profile/metric/myMetricScreen";
+import MyLanguage from "containers/talent/profile/build-profile/language/myLanguagesScreen";
+import MyMedical from "containers/talent/profile/build-profile/medical/myMedicalScreen";
+import EditProfile from "containers/talent/profile/build-profile/general/editProfile";
+import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
 
-import MyProfile from "../containers/talent/profile/myProfile";
-import ViewProfile from "../containers/talent/profile/view-profile/viewProfile";
-import MyContactInfo from "../containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
-import MyNatioinality from "../containers/talent/profile/build-profile/nationality/myNationalityScreen";
-import MyVideos from "../containers/talent/profile/build-profile/interview-videos/myVideosScreen";
-import MyPracticeInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
-import MyLiveInterviewVideos from "../containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
-import MyPictures from "../containers/talent/profile/build-profile/pictures/myPicturesScreen";
-import MyResume from "../containers/talent/profile/build-profile/resume/myResumeScreen";
-import MyBio from "../containers/talent/profile/build-profile/bio/myBioScreen";
-import MyMetrics from "../containers/talent/profile/build-profile/metric/myMetricScreen";
-import MyLanguage from "../containers/talent/profile/build-profile/language/myLanguagesScreen";
-import MyMedical from "../containers/talent/profile/build-profile/medical/myMedicalScreen";
-import EditProfile from "../containers/talent/profile/build-profile/general/editProfile";
-import MyAvailability from "../containers/talent/availability/myAvailabilityScreen";
-
-import SubFaq from "../containers/common/subFaq";
-import Faq from "../containers/common/faq";
-import Terms from "../containers/common/terms";
-import ContactUs from "../containers/common/contactUs";
+import SubFaq from "containers/common/subFaq";
+import Faq from "containers/common/faq";
+import Terms from "containers/common/terms";
+import ContactUs from "containers/common/contactUs";
 
 // client side
-import ClientLogin from "../containers/client/login";
-import WelcomePage from "../containers/client/welcome"
-import TalentSearch from '../containers/client/find_talent/talent.seach'
-import TalentSearchResult from "../containers/client/find_talent/talent.search.result";
-import RequestSelection from "../containers/client/my_casting_request/request.selection";
-import CastingRequestNew from "../containers/client/my_casting_request/casting.request.new";
-import CastingRequestAddConfirm from "../containers/client/my_casting_request/casting.request.add.confirm";
-import CastingRequestView from "../containers/client/my_casting_request/casting.request.view";
-import MyTalentSaved from "../containers/client/my_saved_talent/mytalent.saved";
-import MyCallback from "../containers/client/my_saved_talent/mycallback";
-import MyFavorite from "../containers/client/my_saved_talent/myfavorite";
-import MySharedProfile from "../containers/client/my_shared_profile/myshared.profile";
-import TalentSharedWith from "../containers/client/my_shared_profile/talent.shared.with";
-import TalentSharedBy from "../containers/client/my_shared_profile/talent.shared.by";
-import TalentSharedTeam from "../containers/client/my_shared_profile/talent.shared.team";
-import BlockedProfile from "../containers/client/my_blocked_profile/blocked.profile";
-import MyRate from "../containers/client/my_rating/myrate";
-import RatingAndComment from "../containers/client/my_rating/rating.and.comment";
-import MyrateSubmitted from "../containers/client/my_rating/myrate.submitted";
+import ClientLogin from "containers/client/login";
+import ClientHomeScreen from "containers/client/clientHomeScreen"
+import TalentSearch from 'containers/client/find_talent/talent.seach'
+import TalentSearchResult from "containers/client/find_talent/talent.search.result";
+import RequestSelection from "containers/client/my_casting_request/request.selection";
+import CastingRequestNew from "containers/client/my_casting_request/casting.request.new";
+import CastingRequestAddConfirm from "containers/client/my_casting_request/casting.request.add.confirm";
+import CastingRequestView from "containers/client/my_casting_request/casting.request.view";
+import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
+import MyCallback from "containers/client/my_saved_talent/mycallback";
+import MyFavorite from "containers/client/my_saved_talent/myfavorite";
+import MySharedProfile from "containers/client/my_shared_profile/myshared.profile";
+import TalentSharedWith from "containers/client/my_shared_profile/talent.shared.with";
+import TalentSharedBy from "containers/client/my_shared_profile/talent.shared.by";
+import TalentSharedTeam from "containers/client/my_shared_profile/talent.shared.team";
+import BlockedProfile from "containers/client/my_blocked_profile/blocked.profile";
+import MyRate from "containers/client/my_rating/myrate";
+import RatingAndComment from "containers/client/my_rating/rating.and.comment";
+import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
 
 const Index = () => (
     <Switch>
@@ -125,119 +125,149 @@ const Index = () => (
             )}
         />
         <Route
-            path="/client/welcome"
+            path="/client/home"
             render={props => (
-                <TemplateNothing>
-                    <WelcomePage {...props}/>
-                </TemplateNothing>
+                <TemplateClientTopbar>
+                    <ClientHomeScreen {...props}/>
+                </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/talent_search"
             render={props => (
-                <TemplateNothing>
+                <TemplateClientTopbar>
                     <TalentSearch {...props}/>
-                </TemplateNothing>
+                </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/talent_search_result"
             render={props => (
-                <TemplateNothing>
+                <TemplateClientTopbar>
                     <TalentSearchResult {...props}/>
-                </TemplateNothing>
+                </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/request_selection"
             render={props => (
+              <TemplateClientTopbar>
                 <RequestSelection {...props} />
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/casting_request/new"
             render={props => (
+              <TemplateClientTopbar>
                 <CastingRequestNew {...props} />
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/casting_request/confirm"
             render={props => (
+              <TemplateClientTopbar>
                 <CastingRequestAddConfirm {...props} />
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/casting_request/view"
             render={props => (
+              <TemplateClientTopbar>
                 <CastingRequestView {...props} />
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/mytalent/saved"
             render={props => (
+              <TemplateClientTopbar>
                 <MyTalentSaved {...props} />
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/mycallback"
             render={props => (
+              <TemplateClientTopbar>
                 <MyCallback {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/myfavorite"
             render={props => (
+              <TemplateClientTopbar>
                 <MyFavorite {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/myshared_profile"
             render={props => (
+              <TemplateClientTopbar>
                 <MySharedProfile {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/talent_shared"
             render={props => (
+              <TemplateClientTopbar>
                 <TalentSharedWith {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/talent_shared_by"
             render={props => (
+              <TemplateClientTopbar>
                 <TalentSharedBy {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/talent_shared_team"
             render={props => (
+              <TemplateClientTopbar>
                 <TalentSharedTeam {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/blocked_profile"
             render={props => (
+              <TemplateClientTopbar>
                 <BlockedProfile {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             path="/client/my_rate"
             render={props => (
+              <TemplateClientTopbar>
                 <MyRate {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             exact
             path="/client/rating_comment"
             render={props => (
+              <TemplateClientTopbar>
                 <RatingAndComment {...props}/>
+              </TemplateClientTopbar>
             )}
         />
         <Route
             exact
             path="/client/rating_comment/submitted"
             render={props => (
+              <TemplateClientTopbar>
                 <MyrateSubmitted {...props}/>
+              </TemplateClientTopbar>
             )}
         />
 

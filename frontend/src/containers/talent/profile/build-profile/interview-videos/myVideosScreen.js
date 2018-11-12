@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import Panel from 'components/panel'
+import Panel from 'components/general/panel'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';

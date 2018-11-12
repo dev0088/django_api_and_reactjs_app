@@ -17,8 +17,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
 import { CountryDropdown } from 'react-country-region-selector';
 
-import Panel from 'components/panel';
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Panel from 'components/general/panel';
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';

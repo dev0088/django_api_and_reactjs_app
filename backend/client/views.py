@@ -4,7 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import status, viewsets, schemas
 from rest_framework.decorators import api_view
+from rest_framework.schemas import AutoSchema
 from rest_framework.response import Response
+from rest_framework import status
+from django.http import Http404
 from rest_framework.schemas import ManualSchema
 from rest_framework.views import APIView
 from client.models import *
@@ -13,136 +16,150 @@ from datetime import timedelta
 from client.serializers import *
 from client.models import *
 from client.serializers import *
+from talent.models import Talent
+from talent.serializers import TalentSerializer
+from rest_framework import generics
+from rest_framework.decorators import action
+from drf_yasg.utils import swagger_auto_schema
 
 import datetime
 import json
 
 
-# Create your views here.
+class ClientViewSet(generics.ListCreateAPIView):
+    model = Client
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    # permission_classes = (IsAuthenticated,)
 
-class FindTalent(APIView):
-    def get(self, request):
-        print(request.query_params.get('sex'))
-        print(request.query_params)
-        return Response(status=status.HTTP_200_OK)
-
-    def post(self, request):
-        print(request.data)
-        result = request.data
-
-        query = Talent.objects.all()
-
-        if len(result['sex_list']):
-            query = query.filter(sex__in=result['sex_list'])
-
-        if len(result['master_type_list']):
-            query = query.filter(master_type__in=result['master_type_list'])
-
-        if len(result['sub_type_list']):
-            query = query.filter(sub_type__in=result['sub_type_list'])
-
-        if len(result['master_role_list']):
-            query = query.filter(master_role__in=result['master_role_list'])
-
-        if len(result['sub_role_list']):
-            query = query.filter(sub_role__in=result['sub_role_list'])
-
-        if len(result['lang_list']):
-            qs1 = query.filter(lang1__in=result['lang_list'])
-            qs2 = query.filter(lang2__in=result['lang_list'])
-            qs3 = query.filter(lang3__in=result['lang_list'])
-            query = qs1.union(qs2, qs3)
-
-        if len(result['age_list']):
-            qs = query.filter(age__gte=int(str(result['age_list'][0]).split(',')[0]),
-                              age__lte=int(str(result['age_list'][0]).split(',')[1]))
-
-            if len(result['age_list']) > 1:
-                for index in range(1, len(result['age_list'])):
-                    qs1 = query.filter(age__gte=int(str(result['age_list'][index]).split(',')[0]),
-                                       age__lte=int(str(result['age_list'][index]).split(',')[1]))
-                    qs = qs.union(qs1)
-            query = qs
-
-        if len(result['height_list']):
-            gte = str(result['height_list'][0]).split(',')[0]
-            lte = str(result['height_list'][0]).split(',')[1]
-            gte_value = int(gte.split('.')[0]) * 12 + int(gte.split('.')[1])
-            lte_value = int(lte.split('.')[0]) * 12 + int(lte.split('.')[1])
-
-            qs = query.filter(height__gte=gte_value, height__lte=lte_value)
-
-            if len(result['height_list']) > 1:
-                for index in range(1, len(result['height_list'])):
-                    gte = str(result['height_list'][index]).split(',')[0]
-                    lte = str(result['height_list'][index]).split(',')[1]
-                    gte_value = int(gte.split('.')[0]) * 12 + int(gte.split('.')[1])
-                    lte_value = int(lte.split('.')[0]) * 12 + int(lte.split('.')[1])
-                    qs1 = query.filter(height__gte=gte_value, height__lte=lte_value)
-                    qs = qs.union(qs1)
-            query = qs
-
-        if len(result['rating_list']):
-            qs = query.filter(avg_rating__gte=float(str(result['rating_list'][0]).split(',')[0]),
-                              avg_rating__lte=float(str(result['rating_list'][0]).split(',')[1]))
-
-            if len(result['rating_list']) > 1:
-                for index in range(1, len(result['rating_list'])):
-                    qs1 = query.filter(avg_rating__gte=float(str(result['rating_list'][index]).split(',')[0]),
-                                       avg_rating__lte=float(str(result['rating_list'][index]).split(',')[1]))
-                    qs = qs.union(qs1)
-            query = qs
-
-        if len(result['talent_name']):
-            query = query.filter(name=result['talent_name'])
-
-        if len(result['talent_id']):
-            query = query.filter(pk=result['talent_id'])
-
-        st1 = str(result['startDate']).split('T')[0]
-        st2 = str(result['endDate']).split('T')[0]
-        start_date = datetime.datetime.strptime(st1, "%Y-%m-%d")
-        end_date = datetime.datetime.strptime(st2, "%Y-%m-%d")
-        qs1 = query.filter(able_date__gte=start_date, able_date__lte=end_date)
-        serial1 = TalentSerializer(qs1, many=True)
-
-        start_date = start_date + timedelta(days=-14)
-        end_date = end_date + timedelta(days=14)
-        query = query.difference(qs1)
-        qs2 = query.filter(able_date__gte=start_date, able_date__lte=end_date)
-        serial2 = TalentSerializer(qs2, many=True)
-
-        ret_data = json.dumps({
-            'crt_data': serial1.data,
-            'next_data': serial2.data
-        })
-
-        return Response(data=ret_data, status=status.HTTP_200_OK)
+    # def list(self, request, *args, **kwargs):
+    #     """
+    #     Return a list of objects.
+    #
+    #     """
+    #     return super(ClientViewSet, self).list(request, *args, **kwargs)
 
 
-class CastingRequest(APIView):
-    def get(self, request):
-        qs_submitted = CastingRequestModel.objects.filter(status__in=[1, 2])
-        qs_not_submitted = CastingRequestModel.objects.filter(status=0)
-        qs_completed = CastingRequestModel.objects.filter(status=3)
+class CurrentClient(APIView):
+    # authentication_classes = (authentication.TokenAuthentication, )
+    # permission_classes = (permissions.IsAuthenticated,)
+    schema = AutoSchema(manual_fields=[
+        coreapi.Field(
+            "Authorization",
+            required=True,
+            location="header",
+            description="Use bearer token from login: ex: Bearer \{token\}",
+            schema=coreschema.String()
+        ),
+    ])
 
-        serial_submitted = RequestViewSerializer(qs_submitted, many=True)
-        serial_not_submitted = RequestViewSerializer(qs_not_submitted, many=True)
-        serial_completed = RequestViewSerializer(qs_completed, many=True)
+    def get_object(self, user):
+      try:
+        user = User.objects.get(pk=user.pk)
+        client = Client.objects.get(user=user.id)
+        return client
+      except Client.DoesNotExist:
+        raise Http404
+    """
+    Get current client info
+    """
+    def get(self, request, format=None):
+        print('==== request.user: ', request.user)
+        client_item = self.get_object(request.user)
+        serializer = ClientSerializer(client_item)
+        return Response(serializer.data)
 
-        ret_data = json.dumps({
-            'on_submitted': serial_submitted.data,
-            'not_submitted': serial_not_submitted.data,
-            'completed': serial_completed.data
-        })
 
-        print(ret_data)
+class ClientDetail(APIView):
+    # authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication)
+    # permission_classes = (permissions.IsAuthenticated,)
 
-        return Response(data=ret_data, status=status.HTTP_200_OK)
+    def get_object(self, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            client = Client.objects.get(user=user.id)
+            return client
+        except Client.DoesNotExist:
+            raise Http404
 
-    def post(self, request):
-        print(request.data)
+    def get(self, request, pk, format=None):
+        client_item = self.get_object(pk)
+        serializer = ClientSerializer(client_item)
+        return Response(serializer.data)
 
-        # CHECK PARAMETERS IN ADD AND VIEW SCREENS
+    def put(self, request, pk, format=None):
+        print('== request.data: ', request.data)
+        client_item = self.get_object(pk)
+        client_data = request.data
 
-        return Response(status=status.HTTP_200_OK)
+        print('==== client_data: ', client_data)
+
+        serializer = ClientSerializer(client_item, data=client_data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        client_item = self.get_object(pk)
+        client_item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ClientFindTalentList(APIView):
+    @swagger_auto_schema(request_body=TalentSearchConditionSerializer, responses={200: TalentSerializer(many=True)})
+    def post(self, request, format=None):
+        """
+        List all talents for search conditions.
+        """
+        # Filter talents according to search condition
+        search_conditions = request.data
+        talent_name = self.pickout_data(search_conditions, 'talent_name')
+        talent_id = self.pickout_data(search_conditions, 'talent_id')
+        talents = Talent.objects.all()
+        if talent_id:
+            try:
+                talent = talents.get(id=talent_id)
+                serializer = TalentSerializer(talent)
+                return Response(serializer.data)
+            except Talent.DoesNotExist:
+                raise Http404
+        else:
+            if talent_name:
+                talents = talents.filter(user__first_name__contains=talent_name)
+        serializer = TalentSerializer(talents, many=True)
+        return Response(serializer.data)
+
+    def pickout_data(self, data, child_name):
+        res = {}
+        if child_name in data:
+            res = data[child_name]
+        return res
+
+# class CastingRequest(APIView):
+#     def get(self, request):
+#         qs_submitted = CastingRequestModel.objects.filter(status__in=[1, 2])
+#         qs_not_submitted = CastingRequestModel.objects.filter(status=0)
+#         qs_completed = CastingRequestModel.objects.filter(status=3)
+#
+#         serial_submitted = RequestViewSerializer(qs_submitted, many=True)
+#         serial_not_submitted = RequestViewSerializer(qs_not_submitted, many=True)
+#         serial_completed = RequestViewSerializer(qs_completed, many=True)
+#
+#         ret_data = json.dumps({
+#             'on_submitted': serial_submitted.data,
+#             'not_submitted': serial_not_submitted.data,
+#             'completed': serial_completed.data
+#         })
+#
+#         print(ret_data)
+#
+#         return Response(data=ret_data, status=status.HTTP_200_OK)
+#
+#     def post(self, request):
+#         print(request.data)
+#
+#         # CHECK PARAMETERS IN ADD AND VIEW SCREENS
+#
+#         return Response(status=status.HTTP_200_OK)

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { getSexTitle } from 'utils/appUtils';
 import { styles } from 'styles';
 
 class WizardSettingHeader extends Component {
@@ -31,7 +32,7 @@ class WizardSettingHeader extends Component {
                   fullWidth={false}
                 >
                   <Typography className={classes.wizardSettingHeaderText}>
-                    {talentInfo && talentInfo.sex === 'm' ? 'Male' : 'Fomel'}
+                    {talentInfo && getSexTitle(talentInfo.sex)}
                   </Typography>
                 </Button>
               </Grid>
@@ -55,7 +56,7 @@ class WizardSettingHeader extends Component {
                   fullWidth={false}
                 >
                   <Typography className={classes.wizardSettingHeaderText}>
-                    {talentInfo && talentInfo.sex === 'm' ? 'Male' : 'Fomel'}
+                    {talentInfo && getSexTitle(talentInfo.sex)}
                   </Typography>
                 </Button>
               </Grid>
@@ -79,7 +80,7 @@ class WizardSettingHeader extends Component {
                   fullWidth={false}
                 >
                   <Typography className={classes.wizardSettingHeaderText}>
-                    {talentInfo && talentInfo.sex === 'm' ? 'Male' : 'Fomel'}
+                    {talentInfo && getSexTitle(talentInfo.sex)}
                   </Typography>
                 </Button>
               </Grid>

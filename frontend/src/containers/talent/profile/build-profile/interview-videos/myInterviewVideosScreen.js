@@ -3,7 +3,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import RaisedButton from 'material-ui/RaisedButton';
-import Panel from 'components/panel'
+import Panel from 'components/general/panel'
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';

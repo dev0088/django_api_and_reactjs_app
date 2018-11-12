@@ -11,8 +11,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles} from '@material-ui/core/styles';
-import Panel from 'components/panel'
-import ConfirmChangesDialog from 'components/confirmChangesDialog'
+import Panel from 'components/general/panel'
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog'
 import * as talentActions from 'actions/talentActions'
 import TalentAPI from 'apis/talentAPIs'
 import defaultValues from 'constants/defaultValues'

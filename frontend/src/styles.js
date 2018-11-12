@@ -90,7 +90,11 @@ export const styles = theme => ({
     color: '#FFFFFF',
     fontSize: '1rem',
     fontWeight: 'bold',
-    paddingTop: '3px'
+    paddingTop: '3px',
+    textTransform: 'none',
+  },
+  topbarMenuItem: {
+    display: 'inline-block'
   },
   avatarImage: {
     width: '40px',
@@ -135,14 +139,14 @@ export const styles = theme => ({
     // color: rgba(0, 0, 0, 0.87),
     fontSize: '1rem',
     fontWeight: 400,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
 
   h4: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     fontWeight: 400,
     lineHeight: 1.17,
     letterSpacing: '0.00735em',
@@ -159,6 +163,49 @@ export const styles = theme => ({
     marginInlineEtart: '0px',
     marginInlineEnd: '0px',
     fontWeight: 'bold',
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  footerMenuItemText: {
+    color: theme.palette.white.main,
+    fontWeight: 'bold',
+    textTransform: 'none',
+    display: 'inline-block'
+  },
+  footerDescriptionText: {
+    color: '#212529',
+    textTransform: 'none',
+    paddingBottom: '10px'
+  },
+  clientFormSubTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  backButton: {
+    textTransform: 'none',
+    borderRadius: '0px',
+    primaryColor: '#FFFFFF',
+  },
+  nextButton: {
+    textTransform: 'none',
+    textAlign: 'right',
+    borderRadius: '0px',
+    primaryColor: '#FFFFFF',
+  },
+  backButtonText: {
+    color: '#FFFFFF',
+  },
+  nextButtonText: {
+    color: '#FFFFFF'
+  },
+  clientSearchResultTalentHeadlineText: {
+    fontWeight: 'bold'
   }
 });
 
@@ -179,6 +226,10 @@ export const theme = createMuiTheme ({
     white: {
       main: '#FFFFFF'
     }
+  },
+  typography: {
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    textTransform: "none",
   },
   button: {
     primaryColor: '#FFFFFF',

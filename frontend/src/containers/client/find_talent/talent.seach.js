@@ -1,14 +1,18 @@
 import React, {Component} from 'react'
-import '../client.css'
+import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import DatePicker from 'react-datepicker';
 import uuidv1 from "uuid";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import {Redirect} from 'react-router'
-import Constant from '../../../constants/talent.search'
-import {talentSearch} from '../../../apis/client.api'
-import {bindActionCreators} from "redux";
+import {Redirect} from 'react-router';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Constant from 'constants/talent.search';
+import {talentSearch} from 'actions/clientActions';
+import styles from 'styles';
+import '../client.css';
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,8 +21,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
+  const { talentSearchResult } = state
   return {
-    search_result: state.talentSearchReducer
+    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null
   }
 };
 
@@ -112,13 +117,14 @@ class TalentSearch extends Component {
   };
 
   onSearch = (e) => {
-    // window.location.href = '/client/talent_search_result'
     e.preventDefault();
+    console.log('==== onSearch: state: ', this.state);
     this.props.getOnlineData(this.state);
+    this.props.history.push('/client/talent_search_result');
   };
 
-  goWelcomePage = () => {
-    window.location.href = "/client/welcome"
+  goClientHomeScreen = () => {
+    window.location.href = "/client/home"
   };
 
   // Toggle search features
@@ -214,14 +220,6 @@ class TalentSearch extends Component {
   };
 
   render() {
-    if (this.props.search_result.isFetching) {
-      return (
-        <Redirect to={{
-          pathname: '/client/talent_search_result',
-          state: {fetchData: this.props.search_result}
-        }}/>
-      )
-    }
 
     return (
       <div>
@@ -338,7 +336,7 @@ class TalentSearch extends Component {
         </form>
 
         <div className="mt-2 d-flex justify-content-end mr-3 pb-4">
-          <button className="btn btn-dark" onClick={this.goWelcomePage}>
+          <button className="btn btn-dark" onClick={this.goClientHomeScreen}>
             Back to My Home Page
           </button>
         </div>
@@ -347,4 +345,4 @@ class TalentSearch extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TalentSearch)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentSearch))

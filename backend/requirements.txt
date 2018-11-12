@@ -7,7 +7,7 @@ certifi==2017.7.27.1
 cffi==1.11.5
 chardet==3.0.4
 comtypes==1.1.7
-coreapi==2.3.1
+coreapi==2.3.3
 coreschema==0.0.4
 cryptography==2.3
 dj-static==0.0.6
@@ -28,8 +28,11 @@ docker-pycreds==0.3.0
 dockerpty==0.4.1
 docopt==0.6.2
 docutils==0.14
+drf-yasg==1.11.0
+drfdocs==0.0.11
 h5py==2.8.0
 idna==2.6
+inflection==0.3.1
 itypes==1.1.0
 Jinja2==2.9.6
 jmespath==0.9.3
@@ -57,6 +60,7 @@ pytz==2018.5
 PyYAML==3.13
 reportlab==3.5.4
 requests==2.18.4
+ruamel.yaml==0.15.77
 s3transfer==0.1.13
 scipy==1.1.0
 simplejson==3.16.0
