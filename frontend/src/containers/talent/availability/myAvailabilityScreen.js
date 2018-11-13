@@ -13,13 +13,13 @@ import Paper from '@material-ui/core/Paper';
 import SwipeableViews from 'react-swipeable-views';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Spacer from "components/spacer";
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Spacer from "components/general/spacer";
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 import { DateRangePicker, DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/SaveCancelButtonGroup';
+import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/saveCancelButtonGroup';
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -181,7 +181,7 @@ class MyAvailability extends Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.getContactInfoFromProps(this.props),
+      ...this.getInfoFromProps(this.props),
       isChanged: false
     })
   }

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Panel from 'components/panel';
+import Panel from 'components/general/panel';
 import { withStyles } from '@material-ui/core/styles';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
 import defaultValues from 'constants/defaultValues';

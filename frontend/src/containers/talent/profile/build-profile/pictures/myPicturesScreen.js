@@ -7,8 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import ClearRounded from '@material-ui/icons/ClearRounded';
 import Divider from '@material-ui/core/Divider';
-import Panel from 'components/panel'
-import Spacer from 'components/spacer';
+import Panel from 'components/general/panel'
+import Spacer from 'components/general/spacer';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
 import apiConfig from 'constants/api';

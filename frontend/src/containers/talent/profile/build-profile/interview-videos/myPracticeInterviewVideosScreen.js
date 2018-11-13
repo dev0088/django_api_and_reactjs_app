@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles } from '@material-ui/core/styles';
-import Panel from 'components/panel'
-import VideoListView from 'components/videoListView';
+import Panel from 'components/general/panel'
+import VideoListView from 'components/shiptalent/tables/videoListView';
 import '../contact-info/myContactInfo.css';
 import { styles } from 'styles';
 

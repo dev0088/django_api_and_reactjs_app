@@ -1,5 +1,5 @@
-import apiConfig from '../constants/api';
-import { getToken, getUserID } from "../service/storage";
+import apiConfig from 'constants/api';
+import { getToken, getUserID } from "service/storage";
 
 class TalentAPI {
   static processResponse(response, handleResponse) {

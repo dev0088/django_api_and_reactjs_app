@@ -17,8 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import UnitConverter from 'convert-units'
 import BmiCalculator from 'bmi-calc'
 
-import Panel from 'components/panel'
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Panel from 'components/general/panel'
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';

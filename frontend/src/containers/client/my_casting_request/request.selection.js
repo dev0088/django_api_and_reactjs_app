@@ -3,7 +3,7 @@ import '../client.css'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Redirect} from 'react-router'
-import {requestView} from "../../../apis/client.api";
+import {requestView} from "actions/clientActions";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -43,7 +43,7 @@ class RequestSelection extends Component {
   };
 
   goWelcomeScreen = () => {
-    window.location.href = "/client/welcome"
+    window.location.href = "/client/home"
   };
 
   render() {

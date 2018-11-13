@@ -12,12 +12,12 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 // import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 // import keydown from 'react-keydown';
-import { login } from '../../actions/auth';
-import { authErrors, isAuthenticated } from '../../reducers/index';
+import { login } from 'actions/auth';
+import { authErrors, isAuthenticated } from 'reducers/index';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import './loginScreen.css'
 
 const styles = {
@@ -53,8 +53,12 @@ class LoginScreen extends React.Component {
 
   componentWillMount() {
     if (this.props.isAuthenticated) {
-      // Go to video interview page for the demo.
-      this.props.history.push('/home')
+      const { type } = this.props.user
+      if (type === 'talent') {
+        this.props.history.push('/home')
+      } else if (type === 'client') {
+        this.props.history.push('/client/home')
+      }
     }
   }
 
@@ -78,14 +82,18 @@ class LoginScreen extends React.Component {
     const { email, password } = this.state;
     // this.setState({ loginRequest: true });
     this.props.onSubmit(email, password);
-
   };
 
   render() {
     const { error } = this.props;
 
     if(this.props.isAuthenticated) {
-      return <Redirect to='/home' />
+      const { type } = this.props.user
+      if (type === 'talent') {
+        return <Redirect to='/home' />
+      } else if (type === 'client') {
+        return <Redirect to='/client/home' />
+      }
     }
     return (
       <div className="login-layout" onKeyPress={this.handleKeyPress} >
@@ -168,10 +176,10 @@ class LoginScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { user } = state;
+  const { auth } = state;
 
   return {
-    user,
+    user: auth && auth.access ? auth.access : null,
     error: authErrors(state),
     isAuthenticated: isAuthenticated(state)
   }

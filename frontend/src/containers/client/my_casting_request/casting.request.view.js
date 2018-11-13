@@ -13,7 +13,7 @@ class CastingRequestView extends Component {
   };
 
   goWelcomeScreen = () => {
-    window.location.href = "/client/welcome"
+    window.location.href = "/client/home"
   };
 
   render() {

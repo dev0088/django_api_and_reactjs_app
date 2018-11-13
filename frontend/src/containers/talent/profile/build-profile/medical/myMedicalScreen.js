@@ -11,9 +11,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 
-import Spacer from 'components/spacer';
-import Panel from 'components/panel'
-import ConfirmChangesDialog from 'components/confirmChangesDialog';
+import Spacer from 'components/general/spacer';
+import Panel from 'components/general/panel'
+import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';

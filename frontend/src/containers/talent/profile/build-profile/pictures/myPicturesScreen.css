@@ -4,7 +4,7 @@
 }
 
 .profile-picture-info-view-container {
-  padding-top: 100px;
+  padding-top: 33px;
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -12,7 +12,7 @@
 
 @media only screen and (max-width: 900px) {
   .profile-picture-info-view-container{
-    padding-top: 100px;
+    padding-top: 33px;
     padding-left: 0px;
     padding-right: 0px;
   }
@@ -20,7 +20,7 @@
 
 @media only screen and (max-width: 1400px) {
   .profile-picture-info-view-container{
-    padding-top: 100px;
+    padding-top: 33px;
     padding-left: 0px;
     padding-right: 0px;
   }

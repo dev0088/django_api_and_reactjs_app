@@ -15,8 +15,6 @@ from skill.models import Skill
 from sub_skill.models import SubSkill
 from talent_position_type.models import TalentPositionType
 from talent_position_sub_type.models import TalentPositionSubType
-from talent_additional_position_type.models import TalentAdditionalPositionType
-from talent_additional_position_sub_type.models import TalentAdditionalPositionSubType
 from talent_visa.models import TalentVisa
 from talent_skill.models import TalentSkill
 from talent_sub_skill.models import TalentSubSkill
@@ -176,7 +174,7 @@ class TalentDetail(APIView):
         talent_sub_skills_data = self.pickout_data(talent_data, 'talent_sub_skills')
 
         # pick out visa data
-        talent_visa_data = self.pickout_data(talent_data, 'talent_visas')
+        talent_visas_data = self.pickout_data(talent_data, 'talent_visas')
 
         print('==== talent_data: ', talent_data)
         print('==== talent_skills_data: ', talent_skills_data)
@@ -204,7 +202,7 @@ class TalentDetail(APIView):
                 self.save_talent_sub_skills(talent_item, talent_sub_skills_data)
 
             # Check and save visa types
-            if talent_visa_data:
+            if talent_visas_data:
                 self.save_talent_visas(talent_item, talent_visas_data)
 
             return Response(serializer.data)

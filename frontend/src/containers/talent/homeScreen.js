@@ -8,10 +8,11 @@ import Truncate from 'react-truncate-html';
 import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import * as shiptalentInfoActions from '../../actions/shiptalentInfoActions'
-import * as talentActions from '../../actions/talentActions'
-import './homeScreen.css'
-import { styles } from '../../styles'
+import * as shiptalentInfoActions from 'actions/shiptalentInfoActions';
+import * as talentActions from 'actions/talentActions';
+import { styles } from 'styles';
+import './homeScreen.css';
+
 
 class HomeScreen extends Component {
 

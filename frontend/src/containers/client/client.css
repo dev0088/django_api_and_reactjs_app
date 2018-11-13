@@ -131,18 +131,18 @@
     padding: 5px !important;
 }
 
-.welcome-menu-button {
+.home-menu-button {
     font-size: 0.8rem !important;
     width: 10rem;
     padding: 1px !important;
 }
 
-.welcome-title {
+.home-title {
     font-weight: bold;
     font-size: 1.8rem;
 }
 
-.welcome-subtitle {
+.home-subtitle {
     font-weight: bold;
     font-size: 1.4rem;
 }

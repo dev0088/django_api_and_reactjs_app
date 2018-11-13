@@ -30,7 +30,7 @@ class MyRate extends Component {
     };
 
     goWelcome = () => {
-        window.location.href = "/client/welcome"
+        window.location.href = "/client/home"
     };
 
     onRate = () => {

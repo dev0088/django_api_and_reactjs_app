@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Panel from '../../../components/panel';
+import Panel from '../../../components/general/panel';
 
 import './myProfile.css'
 

@@ -7,7 +7,7 @@ export const login = (email, password) => ({
     [RSAA]: {
         endpoint: `${apiConfig.url}/auth/login/`,
         method: 'POST',
-        body: JSON.stringify({email, password}),
+        body: JSON.stringify({email, password, username: email}),
         headers: { 'Content-Type': 'application/json' },
         types: [
           types.LOGIN.REQUEST, types.LOGIN.SUCCESS, types.LOGIN.FAILURE

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import '../client.css'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {onCastingViewSearch} from '../../../apis/client.api'
+import {onCastingViewSearch} from 'actions/clientActions'
 import {bindActionCreators} from "redux";
 import 'react-datepicker/dist/react-datepicker.css';
 

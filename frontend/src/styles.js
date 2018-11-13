@@ -90,7 +90,23 @@ export const styles = theme => ({
     color: '#FFFFFF',
     fontSize: '1rem',
     fontWeight: 'bold',
-    paddingTop: '3px'
+    paddingTop: '3px',
+    textTransform: 'none',
+  },
+  topbarMenuItem: {
+    display: 'inline-block'
+  },
+  avatarImage: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+  },
+  avatarMenuItemText: {
+    color: '#FFFFFF',
+    fontSize: '1rem',
+    fontWeight: 400,
+    paddingLeft: '7px'
   },
   optionMenuItem: {
     backgroundColor: 'rgba(0, 0, 0, 0)!important',
@@ -123,14 +139,14 @@ export const styles = theme => ({
     // color: rgba(0, 0, 0, 0.87),
     fontSize: '1rem',
     fontWeight: 400,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
 
   h4: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     fontWeight: 400,
     lineHeight: 1.17,
     letterSpacing: '0.00735em',
@@ -147,6 +163,66 @@ export const styles = theme => ({
     marginInlineEtart: '0px',
     marginInlineEnd: '0px',
     fontWeight: 'bold',
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  footerMenuItemText: {
+    color: theme.palette.white.main,
+    fontWeight: 'bold',
+    textTransform: 'none',
+    display: 'inline-block'
+  },
+  footerDescriptionText: {
+    color: '#212529',
+    textTransform: 'none',
+    paddingBottom: '10px'
+  },
+  clientTalentSearchResultPicture: {
+    width: '70px',
+    height: '70px',
+    objectFit: 'cover',
+  },
+  pictureContainer: {
+    display: 'inline-block',
+    border: 'solid 3px',
+    color: '#000000'
+  },
+  clientFormSubTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  clientFormBackButton: {
+    textTransform: 'none',
+    borderRadius: '0px',
+    backgroundColor: '#343a40',
+    primaryColor: '#FFFFFF',
+  },
+  clientFormNextButtonContainerGrid: {
+    textAlign: 'right',
+  },
+  clientFormNextButton: {
+    textTransform: 'none',
+    borderRadius: '0px',
+    backgroundColor: '#343a40',
+    primaryColor: '#FFFFFF',
+  },
+  clientFormBackButtonText: {
+    color: '#FFFFFF',
+  },
+  clientFormNextButtonText: {
+    color: '#FFFFFF'
+  },
+  clientSearchResultTalentHeadlineText: {
+    fontWeight: 'bold'
+  },
+  clientTalentViewHeaderTitleText: {
+    textAlign: 'center'
   }
 });
 
@@ -167,6 +243,10 @@ export const theme = createMuiTheme ({
     white: {
       main: '#FFFFFF'
     }
+  },
+  typography: {
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    textTransform: "none",
   },
   button: {
     primaryColor: '#FFFFFF',

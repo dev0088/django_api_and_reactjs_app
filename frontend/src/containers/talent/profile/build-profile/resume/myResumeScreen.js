@@ -9,7 +9,7 @@ import ClearRounded from '@material-ui/icons/ClearRounded';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
-import Panel from 'components/panel'
+import Panel from 'components/general/panel'
 import apiConfig from 'constants/api';
 import TalentAPI from 'apis/talentAPIs';
 import * as talentActions from 'actions/talentActions';
