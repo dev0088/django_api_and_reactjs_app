@@ -10,7 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
-import Loading from '../../components/general/loading';
+import Loading from 'components/general/loading';
 import './forgotPasswordScreen.css'
 
 const styles = {

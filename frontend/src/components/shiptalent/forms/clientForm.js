@@ -32,7 +32,7 @@ class ClientForm extends Component {
             <Button
               variant="contained"
               color="primary"
-              className={classes.backButton}
+              className={classes.clientFormBackButton}
               onClick={this.handleClickBackButton}
             >
               {backButtonTitle ? backButtonTitle : 'Back'}
@@ -40,7 +40,7 @@ class ClientForm extends Component {
           </Link>
         </Grid>
         <Grid item xs={4} md={4} />
-        <Grid item xs={4} md={4} className={classes.nextButton}>
+        <Grid item xs={4} md={4} className={classes.clientFormNextButtonContainerGrid}>
           <Link to={nextLink}>
             <Button
               variant="contained"
@@ -48,7 +48,7 @@ class ClientForm extends Component {
               primary={true}
               fullWidth={false}
               focusVisible={true}
-              className={classes.nextButton}
+              className={classes.clientFormNextButton}
               onClick={this.handleClickNextButton}
             >
               {nextButtonTitle ? nextButtonTitle : 'Back'}
@@ -85,33 +85,6 @@ class ClientForm extends Component {
 
       </div>
     )
-
-    // return (
-    //   <div className="contact-info-view-container">
-    //     {contents}
-    //     <Row>
-    //       <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-    //         <Link to={backLink}>
-    //           <RaisedButton
-    //             label={backButtonTitle ? backButtonTitle : 'Back'}
-    //             primary={true}
-    //             onClick={this.handleClickBackButton}
-    //           />
-    //         </Link>
-    //       </Col>
-    //       <Col xs="4" md="4" className="pt-4 pt-md-4" />
-    //       <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-    //         <Link to={nextLink}>
-    //           <RaisedButton
-    //             label={nextButtonTitle ? nextButtonTitle : 'Next'}
-    //             primary={true}
-    //             onClick={this.handleClickNextButton}
-    //           />
-    //         </Link>
-    //       </Col>
-    //     </Row>
-    //   </div>
-    // )
   }
 }
 

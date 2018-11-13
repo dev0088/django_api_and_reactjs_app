@@ -181,31 +181,48 @@ export const styles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  clientTalentSearchResultPicture: {
+    width: '70px',
+    height: '70px',
+    objectFit: 'cover',
+  },
+  pictureContainer: {
+    display: 'inline-block',
+    border: 'solid 3px',
+    color: '#000000'
+  },
   clientFormSubTitle: {
     fontSize: '1rem',
     fontWeight: 600,
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
-  backButton: {
+  clientFormBackButton: {
     textTransform: 'none',
     borderRadius: '0px',
+    backgroundColor: '#343a40',
     primaryColor: '#FFFFFF',
   },
-  nextButton: {
-    textTransform: 'none',
+  clientFormNextButtonContainerGrid: {
     textAlign: 'right',
+  },
+  clientFormNextButton: {
+    textTransform: 'none',
     borderRadius: '0px',
+    backgroundColor: '#343a40',
     primaryColor: '#FFFFFF',
   },
-  backButtonText: {
+  clientFormBackButtonText: {
     color: '#FFFFFF',
   },
-  nextButtonText: {
+  clientFormNextButtonText: {
     color: '#FFFFFF'
   },
   clientSearchResultTalentHeadlineText: {
     fontWeight: 'bold'
+  },
+  clientTalentViewHeaderTitleText: {
+    textAlign: 'center'
   }
 });
 

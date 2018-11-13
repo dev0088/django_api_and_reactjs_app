@@ -508,6 +508,7 @@ class ViewProfile extends Component {
   }
 
   render() {
+    console.log('==== viewProfile: this: ', this)
     if (this.props.talentInfo === null) {
       return <div/>
     }
@@ -761,6 +762,7 @@ class ViewProfile extends Component {
 
 function mapStateToProps(state) {
   const { auth, talentInfo } = state;
+
   return {
     auth,
     talentInfo: talentInfo.value

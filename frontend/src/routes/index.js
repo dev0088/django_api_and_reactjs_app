@@ -56,6 +56,7 @@ import ClientLogin from "containers/client/login";
 import ClientHomeScreen from "containers/client/clientHomeScreen"
 import TalentSearch from 'containers/client/find_talent/talent.seach'
 import TalentSearchResult from "containers/client/find_talent/talent.search.result";
+import TalentView from "containers/client/talent_view/talent.view";
 import RequestSelection from "containers/client/my_casting_request/request.selection";
 import CastingRequestNew from "containers/client/my_casting_request/casting.request.new";
 import CastingRequestAddConfirm from "containers/client/my_casting_request/casting.request.add.confirm";
@@ -147,6 +148,14 @@ const Index = () => (
                     <TalentSearchResult {...props}/>
                 </TemplateClientTopbar>
             )}
+        />
+        <Route
+          path="/client/talent_view"
+          render={props => (
+            <TemplateClientTopbar>
+              <TalentView {...props}/>
+            </TemplateClientTopbar>
+          )}
         />
         <Route
             path="/client/request_selection"
