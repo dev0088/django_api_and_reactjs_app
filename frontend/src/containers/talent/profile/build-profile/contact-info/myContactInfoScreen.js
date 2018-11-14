@@ -8,9 +8,11 @@ import MenuItem from 'material-ui/MenuItem';
 import Panel from 'components/general/panel'
 import Button from '@material-ui/core/Button';
 import UpdatedTextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
 import moment from 'moment';
@@ -180,12 +182,10 @@ class MyContactInfo extends Component {
       emergency_phone: emergencyInfo.phone,
       emergency_relationship: emergencyInfo.relationship
     }
-    console.log('==== data: ', data)
     TalentAPI.saveTalentInfo(userID, data, this.handleBusinessStaffSaveResponse)
   }
 
   handleBusinessStaffSaveResponse = (response, isFailed) => {
-    console.log('==== response: ', response, isFailed)
     this.props.talentActions.getCurrentTalentInfo()
 		this.setState({
 			isChanged: false
@@ -194,6 +194,7 @@ class MyContactInfo extends Component {
 
 	checkChanges = (event) => {
 		const { isChanged } = this.state
+    console.log('===== event: ', event, isChanged)
 		if (isChanged) {
 			event.preventDefault()
 			this.setState({
@@ -208,7 +209,7 @@ class MyContactInfo extends Component {
 		})
 	}
 
-  renderBussinessStaff() {
+  renderContents() {
     const { classes } = this.props
     const {
       contactInfo,
@@ -219,7 +220,7 @@ class MyContactInfo extends Component {
     }
 
     return (
-      <Panel title={"My Contact Info"}>
+      <Paper>
         <Row className="profile-gender-row">
           <Col sm="12">
             <h5>Contact Information</h5>
@@ -448,7 +449,7 @@ class MyContactInfo extends Component {
             </Button>
           </Col>
         </Row>
-      </Panel>
+      </Paper>
     )
   }
 
@@ -456,20 +457,15 @@ class MyContactInfo extends Component {
     const { showConfirmChanges } = this.state;
 
     return (
-      <div className="contact-info-view-container">
+      <div>
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-
-        {this.renderBussinessStaff()}
-
-        <Row >
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/edit-profile" onClick={this.checkChanges} >
-              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-            </Link>
-          </Col>
-        </Row>
-
+        <TalentForm
+          formTitle="My Contact Info"
+          nextLink="/edit-profile"
+          nextButtonTitle="Back to Build/Edit My Profile"
+          handleClickNextButton={this.checkChanges}
+          contents={this.renderContents()}
+        />
         <ConfirmChangesDialog
           open={showConfirmChanges}
           onClose={this.handleCloseConfirm}

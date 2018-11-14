@@ -11,6 +11,10 @@ export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  typography: {
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    textTransform: "none",
+  },
   buttonIcon: {
     margin: 0,
   },
@@ -181,6 +185,16 @@ export const styles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  talentFormBackButton: {
+    textTransform: 'none',
+    borderRadius: '0px',
+    primaryColor: '#FFFFFF',
+  },
+  clientFormNextButton: {
+    textTransform: 'none',
+    borderRadius: '0px',
+    primaryColor: '#FFFFFF',
+  },
   clientTalentSearchResultPicture: {
     width: '70px',
     height: '70px',
@@ -203,7 +217,7 @@ export const styles = theme => ({
     backgroundColor: '#343a40',
     primaryColor: '#FFFFFF',
   },
-  clientFormNextButtonContainerGrid: {
+  clientFormNextButtonContainerGridItem: {
     textAlign: 'right',
   },
   clientFormNextButton: {
@@ -221,8 +235,46 @@ export const styles = theme => ({
   clientSearchResultTalentHeadlineText: {
     fontWeight: 'bold'
   },
-  clientTalentViewHeaderTitleText: {
+  clientTalentViewHeaderGridItem: {
     textAlign: 'center'
+  },
+  clientTalentViewHeaderTitleText: {
+    border: '2px solid',
+    // display: 'inline',
+    padding: '5px 10px 5px 10px'
+  },
+  clientTalentViewMoreInfoButtonGridItemWithoutFullWidth: {
+    textAlign: 'center',
+  },
+  clientTalentViewMoreInfoButtonGridItem: {
+    textAlign: 'center',
+    paddingLeft: '15%!important',
+    paddingRight: '15%!important'
+  },
+  clientTalentViewMoreInfoButton: {
+    display: 'block',
+    borderRadius: '5px'
+  },
+  clientTalentViewVideoButtonGridItem: {
+    textAlign: 'center',
+    padding: '5px'
+  },
+  clientTalentViewVideoButton: {
+    backgroundColor: '#000000',
+    display: 'block',
+    borderRadius: '10px'
+  },
+  clientTalentViewVideoButtonText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: '#FFFFFF',
+  },
+  clientTalentViewVideoButtonStatusText: {
+    color: '#d6d7d8',
+    textTransform: 'none',
   }
 });
 
@@ -232,7 +284,7 @@ export const theme = createMuiTheme ({
       main: '#007bff',
     },
     secondary: {
-      main: '#C00'
+      main: '#28a745'//'#C00'
     },
     green: {
       main: '#28a745'
@@ -244,14 +296,14 @@ export const theme = createMuiTheme ({
       main: '#FFFFFF'
     }
   },
-  typography: {
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-    textTransform: "none",
-  },
+  // typography: {
+  //   fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+  //   textTransform: "none",
+  // },
   button: {
     primaryColor: '#FFFFFF',
     primaryFontSize: '1.5rem'
-  }
+  },
 })
 
 export const themeV0 = getMuiTheme({

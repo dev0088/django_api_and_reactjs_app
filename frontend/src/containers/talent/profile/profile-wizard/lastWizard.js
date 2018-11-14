@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import Panel from '../../../../components/general/panel';
+import Panel from 'components/general/panel';
 import Spacer from "../../../../components/general/spacer";
-import * as talentActions from '../../../../actions/talentActions';
-import styles from '../../../../styles';
+import TalentForm from 'components/shiptalent/forms/talentForm';
+import * as talentActions from 'actions/talentActions';
+import styles from 'styles';
 
 class LastWizard extends Component {
   constructor(props) {
@@ -54,7 +53,7 @@ class LastWizard extends Component {
     console.log('==== response: ', response, isFailed)
   }
 
-  renderButtons() {
+  renderContents() {
     const { classes } = this.props;
     return (
       <Panel title={"Build My Profile Wizard"}>
@@ -99,7 +98,7 @@ class LastWizard extends Component {
                     </Grid>
                     <Grid item xs={12}>
                       <Typography align="center" variant="body1">
-                        {"My Contact Info → My Nationality → My Languages → My Height, Weight & Age Range → My Medical →My Headline & Bio → My Resume → My Pictures → My Videos"}
+                        {"My Contact Info → My Nationality → My Languages → My Height, Weight & Age Range → My Medical → My Headline & Bio → My Resume → My Pictures → My Videos"}
                         <br/>
                       </Typography>
                     </Grid>
@@ -116,27 +115,16 @@ class LastWizard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
-      <div className={"contact-info-view-container"}>
-        {this.renderButtons()}
-        <Row>
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to="/profile-wizard/select-position-sub-type">
-              <RaisedButton label="Back" primary={true}/>
-            </Link>
-          </Col>
-          <Col xs="4" md="4" className="pt-4 pt-md-4"> </Col>
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/profile-wizard/select-position-type">
-              <RaisedButton
-                label="Back to Primary Position (demo link only)"
-                primary={true}
-                onClick={() => this.handleClickNextButton()} />
-            </Link>
-          </Col>
-        </Row>
-      </div>
+      <TalentForm
+        formTitle="Build My Profile Wizard"
+        backLink="/profile-wizard/welcome"
+        backButtonTitle="Back"
+        nextLink="/profile-wizard/select-position-sub-type"
+        nextButtonTitle="Back to Primary Position (demo link only)"
+        handleClickNextButton={this.handleClickNextButton}
+        contents={this.renderContents()}
+      />
     )
   }
 }

@@ -26,12 +26,14 @@ class TalentSearchResult extends Component {
     let availableTalents = []
     let nearAvailableTalents = []
 
-    for(let i = 0; i < talentSearchResult.length; i ++) {
-      let talent = talentSearchResult[i]
-      if (talent.profile_status.is_completed_profile) {
-        availableTalents.push(talent)
-      } else {
-        nearAvailableTalents.push(talent)
+    if (talentSearchResult) {
+      for(let i = 0; i < talentSearchResult.length; i ++) {
+        let talent = talentSearchResult[i]
+        if (talent.profile_status.is_completed_profile) {
+          availableTalents.push(talent)
+        } else {
+          nearAvailableTalents.push(talent)
+        }
       }
     }
 
@@ -39,6 +41,12 @@ class TalentSearchResult extends Component {
       availableTalents,
       nearAvailableTalents
     }
+  }
+
+  componentWillMount() {
+    this.setState({
+      ...this.getInfoFromProps(this.props)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
