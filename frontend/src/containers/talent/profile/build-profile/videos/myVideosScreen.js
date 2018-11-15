@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import TalentBuildProfileForm from 'components/shiptalent/forms/talentBuildProfileForm';
-import TalentResumeForm from './talentResumeForm';
+import TalentVideosForm from './talentVideosForm';
 
 
-class MyResume extends Component {
+class MyVideos extends Component {
   render() {
     return (
       <TalentBuildProfileForm
@@ -16,4 +16,4 @@ class MyResume extends Component {
   }
 }
 
-export default MyResume;
+export default MyVideos;
