@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Panel from 'components/general/panel';
 import { withStyles } from '@material-ui/core/styles';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
@@ -93,16 +91,16 @@ class SelectSkillWizard extends Component {
     return res
   }
 
-  renderButtons() {
+  renderContents() {
     const { allPositionTypes, selectedPositionType } = this.state
     const { classes } = this.props;
 
     return (
-      <Panel title={"Build My Profile Wizard"}>
+      <Panel title={"Step 4"}>
         <WizardSettingHeader
           talentInfo={this.props.talentInfo}
           showSex={true}
-          showPositionType={false}
+          showPositionType={true}
           showSkill={false}
         />
         <h5 align="center" className="profile-bio-description">
@@ -143,25 +141,15 @@ class SelectSkillWizard extends Component {
 
   render() {
     return (
-      <div className="contact-info-view-container">
-        {this.renderButtons()}
-        <Row>
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to="/profile-wizard/select-male">
-              <RaisedButton label="Back" primary={true}/>
-            </Link>
-          </Col>
-          <Col xs="4" md="4" className="pt-4 pt-md-4" />
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/profile-wizard/select-position-sub-type">
-              <RaisedButton
-                label="Next"
-                primary={true}
-                onClick={() => this.handleClickNextButton()} />
-            </Link>
-          </Col>
-        </Row>
-      </div>
+      <TalentForm
+        formTitle="Build My Profile Wizard"
+        backLink="/profile-wizard/select-position-sub-type"
+        backButtonTitle="Back"
+        nextLink="/profile-wizard/select-sub-skill"
+        nextButtonTitle="Next"
+        handleClickNextButton={this.handleClickNextButton}
+        contents={this.renderContents()}
+      />
     )
   }
 }

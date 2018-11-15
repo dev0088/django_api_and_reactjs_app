@@ -6,9 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Panel from 'components/general/panel';
 import { withStyles } from '@material-ui/core/styles';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
-import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import Spacer from 'components/general/spacer';
-import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
 import styles from 'styles';
@@ -114,12 +113,12 @@ class SelectPositionSubTypeWizard extends Component {
     return res
   }
 
-  renderButtons() {
+  renderContents() {
     const { selectedPositionSubType, currentPositionType } = this.state;
     const { classes } = this.props;
     
     return (
-      <Panel title={"Build My Profile Wizard"}>
+      <Panel title={"Step 3"}>
         <WizardSettingHeader
           talentInfo={this.props.talentInfo}
           showSex={true}
@@ -169,11 +168,11 @@ class SelectPositionSubTypeWizard extends Component {
 
   render() {
     return (
-      <ProfileWizardForm
+      <TalentForm
         backLink="/profile-wizard/select-position-type"
         nextLink="/profile-wizard/lastWizard"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderButtons()}
+        contents={this.renderContents()}
       />
     )
   }

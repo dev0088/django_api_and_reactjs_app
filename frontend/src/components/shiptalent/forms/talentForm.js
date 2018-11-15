@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import NavigateButtonGroup from 'components/shiptalent/buttonGroups/navigateButtonGroup';
 import styles from 'styles';
 
-class ClientForm extends Component {
+class TalentForm extends Component {
 
   handleClickBackButton = () => {
     const { handleClickBackButton } = this.props;
@@ -22,9 +22,15 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle, formSubTitle, contents, backLink, nextLink, backButtonTitle, nextButtonTitle, classes } = this.props;
+    const {
+      formTitle, formSubTitle, contents,
+      backLink, backButtonTitle, handleClickBackButton,
+      nextLink, nextButtonTitle, handleClickNextButton,
+      classes
+    } = this.props;
+
     return (
-      <div>
+      <div className="contact-info-view-container">
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
@@ -44,10 +50,12 @@ class ClientForm extends Component {
             <NavigateButtonGroup
               backLink={backLink}
               backButtonTitle={backButtonTitle}
-              backButtonClass={classes.clientFormBackButton}
+              backButtonClass={classes.talentFormBackButton}
+              handleClickBackButton={handleClickBackButton}
               nextLink={nextLink}
               nextButtonTitle={nextButtonTitle}
-              nextButtonClass={classes.clientFormNextButton}
+              nextButtonClass={classes.talentFormNextButton}
+              handleClickNextButton={handleClickNextButton}
             />
           </Grid>
         </Grid>
@@ -57,4 +65,4 @@ class ClientForm extends Component {
   }
 }
 
-export default (withStyles(styles)(ClientForm));
+export default (withStyles(styles)(TalentForm));

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import Spacer from 'components/general/spacer';
+import ClientForm from 'components/shiptalent/forms/clientForm';
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import apiConfig from 'constants/api';
 import defaultValues from 'constants/defaultValues';
 import {
@@ -26,13 +26,13 @@ import {
 } from 'utils/appUtils';
 import styles from 'styles';
 import 'react-image-lightbox/style.css';
-// import './viewProfile.css'
 
 class TalentView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      talentInfo: (props && props.location && props.location.state) ? props.location.state.talentInfo : null,
       title: "",
       skills: [],
       notification: false,
@@ -44,34 +44,33 @@ class TalentView extends Component {
   }
 
   getInfoFromProps(props) {
-    const {
-      talent_position_types,
-      talent_position_sub_types,
-      talent_skills
-    } = props.talentInfo
-
+    const { talentInfo } = props
     return {
-      skills: talent_skills,
-      title: makeTitleWithAllPositionTypes(props.talentInfo)
+      skills: talentInfo.talent_skills,
+      title: makeTitleWithAllPositionTypes(talentInfo)
     }
   }
 
-
   componentWillMount() {
-    const { talentInfo } = this.props.location.state
-    if (talentInfo) {
-      this.setState({
-        ...this.getInfoFromProps(this.props.location.state)
-      })
+    if (this.props.location.state) {
+      const { talentInfo } = this.props.location.state
+      if (talentInfo) {
+        this.setState({
+          ...this.getInfoFromProps(this.props.location.state)
+        })
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { talentInfo } = nextProps.location.state
-    if (talentInfo) {
-      this.setState({
-        ...this.getInfoFromProps(nextProps.location.state)
-      })
+    const propsState = nextProps.location.state
+    if (propsState) {
+      const { talentInfo } = propsState
+      if (talentInfo) {
+        this.setState({
+          ...this.getInfoFromProps(propsState)
+        })
+      }
     }
   }
 
@@ -88,25 +87,23 @@ class TalentView extends Component {
       user,
       head_line,
       average_rating
-    } = this.props.location.state.talentInfo
+    } = this.state.talentInfo
     const { title } = this.state
     
     return (
-      <Grid container spacing={10} justify="center" alignItems="center"
-            className={classes.clientTalentViewHeaderTitleText}>
-        <Grid item xs={12}>
+      <Grid container spacing={10} direction="column" justify="center" alignItems="center">
+        <Grid item xs={12} className={classes.clientTalentViewHeaderGridItem}>
           <h3>
             {`${user.first_name} ${user.last_name} - ${average_rating}`}
           </h3>
           <p>{title}</p>
         </Grid>
-        <Grid item xs={12}>
-          <h4>{head_line}</h4>
+        <Grid item xs={12} className={classes.clientTalentViewHeaderGridItem}>
+          <h4 className={classes.clientTalentViewHeaderTitleText}>{head_line}</h4>
         </Grid>
       </Grid>
     )
   }
-
 
   renderGeneralInfoName(name) {
     return (
@@ -137,7 +134,7 @@ class TalentView extends Component {
       talent_languages,
       talent_medicals,
       worked_cruise_ship,
-    } = this.props.location.state.talentInfo
+    } = this.state.talentInfo
 
     return (
       <div>
@@ -186,8 +183,7 @@ class TalentView extends Component {
   }
 
   renderPictureView(caption) {
-    const { talentInfo } = this.props.location.state
-    const { talent_pictures } = talentInfo
+    const { talent_pictures } = this.state.talentInfo
 
     let picture = talent_pictures.find(function(picture) {
       return (picture.caption === caption);
@@ -243,7 +239,7 @@ class TalentView extends Component {
   }
 
   renderResume() {
-    const { talent_resume } = this.props.location.state.talentInfo
+    const { talent_resume } = this.state.talentInfo
 
     return (
       <Grid container spacing={8}>
@@ -269,7 +265,7 @@ class TalentView extends Component {
   }
 
   renderBioGraphy() {
-    const { bio } = this.props.location.state.talentInfo
+    const { bio } = this.state.talentInfo
 
     return (
       <Grid container spacing={8}>
@@ -290,404 +286,211 @@ class TalentView extends Component {
     )
   }
 
-  renderMoreInfoButtons() {
+  renderMoreInfoButton(link, title, subTitle) {
+    const { classes } = this.props
     return (
-      <Grid container spacing={8} direction="column" justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-            <Typography>{"Request More Info"}</Typography>
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-            <Typography>{"Shared Profile"}</Typography>
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-            <Typography>{"Block Profile"}</Typography>
-            <Typography>{"Temporarily or permanently"}</Typography>
-          </Button>
-        </Grid>
+      <ColumnButton
+        link = {link}
+        itemClass = {classes.clientTalentViewMoreInfoButtonGridItem}
+        buttonClass = {classes.clientTalentViewMoreInfoButton}
+        title = {title}
+        titleClass = {classes.clientTalentViewVideoButtonText}
+        subTitle = {subTitle}
+        subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+        size = {12}
+        color = "primary"
+        fullWidth = {true}
+      />
+    )
+  }
+  renderMoreInfoButtons() {
+    const { classes } = this.props
+    return (
+      <Grid container spacing={16} justify="center" alignItems="center">
+        { this.renderMoreInfoButton('/client/casting_request/new', "Request More Info") }
+        { this.renderMoreInfoButton('/client/myshared_profile', "Shared Profile") }
+        { this.renderMoreInfoButton('/client/blocked_profile', "Block Profile", "Temporarily or permanently") }
       </Grid>
     )
   }
 
+  renderVideoButton(link, title, subTitle) {
+    const { classes } = this.props
+    return (
+      <ColumnButton
+        link = {link}
+        itemClass = {classes.clientTalentViewVideoButtonGridItem}
+        buttonClass = {classes.clientTalentViewVideoButton}
+        title = {title}
+        titleClass = {classes.clientTalentViewVideoButtonText}
+        subTitle = {subTitle}
+        subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+        size = {6}
+        color = "primary"
+        fullWidth = {true}
+      />
+
+    )
+  }
+
   renderVideoButtonsGroup() {
-    const { talent_videos } = this.props.location.state.talentInfo
+    const { talent_videos } = this.state.talentInfo
 
     return (
-      <div>
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Video Greetings"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
+      <Grid container spacing={24} justify="center" alignItems="center">
+        {this.renderVideoButton('#', "Video Greetings", 2)}
+        {this.renderVideoButton('#', "Video Interview", getLiveVideoNumbers(talent_videos))}
+        {this.renderVideoButton('#', "Vocal Audition Videos", 11)}
+        {this.renderVideoButton('#', "Dance Audition Videos", 12)}
+        {this.renderVideoButton('#', "Acting Audition Videos", 3)}
+        {this.renderVideoButton('#', "Aerialist Audition Videos", 3)}
+        {this.renderVideoButton('#', "Musician Audition Videos", 0)}
+        {this.renderVideoButton('#', "Technician Audition Videos", 0)}
+        {this.renderVideoButton('#', "Cruise Staff Audition Videos", 0)}
+        {this.renderVideoButton('#', "Youth Staff Audition Videos", 0)}
+      </Grid>
+    )
+  }
 
-        <Row className="profile-gender-row">
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Vocal Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Dance Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Acting Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Aerialist Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Musician Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Technician Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Cruise Staff Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Youth Staff Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/practice-interview-videos'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Practice Interview Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {getPracticVideoNumbers(talent_videos)}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/live-interview-videos'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Live Interview Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {getLiveVideoNumbers(talent_videos)}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-      </div>
+  renderOtherButton(link, title, statusValue) {
+    const { classes } = this.props
+    return (
+      <ColumnButton
+        link = {link}
+        itemClass = {classes.clientTalentViewVideoButtonGridItem}
+        buttonClass = {classes.clientTalentViewVideoButton}
+        title = {title}
+        titleClass = {classes.clientTalentViewVideoButtonText}
+        subTitle = {statusValue}
+        subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+        size = {12}
+        color = ''
+        fullWidth = {false}
+      />
     )
   }
 
   renderOtherButtonsGroup() {
     return (
-      <div>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Immigration"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/medical-info'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Medical"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Availability"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+        {this.renderOtherButton('#', "Immigration", '2 Active Visas')}
+        {this.renderOtherButton('#', "Medical", 'no conditions')}
+        {this.renderOtherButton('#', "Availability", 'Last updated 04/11/2018')}
+        {this.renderOtherButton('#', "Client Ratings", '3 Submissions')}
+      </Grid>
     )
   }
 
-  render() {
-    if (this.props.location.state.talentInfo === null) {
+  renderColumnButton(link, title, subTitle, size, color, fullWidth) {
+    const { classes } = this.props
+    return (
+      <ColumnButton
+        link = {link}
+        itemClass = {fullWidth ?
+          classes.clientTalentViewMoreInfoButtonGridItem :
+          classes.clientTalentViewMoreInfoButtonGridItemWithoutFullWidth}
+        buttonClass = {classes.clientTalentViewMoreInfoButton}
+        title = {title}
+        titleClass = {classes.clientTalentViewVideoButtonText}
+        subTitle = {subTitle}
+        subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+        size = {size}
+        color = {color}
+        fullWidth = {fullWidth}
+      />
+    )
+  }
+
+  renderAddButtonsGroup() {
+    return(
+      <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+        {this.renderColumnButton('#', 'Add to My Call Backs', '(save for later)',
+          12, 'primary', true)}
+        {this.renderColumnButton('#', 'Add to My Casting Request', null,
+          12, 'secondary', true)}
+      </Grid>
+    )
+  }
+
+  renderContent() {
+    if (!this.state.talentInfo) {
       return <div/>
     }
 
     const { currentImageUrl, openImageModal } = this.state
-
-    return(
-      <div className="profile-container">
+    return (
+      <Grid container spacing={8}>
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            {this.renderHeader()}
-          </Grid>
-          <Grid item xs={12}>
-            <Spacer size={10} />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            {this.renderGeneralInfo()}
-          </Grid>
-          <Grid item md={9} xs={12} className="profile-bio">
-            <Grid container spacing={8}>
-              <Grid item md={3} xs={12}>
-                {this.renderPicturesView()}
-              </Grid>
-              <Grid item md={9} xs={12}>
-                <Grid container spacing={8}>
-                  <Grid item md={4} xs={12}>
-                    {this.renderResume()}
-                  </Grid>
-                  <Grid item md={8} xs={12}>
-                    {this.renderBioGraphy()}
-                  </Grid>
+        <Grid item xs={12}>
+          {this.renderHeader()}
+        </Grid>
+        <Grid item xs={12}>
+          <Spacer size={10} />
+        </Grid>
+        <Grid item md={3} xs={12}>
+          {this.renderGeneralInfo()}
+        </Grid>
+        <Grid item md={9} xs={12} className="profile-bio">
+          <Grid container spacing={8}>
+            <Grid item md={3} xs={12}>
+              {this.renderPicturesView()}
+            </Grid>
+            <Grid item md={9} xs={12}>
+              <Grid container spacing={8}>
+                <Grid item md={4} xs={12}>
+                  {this.renderResume()}
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  {this.renderBioGraphy()}
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item md={12} xs={12}>
-            <Spacer size={50} />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            {this.renderMoreInfoButtons()}
-          </Grid>
-          <Grid item md={6} xs={12}>
-            {this.renderVideoButtonsGroup()}
-          </Grid>
-          <Grid item md={3} xs={12}>
-            {this.renderOtherButtonsGroup()}
-          </Grid>
+        </Grid>
+        <Grid item md={12} xs={12}>
+          <Spacer size={50} />
+        </Grid>
+        <Grid item md={3} xs={12} style={{margin: 'auto'}}>
+          {this.renderMoreInfoButtons()}
+        </Grid>
+        <Grid item md={6} xs={12}>
+          {this.renderVideoButtonsGroup()}
+        </Grid>
+        <Grid item md={3} xs={12}>
+          {this.renderOtherButtonsGroup()}
+        </Grid>
+        <Grid item xs={12}>
+          <Spacer size={30} />
+        </Grid>
+        <Grid item xs={12}>
+          {this.renderAddButtonsGroup()}
         </Grid>
 
-        <Row >
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/edit-profile">
-              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-            </Link>
-          </Col>
-        </Row>
         {openImageModal && (
           <ImageLightbox
             mainSrc={currentImageUrl}
             onCloseRequest={() => this.setState({ openImageModal: false, currentImageUrl: null })}
           />
         )}
-      </div>
-    );
+      </Grid>
+    )
   }
 
-  renderPreview() {
-    if (this.props.location.state.talentInfo === null) {
-      return <div/>
-    }
-
-    const { currentImageUrl, openImageModal } = this.state
-
+  render() {
     return(
-      <div className="profile-container">
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-        <Row className="details-content">
-          <Col md="12">
-            {this.renderHeader()}
-          </Col>
-          <Col md="12">
-            <Spacer size={35} />
-          </Col>
-          <Col md="12">
-            <Row>
-              <Col md="3" className="profile-bio">
-                {this.renderGeneralInfo()}
-              </Col>
-              <Col md="9" className="profile-bio">
-                <Row>
-                  <Col md="3" className="profile-bio">
-                    {this.renderPicturesView()}
-                  </Col>
-                  <Col md="9">
-                    <Row>
-                      <Col md="4" className="profile-bio">
-                        {this.renderResume()}
-                      </Col>
-                      <Col md="8" className="profile-bio">
-                        {this.renderBioGraphy()}
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="12">
-                    <Spacer size={50} />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="8">
-                    {this.renderVideoButtonsGroup()}
-                  </Col>
-                  <Col md="4">
-                    {this.renderOtherButtonsGroup()}
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-        <Row >
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/edit-profile">
-              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-            </Link>
-          </Col>
-        </Row>
-        {openImageModal && (
-          <ImageLightbox
-            mainSrc={currentImageUrl}
-            onCloseRequest={() => this.setState({ openImageModal: false, currentImageUrl: null })}
+      <Grid container spacing={24}>
+        <Grid item xs={12} >
+          <ClientForm
+            formTitle=""
+            formSubTitle=""
+            backLink="/client/talent_search_result"
+            backButtonTitle="Back to Search Result"
+            nextLink="/client/home"
+            nextButtonTitle="Back to My Home Page"
+            contents={this.renderContent()}
           />
-        )}
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }

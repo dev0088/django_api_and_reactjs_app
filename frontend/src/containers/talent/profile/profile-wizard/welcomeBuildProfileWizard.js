@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import Button from '@material-ui/core/Button';
 // import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import './welcomeBuildProfileWizard.css';
 
 
@@ -13,9 +13,9 @@ class WelcomeBuildProfileWizard extends Component {
     super(props);
   }
 
-  renderButton() {
+  renderContents() {
     return (
-      <Panel title={"Build My Profile Wizard"}>
+      <Panel title={"Welcome"}>
 				<h5 align="center" className="profile-bio-description">
           Welcome to the Build My Profile Wizard.
 				</h5>
@@ -44,17 +44,12 @@ class WelcomeBuildProfileWizard extends Component {
 
   render() {
     return (
-      <div className="contact-info-view-container">
-        {this.renderButton()}
-        <Row>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to="/my-profile">
-              <RaisedButton label="Back" primary={true}/>
-            </Link>
-          </Col>
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-        </Row>
-      </div>
+      <TalentForm
+        formTitle="Build My Profile Wizard"
+        backLink="/my-profile"
+        backButtonTitle="Back"
+        contents={this.renderContents()}
+      />
   	)
   }
 }

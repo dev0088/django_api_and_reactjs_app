@@ -29,21 +29,8 @@ class TalentSerializer(serializers.ModelSerializer):
     talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
     talent_availabilities = TalentAvailabilitySerializerWithoutTalentID(many=True, read_only=True)
     talent_ratings = TalentRatingSerializer(many=True, read_only=True)
-    average_rating = serializers.FloatField(source='get_average_rating')
-    profile_status = serializers.JSONField(source='get_profile_status')
-    # is_completed_contact_info = serializers.BooleanField(source='get_is_completed_contact_info')
-    # is_completed_nationality = serializers.BooleanField(source='get_is_completed_nationality')
-    # is_completed_language = serializers.BooleanField(source='get_is_completed_language')
-    # is_completed_bio = serializers.BooleanField(source='get_is_completed_bio')
-    # is_completed_medical = serializers.BooleanField(source='get_is_completed_medical')
-    # is_completed_resume = serializers.BooleanField(source='get_is_completed_resume')
-    # is_completed_pictures = serializers.BooleanField(source='get_is_completed_pictures')
-    # is_completed_videos = serializers.BooleanField(source='get_is_completed_videos')
-    # is_completed_position_types = serializers.BooleanField(source='get_is_completed_position_types')
-    # is_completed_position_sub_types = serializers.BooleanField(source='get_is_completed_position_sub_types')
-    # is_completed_skills = serializers.BooleanField(source='get_is_completed_skills')
-    # is_completed_sub_skills = serializers.BooleanField(source='get_is_completed_sub_skills')
-    # is_completed_profile = serializers.BooleanField(source='get_is_completed_profile')
+    average_rating = serializers.FloatField(source='get_average_rating', read_only=True)
+    profile_status = serializers.JSONField(source='get_profile_status', read_only=True)
 
     class Meta:
         model = Talent

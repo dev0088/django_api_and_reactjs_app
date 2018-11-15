@@ -66,35 +66,42 @@ class TalentAPI {
   }
 
   static saveTalentInfo(user_id, data, handleResponse) {
-    this.processRequest(`talent/${user_id}/`, 'put', data, handleResponse)
+    TalentAPI.processRequest(`talent/${user_id}/`, 'put', data, handleResponse)
   }
 
   static saveTalentInfoWithToken(data, handleResponse) {
-    this.processRequestWithToken(`talent/${getUserID()}/`, 'put', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent/${getUserID()}/`, 'put', data, handleResponse)
   }
 
   static saveLanguages(user_id, data, handleResponse) {
-    this.processRequest(`talent_language/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequest(`talent_language/${user_id}/all`, 'post', data, handleResponse)
+  }
+  static saveLanguagesWithToken(data, handleResponse) {
+    TalentAPI.processRequest(`talent_language/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
 	static saveMedicals(user_id, data, handleResponse) {
-    this.processRequest(`talent_medical/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequest(`talent_medical/${user_id}/all`, 'post', data, handleResponse)
+  }
+
+  static saveMedicalsWithToken(data, handleResponse) {
+    TalentAPI.processRequest(`talent_medical/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
   static saveAvailability(user_id, data, handleResponse) {
-    this.processRequest(`talent_availability/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequest(`talent_availability/${user_id}/all`, 'post', data, handleResponse)
   }
 
   static saveAvailabilityWithToken(data, handleResponse) {
-    this.processRequest(`talent_availability/${getUserID()}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequest(`talent_availability/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
   static deletePicture(picture_id, handleResponse) {
-    this.processRequest(`talent_picture/${picture_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequest(`talent_picture/${picture_id}/`, 'delete', null, handleResponse)
   }
 
   static deleteResume(resume_id, handleResponse) {
-    this.processRequest(`talent_picture/${resume_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequest(`talent_resume/${resume_id}/`, 'delete', null, handleResponse)
   }
 
 }

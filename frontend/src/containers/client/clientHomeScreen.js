@@ -20,7 +20,7 @@ class ClientHomeScreen extends Component {
   };
 
   goMySavedTalent = () => {
-    this.props.history.push('/client/reqmytalent/saveduest_selection')
+    this.props.history.push('/client/mytalent/saved')
   };
 
   goMySharedProfile = () => {

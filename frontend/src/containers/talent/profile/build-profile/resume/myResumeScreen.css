@@ -1,6 +1,7 @@
 .profile-resume-image {
   width: 300px;
   height: 360px;
+  object-fit: cover;
 }
 
 .profile-resume-delete-icon {

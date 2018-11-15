@@ -29,11 +29,19 @@ import SelectMaleWizard from "containers/talent/profile/profile-wizard/selectMal
 import SelectPositionTypeWizard from "containers/talent/profile/profile-wizard/selectPositionTypeWizard";
 import SelectPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
 import LastWizard from "containers/talent/profile/profile-wizard/lastWizard";
+import SelectContactInfoWizard from "containers/talent/profile/profile-wizard/selectContactInfoWizard";
+import SelectNationalityWizard from "containers/talent/profile/profile-wizard/selectNationalityWizard";
+import SelectLanguageWizard from "containers/talent/profile/profile-wizard/selectLanguageWizard";
+import SelectMetricWizard from "containers/talent/profile/profile-wizard/selectMetricWizard";
+import SelectMedicalWizard from "containers/talent/profile/profile-wizard/selectMedicalWizard";
+import SelectBioWizard from "containers/talent/profile/profile-wizard/selectBioWizard";
+import SelectResumeWizard from "containers/talent/profile/profile-wizard/selectResumeWizard";
+import SelectPictureWizard from "containers/talent/profile/profile-wizard/selectPictureWizard";
 
 import MyProfile from "containers/talent/profile/myProfile";
 import ViewProfile from "containers/talent/profile/view-profile/viewProfile";
 import MyContactInfo from "containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
-import MyNatioinality from "containers/talent/profile/build-profile/nationality/myNationalityScreen";
+import MyNationality from "containers/talent/profile/build-profile/nationality/myNationalityScreen";
 import MyVideos from "containers/talent/profile/build-profile/interview-videos/myVideosScreen";
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
@@ -74,508 +82,571 @@ import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
 
 const Index = () => (
-    <Switch>
-        <Route
-            exact
-            path="/"
-            render={props => (
-                <TemplateTopbarOfComingSoon>
-                    <ComingSoonScreen {...props} />
-                </TemplateTopbarOfComingSoon>
-            )}
-        />
-        <Route
-            path="/home"
-            render={props => (
-                <TemplateTopbar>
-                    <HomeScreen {...props} />
-                </TemplateTopbar>
-            )}
-        />
-        <Route
-            path="/sign-up"
-            render={props => (
-                <TemplateNothing>
-                    <SignUpScreen {...props} />
-                </TemplateNothing>
-            )}
-        />
-        <Route
-            path="/login"
-            render={props => (
-                <TemplateNothing>
-                    <LoginScreen {...props} />
-                </TemplateNothing>
-            )}
-        />
-        <Route
-            path="/forgot-password"
-            render={props => (
-                <TemplateNothing>
-                    <ForgotPasswordScreen {...props} />
-                </TemplateNothing>
-            )}
-        />
+  <Switch>
+    <Route
+      exact
+      path="/"
+      render={props => (
+        <TemplateTopbarOfComingSoon>
+          <ComingSoonScreen {...props} />
+        </TemplateTopbarOfComingSoon>
+      )}
+    />
+    <Route
+      path="/home"
+      render={props => (
+        <TemplateTopbar>
+          <HomeScreen {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/sign-up"
+      render={props => (
+        <TemplateNothing>
+          <SignUpScreen {...props} />
+        </TemplateNothing>
+      )}
+    />
+    <Route
+      path="/login"
+      render={props => (
+        <TemplateNothing>
+          <LoginScreen {...props} />
+        </TemplateNothing>
+      )}
+    />
+    <Route
+      path="/forgot-password"
+      render={props => (
+        <TemplateNothing>
+          <ForgotPasswordScreen {...props} />
+        </TemplateNothing>
+      )}
+    />
 
-        <Route
-            path="/client/login"
-            render={props => (
-                <TemplateNothing>
-                    <ClientLogin {...props}/>
-                </TemplateNothing>
-            )}
-        />
-        <Route
-            path="/client/home"
-            render={props => (
-                <TemplateClientTopbar>
-                    <ClientHomeScreen {...props}/>
-                </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/talent_search"
-            render={props => (
-                <TemplateClientTopbar>
-                    <TalentSearch {...props}/>
-                </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/talent_search_result"
-            render={props => (
-                <TemplateClientTopbar>
-                    <TalentSearchResult {...props}/>
-                </TemplateClientTopbar>
-            )}
-        />
-        <Route
-          path="/client/talent_view"
-          render={props => (
-            <TemplateClientTopbar>
-              <TalentView {...props}/>
-            </TemplateClientTopbar>
-          )}
-        />
-        <Route
-            path="/client/request_selection"
-            render={props => (
-              <TemplateClientTopbar>
-                <RequestSelection {...props} />
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/casting_request/new"
-            render={props => (
-              <TemplateClientTopbar>
-                <CastingRequestNew {...props} />
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/casting_request/confirm"
-            render={props => (
-              <TemplateClientTopbar>
-                <CastingRequestAddConfirm {...props} />
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/casting_request/view"
-            render={props => (
-              <TemplateClientTopbar>
-                <CastingRequestView {...props} />
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/mytalent/saved"
-            render={props => (
-              <TemplateClientTopbar>
-                <MyTalentSaved {...props} />
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/mycallback"
-            render={props => (
-              <TemplateClientTopbar>
-                <MyCallback {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/myfavorite"
-            render={props => (
-              <TemplateClientTopbar>
-                <MyFavorite {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/myshared_profile"
-            render={props => (
-              <TemplateClientTopbar>
-                <MySharedProfile {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/talent_shared"
-            render={props => (
-              <TemplateClientTopbar>
-                <TalentSharedWith {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/talent_shared_by"
-            render={props => (
-              <TemplateClientTopbar>
-                <TalentSharedBy {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/talent_shared_team"
-            render={props => (
-              <TemplateClientTopbar>
-                <TalentSharedTeam {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/blocked_profile"
-            render={props => (
-              <TemplateClientTopbar>
-                <BlockedProfile {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            path="/client/my_rate"
-            render={props => (
-              <TemplateClientTopbar>
-                <MyRate {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            exact
-            path="/client/rating_comment"
-            render={props => (
-              <TemplateClientTopbar>
-                <RatingAndComment {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
-        <Route
-            exact
-            path="/client/rating_comment/submitted"
-            render={props => (
-              <TemplateClientTopbar>
-                <MyrateSubmitted {...props}/>
-              </TemplateClientTopbar>
-            )}
-        />
+    <Route
+      path="/client/login"
+      render={props => (
+        <TemplateNothing>
+          <ClientLogin {...props}/>
+        </TemplateNothing>
+      )}
+    />
+    <Route
+      path="/client/home"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientHomeScreen {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_search"
+      render={props => (
+        <TemplateClientTopbar>
+          <TalentSearch {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_search_result"
+      render={props => (
+        <TemplateClientTopbar>
+          <TalentSearchResult {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_view"
+      render={props => (
+      <TemplateClientTopbar>
+        <TalentView {...props}/>
+      </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/request_selection"
+      render={props => (
+        <TemplateClientTopbar>
+        <RequestSelection {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/casting_request/new"
+      render={props => (
+        <TemplateClientTopbar>
+        <CastingRequestNew {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/casting_request/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+        <CastingRequestAddConfirm {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/casting_request/view"
+      render={props => (
+        <TemplateClientTopbar>
+        <CastingRequestView {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/mytalent/saved"
+      render={props => (
+        <TemplateClientTopbar>
+        <MyTalentSaved {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/mycallback"
+      render={props => (
+        <TemplateClientTopbar>
+        <MyCallback {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/myfavorite"
+      render={props => (
+        <TemplateClientTopbar>
+        <MyFavorite {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/myshared_profile"
+      render={props => (
+        <TemplateClientTopbar>
+        <MySharedProfile {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_shared"
+      render={props => (
+        <TemplateClientTopbar>
+        <TalentSharedWith {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_shared_by"
+      render={props => (
+        <TemplateClientTopbar>
+        <TalentSharedBy {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/talent_shared_team"
+      render={props => (
+        <TemplateClientTopbar>
+        <TalentSharedTeam {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/blocked_profile"
+      render={props => (
+        <TemplateClientTopbar>
+        <BlockedProfile {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/my_rate"
+      render={props => (
+        <TemplateClientTopbar>
+        <MyRate {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/rating_comment"
+      render={props => (
+        <TemplateClientTopbar>
+        <RatingAndComment {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/rating_comment/submitted"
+      render={props => (
+        <TemplateClientTopbar>
+        <MyrateSubmitted {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
 
-        <Route
-            path="/interview-start"
-            render={props => (
-                <TemplateTopbar>
-                    <InterviewStart {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/interview-start"
+      render={props => (
+        <TemplateTopbar>
+          <InterviewStart {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/interview-instruction/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <InterviewInstruction {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/interview-instruction/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <InterviewInstruction {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/interview-instruction-live/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <InterviewInstructionLive {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/interview-instruction-live/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <InterviewInstructionLive {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/interview-device-allow/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <InterviewDeviceAllow {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/interview-device-allow/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <InterviewDeviceAllow {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/video-interview/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <VideoPreview {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/video-interview/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <VideoPreview {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/live-interview/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <LiveInterview {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/live-interview/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <LiveInterview {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/video-practice/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <VideoPractice {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/video-practice/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <VideoPractice {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/my-profile"
-            render={props => (
-                <TemplateTopbar>
-                    <MyProfile {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/my-profile"
+      render={props => (
+        <TemplateTopbar>
+          <MyProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile-wizard/welcome"
-            render={props => (
-                <TemplateTopbar>
-                    <WelcomeBuildProfileWizard {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/profile-wizard/welcome"
+      render={props => (
+        <TemplateTopbar>
+          <WelcomeBuildProfileWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile-wizard/select-male"
-            render={props => (
-                <TemplateTopbar>
-                    <SelectMaleWizard {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/profile-wizard/select-male"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMaleWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile-wizard/select-position-type"
-            render={props => (
-                <TemplateTopbar>
-                    <SelectPositionTypeWizard {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/profile-wizard/select-position-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectPositionTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile-wizard/select-position-sub-type"
-            render={props => (
-                <TemplateTopbar>
-                    <SelectPositionSubTypeWizard {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/profile-wizard/select-position-sub-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectPositionSubTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile-wizard/lastWizard"
-            render={props => (
-                <TemplateTopbar>
-                    <LastWizard {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/profile-wizard/lastWizard"
+      render={props => (
+        <TemplateTopbar>
+          <LastWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-contact-info"
+      render={props => (
+      <TemplateTopbar>
+        <SelectContactInfoWizard {...props} />
+      </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-nationality"
+      render={props => (
+      <TemplateTopbar>
+        <SelectNationalityWizard {...props} />
+      </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-language"
+      render={props => (
+      <TemplateTopbar>
+        <SelectLanguageWizard {...props} />
+      </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-metric"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMetricWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-medical"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMedicalWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-bio"
+      render={props => (
+      <TemplateTopbar>
+        <SelectBioWizard {...props} />
+      </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-resume"
+      render={props => (
+        <TemplateTopbar>
+          <SelectResumeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-picture"
+      render={props => (
+        <TemplateTopbar>
+          <SelectPictureWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile"
+      render={props => (
+        <TemplateTopbar>
+          <ViewProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/profile"
-            render={props => (
-                <TemplateTopbar>
-                    <ViewProfile {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/edit-profile"
+      render={props => (
+        <TemplateTopbar>
+          <EditProfile {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/edit-profile"
-            render={props => (
-                <TemplateTopbar>
-                    <EditProfile {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/contact-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyContactInfo {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/contact-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyContactInfo {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/nationality-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyNationality {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/bio-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyBio {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/nationality-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyNatioinality {...props} />
-                </TemplateTopbar>
-            )}
-        />
-        <Route
-            path="/bio-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyBio {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/metrics-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyMetrics {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/metrics-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyMetrics {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/bio-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyBio {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/bio-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyBio {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/language-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyLanguage {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/language-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyLanguage {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/medical-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyMedical {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/medical-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyMedical {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/videos-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/videos-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyVideos {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/pictures-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyPictures {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/pictures-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyPictures {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/resume-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyResume {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/resume-info"
-            render={props => (
-                <TemplateTopbar>
-                    <MyResume {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/practice-interview-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyPracticeInterviewVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/practice-interview-videos"
-            render={props => (
-                <TemplateTopbar>
-                    <MyPracticeInterviewVideos {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/live-interview-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyLiveInterviewVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/live-interview-videos"
-            render={props => (
-                <TemplateTopbar>
-                    <MyLiveInterviewVideos {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/availability-info"
+      render={props => (
+      <TemplateTopbar>
+        <MyAvailability {...props} />
+      </TemplateTopbar>
+      )}
+    />
 
-        <Route
-          path="/availability-info"
-          render={props => (
-            <TemplateTopbar>
-              <MyAvailability {...props} />
-            </TemplateTopbar>
-          )}
-        />
+    <Route
+      path="/faq/:pageId"
+      render={props => (
+        <TemplateTopbar>
+          <SubFaq {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/faq/:pageId"
-            render={props => (
-                <TemplateTopbar>
-                    <SubFaq {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/terms"
+      render={props => (
+        <TemplateTopbar>
+          <Terms {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/terms"
-            render={props => (
-                <TemplateTopbar>
-                    <Terms {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/faq"
+      render={props => (
+        <TemplateTopbar>
+          <Faq {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/faq"
-            render={props => (
-                <TemplateTopbar>
-                    <Faq {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      path="/contact-us"
+      render={props => (
+        <TemplateTopbar>
+          <ContactUs {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
-        <Route
-            path="/contact-us"
-            render={props => (
-                <TemplateTopbar>
-                    <ContactUs {...props} />
-                </TemplateTopbar>
-            )}
-        />
+    <Route
+      render={props => (
+        <TemplateSidebar>
+          <Error {...props} title="404" content="Sorry, the route you requested does not exist"/>
+        </TemplateSidebar>
+      )}
+    />
 
-        <Route
-            render={props => (
-                <TemplateSidebar>
-                    <Error {...props} title="404" content="Sorry, the route you requested does not exist"/>
-                </TemplateSidebar>
-            )}
-        />
-
-    </Switch>
+  </Switch>
 );
 
 export default Index;

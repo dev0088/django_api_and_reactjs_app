@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
-import '../client.css'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Redirect} from 'react-router'
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import ClientForm from 'components/shiptalent/forms/clientForm';
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import {requestView} from "actions/clientActions";
+import styles from 'styles';
+import '../client.css'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -34,52 +39,53 @@ class RequestSelection extends Component {
     bottom: '3rem'
   };
 
-  onCreateNewRequest = () => {
-    window.location.href = "/client/casting_request/new"
-  };
-
-  onRequestView = () => {
-    this.props.getOnlineData();
-  };
-
-  goWelcomeScreen = () => {
-    window.location.href = "/client/home"
-  };
-
-  render() {
-    if (this.props.initState.isFetching) {
-      return (
-        <Redirect to={{
-          pathname: '/client/casting_request/view',
-          state: {fetchData: this.props.initState}
-        }}/>
-      )
-    }
+  renderContent() {
+    const { classes } = this.props
 
     return (
-      <div className="text-center">
-        <div className="title mt-5 pb-5" style={this.parentStyle}>My Casting Requests Selection</div>
-
-        <div className="mt-5">
-          <button className="btn btn-outline-primary" style={this.button_style}
-                  onClick={this.onCreateNewRequest}>
-            Create <br/> New Casting Request
-          </button>
-        </div>
-        <div className="mt-3">
-          <button className="btn btn-outline-primary" style={this.button_style} onClick={this.onRequestView}>
-            View <br/> My Casting Requests
-          </button>
-        </div>
-
-        <div>
-          <button className="btn btn-dark" style={this.btnStyles} onClick={this.goWelcomeScreen}>
-            Back to My Home Page
-          </button>
-        </div>
-      </div>
+      <Grid container spacing={24}>
+        <Grid item xs={4} />
+        <Grid item xs={4} >
+          <Grid container spacing={24}>
+            <ColumnButton
+              link = {'/client/casting_request/new'}
+              itemClass = {classes.clientTalentViewVideoButtonGridItem}
+              buttonClass = {classes.clientTalentViewVideoButton}
+              title = {"Create New Casting Request"}
+              titleClass = {classes.clientTalentViewVideoButtonText}
+              size = {12}
+              fullWidth = {true}
+            />
+            <ColumnButton
+              link = {'/client/casting_request/view'}
+              itemClass = {classes.clientTalentViewVideoButtonGridItem}
+              buttonClass = {classes.clientTalentViewVideoButton}
+              title = {"View My Casting Requests"}
+              titleClass = {classes.clientTalentViewVideoButtonText}
+              size = {12}
+              fullWidth = {true}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={4} />
+      </Grid>
     )
+  }
+
+  render() {
+    return(
+      <Grid container spacing={24}>
+        <Grid item xs={12} >
+          <ClientForm
+            formTitle="My Casting Requests Selection"
+            nextLink="/client/home"
+            nextButtonTitle="Back to My Home Page"
+            contents={this.renderContent()}
+          />
+        </Grid>
+      </Grid>
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestSelection)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RequestSelection))

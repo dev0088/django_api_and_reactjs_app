@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import Panel from 'components/general/panel';
-import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
@@ -57,10 +57,10 @@ class SelectMaleWizard extends Component {
     console.log('==== response: ', response, isFailed)
   }
 
-  renderButtons() {
+  renderContents() {
 
     return (
-      <Panel title={"Build My Profile Wizard"}>
+      <Panel title={"Step 1"}>
         <h5 align="center" className="profile-bio-description">
           {"First, tell us if you are Male or Female"}
         </h5>
@@ -99,11 +99,14 @@ class SelectMaleWizard extends Component {
 
   render() {
     return (
-      <ProfileWizardForm
+      <TalentForm
+        formTitle="Build My Profile Wizard"
         backLink="/profile-wizard/welcome"
+        backButtonTitle="Back"
         nextLink="/profile-wizard/select-position-type"
+        nextButtonTitle="Next"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderButtons()}
+        contents={this.renderContents()}
       />
     )
   }
