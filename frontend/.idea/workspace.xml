@@ -16,78 +16,102 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="talentForm.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="27" column="54" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="27" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myContactInfoScreen.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="talentHeader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/talentHeader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1949">
-              <caret line="150" column="52" lean-forward="false" selection-start-line="150" selection-start-column="41" selection-end-line="150" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="templateTopbar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/shiptalent/template/templateTopbar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="9" column="32" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="memberScreen.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/talent/memberScreen.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="676">
-              <caret line="35" column="58" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="58" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="talentContactInfoForm.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/talentContactInfoForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="461" column="3" lean-forward="true" selection-start-line="461" selection-start-column="3" selection-end-line="461" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="vertical" split-proportion="0.6917729">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="myPicturesScreen.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="104">
+                  <caret line="741" column="12" lean-forward="true" selection-start-line="741" selection-start-column="12" selection-end-line="741" selection-end-column="12" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                    <element signature="e#24014#24053#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="talentPicturesForm.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/talentPicturesForm.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="544">
+                  <caret line="330" column="3" lean-forward="false" selection-start-line="330" selection-start-column="3" selection-end-line="330" selection-end-column="3" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="selectPictureWizard.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPictureWizard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="198">
+                  <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="myResumeScreen.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/myResumeScreen.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="113">
+                  <caret line="388" column="26" lean-forward="true" selection-start-line="388" selection-start-column="26" selection-end-line="388" selection-end-column="26" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                    <element signature="e#12278#12317#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="talentResumeForm.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/talentResumeForm.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="126">
+                  <caret line="310" column="39" lean-forward="true" selection-start-line="310" selection-start-column="39" selection-end-line="310" selection-end-column="39" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="selectResumeWizard.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectResumeWizard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="64">
+                  <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="140">
+                  <caret line="462" column="10" lean-forward="true" selection-start-line="462" selection-start-column="10" selection-end-line="462" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#520#586#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -98,48 +122,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>typography</find>
-      <find>sav</find>
-      <find>renderAddButtonsGroup</find>
-      <find>saved</find>
-      <find>clientFormNextButtonContainerGrid</find>
-      <find>NavigateButtonGroup</find>
-      <find>handleClickNextButton</find>
-      <find>\&lt;ProfileWizardForm\n        backLink\=\&quot;\/profile\-wizard\/select\-position\-type\&quot;\n        nextLink\=\&quot;\/profile\-wizard\/lastWizard\&quot;\n        handleClickNextButton\=\{this\.handleClickNextButton\}\n        contents\=\{this\.renderButtons\(\)\}\n      \/\&gt;</find>
-      <find>ProfileWizardForm</find>
-      <find>forms/TalentForm</find>
-      <find>ClientForm</find>
-      <find>renderButtons</find>
-      <find>TalentForm</find>
-      <find>&lt;Panel</find>
-      <find>userID</find>
-      <find>notification</find>
-      <find>handleBusinessStaffSaveResponse</find>
-      <find>renderBussinessStaff</find>
-      <find>MyContactInfoForm</find>
-      <find>TemplateTopbar</find>
-      <find>isChanged:</find>
+      <find>handleCloseConfirm</find>
       <find>checkChanges</find>
       <find>showConfirmChanges</find>
-      <find>handleCloseConfirm</find>
-      <find>talentReducer</find>
-      <find>MyContactInfo</find>
+      <find>isChange</find>
+      <find>renderCon</find>
+      <find>SelectLanguageWizard</find>
+      <find />
+      <find>handleCh</find>
+      <find>SelectBioWizard</find>
+      <find>MyMedical</find>
+      <find>isChanged:</find>
+      <find>BioWizar</find>
+      <find>isChanged</find>
+      <find>renderResumeView</find>
+      <find>caption</find>
+      <find>renderContents</find>
+      <find>MyMetrics</find>
+      <find>&lt;img</find>
+      <find>missing</find>
+      <find>TalentAPI</find>
+      <find>dele</find>
+      <find>My Headline &amp; Biography</find>
+      <find>- My</find>
+      <find>Step</find>
+      <find>SelectNationalityWizard</find>
+      <find>renderContents(</find>
       <find>talentActions</find>
       <find>auth</find>
-      <find>TalentContactInfoForm</find>
-      <find>render(</find>
+      <find>png</find>
+      <find>SelectResumeWizard</find>
     </findStrings>
     <replaceStrings>
-      <replace>containers</replace>
-      <replace>clientInfo</replace>
-      <replace>components/shiptalent/dialogs/confirmChangesDialog</replace>
-      <replace>components/general/panel</replace>
-      <replace>components/general/dropdown/</replace>
-      <replace>components/general/spacer</replace>
-      <replace>components/shiptalent/templates/templateClientTopbar</replace>
-      <replace>template/templateClientTopbar</replace>
-      <replace>components/tables/videoListView</replace>
-      <replace>ClientFooter</replace>
       <replace>handleMenuClose</replace>
       <replace>talentSearch</replace>
       <replace>ClientFrom</replace>
@@ -157,9 +171,19 @@
       <replace>clientFormNextButtonContainerGridItem</replace>
       <replace>TalentForm</replace>
       <replace>MyContactInfoForm</replace>
-      <replace>renderContents</replace>
       <replace>TalentBuildProfileForm</replace>
       <replace>TalentContactInfoForm</replace>
+      <replace>SelectContactInfoWizard</replace>
+      <replace>TalentNatioinalityInfoForm</replace>
+      <replace>MyNationality</replace>
+      <replace>TalentLanguageForm</replace>
+      <replace>SelectLanguageWizard</replace>
+      <replace>TalentMetricForm</replace>
+      <replace>TalentMedicalForm</replace>
+      <replace />
+      <replace>SelectResumeWizard</replace>
+      <replace>renderContents</replace>
+      <replace>SelectPictureWizard</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -168,35 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/clientHeader.js" />
-        <option value="$PROJECT_DIR$/src/components/clientFooter.js" />
-        <option value="$PROJECT_DIR$/src/components/templateClientTopbar.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/comingSoonHeader.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/bio/myBioScreen.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/general/editProfile.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/availability/myAvailabilityScreen.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/headers/clientHeader.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/headers/talentHeader.js" />
-        <option value="$PROJECT_DIR$/src/reducers/clientReducer.js" />
-        <option value="$PROJECT_DIR$/src/apis/talentAPIs.js" />
-        <option value="$PROJECT_DIR$/src/apis/clientAPIs.js" />
-        <option value="$PROJECT_DIR$/src/containers/client/my_casting_request/casting.request.new.js" />
-        <option value="$PROJECT_DIR$/src/containers/common/loginScreen.js" />
-        <option value="$PROJECT_DIR$/src/containers/client/find_talent/talent.seach.js" />
-        <option value="$PROJECT_DIR$/src/actions/clientActions.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/headers/wizardSettingHeader.js" />
-        <option value="$PROJECT_DIR$/src/containers/client/view_talent/view_talent.js" />
-        <option value="$PROJECT_DIR$/src/routes/index.js" />
-        <option value="$PROJECT_DIR$/src/containers/common/forgotPasswordScreen.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/forms/talentViewForm.js" />
-        <option value="$PROJECT_DIR$/src/utils/appUtils.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/views/talentPicturesView.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.css" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/footer/navigateButtonsFooter.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/footer/navigateFooter.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/buttonGroups/navigateButonGroup.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/buttons/columnButton.js" />
         <option value="$PROJECT_DIR$/src/containers/client/find_talent/talent.search.result.js" />
@@ -206,19 +201,48 @@
         <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientForm.js" />
         <option value="$PROJECT_DIR$/src/styles.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPositionTypeWizard.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectSkillWizard.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMaleWizard.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/lastWizard.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/forms/talentForm.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/buttonGroups/navigateButtonGroup.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/contactInfoForm.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfoForm.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/dialogs/confirmChangesDialog.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/talentContactInfoForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/lastWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js" />
+        <option value="$PROJECT_DIR$/src/components/shiptalent/buttonGroups/navigateButtonGroup.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/nationality/talentNationalityInfoForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/language/talentLanguageform.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/forms/talentBuildProfileForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/nationality/talentNationalityForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/language/myLanguagesScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/language/talentLanguageForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectContactInfoWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectNationalityWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/talentContactInfoForm.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/bio/myBioScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/bio/talentBioForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/metric/myMetricScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectLanguageWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/metric/talentMetricForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/medical/myMedicalScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMedicalWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectBioWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/medical/talentMedicalForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMetricWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/myResumeScreen.js" />
+        <option value="$PROJECT_DIR$/src/apis/talentAPIs.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectResumeWizard.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/talentResumeForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.css" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfo.css" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPictureWizard.js" />
+        <option value="$PROJECT_DIR$/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/myResumeScreen.css" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/talentPicturesForm.js" />
       </list>
     </option>
   </component>
@@ -281,6 +305,12 @@
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -289,14 +319,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
-              <item name="dialogs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -313,14 +335,6 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
               <item name="headers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
-              <item name="template" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -370,7 +384,32 @@
               <item name="talent" type="462c0819:PsiDirectoryNode" />
               <item name="profile" type="462c0819:PsiDirectoryNode" />
               <item name="build-profile" type="462c0819:PsiDirectoryNode" />
-              <item name="general" type="462c0819:PsiDirectoryNode" />
+              <item name="pictures" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+              <item name="build-profile" type="462c0819:PsiDirectoryNode" />
+              <item name="resume" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="talent" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+              <item name="profile-wizard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -438,12 +477,12 @@
       <workItem from="1540262470785" duration="109000" />
       <workItem from="1540402287495" duration="3619000" />
       <workItem from="1541456174384" duration="3306000" />
-      <workItem from="1541606931913" duration="107908000" />
+      <workItem from="1541606931913" duration="126995000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136260000" />
+    <option name="totallyTimeSpent" value="155347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1920" height="981" extended-state="6" />
@@ -468,6 +507,26 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908458" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19905214" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3198146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39976826" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -477,304 +536,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/availability/myAvailabilityScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2617">
-          <caret line="137" column="2" lean-forward="false" selection-start-line="137" selection-start-column="2" selection-end-line="137" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/@material-ui/core/es/MobileStepper/MobileStepper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="136" column="2" lean-forward="false" selection-start-line="136" selection-start-column="2" selection-end-line="136" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/wizardSettingHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="54" lean-forward="true" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/myshared.profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/common/forgotPasswordScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentViewForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/views/talentPicturesView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <element signature="n#!!block;n#renderPictureView#0;n#TalentPicturesView#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-212">
-          <caret line="43" column="17" lean-forward="false" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/find_talent/talent.seach.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6763">
-          <caret line="85" column="15" lean-forward="false" selection-start-line="85" selection-start-column="15" selection-end-line="85" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/footer/talentFooter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="443" column="60" lean-forward="false" selection-start-line="443" selection-start-column="26" selection-end-line="443" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/appUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="45" column="3" lean-forward="true" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-            <element signature="n#!!block;n#existSkill#0" expanded="false" />
-            <element signature="n#!!block;n#makeHeight#0" expanded="false" />
-            <element signature="n#!!block;n#makeWeight#0" expanded="false" />
-            <element signature="n#!!block;n#makeLanguages#0" expanded="false" />
-            <element signature="n#!!block;n#makeImages#0" expanded="false" />
-            <element signature="n#!!block;n#getPracticVideoNumbers#0" expanded="false" />
-            <element signature="n#!!block;n#getLiveVideoNumbers#0" expanded="false" />
-            <element signature="n#!!block;n#checkPreviousShipMedical#0" expanded="false" />
-            <element signature="n#!!block;n#checkCPR#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/find_talent/talent.search.result.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-            <element signature="n#!!block;n#renderTalentsTable#0;n#TalentSearchResult#0" expanded="false" />
-            <element signature="n#!!block;n#renderAvailableTalents#0;n#TalentSearchResult#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_casting_request/casting.request.new.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6202">
-          <caret line="5" column="56" lean-forward="false" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_casting_request/casting.request.add.confirm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/talent.shared.team.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/talent.shared.with.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1167">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/talent.shared.by.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1303">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/buttons/columnButton.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_blocked_profile/blocked.profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_casting_request/casting.request.view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/clientHomeScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/talent_view/talent.view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="492" column="13" lean-forward="false" selection-start-line="492" selection-start-column="13" selection-end-line="492" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1542164362000" expanded="true" signature="1061:15979" ph="{...}" />
-            <marker date="1542164362000" expanded="true" signature="10518:15979" ph="{...}" />
-            <marker date="1542164362000" expanded="true" signature="10586:11381" ph="&lt;div/&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_casting_request/request.selection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="61" column="29" lean-forward="true" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="194" column="24" lean-forward="false" selection-start-line="194" selection-start-column="24" selection-end-line="194" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/clientForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/profileWizardForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="8" column="64" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectSkillWizard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -791,16 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/lastWizard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="117" column="12" lean-forward="true" selection-start-line="117" selection-start-column="12" selection-end-line="117" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/welcomeBuildProfileWizard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
@@ -809,14 +565,6 @@
             <element signature="e#0#39#0" expanded="false" />
             <element signature="e#225#270#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMaleWizard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -830,22 +578,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/buttonGroups/navigateButtonGroup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/shiptalent/template/templateNothing.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -866,16 +604,6 @@
           <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="89" column="31" lean-forward="false" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="31" />
-          <folding>
-            <element signature="e#89#166#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -901,16 +629,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="27" column="54" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="27" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/talentHeader.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1949">
@@ -929,30 +647,257 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentBuildProfileForm.js">
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/memberScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="676">
+          <caret line="35" column="58" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/lastWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="72" column="59" lean-forward="false" selection-start-line="72" selection-start-column="59" selection-end-line="72" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectSkillWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMaleWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="62" column="28" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPositionSubTypeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="173" column="8" lean-forward="false" selection-start-line="173" selection-start-column="8" selection-end-line="173" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="49" column="32" lean-forward="false" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/buttonGroups/navigateButtonGroup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/memberScreen.js">
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentBuildProfileForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="35" column="58" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="58" />
+        <state relative-caret-position="230">
+          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="28" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/talentContactInfoForm.js">
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/nationality/talentNationalityForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="461" column="3" lean-forward="true" selection-start-line="461" selection-start-column="3" selection-end-line="461" selection-end-column="3" />
+        <state relative-caret-position="224">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+            <element signature="n#!!block;n#render#0;n#TalentNationalityForm#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/nationality/myNationalityScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="615" column="0" lean-forward="true" selection-start-line="615" selection-start-column="0" selection-end-line="615" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#20012#20051#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/language/talentLanguageForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="235" column="0" lean-forward="true" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+            <element signature="n#!!block;n#renderFluencyView#0;n#TalentLanguageForm#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/language/myLanguagesScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectNationalityWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/bio/myBioScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="233" column="12" lean-forward="true" selection-start-line="233" selection-start-column="12" selection-end-line="233" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#6550#6589#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/bio/talentBioForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/metric/myMetricScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="10" column="50" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectLanguageWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/metric/talentMetricForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="226" column="26" lean-forward="true" selection-start-line="226" selection-start-column="26" selection-end-line="226" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/medical/myMedicalScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="344" column="52" lean-forward="false" selection-start-line="344" selection-start-column="31" selection-end-line="344" selection-end-column="52" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#10473#10512#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectBioWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="15" column="45" lean-forward="false" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/medical/talentMedicalForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMedicalWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectMetricWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/images/missing.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/apis/talentAPIs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1004">
+          <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <element signature="n#!!block;n#processResponse#0;n#TalentAPI#0" expanded="false" />
+            <element signature="n#!!block;n#processRequest#0;n#TalentAPI#0" expanded="false" />
+            <element signature="n#!!block;n#processRequestWithToken#0;n#TalentAPI#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="238" column="44" lean-forward="false" selection-start-line="238" selection-start-column="15" selection-end-line="238" selection-end-column="44" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -961,8 +906,132 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfoScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
+        <state relative-caret-position="122">
+          <caret line="7" column="12" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectContactInfoWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="27" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/talentContactInfoForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="466" column="0" lean-forward="true" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/contact-info/myContactInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/header.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/myResumeScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="388" column="26" lean-forward="true" selection-start-line="388" selection-start-column="26" selection-end-line="388" selection-end-column="26" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#12278#12317#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectResumeWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/myResumeScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="3" column="20" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/profile-wizard/selectPictureWizard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="741" column="12" lean-forward="true" selection-start-line="741" selection-start-column="12" selection-end-line="741" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#24014#24053#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/myPicturesScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="3" column="20" lean-forward="true" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="462" column="10" lean-forward="true" selection-start-line="462" selection-start-column="10" selection-end-line="462" selection-end-column="10" />
+          <folding>
+            <element signature="e#520#586#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/resume/talentResumeForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="310" column="39" lean-forward="true" selection-start-line="310" selection-start-column="39" selection-end-line="310" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/pictures/talentPicturesForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="330" column="3" lean-forward="false" selection-start-line="330" selection-start-column="3" selection-end-line="330" selection-end-column="3" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

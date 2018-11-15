@@ -24,10 +24,11 @@ class TalentBuildProfileForm extends Component {
 
   handleChange = (isChanged) => {
     this.setState({ isChanged })
-  }
+  };
 
-  handleClickSave = (userID, data, handler) => {
-    TalentAPI.saveTalentInfo(userID, data, handler)
+  handleClickSave = (data, handler) => {
+    const { saveInfoAPI } = this.props
+    saveInfoAPI(data, handler)
   };
 
   checkChanges = (event) => {
@@ -48,10 +49,11 @@ class TalentBuildProfileForm extends Component {
   };
 
   renderContents() {
-    const { ContentLayout } = this.props
+    const { ContentLayout, contentTitle } = this.props
 
     return (
       <ContentLayout
+        contentTitle={contentTitle}
         talentInfo={this.props.talentInfo}
         onSave={this.handleClickSave}
         onChange={this.handleChange}

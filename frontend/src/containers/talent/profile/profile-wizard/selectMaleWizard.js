@@ -60,7 +60,7 @@ class SelectMaleWizard extends Component {
   renderContents() {
 
     return (
-      <Panel title={"Step1"}>
+      <Panel title={"Step 1"}>
         <h5 align="center" className="profile-bio-description">
           {"First, tell us if you are Male or Female"}
         </h5>

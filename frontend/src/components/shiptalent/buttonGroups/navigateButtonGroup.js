@@ -41,7 +41,7 @@ class NavigateButtonGroup extends Component {
                 focusVisible={true}
                 className={nextButtonClass}
               >
-                {nextButtonTitle ? nextButtonTitle : 'Back'}
+                {nextButtonTitle ? nextButtonTitle : 'Next'}
               </Button>
             </Link>
           )}

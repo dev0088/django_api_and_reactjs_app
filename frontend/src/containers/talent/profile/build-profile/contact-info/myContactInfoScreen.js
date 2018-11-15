@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TalentBuildProfileForm from 'components/shiptalent/forms/talentBuildProfileForm';
 import TalentContactInfoForm from './talentContactInfoForm';
+import TalentAPI from 'apis/talentAPIs'
 
 class MyContactInfo extends Component {
   render() {
@@ -10,6 +11,7 @@ class MyContactInfo extends Component {
         formTitle={"My Contact Info"}
         nextLink={"/edit-profile"}
         nextButtonTitle={"Back to Build/Edit My Profile"}
+        saveInfoAPI={TalentAPI.saveTalentInfoWithToken}
       />
     )
   }

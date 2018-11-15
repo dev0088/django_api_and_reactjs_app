@@ -70,7 +70,7 @@ class LastWizard extends Component {
         <Grid container spacing={40}>
           <Grid item xs />
             <Grid item xs={8} md={4} sm>
-              <Link to='/contact-info'>
+              <Link to='/profile-wizard/select-contact-info'>
                 <Button
                   variant="contained"
                   color="primary"

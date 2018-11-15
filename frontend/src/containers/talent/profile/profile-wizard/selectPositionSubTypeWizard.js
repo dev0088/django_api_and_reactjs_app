@@ -118,7 +118,7 @@ class SelectPositionSubTypeWizard extends Component {
     const { classes } = this.props;
     
     return (
-      <Panel title={"Step3"}>
+      <Panel title={"Step 3"}>
         <WizardSettingHeader
           talentInfo={this.props.talentInfo}
           showSex={true}

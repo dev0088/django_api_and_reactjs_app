@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Button from '@material-ui/core/Button';
 import UpdatedTextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import Panel from 'components/general/panel';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import 'react-dropdown/style.css';
@@ -41,8 +42,7 @@ class TalentContactInfoForm extends Component {
         phone: "",
         relationship: 0
       },
-      isChanged: false,
-      showConfirmChanges: false
+      isChanged: false
     }
   }
 
@@ -94,7 +94,9 @@ class TalentContactInfoForm extends Component {
       ...this.getContactInfoFromProps(nextProps),
       isChanged: false
     }, () => {
-      this.props.onChange(false)
+      if (this.props.onChange) {
+        this.props.onChange(this.state.isChanged)
+      }
     })
   }
 
@@ -106,7 +108,9 @@ class TalentContactInfoForm extends Component {
       contactInfo: contactInfo,
       isChanged: true
     }, () => {
-      this.props.onChange(true)
+      if (this.props.onChange) {
+        this.props.onChange(true)
+      }
     });
   };
 
@@ -117,7 +121,9 @@ class TalentContactInfoForm extends Component {
       contactInfo: contactInfo,
       isChanged: true
     }, () => {
-      this.props.onChange(true)
+      if (this.props.onChange) {
+        this.props.onChange(true)
+      }
     })
   };
 
@@ -128,7 +134,9 @@ class TalentContactInfoForm extends Component {
       emergencyInfo: emergencyInfo,
       isChanged: true
     }, () => {
-      this.props.onChange(true)
+      if (this.props.onChange) {
+        this.props.onChange(true)
+      }
     });
   };
 
@@ -139,7 +147,9 @@ class TalentContactInfoForm extends Component {
       emergencyInfo: emergencyInfo,
       isChanged: true
     }, () => {
-      this.props.onChange(true)
+      if (this.props.onChange) {
+        this.props.onChange(true)
+      }
     });
   };
 
@@ -154,13 +164,14 @@ class TalentContactInfoForm extends Component {
       emergencyInfo,
       isChanged: false
     }, () => {
-      this.props.onChange(false)
+      if (this.props.onChange) {
+        this.props.onChange(false)
+      }
     })
   };
 
   handleBusinessStaffSave = () => {
     const {
-      userID,
       contactInfo,
       emergencyInfo
     } = this.state
@@ -185,41 +196,26 @@ class TalentContactInfoForm extends Component {
       emergency_phone: emergencyInfo.phone,
       emergency_relationship: emergencyInfo.relationship
     }
-    this.props.onSave(userID, data, this.handleBusinessStaffSaveResponse)
+    this.props.onSave(data, this.handleBusinessStaffSaveResponse)
   };
 
   handleBusinessStaffSaveResponse = (response, isFailed) => {
     this.setState({
       isChanged: false
     }, () => {
-      this.props.onChange(false)
-    })
-  };
-
-  checkChanges = (event) => {
-    const { isChanged } = this.state
-
-    if (isChanged) {
-      event.preventDefault()
-      this.setState({
-        showConfirmChanges: true
-      })
-    }
-  };
-
-  handleCloseConfirm = () => {
-    this.setState({
-      showConfirmChanges: false
+      if (this.props.onChange) {
+        this.props.onChange(false)
+      }
     })
   };
 
   renderContents() {
-    const { classes } = this.props
+    const { classes, contentTitle } = this.props
     const { contactInfo, emergencyInfo } = this.state
     const selectItemStyle = { 'whiteSpace': 'preWrap' }
 
     return (
-      <Paper>
+      <Panel title={contentTitle ? contentTitle : ''}>
         <Row className="profile-gender-row">
           <Col sm="12">
             <h5>Contact Information</h5>
@@ -355,7 +351,6 @@ class TalentContactInfoForm extends Component {
               className="datePicker"
               onChange={this.handleBirthdayChange}
             />
-
           </Col>
         </Row>
 
@@ -448,7 +443,7 @@ class TalentContactInfoForm extends Component {
             </Button>
           </Col>
         </Row>
-      </Paper>
+      </Panel>
     )
   }
 

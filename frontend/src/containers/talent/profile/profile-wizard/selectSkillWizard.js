@@ -96,7 +96,7 @@ class SelectSkillWizard extends Component {
     const { classes } = this.props;
 
     return (
-      <Panel title={"Step4"}>
+      <Panel title={"Step 4"}>
         <WizardSettingHeader
           talentInfo={this.props.talentInfo}
           showSex={true}
