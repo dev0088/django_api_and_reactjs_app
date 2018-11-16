@@ -23,6 +23,8 @@ ALLOWED_HOSTS = [
     'www.shiptalent.com',
     'shiptalent.com',
     'staging.shiptalent.com',
+    '172.31.41.201',
+    '172.31.84.38',
     '34.193.87.115',
     'localhost',
     '127.0.0.1',
@@ -74,7 +76,7 @@ LOCAL_APPS = (
     'admin_setting',
     'submission',
     'client_casting_request',
-    'auth_permission',
+    # 'auth_permission',
     'client'
 )
 
