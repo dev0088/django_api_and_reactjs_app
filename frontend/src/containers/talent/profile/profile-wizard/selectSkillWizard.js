@@ -148,8 +148,9 @@ class SelectSkillWizard extends Component {
         nextLink="/profile-wizard/select-sub-skill"
         nextButtonTitle="Next"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
     )
   }
 }

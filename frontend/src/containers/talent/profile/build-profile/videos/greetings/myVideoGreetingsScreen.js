@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import TalentBuildProfileForm from 'components/shiptalent/forms/talentBuildProfileForm';
-import TalentVideosForm from './talentVideosForm';
+import TalentVideoGreetingsForm from './talentVideoGreetingsForm';
 
 
-class MyVideos extends Component {
+class MyVideosGreetings extends Component {
   render() {
     return (
       <TalentBuildProfileForm
-        ContentLayout={TalentVideosForm}
-        formTitle={"My Videos"}
+        ContentLayout={TalentVideoGreetingsForm}
+        formTitle={"My Video Greetings and Introduction"}
         nextLink={"/edit-profile"}
         nextButtonTitle={"Back to Build/Edit My Profile"}
       />
@@ -16,4 +16,4 @@ class MyVideos extends Component {
   }
 }
 
-export default MyVideos;
+export default MyVideosGreetings;

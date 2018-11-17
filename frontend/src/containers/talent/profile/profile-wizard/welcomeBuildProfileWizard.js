@@ -48,8 +48,9 @@ class WelcomeBuildProfileWizard extends Component {
         formTitle="Build My Profile Wizard"
         backLink="/my-profile"
         backButtonTitle="Back"
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
   	)
   }
 }

@@ -1,325 +1,138 @@
 import React, {Component} from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import ClearRounded from '@material-ui/icons/ClearRounded';
-import Dropzone from 'react-dropzone';
-import ImageLoader from 'react-loading-image';
-import ImageLightbox from 'react-image-lightbox';
-import Panel from 'components/general/panel'
-import apiConfig from 'constants/api';
-import TalentAPI from 'apis/talentAPIs';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Panel from 'components/general/panel';
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import * as talentActions from 'actions/talentActions';
+import { styles } from 'styles';
+import Spacer from "components/general/spacer";
 
-import 'react-image-lightbox/style.css';
-import './myResumeScreen.css';
 
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    secondary: {
-      main: '#C00'
-    }
-  }
-})
-
-class MyResume extends Component {
+class TalentVideosForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      resume: {},
-      file: null,
-      openImageModal: false
     }
   }
 
   getInfoFromProps(props) {
-    const {
-      talentInfo
-    } = props
+    const {talentInfo} = props
 
-    let resume = {}
-
-    if (talentInfo && talentInfo.user && talentInfo.talent_resume) {
-      // Get nationality info
-      resume = talentInfo.talent_resume[0]
-    }
-
-    return {
-      resume
-    }
   }
-
   componentWillMount() {
+    this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getCurrentTalentInfo()
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...this.getInfoFromProps(nextProps)
-    })
-  }
+  renderPositionButtons() {
+    const { classes, allPositionTypes } = this.props
+    let items = []
+    if (allPositionTypes && allPositionTypes.length > 0) {
+      for(let i = 0; i < allPositionTypes.length; i +=2) {
+        let title = `My ${allPositionTypes[i].name} Audition Videos`
+        let subTitle = 'in progress'
+        let link = '#'
 
-  handleUploadResume = (files) => {
-    // Upload pdf files
-    let file = files[0]
-    const {user_id} = this.props.auth.access
-    const signAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/policy/`
-    const completeAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/complete/`
-    const generatePreviewAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/generate_preview/`
+        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+        items.push(
+          <Grid item lg={3} md={4} sm={6} xs={12}
+                className={classes.talentProfileGuideButtonItem}>
+            <Link to={link}>
+              <Button variant="contained" color={'primary'} fullWidth={true}
+                      className={classes.talentProfileGuideButton}>
+                <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
+                {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+              </Button>
+            </Link>
+          </Grid>
+        )
 
-    this.uploadToS3(signAPI, completeAPI, generatePreviewAPI, file)
-  }
+        if (allPositionTypes[i + 1]) {
+          title = `My ${allPositionTypes[i + 1].name} Audition Videos`
+          subTitle = 'in progress'
+          link = '#'
 
-  uploadToS3 = (signAPI, completeAPI, generatePreviewAPI, file) => {
-    const params = {
-      objectName: file.name,
-      contentType: file.type
+          items.push(
+            <Grid item lg={3} md={4} sm={6} xs={12}
+                  className={classes.talentProfileGuideButtonItem}>
+              <Link to={link}>
+                <Button variant="contained" color={'primary'} fullWidth={true}
+                        className={classes.talentProfileGuideButton}>
+                  <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
+                  {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+                </Button>
+              </Link>
+            </Grid>
+          )
+        } else {
+          items.push(<Grid item lg={3} md={4} sm={6} xs={12}/>)
+        }
+        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+      }
+      return items
     }
 
-    fetch(signAPI, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).then(response => response.json())
-      .then(response => {
-        if(response.error) {
-          console.log('error: ', response.error)
-          this.onError(file)
-        }
-        else {
-          if (response.signedUrl){
-            console.log('success: ', response, response.signedUrl)
-            this.uploadFile(
-              response.signedUrl,
-              completeAPI,
-              generatePreviewAPI,
-              response.fileID,
-              file)
-          } else {
-            console.log('error: ', response)
-            this.onError(file)
-          }
-        }
-      })
-      .catch(error => {
-        console.log('error: ', error)
-        this.onError(file)
-      })
+    return (<div/>)
+
   }
-
-  uploadFile = (s3PutUrl, completeAPI, generatePreviewAPI, fileID, file) => {
-    fetch(s3PutUrl, {
-      method: 'put',
-      headers: {
-        'x-amz-acl': 'public-read',
-        'Content-Type': file.type,
-      },
-      body: file
-    })
-      .then(response => {
-        if(response.error) {
-          this.onError(fileID, file)
-        }
-        else {
-          this.onFinish(completeAPI, generatePreviewAPI, fileID, file)
-        }
-      })
-      .catch(error => {
-        this.onError(fileID, file)
-      })
-  }
-
-  onProgress = () => {
-    console.log('=== progress')
-  }
-
-  onError = (file) => {
-    console.log('==== Error: ', file)
-  }
-
-  onFinish = (completeAPI, generatePreviewAPI, fileID, file) => {
-    let params = {
-      fileID: fileID,
-      fileSize: file.size,
-      fileType: file.type,
-    }
-    fetch(completeAPI, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).then(response => response.json())
-      .then(response => {
-        if(response.error) {
-          console.log('error: ', response.error)
-        }
-        else {
-          // Update resume from server
-          this.uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
-        }
-      })
-      .catch(error => {
-        console.log('error: ', error)
-      })
-  }
-
-  uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file) {
-
-    let data = new FormData();
-    console.log('=== file: ', file, file.name)
-    data.append('file', file)
-    data.append('fileName', file.name)
-    data.append('fileID', fileID)
-
-    fetch(generatePreviewAPI, {
-      method: 'put',
-      headers: {
-        // "Content-Type": file.type
-        // 'content-type': 'multipart/form-data'
-      },
-      body: data
-    }).then(response => response.json())
-      .then(response => {
-        if(response.error) {
-          console.log('error: ', response.error)
-        }
-        else {
-          // Update resume from server
-          this.props.talentActions.getCurrentTalentInfo()
-        }
-      })
-      .catch(error => {
-        console.log('error: ', error)
-      })
-  }
-
-  deleteResume = () => {
-    const { resume } = this.state
-    TalentAPI.deleteResume(resume.id, this.handleDeleteResponse)
-  };
-
-  handleDeleteResponse = () => {
-    this.props.talentActions.getCurrentTalentInfo()
-  };
-
-  showImage = (picture) => {
-    this.setState({
-      openImageModal: true
-    })
-  };
-
-  onInputChange = e => {
-    const { currentTarget: { files } } = e;
-    if (files[0]) {
-      this.setState({file: files[0]});
-    }
-  };
 
   renderContents() {
-    const { contentTitle } = this.props
-    const {
-      resume,
-      openImageModal
-    } = this.state
+    const { classes, contentTitle, allPositionTypes } = this.props
 
     return (
       <Panel title={contentTitle}>
-        <Row className="profile-picture-image-container">
-          <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {(resume && resume.url && resume.uploaded && resume.active && resume.preview_path) ?
-              (
-                <div onClick={() => this.showImage()}>
-                  <ImageLoader
-                    className="profile-resume-image"
-                    src={`${apiConfig.server}/${resume.preview_path}`}
-                    loading={() => <div className="profile-resume-image">Loading...</div>}
-                    error={() => <div>Error</div>} />
-                  <div onClick={() => this.deleteResume()}>
-                    <ClearRounded className="profile-resume-delete-icon" color="seconday" />
-                  </div>
-                  {openImageModal && (
-                    <ImageLightbox
-                      mainSrc={resume.preview_path}
-                      onCloseRequest={() => this.setState({ openImageModal: false })}
-                    />
-                  )}
-                </div>
-              ) : (
-                <div>
-                  <ImageLoader
-                    className="profile-picture-image"
-                    src={require('images/missing.png')}
-                    loading={() => <div className="profile-picture-image">Loading...</div>}
-                    error={() => <div>Error</div>}
-                  />
-                  <div>
-                    <ClearRounded className="profile-resume-delete-icon-disabled" color="seconday" />
-                  </div>
-                </div>
-              )
-            }
-          </Col>
-        </Row>
-        <Row className="profile-picture-image-container">
-          <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            <div className="profile-picture-image-title">
-              {"Current Uploaded Resume"}
-            </div>
-          </Col>
-          <Col xs="12" md="12" className="pt-0 pt-md-0 profile-picture-image-col">
-            <div className="profile-picture-image-title">
-              {"(click to view)"}
-            </div>
-          </Col>
-        </Row>
-        <Row className="profile-picture-image-container">
-          <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            <Dropzone
-              className="profile-picture-dropzone"
-              onDrop={ (files) => this.handleUploadResume(files) }
-              size={ 150 }
-              accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain ">
-              <div className="profile-picture-dropzone-description">
-                {`To upload or change Drop resume here`}
-              </div>
-              <div className="profile-picture-dropzone-select-file-button">
-                {`OR SELECT FILE`}
-              </div>
-              <div className="profile-picture-dropzone-description">
-                {`Supported File Types: PDF, TXT, DOC, DOCX`}
-              </div>
-            </Dropzone>
-          </Col>
-        </Row>
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <ColumnButton
+            link = {'/video-greetings'}
+            color="primary"
+            itemClass = {classes.talentProfileGuideButtonItem}
+            buttonClass = {classes.talentProfileGuideButton}
+            title = {"My Video Greetings"}
+            titleClass = {classes.talentProfileGuideButtonTitle}
+            subTitle = {"completed"}
+            subTitleClass = {classes.talentProfileGuideButtonSubTitle}
+            size = {12}
+            fullWidth = {false}
+          />
+        </Grid>
+        <Spacer size={30}/>
+        <Grid container spacing={16} justify="center" alignItems="center">
+          { this.renderPositionButtons(allPositionTypes) }
+        </Grid>
+        <Spacer size={40}/>
+        <Grid container spacing={24} justify="center" alignItems="center">
+          <Grid item lg={12}/>
+            <Typography gutterBottom variant='Subheading'>
+              <b>{"Video Interviews (required)"}</b>
+              {` are located within the section of your primary discripline
+                (vocalist, dancer, musician, techinician, cruise staff or youth staff).`}
+            </Typography>
+        </Grid>
       </Panel>
     )
   }
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <div>
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
         {this.renderContents()}
-      </MuiThemeProvider>
+      </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { auth, talentInfo } = state;
+  const { allPositionTypes } = state;
   return {
-    auth,
-    talentInfo: talentInfo.value
+    allPositionTypes: allPositionTypes.value,
   }
 }
 
@@ -329,4 +142,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyResume);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentVideosForm));

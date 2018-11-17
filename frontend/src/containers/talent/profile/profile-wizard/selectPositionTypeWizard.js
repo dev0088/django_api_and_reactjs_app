@@ -149,8 +149,9 @@ class SelectPositionTypeWizard extends Component {
         nextLink="/profile-wizard/select-position-sub-type"
         nextButtonTitle="Next"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
     )
   }
 }

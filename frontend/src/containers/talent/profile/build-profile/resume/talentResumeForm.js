@@ -40,9 +40,7 @@ class MyResume extends Component {
   }
 
   getInfoFromProps(props) {
-    const {
-      talentInfo
-    } = props
+    const { talentInfo } = props
 
     let resume = {}
 
@@ -227,6 +225,7 @@ class MyResume extends Component {
 
   renderContents() {
     const { contentTitle } = this.props
+
     const {
       resume,
       openImageModal

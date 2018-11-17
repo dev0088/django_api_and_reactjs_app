@@ -11,7 +11,9 @@ export const getSignedUrl = (url, params) => ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params),
       types: [
-        types.TALENT_UPLOAD_PICTURE.REQUEST, types.TALENT_UPLOAD_PICTURE.SUCCESS, types.TALENT_UPLOAD_PICTURE.FAILURE
+        types.TALENT_UPLOAD_PICTURE.REQUEST,
+        types.TALENT_UPLOAD_PICTURE.SUCCESS,
+        types.TALENT_UPLOAD_PICTURE.FAILURE
       ]
     }
 })
