@@ -80,8 +80,9 @@ class TalentBuildProfileForm extends Component {
           nextLink={nextLink}
           nextButtonTitle={nextButtonTitle}
           handleClickNextButton={this.checkChanges}
-          contents={this.renderContents()}
-        />
+        >
+          {this.renderContents()}
+        </TalentForm>
         <ConfirmChangesDialog
           open={showConfirmChanges}
           onClose={this.handleCloseConfirm}

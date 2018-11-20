@@ -80,8 +80,9 @@ class RequestSelection extends Component {
             formTitle="My Casting Requests Selection"
             nextLink="/client/home"
             nextButtonTitle="Back to My Home Page"
-            contents={this.renderContent()}
-          />
+          >
+            {this.renderContent()}
+          </ClientForm>
         </Grid>
       </Grid>
     );

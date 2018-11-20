@@ -36,10 +36,13 @@ const Panel = (props) => {
 
   return (
     <div className={panelClass}>
-      <div className="panel-heading">
-        <h5>{props.title}</h5>
-        { props.righticon ? <RightIconOption /> : ''}
-      </div>
+      {props.title && (
+        <div className="panel-heading">
+          <h5>{props.title}</h5>
+          { props.righticon ? <RightIconOption /> : ''}
+        </div>
+      )}
+
       <div className="panel-body">
         {props.children}
       </div>

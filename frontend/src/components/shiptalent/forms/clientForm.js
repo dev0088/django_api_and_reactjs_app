@@ -22,7 +22,7 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle, formSubTitle, contents, backLink, nextLink, backButtonTitle, nextButtonTitle, classes } = this.props;
+    const { formTitle, formSubTitle, children, backLink, nextLink, backButtonTitle, nextButtonTitle, classes } = this.props;
     return (
       <div>
         <Grid container spacing={24}>
@@ -37,7 +37,7 @@ class ClientForm extends Component {
           </Grid>
 
           <Grid item xs={12} >
-            {contents}
+            {children}
           </Grid>
 
           <Grid item xs={12} >

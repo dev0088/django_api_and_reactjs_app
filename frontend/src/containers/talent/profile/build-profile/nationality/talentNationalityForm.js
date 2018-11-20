@@ -609,32 +609,6 @@ class TalentNationalityForm extends Component {
       </div>
     )
   }
-
-  renderPreview() {
-    const {showConfirmChanges} = this.state
-    console.log('=== state: ', this.state)
-    return (
-      <div className="profile-nationality-container">
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-
-        {this.renderContents()}
-
-        <Row >
-          <Col xs="12" md="8" className="pt-4 pt-md-4"> </Col>
-          <Col xs="12" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to="/edit-profile" onClick={this.checkChanges} >
-              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
-            </Link>
-          </Col>
-        </Row>
-
-        <ConfirmChangesDialog
-          open={showConfirmChanges}
-          onClose={this.handleCloseConfirm}
-        />
-      </div>
-    )
-  }
 }
 
 function mapStateToProps(state) {

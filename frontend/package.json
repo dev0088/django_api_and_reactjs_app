@@ -53,6 +53,7 @@
     "redux-persist-transform-filter": "^0.0.18",
     "redux-saga": "^0.16.0",
     "redux-storage": "^4.1.2",
+    "superagent": "^4.0.0",
     "typeface-roboto": "0.0.54",
     "uuid": "^3.3.2",
     "video-react": "^0.13.0"

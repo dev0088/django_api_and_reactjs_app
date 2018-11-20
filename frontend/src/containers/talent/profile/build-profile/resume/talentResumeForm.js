@@ -40,9 +40,7 @@ class MyResume extends Component {
   }
 
   getInfoFromProps(props) {
-    const {
-      talentInfo
-    } = props
+    const { talentInfo } = props
 
     let resume = {}
 
@@ -227,6 +225,7 @@ class MyResume extends Component {
 
   renderContents() {
     const { contentTitle } = this.props
+
     const {
       resume,
       openImageModal
@@ -245,7 +244,7 @@ class MyResume extends Component {
                     loading={() => <div className="profile-resume-image">Loading...</div>}
                     error={() => <div>Error</div>} />
                   <div onClick={() => this.deleteResume()}>
-                    <ClearRounded className="profile-resume-delete-icon" color="seconday" />
+                    <ClearRounded className="profile-resume-delete-icon" color="secondary" />
                   </div>
                   {openImageModal && (
                     <ImageLightbox
@@ -263,7 +262,7 @@ class MyResume extends Component {
                     error={() => <div>Error</div>}
                   />
                   <div>
-                    <ClearRounded className="profile-resume-delete-icon-disabled" color="seconday" />
+                    <ClearRounded className="profile-resume-delete-icon-disabled" color="secondary" />
                   </div>
                 </div>
               )
