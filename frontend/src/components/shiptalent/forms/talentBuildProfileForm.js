@@ -55,6 +55,8 @@ class TalentBuildProfileForm extends Component {
       <ContentLayout
         contentTitle={contentTitle}
         talentInfo={this.props.talentInfo}
+        position={this.props.position}
+        subPosition={this.props.subPosition}
         onSave={this.handleClickSave}
         onChange={this.handleChange}
       />

@@ -1,6 +1,5 @@
 export function getToken() {
   let auth = JSON.parse(localStorage.getItem('auth'));
-  console.log('===== auth: ', auth);
   return auth ? auth.token : null;
 }
 

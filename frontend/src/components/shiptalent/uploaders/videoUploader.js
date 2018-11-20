@@ -12,6 +12,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import VideoViewModal from 'components/shiptalent/modals/videoModal';
 import Snackbar from '@material-ui/core/Snackbar';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Alert from 'components/shiptalent/snackbars/alert';
 import TalentAPI from 'apis/talentAPIs';
 import * as talentActions from 'actions/talentActions';
@@ -39,7 +41,8 @@ class VideoUploader extends Component {
       options: null,
       file: null,
       openVideoModal: false,
-      progressPercent: 0.0
+      progressPercent: 0.0,
+      progressing: false,
     }
     this.onFinish = this.onFinish.bind(this)
   }
@@ -50,6 +53,7 @@ class VideoUploader extends Component {
     let video = {}
     let options = null
     let progressPercent = 0.0
+    let progressing = false
 
     if (videoData) {
       // Get nationality info
@@ -64,6 +68,7 @@ class VideoUploader extends Component {
       video,
       options,
       progressPercent,
+      progressing,
       notification: false
     }
   }
@@ -92,7 +97,12 @@ class VideoUploader extends Component {
         return
       }
     }
-    this.signAndUploadToS3(signApi, completeApi, file)
+    // Start to sign and upload file to s3
+    this.setState({
+      progressing: true
+    }, () => {
+      this.signAndUploadToS3(signApi, completeApi, file)
+    })
   }
 
   signAndUploadToS3 = (signAPI, completeAPI, file) => {
@@ -313,6 +323,21 @@ class VideoUploader extends Component {
               </Dropzone>
             )}
           </Col>
+
+          <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  disabled
+                  checked={!haveVideo}
+                  value="checkedB"
+                  color="primary"
+                />
+              }
+              label={"No additional languages"}
+            />
+          </Col>
+
         </Row>
       </div>
     )

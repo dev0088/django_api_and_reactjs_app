@@ -229,15 +229,15 @@ class TalentVideoGreetingsForm extends Component {
         <Spacer size={40}/>
 
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={2} md={1} xs={0}/>
-          <Grid item lg={8} md={10} xs={12}>  
-            <Typography gutterBottom variant='Subheading'>
-              <b>{"NOTE: "}</b>
-              {` You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.
-              (usually within 24 hours)`}
+          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={10} md={10} xs={12}>
+            <Typography gutterBottom variant='Subheading' className={classes.talentProfileVideoAuditionDescriptionText}>
+              {`NOTE: You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.`}
+              <br/>
+              {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={2} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={0}/>
         </Grid>
 
       </Panel>
