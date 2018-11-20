@@ -5,14 +5,16 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 // core components
+import Grid from '@material-ui/core/Grid';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Danger from "components/Typography/Danger.jsx";
 import Success from "components/Typography/Success.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import Button from '@material-ui/core/Button';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import { Link } from 'react-router-dom';
 
 const styles = {
   cardCategoryWhite: {
@@ -26,6 +28,11 @@ const styles = {
     "& a,& a:hover,& a:focus": {
       color: "#FFFFFF"
     }
+  },
+  button:{
+    // backgroundColor: '#007bff',
+    width: '500px',
+    // fontSize: '25px'
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -84,128 +91,49 @@ const styles = {
 function UpgradeToPro(props) {
   const { classes } = props;
   return (
-    <GridContainer justify="center">
-      <GridItem xs={12} sm={12} md={8}>
-        <Card>
-          <CardHeader color="info">
-            <h4 className={classes.cardTitleWhite}>
-              Material Dashboard PRO React
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Are you looking for more components? Please check our Premium
-              Version of Material Dashboard Angular.
-            </p>
-          </CardHeader>
-          <CardBody>
-            <div className={classes.tableUpgradeWrapper}>
-              <table className={classes.table}>
-                <thead>
-                  <tr>
-                    <th />
-                    <th className={classes.center}>Free</th>
-                    <th className={classes.center}>PRO</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Components</td>
-                    <td className={classes.center}>30</td>
-                    <td className={classes.center}>200</td>
-                  </tr>
-                  <tr>
-                    <td>Plugins</td>
-                    <td className={classes.center}>2</td>
-                    <td className={classes.center}>10</td>
-                  </tr>
-                  <tr>
-                    <td>Example Pages</td>
-                    <td className={classes.center}>7</td>
-                    <td className={classes.center}>28</td>
-                  </tr>
-                  <tr>
-                    <td>Login, Register, Pricing, Lock Pages</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      ReactTables, ReactVectorMap, ReactSweetAlert, Wizard,
-                      Validation, ReactBigCalendar etc...
-                    </td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Mini Sidebar</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Premium Support</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td className={classes.center}>Free</td>
-                    <td className={classes.center}>Just $59</td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td className={classes.center}>
-                      <Button round disabled>
-                        Current Version
-                      </Button>
-                    </td>
-                    <td className={classes.center}>
-                      <Button
-                        round
-                        color="danger"
-                        href="https://www.creative-tim.com/product/material-dashboard-pro-react?ref=md-free-react-upgrade-live"
-                      >
-                        Upgrade to Pro
-                      </Button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
+     <Card>
+      <CardBody>
+        <div>
+          <Grid container spacing={24}>
+             <Grid item xs={12} style={{textAlign: 'center'}}>
+              <h1> MEDICAL DISCLOSURE</h1>
+             </Grid>
+             <Grid item xs={12} style={{textAlign: 'left'}}>
+              <Link to="/edit-profiles/edit-profile">    
+                <Button variant="contained" size="large" className={classes.button} >
+                  Philip LaVerne(VDA222)
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item xs={12} style={{textAlign: 'left'}}>    
+                <Button variant="contained" size="large" className={classes.button} >
+                  Justin Tomberlake(ESDA144)
+                </Button>
+            </Grid>
+            <Grid item xs={12} style={{textAlign: 'left'}}>    
+                <Button variant="contained" size="large" className={classes.button} >
+                  Liberty Franklin(DSA266)
+                </Button>
+             </Grid>
+             <Grid item xs={12} style={{textAlign: 'left'}}>    
+                <Button variant="contained" size="large" className={classes.button} >
+                  Candice Clearwater(VSDA211)
+                </Button>
+             </Grid>
+             <Grid item xs={3} style={{textAlign:'center'}}/>
+             <Grid item xs={3} style={{textAlign:'center'}}/>
+             <Grid item xs={3} style={{textAlign:'center'}}/>
+             <Grid item xs={3} style={{textAlign:'right'}}>
+              <Link to="/dashboard">
+               <Button variant="contained" style={{width: '250px'}}>
+                 Agetn Dashbord
+               </Button>
+              </Link>
+             </Grid>    
+          </Grid>
+        </div>
+      </CardBody>
+    </Card>
   );
 }
 

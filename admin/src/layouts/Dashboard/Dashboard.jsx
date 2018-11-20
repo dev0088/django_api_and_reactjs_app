@@ -13,6 +13,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 
 import dashboardRoutes from "routes/dashboard.jsx";
+import pageRoutes from "routes/pages.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -22,6 +23,11 @@ import logo from "assets/img/reactlogo.png";
 const switchRoutes = (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
+      if (prop.redirect)
+        return <Redirect from={prop.path} to={prop.to} key={key} />;
+      return <Route path={prop.path} component={prop.component} key={key} />;
+    })}
+    {pageRoutes.map((prop, key) => {
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.to} key={key} />;
       return <Route path={prop.path} component={prop.component} key={key} />;
