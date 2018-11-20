@@ -2,7 +2,15 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
+import Quote from "components/Typography/Quote.jsx";
+import Muted from "components/Typography/Muted.jsx";
+import Primary from "components/Typography/Primary.jsx";
+import Info from "components/Typography/Info.jsx";
+import Success from "components/Typography/Success.jsx";
+import Warning from "components/Typography/Warning.jsx";
+import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
+
 import CardBody from "components/Card/CardBody.jsx";
 import Grid from '@material-ui/core/Grid';
 import GridItem from "components/Grid/GridItem.jsx";
@@ -34,9 +42,24 @@ const style = {
     width: '500px',
     // fontSize: '25px'
   },
-  
+  // cardCategoryWhite: {
+  //   color: "rgba(255,255,255,.62)",
+  //   margin: "0",
+  //   fontSize: "14px",
+  //   marginTop: "0",
+  //   marginBottom: "0"
+  // },
+  // cardTitleWhite: {
+  //   color: "#FFFFFF",
+  //   marginTop: "0px",
+  //   minHeight: "auto",
+  //   fontWeight: "300",
+  //   fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+  //   marginBottom: "3px",
+  //   textDecoration: "none"
+  // }
 };
-function TypographyPage(props) {
+function Editprofiles(props) {
   const { classes } = props;
   return (
     <Card>
@@ -44,14 +67,14 @@ function TypographyPage(props) {
         <div>
           <Grid container spacing={24}>
              <Grid item xs={12} style={{textAlign: 'center'}}>
-              <h1> DANCE COMBO LOCK OUTS</h1>
+              <h1> EDITOR PROFILES</h1>
              </Grid>
-             <Grid item xs={12} style={{textAlign: 'left'}}>
-              <Link to="/edit-profiles/edit-profile">    
+             <Grid item xs={12} style={{textAlign: 'left'}}>    
+               <Link to="/edit-profiles/edit-profile">
                 <Button variant="contained" size="large" className={classes.button} >
                   Philip LaVerne(VDA222)
                 </Button>
-              </Link>
+               </Link> 
             </Grid>
             <Grid item xs={12} style={{textAlign: 'left'}}>    
                 <Button variant="contained" size="large" className={classes.button} >
@@ -65,17 +88,12 @@ function TypographyPage(props) {
              </Grid>
              <Grid item xs={12} style={{textAlign: 'left'}}>    
                 <Button variant="contained" size="large" className={classes.button} >
-                  Missy Elliott(ESDA179)
+                  Katrina Karst-Melroy(DSA176)
                 </Button>
              </Grid>
              <Grid item xs={12} style={{textAlign: 'left'}}>    
                 <Button variant="contained" size="large" className={classes.button} >
-                 JJ Abrams(VMA223)
-                </Button>
-             </Grid>
-             <Grid item xs={12} style={{textAlign: 'left'}}>    
-                <Button variant="contained" size="large" className={classes.button} >
-                  Jonathan Smith(VM135)
+                  Jacob Julian Smith(ESD169)
                 </Button>
             </Grid>
             <Grid item xs={3} style={{textAlign:'center'}}/>
@@ -87,12 +105,12 @@ function TypographyPage(props) {
                 Agetn Dashbord
               </Button>
              </Link>
-            </Grid> 
             </Grid>
+          </Grid>
         </div>
       </CardBody>
     </Card>
   );
 }
 
-export default withStyles(style)(TypographyPage);
+export default withStyles(style)(Editprofiles);

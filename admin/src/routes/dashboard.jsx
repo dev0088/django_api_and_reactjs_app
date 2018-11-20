@@ -11,11 +11,12 @@ import Unarchive from "@material-ui/icons/Unarchive";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import ProfileSearch from "views/ProfileSearch/ProfileSearch.jsx";
-import Typography from "views/Typography/Typography.jsx";
-import Icons from "views/Icons/Icons.jsx";
+import Editprofiles from "views/Editprofiles/Editprofiles.jsx";
+import Castingrequests from "views/Castingrequests/Castingrequests.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
+// import EditProfile from "views/Typrgraphy/EditProfile.jsx"
 
 const dashboardRoutes = [
   {
@@ -37,21 +38,21 @@ const dashboardRoutes = [
     sidebarName: "New Profiles",
     navbarName: "New Profiles",
     icon: Person,
-    component: UserProfile
+    component: UserProfile,
   },
   {
     path: "/edited-profiles",
     sidebarName: "Edit Profiles",
     navbarName: "Edit Profiles",
     icon: LibraryBooks,
-    component: Typography
+    component: Editprofiles
   },
   {
     path: "/casting-requests",
     sidebarName: "Casting Requests",
     navbarName: "Casting Requests",
     icon: BubbleChart,
-    component: Icons
+    component: Castingrequests
   },
   {
     path: "/metrics-tools",
@@ -73,8 +74,7 @@ const dashboardRoutes = [
     navbarName: "Medicial Disclosure",
     icon: Unarchive,
     component: UpgradeToPro
-  },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  }
 ];
 
 export default dashboardRoutes;
