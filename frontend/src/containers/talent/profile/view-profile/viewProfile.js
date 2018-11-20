@@ -280,7 +280,7 @@ class ViewProfile extends Component {
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Video Greetings"}
@@ -297,7 +297,7 @@ class ViewProfile extends Component {
         <Row className="profile-gender-row">
           <Col md="6" className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Vocal Audition Videos"}
@@ -311,7 +311,7 @@ class ViewProfile extends Component {
           </Col>
           <Col md="6" className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Dance Audition Videos"}
@@ -458,7 +458,7 @@ class ViewProfile extends Component {
         <Row className="profile-gender-row">
           <Col md="12" className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Immigration"}
@@ -490,7 +490,7 @@ class ViewProfile extends Component {
         <Row className="profile-gender-row">
           <Col md="12" className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"Availability"}

@@ -60,7 +60,7 @@ export const styles = theme => ({
     width: '100%'
   },
   flatPrimary: {
-    color: "#FFFFFF",
+    color: theme.palette.white.main,
   },
   grow: {
     flexGrow: 1,
@@ -88,10 +88,10 @@ export const styles = theme => ({
     marginRight: 20,
   },
   menuitem: {
-    color: '#FFFFFF'
+    color: theme.palette.white.main
   },
   menuItemText: {
-    color: '#FFFFFF',
+    color: theme.palette.white.main,
     fontSize: '1rem',
     fontWeight: 'bold',
     paddingTop: '3px',
@@ -107,7 +107,7 @@ export const styles = theme => ({
     objectFit: 'cover',
   },
   avatarMenuItemText: {
-    color: '#FFFFFF',
+    color: theme.palette.white.main,
     fontSize: '1rem',
     fontWeight: 400,
     paddingLeft: '7px'
@@ -185,15 +185,83 @@ export const styles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  boldUnderlineText: {
+    fontWeight: 600,
+    textDecoration: 'underline'
+  },
+  backButtonClass: {
+    textTransform: 'none',
+  },
+  nextButtonClass: {
+    textTransform: 'none',
+  },
+  uploadProgressBar: {
+    width: '200px',
+    margin: 'auto',
+    height: '30px'
+  },
   talentFormBackButton: {
     textTransform: 'none',
     borderRadius: '0px',
-    primaryColor: '#FFFFFF',
+    primaryColor: theme.palette.white.main,
+  },
+  talentProfileGuideButtonItem: {
+    textAlign: 'center',
+    padding: '5px',
+    display: 'block!important'
+  },
+  talentProfileGuideButton: {
+    display: 'block',
+    borderRadius: '5px'
+  },
+  talentProfileGuideButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main,
+  },
+  talentProfileGuideButtonSubTitle: {
+    fontWeight: 100,
+    color: theme.palette.thinWhite.main,
+    textTransform: 'none'
+  },
+  talentProfileVideoGreetingImage: {
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover'
+  },
+  talentProfileFileDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '-33px',
+    left: '80px',
+    fontWeight: 600,
+  },
+  talentProfileFileDeleteDisable: {
+    color: '#FFFFFF',
+    borderRadius: '2px',
+    background: '#FFFFFF',
+    fontWeight: 600,
+    position: 'relative',
+    top: '-48px',
+    left: '192px'
+  },
+  talentProfileVideoViewModal: {
+    width: '60%',
+    height: '70%',
+    left: '20%',
+    top: '15%'
   },
   clientFormNextButton: {
     textTransform: 'none',
     borderRadius: '0px',
-    primaryColor: '#FFFFFF',
+    primaryColor: theme.palette.white.main,
   },
   clientTalentSearchResultPicture: {
     width: '70px',
@@ -215,7 +283,7 @@ export const styles = theme => ({
     textTransform: 'none',
     borderRadius: '0px',
     backgroundColor: '#343a40',
-    primaryColor: '#FFFFFF',
+    primaryColor: theme.palette.white.main,
   },
   clientFormNextButtonContainerGridItem: {
     textAlign: 'right',
@@ -224,13 +292,13 @@ export const styles = theme => ({
     textTransform: 'none',
     borderRadius: '0px',
     backgroundColor: '#343a40',
-    primaryColor: '#FFFFFF',
+    primaryColor: theme.palette.white.main,
   },
   clientFormBackButtonText: {
-    color: '#FFFFFF',
+    color: theme.palette.white.main,
   },
   clientFormNextButtonText: {
-    color: '#FFFFFF'
+    color: theme.palette.white.main
   },
   clientSearchResultTalentHeadlineText: {
     fontWeight: 'bold'
@@ -270,10 +338,10 @@ export const styles = theme => ({
     paddingTop: '5px',
     paddingBottom: '5px',
     textTransform: 'none',
-    color: '#FFFFFF',
+    color: theme.palette.white.main,
   },
   clientTalentViewVideoButtonStatusText: {
-    color: '#d6d7d8',
+    color: theme.palette.thinWhite.main,
     textTransform: 'none',
   }
 });
@@ -294,12 +362,15 @@ export const theme = createMuiTheme ({
     },
     white: {
       main: '#FFFFFF'
+    },
+    thinWhite: {
+      main: '#d6d7d8'
     }
   },
-  // typography: {
-  //   fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-  //   textTransform: "none",
-  // },
+  typography: {
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    textTransform: "none",
+  },
   button: {
     primaryColor: '#FFFFFF',
     primaryFontSize: '1.5rem'

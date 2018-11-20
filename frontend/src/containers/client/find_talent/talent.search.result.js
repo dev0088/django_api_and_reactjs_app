@@ -152,8 +152,9 @@ class TalentSearchResult extends Component {
             nextLink="/client/talent_search"
             nextButtonTitle="Back to Talent Search"
             handleClickNextButton={this.handleClickNextButton}
-            contents={this.renderContent()}
-          />
+          >
+            {this.renderContent()}
+          </ClientForm>
         </Grid>
       </Grid>
     )

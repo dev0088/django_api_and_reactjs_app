@@ -172,8 +172,9 @@ class SelectPositionSubTypeWizard extends Component {
         backLink="/profile-wizard/select-position-type"
         nextLink="/profile-wizard/lastWizard"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
     )
   }
 }

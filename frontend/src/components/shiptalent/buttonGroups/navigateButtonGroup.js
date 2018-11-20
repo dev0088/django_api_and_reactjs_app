@@ -22,7 +22,7 @@ class NavigateButtonGroup extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={backButtonClass}
+                className={backButtonClass ? backButtonClass: classes.defaultBackButtonClass}
               >
                 {backButtonTitle ? backButtonTitle : 'Back'}
               </Button>
@@ -39,7 +39,7 @@ class NavigateButtonGroup extends Component {
                 primary={true}
                 fullWidth={false}
                 focusVisible={true}
-                className={nextButtonClass}
+                className={nextButtonClass ? nextButtonClass : classes.nextButtonClass}
               >
                 {nextButtonTitle ? nextButtonTitle : 'Next'}
               </Button>

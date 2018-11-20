@@ -28,7 +28,7 @@ class MyVideos extends Component {
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Video Greetings"}
@@ -45,7 +45,7 @@ class MyVideos extends Component {
         <Row className="profile-gender-row">
           <Col className="profile-other-info-button-group">
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Vocal Audition Videos"}
@@ -58,7 +58,7 @@ class MyVideos extends Component {
             </div>
 
             <div className="profile-other-info-button-container">
-              <Link to='/#'>
+              <Link to='#'>
                 <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
                   <div className="profile-other-info-button-title">
                     {"My Dance Audition Videos"}

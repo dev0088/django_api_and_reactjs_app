@@ -1,7 +1,7 @@
-from django.shortcuts import render
+import boto
+import time
+import os
 from django.http import Http404
-
-# Create your views here.
 from rest_framework import permissions, status, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,11 +17,6 @@ from .serializers import TalentVideoSerializer
 from talent.models import Talent
 from authentication.models import User
 
-import boto
-import mimetypes
-import json
-import time
-import os
 
 class InterviewFileUploadPolicy(APIView):
     """

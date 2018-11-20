@@ -106,8 +106,9 @@ class SelectMaleWizard extends Component {
         nextLink="/profile-wizard/select-position-type"
         nextButtonTitle="Next"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
     )
   }
 }

@@ -23,7 +23,7 @@ class TalentForm extends Component {
 
   render() {
     const {
-      formTitle, formSubTitle, contents,
+      formTitle, formSubTitle, children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
       classes
@@ -34,7 +34,7 @@ class TalentForm extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" component="h3" variant="h3" gutterBottom>
+            <Typography align="center" component="h3" variant="h3">
               {formTitle}
             </Typography>
             <Typography align="center" className={classes.clientFormSubTitle}>
@@ -43,7 +43,7 @@ class TalentForm extends Component {
           </Grid>
 
           <Grid item xs={12} >
-            {contents}
+            {children}
           </Grid>
 
           <Grid item xs={12} >

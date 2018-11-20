@@ -191,7 +191,7 @@ class TalentPicturesForm extends Component {
                 <Row>
                   <Col xs="12" md="12" className="pt-0 pt-md-0">
                     <div onClick={() => this.deleteImage(picture)}>
-                      <ClearRounded className="profile-picture-delete-icon" color="seconday" />
+                      <ClearRounded className="profile-picture-delete-icon" color="secondary" />
                     </div>
                     <div onClick={() => this.showImage(picture)}>
                       <ImageLoader

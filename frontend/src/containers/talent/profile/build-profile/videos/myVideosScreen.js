@@ -7,8 +7,8 @@ class MyVideos extends Component {
   render() {
     return (
       <TalentBuildProfileForm
-        ContentLayout={TalentResumeForm}
-        formTitle={"My Resume"}
+        ContentLayout={TalentVideosForm}
+        formTitle={"My Videos"}
         nextLink={"/edit-profile"}
         nextButtonTitle={"Back to Build/Edit My Profile"}
       />

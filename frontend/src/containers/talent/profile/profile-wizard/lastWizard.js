@@ -123,8 +123,9 @@ class LastWizard extends Component {
         nextLink="/profile-wizard/select-position-sub-type"
         nextButtonTitle="Back to Primary Position (demo link only)"
         handleClickNextButton={this.handleClickNextButton}
-        contents={this.renderContents()}
-      />
+      >
+        {this.renderContents()}
+      </TalentForm>
     )
   }
 }
