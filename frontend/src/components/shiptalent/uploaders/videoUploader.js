@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col} from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
@@ -11,6 +11,8 @@ import ClearRounded from '@material-ui/icons/ClearRounded';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import VideoViewModal from 'components/shiptalent/modals/videoModal';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from 'components/shiptalent/snackbars/alert';
 import TalentAPI from 'apis/talentAPIs';
 import * as talentActions from 'actions/talentActions';
 import 'react-image-lightbox/style.css';
@@ -61,7 +63,8 @@ class VideoUploader extends Component {
     return {
       video,
       options,
-      progressPercent
+      progressPercent,
+      notification: false
     }
   }
 
@@ -80,7 +83,15 @@ class VideoUploader extends Component {
   handleUploadVideo = (files) => {
     // Upload pdf files
     let file = files[0]
-    const { signApi, completeApi } = this.props
+    const { preCheckFunc, signApi, completeApi, optionsData } = this.props
+    if (preCheckFunc) {
+      if (!preCheckFunc(optionsData)) {
+        this.setState({
+          notification: "Please select a language to upload the video."
+        })
+        return
+      }
+    }
     this.signAndUploadToS3(signApi, completeApi, file)
   }
 
@@ -307,10 +318,30 @@ class VideoUploader extends Component {
     )
   }
 
+  renderNotification = () => {
+    return (
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={!!this.state.notification}
+        autoHideDuration={6000}
+        onClose={() => this.setState({notification: false})}
+      >
+        <Alert
+          onClose={() => this.setState({notification: false})}
+          variant="error"
+          message={this.state.notification}
+        />
+      </Snackbar>
+    )
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        {this.renderNotification()}
         {this.renderContents()}
       </MuiThemeProvider>
     )
