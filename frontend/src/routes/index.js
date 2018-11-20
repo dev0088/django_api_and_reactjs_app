@@ -45,6 +45,8 @@ import MyNationality from "containers/talent/profile/build-profile/nationality/m
 // import MyVideos from "containers/talent/profile/build-profile/interview-videos/myVideosScreen";
 import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScreen";
 import MyVideoGreetings from "containers/talent/profile/build-profile/videos/greetings/myVideoGreetingsScreen";
+import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
+
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
 import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
@@ -54,6 +56,7 @@ import MyMetrics from "containers/talent/profile/build-profile/metric/myMetricSc
 import MyLanguage from "containers/talent/profile/build-profile/language/myLanguagesScreen";
 import MyMedical from "containers/talent/profile/build-profile/medical/myMedicalScreen";
 import EditProfile from "containers/talent/profile/build-profile/general/editProfile";
+
 import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
 
 import SubFaq from "containers/common/subFaq";
@@ -563,6 +566,14 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyVideoGreetings {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/talent/video-greetings/introduction"
+      render={props => (
+        <TemplateTopbar>
+          <MyVideoGreetingsIntroduction {...props} />
         </TemplateTopbar>
       )}
     />

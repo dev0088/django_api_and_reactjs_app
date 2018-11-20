@@ -1,6 +1,4 @@
-from django.conf.urls import include, url
-from rest_framework.urlpatterns import format_suffix_patterns
-from talent_video import views
+from django.conf.urls import url
 from .views import InterviewFileUploadCompleteHandler, InterviewFileUploadPolicy, InterviewVideos
 
 urlpatterns = [

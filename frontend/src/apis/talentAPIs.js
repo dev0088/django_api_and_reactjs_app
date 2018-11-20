@@ -7,8 +7,7 @@ class TalentAPI {
     if(response.error) {
       console.log('error: ', response.error)
       handleResponse(response.error, true)
-    }
-    else {
+    } else {
       if (response){
         console.log('success: ', response)
         handleResponse(response, false)
@@ -35,7 +34,6 @@ class TalentAPI {
     }
 
     fetch(`${apiConfig.url}/${url}`, params)
-      .then(response => response.json())
       .then(response => {
         this.processResponse(response, handleResponse)
       })
@@ -104,5 +102,8 @@ class TalentAPI {
     TalentAPI.processRequest(`talent_resume/${resume_id}/`, 'delete', null, handleResponse)
   }
 
+  static deleteVideoGreeting(video_greeting_id, handleResponse) {
+    TalentAPI.processRequest(`talent_video_greetings/${video_greeting_id}/`, 'delete', null, handleResponse)
+  }
 }
 export default TalentAPI

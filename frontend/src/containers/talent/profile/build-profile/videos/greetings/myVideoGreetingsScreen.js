@@ -9,8 +9,8 @@ class MyVideosGreetings extends Component {
       <TalentBuildProfileForm
         ContentLayout={TalentVideoGreetingsForm}
         formTitle={"My Video Greetings and Introduction"}
-        nextLink={"/edit-profile"}
-        nextButtonTitle={"Back to Build/Edit My Profile"}
+        nextLink={"/videos-info"}
+        nextButtonTitle={"Back to My Videos"}
       />
     )
   }

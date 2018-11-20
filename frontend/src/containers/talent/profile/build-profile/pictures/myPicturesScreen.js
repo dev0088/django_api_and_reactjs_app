@@ -191,7 +191,7 @@
 //                 <Row>
 //                   <Col xs="12" md="12" className="pt-0 pt-md-0">
 //                     <div onClick={() => this.deleteImage(picture)}>
-//                       <ClearRounded className="profile-picture-delete-icon" color="seconday" />
+//                       <ClearRounded className="profile-picture-delete-icon" color="secondary" />
 //                     </div>
 //                     <div onClick={() => this.showImage(picture)}>
 //                       <ImageLoader
@@ -589,7 +589,7 @@
 //                     loading={() => <div className="profile-resume-image">Loading...</div>}
 //                     error={() => <div>Error</div>} />
 //                   <div onClick={() => this.deleteResume()}>
-//                     <ClearRounded className="profile-resume-delete-icon" color="seconday" />
+//                     <ClearRounded className="profile-resume-delete-icon" color="secondary" />
 //                   </div>
 // 									{openImageModal && (
 // 										<ImageLightbox
@@ -606,7 +606,7 @@
 // 										loading={() => <div className="profile-resume-image">None image</div>}
 // 										error={() => <div>Error</div>} />
 //                   <div>
-//                     <ClearRounded className="profile-resume-delete-icon-disabled" color="seconday" />
+//                     <ClearRounded className="profile-resume-delete-icon-disabled" color="secondary" />
 //                   </div>
 //                 </div>
 //               )
@@ -672,7 +672,7 @@
 //                     loading={() => <div className="profile-picture-image">Loading...</div>}
 //                     error={() => <div>Error</div>} />
 //                   <div onClick={() => this.deleteResume()}>
-//                     <ClearRounded className="profile-picture-delete-icon" color="seconday" />
+//                     <ClearRounded className="profile-picture-delete-icon" color="secondary" />
 //                   </div>
 //                 </div>
 //               ) : (

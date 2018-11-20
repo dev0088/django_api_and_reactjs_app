@@ -26,6 +26,7 @@ class TalentVideosForm extends Component {
     const {talentInfo} = props
 
   }
+
   componentWillMount() {
     this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getCurrentTalentInfo()

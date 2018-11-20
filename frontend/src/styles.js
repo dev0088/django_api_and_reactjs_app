@@ -185,6 +185,21 @@ export const styles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  boldUnderlineText: {
+    fontWeight: 600,
+    textDecoration: 'underline'
+  },
+  backButtonClass: {
+    textTransform: 'none',
+  },
+  nextButtonClass: {
+    textTransform: 'none',
+  },
+  uploadProgressBar: {
+    width: '200px',
+    margin: 'auto',
+    height: '30px'
+  },
   talentFormBackButton: {
     textTransform: 'none',
     borderRadius: '0px',
@@ -211,6 +226,37 @@ export const styles = theme => ({
     fontWeight: 100,
     color: theme.palette.thinWhite.main,
     textTransform: 'none'
+  },
+  talentProfileVideoGreetingImage: {
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover'
+  },
+  talentProfileFileDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '-33px',
+    left: '80px',
+    fontWeight: 600,
+  },
+  talentProfileFileDeleteDisable: {
+    color: '#FFFFFF',
+    borderRadius: '2px',
+    background: '#FFFFFF',
+    fontWeight: 600,
+    position: 'relative',
+    top: '-48px',
+    left: '192px'
+  },
+  talentProfileVideoViewModal: {
+    width: '60%',
+    height: '70%',
+    left: '20%',
+    top: '15%'
   },
   clientFormNextButton: {
     textTransform: 'none',

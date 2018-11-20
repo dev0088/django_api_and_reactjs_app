@@ -12,17 +12,17 @@ from talent_picture.config_aws import (
     AWS_UPLOAD_SECRET_KEY,
     AWS_UPLOAD_VIDEOS_PATH,
 )
-from .models import TalentVideo
-from .serializers import TalentVideoSerializer
+from .models import TalentVideoGreeting
+from .serializers import TalentVideoGreetingSerializer
 from talent.models import Talent
 from authentication.models import User
 
 
-class InterviewFileUploadPolicy(APIView):
+class GreetingVideoFileUploadPolicy(APIView):
     """
     This view is to get the AWS Upload Policy for images to s3 bucket.
-    What we do here is first create a TalentVideo object instance in ShipTalent
-    backend. This is to include the TalentVideo instance in the path
+    What we do here is first create a TalentVideoGreeting object instance in ShipTalent
+    backend. This is to include the TalentVideoGreeting instance in the path
     we will use within our bucket as you'll see below.
     """
     # permission_classes = [permissions.IsAuthenticated]
@@ -40,7 +40,9 @@ class InterviewFileUploadPolicy(APIView):
         conn = boto.connect_s3(AWS_UPLOAD_ACCESS_KEY_ID, AWS_UPLOAD_SECRET_KEY)
 
         object_name = request.data.get('objectName')
-        content_type = request.data.get('contentType') #mimetypes.guess_type(object_name)[0]
+        content_type = request.data.get('contentType')
+        language = request.data.get('language') if request.data.get('language') else "English"
+
         if not object_name:
             return Response({"message": "A filename is required"}, status=status.HTTP_400_BAD_REQUEST)
         if not content_type:
@@ -51,8 +53,21 @@ class InterviewFileUploadPolicy(APIView):
         talent = self.get_object(pk)
         talent_id = talent.id
         user_id = talent.user.username
-        talent_video = TalentVideo.objects.create(talent=talent, name=object_name)
-        talent_video_id = talent_video.id
+
+        # Check and delete video_greeting for talent and language
+        talent_video_greetings = TalentVideoGreeting.objects.filter(talent_id=talent_id, language=language)
+        # if len(talent_video_greetings) > 0:
+        #   talent_video_greeting = talent_video_greetings.first()
+        # else:
+        #   # In the case don't exist, create new
+        #   talent_video_greeting = TalentVideoGreeting.objects.create(talent=talent, name=object_name)
+
+        if len(talent_video_greetings) > 0:
+            talent_video_greeting = talent_video_greetings.first()
+            talent_video_greeting.delete()
+
+        talent_video_greeting = TalentVideoGreeting.objects.create(talent=talent, name=object_name)
+        talent_video_id = talent_video_greeting.id
         _, file_extension = os.path.splitext(object_name)
         
         upload_start_path = "{videos_path}/{talent_id}/".format(
@@ -69,7 +84,7 @@ class InterviewFileUploadPolicy(APIView):
         # Save signed url
         """
         Eventual file_upload_path includes the renamed file to the 
-        Django-stored TalentVideo instance ID. Renaming the file is 
+        Django-stored TalentVideoGreeting instance ID. Renaming the file is 
         done to prevent issues with user generated formatted names.
         """
         final_upload_path = "{upload_start_path}{filename_final}".format(
@@ -90,20 +105,14 @@ class InterviewFileUploadPolicy(APIView):
                 final_upload_path=final_upload_path
             )
 
-        position_type = request.data.get('position_type')
-        position_sub_type = request.data.get('position_sub_type')
-        question = request.data.get('question')
-
         if object_name and file_extension:
             """
-            Save the eventual path to the Django-stored TalentVideo instance
+            Save the eventual path to the Django-stored TalentVideoGreeting instance
             """
-            talent_video.path = final_upload_path
-            talent_video.url = upload_url
-            talent_video.position_type = position_type
-            talent_video.position_sub_type = position_sub_type
-            talent_video.question = question
-            talent_video.save()
+            talent_video_greeting.path = final_upload_path
+            talent_video_greeting.url = upload_url
+            talent_video_greeting.language = language if language else "English"
+            talent_video_greeting.save()
 
         data = {
             'signedUrl': signed_url,
@@ -112,7 +121,7 @@ class InterviewFileUploadPolicy(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class InterviewFileUploadCompleteHandler(APIView):
+class GreetingVideoFileUploadCompleteHandler(APIView):
     # permission_classes = [permissions.IsAuthenticated]
     # authentication_classes = [authentication.SessionAuthentication]
 
@@ -124,7 +133,7 @@ class InterviewFileUploadCompleteHandler(APIView):
         type_ = request.data.get('fileType')
         print(file_id, size, type_)
         if file_id:
-            obj = TalentVideo.objects.get(id=int(file_id))
+            obj = TalentVideoGreeting.objects.get(id=int(file_id))
             obj.size = int(size)
             obj.uploaded = True
             obj.file_type = type_
@@ -134,7 +143,7 @@ class InterviewFileUploadCompleteHandler(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class InterviewVideos(APIView):
+class GreetingVideos(APIView):
     """
     List all talent pictures.
     """
@@ -143,8 +152,36 @@ class InterviewVideos(APIView):
         try:
             user = User.objects.get(pk=pk)
             talent = Talent.objects.get(user=user.id)
-            talent_videos = TalentVideo.objects.filter(talent=talent.id)
-            serializer = TalentVideoSerializer(talent_videos, many=True)
+            talent_videos = TalentVideoGreeting.objects.filter(talent=talent.id)
+            serializer = TalentVideoGreetingSerializer(talent_videos, many=True)
             return Response(serializer.data)
         except Talent.DoesNotExist:
             raise Http404
+
+class GreetingVideoDetail(APIView):
+    """
+    Retrieve a greeting video instance.
+    """
+    def get_object(self, pk):
+        try:
+            return TalentVideoGreeting.objects.get(pk=pk)
+        except TalentVideoGreeting.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        talent_greeting_video_item = self.get_object(pk)
+        serializer = TalentVideoGreetingSerializer(talent_greeting_video_item)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        talent_greeting_video_item = self.get_object(pk)
+        serializer = TalentVideoGreetingSerializer(talent_greeting_video_item, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        talent_greeting_video_item = self.get_object(pk)
+        talent_greeting_video_item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

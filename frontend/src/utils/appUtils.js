@@ -204,3 +204,7 @@ export function checkCPR(medicals) {
   console.log('==== checkCPR: ', cprMedical, medicals)
   return cprMedical ? cprMedical.condition_value : false
 }
+
+export function  getLanguageIndex(name) {
+  return defaultValues.LANGUAGES.indexOf(name);
+}

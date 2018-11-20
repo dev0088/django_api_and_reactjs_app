@@ -72,6 +72,7 @@ LOCAL_APPS = (
     'talent_medical',
     'talent_availability',
     'talent_rating',
+    'talent_video_greeting',
     'question',
     'admin_setting',
     'submission',
