@@ -46,7 +46,7 @@ import MyNationality from "containers/talent/profile/build-profile/nationality/m
 import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScreen";
 import MyVideoGreetings from "containers/talent/profile/build-profile/videos/greetings/myVideoGreetingsScreen";
 import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
-
+import MyPositionVideos from "containers/talent/profile/build-profile/videos/positions/myPositionVideosScreen";
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
 import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
@@ -577,6 +577,15 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+    <Route
+      path="/video-positions"
+      render={props => (
+        <TemplateTopbar>
+          <MyPositionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
 
     <Route
       path="/pictures-info"

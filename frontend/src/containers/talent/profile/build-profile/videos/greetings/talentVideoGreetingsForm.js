@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -12,6 +11,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Panel from 'components/general/panel';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from 'components/shiptalent/snackbars/alert';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import * as talentActions from 'actions/talentActions';
 import { styles } from 'styles';
@@ -89,12 +90,39 @@ class TalentVideoGreetingsForm extends Component {
     }
   };
 
+  onPreCheckValidation = (optionsData) => {
+    if (optionsData && optionsData.language) {
+      return true
+    }
+    return false
+  }
+
   handleLanguageChange = (event) => {
     console.log('===== handleLanguageChange: ', event.target.name)
     const { selectedLanguage } = this.state
     selectedLanguage[event.target.name] = event.target.value
     this.setState({ selectedLanguage });
   };
+
+  renderNotification = () => {
+    return (
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={!!this.state.notification}
+        autoHideDuration={6000}
+        onClose={() => this.setState({notification: false})}
+      >
+        <Alert
+          onClose={() => this.setState({notification: false})}
+          variant="error"
+          message={this.state.notification}
+        />
+      </Snackbar>
+    )
+  }
 
   renderLanguageSelection(key) {
     const { classes } = this.props
@@ -145,6 +173,7 @@ class TalentVideoGreetingsForm extends Component {
                         subTitle={"click to play"}
                         videoData={talent_video_greetings[index]}
                         optionsData={{language: strLanguage}}
+                        preCheckFunc={this.onPreCheckValidation}
                         signApi={signApi}
                         completeApi={completeApi}
                         deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
@@ -200,15 +229,15 @@ class TalentVideoGreetingsForm extends Component {
         <Spacer size={40}/>
 
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={2} md={1} xs={0}/>
-          <Grid item lg={8} md={10} xs={12}>  
-            <Typography gutterBottom variant='Subheading'>
-              <b>{"NOTE: "}</b>
-              {` You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.
-              (usually within 24 hours)`}
+          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={10} md={10} xs={12}>
+            <Typography gutterBottom variant='Subheading' className={classes.talentProfileVideoAuditionDescriptionText}>
+              {`NOTE: You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.`}
+              <br/>
+              {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={2} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={0}/>
         </Grid>
 
       </Panel>
@@ -218,7 +247,7 @@ class TalentVideoGreetingsForm extends Component {
   render() {
     return (
       <div>
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        {this.renderNotification()}
         {this.renderContents()}
       </div>
     )

@@ -37,37 +37,63 @@ class TalentVideosForm extends Component {
     let items = []
     if (allPositionTypes && allPositionTypes.length > 0) {
       for(let i = 0; i < allPositionTypes.length; i +=2) {
-        let title = `My ${allPositionTypes[i].name} Audition Videos`
+        let position = allPositionTypes[i]
+        let title = `My ${position.name} Audition Videos`
         let subTitle = 'in progress'
-        let link = '#'
+        let link = {
+          pathname: '/video-positions',
+          state: { position: position }
+        }
 
         items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
         items.push(
           <Grid item lg={3} md={4} sm={6} xs={12}
                 className={classes.talentProfileGuideButtonItem}>
             <Link to={link}>
-              <Button variant="contained" color={'primary'} fullWidth={true}
-                      className={classes.talentProfileGuideButton}>
-                <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+              <Button
+                variant="contained" color={'primary'}
+                fullWidth={true}
+                className={classes.talentProfileGuideButton}
+              >
+                <Typography className={classes.talentProfileGuideButtonTitle}>
+                  {title}
+                </Typography>
+                {subTitle && (
+                  <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                    {subTitle}
+                  </Typography>
+                )}
               </Button>
             </Link>
           </Grid>
         )
 
         if (allPositionTypes[i + 1]) {
-          title = `My ${allPositionTypes[i + 1].name} Audition Videos`
+          position = allPositionTypes[i + 1]
+          title = `My ${position.name} Audition Videos`
           subTitle = 'in progress'
-          link = '#'
+          link = link = {
+            pathname: '/video-positions',
+            state: { position: position }
+          }
 
           items.push(
             <Grid item lg={3} md={4} sm={6} xs={12}
                   className={classes.talentProfileGuideButtonItem}>
               <Link to={link}>
-                <Button variant="contained" color={'primary'} fullWidth={true}
-                        className={classes.talentProfileGuideButton}>
-                  <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                  {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+                <Button
+                  variant="contained" color={'primary'}
+                  fullWidth={true}
+                  className={classes.talentProfileGuideButton}
+                >
+                  <Typography className={classes.talentProfileGuideButtonTitle}>
+                    {title}
+                  </Typography>
+                  {subTitle && (
+                    <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                      {subTitle}
+                    </Typography>
+                  )}
                 </Button>
               </Link>
             </Grid>

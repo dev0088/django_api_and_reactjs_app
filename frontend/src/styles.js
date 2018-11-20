@@ -258,6 +258,12 @@ export const styles = theme => ({
     left: '20%',
     top: '15%'
   },
+  talentProfileVideoAuditionDescriptionText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: '10px',
+    fontSize: '1rem'
+  },
   clientFormNextButton: {
     textTransform: 'none',
     borderRadius: '0px',
