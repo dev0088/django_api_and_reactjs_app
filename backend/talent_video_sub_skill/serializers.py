@@ -1,15 +1,16 @@
 from rest_framework import serializers
-from talent_video_greeting.models import TalentVideoGreeting
+from talent_video_sub_skill.models import TalentVideoSubSkill
 
 
-class TalentVideoGreetingSerializer(serializers.ModelSerializer):
+class TalentVideoSubSkillSerializer(serializers.ModelSerializer):
     # talent = serializers.SlugRelatedField(many=False, read_only=True, slug_field='id')
 
     class Meta:
-        model = TalentVideoGreeting
+        model = TalentVideoSubSkill
         fields = (
             'id',
             'talent',
+            'sub_skill',
             'name',
             'path',
             'url',
@@ -18,6 +19,9 @@ class TalentVideoGreetingSerializer(serializers.ModelSerializer):
             'timestamp',
             'updated',
             'uploaded',
-            'active',
-            'language'
+            'active'
         )
+
+
+class TalentVideoSubSkillsSearchConditionSerializer(serializers.Serializer):
+    sub_skill_id = serializers.IntegerField()
