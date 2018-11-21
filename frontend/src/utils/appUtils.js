@@ -208,3 +208,14 @@ export function checkCPR(medicals) {
 export function  getLanguageIndex(name) {
   return defaultValues.LANGUAGES.indexOf(name);
 }
+
+export function findRelatedSkillByPositionName(skills, positionName) {
+  let res = null
+  for (let i = 0; i < skills.length; i ++) {
+    if (skills[i].related_position_type === positionName) {
+      res = skills[i]
+      break
+    }
+  }
+  return res
+}

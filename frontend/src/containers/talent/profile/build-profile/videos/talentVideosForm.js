@@ -72,7 +72,7 @@ class TalentVideosForm extends Component {
           position = allPositionTypes[i + 1]
           title = `My ${position.name} Audition Videos`
           subTitle = 'in progress'
-          link = link = {
+          link = {
             pathname: '/video-positions',
             state: { position: position }
           }

@@ -49,14 +49,16 @@ class TalentBuildProfileForm extends Component {
   };
 
   renderContents() {
-    const { ContentLayout, contentTitle } = this.props
+    const { ContentLayout, contentTitle,
+      talentInfo, position, subSkill
+    } = this.props
 
     return (
       <ContentLayout
         contentTitle={contentTitle}
-        talentInfo={this.props.talentInfo}
-        position={this.props.position}
-        subPosition={this.props.subPosition}
+        talentInfo={talentInfo}
+        position={position}
+        subSkill={subSkill}
         onSave={this.handleClickSave}
         onChange={this.handleChange}
       />

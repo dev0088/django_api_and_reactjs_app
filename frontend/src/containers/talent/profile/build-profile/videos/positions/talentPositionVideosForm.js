@@ -10,10 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Panel from 'components/general/panel';
-import ColumnButton from 'components/shiptalent/buttons/columnButton';
-import * as talentActions from 'actions/talentActions';
-import { styles } from 'styles';
 import Spacer from "components/general/spacer";
+import * as talentActions from 'actions/talentActions';
+import { findRelatedSkillByPositionName } from 'utils/appUtils';
+import { styles } from 'styles';
 
 
 class TalentPositionVideosForm extends Component {
@@ -22,24 +22,25 @@ class TalentPositionVideosForm extends Component {
     super(props);
     this.state = {
       position: {},
+      related_skill: {},
       checkedOptOut: false
     }
   }
 
   getInfoFromProps(props) {
-    const { position } = props
-
+    const { allSkills, position } = props
+    let related_skill = {}
+    if (position && allSkills) {
+      related_skill = findRelatedSkillByPositionName(allSkills, position.name)
+    }
     return {
-      position
+      position,
+      related_skill
     }
   }
 
   componentWillMount() {
-    // this.props.talentActions.getAllPositionTypes()
-    // this.props.talentActions.getCurrentTalentInfo()
-    this.setState({
-      ...this.getInfoFromProps(this.props)
-    })
+    this.props.talentActions.getAllSkills()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,16 +61,22 @@ class TalentPositionVideosForm extends Component {
   }
 
   renderSubPositionButtons() {
-    const { classes, allPositionTypes} = this.props
-    const { position, checkedOptOut } = this.state
+    const { classes } = this.props
+    const { position, related_skill, checkedOptOut } = this.state
     let items = []
 
-    if (position && position.position_sub_types.length > 0) {
-      const position_sub_types = position.position_sub_types
-      for(let i = 0; i < position_sub_types.length; i +=2) {
-        let title = `My ${position_sub_types[i]} Videos`
+    if (related_skill && related_skill.sub_skills && related_skill.sub_skills.length > 0) {
+      const sub_skills = related_skill.sub_skills
+      for(let i = 0; i < sub_skills.length; i +=2) {
+        let title = `My ${sub_skills[i].name} Videos`
         let subTitle = 'in progress'
-        let link = '#'
+        let link = {
+          pathname: '/video-sub-skill',
+          state: {
+            position: position,
+            subSkill: sub_skills[i]
+          }
+        }
 
         items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
         items.push(
@@ -88,10 +95,16 @@ class TalentPositionVideosForm extends Component {
           </Grid>
         )
 
-        if (position_sub_types[i + 1]) {
-          title = `My ${position_sub_types[i + 1]} Videos`
+        if (sub_skills[i + 1]) {
+          title = `My ${sub_skills[i + 1].name} Videos`
           subTitle = 'in progress'
-          link = '#'
+          link = {
+            pathname: '/video-sub-skill',
+            state: {
+              position: position,
+              subSkill: sub_skills[i + 1]
+            }
+          }
 
           items.push(
             <Grid item lg={3} md={4} sm={6} xs={12}
@@ -122,7 +135,7 @@ class TalentPositionVideosForm extends Component {
   }
 
   renderContents() {
-    const { classes, contentTitle, allPositionTypes } = this.props
+    const { classes, contentTitle } = this.props
     const { position, checkedOptOut} = this.state
 
     return (
@@ -177,8 +190,9 @@ class TalentPositionVideosForm extends Component {
 }
 
 function mapStateToProps(state) {
-  const { allPositionTypes } = state;
+  const { allPositionTypes, allSkills } = state;
   return {
+    allSkills: allSkills.value,
     allPositionTypes: allPositionTypes.value,
   }
 }
