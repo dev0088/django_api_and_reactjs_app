@@ -9,9 +9,14 @@ import { styles } from 'styles';
 class WizardSettingHeader extends Component {
 
   render() {
-    const { talentInfo, classes,
-      showSex, showPositionType, showSkill
+    const {
+      talentInfo,
+      showSex, showPositionType, showSkill,
+      classes
     } = this.props;
+    let position_type = talentInfo && showPositionType && talentInfo.talent_position_types[0]
+      ? talentInfo.talent_position_types[0].position_type
+      : ''
 
     return (
       <Grid container spacing={24}>
@@ -56,7 +61,7 @@ class WizardSettingHeader extends Component {
                   fullWidth={false}
                 >
                   <Typography className={classes.wizardSettingHeaderText}>
-                    {talentInfo && getSexTitle(talentInfo.sex)}
+                    {position_type}
                   </Typography>
                 </Button>
               </Grid>

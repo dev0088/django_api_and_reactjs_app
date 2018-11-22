@@ -1,6 +1,7 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
+import grey from '@material-ui/core/colors/grey';
 
 export const styles = theme => ({
   root: {
@@ -214,6 +215,16 @@ export const styles = theme => ({
     display: 'block',
     borderRadius: '5px'
   },
+  talentProfileGuideButtonSelected: {
+    display: 'block',
+    borderRadius: '5px',
+    color: theme.palette.white.main,
+    boxShadow: 'none',
+    backgroundColor: grey[500],
+    '&:hover': {
+      backgroundColor: grey[600]
+    }
+  },
   talentProfileGuideButtonTitle: {
     fontSize: '1rem',
     fontWeight: 600,
@@ -258,11 +269,38 @@ export const styles = theme => ({
     left: '20%',
     top: '15%'
   },
+  talentProfileVideoUploadingText: {
+    padding: '10px',
+    fontSize: '1rem',
+    textAlign: 'center',
+    top: '-36px',
+    position: 'relative',
+    fontWeight: '400'
+  },
   talentProfileVideoAuditionDescriptionText: {
     fontWeight: 'bold',
     textAlign: 'center',
     padding: '10px',
     fontSize: '1rem'
+  },
+  talentProfileVideoAuditionHelpfulHintTitle: {
+    textAlign: 'center',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
+  talentProfileVideoAuditionHelpfulHintContentGrid: {
+    border: '4px solid #000000',
+    margin: 'auto',
+    width: '250px',
+    minWidth: '250px'
+  },
+  talentProfileVideoAuditionHelpfulHintText: {
+    textAlign: 'center',
+    fontSize: '0.85rem',
+    fontWeight: 100,
+  },
+  talentProfileVideoAuditionHelpfulHintImage: {
+    width: '100%',
   },
   clientFormNextButton: {
     textTransform: 'none',

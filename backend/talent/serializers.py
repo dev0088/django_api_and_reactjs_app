@@ -3,6 +3,7 @@ from talent.models import Talent
 from talent_picture.serializers import TalentPictureSerializer
 from talent_video.serializers import TalentVideoSerializer
 from talent_video_greeting.serializers import TalentVideoGreetingSerializer
+from talent_video_sub_skill.serializers import TalentVideoSubSkillSerializer
 from talent_resume.serializers import TalentResumeSerializer
 from talent_position_type.serializers import TalentPositionTypeSerializer
 from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer, GeneralTalentPositionSubTypeSerializer
@@ -21,6 +22,7 @@ class TalentSerializer(serializers.ModelSerializer):
     talent_pictures = TalentPictureSerializer(many=True, read_only=True)
     talent_videos = TalentVideoSerializer(many=True, read_only=True)
     talent_video_greetings = TalentVideoGreetingSerializer(many=True, read_only=True)
+    talent_video_sub_skills = TalentVideoSubSkillSerializer(many=True, read_only=True)
     talent_position_types = TalentPositionTypeSerializer(many=True, read_only=True)
     talent_position_sub_types = GeneralTalentPositionSubTypeSerializer(many=True, read_only=True)
     talent_skills = TalentSkillSerializer(many=True, read_only=True)
@@ -82,6 +84,7 @@ class TalentSerializer(serializers.ModelSerializer):
             'talent_pictures',
             'talent_videos',
             'talent_video_greetings',
+            'talent_video_sub_skills',
             'talent_resume',
             'talent_medicals',
 

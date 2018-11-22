@@ -6,6 +6,7 @@ from sub_skill.models import SubSkill
 class TalentVideoSubSkill(models.Model):
     talent = models.ForeignKey(Talent, related_name='talent_video_sub_skills', on_delete=models.CASCADE)
     sub_skill = models.ForeignKey(SubSkill, related_name='video_sub_skills', on_delete=models.CASCADE)
+    priority = models.IntegerField(blank=True, default=0)
     name = models.CharField(max_length=120, null=True, blank=True)
     path = models.TextField(blank=True, null=True)
     url = models.TextField(blank=True, null=True)
@@ -26,5 +27,5 @@ class TalentVideoSubSkill(models.Model):
 
     class Meta:
         db_table = "talent_video_sub_skill"
-        ordering = ('talent', 'sub_skill', 'updated')
+        ordering = ('talent', 'sub_skill', 'priority', 'updated')
         managed = True

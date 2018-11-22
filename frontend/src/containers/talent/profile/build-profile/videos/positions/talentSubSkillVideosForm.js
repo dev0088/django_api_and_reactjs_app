@@ -4,10 +4,6 @@ import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Panel from 'components/general/panel';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from 'components/shiptalent/snackbars/alert';
@@ -15,42 +11,39 @@ import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import * as talentActions from 'actions/talentActions';
 import { styles } from 'styles';
 import Spacer from "components/general/spacer";
-import defaultValues from 'constants/defaultValues';
 import VideoUploader from 'components/shiptalent/uploaders/videoUploader';
+import HelpfulHintForm from 'components/shiptalent/forms/helpfulHintForm';
 import TalentAPI from 'apis/talentAPIs';
 import apiConfig from 'constants/api';
-import { getLanguageIndex } from 'utils/appUtils';
+import { findVideoByPriority, findVideoIndexByPriority } from 'utils/appUtils';
 
-const LANGUAGE_KEYS = ['0', '1', '2', '3']
 
 class TalentSubSkillVideosForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      subSkill: {},
       openImageModal: false,
       responseCallback: null,
-      talent_video_greetings: [],
-      selectedLanguage: {'0': '', '1': '', '2': '', '3': ''}
+      talent_video_sub_skills: []
     }
     this.onFinishUploading = this.onFinishUploading.bind(this)
   }
 
   getInfoFromProps(props) {
-    const {talentInfo} = props
-    let selectedLanguage = {'0': '', '1': '', '2': '', '3': ''}
-    let talent_video_greetings = []
+    const {talentInfo, subSkill } = props
+    let talent_video_sub_skills = []
 
-    if (talentInfo && talentInfo.talent_video_greetings && talentInfo.talent_video_greetings.length > 0) {
-      talent_video_greetings = talentInfo.talent_video_greetings
-      for (let i = 0; i < talent_video_greetings.length; i ++) {
-        let language = talent_video_greetings[i].language
-        selectedLanguage[i.toString()] = language ? getLanguageIndex(language) : ''
-      }
+    if (subSkill && talentInfo && talentInfo.talent_video_sub_skills &&
+      talentInfo.talent_video_sub_skills.length > 0) {
+      talent_video_sub_skills = talentInfo.talent_video_sub_skills.filter(function(video_sub_skill, index, array){
+        return video_sub_skill.sub_skill === subSkill.id
+      })
     }
     return {
-      talent_video_greetings,
-      selectedLanguage
+      subSkill,
+      talent_video_sub_skills
     }
   }
 
@@ -72,7 +65,7 @@ class TalentSubSkillVideosForm extends Component {
     this.setState({
       responseCallback: responseCallback
     }, () => {
-      TalentAPI.deleteVideoGreeting(videoID, this.onResponseHanlder)
+      TalentAPI.deleteVideoSubSkill(videoID, this.onResponseHanlder)
     })
   };
 
@@ -85,18 +78,11 @@ class TalentSubSkillVideosForm extends Component {
   };
 
   onPreCheckValidation = (optionsData) => {
-    if (optionsData && optionsData.language) {
+    if (optionsData && optionsData.sub_skill_id) {
       return true
     }
     return false
   }
-
-  handleLanguageChange = (event) => {
-    console.log('===== handleLanguageChange: ', event.target.name)
-    const { selectedLanguage } = this.state
-    selectedLanguage[event.target.name] = event.target.value
-    this.setState({ selectedLanguage });
-  };
 
   renderNotification = () => {
     return (
@@ -116,100 +102,89 @@ class TalentSubSkillVideosForm extends Component {
         />
       </Snackbar>
     )
+  };
+
+  renderVideosForOneStep() {
+    return (<div/>)
   }
 
-  renderLanguageSelection(key) {
-    const { classes } = this.props
-    const { selectedLanguage } = this.state
-
-    return (
-      <FormControl className={classes.formControl}>
-        <Select
-          value={selectedLanguage[key]}
-          onChange={this.handleLanguageChange}
-          name={key}
-          displayEmpty
-          className={classes.selectEmpty}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {defaultValues.LANGUAGES.map((language, index) => {
-            return (<MenuItem value={index}>{language}</MenuItem>)
-          })}
-        </Select>
-        <FormHelperText>Select Language</FormHelperText>
-      </FormControl>
-    )
-  }
-
-  renderVideos() {
+  renderVideosForTwoStep() {
     const { classes, talentInfo } = this.props
-    const { selectedLanguage, talent_video_greetings } = this.state
+    const { subSkill, talent_video_sub_skills } = this.state
     if (talentInfo) {
-      const signApi = `${apiConfig.url}/talent_video_greetings/upload/${talentInfo.user.id}/policy/`
-      const completeApi = `${apiConfig.url}/talent_video_greetings/upload/${talentInfo.user.id}/complete/`
+      const signApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/policy/`
+      const completeApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/complete/`
 
       return (
         <Grid container spacing={16} justify="center" alignItems="center">
-          {
-            Object.keys(selectedLanguage).map((key, index) => {
-              let strLanguage = defaultValues.LANGUAGES[selectedLanguage[key]]
-              return (
-                <Grid item lg={3} md={6} sm={6} xs={12}>
-                  <Grid container spacing={8} direction="column" justify="center" alignItems="center">
-                    <Grid item lg={12} md={12} sm={12} xs={12}>
-                      { this.renderLanguageSelection(key) }
-                    </Grid>
-                    <Grid item lg={12} md={12} sm={12} xs={12}>
-                      <VideoUploader
-                        title={`${strLanguage} Video Greeting`}
-                        subTitle={"click to play"}
-                        videoData={talent_video_greetings[index]}
-                        optionsData={{language: strLanguage}}
-                        preCheckFunc={this.onPreCheckValidation}
-                        signApi={signApi}
-                        completeApi={completeApi}
-                        deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
-                        onFinishUploadingCallbackFunc={this.onFinishUploading}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              )
-            })
-          }
+          <Grid item lg={1} md={0} sm={0} xs={0}/>
+          <Grid item lg={3} md={3} sm={12} xs={12}>
+            <VideoUploader
+              title={`Current ${subSkill.name} 1 Video`}
+              noVideoTitle={`Current ${subSkill.name} 1 Video`}
+              subTitle={"(click to play)"}
+              videoData={findVideoByPriority(talent_video_sub_skills, 1)}
+              optionsData={{sub_skill_id: subSkill.id, priority: 1}}
+              preCheckFunc={this.onPreCheckValidation}
+              signApi={signApi}
+              completeApi={completeApi}
+              deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
+              onFinishUploadingCallbackFunc={this.onFinishUploading}
+            />
+          </Grid>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
+            <HelpfulHintForm/>
+          </Grid>
+          <Grid item lg={3} md={3} sm={12} xs={12}>
+            <VideoUploader
+              title={`${subSkill.name} 2 Video`}
+              noVideoTitle={`Current ${subSkill.name} 2 Video`}
+              subTitle={"click to play"}
+              videoData={findVideoByPriority(talent_video_sub_skills, 2)}
+              optionsData={{sub_skill_id: subSkill.id, priority: 2}}
+              showCheckbox={false}
+              preCheckFunc={this.onPreCheckValidation}
+              signApi={signApi}
+              completeApi={completeApi}
+              deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
+              onFinishUploadingCallbackFunc={this.onFinishUploading}
+            />
+          </Grid>
+          <Grid item lg={1} md={0} sm={0} xs={0}/>
         </Grid>
       )
     }
 
     return (<div/>)
+  }
 
+  renderVideos() {
+    const { subSkill } = this.state
+    const video_step = subSkill ? subSkill.video_steps : 0
+
+    switch (video_step) {
+      case 1:
+        return this.renderVideosForOneStep()
+      case 2:
+        return this.renderVideosForTwoStep()
+      default:
+        return (<div/>)
+    }
   }
 
   renderContents() {
     const { classes, contentTitle, allPositionTypes } = this.props
-
+    const { subSkill } = this.state
     return (
       <Panel title={contentTitle}>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <ColumnButton
-            link = {'/talent/video-greetings/introduction'}
+            link = {'/talent/video-sub-skills/introduction'}
             color="primary"
             itemClass = {classes.talentProfileGuideButtonItem}
             buttonClass = {classes.talentProfileGuideButton}
             title = {"INSTRUCTIONS"}
             titleClass = {classes.talentProfileGuideButtonTitle}
-            size = {12}
-            fullWidth = {false}
-          />
-          <ColumnButton
-            link = {'#'}
-            color="primary"
-            itemClass = {classes.talentProfileGuideButtonItem}
-            buttonClass = {classes.talentProfileGuideButton}
-            title = {"Sample Videos"}
-            titleClass = {classes.talentProfileGuideButtonSubTitle}
             size = {12}
             fullWidth = {false}
           />
@@ -225,8 +200,15 @@ class TalentSubSkillVideosForm extends Component {
         <Grid container spacing={24} justify="center" alignItems="center">
           <Grid item lg={1} md={1} xs={0}/>
           <Grid item lg={10} md={10} xs={12}>
-            <Typography gutterBottom variant='Subheading' className={classes.talentProfileVideoAuditionDescriptionText}>
-              {`NOTE: You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.`}
+            <Typography
+              gutterBottom
+              variant='Subheading'
+              className={classes.talentProfileVideoAuditionDescriptionText}
+            >
+              {`NOTE: You will see your uploaded ${subSkill.name} Videos and Introduction
+                in your Profile imediately. However, before casting directors can see the
+                uploaded ${subSkill.name} Videos and Introduction in your Profile, it must
+                be reviewed and approved by ShipTalent.com.`}
               <br/>
               {`(usually within 24 hours)`}
             </Typography>

@@ -12,6 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import VideoViewModal from 'components/shiptalent/modals/videoModal';
 import Snackbar from '@material-ui/core/Snackbar';
+import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Alert from 'components/shiptalent/snackbars/alert';
@@ -171,8 +172,16 @@ class VideoUploader extends Component {
     this.setState({ progressPercent: percent })
   }
 
+  doneUploadingProgress = () => {
+    this.setState({
+      progressing: false,
+      progressPercent: 0
+    })
+  };
+
   onError = (file) => {
     console.log('==== Error: ', file)
+    this.doneUploadingProgress()
   };
 
   onFinish = (completeAPI, fileID, file) => {
@@ -194,16 +203,19 @@ class VideoUploader extends Component {
       .then(response => {
         if(response.error) {
           console.log('error: ', response.error)
+          this.onError(file, response.error)
         }
         else {
           // Update resume from server
           // this.uploadToS3ToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
           console.log('==== uploading done')
+          this.doneUploadingProgress()
           onFinishUploadingCallbackFunc()
         }
       })
       .catch(error => {
         console.log('error: ', error)
+        this.onError(file, error)
       })
   }
 
@@ -231,7 +243,6 @@ class VideoUploader extends Component {
   };
 
   closeVideo = () => {
-    console.log('===== closeVideo: this: ', this)
     this.setState({ openVideoModal: false })
   };
 
@@ -243,8 +254,8 @@ class VideoUploader extends Component {
   };
 
   renderContents() {
-    const { title, subTitle, classes } = this.props
-    const { video, openVideoModal, progressPercent } = this.state
+    const { title, noVideoTitle, subTitle, showCheckbox, classes } = this.props
+    const { video, openVideoModal, progressing, progressPercent } = this.state
     const haveVideo = video && video.url && video.uploaded && video.active
 
     return (
@@ -252,14 +263,18 @@ class VideoUploader extends Component {
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
             {
-              progressPercent ? (
-                <CircularProgress/>
+              progressing ? (
+                <CircularProgress className={classes.talentProfileVideoGreetingImage}/>
               ) : (
                 <div>
                   <div onClick={() => this.showVideo(video.url)}>
                     <ImageLoader
                       className={classes.talentProfileVideoGreetingImage}
-                      src={haveVideo ? require('images/cinema-100-material.png') : require('images/missing-video.png')}
+                      src={
+                        haveVideo ?
+                        require('images/cinema-100-material.png') :
+                        require('images/missing-video.png')
+                      }
                       loading={() => <div className={classes.talentProfileVideoGreetingImage}>Loading...</div>}
                       error={() => <div>Error</div>}
                     />
@@ -288,7 +303,7 @@ class VideoUploader extends Component {
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
             <div className="profile-picture-image-title">
-              {haveVideo ? title : 'Current Video Greeting'}
+              {haveVideo ? title : noVideoTitle}
             </div>
           </Col>
           <Col xs="12" md="12" className="pt-0 pt-md-0 profile-picture-image-col">
@@ -299,12 +314,22 @@ class VideoUploader extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {progressPercent > 0 ? (
-              <LinearProgress
-                variant="determinate"
-                className={classes.uploadProgressBar}
-                value={progressPercent}
-              />
+            {/*{progressPercent > 0}*/}
+            { progressPercent > 0 ? (
+              <div>
+                <LinearProgress
+                  variant="determinate"
+                  className={classes.uploadProgressBar}
+                  value={progressPercent}
+                />
+                <Typography
+                gutterBottom
+                variant='Subheading'
+                className={classes.talentProfileVideoUploadingText}
+                >
+                  {`Uploading (${progressPercent.toFixed(0)} %) ... `}
+                </Typography>
+              </div>
             ) : (
               <Dropzone
                 className="profile-picture-dropzone"
@@ -324,19 +349,23 @@ class VideoUploader extends Component {
             )}
           </Col>
 
-          <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  disabled
-                  checked={!haveVideo}
-                  value="checkedB"
-                  color="primary"
+          {
+            showCheckbox && (
+              <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      disabled
+                      checked={!haveVideo}
+                      value="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label={"No additional languages"}
                 />
-              }
-              label={"No additional languages"}
-            />
-          </Col>
+              </Col>
+            )
+          }
 
         </Row>
       </div>

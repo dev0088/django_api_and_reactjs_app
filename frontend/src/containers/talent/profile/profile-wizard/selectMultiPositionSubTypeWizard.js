@@ -14,14 +14,14 @@ import TalentAPI from 'apis/talentAPIs';
 import { findPositionTypeByName } from 'utils/appUtils';
 import styles from 'styles';
 
-class SelectPositionSubTypeWizard extends Component {
+class SelectMultiPositionSubTypeWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       allPositionTypes: [],
       prevPositionType: null,
       selectedPositionType: null,
-      singleSelectedPositionSubType: null,
+      multiSelectedPositionSubType: []
     }
   }
 
@@ -31,26 +31,30 @@ class SelectPositionSubTypeWizard extends Component {
       allPositionTypes: [],
       prevPositionType: null,
       selectedPositionType: null,
-      singleSelectedPositionSubType: null
+      multiSelectedPositionSubType: []
     }
 
     if (talentInfo) {
       res.allPositionTypes = allPositionTypes ? allPositionTypes : []
-      if (talentInfo.talent_position_types && talentInfo.talent_position_types.length > 0) {
+
+      if (talentInfo.talent_position_types &&
+        talentInfo.talent_position_types.length > 0) {
         res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
+        res.prevPositionType = findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
         console.log('==== res.selectedPositionType: ', res.selectedPositionType)
       }
-      
-      res.prevPositionType = findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
-      
-      if (talentInfo.talent_position_sub_types && 
+
+      if (talentInfo.talent_position_sub_types &&
           talentInfo.talent_position_sub_types.length > 0 &&
-          talentInfo.talent_position_sub_types[0].position_sub_type) {
-        res.singleSelectedPositionSubType = talentInfo.talent_position_sub_types[0].position_sub_type.name
+          res.prevPositionType) {
+        let talent_position_sub_types = talentInfo.talent_position_sub_types
+        for (let i = 0; i < talent_position_sub_types.length; i ++) {
+          res.multiSelectedPositionSubType.push(talent_position_sub_types[i].position_sub_type.name)
+        }
       }
     }
-    
-    console.log('==== getInfoFromProps: res: ', res)
+
+    console.log('==== Multi: getInfoFromProps: res: ', res)
 
     return res
   }
@@ -72,16 +76,26 @@ class SelectPositionSubTypeWizard extends Component {
   }
 
   handleClickPositionSubTypeButton = (type, val) =>  {
-    this.setState({ [type]: val});
+    const { multiSelectedPositionSubType } = this.state
+    let selectPositionSubTypes = multiSelectedPositionSubType
+    let index = selectPositionSubTypes.indexOf(val)
+
+    if ( index >= 0) {
+      selectPositionSubTypes.splice(index, 1);
+    } else {
+      selectPositionSubTypes.push(val)
+    }
+
+    this.setState({ multiSelectedPositionSubType: selectPositionSubTypes});
   }
 
   handleClickNextButton = () => {
-    const { selectedPositionType, singleSelectedPositionSubType } = this.state
+    const { selectedPositionType, multiSelectedPositionSubType } = this.state
     const { auth } = this.props
-    console.log('==== singleSelectedPositionSubType: ', singleSelectedPositionSubType)
+    console.log('==== multiSelectedPositionSubType: ', multiSelectedPositionSubType)
     let data = {
       talent_position_type: selectedPositionType,
-      talent_position_sub_type: singleSelectedPositionSubType,
+      talent_position_sub_types: multiSelectedPositionSubType,
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -94,7 +108,7 @@ class SelectPositionSubTypeWizard extends Component {
   }
 
   renderSubPositionButtons() {
-    const { singleSelectedPositionSubType, prevPositionType } = this.state;
+    const { multiSelectedPositionSubType, prevPositionType } = this.state;
     const { classes } = this.props;
     let items = []
 
@@ -113,13 +127,13 @@ class SelectPositionSubTypeWizard extends Component {
               variant="contained"
               color="primary"
               className={
-                positionSubType1 === singleSelectedPositionSubType
+                multiSelectedPositionSubType.indexOf(positionSubType1) >= 0
                   ? classes.talentProfileGuideButtonSelected
                   : classes.talentProfileGuideButton
               }
               fullWidth={true}
               onClick={() => this.handleClickPositionSubTypeButton(
-                'singleSelectedPositionSubType', positionSubType1
+                'multiSelectedPositionSubType', positionSubType1
               )}
             >
               <Typography className={classes.talentProfileGuideButtonTitle}>
@@ -141,13 +155,13 @@ class SelectPositionSubTypeWizard extends Component {
                 variant="contained"
                 color="primary"
                 className={
-                  positionSubType2 === singleSelectedPositionSubType
+                  multiSelectedPositionSubType.indexOf(positionSubType2) >= 0
                     ? classes.talentProfileGuideButtonSelected
                     : classes.talentProfileGuideButton
                 }
                 fullWidth={true}
                 onClick={() => this.handleClickPositionSubTypeButton(
-                  'singleSelectedPositionSubType', positionSubType2
+                  'multiSelectedPositionSubType', positionSubType2
                 )}
               >
                 <Typography className={classes.talentProfileGuideButtonTitle}>
@@ -169,9 +183,9 @@ class SelectPositionSubTypeWizard extends Component {
 
 
   renderContents() {
-    const { singleSelectedPositionSubType, prevPositionType } = this.state;
+    const { multiSelectedPositionSubType, prevPositionType } = this.state;
     const { classes } = this.props;
-    
+
     return (
       <Panel title={"Step 3"}>
         <WizardSettingHeader
@@ -234,4 +248,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectPositionSubTypeWizard));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectMultiPositionSubTypeWizard));

@@ -28,6 +28,7 @@ import WelcomeBuildProfileWizard from "containers/talent/profile/profile-wizard/
 import SelectMaleWizard from "containers/talent/profile/profile-wizard/selectMaleWizard";
 import SelectPositionTypeWizard from "containers/talent/profile/profile-wizard/selectPositionTypeWizard";
 import SelectPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
+import SelectMultiPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectMultiPositionSubTypeWizard";
 import LastWizard from "containers/talent/profile/profile-wizard/lastWizard";
 import SelectContactInfoWizard from "containers/talent/profile/profile-wizard/selectContactInfoWizard";
 import SelectNationalityWizard from "containers/talent/profile/profile-wizard/selectNationalityWizard";
@@ -47,6 +48,7 @@ import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScr
 import MyVideoGreetings from "containers/talent/profile/build-profile/videos/greetings/myVideoGreetingsScreen";
 import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
 import MyPositionVideos from "containers/talent/profile/build-profile/videos/positions/myPositionVideosScreen";
+import MySubSkillVideos from "containers/talent/profile/build-profile/videos/positions/mySubSkillVideosScreen";
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
 import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
@@ -402,6 +404,15 @@ const Index = () => (
     />
 
     <Route
+      path="/profile-wizard/select-multi-position-sub-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMultiPositionSubTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
       path="/profile-wizard/lastWizard"
       render={props => (
         <TemplateTopbar>
@@ -582,6 +593,14 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyPositionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/video-sub-skill"
+      render={props => (
+        <TemplateTopbar>
+          <MySubSkillVideos {...props} />
         </TemplateTopbar>
       )}
     />

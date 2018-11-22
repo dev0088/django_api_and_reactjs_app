@@ -103,6 +103,20 @@ class TalentDetail(APIView):
                 )
             new_talent_position_sub_type.save()
 
+    def save_talent_position_sub_types(self, talent, position_sub_type_names, position_type_name):
+        # delete all position sub types of talent
+        TalentPositionSubType.objects.filter(talent=talent).delete()
+        # save position type
+        position_type = PositionType.objects.get(name=position_type_name)
+        position_sub_types = PositionSubType.objects.filter(name__in=position_sub_type_names, position_type=position_type)
+        if len(position_sub_types) > 0:
+            for position_sub_type in position_sub_types:
+                new_talent_position_sub_type = TalentPositionSubType.objects.create(
+                    talent=talent,
+                    position_sub_type=position_sub_type
+                )
+                new_talent_position_sub_type.save()
+
     def save_talent_skills(self, talent, talent_skills):
         # delete all skills of talent
         TalentSkill.objects.filter(talent=talent).delete()
@@ -167,6 +181,9 @@ class TalentDetail(APIView):
         # pick out position sub type data
         talent_position_sub_type_data = self.pickout_data(talent_data, 'talent_position_sub_type')
 
+        # pick out multiple position sub types data
+        talent_position_sub_types_data = self.pickout_data(talent_data, 'talent_position_sub_types')
+
         # pick out skills data
         talent_skills_data = self.pickout_data(talent_data, 'talent_skills')
 
@@ -191,7 +208,19 @@ class TalentDetail(APIView):
                 
                 # Check and save position sub type
                 if talent_position_sub_type_data:
-                    self.save_talent_position_sub_type(talent_item, talent_position_sub_type_data, talent_position_type_data)
+                    self.save_talent_position_sub_type(
+                            talent_item,
+                            talent_position_sub_type_data,
+                            talent_position_type_data
+                    )
+
+                # Check and save multiple position sub types
+                if talent_position_sub_types_data:
+                    self.save_talent_position_sub_types(
+                            talent_item,
+                            talent_position_sub_types_data,
+                            talent_position_type_data
+                    )
 
             # Check and save skills
             if talent_skills_data:

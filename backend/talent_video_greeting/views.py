@@ -42,6 +42,7 @@ class GreetingVideoFileUploadPolicy(APIView):
         object_name = request.data.get('objectName')
         content_type = request.data.get('contentType')
         language = request.data.get('language') if request.data.get('language') else "English"
+        priority = request.data.get('priority') if request.data.get('priority') else 1
 
         if not object_name:
             return Response({"message": "A filename is required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -55,7 +56,11 @@ class GreetingVideoFileUploadPolicy(APIView):
         user_id = talent.user.username
 
         # Check and delete video_greeting for talent and language
-        talent_video_greetings = TalentVideoGreeting.objects.filter(talent_id=talent_id, language=language)
+        talent_video_greetings = TalentVideoGreeting.objects.filter(
+            talent_id=talent_id,
+            language=language,
+            priority=priority
+        )
         # if len(talent_video_greetings) > 0:
         #   talent_video_greeting = talent_video_greetings.first()
         # else:
@@ -111,7 +116,8 @@ class GreetingVideoFileUploadPolicy(APIView):
             """
             talent_video_greeting.path = final_upload_path
             talent_video_greeting.url = upload_url
-            talent_video_greeting.language = language if language else "English"
+            talent_video_greeting.language = language
+            talent_video_greeting.priority = priority
             talent_video_greeting.save()
 
         data = {

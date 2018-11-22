@@ -11,6 +11,7 @@ class TalentVideoSubSkillSerializer(serializers.ModelSerializer):
             'id',
             'talent',
             'sub_skill',
+            'priority',
             'name',
             'path',
             'url',

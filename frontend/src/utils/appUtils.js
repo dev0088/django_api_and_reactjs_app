@@ -219,3 +219,39 @@ export function findRelatedSkillByPositionName(skills, positionName) {
   }
   return res
 }
+
+export function findVideoIndexByPriority(videos, priority) {
+  return videos.findIndex(function(video) {
+    return video.priority === priority;
+  });
+}
+
+export function findVideoByPriority(videos, priority) {
+  return videos.find(function(video) {
+    return video.priority === priority;
+  });
+}
+
+export function findPositionTypeByName(allPositionTypes, name) {
+  return allPositionTypes.find(function(positionType) {
+    return positionType.name === name;
+  });
+}
+
+export function getPrefixByWord(positionTypeName) {
+  let firstLetter = positionTypeName.substring(0, 1)
+  let res = 'a'
+
+  if (firstLetter === 'A' || firstLetter === 'a' ||
+    firstLetter === 'E' || firstLetter === 'e' ||
+    firstLetter === 'I' ||  firstLetter === 'i' ||
+    firstLetter === 'O' ||  firstLetter === 'o' ||
+    firstLetter === 'U' ||  firstLetter === 'u' ||
+    firstLetter === 'W' ||  firstLetter === 'w' ||
+    firstLetter === 'Y' ||  firstLetter === 'y'
+  ) {
+    res = 'an'
+  }
+
+  return res
+}

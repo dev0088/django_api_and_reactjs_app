@@ -78,9 +78,9 @@ class TalentPositionVideosForm extends Component {
           }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
         items.push(
-          <Grid item lg={3} md={4} sm={6} xs={12}
+          <Grid item lg={3} md={4} sm={5} xs={12}
                 className={classes.talentProfileGuideButtonItem}>
             <Link to={link} onClick={this.handleClickLink}>
               <Button
@@ -107,7 +107,7 @@ class TalentPositionVideosForm extends Component {
           }
 
           items.push(
-            <Grid item lg={3} md={4} sm={6} xs={12}
+            <Grid item lg={3} md={4} sm={5} xs={12}
                   className={classes.talentProfileGuideButtonItem}>
               <Link to={link} onClick={this.handleClickLink}>
                 <Button
@@ -124,9 +124,9 @@ class TalentPositionVideosForm extends Component {
             </Grid>
           )
         } else {
-          items.push(<Grid item lg={3} md={4} sm={6} xs={12}/>)
+          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
       }
       return items
     }
@@ -146,18 +146,19 @@ class TalentPositionVideosForm extends Component {
         </Grid>
         <Spacer size={40}/>
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item xs={12}>
+          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={10} md={10} xs={12}>
             <Typography
               gutterBottom
               variant='Subheading'
               className={classes.talentProfileVideoAuditionDescriptionText}
             >
-              {`Note: You will see your uploaded ${position ? position.name : ''} Audition Videos in your Profile immediately. However, before casing directors can see the uploaded ${position ? position.name : ''} Audition Videos in your Profile, they must be reviewed and approved by ShipTalent.com.`}
+              {`NOTE: You will see your uploaded ${position ? position.name : ''} Audition Videos in your Profile immediately. However, before casing directors can see the uploaded ${position ? position.name : ''} Audition Videos in your Profile, they must be reviewed and approved by ShipTalent.com.`}
               <br/>
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-
+          <Grid item lg={1} md={1} xs={0}/>
           <Grid item lg={2} md={1} sm={0} xs={0}/>
           <Grid item lg={8} md={10} sm={12} xs={12}>
             <FormControlLabel

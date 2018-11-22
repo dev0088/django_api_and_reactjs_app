@@ -9,12 +9,14 @@ class TalentVideoGreetingAdmin(admin.ModelAdmin):
             'id',
             'user_email_display',
             'language',
+            'priority',
             'file_type',
             'size',
             'url')
         list_display_links = (
             'id',
             'user_email_display',
+            'priority',
             'language',
             'file_type',
             'size',

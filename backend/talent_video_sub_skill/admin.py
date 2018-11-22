@@ -9,6 +9,7 @@ class TalentVideoSubSkillAdmin(admin.ModelAdmin):
             'id',
             'user_email_display',
             'sub_skill_display',
+            'priority',
             'file_type',
             'size',
             'url')
@@ -16,6 +17,7 @@ class TalentVideoSubSkillAdmin(admin.ModelAdmin):
             'id',
             'user_email_display',
             'sub_skill_display',
+            'priority',
             'file_type',
             'size',
             'url')

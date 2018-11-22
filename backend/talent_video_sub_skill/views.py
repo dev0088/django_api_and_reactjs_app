@@ -45,6 +45,7 @@ class SubSkillVideoFileUploadPolicy(APIView):
         object_name = request.data.get('objectName')
         content_type = request.data.get('contentType')
         sub_skill_id = request.data.get('sub_skill_id')
+        priority = request.data.get('priority') if request.data.get('priority') else 1
 
         if not object_name:
             return Response({"message": "A filename is required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -67,7 +68,11 @@ class SubSkillVideoFileUploadPolicy(APIView):
             )
 
         # Check and delete video_sub_skill for talent and sub_skill
-        talent_video_sub_skills = TalentVideoSubSkill.objects.filter(talent_id=talent_id, sub_skill_id=sub_skill_id)
+        talent_video_sub_skills = TalentVideoSubSkill.objects.filter(
+                talent_id=talent_id,
+                sub_skill_id=sub_skill_id,
+                priority=priority
+        )
 
         if len(talent_video_sub_skills) > 0:
             talent_video_sub_skill = talent_video_sub_skills.first()
@@ -118,6 +123,7 @@ class SubSkillVideoFileUploadPolicy(APIView):
             """
             talent_video_sub_skill.path = final_upload_path
             talent_video_sub_skill.url = upload_url
+            talent_video_sub_skill.priority = priority
             talent_video_sub_skill.save()
 
         data = {
@@ -151,25 +157,14 @@ class SubSkillVideoFileUploadCompleteHandler(APIView):
 
 class SubSkillVideos(APIView):
     """
-    List all talent videos matching to sub skill ID.
+    List all talent videos.
     """
-    sub_skill_id_param = openapi.Parameter(
-            'sub_skill_id',
-            openapi.IN_QUERY,
-            description="sub skill ID parameter",
-            type=openapi.TYPE_INTEGER
-    )
-
-    @swagger_auto_schema(
-        manual_parameters=[sub_skill_id_param],
-        responses={200: TalentVideoSubSkillSerializer(many=True)}
-    )
     def get(self, request, pk, format=None):
         try:
-            sub_skill_id = request.GET.get('sub_skill_id')
+            # sub_skill_id = request.GET.get('sub_skill_id')
             user = User.objects.get(pk=pk)
             talent = Talent.objects.get(user=user.id)
-            talent_sub_skill_videos = TalentVideoSubSkill.objects.filter(talent=talent.id, sub_skill_id=sub_skill_id)
+            talent_sub_skill_videos = TalentVideoSubSkill.objects.filter(talent=talent.id)
             serializer = TalentVideoSubSkillSerializer(talent_sub_skill_videos, many=True)
             return Response(serializer.data)
         except Talent.DoesNotExist:
@@ -203,3 +198,30 @@ class SubSkillVideoDetail(APIView):
         talent_sub_skill_video_item = self.get_object(pk)
         talent_sub_skill_video_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SubSkillVideoByID(APIView):
+    """
+    List all talent sub skill videos marching to sub skill id.
+    """
+    sub_skill_id_param = openapi.Parameter(
+            'sub_skill_id',
+            openapi.IN_QUERY,
+            description="sub skill ID parameter",
+            type=openapi.TYPE_INTEGER
+    )
+
+    @swagger_auto_schema(
+        manual_parameters=[sub_skill_id_param],
+        responses={200: TalentVideoSubSkillSerializer(many=True)}
+    )
+    def get(self, request, pk, format=None):
+        try:
+            sub_skill_id = request.GET.get('sub_skill_id')
+            user = User.objects.get(pk=pk)
+            talent = Talent.objects.get(user=user.id)
+            talent_sub_skill_videos = TalentVideoSubSkill.objects.filter(talent=talent.id, sub_skill_id=sub_skill_id)
+            serializer = TalentVideoSubSkillSerializer(talent_sub_skill_videos, many=True)
+            return Response(serializer.data)
+        except Talent.DoesNotExist:
+            raise Http404

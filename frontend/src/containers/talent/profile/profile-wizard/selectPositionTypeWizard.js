@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Panel from 'components/general/panel';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Panel from 'components/general/panel';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
-import ProfileWizardForm from 'components/shiptalent/forms/profileWizardForm';
 import TalentForm from 'components/shiptalent/forms/talentForm';
-import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
+import { getPrefixByWord, findPositionTypeByName } from 'utils/appUtils';
 import styles from 'styles';
 
 class SelectPositionTypeWizard extends Component {
@@ -74,26 +74,76 @@ class SelectPositionTypeWizard extends Component {
     this.props.talentActions.getCurrentTalentInfo(auth.user_id)
   }
 
-  getPrefixByWord(positionTypeName) {
-    let firstLetter = positionTypeName.substring(0, 1)
-    let res = 'a'
+  renderPositionButtons() {
+    const { allPositionTypes, selectedPositionType } = this.state
+    const { classes } = this.props
+    let items = []
 
-    if (firstLetter === 'A' || firstLetter === 'a' ||
-        firstLetter === 'E' || firstLetter === 'e' ||
-        firstLetter === 'I' ||  firstLetter === 'i' ||
-        firstLetter === 'O' ||  firstLetter === 'o' ||
-        firstLetter === 'U' ||  firstLetter === 'u' ||
-        firstLetter === 'W' ||  firstLetter === 'w' ||
-        firstLetter === 'Y' ||  firstLetter === 'y'
-    ) {
-      res = 'an'
+    if (allPositionTypes && allPositionTypes.length > 0) {
+      for(let i = 0; i < allPositionTypes.length; i +=2) {
+        let positionType1 = allPositionTypes[i]
+
+        items.push(<Grid key={`item${i}-1`} item lg={3} md={2} sm={1} xs={0}/>)
+        items.push(
+          <Grid key={`item${i}-2`}
+            item lg={3} md={4} sm={5} xs={12}
+            className={classes.talentProfileGuideButtonItem}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              className={
+                positionType1.name === selectedPositionType
+                  ? classes.talentProfileGuideButtonSelected
+                  : classes.talentProfileGuideButton
+              }
+              fullWidth={true}
+              onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType1.name)}
+            >
+              <Typography className={classes.talentProfileGuideButtonTitle}>
+                {`I am ${getPrefixByWord(positionType1.name)} ${positionType1.name}`}
+              </Typography>
+            </Button>
+          </Grid>
+        )
+
+        if (allPositionTypes[i + 1]) {
+          let positionType2 = allPositionTypes[i + 1]
+
+          items.push(
+            <Grid key={`item${i}-3`}
+              item lg={3} md={4} sm={5} xs={12}
+              className={classes.talentProfileGuideButtonItem}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className={
+                  positionType2.name === selectedPositionType
+                    ? classes.talentProfileGuideButtonSelected
+                    : classes.talentProfileGuideButton
+                }
+                fullWidth={true}
+                onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType2.name)}
+              >
+                <Typography className={classes.talentProfileGuideButtonTitle}>
+                  {`I am ${getPrefixByWord(positionType2.name)} ${positionType2.name}`}
+                </Typography>
+              </Button>
+            </Grid>
+          )
+        } else {
+          items.push(<Grid key={`item${i}-3`} item lg={3} md={4} sm={5} xs={12}/>)
+        }
+        items.push(<Grid key={`item${i}-4`} item lg={3} md={2} sm={1} xs={0} />)
+      }
+      return items
     }
 
-    return res
+    return (<div/>)
   }
 
   renderContents() {
-    const { allPositionTypes, selectedPositionType } = this.state
     const { classes } = this.props;
 
     return (
@@ -112,41 +162,32 @@ class SelectPositionTypeWizard extends Component {
         </h5>
         <br/>
 
-        <Grid container className={classes.root} spacing={16}>
-        {
-          allPositionTypes.map((positionType, index) => {
-            if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-              return (
-                <Grid item xs={6} key={index}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={"home-button"}
-                    disabled={(positionType.name === selectedPositionType)}
-                    fullWidth={false}
-                    onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
-                  >
-                    <div className="home-button-title-only">
-                      {`I am ${this.getPrefixByWord(positionType.name)} ${positionType.name}`}
-                    </div>
-                  </Button>
-                </Grid>
-              )
-            }
-          })
-        }
+        <Grid container spacing={16} justify="center" alignItems="center">
+          { this.renderPositionButtons() }
         </Grid>
       </Panel>
     )
   }
 
   render() {
+    const { talentInfo, allPositionTypes } = this.props
+    const { selectedPositionType } = this.state
+    let prevPositionType = {}
+    let nextLink = "/profile-wizard/select-position-sub-type"
+
+    if (talentInfo && allPositionTypes && selectedPositionType) {
+      prevPositionType = findPositionTypeByName(allPositionTypes, selectedPositionType)
+      if (prevPositionType && prevPositionType.multi_selection) {
+        nextLink = "/profile-wizard/select-multi-position-sub-type"
+      }
+    }
+
     return (
       <TalentForm
         formTitle="Build My Profile Wizard"
         backLink="/profile-wizard/select-male"
         backButtonTitle="Back"
-        nextLink="/profile-wizard/select-position-sub-type"
+        nextLink={nextLink}
         nextButtonTitle="Next"
         handleClickNextButton={this.handleClickNextButton}
       >

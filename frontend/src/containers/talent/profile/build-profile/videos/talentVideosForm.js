@@ -45,10 +45,12 @@ class TalentVideosForm extends Component {
           state: { position: position }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
         items.push(
-          <Grid item lg={3} md={4} sm={6} xs={12}
-                className={classes.talentProfileGuideButtonItem}>
+          <Grid
+            item lg={3} md={4} sm={5} xs={12}
+            className={classes.talentProfileGuideButtonItem}
+          >
             <Link to={link}>
               <Button
                 variant="contained" color={'primary'}
@@ -78,8 +80,10 @@ class TalentVideosForm extends Component {
           }
 
           items.push(
-            <Grid item lg={3} md={4} sm={6} xs={12}
-                  className={classes.talentProfileGuideButtonItem}>
+            <Grid
+              item lg={3} md={4} sm={5} xs={12}
+              className={classes.talentProfileGuideButtonItem}
+            >
               <Link to={link}>
                 <Button
                   variant="contained" color={'primary'}
@@ -99,9 +103,9 @@ class TalentVideosForm extends Component {
             </Grid>
           )
         } else {
-          items.push(<Grid item lg={3} md={4} sm={6} xs={12}/>)
+          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={0} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
       }
       return items
     }
