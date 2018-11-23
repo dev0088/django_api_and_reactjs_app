@@ -48,9 +48,9 @@ class TalentVideosForm extends Component {
           }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`position${i}-1`}/>)
         items.push(
-          <Grid
+          <Grid key={`position${i}-2`}
             item lg={3} md={4} sm={5} xs={12}
             className={classes.talentProfileGuideButtonItem}
           >
@@ -86,7 +86,7 @@ class TalentVideosForm extends Component {
           }
 
           items.push(
-            <Grid
+            <Grid key={`position${i}-3`}
               item lg={3} md={4} sm={5} xs={12}
               className={classes.talentProfileGuideButtonItem}
             >
@@ -109,9 +109,9 @@ class TalentVideosForm extends Component {
             </Grid>
           )
         } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
+          items.push(<Grid item lg={3} md={4} sm={5} xs={12} key={`position${i}-3`}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`position${i}-4`}/>)
       }
       return items
     }
