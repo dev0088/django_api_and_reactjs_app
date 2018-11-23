@@ -181,14 +181,14 @@ class EditProfile extends Component {
         for (let j = 0; j < skill.sub_skills.length; j ++ ) {
           let subSkill = skill.sub_skills[j]
           options.push({
-            label: subSkill,
-            value: subSkill,
+            label: subSkill.name,
+            value: subSkill.name,
             group: skill.name,
             index: index ++,
             isGroup: false,
             isChecked: this.exitType(
               'sub_skill',
-              subSkill,
+              subSkill.name,
               currentSubSkills)
           })
         }

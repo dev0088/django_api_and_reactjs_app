@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import ClearRounded from '@material-ui/icons/ClearRounded';
+import { withStyles } from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
@@ -13,7 +15,7 @@ import Panel from 'components/general/panel'
 import apiConfig from 'constants/api';
 import TalentAPI from 'apis/talentAPIs';
 import * as talentActions from 'actions/talentActions';
-
+import styles from 'styles';
 import 'react-image-lightbox/style.css';
 import './myResumeScreen.css';
 
@@ -224,7 +226,7 @@ class MyResume extends Component {
   };
 
   renderContents() {
-    const { contentTitle } = this.props
+    const { contentTitle, classes } = this.props
 
     const {
       resume,
@@ -243,8 +245,17 @@ class MyResume extends Component {
                     src={`${apiConfig.server}/${resume.preview_path}`}
                     loading={() => <div className="profile-resume-image">Loading...</div>}
                     error={() => <div>Error</div>} />
-                  <div onClick={() => this.deleteResume()}>
-                    <ClearRounded className="profile-resume-delete-icon" color="secondary" />
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      aria-label="Edit"
+                      disabled = {false}
+                      className={classes.talentProfileResumeDeleteButton}
+                      onClick={this.deleteResume}
+                    >
+                      <ClearRounded style={{fontSize: '20px'}}/>
+                    </Button>
                   </div>
                   {openImageModal && (
                     <ImageLightbox
@@ -261,9 +272,6 @@ class MyResume extends Component {
                     loading={() => <div className="profile-picture-image">Loading...</div>}
                     error={() => <div>Error</div>}
                   />
-                  <div>
-                    <ClearRounded className="profile-resume-delete-icon-disabled" color="secondary" />
-                  </div>
                 </div>
               )
             }
@@ -328,4 +336,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyResume);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyResume));

@@ -66,6 +66,7 @@ urlpatterns = [
   url(r'^api/v1/talent_availability', include('talent_availability.urls')),
   url(r'^api/v1/talent_rating', include('talent_rating.urls')),
   url(r'^api/v1/talent_video_greetings', include('talent_video_greeting.urls')),
+  url(r'^api/v1/talent_video_sub_skills', include('talent_video_sub_skill.urls')),
   url(r'^api/v1/position_type', include('position_type.urls')),
   url(r'^api/v1/position_sub_type', include('position_sub_type.urls')),
   url(r'^api/v1/skill', include('skill.urls')),

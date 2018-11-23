@@ -18,8 +18,19 @@ const store = configureStore(history)
 
 
 class App extends Component {
+
+  getInitialState() {
+    return { prevPath: '' }
+  }
+
   componentDidMount(){
     document.title = "ShipTalent";
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location !== this.props.location) {
+      this.setState({ prevPath: this.props.location })
+    }
   }
 
   render() {

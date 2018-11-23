@@ -1,9 +1,7 @@
-from django.shortcuts import render
 from talent.models import Talent
 from authentication.models import User
 from talent.serializers import TalentSerializer
 from django.http import Http404
-# import coreapi
 from rest_framework.compat import coreapi, coreschema
 from rest_framework.views import APIView
 from rest_framework.schemas import AutoSchema
@@ -23,11 +21,11 @@ from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 
 
-# Create your views here.
 class TalentViewSet(viewsets.ModelViewSet):
     queryset = Talent.objects.all()
     serializer_class = TalentSerializer
     # permission_classes = (IsAuthenticated,)
+
 
 class CurrentTalent(APIView):
     # authentication_classes = (authentication.TokenAuthentication, )
@@ -43,12 +41,12 @@ class CurrentTalent(APIView):
     ])
 
     def get_object(self, user):
-      try:
-        user = User.objects.get(pk=user.pk)
-        talent = Talent.objects.get(user=user.id)
-        return talent
-      except Talent.DoesNotExist:
-        raise Http404
+        try:
+            user = User.objects.get(pk=user.pk)
+            talent = Talent.objects.get(user=user.id)
+            return talent
+        except Talent.DoesNotExist:
+            raise Http404
     """
     Get current talent info
     """
@@ -62,8 +60,6 @@ class CurrentTalent(APIView):
 class TalentDetail(APIView):
     # authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication)
     # permission_classes = (permissions.IsAuthenticated,)
-
-    
     """
     Retrieve, update or delete a talent.
     """
@@ -102,6 +98,20 @@ class TalentDetail(APIView):
                     position_sub_type = position_sub_type
                 )
             new_talent_position_sub_type.save()
+
+    def save_talent_position_sub_types(self, talent, position_sub_type_names, position_type_name):
+        # delete all position sub types of talent
+        TalentPositionSubType.objects.filter(talent=talent).delete()
+        # save position type
+        position_type = PositionType.objects.get(name=position_type_name)
+        position_sub_types = PositionSubType.objects.filter(name__in=position_sub_type_names, position_type=position_type)
+        if len(position_sub_types) > 0:
+            for position_sub_type in position_sub_types:
+                new_talent_position_sub_type = TalentPositionSubType.objects.create(
+                    talent=talent,
+                    position_sub_type=position_sub_type
+                )
+                new_talent_position_sub_type.save()
 
     def save_talent_skills(self, talent, talent_skills):
         # delete all skills of talent
@@ -167,6 +177,9 @@ class TalentDetail(APIView):
         # pick out position sub type data
         talent_position_sub_type_data = self.pickout_data(talent_data, 'talent_position_sub_type')
 
+        # pick out multiple position sub types data
+        talent_position_sub_types_data = self.pickout_data(talent_data, 'talent_position_sub_types')
+
         # pick out skills data
         talent_skills_data = self.pickout_data(talent_data, 'talent_skills')
 
@@ -180,7 +193,6 @@ class TalentDetail(APIView):
         print('==== talent_skills_data: ', talent_skills_data)
         print('==== talent_sub_skills_data: ', talent_sub_skills_data)
 
-
         serializer = TalentSerializer(talent_item, data=talent_data)
         if serializer.is_valid():
             serializer.save()
@@ -191,7 +203,19 @@ class TalentDetail(APIView):
                 
                 # Check and save position sub type
                 if talent_position_sub_type_data:
-                    self.save_talent_position_sub_type(talent_item, talent_position_sub_type_data, talent_position_type_data)
+                    self.save_talent_position_sub_type(
+                            talent_item,
+                            talent_position_sub_type_data,
+                            talent_position_type_data
+                    )
+
+                # Check and save multiple position sub types
+                if talent_position_sub_types_data:
+                    self.save_talent_position_sub_types(
+                            talent_item,
+                            talent_position_sub_types_data,
+                            talent_position_type_data
+                    )
 
             # Check and save skills
             if talent_skills_data:

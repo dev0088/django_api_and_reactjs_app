@@ -1,9 +1,12 @@
 from django.db import models
 from talent.models import Talent
+from sub_skill.models import SubSkill
 
 
-class TalentVideoGreeting(models.Model):
-    talent = models.ForeignKey(Talent, related_name='talent_video_greetings', on_delete=models.CASCADE)
+class TalentVideoSubSkill(models.Model):
+    talent = models.ForeignKey(Talent, related_name='talent_video_sub_skills', on_delete=models.CASCADE)
+    sub_skill = models.ForeignKey(SubSkill, related_name='video_sub_skills', on_delete=models.CASCADE)
+    priority = models.IntegerField(blank=True, default=0)
     name = models.CharField(max_length=120, null=True, blank=True)
     path = models.TextField(blank=True, null=True)
     url = models.TextField(blank=True, null=True)
@@ -13,18 +16,16 @@ class TalentVideoGreeting(models.Model):
     updated = models.DateTimeField(auto_now=True)
     uploaded = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    language = models.CharField(max_length=50, null=True, blank=True)
-    priority = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
-        return 'talent: {user_email}, language: {language}, video: {video_url}, {video_size}'.format(
+        return 'talent: {user_email}, sub_skill: {sub_skill}, video: {video_url}, {video_size}'.format(
                 user_email=self.talent.user.email,
-                language=self.language,
+                sub_skill=self.sub_skill.name,
                 video_url=self.url,
                 video_size=self.size
             )
 
     class Meta:
-        db_table = "talent_video_greeting"
-        ordering = ('talent', 'priority', 'updated')
+        db_table = "talent_video_sub_skill"
+        ordering = ('talent', 'sub_skill', 'priority', 'updated')
         managed = True

@@ -1,6 +1,7 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
+import grey from '@material-ui/core/colors/grey';
 
 export const styles = theme => ({
   root: {
@@ -38,11 +39,22 @@ export const styles = theme => ({
   wizardSettingHeaderButton: {
     display: 'block!important',
     borderRadius: '4px!important',
+    marginLeft: '5px',
+    marginRight: '5px'
+  },
+  wizardSettingHeaderButtonsGroupGridItem: {
+    display: 'inherit'
   },
   wizardSettingHeaderText: {
     color: theme.button.primaryColor,
     fontWeight: 400,
     textTransform: 'none'
+  },
+  wizardSettingSubTitle: {
+    fontSize: '1.45rem',
+    fontWeight: 600,
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   chips: {
     display: 'flex',
@@ -214,6 +226,16 @@ export const styles = theme => ({
     display: 'block',
     borderRadius: '5px'
   },
+  talentProfileGuideButtonSelected: {
+    display: 'block',
+    borderRadius: '5px',
+    color: theme.palette.white.main,
+    boxShadow: 'none',
+    backgroundColor: grey[500],
+    '&:hover': {
+      backgroundColor: grey[600]
+    }
+  },
   talentProfileGuideButtonTitle: {
     fontSize: '1rem',
     fontWeight: 600,
@@ -252,17 +274,66 @@ export const styles = theme => ({
     top: '-48px',
     left: '192px'
   },
+  talentProfileResumeDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '-25px',
+    left: '170px',
+    fontWeight: 600,
+  },
+  talentProfilePictureDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '24px',
+    left: '62px',
+    fontWeight: 600,
+  },
   talentProfileVideoViewModal: {
     width: '60%',
     height: '70%',
     left: '20%',
     top: '15%'
   },
+  talentProfileVideoUploadingText: {
+    padding: '10px',
+    fontSize: '1rem',
+    textAlign: 'center',
+    top: '-36px',
+    position: 'relative',
+    fontWeight: '400'
+  },
   talentProfileVideoAuditionDescriptionText: {
     fontWeight: 'bold',
     textAlign: 'center',
     padding: '10px',
     fontSize: '1rem'
+  },
+  talentProfileVideoAuditionHelpfulHintTitle: {
+    textAlign: 'center',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
+  talentProfileVideoAuditionHelpfulHintContentGrid: {
+    border: '4px solid #000000',
+    margin: 'auto',
+    width: '250px',
+    minWidth: '250px'
+  },
+  talentProfileVideoAuditionHelpfulHintText: {
+    textAlign: 'center',
+    fontSize: '0.85rem',
+    fontWeight: 100,
+  },
+  talentProfileVideoAuditionHelpfulHintImage: {
+    width: '100%',
   },
   clientFormNextButton: {
     textTransform: 'none',

@@ -105,5 +105,10 @@ class TalentAPI {
   static deleteVideoGreeting(video_greeting_id, handleResponse) {
     TalentAPI.processRequest(`talent_video_greetings/${video_greeting_id}/`, 'delete', null, handleResponse)
   }
+
+  static deleteVideoSubSkill(video_sub_skill_id, handleResponse) {
+    TalentAPI.processRequest(`talent_video_sub_skills/${video_sub_skill_id}/`, 'delete', null, handleResponse)
+  }
+
 }
 export default TalentAPI

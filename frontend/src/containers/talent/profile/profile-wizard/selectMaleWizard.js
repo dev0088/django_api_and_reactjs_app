@@ -2,20 +2,23 @@ import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
 import TalentForm from 'components/shiptalent/forms/talentForm';
 import defaultValues from 'constants/defaultValues';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
-
+import styles from 'styles';
 
 class SelectMaleWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gender: props.talentInfo && (props.talentInfo.sex === 'm') ?
-							"Male" : "Female"
+      gender: props.talentInfo && (props.talentInfo.sex === 'm')
+              ? "Male" : "Female"
     }
   }
 
@@ -55,43 +58,59 @@ class SelectMaleWizard extends Component {
 
 	handleNextResponse = (response, isFailed) => {
     console.log('==== response: ', response, isFailed)
+  };
+
+  renderGenderButtons() {
+    const { classes } = this.props
+    let items = []
+    for (let i = 0; i < defaultValues.GENDERS.length; i ++) {
+      let gender = defaultValues.GENDERS[i]
+      items.push(<Grid item lg={5} md={5} sm={4} xs={3} />)
+      items.push(
+        <Grid item lg={2} md={2} sm={4} xs={6}
+              className={classes.talentProfileGuideButtonItem}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            className={
+              gender === this.state.gender
+                ? classes.talentProfileGuideButtonSelected
+                : classes.talentProfileGuideButton
+            }
+            fullWidth={true}
+            onClick={() => this.handleClickGenderButton('gender', gender)}
+          >
+            <Typography className={classes.talentProfileGuideButtonTitle}>
+              {`I am a ${gender}`}
+            </Typography>
+          </Button>
+        </Grid>
+      )
+      items.push(<Grid item lg={5} md={5} sm={4} xs={3} />)
+    }
+
+    return items
   }
 
   renderContents() {
+    const { classes } = this.props;
 
     return (
       <Panel title={"Step 1"}>
-        <h5 align="center" className="profile-bio-description">
+        <Typography className={classes.wizardSettingSubTitle}>
           {"First, tell us if you are Male or Female"}
-        </h5>
+        </Typography>
         <h5 align="center" className="profile-bio-description">
           {"(select one)"}
         </h5>
         <br/>
+        <Grid container spacing={16} justify="center" alignItems="center">
         {
-          defaultValues.GENDERS.map((gender, index) => {
-            return (
-							<Row className="profile-gender-row" key={index}>
-			          <Col xs="12" md="4" className="pt-3 pt-md-3" />
-			          <Col xs="12" md="4" className="pt-0 pt-md-2">
-									<Button
-										variant="contained"
-										color="primary"
-										className={"home-button"}
-										disabled={(gender === this.state.gender)}
-										fullWidth={false}
-										onClick={() => this.handleClickGenderButton('gender', gender)}
-									>
-		                <div className="home-button-title-only">
-		                  {`I am a ${gender}`}
-		                </div>
-		              </Button>
-								</Col>
-								<Col xs="12" md="4" className="pt-3 pt-md-3" />
-			        </Row>
-						)
-          })
+          this.renderGenderButtons()
         }
+
+        </Grid>
 
       </Panel>
     )
@@ -127,4 +146,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectMaleWizard);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectMaleWizard));

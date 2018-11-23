@@ -21,7 +21,7 @@ import defaultValues from 'constants/defaultValues';
 import VideoUploader from 'components/shiptalent/uploaders/videoUploader';
 import TalentAPI from 'apis/talentAPIs';
 import apiConfig from 'constants/api';
-import { getLanguageIndex } from 'utils/appUtils';
+import { getLanguageIndex, findVideoByPriority } from 'utils/appUtils';
 
 const LANGUAGE_KEYS = ['0', '1', '2', '3']
 
@@ -50,8 +50,10 @@ class TalentVideoGreetingsForm extends Component {
     if (talentInfo && talentInfo.talent_video_greetings && talentInfo.talent_video_greetings.length > 0) {
       talent_video_greetings = talentInfo.talent_video_greetings
       for (let i = 0; i < talent_video_greetings.length; i ++) {
-        let language = talent_video_greetings[i].language
-        selectedLanguage[i.toString()] = language ? getLanguageIndex(language) : ''
+        let talent_video_greeting = talent_video_greetings[i]
+        let language = talent_video_greeting.language
+        let languageIndex = talent_video_greeting.priority ? talent_video_greeting.priority - 1 : 0
+        selectedLanguage[languageIndex.toString()] = language ? getLanguageIndex(language) : ''
       }
     }
     return {
@@ -170,9 +172,11 @@ class TalentVideoGreetingsForm extends Component {
                     <Grid item lg={12} md={12} sm={12} xs={12}>
                       <VideoUploader
                         title={`${strLanguage} Video Greeting`}
-                        subTitle={"click to play"}
-                        videoData={talent_video_greetings[index]}
-                        optionsData={{language: strLanguage}}
+                        subTitle={"(click to play)"}
+                        noVideoTitle={`Current Video Greeting`}
+                        videoData={findVideoByPriority(talent_video_greetings, index + 1)}
+                        optionsData={{language: strLanguage, priority: index + 1}}
+                        showCheckbox={true}
                         preCheckFunc={this.onPreCheckValidation}
                         signApi={signApi}
                         completeApi={completeApi}

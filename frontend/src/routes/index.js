@@ -28,6 +28,10 @@ import WelcomeBuildProfileWizard from "containers/talent/profile/profile-wizard/
 import SelectMaleWizard from "containers/talent/profile/profile-wizard/selectMaleWizard";
 import SelectPositionTypeWizard from "containers/talent/profile/profile-wizard/selectPositionTypeWizard";
 import SelectPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectPositionSubTypeWizard";
+import SelectMultiPositionSubTypeWizard from "containers/talent/profile/profile-wizard/selectMultiPositionSubTypeWizard";
+import SelectSkillWizard from "containers/talent/profile/profile-wizard/selectSkillWizard";
+import SelectSubSkillWizard from "containers/talent/profile/profile-wizard/selectSubSkillWizard";
+import SelectMultiSubSkillWizard from "containers/talent/profile/profile-wizard/selectMultiSubSkillWizard";
 import LastWizard from "containers/talent/profile/profile-wizard/lastWizard";
 import SelectContactInfoWizard from "containers/talent/profile/profile-wizard/selectContactInfoWizard";
 import SelectNationalityWizard from "containers/talent/profile/profile-wizard/selectNationalityWizard";
@@ -37,6 +41,7 @@ import SelectMedicalWizard from "containers/talent/profile/profile-wizard/select
 import SelectBioWizard from "containers/talent/profile/profile-wizard/selectBioWizard";
 import SelectResumeWizard from "containers/talent/profile/profile-wizard/selectResumeWizard";
 import SelectPictureWizard from "containers/talent/profile/profile-wizard/selectPictureWizard";
+import SelectVideoWizard from "containers/talent/profile/profile-wizard/selectVideoWizard";
 
 import MyProfile from "containers/talent/profile/myProfile";
 import ViewProfile from "containers/talent/profile/view-profile/viewProfile";
@@ -47,6 +52,7 @@ import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScr
 import MyVideoGreetings from "containers/talent/profile/build-profile/videos/greetings/myVideoGreetingsScreen";
 import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
 import MyPositionVideos from "containers/talent/profile/build-profile/videos/positions/myPositionVideosScreen";
+import MySubSkillVideos from "containers/talent/profile/build-profile/videos/positions/mySubSkillVideosScreen";
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
 import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
@@ -402,6 +408,43 @@ const Index = () => (
     />
 
     <Route
+      path="/profile-wizard/select-multi-position-sub-type"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMultiPositionSubTypeWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/profile-wizard/select-skill"
+      render={props => (
+        <TemplateTopbar>
+          <SelectSkillWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/profile-wizard/select-sub-skill"
+      render={props => (
+        <TemplateTopbar>
+          <SelectSubSkillWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/profile-wizard/select-multi-sub-skill"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMultiSubSkillWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+
+    <Route
       path="/profile-wizard/lastWizard"
       render={props => (
         <TemplateTopbar>
@@ -470,6 +513,14 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <SelectPictureWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-video"
+      render={props => (
+        <TemplateTopbar>
+          <SelectVideoWizard {...props} />
         </TemplateTopbar>
       )}
     />
@@ -582,6 +633,14 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <MyPositionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/video-sub-skill"
+      render={props => (
+        <TemplateTopbar>
+          <MySubSkillVideos {...props} />
         </TemplateTopbar>
       )}
     />
