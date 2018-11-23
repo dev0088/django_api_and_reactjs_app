@@ -12,7 +12,7 @@ class Skill(models.Model):
     multi_selection = models.BooleanField(default=False)
     related_position_type = models.ForeignKey(PositionType, related_name='related_skills', on_delete=models.CASCADE)
     description = models.CharField(blank=True, max_length=50)
-    question = models.CharField(blank=True, max_length=50)
+    question = models.TextField(max_length=300, blank=True)
     
     def __str__(self):
         return self.name
