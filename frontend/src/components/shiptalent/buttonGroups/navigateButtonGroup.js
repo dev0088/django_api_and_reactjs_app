@@ -38,7 +38,6 @@ class NavigateButtonGroup extends Component {
                 color="primary"
                 primary={true}
                 fullWidth={false}
-                focusVisible={true}
                 className={nextButtonClass ? nextButtonClass : classes.nextButtonClass}
               >
                 {nextButtonTitle ? nextButtonTitle : 'Next'}

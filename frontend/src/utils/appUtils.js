@@ -238,6 +238,12 @@ export function findPositionTypeByName(allPositionTypes, name) {
   });
 }
 
+export function findSkillByName(allSkills, name) {
+  return allSkills.find(function(skill) {
+    return skill.name === name;
+  });
+}
+
 export function getPrefixByWord(positionTypeName) {
   let firstLetter = positionTypeName.substring(0, 1)
   let res = 'a'

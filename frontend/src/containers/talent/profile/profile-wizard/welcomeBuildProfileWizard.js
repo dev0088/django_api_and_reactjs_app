@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-// import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Panel from 'components/general/panel';
 import TalentForm from 'components/shiptalent/forms/talentForm';
+import Spacer from "components/general/spacer";
+import styles from 'styles';
 import './welcomeBuildProfileWizard.css';
 
 
@@ -14,29 +18,31 @@ class WelcomeBuildProfileWizard extends Component {
   }
 
   renderContents() {
+    const { classes } = this.props;
     return (
       <Panel title={"Welcome"}>
-				<h5 align="center" className="profile-bio-description">
-          Welcome to the Build My Profile Wizard.
-				</h5>
-        <h5 align="center" className="profile-bio-description">
-          In this section, we will build your profile one step at a time.
-				</h5>
-        <br/>
+        <Typography className={classes.wizardSettingSubTitle}>
+          {"Welcome to the Build My Profile Wizard."}
+        </Typography>
+        <Typography className={classes.wizardSettingSubTitle}>
+          {"In this section, we will build your profile one step at a time."}
+        </Typography>
 
-        <Row>
-          <Col xs="12" md="3" className="pt-4 pt-md-4" />
-          <Col xs="12" md="6" className="pt-4 pt-md-4">
+        <Spacer size={40}/>
+
+        <Grid container direction="column" justify="center" alignItems="center" spacing={24}>
+          <Grid item md={12}>
             <Link to="/profile-wizard/select-male">
-              <Button variant="contained"  color="primary" className={"home-button"} >
-                <div className="home-button-title-only">
+              <Button variant="contained"  color="primary" className={classes.talentProfileGuideButton}>
+                <Typography className={classes.talentProfileGuideButtonTitle}>
                   {"Let's Build My Profile"}
-                </div>
+                </Typography>
               </Button>
             </Link>
-          </Col>
-          <Col xs="12" md="3" className="pt-4 pt-md-4" />
-        </Row>
+          </Grid>
+        </Grid>
+
+        <Spacer size={20}/>
 
       </Panel>
     )
@@ -55,4 +61,4 @@ class WelcomeBuildProfileWizard extends Component {
   }
 }
 
-export default WelcomeBuildProfileWizard;
+export default withStyles(styles)(WelcomeBuildProfileWizard);

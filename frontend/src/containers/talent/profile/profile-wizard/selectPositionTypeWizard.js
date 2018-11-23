@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Spacer from "components/general/spacer";
 import Panel from 'components/general/panel';
 import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
 import TalentForm from 'components/shiptalent/forms/talentForm';
@@ -154,9 +155,10 @@ class SelectPositionTypeWizard extends Component {
           showPositionType={false}
           showSkill={false}
         />
-        <h5 align="center" className="profile-bio-description">
+        <Spacer size={15} />
+        <Typography className={classes.wizardSettingSubTitle}>
           {"Next, tell us what your primary position is "}
-        </h5>
+        </Typography>
         <h5 align="center" className="profile-bio-description">
           {"(select one)"}
         </h5>

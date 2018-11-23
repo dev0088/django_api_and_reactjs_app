@@ -39,11 +39,22 @@ export const styles = theme => ({
   wizardSettingHeaderButton: {
     display: 'block!important',
     borderRadius: '4px!important',
+    marginLeft: '5px',
+    marginRight: '5px'
+  },
+  wizardSettingHeaderButtonsGroupGridItem: {
+    display: 'inherit'
   },
   wizardSettingHeaderText: {
     color: theme.button.primaryColor,
     fontWeight: 400,
     textTransform: 'none'
+  },
+  wizardSettingSubTitle: {
+    fontSize: '1.45rem',
+    fontWeight: 600,
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   chips: {
     display: 'flex',
@@ -262,6 +273,28 @@ export const styles = theme => ({
     position: 'relative',
     top: '-48px',
     left: '192px'
+  },
+  talentProfileResumeDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '-25px',
+    left: '170px',
+    fontWeight: 600,
+  },
+  talentProfilePictureDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    position: 'relative',
+    top: '24px',
+    left: '62px',
+    fontWeight: 600,
   },
   talentProfileVideoViewModal: {
     width: '60%',

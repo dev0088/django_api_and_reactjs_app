@@ -94,12 +94,13 @@ class SelectMaleWizard extends Component {
   }
 
   renderContents() {
+    const { classes } = this.props;
 
     return (
       <Panel title={"Step 1"}>
-        <h5 align="center" className="profile-bio-description">
+        <Typography className={classes.wizardSettingSubTitle}>
           {"First, tell us if you are Male or Female"}
-        </h5>
+        </Typography>
         <h5 align="center" className="profile-bio-description">
           {"(select one)"}
         </h5>

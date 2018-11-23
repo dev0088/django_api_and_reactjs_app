@@ -11,45 +11,42 @@ import TalentForm from 'components/shiptalent/forms/talentForm';
 import Spacer from 'components/general/spacer';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
-import { findPositionTypeByName } from 'utils/appUtils';
+import { findSkillByName } from 'utils/appUtils';
 import styles from 'styles';
 
-class SelectMultiPositionSubTypeWizard extends Component {
+class SelectMultiSubSkillWizard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allPositionTypes: [],
-      prevPositionType: null,
-      selectedPositionType: null,
-      multiSelectedPositionSubType: []
+      allSkills: [],
+      prevSkill: null,
+      selectedSkill: null,
+      multiSelectedSubSkills: []
     }
   }
 
   getInfoFromProps(props) {
-    const { talentInfo, allPositionTypes } = props
+    const { talentInfo, allSkills } = props
     let res = {
-      allPositionTypes: [],
-      prevPositionType: null,
-      selectedPositionType: null,
-      multiSelectedPositionSubType: []
+      allSkills: [],
+      prevSkill: null,
+      selectedSkill: null,
+      multiSelectedSubSkills: []
     }
 
     if (talentInfo) {
-      res.allPositionTypes = allPositionTypes ? allPositionTypes : []
+      res.allSkills = allSkills ? allSkills : []
 
-      if (talentInfo.talent_position_types &&
-        talentInfo.talent_position_types.length > 0) {
-        res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
-        res.prevPositionType = findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
-        console.log('==== res.selectedPositionType: ', res.selectedPositionType)
-      }
-
-      if (talentInfo.talent_position_sub_types &&
-          talentInfo.talent_position_sub_types.length > 0 &&
-          res.prevPositionType) {
-        let talent_position_sub_types = talentInfo.talent_position_sub_types
-        for (let i = 0; i < talent_position_sub_types.length; i ++) {
-          res.multiSelectedPositionSubType.push(talent_position_sub_types[i].position_sub_type.name)
+      if (talentInfo.talent_skills &&
+        talentInfo.talent_skills.length > 0) {
+        res.selectedSkill =  talentInfo.talent_skills[0].skill
+        res.prevSkill = findSkillByName(res.allSkills, res.selectedSkill)
+        console.log('==== res.selectedSkill: ', res.selectedSkill)
+        if (talentInfo.talent_sub_skills && talentInfo.talent_sub_skills.length > 0 && res.prevSkill) {
+          let talent_sub_skills = talentInfo.talent_sub_skills
+          for (let i = 0; i < talent_sub_skills.length; i ++) {
+            res.multiSelectedSubSkills.push(talent_sub_skills[i].sub_skill.name)
+          }
         }
       }
     }
@@ -60,7 +57,7 @@ class SelectMultiPositionSubTypeWizard extends Component {
   }
 
   componentDidMount() {
-    this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
 
     this.setState({
       ...this.getInfoFromProps(this.props)
@@ -75,27 +72,38 @@ class SelectMultiPositionSubTypeWizard extends Component {
     })
   }
 
-  handleClickPositionSubTypeButton = (type, val) =>  {
-    const { multiSelectedPositionSubType } = this.state
-    let selectPositionSubTypes = multiSelectedPositionSubType
-    let index = selectPositionSubTypes.indexOf(val)
+  multiSelectedSubSkills2TalentSubSkills(subSkills) {
+    let talent_sub_skills = []
+    console.log('===== multiSelectedSubSkillss2TalentSubSkills: subSkills: ', subSkills)
+    for (let i = 0; i < subSkills.length; i ++) {
+      let subSkill = subSkills[i]
+      talent_sub_skills.push({name: subSkills[i]})
+    }
+    
+    return talent_sub_skills
+  }
+  
+  handleClickSubSkillButton = (type, val) =>  {
+    const { multiSelectedSubSkills } = this.state
+    let selectSubSkills = multiSelectedSubSkills
+    let index = selectSubSkills.indexOf(val)
 
     if ( index >= 0) {
-      selectPositionSubTypes.splice(index, 1);
+      selectSubSkills.splice(index, 1);
     } else {
-      selectPositionSubTypes.push(val)
+      selectSubSkills.push(val)
     }
 
-    this.setState({ multiSelectedPositionSubType: selectPositionSubTypes});
+    this.setState({ multiSelectedSubSkills: selectSubSkills});
   }
 
   handleClickNextButton = () => {
-    const { selectedPositionType, multiSelectedPositionSubType } = this.state
+    const { selectedSkill, multiSelectedSubSkills } = this.state
     const { auth } = this.props
-    console.log('==== multiSelectedPositionSubType: ', multiSelectedPositionSubType)
+    console.log('==== multiSelectedSubSkills: ', multiSelectedSubSkills)
     let data = {
-      talent_position_type: selectedPositionType,
-      talent_position_sub_types: multiSelectedPositionSubType,
+      talent_skills: [{name: selectedSkill}],
+      talent_sub_skills: this.multiSelectedSubSkills2TalentSubSkills(multiSelectedSubSkills),
     }
 
     TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
@@ -107,19 +115,19 @@ class SelectMultiPositionSubTypeWizard extends Component {
     // this.props.talentActions.getCurrentTalentInfo(auth.user_id)
   }
 
-  renderSubPositionButtons() {
-    const { multiSelectedPositionSubType, prevPositionType } = this.state;
+  renderSubSkillButtons() {
+    const { multiSelectedSubSkills, prevSkill } = this.state;
     const { classes } = this.props;
     let items = []
 
-    if (prevPositionType && prevPositionType.position_sub_types) {
-      let position_sub_types = prevPositionType.position_sub_types
-      for(let i = 0; i < position_sub_types.length; i +=2) {
-        let positionSubType1 = position_sub_types[i]
+    if (prevSkill && prevSkill.sub_skills) {
+      let sub_skills = prevSkill.sub_skills
+      for(let i = 0; i < sub_skills.length; i +=2) {
+        let subSkill1 = sub_skills[i].name
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`subSkill${i}-1`}/>)
         items.push(
-          <Grid
+          <Grid key={`subSkill${i}-2`}
             item lg={3} md={4} sm={5} xs={12}
             className={classes.talentProfileGuideButtonItem}
           >
@@ -127,27 +135,27 @@ class SelectMultiPositionSubTypeWizard extends Component {
               variant="contained"
               color="primary"
               className={
-                multiSelectedPositionSubType.indexOf(positionSubType1) >= 0
+                multiSelectedSubSkills.indexOf(subSkill1) >= 0
                   ? classes.talentProfileGuideButtonSelected
                   : classes.talentProfileGuideButton
               }
               fullWidth={true}
-              onClick={() => this.handleClickPositionSubTypeButton(
-                'multiSelectedPositionSubType', positionSubType1
+              onClick={() => this.handleClickSubSkillButton(
+                'multiSelectedSubSkills', subSkill1
               )}
             >
               <Typography className={classes.talentProfileGuideButtonTitle}>
-                { positionSubType1 }
+                { subSkill1 }
               </Typography>
             </Button>
           </Grid>
         )
 
-        if (position_sub_types[i + 1]) {
-          let positionSubType2 = position_sub_types[i + 1]
+        if (sub_skills[i + 1]) {
+          let subSkill2 = sub_skills[i + 1].name
 
           items.push(
-            <Grid
+            <Grid key={`subSkill${i}-3`}
               item lg={3} md={4} sm={5} xs={12}
               className={classes.talentProfileGuideButtonItem}
             >
@@ -155,25 +163,25 @@ class SelectMultiPositionSubTypeWizard extends Component {
                 variant="contained"
                 color="primary"
                 className={
-                  multiSelectedPositionSubType.indexOf(positionSubType2) >= 0
+                  multiSelectedSubSkills.indexOf(subSkill2) >= 0
                     ? classes.talentProfileGuideButtonSelected
                     : classes.talentProfileGuideButton
                 }
                 fullWidth={true}
-                onClick={() => this.handleClickPositionSubTypeButton(
-                  'multiSelectedPositionSubType', positionSubType2
+                onClick={() => this.handleClickSubSkillButton(
+                  'multiSelectedSubSkills', subSkill2
                 )}
               >
                 <Typography className={classes.talentProfileGuideButtonTitle}>
-                  { positionSubType2 }
+                  { subSkill2 }
                 </Typography>
               </Button>
             </Grid>
           )
         } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
+          items.push(<Grid item lg={3} md={4} sm={5} xs={12} key={`subSkill${i}-3`}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`subSkill${i}-4`}/>)
       }
       return items
     }
@@ -183,7 +191,7 @@ class SelectMultiPositionSubTypeWizard extends Component {
 
 
   renderContents() {
-    const { multiSelectedPositionSubType, prevPositionType } = this.state;
+    const { multiSelectedSubSkills, prevSkill } = this.state;
     const { classes } = this.props;
 
     return (
@@ -192,19 +200,19 @@ class SelectMultiPositionSubTypeWizard extends Component {
           talentInfo={this.props.talentInfo}
           showSex={true}
           showPositionType={true}
-          showSkill={false}
+          showSkill={true}
         />
         <Spacer size={15} />
         <Grid container className={classes.root} spacing={30}>
           <Grid item md={12}>
-            <Typography className={classes.wizardSettingSubTitle}>
-              {prevPositionType && (prevPositionType.question ? prevPositionType.question : '')}
-            </Typography>
+            <h5 align="center" className="profile-bio-description">
+              {prevSkill && (prevSkill.question ? prevSkill.question : '')}
+            </h5>
           </Grid>
           <Grid item md={12}>
             <h5 align="center" className="profile-bio-description">
               {
-                prevPositionType && (prevPositionType.multi_selection
+                prevSkill && (prevSkill.multi_selection
                   ? "(select all that apply)"
                   : "(select one)")
               }
@@ -213,7 +221,7 @@ class SelectMultiPositionSubTypeWizard extends Component {
         </Grid>
         <Spacer size={15} />
         <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderSubPositionButtons() }
+          { this.renderSubSkillButtons() }
         </Grid>
       </Panel>
     )
@@ -222,8 +230,8 @@ class SelectMultiPositionSubTypeWizard extends Component {
   render() {
     return (
       <TalentForm
-        backLink="/profile-wizard/select-position-type"
-        nextLink="/profile-wizard/select-skill"
+        backLink="/profile-wizard/select-skill"
+        nextLink="/profile-wizard/lastWizard"
         handleClickNextButton={this.handleClickNextButton}
       >
         {this.renderContents()}
@@ -233,12 +241,12 @@ class SelectMultiPositionSubTypeWizard extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, talentInfo, allPositionTypes } = state;
+  const { auth, talentInfo, allSkills } = state;
 
   return {
     auth: auth.access,
     talentInfo: talentInfo.value,
-    allPositionTypes: allPositionTypes.value
+    allSkills: allSkills.value
   }
 }
 
@@ -248,4 +256,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectMultiPositionSubTypeWizard));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SelectMultiSubSkillWizard));

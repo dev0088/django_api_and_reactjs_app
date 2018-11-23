@@ -4,6 +4,12 @@ import TalentSubSkillVideosForm from './talentSubSkillVideosForm';
 
 
 class MySubSkillVideos extends Component {
+  handleClickNextButton = (event) => {
+    console.log('==== MyVideosGreetings: event: ', event);
+    event.preventDefault();
+    this.props.history.goBack();
+  };
+
   render() {
     const position = this.props.history && this.props.history.location && this.props.history.location.state
       ? this.props.history.location.state.position
@@ -21,6 +27,7 @@ class MySubSkillVideos extends Component {
         formTitle={`My ${subSkill ? subSkill.name : ''} Videos`}
         nextLink={link}
         nextButtonTitle={`Back to My ${position ? position.name : ''} Audition Videos`}
+        handleClickNextButton={this.handleClickNextButton}
         subSkill={subSkill}
       />
     )

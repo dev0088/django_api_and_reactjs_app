@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import ClearRounded from '@material-ui/icons/ClearRounded';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import Panel from 'components/general/panel'
 import Spacer from 'components/general/spacer';
 import * as talentActions from 'actions/talentActions';
@@ -18,7 +19,18 @@ import ImageLightbox from 'react-image-lightbox';
 
 import 'react-image-lightbox/style.css';
 import './myPicturesScreen.css';
-import {styles, theme} from 'styles.js';
+import {styles} from 'styles.js';
+
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+    secondary: {
+      main: '#C00'
+    }
+  }
+})
 
 class TalentPicturesForm extends Component {
 
@@ -175,9 +187,8 @@ class TalentPicturesForm extends Component {
   }
 
   renderPictureView(caption) {
-    const {
-      pictures,
-    } = this.state
+    const { pictures } = this.state
+    const { classes } = this.props
 
     let picture = pictures.find(function(picture) {
       return (picture.caption === caption);
@@ -191,7 +202,16 @@ class TalentPicturesForm extends Component {
                 <Row>
                   <Col xs="12" md="12" className="pt-0 pt-md-0">
                     <div onClick={() => this.deleteImage(picture)}>
-                      <ClearRounded className="profile-picture-delete-icon" color="secondary" />
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        aria-label="Edit"
+                        disabled = {false}
+                        className={classes.talentProfilePictureDeleteButton}
+                        onClick={() => this.deleteImage(picture)}
+                      >
+                        <ClearRounded style={{fontSize: '20px'}}/>
+                      </Button>
                     </div>
                     <div onClick={() => this.showImage(picture)}>
                       <ImageLoader
@@ -206,9 +226,6 @@ class TalentPicturesForm extends Component {
               ) : (
                 <Row>
                   <Col xs="12" md="12" className="pt-0 pt-md-0">
-                    <div>
-                      <ClearRounded className="profile-picture-delete-icon-disabled" color="disabled" />
-                    </div>
                     <div>
                       <ImageLoader
                         className="profile-picture-image"

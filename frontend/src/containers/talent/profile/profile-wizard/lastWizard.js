@@ -8,8 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
-import Spacer from "../../../../components/general/spacer";
+import Spacer from "components/general/spacer";
 import TalentForm from 'components/shiptalent/forms/talentForm';
+import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHeader';
 import * as talentActions from 'actions/talentActions';
 import styles from 'styles';
 
@@ -31,8 +32,14 @@ class LastWizard extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.talentActions.getCurrentTalentInfo()
+  componentDidMount() {
+    this.props.talentActions.getAllSkills()
+
+    this.setState({
+      ...this.getInfoFromProps(this.props)
+    }, () => {
+      this.props.talentActions.getCurrentTalentInfo()
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,11 +64,17 @@ class LastWizard extends Component {
     const { classes } = this.props;
     return (
       <Panel title={"Build My Profile Wizard"}>
-
-        <Typography align="center" component="h3" variant="h3" gutterBottom>
+        <WizardSettingHeader
+          talentInfo={this.props.talentInfo}
+          showSex={true}
+          showPositionType={true}
+          showSkill={true}
+        />
+        <Spacer size={20} />
+        <Typography className={classes.wizardSettingSubTitle}>
           {"Great."}
         </Typography>
-        <Typography align="center" component="h3" variant="h3" gutterBottom>
+        <Typography className={classes.wizardSettingSubTitle}>
           {"Now that we know what you do, "}
           <br/>
           {"let's get some more information."}
@@ -120,7 +133,7 @@ class LastWizard extends Component {
         formTitle="Build My Profile Wizard"
         backLink="/profile-wizard/welcome"
         backButtonTitle="Back"
-        nextLink="/profile-wizard/select-position-sub-type"
+        nextLink="/profile-wizard/select-position-type"
         nextButtonTitle="Back to Primary Position (demo link only)"
         handleClickNextButton={this.handleClickNextButton}
       >

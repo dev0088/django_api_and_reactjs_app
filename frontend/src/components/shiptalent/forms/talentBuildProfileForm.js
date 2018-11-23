@@ -50,7 +50,8 @@ class TalentBuildProfileForm extends Component {
 
   renderContents() {
     const { ContentLayout, contentTitle,
-      talentInfo, position, subSkill
+      talentInfo, position, subSkill,
+      fromWizard
     } = this.props
 
     return (
@@ -59,6 +60,7 @@ class TalentBuildProfileForm extends Component {
         talentInfo={talentInfo}
         position={position}
         subSkill={subSkill}
+        fromWizard={fromWizard}
         onSave={this.handleClickSave}
         onChange={this.handleChange}
       />
@@ -83,7 +85,7 @@ class TalentBuildProfileForm extends Component {
           handleClickBackButton={handleClickBackButton}
           nextLink={nextLink}
           nextButtonTitle={nextButtonTitle}
-          handleClickNextButton={this.checkChanges}
+          handleClickNextButton={(e) => {this.checkChanges(e); handleClickNextButton(e)}}
         >
           {this.renderContents()}
         </TalentForm>

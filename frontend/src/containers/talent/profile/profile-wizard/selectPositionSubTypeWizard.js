@@ -183,9 +183,9 @@ class SelectPositionSubTypeWizard extends Component {
         <Spacer size={15} />
         <Grid container className={classes.root} spacing={30}>
           <Grid item md={12}>
-            <h5 align="center" className="profile-bio-description">
+            <Typography className={classes.wizardSettingSubTitle}>
               {prevPositionType && (prevPositionType.question ? prevPositionType.question : '')}
-            </h5>
+            </Typography>
           </Grid>
           <Grid item md={12}>
             <h5 align="center" className="profile-bio-description">
@@ -209,7 +209,7 @@ class SelectPositionSubTypeWizard extends Component {
     return (
       <TalentForm
         backLink="/profile-wizard/select-position-type"
-        nextLink="/profile-wizard/lastWizard"
+        nextLink="/profile-wizard/select-skill"
         handleClickNextButton={this.handleClickNextButton}
       >
         {this.renderContents()}

@@ -1,9 +1,7 @@
-from django.shortcuts import render
 from talent.models import Talent
 from authentication.models import User
 from talent.serializers import TalentSerializer
 from django.http import Http404
-# import coreapi
 from rest_framework.compat import coreapi, coreschema
 from rest_framework.views import APIView
 from rest_framework.schemas import AutoSchema
@@ -23,11 +21,11 @@ from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 
 
-# Create your views here.
 class TalentViewSet(viewsets.ModelViewSet):
     queryset = Talent.objects.all()
     serializer_class = TalentSerializer
     # permission_classes = (IsAuthenticated,)
+
 
 class CurrentTalent(APIView):
     # authentication_classes = (authentication.TokenAuthentication, )
@@ -43,12 +41,12 @@ class CurrentTalent(APIView):
     ])
 
     def get_object(self, user):
-      try:
-        user = User.objects.get(pk=user.pk)
-        talent = Talent.objects.get(user=user.id)
-        return talent
-      except Talent.DoesNotExist:
-        raise Http404
+        try:
+            user = User.objects.get(pk=user.pk)
+            talent = Talent.objects.get(user=user.id)
+            return talent
+        except Talent.DoesNotExist:
+            raise Http404
     """
     Get current talent info
     """
@@ -62,8 +60,6 @@ class CurrentTalent(APIView):
 class TalentDetail(APIView):
     # authentication_classes = (SessionAuthentication, JSONWebTokenAuthentication)
     # permission_classes = (permissions.IsAuthenticated,)
-
-    
     """
     Retrieve, update or delete a talent.
     """
@@ -196,7 +192,6 @@ class TalentDetail(APIView):
         print('==== talent_data: ', talent_data)
         print('==== talent_skills_data: ', talent_skills_data)
         print('==== talent_sub_skills_data: ', talent_sub_skills_data)
-
 
         serializer = TalentSerializer(talent_item, data=talent_data)
         if serializer.is_valid():
