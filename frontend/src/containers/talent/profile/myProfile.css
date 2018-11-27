@@ -1,5 +1,5 @@
 .profile-container {
-  margin-top: 100px;
+  /*margin-top: 100px;*/
 }
 .profile-image img {
   width: 100%;
@@ -52,6 +52,7 @@
 .profile-picture-size {
 	width: 70px;
 	height: 100px!important;
+    object-fit: cover;
 }
 .profile-bio-textfield {
 	padding-left: 5px!important;

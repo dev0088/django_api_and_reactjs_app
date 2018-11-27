@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import EditIcon from '@material-ui/icons/Edit';
+import Panel from 'components/general/panel'
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import Spacer from 'components/general/spacer';
 import apiConfig from 'constants/api';
@@ -35,28 +37,78 @@ class ViewProfile extends Component {
 			openImageModal: false,
 			currentImageUrl: null,
 			HEIGHTS: defaultValues.HEIGHTS,
-			WEIGHTS: defaultValues.WEIGHTS
+			WEIGHTS: defaultValues.WEIGHTS,
+      user: null,
+      nationality: null,
+      citizenship: null,
+      have_green_card: null,
+      height: null,
+      weight: null,
+      bmi: null,
+      age_range: null,
+      head_line: null,
+      bio: null,
+      talent_visas: null,
+      talent_languages: null,
+      talent_resume: null,
+      talent_medicals: null,
+      worked_cruise_ship: null
     }
   }
 
   getInfoFromProps(props) {
+
     const {
       talent_position_types,
       talent_position_sub_types,
-      talent_skills
+      talent_skills,
+      user,
+      nationality,
+      citizenship,
+      have_green_card,
+      height,
+      weight,
+      bmi,
+      age_range,
+      head_line,
+      bio,
+      talent_visas,
+      talent_languages,
+      talent_resume,
+      talent_medicals,
+      talent_pictures,
+      worked_cruise_ship
     } = props.talentInfo
 
     return {
       skills: talent_skills,
-      title: makeTitleWithAllPositionTypes(props.talentInfo)
+      title: makeTitleWithAllPositionTypes(props.talentInfo),
+      user,
+      nationality,
+      citizenship,
+      have_green_card,
+      height,
+      weight,
+      bmi,
+      age_range,
+      head_line,
+      bio,
+      talent_visas,
+      talent_languages,
+      talent_resume,
+      talent_medicals,
+      talent_pictures,
+      worked_cruise_ship
     }
   }
 
-
   componentWillMount() {
     const { talentInfo } = this.props
+
+    this.props.talentActions.getCurrentTalentInfo()
     this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getAllSkills()
+
     if (talentInfo) {
       this.setState({
         ...this.getInfoFromProps(this.props)
@@ -138,6 +190,30 @@ class ViewProfile extends Component {
 		}
 
     return images
+  }
+
+  makeImmigrationSubTitle(talentVisas) {
+      const numberOfVisas = talentVisas ? talentVisas.length : 0
+
+      if (numberOfVisas === 0) {
+        return `No Active Visas`;
+      } else if (numberOfVisas === 1) {
+        return `1 Active Visa`;
+      }
+
+      return `${numberOfVisas} Active Visa`;
+  }
+
+  makeMedicalSubTitle(talentMedicals) {
+    const numberOfMedicals = talentMedicals ? talentMedicals.length : 0
+
+    if (numberOfMedicals === 0) {
+      return `no conditions`;
+    } else if (numberOfMedicals === 1) {
+      return `1 condition`;
+    }
+
+    return `${numberOfMedicals} conditions`;
   }
 
   getPracticeVideoNumbers = (talent_videos) => {
@@ -226,13 +302,104 @@ class ViewProfile extends Component {
 		return cprMedical ? cprMedical.condition_value : false
 	}
 
-	renderPictureView(caption) {
-    const { talentInfo } = this.props
-		const { talent_pictures } = talentInfo
+	renderGeneralInfoItem(name, value, editLink, key) {
+    const { classes } = this.props
+    let opts = {};
 
-    let picture = talent_pictures.find(function(picture) {
-      return (picture.caption === caption);
-    });
+    if (key) {
+      opts['key'] = `item${key}`;
+    }
+
+    return (
+      <Grid container spacing={8} direction="row" justify="center" alignItems="center">
+        <Grid item lg={6} md={6} xs={6} className={classes.talentProfileGeneralInfoNameCol}>
+          {editLink ? (
+            <Link to={editLink}>
+              <EditIcon className={classes.talentProfileEditIcon}/>
+            </Link>
+          ) : (
+            <div className={classes.talentProfileEditIconEmpty}/>
+          )}
+          <Typography className="profile-general-info-name">{name}</Typography>
+        </Grid>
+        <Grid item lg={6} md={6} xs={6} className="profile-general-info-value-col">
+          <Typography className="profile-general-info-value">{value}</Typography>
+        </Grid>
+      </Grid>
+    )
+
+    return (
+      <Row {...opts}>
+        <Col md="6" className={classes.talentProfileGeneralInfoNameCol}>
+          {editLink ? (
+            <Link to={editLink}>
+              <EditIcon className={classes.talentProfileEditIcon}/>
+            </Link>
+          ) : (
+            <div className={classes.talentProfileEditIconEmpty}/>
+          )}
+          <Typography className="profile-general-info-name">{name}</Typography>
+        </Col>
+        <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
+          <Typography className="profile-general-info-value">{value}</Typography>
+        </Col>
+      </Row>
+    )
+  }
+
+	renderGeneralInfoView() {
+    if (this.props.talentInfo === null) {
+      return <Col md="3" className="profile-bio"/>
+    }
+
+    const {
+      nationality,
+      citizenship,
+      have_green_card,
+      height,
+      weight,
+      bmi,
+      age_range,
+      talent_visas,
+      talent_languages,
+      talent_medicals,
+      worked_cruise_ship
+    } = this.state
+
+    return (
+      <Col md="3" className="profile-bio">
+        { this.renderGeneralInfoItem("Height:", this.makeHeight(height), "/metrics-info") }
+        { this.renderGeneralInfoItem("Weight:", this.makeWeight(weight), "/metrics-info") }
+        { this.renderGeneralInfoItem("BMI:", bmi, null) }
+        { this.renderGeneralInfoItem("Age Range:", age_range, "/metrics-info") }
+        { this.renderGeneralInfoItem("Languages:", this.makeLanguages(talent_languages), "/language-info") }
+        { this.renderGeneralInfoItem("Nationality:", nationality, "/nationality-info") }
+        { this.renderGeneralInfoItem("Citizenship:", citizenship, "/nationality-info") }
+
+        { talent_visas.length > 0 ? (
+          talent_visas.map((visa, index) => {
+            return this.renderGeneralInfoItem(`${visa.name} Visa:`, 'YES', "/nationality-info", index)
+          })
+        ) : (
+          this.renderGeneralInfoItem(`Visa: `, 'NO', "/metrics-info")
+        )}
+        { this.renderGeneralInfoItem("Green Card: ", have_green_card ? "YES" : "NO", "/nationality-info") }
+        { this.renderGeneralInfoItem("Previous Ship Experience: ", worked_cruise_ship ? "YES" : "NO", "/edit-profile") }
+        { this.renderGeneralInfoItem("Previous Ship Medical: ", this.checkPreviousShipMedical(talent_medicals) ? "YES" : "NO" ? "YES" : "NO", "/medical-info") }
+        { this.renderGeneralInfoItem("CPR: ", this.checkCPR(talent_medicals) ? 'YES' : 'NO', "/medical-info") }
+      </Col>
+    )
+  }
+
+	renderPictureView(caption, priority) {
+		const { talent_pictures } = this.state
+    let picture = null
+
+    if (talent_pictures) {
+      picture = talent_pictures.find(function(picture) {
+        return (picture.caption === caption);
+      });
+    }
 
     return (picture && picture.url && picture.uploaded && picture.active) ? (
 			<div onClick={() => this.showImage(picture.url)} 	className="profile-picture-container-div">
@@ -254,37 +421,123 @@ class ViewProfile extends Component {
   }
 
 	renderPicturesView() {
-		return (
-			<div className="profile-picture-view-container">
-				<Row>
-					<Col md="12" className="profile-picture-view-container-col">
-						{ this.renderPictureView("My Current Headshot") }
-						{ this.renderPictureView("My Current Body Shot 1") }
-						{ this.renderPictureView("My Current Body Shot 2") }
-					</Col>
-				</Row>
-				<Row>
-					<Col md="12" className="profile-picture-view-container-col">
-						{ this.renderPictureView("My Other Pic 1") }
-						{ this.renderPictureView("My Other Pic 2") }
-						{ this.renderPictureView("My Other Pic 3") }
-					</Col>
-				</Row>
-				<Row>
-					<Col md="12" className="profile-picture-view-container-col">
-						{ this.renderPictureView("My Other Pic 4") }
-						{ this.renderPictureView("My Other Pic 5") }
-					</Col>
-				</Row>
-			</div>
+    const { classes } = this.props;
 
-		)
+    return (
+      <Grid container spacing={8} direction="column" justify="center" alignItems="center">
+        <Grid item lg={12} md={12} xs={12} className={classes.talentProfileSpecialInfoNameCol}>
+          <Link to="/pictures-info">
+            <EditIcon className={classes.talentProfileSpecialInfoEditIcon}/>
+          </Link>
+          <Typography className="profile-picture-name">{"Pictures"}</Typography>
+        </Grid>
+        <Grid item lg={12} md={12} xs={12}>
+          <div className="profile-picture-view-container">
+            <Row>
+              <Col md="12" className="profile-picture-view-container-col">
+                { this.renderPictureView("My Current Headshot", 0) }
+                { this.renderPictureView("My Current Body Shot 1", 1) }
+                { this.renderPictureView("My Current Body Shot 2", 2) }
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12" className="profile-picture-view-container-col">
+                { this.renderPictureView("My Other Pic 1", 3) }
+                { this.renderPictureView("My Other Pic 2", 4) }
+                { this.renderPictureView("My Other Pic 3", 5) }
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12" className="profile-picture-view-container-col">
+                { this.renderPictureView("My Other Pic 4", 6) }
+                { this.renderPictureView("My Other Pic 5", 7) }
+              </Col>
+            </Row>
+          </div>
+        </Grid>
+      </Grid>
+    );
 	}
+
+	renderResumeView() {
+    const { talent_resume } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={8} direction="column" justify="center" alignItems="center">
+        <Grid item lg={12} md={12} xs={12} className={classes.talentProfileSpecialInfoNameCol}>
+          <Link to="/resume-info">
+            <EditIcon className={classes.talentProfileSpecialInfoEditIcon}/>
+          </Link>
+          <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
+        </Grid>
+        <Grid item lg={12} md={12} xs={12}>
+          {(talent_resume && talent_resume[0] && talent_resume[0].preview_path) ?
+            (<div onClick={() => this.showImage(talent_resume[0].preview_path)}
+                  className="profile-picture-container-div">
+                <ImageLoader
+                  className="profile-resume-image-viewer"
+                  src={`${apiConfig.server}/${talent_resume[0].preview_path}`}
+                  loading={() => <div className="profile-resume-image-viewer">Loading...</div>}
+                  error={() => <div>Error</div>} />
+              </div>
+            ) : (
+              <div>None</div>
+            )}
+        </Grid>
+      </Grid>
+    );
+  }
+
+  renderBioView() {
+    const { bio } = this.state
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={8} direction="column" justify="center" alignItems="center">
+        <Grid item lg={12} md={12} xs={12} className={classes.talentProfileSpecialInfoNameCol}>
+          <Link to="/bio-info">
+            <EditIcon className={classes.talentProfileSpecialInfoEditIcon}/>
+          </Link>
+          <Typography className="profile-picture-name">{"Biography"}</Typography>
+        </Grid>
+        <Grid item lg={12} md={12} xs={12} className={classes.talentProfileBioTextValue}>
+          <TextField
+            id="multiline-static"
+            multiline
+            rows="8"
+            value={bio}
+            fullWidth={true}
+            className="profile-bio-textfield"
+          />
+        </Grid>
+      </Grid>
+    );
+
+    return (
+      <Row>
+        <Col md="12" className="pt-2 pt-md-2">
+          <Typography className="profile-picture-name">{"Biography"}</Typography>
+        </Col>
+        <Col md="12" className="profile-general-info-value pt-1 pt-md-1">
+          <TextField
+            id="multiline-static"
+            multiline
+            rows="8"
+            value={bio}
+            fullWidth
+            className="profile-bio-textfield"
+          />
+        </Col>
+      </Row>
+    )
+  }
 
   renderPositionButtons() {
     const { classes, allPositionTypes, allSkills, talentInfo } = this.props
     let items = []
-    if (talentInfo, allPositionTypes && allPositionTypes.length > 0) {
+
+    if (talentInfo && allPositionTypes && allPositionTypes.length > 0) {
       const { talent_video_sub_skills } = talentInfo
       for(let i = 0; i < allPositionTypes.length; i +=2) {
         let position = allPositionTypes[i]
@@ -301,19 +554,19 @@ class ViewProfile extends Component {
         items.push(
           <Grid key={`position${i}-2`}
                 item lg={5} md={5} sm={5} xs={12}
-                className={classes.talentProfileGuideButtonItem}
+                className={classes.clientTalentViewVideoButtonGridItem}
           >
             <Link to={link}>
               <Button
                 variant="contained" color={'primary'}
                 fullWidth={true}
-                className={classes.talentProfileGuideButton}
+                className={classes.clientTalentViewVideoButton}
               >
-                <Typography className={classes.talentProfileGuideButtonTitle}>
+                <Typography className={classes.clientTalentViewVideoButtonText}>
                   {title}
                 </Typography>
                 {subTitle && (
-                  <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                  <Typography className={classes.clientTalentViewVideoButtonStatusText}>
                     {subTitle}
                   </Typography>
                 )}
@@ -336,19 +589,19 @@ class ViewProfile extends Component {
           items.push(
             <Grid key={`position${i}-3`}
                   item lg={5} md={5} sm={5} xs={12}
-                  className={classes.talentProfileGuideButtonItem}
+                  className={classes.clientTalentViewVideoButtonGridItem}
             >
               <Link to={link}>
                 <Button
                   variant="contained" color={'primary'}
                   fullWidth={true}
-                  className={classes.talentProfileGuideButton}
+                  className={classes.clientTalentViewVideoButton}
                 >
-                  <Typography className={classes.talentProfileGuideButtonTitle}>
+                  <Typography className={classes.clientTalentViewVideoButtonText}>
                     {title}
                   </Typography>
                   {subTitle && (
-                    <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                    <Typography className={classes.clientTalentViewVideoButtonStatusText}>
                       {subTitle}
                     </Typography>
                   )}
@@ -378,12 +631,12 @@ class ViewProfile extends Component {
                 pathname: "/video-greetings"
               }}
               color="primary"
-              itemClass = {classes.talentProfileGuideButtonItem}
-              buttonClass = {classes.talentProfileGuideButton}
+              itemClass = {classes.clientTalentViewVideoButtonGridItem}
+              buttonClass = {classes.clientTalentViewVideoButton}
               title = {"My Video Greetings"}
-              titleClass = {classes.talentProfileGuideButtonTitle}
+              titleClass = {classes.clientTalentViewVideoButtonText}
               subTitle = {"completed"}
-              subTitleClass = {classes.talentProfileGuideButtonSubTitle}
+              subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
               size = {12}
               fullWidth = {false}
             />
@@ -396,265 +649,137 @@ class ViewProfile extends Component {
     )
   }
 
-  renderVideoButtonsGroupPrev() {
-    const { talent_videos } = this.props.talentInfo
-
-    return (
-      <div>
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Video Greetings"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Vocal Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Dance Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-             </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Acting Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Aerialist Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Musician Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Technician Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Cruise Staff Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Youth Staff Audition Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {0}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="profile-gender-row">
-          <Col className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/practice-interview-videos'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Practice Interview Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {this.getPracticeVideoNumbers(talent_videos)}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-          <Col md="6" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/live-interview-videos'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Live Interview Videos"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {this.getLiveVideoNumbers(talent_videos)}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    )
-  }
-
   renderOtherButtonsGroup() {
+    const { classes } = this.props
+    const { talent_visas, talent_medicals } = this.state
+
     return (
-      <div>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Immigration"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='/medical-info'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Medical"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-        <Row className="profile-gender-row">
-          <Col md="12" className="profile-other-info-button-group">
-            <div className="profile-other-info-button-container">
-              <Link to='#'>
-                <Button variant="contained"  color="primary" className={"profile-other-info-button"} >
-                  <div className="profile-other-info-button-title">
-                    {"Availability"}
-                  </div>
-                  <div className="profile-other-info-button-status">
-                    {'completed'}
-                  </div>
-                </Button>
-              </Link>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    )
+      <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+        <ColumnButton
+          link = {{pathname: "/nationality-info"}}
+          color="primary"
+          itemClass = {classes.clientTalentViewMoreInfoButtonGridItem}
+          buttonClass = {classes.clientTalentViewMoreInfoButton}
+          title = {"Immigration"}
+          titleClass = {classes.clientTalentViewVideoButtonText}
+          subTitle = {this.makeImmigrationSubTitle(talent_visas)}
+          subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+          size = {12}
+          fullWidth = {false}
+        />
+        <ColumnButton
+          link = {{pathname: "/medical-info"}}
+          color="primary"
+          itemClass = {classes.clientTalentViewMoreInfoButtonGridItem}
+          buttonClass = {classes.clientTalentViewMoreInfoButton}
+          title = {"Medical"}
+          titleClass = {classes.clientTalentViewVideoButtonText}
+          subTitle = {this.makeMedicalSubTitle(talent_medicals)}
+          subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+          size = {12}
+          fullWidth = {false}
+        />
+        <ColumnButton
+          link = {{pathname: "/availability-info"}}
+          color="primary"
+          itemClass = {classes.clientTalentViewMoreInfoButtonGridItem}
+          buttonClass = {classes.clientTalentViewMoreInfoButton}
+          title = {"Availability"}
+          titleClass = {classes.clientTalentViewVideoButtonText}
+          subTitle = {"Last updated 04/01/2018"}
+          subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+          size = {12}
+          fullWidth = {false}
+        />
+      </Grid>
+    );
+
   }
 
   render() {
-    console.log('==== viewProfile: this: ', this)
-    if (this.props.talentInfo === null) {
-      return <div/>
-    }
+    const { classes } = this.props
+    const { user, head_line, title, currentImageUrl, openImageModal } = this.state
 
-    const {
-      user,
-      nationality,
-      citizenship,
-      have_green_card,
-      height,
-      weight,
-      bmi,
-      age_range,
-      head_line,
-      bio,
-			talent_visas,
-      talent_languages,
-      talent_resume,
-			talent_medicals,
-      worked_cruise_ship
-    } = this.props.talentInfo
-    const { title, currentImageUrl, openImageModal } = this.state
+    return (
+      <div className="profile-container">
+        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+      <Panel>
+        <Grid container direction="row" justify="center" alignItems="center" spacing={16} >
+          <Grid item xs={12}>
+            <Typography align="center" className={classes.talentProfileViewTitleText}>
+              {user && (`${user.first_name} ${user.last_name}`)}
+            </Typography>
+            <Typography align="center" className={classes.talentProfileViewSubTitleText}>
+              {title}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid container spacing={16}>
+              <Grid item md={2} xs={1} />
+              <Grid item md={8} xs={10}>
+                <Typography align="center" className={classes.talentProfileViewHeaderText}>
+                  {`“${head_line}”`}
+                </Typography>
+              </Grid>
+              <Grid item md={2} xs={1} />
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Row>
+              {this.renderGeneralInfoView()}
+              <Col md="9" className="profile-bio">
+                <Row>
+                  <Col md="3" className="profile-bio">
+                    { this.renderPicturesView() }
+                  </Col>
+                  <Col md="9">
+                    <Row>
+                      <Col md="4" className="profile-bio">
+                        {this.renderResumeView()}
+                      </Col>
+                      <Col md="8" className="profile-bio">
+                        { this.renderBioView() }
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="12">
+                    <Spacer size={50} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="8">
+                    {this.renderVideoButtonsGroup()}
+                  </Col>
+                  <Col md="4">
+                    {this.renderOtherButtonsGroup()}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Grid>
+        </Grid>
+
+        {openImageModal && (
+          <ImageLightbox
+            mainSrc={currentImageUrl}
+            onCloseRequest={() => this.setState({ openImageModal: false, currentImageUrl: null })}
+          />
+        )}
+      </Panel>
+        <Grid container spacing={16}>
+          <Grid item md={12} xs={12} className={classes.clientFormNextButtonContainerGridItem}>
+            <Link to="/edit-profile">
+              <RaisedButton label="Back to Build/Edit My Profile" primary={true}/>
+            </Link>
+          </Grid>
+        </Grid>
+      </div>
+    );
+
 
     return(
       <div className="profile-container">
@@ -664,7 +789,7 @@ class ViewProfile extends Component {
             <Row>
               <Col md="12" className="profile-name">
                 <h3>
-                  {user.first_name + " " + user.last_name}
+                  {user && (`${user.first_name} ${user.last_name}`)}
                 </h3>
                 <p>{title}</p>
               </Col>
@@ -678,171 +803,19 @@ class ViewProfile extends Component {
           </Col>
           <Col md="12">
             <Row>
-              <Col md="3" className="profile-bio">
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Height:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{this.makeHeight(height)}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Weight:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{this.makeWeight(weight)}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"BMI:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{bmi}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Age Range:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{age_range}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Languages:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{this.makeLanguages(talent_languages)}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Nationality:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{nationality}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Citizenship:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{citizenship}</Typography>
-                  </Col>
-                </Row>
-								{ talent_visas.length > 0 ? (
-										talent_visas.map((visa, index) => {
-											return (
-												<Row key={index}>
-													<Col md="6" className="pt-2 pt-md-2">
-														<Typography className="profile-general-info-name">{`${visa.name} Visa:`}</Typography>
-													</Col>
-													<Col md="6" className="pt-2 pt-md-2">
-														<Typography className="profile-general-info-value profile-general-info-value-col">{'YES'}</Typography>
-													</Col>
-												</Row>
-											)
-										})
-									) : (
-										<Row>
-		                  <Col md="6" className="pt-2 pt-md-2">
-		                    <Typography className="profile-general-info-name">{'Visa'}</Typography>
-		                  </Col>
-		                  <Col md="6" className="pt-2 pt-md-2">
-		                    <Typography className="profile-general-info-value profile-general-info-value-col">{'NO'}</Typography>
-		                  </Col>
-		                </Row>
-									)
-								}
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Green Card:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{have_green_card ? "YES" : "NO"}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Previous Ship Experience:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{worked_cruise_ship ? "YES" : "NO"}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"Previous Ship Medical:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{this.checkPreviousShipMedical(talent_medicals) ? "YES" : "NO"}</Typography>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6" className="pt-2 pt-md-2">
-                    <Typography className="profile-general-info-name">{"CPR:"}</Typography>
-                  </Col>
-                  <Col md="6" className="pt-2 pt-md-2 profile-general-info-value-col">
-                    <Typography className="profile-general-info-value">{this.checkCPR(talent_medicals) ? 'YES' : 'NO'}</Typography>
-                  </Col>
-                </Row>
-              </Col>
+              {this.renderGeneralInfoView()}
 							<Col md="9" className="profile-bio">
 								<Row>
 		              <Col md="3" className="profile-bio">
-		                <Row>
-		                  <Col md="12" className="pt-2 pt-md-2">
-		                    <Typography className="profile-picture-name">{"Pictures"}</Typography>
-		                  </Col>
-		                  <Col md="12" className="pt-2 pt-md-2">
-												{ this.renderPicturesView() }
-		                  </Col>
-		                </Row>
+                    { this.renderPicturesView() }
 		              </Col>
 		              <Col md="9">
 		                <Row>
 		                  <Col md="4" className="profile-bio">
-		                    <Row>
-		                      <Col md="12" className="pt-2 pt-md-2">
-		                        <Typography className="profile-picture-name">{"Resume / CV"}</Typography>
-		                      </Col>
-		                      <Col md="12" className="pt-2 pt-md-2">
-		                        {(talent_resume[0] && talent_resume[0].preview_path) ?
-															(<div onClick={() => this.showImage(talent_resume[0].preview_path)}
-																className="profile-picture-container-div">
-							                  <ImageLoader
-							                    className="profile-resume-image-viewer"
-							                    src={`${apiConfig.server}/${talent_resume[0].preview_path}`}
-							                    loading={() => <div className="profile-resume-image-viewer">Loading...</div>}
-							                    error={() => <div>Error</div>} />
-															</div>
-														) : (
-															<div>None</div>
-														)}
-		                      </Col>
-		                    </Row>
+                        {this.renderResumeView()}
 		                  </Col>
 											<Col md="8" className="profile-bio">
-		                    <Row>
-		                      <Col md="12" className="pt-2 pt-md-2">
-		                        <Typography className="profile-picture-name">{"Biography"}</Typography>
-		                      </Col>
-		                      <Col md="12" className="profile-general-info-value pt-1 pt-md-1">
-														<TextField
-										          id="multiline-static"
-										          multiline
-										          rows="8"
-										          value={bio}
-															fullWidth
-															className="profile-bio-textfield"
-										        />
-		                      </Col>
-		                    </Row>
+                        { this.renderBioView() }
 		                  </Col>
 		                </Row>
 		              </Col>

@@ -257,6 +257,60 @@ export const styles = theme => ({
     height: '100px',
     objectFit: 'cover'
   },
+  talentProfileGeneralInfoNameCol: {
+    fontSize: '1rem!important',
+    fontWeight: '600!important',
+    textAlign: 'left',
+    display: 'inherit',
+    margin: 'auto'
+  },
+  talentProfileSpecialInfoNameCol: {
+    fontSize: '1rem!important',
+    fontWeight: '600!important',
+    textAlign: 'center',
+    display: 'inherit',
+    margin: 'auto'
+  },
+  talentProfileGeneralInfoName: {
+    fontSize: '1rem!important',
+    fontWeight: '600!important',
+    textAlign: 'left'
+  },
+  talentProfileGeneralInfoValue: {
+    fontSize: '1rem!important',
+    fontWeight: '400!important',
+    textAlign: 'left'
+  },
+  talentProfileBioTextValue: {
+    fontSize: '1rem!important',
+    fontWeight: '400!important',
+    textAlign: 'left',
+    display: 'contents'
+  },
+  talentProfileGeneralInfoValueCol: {
+    marginTop: 'auto!important',
+    marginBottom: 'auto!important'
+  },
+  talentProfileEditIcon: {
+    color: theme.palette.black.main,
+    fontSize: '1rem',
+    marginBottom: '4px',
+    marginRight: '7px',
+    '&:hover': {
+      color: theme.palette.thinBlack.main,
+    },
+  },
+  talentProfileSpecialInfoEditIcon: {
+    color: theme.palette.black.main,
+    fontSize: '1.15rem',
+    marginRight: '7px',
+    '&:hover': {
+      color: theme.palette.thinBlack.main,
+    },
+  },
+  talentProfileEditIconEmpty: {
+    width: '24px'
+  },
   talentProfileFileDeleteButton: {
     padding: '0px',
     minWidth: '10px',
@@ -302,6 +356,24 @@ export const styles = theme => ({
     top: '-25px',
     left: '90px',
     fontWeight: 600,
+  },
+  talentProfileViewTitleText: {
+    fontSize: '2rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  talentProfileViewSubTitleText: {
+    fontSize: '1.2rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  talentProfileViewHeaderText: {
+    fontSize: '1.4rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
   },
   talentProfileVideoViewModal: {
     width: '60%',
@@ -410,17 +482,24 @@ export const styles = theme => ({
     paddingRight: '15%!important'
   },
   clientTalentViewMoreInfoButton: {
+    backgroundColor: theme.palette.black.main,
     display: 'block',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    '&:hover': {
+      backgroundColor: theme.palette.thinBlack.main,
+    },
   },
   clientTalentViewVideoButtonGridItem: {
     textAlign: 'center',
     padding: '5px'
   },
   clientTalentViewVideoButton: {
-    backgroundColor: '#000000',
+    backgroundColor: theme.palette.black.main,
     display: 'block',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    '&:hover': {
+      backgroundColor: theme.palette.thinBlack.main
+    },
   },
   clientTalentViewVideoButtonText: {
     fontSize: '1rem',
@@ -428,7 +507,7 @@ export const styles = theme => ({
     paddingTop: '5px',
     paddingBottom: '5px',
     textTransform: 'none',
-    color: theme.palette.white.main,
+    color: theme.palette.white.main
   },
   clientTalentViewVideoButtonStatusText: {
     color: theme.palette.thinWhite.main,
@@ -453,9 +532,21 @@ export const theme = createMuiTheme ({
     white: {
       main: '#FFFFFF'
     },
+    black: {
+      main: grey[900]
+    },
+    thinBlack: {
+      main: grey[600]
+    },
     thinWhite: {
       main: '#d6d7d8'
-    }
+    },
+    darkGrey: {
+      main: grey[800]
+    },
+    lightGrey: {
+      main: grey[400]
+    },
   },
   typography: {
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',

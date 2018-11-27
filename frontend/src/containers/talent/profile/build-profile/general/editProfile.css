@@ -164,6 +164,7 @@ div[name="emergency_relationship"] {
 
 .profile-other-info-button-status {
   color: #d6d7d8;
+  text-transform: none;
 }
 
 .profile-other-info-button-group {
