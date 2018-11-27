@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import UnitConverter from 'convert-units'
+import RaisedButton from 'material-ui/RaisedButton';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import Spacer from 'components/general/spacer';
 import apiConfig from 'constants/api';
 import defaultValues from 'constants/defaultValues';
 import { makeTitleWithAllPositionTypes, existSkill } from 'utils/appUtils';
-
+import * as talentActions from 'actions/talentActions';
+import { getSubSkillVideoNumbersByPositionType } from 'utils/appUtils'
+import { styles } from 'styles';
 import 'react-image-lightbox/style.css';
 import './viewProfile.css'
+
 
 class ViewProfile extends Component {
 
@@ -48,6 +55,8 @@ class ViewProfile extends Component {
 
   componentWillMount() {
     const { talentInfo } = this.props
+    this.props.talentActions.getAllPositionTypes()
+    this.props.talentActions.getAllSkills()
     if (talentInfo) {
       this.setState({
         ...this.getInfoFromProps(this.props)
@@ -131,7 +140,7 @@ class ViewProfile extends Component {
     return images
   }
 
-  getPracticVideoNumbers = (talent_videos) => {
+  getPracticeVideoNumbers = (talent_videos) => {
     let res = 0
 
 		for (let i = 0; i < talent_videos.length; i ++) {
@@ -272,7 +281,122 @@ class ViewProfile extends Component {
 		)
 	}
 
+  renderPositionButtons() {
+    const { classes, allPositionTypes, allSkills, talentInfo } = this.props
+    let items = []
+    if (talentInfo, allPositionTypes && allPositionTypes.length > 0) {
+      const { talent_video_sub_skills } = talentInfo
+      for(let i = 0; i < allPositionTypes.length; i +=2) {
+        let position = allPositionTypes[i]
+        let title = `${position.name} Audition Videos`
+        let subTitle = getSubSkillVideoNumbersByPositionType(talent_video_sub_skills, allSkills, position)
+        let link = {
+          pathname: '/video-positions',
+          state: {
+            position: position
+          }
+        }
+
+        items.push(<Grid item lg={1} md={1} sm={1} xs={0} key={`position${i}-1`}/>)
+        items.push(
+          <Grid key={`position${i}-2`}
+                item lg={5} md={5} sm={5} xs={12}
+                className={classes.talentProfileGuideButtonItem}
+          >
+            <Link to={link}>
+              <Button
+                variant="contained" color={'primary'}
+                fullWidth={true}
+                className={classes.talentProfileGuideButton}
+              >
+                <Typography className={classes.talentProfileGuideButtonTitle}>
+                  {title}
+                </Typography>
+                {subTitle && (
+                  <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                    {subTitle}
+                  </Typography>
+                )}
+              </Button>
+            </Link>
+          </Grid>
+        )
+
+        if (allPositionTypes[i + 1]) {
+          position = allPositionTypes[i + 1]
+          title = `${position.name} Audition Videos`
+          subTitle = getSubSkillVideoNumbersByPositionType(talent_video_sub_skills, allSkills, position)
+          link = {
+            pathname: '/video-positions',
+            state: {
+              position: position
+            }
+          }
+
+          items.push(
+            <Grid key={`position${i}-3`}
+                  item lg={5} md={5} sm={5} xs={12}
+                  className={classes.talentProfileGuideButtonItem}
+            >
+              <Link to={link}>
+                <Button
+                  variant="contained" color={'primary'}
+                  fullWidth={true}
+                  className={classes.talentProfileGuideButton}
+                >
+                  <Typography className={classes.talentProfileGuideButtonTitle}>
+                    {title}
+                  </Typography>
+                  {subTitle && (
+                    <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                      {subTitle}
+                    </Typography>
+                  )}
+                </Button>
+              </Link>
+            </Grid>
+          )
+        } else {
+          items.push(<Grid item lg={5} md={5} sm={5} xs={12} key={`position${i}-3`}/>)
+        }
+        items.push(<Grid item lg={1} md={1} sm={1} xs={0} key={`position${i}-4`}/>)
+      }
+      return items
+    }
+
+    return (<div/>)
+
+  }
+
   renderVideoButtonsGroup() {
+    const { classes, allPositionTypes } = this.props
+    return (
+      <div>
+          <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+            <ColumnButton
+              link = {{
+                pathname: "/video-greetings"
+              }}
+              color="primary"
+              itemClass = {classes.talentProfileGuideButtonItem}
+              buttonClass = {classes.talentProfileGuideButton}
+              title = {"My Video Greetings"}
+              titleClass = {classes.talentProfileGuideButtonTitle}
+              subTitle = {"completed"}
+              subTitleClass = {classes.talentProfileGuideButtonSubTitle}
+              size = {12}
+              fullWidth = {false}
+            />
+          </Grid>
+      <Spacer size={30}/>
+        <Grid container spacing={16} justify="center" alignItems="center">
+          { this.renderPositionButtons() }
+        </Grid>
+      </div>
+    )
+  }
+
+  renderVideoButtonsGroupPrev() {
     const { talent_videos } = this.props.talentInfo
 
     return (
@@ -427,7 +551,7 @@ class ViewProfile extends Component {
                     {"Practice Interview Videos"}
                   </div>
                   <div className="profile-other-info-button-status">
-                    {this.getPracticVideoNumbers(talent_videos)}
+                    {this.getPracticeVideoNumbers(talent_videos)}
                   </div>
                 </Button>
               </Link>
@@ -761,18 +885,20 @@ class ViewProfile extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, talentInfo } = state;
+  const { auth, talentInfo, allPositionTypes, allSkills } = state;
 
   return {
     auth,
-    talentInfo: talentInfo.value
+    talentInfo: talentInfo.value,
+    allPositionTypes: allPositionTypes.value,
+    allSkills: allSkills.value
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ViewProfile));

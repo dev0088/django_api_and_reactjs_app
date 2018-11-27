@@ -280,16 +280,18 @@ class VideoUploader extends Component {
                     />
                   </div>
                   <div>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      aria-label="Edit"
-                      disabled = {!haveVideo}
-                      className={classes.talentProfileFileDeleteButton}
-                      onClick={this.deleteVideo}
-                    >
-                      <ClearRounded style={{fontSize: '20px'}}/>
-                    </Button>
+                    {haveVideo && (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        aria-label="Edit"
+                        className={classes.talentProfileFileDeleteButton}
+                        onClick={this.deleteVideo}
+                      >
+                        <ClearRounded style={{fontSize: '20px'}}/>
+                      </Button>
+                    )}
+
                   </div>
                   <VideoViewModal
                     open={openVideoModal}
@@ -314,7 +316,6 @@ class VideoUploader extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {/*{progressPercent > 0}*/}
             { progressPercent > 0 ? (
               <div>
                 <LinearProgress

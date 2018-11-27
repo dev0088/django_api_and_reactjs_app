@@ -4,6 +4,8 @@ from talent.models import Talent
 # Create your models here.
 class TalentPicture(models.Model):
   talent = models.ForeignKey(Talent, related_name='talent_pictures', on_delete=models.CASCADE)
+  caption = models.CharField(max_length=120, null=True, blank=True)
+  priority = models.IntegerField(blank=True, default=0)
   name = models.CharField(max_length=120, null=True, blank=True)
   path = models.TextField(blank=True, null=True)
   url = models.TextField(blank=True, null=True)
@@ -13,7 +15,6 @@ class TalentPicture(models.Model):
   updated = models.DateTimeField(auto_now=True)
   uploaded = models.BooleanField(default=False)
   active = models.BooleanField(default=True)
-  caption = models.CharField(max_length=120, null=True, blank=True)
 
   def __str__(self):
     return 'talent: {user_email}, image: {image_url}, {image_size}'.format(
@@ -24,5 +25,5 @@ class TalentPicture(models.Model):
 
   class Meta:
     db_table = "talent_picture"
-    ordering = ('talent', 'updated', 'name')
+    ordering = ('talent', 'priority', 'caption', 'updated', 'name')
     managed = True

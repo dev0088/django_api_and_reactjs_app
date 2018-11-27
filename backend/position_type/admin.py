@@ -5,7 +5,7 @@ from rest_framework.authtoken.admin import TokenAdmin
 @admin.register(models.PositionType)
 
 class TalentPositionTypeAdmin(admin.ModelAdmin):
-  list_display = ('id', 'name', 'multi_selection', 'sub_position_display', 'question')
+  list_display = ('id', 'name', 'priority','multi_selection', 'sub_position_display', 'question')
   list_display_links = ('id', 'name')
   list_filter = ('multi_selection',)
   list_per_page = 25

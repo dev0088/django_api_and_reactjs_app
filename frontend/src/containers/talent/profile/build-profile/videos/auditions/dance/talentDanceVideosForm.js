@@ -21,7 +21,7 @@ import apiConfig from 'constants/api';
 import { findVideoByPriority, findVideoIndexByPriority } from 'utils/appUtils';
 
 
-class TalentSubSkillVideosForm extends Component {
+class TalentDanceVideosForm extends Component {
 
   constructor(props) {
     super(props);
@@ -362,4 +362,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentSubSkillVideosForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentDanceVideosForm));

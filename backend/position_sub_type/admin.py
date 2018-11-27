@@ -4,8 +4,8 @@ from . import models
 @admin.register(models.PositionSubType)
 
 class PositionSubTypeAdmin(admin.ModelAdmin):
-  list_display = ('id', 'name', 'position_type_display')
-  list_display_links = ('id', 'name')
+  list_display = ('id', 'position_type_display', 'name', 'priority')
+  list_display_links = ('id', 'position_type_display', 'name', 'priority')
   list_per_page = 25
 
   def position_type_display(self, obj):

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -23,7 +21,7 @@ import TalentAPI from 'apis/talentAPIs';
 import apiConfig from 'constants/api';
 import { getLanguageIndex, findVideoByPriority } from 'utils/appUtils';
 
-const LANGUAGE_KEYS = ['0', '1', '2', '3']
+// const LANGUAGE_KEYS = ['0', '1', '2', '3']
 
 class TalentVideoGreetingsForm extends Component {
 

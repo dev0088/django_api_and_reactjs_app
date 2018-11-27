@@ -6,4 +6,4 @@ class SubSkillSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = SubSkill
-    fields = ('id', 'name', 'skill', 'video_steps', 'max_video_time', 'download_video_link')
+    fields = ('id', 'name', 'priority', 'skill', 'video_steps', 'max_video_time', 'download_video_link')

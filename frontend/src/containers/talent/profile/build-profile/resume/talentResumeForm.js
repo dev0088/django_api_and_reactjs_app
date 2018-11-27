@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
+import Request from 'superagent';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ClearRounded from '@material-ui/icons/ClearRounded';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone';
 import ImageLoader from 'react-loading-image';
@@ -37,14 +39,19 @@ class MyResume extends Component {
     this.state = {
       resume: {},
       file: null,
-      openImageModal: false
+      openImageModal: false,
+      progressPercent: 0.0,
+      progressing: false,
     }
+    this.onFinish = this.onFinish.bind(this)
   }
 
   getInfoFromProps(props) {
     const { talentInfo } = props
 
     let resume = {}
+    let progressPercent = 0.0
+    let progressing = false
 
     if (talentInfo && talentInfo.user && talentInfo.talent_resume) {
       // Get nationality info
@@ -52,7 +59,9 @@ class MyResume extends Component {
     }
 
     return {
-      resume
+      resume,
+      progressPercent,
+      progressing,
     }
   }
 
@@ -74,15 +83,19 @@ class MyResume extends Component {
     const completeAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/complete/`
     const generatePreviewAPI = `${apiConfig.url}/talent_resume/upload/${user_id}/generate_preview/`
 
-    this.uploadToS3(signAPI, completeAPI, generatePreviewAPI, file)
+    this.setState({
+      progressing: true
+    }, () => {
+      this.signAndUploadToS3(signAPI, completeAPI, generatePreviewAPI, file)
+    })
   }
 
-  uploadToS3 = (signAPI, completeAPI, generatePreviewAPI, file) => {
+  signAndUploadToS3 = (signAPI, completeAPI, generatePreviewAPI, file) => {
     const params = {
       objectName: file.name,
       contentType: file.type
     }
-
+    
     fetch(signAPI, {
       method: 'post',
       headers: {
@@ -98,7 +111,7 @@ class MyResume extends Component {
         else {
           if (response.signedUrl){
             console.log('success: ', response, response.signedUrl)
-            this.uploadFile(
+            this.uploadToS3(
               response.signedUrl,
               completeAPI,
               generatePreviewAPI,
@@ -116,34 +129,37 @@ class MyResume extends Component {
       })
   }
 
-  uploadFile = (s3PutUrl, completeAPI, generatePreviewAPI, fileID, file) => {
-    fetch(s3PutUrl, {
-      method: 'put',
-      headers: {
-        'x-amz-acl': 'public-read',
-        'Content-Type': file.type,
-      },
-      body: file
-    })
-      .then(response => {
-        if(response.error) {
+  uploadToS3 = (s3PutUrl, completeAPI, generatePreviewAPI, fileID, file) => {
+    Request.put(s3PutUrl)
+      .set("Content-Type", file.type)
+      .set("x-amz-acl", 'public-read')
+      .send(file)
+      .on('progress', function(e) {
+        this.onProgress(e.percent);
+      }.bind(this))
+      .end((err, res) => {
+        if (err) {
           this.onError(fileID, file)
-        }
-        else {
+        } else {
           this.onFinish(completeAPI, generatePreviewAPI, fileID, file)
         }
       })
-      .catch(error => {
-        this.onError(fileID, file)
-      })
   }
 
-  onProgress = () => {
-    console.log('=== progress')
+  onProgress = (percent) => {
+    this.setState({ progressPercent: percent })
   }
+
+  doneUploadingProgress = () => {
+    this.setState({
+      progressing: false,
+      progressPercent: 0
+    })
+  };
 
   onError = (file) => {
     console.log('==== Error: ', file)
+    this.doneUploadingProgress()
   }
 
   onFinish = (completeAPI, generatePreviewAPI, fileID, file) => {
@@ -162,18 +178,20 @@ class MyResume extends Component {
       .then(response => {
         if(response.error) {
           console.log('error: ', response.error)
+          this.onError(file, response.error)
         }
         else {
           // Update resume from server
-          this.uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
+          this.uploadToS3ToServerToGetPreviewImage(generatePreviewAPI, fileID, file)
         }
       })
       .catch(error => {
         console.log('error: ', error)
+        this.onError(file, error)
       })
   }
 
-  uploadFileToServerToGetPreviewImage(generatePreviewAPI, fileID, file) {
+  uploadToS3ToServerToGetPreviewImage(generatePreviewAPI, fileID, file) {
 
     let data = new FormData();
     console.log('=== file: ', file, file.name)
@@ -192,14 +210,17 @@ class MyResume extends Component {
       .then(response => {
         if(response.error) {
           console.log('error: ', response.error)
+          this.onError(file, response.error)
         }
         else {
           // Update resume from server
           this.props.talentActions.getCurrentTalentInfo()
+          this.doneUploadingProgress()
         }
       })
       .catch(error => {
         console.log('error: ', error)
+        this.onError(file, error)
       })
   }
 
@@ -213,9 +234,14 @@ class MyResume extends Component {
   };
 
   showImage = (picture) => {
-    this.setState({
-      openImageModal: true
-    })
+    const { resume } = this.state
+    const haveResume = resume && resume.url && resume.uploaded && resume.active && resume.preview_path
+
+    if (haveResume) {
+      this.setState({
+        openImageModal: true
+      })
+    }
   };
 
   onInputChange = e => {
@@ -227,54 +253,50 @@ class MyResume extends Component {
 
   renderContents() {
     const { contentTitle, classes } = this.props
-
-    const {
-      resume,
-      openImageModal
-    } = this.state
+    const { resume, openImageModal, progressing, progressPercent } = this.state
+    const haveResume = resume && resume.url && resume.uploaded && resume.active && resume.preview_path
 
     return (
       <Panel title={contentTitle}>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {(resume && resume.url && resume.uploaded && resume.active && resume.preview_path) ?
-              (
-                <div onClick={() => this.showImage()}>
-                  <ImageLoader
-                    className="profile-resume-image"
-                    src={`${apiConfig.server}/${resume.preview_path}`}
-                    loading={() => <div className="profile-resume-image">Loading...</div>}
-                    error={() => <div>Error</div>} />
-                  <div>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      aria-label="Edit"
-                      disabled = {false}
-                      className={classes.talentProfileResumeDeleteButton}
-                      onClick={this.deleteResume}
-                    >
-                      <ClearRounded style={{fontSize: '20px'}}/>
-                    </Button>
+            {
+              progressing ? (
+                <CircularProgress className={classes.talentProfileVideoGreetingImage}/>
+              ) : (
+                <div>
+                  <div onClick={() => this.showImage()}>
+                    <ImageLoader
+                      className="profile-resume-image"
+                      src={
+                        haveResume
+                          ? `${apiConfig.server}/${resume.preview_path}`
+                          : require('images/missing.png')
+                      }
+                      loading={() => <div className={classes.talentProfileVideoGreetingImage}>Loading...</div>}
+                      error={() => <div>Error</div>} />
                   </div>
-                  {openImageModal && (
+                  <div>
+                    { haveResume && (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        aria-label="Edit"
+                        className={classes.talentProfileResumeDeleteButton}
+                        onClick={this.deleteResume}
+                      >
+                        <ClearRounded style={{fontSize: '20px'}}/>
+                      </Button>
+                    )}
+                  </div>
+                  { openImageModal &&(
                     <ImageLightbox
                       mainSrc={resume.preview_path}
                       onCloseRequest={() => this.setState({ openImageModal: false })}
                     />
                   )}
                 </div>
-              ) : (
-                <div>
-                  <ImageLoader
-                    className="profile-picture-image"
-                    src={require('images/missing.png')}
-                    loading={() => <div className="profile-picture-image">Loading...</div>}
-                    error={() => <div>Error</div>}
-                  />
-                </div>
-              )
-            }
+              )}
           </Col>
         </Row>
         <Row className="profile-picture-image-container">
@@ -291,21 +313,38 @@ class MyResume extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            <Dropzone
-              className="profile-picture-dropzone"
-              onDrop={ (files) => this.handleUploadResume(files) }
-              size={ 150 }
-              accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain ">
-              <div className="profile-picture-dropzone-description">
-                {`To upload or change Drop resume here`}
+            { progressPercent > 0 ? (
+              <div>
+                <LinearProgress
+                  variant="determinate"
+                  className={classes.uploadProgressBar}
+                  value={progressPercent}
+                />
+                <Typography
+                  gutterBottom
+                  variant='Subheading'
+                  className={classes.talentProfileVideoUploadingText}
+                >
+                  {`Uploading (${progressPercent.toFixed(0)} %) ... `}
+                </Typography>
               </div>
-              <div className="profile-picture-dropzone-select-file-button">
-                {`OR SELECT FILE`}
-              </div>
-              <div className="profile-picture-dropzone-description">
-                {`Supported File Types: PDF, TXT, DOC, DOCX`}
-              </div>
-            </Dropzone>
+            ) : (
+              <Dropzone
+                className="profile-picture-dropzone"
+                onDrop={ (files) => this.handleUploadResume(files) }
+                size={ 150 }
+                accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain ">
+                <div className="profile-picture-dropzone-description">
+                  {`To upload or change Drop resume here`}
+                </div>
+                <div className="profile-picture-dropzone-select-file-button">
+                  {`OR SELECT FILE`}
+                </div>
+                <div className="profile-picture-dropzone-description">
+                  {`Supported File Types: PDF, TXT, DOC, DOCX`}
+                </div>
+              </Dropzone>
+            )}
           </Col>
         </Row>
       </Panel>

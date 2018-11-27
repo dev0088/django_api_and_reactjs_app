@@ -9,9 +9,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Panel from 'components/general/panel';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
-import * as talentActions from 'actions/talentActions';
-import { styles } from 'styles';
 import Spacer from "components/general/spacer";
+import * as talentActions from 'actions/talentActions';
+import { getPathByPositionName } from 'utils/appUtils';
+import { styles } from 'styles';
 
 
 class TalentVideosForm extends Component {
@@ -33,7 +34,7 @@ class TalentVideosForm extends Component {
   }
 
   renderPositionButtons() {
-    const { classes, allPositionTypes, fromWizard } = this.props
+    const { classes, allPositionTypes } = this.props
     let items = []
     if (allPositionTypes && allPositionTypes.length > 0) {
       for(let i = 0; i < allPositionTypes.length; i +=2) {
@@ -41,10 +42,9 @@ class TalentVideosForm extends Component {
         let title = `My ${position.name} Audition Videos`
         let subTitle = 'in progress'
         let link = {
-          pathname: '/video-positions',
+          pathname: getPathByPositionName(position.name),
           state: {
-            position: position,
-            fromWizard: fromWizard
+            position: position
           }
         }
 
@@ -80,8 +80,7 @@ class TalentVideosForm extends Component {
           link = {
             pathname: '/video-positions',
             state: {
-              position: position,
-              fromWizard: fromWizard
+              position: position
             }
           }
 
@@ -121,15 +120,14 @@ class TalentVideosForm extends Component {
   }
 
   renderContents() {
-    const { classes, contentTitle, allPositionTypes, fromWizard } = this.props
+    const { classes, contentTitle, allPositionTypes } = this.props
 
     return (
       <Panel title={contentTitle}>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <ColumnButton
             link = {{
-              pathname: "/video-greetings",
-              state: { fromWizard: fromWizard }
+              pathname: "/video-greetings"
             }}
             color="primary"
             itemClass = {classes.talentProfileGuideButtonItem}

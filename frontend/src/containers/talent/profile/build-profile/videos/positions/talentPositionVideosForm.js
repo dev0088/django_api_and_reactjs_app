@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Panel from 'components/general/panel';
 import Spacer from "components/general/spacer";
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import * as talentActions from 'actions/talentActions';
 import { findRelatedSkillByPositionName } from 'utils/appUtils';
 import { styles } from 'styles';
@@ -140,7 +141,31 @@ class TalentPositionVideosForm extends Component {
 
     return (
       <Panel title={contentTitle}>
-        <Spacer size={30}/>
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <ColumnButton
+            link = {'/talent/video/position/introduction'}
+            color="primary"
+            itemClass = {classes.talentProfileGuideButtonItem}
+            buttonClass = {classes.talentProfileGuideButton}
+            title = {"INSTRUCTIONS"}
+            titleClass = {classes.talentProfileGuideButtonTitle}
+            size = {12}
+            fullWidth = {false}
+          />
+          <ColumnButton
+            link = {'#'}
+            color="primary"
+            itemClass = {classes.talentProfileGuideButtonItem}
+            buttonClass = {classes.talentProfileGuideButton}
+            title = {"Sample Videos"}
+            titleClass = {classes.talentProfileGuideButtonSubTitle}
+            size = {12}
+            fullWidth = {false}
+          />
+        </Grid>
+
+        <Spacer size={40}/>
+
         <Grid container spacing={16} justify="center" alignItems="center">
           { this.renderSubPositionButtons() }
         </Grid>

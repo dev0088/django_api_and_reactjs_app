@@ -8,22 +8,15 @@ import TemplateTopbar from 'components/shiptalent/template/templateTopbar';
 import TemplateTopbarOfComingSoon from 'components/shiptalent/template/templateTopbarOfComingSoon';
 import TemplateClientTopbar from 'components/shiptalent/template/templateClientTopbar';
 
-// Routes
+// Common routes
 import ComingSoonScreen from 'containers/common/comingSoonScreen';
 import HomeScreen from 'containers/talent/homeScreen';
 import SignUpScreen from 'containers/common/signUpScreen';
 import LoginScreen from 'containers/common/loginScreen';
 import ForgotPasswordScreen from 'containers/common/forgotPasswordScreen';
-
 import Error from 'components/general/error';
-import InterviewStart from "containers/talent/video-interview/start";
-import InterviewInstruction from "containers/talent/video-interview/instruction";
-import InterviewInstructionLive from "containers/talent/video-interview/instruction-live";
-import InterviewDeviceAllow from "containers/talent/video-interview/allow";
-import VideoPreview from "containers/talent/video-interview/preview";
-import VideoPractice from "containers/talent/video-interview/practice";
-import LiveInterview from "containers/talent/video-interview/live";
 
+// Profile wizard routes
 import WelcomeBuildProfileWizard from "containers/talent/profile/profile-wizard/welcomeBuildProfileWizard";
 import SelectMaleWizard from "containers/talent/profile/profile-wizard/selectMaleWizard";
 import SelectPositionTypeWizard from "containers/talent/profile/profile-wizard/selectPositionTypeWizard";
@@ -43,18 +36,32 @@ import SelectResumeWizard from "containers/talent/profile/profile-wizard/selectR
 import SelectPictureWizard from "containers/talent/profile/profile-wizard/selectPictureWizard";
 import SelectVideoWizard from "containers/talent/profile/profile-wizard/selectVideoWizard";
 
-import MyProfile from "containers/talent/profile/myProfile";
-import ViewProfile from "containers/talent/profile/view-profile/viewProfile";
-import MyContactInfo from "containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
-import MyNationality from "containers/talent/profile/build-profile/nationality/myNationalityScreen";
-// import MyVideos from "containers/talent/profile/build-profile/interview-videos/myVideosScreen";
+// Videos routes
 import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScreen";
 import MyVideoGreetings from "containers/talent/profile/build-profile/videos/greetings/myVideoGreetingsScreen";
 import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
 import MyPositionVideos from "containers/talent/profile/build-profile/videos/positions/myPositionVideosScreen";
 import MySubSkillVideos from "containers/talent/profile/build-profile/videos/positions/mySubSkillVideosScreen";
+import MyActingAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/acting/myActingAuditionVideosScreen";
+import MyDanceAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/dance/myDanceAuditionVideosScreen";
+import MyVocalAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/vocal/myVocalAuditionVideosScreen";
+
+// Video interview routes
+import InterviewStart from "containers/talent/video-interview/start";
+import InterviewInstruction from "containers/talent/video-interview/instruction";
+import InterviewInstructionLive from "containers/talent/video-interview/instruction-live";
+import InterviewDeviceAllow from "containers/talent/video-interview/allow";
+import VideoPreview from "containers/talent/video-interview/preview";
+import VideoPractice from "containers/talent/video-interview/practice";
+import LiveInterview from "containers/talent/video-interview/live";
 import MyPracticeInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myPracticeInterviewVideosScreen";
 import MyLiveInterviewVideos from "containers/talent/profile/build-profile/interview-videos/myLiveInterviewVideosScreen";
+
+// Profile routes
+import MyProfile from "containers/talent/profile/myProfile";
+import ViewProfile from "containers/talent/profile/view-profile/viewProfile";
+import MyContactInfo from "containers/talent/profile/build-profile/contact-info/myContactInfoScreen";
+import MyNationality from "containers/talent/profile/build-profile/nationality/myNationalityScreen";
 import MyPictures from "containers/talent/profile/build-profile/pictures/myPicturesScreen";
 import MyResume from "containers/talent/profile/build-profile/resume/myResumeScreen";
 import MyBio from "containers/talent/profile/build-profile/bio/myBioScreen";
@@ -62,9 +69,9 @@ import MyMetrics from "containers/talent/profile/build-profile/metric/myMetricSc
 import MyLanguage from "containers/talent/profile/build-profile/language/myLanguagesScreen";
 import MyMedical from "containers/talent/profile/build-profile/medical/myMedicalScreen";
 import EditProfile from "containers/talent/profile/build-profile/general/editProfile";
-
 import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
 
+// Footer routes
 import SubFaq from "containers/common/subFaq";
 import Faq from "containers/common/faq";
 import Terms from "containers/common/terms";
@@ -91,6 +98,7 @@ import BlockedProfile from "containers/client/my_blocked_profile/blocked.profile
 import MyRate from "containers/client/my_rating/myrate";
 import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
+
 
 const Index = () => (
   <Switch>
@@ -285,7 +293,7 @@ const Index = () => (
       path="/client/rating_comment"
       render={props => (
         <TemplateClientTopbar>
-        <RatingAndComment {...props}/>
+          <RatingAndComment {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -645,6 +653,32 @@ const Index = () => (
       )}
     />
 
+    <Route
+      path="/video-acting-audition-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyActingAuditionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/video-dance-audition-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyDanceAuditionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/video-vocal-audition-videos"
+      render={props => (
+        <TemplateTopbar>
+          <MyVocalAuditionVideos {...props} />
+        </TemplateTopbar>
+      )}
+    />
 
     <Route
       path="/pictures-info"

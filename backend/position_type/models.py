@@ -1,11 +1,14 @@
 from django.db import models
 
+
 class PositionTypeManager(models.Manager):
     def get_queryset(self):
         return super(PositionTypeManager, self).get_queryset().filter(active=True)
 
+
 class PositionType(models.Model):
     name = models.CharField(blank=False, max_length=50)
+    priority = models.IntegerField(blank=True, default=0)
     multi_selection = models.BooleanField(default=False)
     question = models.TextField(max_length=300, blank=True)
 
@@ -14,6 +17,6 @@ class PositionType(models.Model):
 
     class Meta:
         db_table = "position_type"
-        ordering = ('name',)
+        ordering = ('priority', 'name',)
         managed = True
         unique_together = ('name', 'id')

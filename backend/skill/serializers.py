@@ -18,4 +18,4 @@ class SkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Skill
-        fields = ('name', 'multi_selection', 'related_position_type', 'question', 'description', 'sub_skills')
+        fields = ('id', 'name', 'priority', 'multi_selection', 'related_position_type', 'question', 'description', 'sub_skills')

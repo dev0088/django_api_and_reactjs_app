@@ -13,6 +13,7 @@
 }
 .profile-container .details-content img {
     height: auto;
+    object-fit: cover;
 }
 .profile-name {
   text-align: center;

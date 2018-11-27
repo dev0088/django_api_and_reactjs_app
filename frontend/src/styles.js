@@ -226,6 +226,9 @@ export const styles = theme => ({
     display: 'block',
     borderRadius: '5px'
   },
+  talentProfileGuideDownloadButton: {
+    borderRadius: '5px'
+  },
   talentProfileGuideButtonSelected: {
     display: 'block',
     borderRadius: '5px',
@@ -285,6 +288,10 @@ export const styles = theme => ({
     left: '170px',
     fontWeight: 600,
   },
+  talentProfilePictureEmpty: {
+    width: '20px',
+    height: '20px',
+  },
   talentProfilePictureDeleteButton: {
     padding: '0px',
     minWidth: '10px',
@@ -292,8 +299,8 @@ export const styles = theme => ({
     width: '20px',
     height: '20px',
     position: 'relative',
-    top: '24px',
-    left: '62px',
+    top: '-25px',
+    left: '90px',
     fontWeight: 600,
   },
   talentProfileVideoViewModal: {
@@ -309,6 +316,12 @@ export const styles = theme => ({
     top: '-36px',
     position: 'relative',
     fontWeight: '400'
+  },
+  talentProfileVideoAuditionSubTitleText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: '10px',
+    fontSize: '1.5rem'
   },
   talentProfileVideoAuditionDescriptionText: {
     fontWeight: 'bold',
@@ -447,6 +460,7 @@ export const theme = createMuiTheme ({
   typography: {
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     textTransform: "none",
+    useNextVariants: true
   },
   button: {
     primaryColor: '#FFFFFF',

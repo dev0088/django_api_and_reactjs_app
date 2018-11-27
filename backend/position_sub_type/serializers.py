@@ -6,4 +6,4 @@ class PositionSubTypeSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = PositionSubType
-    fields = ('id', 'name', 'position_type')
+    fields = ('id', 'name', 'priority', 'position_type')
