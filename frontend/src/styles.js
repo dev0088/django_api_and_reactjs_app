@@ -304,6 +304,16 @@ export const styles = theme => ({
     color: theme.palette.black.main,
     fontSize: '1.15rem',
     marginRight: '7px',
+    marginTop: '3px',
+    '&:hover': {
+      color: theme.palette.thinBlack.main,
+    },
+  },
+  talentProfileHeadlineEditIcon: {
+    color: theme.palette.black.main,
+    fontSize: '1.4rem',
+    marginRight: '7px',
+    marginTop: '10px',
     '&:hover': {
       color: theme.palette.thinBlack.main,
     },
@@ -369,11 +379,22 @@ export const styles = theme => ({
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
+  talentProfileViewHeaderTextItem: {
+    fontSize: '1rem!important',
+    fontWeight: '600!important',
+    textAlign: 'center',
+    display: 'inherit',
+    margin: 'auto',
+
+  },
   talentProfileViewHeaderText: {
     fontSize: '1.4rem',
     fontWeight: 600,
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
+    textAlign: 'center',
+    padding: '3px 10px 3px 10px',
+    border: `3px solid ${theme.palette.black.main}`
   },
   talentProfileVideoViewModal: {
     width: '60%',

@@ -54,6 +54,7 @@ class ViewProfile extends Component {
       talent_resume: null,
       talent_medicals: null,
       talent_availabilities_last_update: null,
+      talent_video_greetings: null,
       worked_cruise_ship: null,
     }
   }
@@ -80,6 +81,7 @@ class ViewProfile extends Component {
       talent_medicals,
       talent_pictures,
       talent_availabilities_last_update,
+      talent_video_greetings,
       worked_cruise_ship,
     } = props.talentInfo;
 
@@ -102,6 +104,7 @@ class ViewProfile extends Component {
       talent_medicals,
       talent_pictures,
       talent_availabilities_last_update,
+      talent_video_greetings,
       worked_cruise_ship
     }
   }
@@ -205,7 +208,7 @@ class ViewProfile extends Component {
         return `1 Active Visa`;
       }
 
-      return `${numberOfVisas} Active Visa`;
+      return `${numberOfVisas} Active Visas`;
   }
 
   makeMedicalSubTitle(talentMedicals) {
@@ -443,28 +446,22 @@ class ViewProfile extends Component {
           <Typography className="profile-picture-name">{"Pictures"}</Typography>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
-          <div className="profile-picture-view-container">
-            <Row>
-              <Col md="12" className="profile-picture-view-container-col">
-                { this.renderPictureView("My Current Headshot", 0) }
-                { this.renderPictureView("My Current Body Shot 1", 1) }
-                { this.renderPictureView("My Current Body Shot 2", 2) }
-              </Col>
-            </Row>
-            <Row>
-              <Col md="12" className="profile-picture-view-container-col">
-                { this.renderPictureView("My Other Pic 1", 3) }
-                { this.renderPictureView("My Other Pic 2", 4) }
-                { this.renderPictureView("My Other Pic 3", 5) }
-              </Col>
-            </Row>
-            <Row>
-              <Col md="12" className="profile-picture-view-container-col">
-                { this.renderPictureView("My Other Pic 4", 6) }
-                { this.renderPictureView("My Other Pic 5", 7) }
-              </Col>
-            </Row>
-          </div>
+          <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+            <Grid item lg={12} md={12} xs={12} className="profile-picture-view-container-col">
+              { this.renderPictureView("My Current Headshot", 0) }
+              { this.renderPictureView("My Current Body Shot 1", 1) }
+              { this.renderPictureView("My Current Body Shot 2", 2) }
+            </Grid>
+            <Grid item lg={12} md={12} xs={12} className="profile-picture-view-container-col">
+              { this.renderPictureView("My Other Pic 1", 3) }
+              { this.renderPictureView("My Other Pic 2", 4) }
+              { this.renderPictureView("My Other Pic 3", 5) }
+            </Grid>
+            <Grid item lg={12} md={12} xs={12} className="profile-picture-view-container-col">
+              { this.renderPictureView("My Other Pic 4", 6) }
+              { this.renderPictureView("My Other Pic 5", 7) }
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -634,6 +631,8 @@ class ViewProfile extends Component {
 
   renderVideoButtonsGroup() {
     const { classes, allPositionTypes } = this.props
+    const { talent_video_greetings } = this.state
+
     return (
       <div>
           <Grid container spacing={24} direction="column" justify="center" alignItems="center">
@@ -646,7 +645,7 @@ class ViewProfile extends Component {
               buttonClass = {classes.clientTalentViewVideoButton}
               title = {"My Video Greetings"}
               titleClass = {classes.clientTalentViewVideoButtonText}
-              subTitle = {"completed"}
+              subTitle = {talent_video_greetings ? talent_video_greetings.length : 0}
               subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
               size = {12}
               fullWidth = {false}
@@ -726,10 +725,13 @@ class ViewProfile extends Component {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container spacing={16}>
+            <Grid container spacing={16} direction="column" justify="center" alignItems="center">
               <Grid item md={2} xs={1} />
-              <Grid item md={8} xs={10}>
-                <Typography align="center" className={classes.talentProfileViewHeaderText}>
+              <Grid item md={8} xs={10} className={classes.talentProfileViewHeaderTextItem}>
+                <Link to="/bio-info">
+                  <EditIcon className={classes.talentProfileHeadlineEditIcon}/>
+                </Link>
+                <Typography className={classes.talentProfileViewHeaderText}>
                   {`“${head_line}”`}
                 </Typography>
               </Grid>
