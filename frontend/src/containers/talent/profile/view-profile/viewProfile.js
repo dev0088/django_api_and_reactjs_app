@@ -7,6 +7,7 @@ import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import UnitConverter from 'convert-units'
 import RaisedButton from 'material-ui/RaisedButton';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -52,7 +53,8 @@ class ViewProfile extends Component {
       talent_languages: null,
       talent_resume: null,
       talent_medicals: null,
-      worked_cruise_ship: null
+      talent_availabilities_last_update: null,
+      worked_cruise_ship: null,
     }
   }
 
@@ -77,8 +79,9 @@ class ViewProfile extends Component {
       talent_resume,
       talent_medicals,
       talent_pictures,
-      worked_cruise_ship
-    } = props.talentInfo
+      talent_availabilities_last_update,
+      worked_cruise_ship,
+    } = props.talentInfo;
 
     return {
       skills: talent_skills,
@@ -98,6 +101,7 @@ class ViewProfile extends Component {
       talent_resume,
       talent_medicals,
       talent_pictures,
+      talent_availabilities_last_update,
       worked_cruise_ship
     }
   }
@@ -214,6 +218,13 @@ class ViewProfile extends Component {
     }
 
     return `${numberOfMedicals} conditions`;
+  }
+
+  makeAvailabilitySubTitle(talentAvailabilityLastUpdate) {
+    if (talentAvailabilityLastUpdate) {
+      return `Last updated ${moment(talentAvailabilityLastUpdate).format('MM/DD/YYYY')}`
+    }
+    return `no availabilities`
   }
 
   getPracticeVideoNumbers = (talent_videos) => {
@@ -651,7 +662,7 @@ class ViewProfile extends Component {
 
   renderOtherButtonsGroup() {
     const { classes } = this.props
-    const { talent_visas, talent_medicals } = this.state
+    const { talent_visas, talent_medicals, talent_availabilities_last_update } = this.state
 
     return (
       <Grid container spacing={24} direction="column" justify="center" alignItems="center">
@@ -686,7 +697,7 @@ class ViewProfile extends Component {
           buttonClass = {classes.clientTalentViewMoreInfoButton}
           title = {"Availability"}
           titleClass = {classes.clientTalentViewVideoButtonText}
-          subTitle = {"Last updated 04/01/2018"}
+          subTitle = {this.makeAvailabilitySubTitle(talent_availabilities_last_update)}
           subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
           size = {12}
           fullWidth = {false}
