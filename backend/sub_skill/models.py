@@ -10,7 +10,7 @@ class SubSkill(models.Model):
     # Relation with user
     skill = models.ForeignKey(Skill, related_name='sub_skills', on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=50)
-    priority = models.IntegerField(blank=True, default=0)
+    priority = models.IntegerField(blank=True, default=100)
     description = models.CharField(blank=True, max_length=50)
     video_steps = models.IntegerField(blank=True, default=1)
     max_video_time = models.IntegerField(blank=True, default=3600)

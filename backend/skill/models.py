@@ -9,7 +9,7 @@ class SkillManager(models.Manager):
 
 class Skill(models.Model):
     name = models.CharField(blank=False, max_length=50)
-    priority = models.IntegerField(blank=True, default=0)
+    priority = models.IntegerField(blank=True, default=100)
     multi_selection = models.BooleanField(default=False)
     related_position_type = models.ForeignKey(PositionType, related_name='related_skills', on_delete=models.CASCADE)
     description = models.CharField(blank=True, max_length=50)

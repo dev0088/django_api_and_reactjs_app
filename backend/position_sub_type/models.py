@@ -11,7 +11,7 @@ class PositionSubType(models.Model):
     # Relation with user
     position_type = models.ForeignKey(PositionType, related_name='position_sub_types', on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=50)
-    priority = models.IntegerField(blank=True, default=0)
+    priority = models.IntegerField(blank=True, default=100)
 
     def __str__(self):
         return self.position_type.name + ' -> ' + self.name

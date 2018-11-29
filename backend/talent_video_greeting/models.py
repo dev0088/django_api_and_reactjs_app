@@ -14,7 +14,7 @@ class TalentVideoGreeting(models.Model):
     uploaded = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     language = models.CharField(max_length=50, null=True, blank=True)
-    priority = models.IntegerField(blank=True, default=0)
+    priority = models.IntegerField(blank=True, default=100)
 
     def __str__(self):
         return 'talent: {user_email}, language: {language}, video: {video_url}, {video_size}'.format(

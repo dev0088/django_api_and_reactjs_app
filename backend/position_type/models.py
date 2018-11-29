@@ -8,7 +8,7 @@ class PositionTypeManager(models.Manager):
 
 class PositionType(models.Model):
     name = models.CharField(blank=False, max_length=50)
-    priority = models.IntegerField(blank=True, default=0)
+    priority = models.IntegerField(blank=True, default=100)
     multi_selection = models.BooleanField(default=False)
     question = models.TextField(max_length=300, blank=True)
 

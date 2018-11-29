@@ -61,6 +61,10 @@ class TalentPositionVideosForm extends Component {
     }
   }
 
+  renderAdditionButtons() {
+    return (<div/>)
+  }
+
   renderSubPositionButtons() {
     const { classes } = this.props
     const { position, related_skill, checkedOptOut } = this.state
@@ -68,7 +72,8 @@ class TalentPositionVideosForm extends Component {
 
     if (related_skill && related_skill.sub_skills && related_skill.sub_skills.length > 0) {
       const sub_skills = related_skill.sub_skills
-      for(let i = 0; i < sub_skills.length; i +=2) {
+
+      for(let i = 0; i < sub_skills.length; i ++) {
         let title = `My ${sub_skills[i].name} Videos`
         let subTitle = 'in progress'
         let link = {
@@ -79,9 +84,8 @@ class TalentPositionVideosForm extends Component {
           }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
         items.push(
-          <Grid item lg={3} md={4} sm={5} xs={12}
+          <Grid item lg={6} md={6} sm={6} xs={12}
                 className={classes.talentProfileGuideButtonItem}>
             <Link to={link} onClick={this.handleClickLink}>
               <Button
@@ -95,44 +99,15 @@ class TalentPositionVideosForm extends Component {
             </Link>
           </Grid>
         )
-
-        if (sub_skills[i + 1]) {
-          title = `My ${sub_skills[i + 1].name} Videos`
-          subTitle = 'in progress'
-          link = {
-            pathname: '/video-sub-skill',
-            state: {
-              position: position,
-              subSkill: sub_skills[i + 1]
-            }
-          }
-
-          items.push(
-            <Grid item lg={3} md={4} sm={5} xs={12}
-                  className={classes.talentProfileGuideButtonItem}>
-              <Link to={link} onClick={this.handleClickLink}>
-                <Button
-                  variant="contained" color={'primary'}
-                  fullWidth={true} disabled={checkedOptOut}
-                  className={classes.talentProfileGuideButton}
-                >
-                  <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                  {subTitle && (
-                    <Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>
-                  )}
-                </Button>
-              </Link>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
-        }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
       }
-      return items
+      items.push(this.renderAdditionButtons());
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
   }
 
   renderContents() {
@@ -166,8 +141,12 @@ class TalentPositionVideosForm extends Component {
 
         <Spacer size={40}/>
 
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderSubPositionButtons() }
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} >
+            { this.renderSubPositionButtons() }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
         <Spacer size={40}/>
         <Grid container spacing={24} justify="center" alignItems="center">
