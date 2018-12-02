@@ -36,7 +36,7 @@ class IntroductionForm extends Component {
     return (
       <Panel title={contentTitle}>
         <Grid container spacing={24} direction="column" justify="flex-start" alignItems="flex-start">
-          <Grid item xl={1} lg={1} xs={0} />
+          <Grid item xl={1} lg={1} xs={12} />
           <Grid item xl={10} lg={10} md={12} xs={12}>
             <p>
               {`The Video Greeting and Introduction is a 90- to 120-second presentation on camera
@@ -98,7 +98,7 @@ class IntroductionForm extends Component {
               </p>
             </p>
           </Grid>
-          <Grid item xl={1} lg={1} xs={0} />
+          <Grid item xl={1} lg={1} xs={12} />
         </Grid>
 
       </Panel>

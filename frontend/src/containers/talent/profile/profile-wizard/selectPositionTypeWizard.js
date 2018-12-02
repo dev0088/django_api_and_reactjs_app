@@ -84,7 +84,7 @@ class SelectPositionTypeWizard extends Component {
       for(let i = 0; i < allPositionTypes.length; i +=2) {
         let positionType1 = allPositionTypes[i]
 
-        items.push(<Grid key={`item${i}-1`} item lg={3} md={2} sm={1} xs={0}/>)
+        items.push(<Grid key={`item${i}-1`} item lg={3} md={2} sm={1} xs={12}/>)
         items.push(
           <Grid key={`item${i}-2`}
             item lg={3} md={4} sm={5} xs={12}
@@ -136,7 +136,7 @@ class SelectPositionTypeWizard extends Component {
         } else {
           items.push(<Grid key={`item${i}-3`} item lg={3} md={4} sm={5} xs={12}/>)
         }
-        items.push(<Grid key={`item${i}-4`} item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid key={`item${i}-4`} item lg={3} md={2} sm={1} xs={12} />)
       }
       return items
     }

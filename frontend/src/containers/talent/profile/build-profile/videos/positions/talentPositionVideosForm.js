@@ -66,6 +66,7 @@ class TalentPositionVideosForm extends Component {
   }
 
   renderSubPositionButtons() {
+
     const { classes } = this.props
     const { position, related_skill, checkedOptOut } = this.state
     let items = []
@@ -150,7 +151,7 @@ class TalentPositionVideosForm extends Component {
         </Grid>
         <Spacer size={40}/>
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
           <Grid item lg={10} md={10} xs={12}>
             <Typography
               gutterBottom
@@ -162,8 +163,8 @@ class TalentPositionVideosForm extends Component {
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={1} md={1} xs={0}/>
-          <Grid item lg={2} md={1} sm={0} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
+          <Grid item lg={2} md={1} sm={12} xs={12}/>
           <Grid item lg={8} md={10} sm={12} xs={12}>
             <FormControlLabel
               control={
@@ -178,7 +179,7 @@ class TalentPositionVideosForm extends Component {
               I'll not be uploading any ${position ? position.name : ''} Audition Videos (you may opt back in at any time by unchecking the box)`}
             />
           </Grid>
-          <Grid item lg={2} md={1} sm={0} xs={0}/>
+          <Grid item lg={2} md={1} sm={12} xs={12}/>
         </Grid>
       </Panel>
     )

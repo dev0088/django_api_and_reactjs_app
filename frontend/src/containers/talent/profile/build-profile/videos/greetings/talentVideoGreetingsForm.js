@@ -78,11 +78,11 @@ class TalentVideoGreetingsForm extends Component {
     this.setState({
       responseCallback: responseCallback
     }, () => {
-      TalentAPI.deleteVideoGreeting(videoID, this.onResponseHanlder)
+      TalentAPI.deleteVideoGreeting(videoID, this.onResponseHandler)
     })
   };
 
-  onResponseHanlder = (response, fail) => {
+  onResponseHandler = (response, fail) => {
     const { responseCallback } = this.state
     if (responseCallback) {
       this.props.talentActions.getCurrentTalentInfo()
@@ -231,7 +231,7 @@ class TalentVideoGreetingsForm extends Component {
         <Spacer size={40}/>
 
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
           <Grid item lg={10} md={10} xs={12}>
             <Typography gutterBottom variant='Subheading' className={classes.talentProfileVideoAuditionDescriptionText}>
               {`NOTE: You will see your uploaded Video Greeting and Introduction in your Profile imediately. However, before casting directors can see the uploaded Video Greeting and Introduction in your Profile, it must be reviewed and approved by ShipTalent.com.`}
@@ -239,7 +239,7 @@ class TalentVideoGreetingsForm extends Component {
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
         </Grid>
 
       </Panel>

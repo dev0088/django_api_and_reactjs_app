@@ -10,6 +10,8 @@ class PositionType(models.Model):
     name = models.CharField(blank=False, max_length=50)
     priority = models.IntegerField(blank=True, default=100)
     multi_selection = models.BooleanField(default=False)
+    video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
+    wizard_button_title = models.CharField(blank=True, max_length=100, default='')
     question = models.TextField(max_length=300, blank=True)
 
     def __str__(self):

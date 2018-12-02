@@ -36,7 +36,6 @@ class NavigateButtonGroup extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                primary={true}
                 fullWidth={false}
                 className={nextButtonClass ? nextButtonClass : classes.nextButtonClass}
               >

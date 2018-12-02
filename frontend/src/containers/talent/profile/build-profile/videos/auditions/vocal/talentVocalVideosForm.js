@@ -69,11 +69,11 @@ class TalentVocalVideosForm extends Component {
     this.setState({
       responseCallback: responseCallback
     }, () => {
-      TalentAPI.deleteVideoSubSkill(videoID, this.onResponseHanlder)
+      TalentAPI.deleteVideoSubSkill(videoID, this.onResponseHandler)
     })
   };
 
-  onResponseHanlder = (response, fail) => {
+  onResponseHandler = (response, fail) => {
     const { responseCallback } = this.state
     if (responseCallback) {
       this.props.talentActions.getCurrentTalentInfo()
@@ -176,7 +176,7 @@ class TalentVocalVideosForm extends Component {
                 onFinishUploadingCallbackFunc={this.onFinishUploading}
               />
             </Grid>
-            <Grid item lg={4} md={4} sm={0} xs={0}/>
+            <Grid item lg={4} md={4} sm={12} xs={12}/>
           </Grid>
         </Grid>
       </Grid>
@@ -273,9 +273,9 @@ class TalentVocalVideosForm extends Component {
 
   renderVideos() {
     const { subSkill } = this.state
-    const video_step = subSkill ? subSkill.video_steps : 0
+    const video_counts = subSkill ? subSkill.video_counts : 0
 
-    switch (video_step) {
+    switch (video_counts) {
       case 1:
         return this.renderVideosForOneStep()
       case 2:
@@ -297,7 +297,7 @@ class TalentVocalVideosForm extends Component {
         <Spacer size={40}/>
 
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
           <Grid item lg={10} md={10} xs={12}>
             <Typography
               gutterBottom
@@ -312,12 +312,12 @@ class TalentVocalVideosForm extends Component {
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
         </Grid>
 
         <Spacer size={20} />
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
           <Grid item lg={10} md={10} xs={12}>
             <FormControlLabel
               control={
@@ -332,7 +332,7 @@ class TalentVocalVideosForm extends Component {
               I'll not be uploading any ${name} Audition Videos (you may opt back in at any time by unchecking the box)`}
             />
           </Grid>
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
         </Grid>
 
       </Panel>

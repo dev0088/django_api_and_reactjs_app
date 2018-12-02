@@ -125,7 +125,7 @@ class SelectMultiSubSkillWizard extends Component {
       for(let i = 0; i < sub_skills.length; i +=2) {
         let subSkill1 = sub_skills[i].name
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`subSkill${i}-1`}/>)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`subSkill${i}-1`}/>)
         items.push(
           <Grid key={`subSkill${i}-2`}
             item lg={3} md={4} sm={5} xs={12}
@@ -181,7 +181,7 @@ class SelectMultiSubSkillWizard extends Component {
         } else {
           items.push(<Grid item lg={3} md={4} sm={5} xs={12} key={`subSkill${i}-3`}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} key={`subSkill${i}-4`}/>)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`subSkill${i}-4`}/>)
       }
       return items
     }

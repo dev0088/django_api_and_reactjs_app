@@ -422,6 +422,9 @@ export const styles = theme => ({
     padding: '10px',
     fontSize: '1rem'
   },
+  talentProfileVideoAuditionUploadersRow: {
+    width: '100%'
+  },
   talentProfileVideoAuditionHelpfulHintTitle: {
     textAlign: 'center',
     fontSize: '1rem',

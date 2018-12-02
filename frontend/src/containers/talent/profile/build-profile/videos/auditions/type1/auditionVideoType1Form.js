@@ -234,11 +234,7 @@ class TalentActingVideosForm extends Component {
 
   renderVideosForTwoStep() {
     const { classes, talentInfo } = this.props
-    const {
-      subSkill,
-      talent_video_sub_skills,
-      helpful_hint
-    } = this.state
+    const { subSkill, talent_video_sub_skills } = this.state
     let signApi = ''
     let completeApi = ''
     let name = ''
@@ -259,6 +255,30 @@ class TalentActingVideosForm extends Component {
     return (
       <Grid container spacing={16} direction="column" justify="center" alignItems="center">
         <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography className={classes.talentProfileVideoAuditionSubTitleText}>
+            {`Step 1: Download Audition Materials for ${name} Videos (pick 2 songs)`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} className={classes.talentProfileGuideButtonItem}>
+          <Link to="#" onClick={(event) => this.handleClickDownload(event, downloadVideoLink)}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth={false}
+              className={classes.talentProfileGuideButton}
+            >
+              <Typography className={classes.talentProfileGuideButtonTitle}>
+                {"Click here to download"}
+              </Typography>
+            </Button>
+          </Link>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography className={classes.talentProfileVideoAuditionSubTitleText}>
+            {`Step 2: Upload completed ${name} Videos to My Profile`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Grid container spacing={24} justify="center" alignItems="center">
 
             <Grid item lg={4} md={4} sm={12} xs={12}>
@@ -276,7 +296,7 @@ class TalentActingVideosForm extends Component {
               />
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12}>
-              { helpful_hint && <HelpfulHintForm/> }
+              <HelpfulHintForm/>
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <VideoUploader
@@ -303,15 +323,8 @@ class TalentActingVideosForm extends Component {
   renderVideos() {
     const { subSkill } = this.state
     const video_counts = subSkill ? subSkill.video_counts : 0
-
-    switch (video_counts) {
-      case 1:
-        return this.renderVideosForOneStep()
-      case 2:
-        return this.renderVideosForTwoStep()
-      default:
-        return (<div/>)
-    }
+    console.log('==== type1: ')
+    return this.renderVideosForTwoStep()
   }
 
   renderContents() {

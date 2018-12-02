@@ -558,7 +558,7 @@ class ViewProfile extends Component {
           }
         }
 
-        items.push(<Grid item lg={1} md={1} sm={1} xs={0} key={`position${i}-1`}/>)
+        items.push(<Grid item lg={1} md={1} sm={1} xs={12} key={`position${i}-1`}/>)
         items.push(
           <Grid key={`position${i}-2`}
                 item lg={5} md={5} sm={5} xs={12}
@@ -620,7 +620,7 @@ class ViewProfile extends Component {
         } else {
           items.push(<Grid item lg={5} md={5} sm={5} xs={12} key={`position${i}-3`}/>)
         }
-        items.push(<Grid item lg={1} md={1} sm={1} xs={0} key={`position${i}-4`}/>)
+        items.push(<Grid item lg={1} md={1} sm={1} xs={12} key={`position${i}-4`}/>)
       }
       return items
     }

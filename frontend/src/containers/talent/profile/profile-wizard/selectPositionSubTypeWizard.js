@@ -103,7 +103,7 @@ class SelectPositionSubTypeWizard extends Component {
       for(let i = 0; i < position_sub_types.length; i +=2) {
         let positionSubType1 = position_sub_types[i]
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={12} />)
         items.push(
           <Grid
             item lg={3} md={4} sm={5} xs={12}
@@ -159,7 +159,7 @@ class SelectPositionSubTypeWizard extends Component {
         } else {
           items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
         }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        items.push(<Grid item lg={3} md={2} sm={1} xs={12} />)
       }
       return items
     }

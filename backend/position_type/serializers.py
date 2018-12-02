@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from position_type.models import PositionType
 
+
 class PositionTypeSerializer(serializers.ModelSerializer):
     position_sub_types = serializers.SlugRelatedField(
                           many=True,
@@ -10,11 +11,20 @@ class PositionTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PositionType
-        fields = ('id', 'name', 'priority', 'multi_selection', 'position_sub_types', 'question')
+        fields = (
+            'id',
+            'name',
+            'priority',
+            'multi_selection',
+            'position_sub_types',
+            'video_audition_button_title',
+            'wizard_button_title',
+            'question'
+        )
 
 
 class PositionTypeNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PositionType
-        fields = ('name')
+        fields = ('name',)
