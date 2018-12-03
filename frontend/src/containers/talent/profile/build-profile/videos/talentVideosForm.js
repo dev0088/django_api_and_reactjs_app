@@ -42,7 +42,12 @@ class TalentVideosForm extends Component {
 
       for(let i = 0; i < allPositionTypes.length; i ++) {
         let position = allPositionTypes[i]
-        let title = `My ${position.name} Audition Videos`
+
+        if (!position.video_audition_button_title) {
+          continue;
+        }
+
+        let title = position.video_audition_button_title
         let subTitle = 'in progress'
         let link = {
           pathname: '/video-positions', // getPathByPositionName(position.name),

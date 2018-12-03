@@ -18,7 +18,6 @@ class SubSkillSerializer(serializers.ModelSerializer):
       'video_audition_sub_title',
       'wizard_button_title',
       'max_video_time',
-      'download_video_link',
       'have_step2',
       'step1_title',
       'step1_sub_title',

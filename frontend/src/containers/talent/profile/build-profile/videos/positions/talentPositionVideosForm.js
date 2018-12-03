@@ -75,9 +75,11 @@ class TalentPositionVideosForm extends Component {
       const sub_skills = related_skill.sub_skills
 
       for(let i = 0; i < sub_skills.length; i ++) {
+        if (sub_skills[i].video_audition_button_title === '') {
+          continue;
+        }
+
         let title = sub_skills[i].video_audition_button_title
-                    ? sub_skills[i].video_audition_button_title
-                    : `My ${sub_skills[i].name} Videos`
         let subTitle = 'in progress'
         let link = {
           pathname: '/video-sub-skill',

@@ -273,18 +273,20 @@ class AuditionVideoType3Form extends Component {
         <Grid item lg={4} md={4} sm={12} xs={12}>
           <Grid container spacing={8} direction="row" justify="center" alignItems="flex-end">
             <Grid item lg={12} md={12} sm={12} xs={12} className={classes.talentProfileGuideButtonItem}>
-              <Link to={'#'} onClick={(event) => this.handleClickDownload(event, instruction_button_link)}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth={false}
-                  className={classes.talentProfileGuideButton}
-                >
-                  <Typography className={classes.talentProfileGuideButtonTitle}>
-                    {instruction_button_title}
-                  </Typography>
-                </Button>
-              </Link>
+              { (instruction_button_title && instruction_button_link) && (
+                <Link to={'#'} onClick={(event) => this.handleClickDownload(event, instruction_button_link)}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth={false}
+                    className={classes.talentProfileGuideButton}
+                  >
+                    <Typography className={classes.talentProfileGuideButtonTitle}>
+                      {instruction_button_title}
+                    </Typography>
+                  </Button>
+                </Link>
+              )}
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               { helpful_hint && <HelpfulHintForm/> }
