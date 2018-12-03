@@ -95,7 +95,7 @@ class InterviewDeviceAllow extends React.Component {
     const { audioDevice, audioAllow, videoDevice, videoAllow, errors } = this.state;
     return (<div className="video-interview">
         <div className="video-interview-header">
-          <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
+          <h1>{`My Video Interview (${pageId})`}</h1>
           <Link to={"/interview-instruction/" + pageId}>
             My Video Interview Instructions
           </Link>
@@ -116,7 +116,7 @@ class InterviewDeviceAllow extends React.Component {
               <Link to={"/video-interview/" + pageId }>
                 <RaisedButton
                   label="Let's Rehearse"
-                  className="btnn-video-buttons"
+                  className="btn-video-buttons"
                   style={styles.raisedLongButton}
                   primary={true}
                 />
@@ -138,7 +138,7 @@ class InterviewDeviceAllow extends React.Component {
                       <p>Click <b>Allow</b> when prompted.</p>
                       <RaisedButton
                         label="Enable Camera and Microphone"
-                        className="btnn-video-buttons"
+                        className="btn-video-buttons"
                         style={styles.raisedLongButton}
                         primary={true}
                         onClick={this.enableDevice}

@@ -42,9 +42,6 @@ import MyVideoGreetings from "containers/talent/profile/build-profile/videos/gre
 import MyVideoGreetingsIntroduction from "containers/talent/profile/build-profile/videos/greetings/introductionScreen";
 import MyPositionVideos from "containers/talent/profile/build-profile/videos/positions/myPositionVideosScreen";
 import MySubSkillVideos from "containers/talent/profile/build-profile/videos/positions/mySubSkillVideosScreen";
-import MyActingAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/acting/myActingAuditionVideosScreen";
-import MyDanceAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/dance/myDanceAuditionVideosScreen";
-import MyVocalAuditionVideos from "containers/talent/profile/build-profile/videos/auditions/vocal/myVocalAuditionVideosScreen";
 
 // Video interview routes
 import InterviewStart from "containers/talent/video-interview/start";
@@ -653,32 +650,6 @@ const Index = () => (
       )}
     />
 
-    <Route
-      path="/video-acting-audition-videos"
-      render={props => (
-        <TemplateTopbar>
-          <MyActingAuditionVideos {...props} />
-        </TemplateTopbar>
-      )}
-    />
-
-    <Route
-      path="/video-dance-audition-videos"
-      render={props => (
-        <TemplateTopbar>
-          <MyDanceAuditionVideos {...props} />
-        </TemplateTopbar>
-      )}
-    />
-
-    <Route
-      path="/video-vocal-audition-videos"
-      render={props => (
-        <TemplateTopbar>
-          <MyVocalAuditionVideos {...props} />
-        </TemplateTopbar>
-      )}
-    />
 
     <Route
       path="/pictures-info"

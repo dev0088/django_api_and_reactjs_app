@@ -21,7 +21,7 @@ import apiConfig from 'constants/api';
 import { findVideoByPriority, findVideoIndexByPriority } from 'utils/appUtils';
 
 
-class TalentActingVideosForm extends Component {
+class AuditionVideoType1Form extends Component {
 
   constructor(props) {
     super(props);
@@ -31,11 +31,26 @@ class TalentActingVideosForm extends Component {
       responseCallback: null,
       talent_video_sub_skills: [],
       checkedOptOut: false,
+      id: 0,
+      name: '',
       video_counts: 0,
+      video_audition_button_title: '',
+      video_audition_title: '',
+      video_audition_sub_title: '',
       helpful_hint: false,
       download_link: '',
       introduction_title: '',
       introduction_link: '',
+      instruction_button_title: '',
+      instruction_button_link: '',
+      step1_title: '',
+      step1_sub_title: '',
+      step1_button_title: '',
+      step1_link: '',
+      step2_title: '',
+      step2_sub_title: '',
+      step2_button_title: '',
+      step2_link: '',
       opts_in: false,
       is_special_video_audition: false,
       is_required_all: false,
@@ -48,27 +63,32 @@ class TalentActingVideosForm extends Component {
   getInfoFromProps(props) {
     const {talentInfo, subSkill } = props
     let talent_video_sub_skills = []
-    let helpful_hint = false
-    let download_link = ''
-    let introduction_title = ''
-    let introduction_link = ''
-    let opts_in = false
-    let is_special_video_audition = false
-    let is_required_all = false
-    let is_required = false
-    let is_video_interview_button = ''
 
     if (subSkill && talentInfo && talentInfo.talent_video_sub_skills &&
       talentInfo.talent_video_sub_skills.length > 0) {
       talent_video_sub_skills = talentInfo.talent_video_sub_skills.filter(function(video_sub_skill, index, array){
         return video_sub_skill.sub_skill === subSkill.id
       })
+    }
+
+    if (subSkill) {
       const {
+        id,
+        name,
         video_counts,
         helpful_hint,
-        download_link,
+        video_audition_title,
+        video_audition_sub_title,
         introduction_title,
         introduction_link,
+        step1_title,
+        step1_sub_title,
+        step1_button_title,
+        step1_link,
+        step2_title,
+        step2_sub_title,
+        step2_button_title,
+        step2_link,
         opts_in,
         video_audition_type,
         is_special_video_audition,
@@ -80,11 +100,22 @@ class TalentActingVideosForm extends Component {
       return {
         subSkill,
         talent_video_sub_skills,
+        id,
+        name,
         video_counts,
         helpful_hint,
-        download_link,
+        video_audition_title,
+        video_audition_sub_title,
         introduction_title,
         introduction_link,
+        step1_title,
+        step1_sub_title,
+        step1_button_title,
+        step1_link,
+        step2_title,
+        step2_sub_title,
+        step2_button_title,
+        step2_link,
         opts_in,
         video_audition_type,
         is_special_video_audition,
@@ -162,156 +193,206 @@ class TalentActingVideosForm extends Component {
     )
   };
 
-  renderVideosForOneStep() {
-    const { classes, talentInfo } = this.props
-    const { subSkill, talent_video_sub_skills } = this.state
-    let signApi = ''
-    let completeApi = ''
-    let name = ''
-    let id = -1
-
-    if (talentInfo) {
-      signApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/policy/`
-      completeApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/complete/`
-    }
-
-    if (subSkill) {
-      id = subSkill.id
-      name = subSkill.name
-    }
-
-    return (
-      <Grid container spacing={16} justify="center" alignItems="center">
-        <Grid item lg={12} md={12} sm={12} xs={12} className={classes.talentProfileGuideButtonItem}>
-          <Typography className={classes.talentProfileVideoAuditionSubTitleText}>
-            {`Create and upload a ${name} Demonstration Video`}
-          </Typography>
-          <Typography className={classes.talentProfileVideoAuditionHelpfulHintTitle}>
-            {`(video length - three minutes max)`}
-          </Typography>
-        </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12} className={classes.talentProfileGuideButtonItem}>
-          <Link to="#">
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth={false}
-              className={classes.talentProfileGuideDownloadButton}
-            >
-              <Typography className={classes.talentProfileGuideButtonTitle}>
-                {`${name} Demonstration Video Instructions`}
-              </Typography>
-            </Button>
-          </Link>
-        </Grid>
-
-        <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Grid container spacing={24} justify="center" alignItems="center">
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <HelpfulHintForm/>
-            </Grid>
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <VideoUploader
-                title={`${name} 2 Video`}
-                noVideoTitle={`Current ${name} 2 Video`}
-                subTitle={"(click to play)"}
-                videoData={findVideoByPriority(talent_video_sub_skills, 1)}
-                optionsData={{sub_skill_id: id, priority: 1}}
-                showCheckbox={false}
-                preCheckFunc={this.onPreCheckValidation}
-                signApi={signApi}
-                completeApi={completeApi}
-                deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
-                onFinishUploadingCallbackFunc={this.onFinishUploading}
-              />
-            </Grid>
-            <Grid item lg={4} md={4} sm={12} xs={12}/>
-          </Grid>
-        </Grid>
-      </Grid>
-    )
-  }
-
-  renderVideosForTwoStep() {
+  renderTwoVideos = () => {
     const { classes, talentInfo } = this.props
     const {
       subSkill,
       talent_video_sub_skills,
-      helpful_hint
+      id,
+      name,
+      video_counts,
+      helpful_hint,
+      introduction_title,
+      introduction_link,
+      instruction_button_title,
+      instruction_button_link,
+      step1_title,
+      step1_sub_title,
+      step1_button_title,
+      step1_link,
+      step2_title,
+      step2_sub_title,
+      step2_button_title,
+      step2_link,
     } = this.state
     let signApi = ''
     let completeApi = ''
-    let name = ''
-    let downloadVideoLink = ''
-    let id = -1
 
     if (talentInfo) {
       signApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/policy/`
       completeApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/complete/`
     }
 
-    if (subSkill) {
-      id = subSkill.id
-      name = subSkill.name
-      downloadVideoLink = subSkill.download_video_link
+    return (
+      <Grid container spacing={24} justify="center" alignItems="center">
+
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <VideoUploader
+            title={`Current ${name} 1 Video`}
+            noVideoTitle={`Current ${name} 1 Video`}
+            subTitle={"(click to play)"}
+            videoData={findVideoByPriority(talent_video_sub_skills, 1)}
+            optionsData={{sub_skill_id: id, priority: 1}}
+            preCheckFunc={this.onPreCheckValidation}
+            signApi={signApi}
+            completeApi={completeApi}
+            deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
+            onFinishUploadingCallbackFunc={this.onFinishUploading}
+          />
+        </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          { helpful_hint && <HelpfulHintForm/> }
+        </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <VideoUploader
+            title={`${name} 2 Video`}
+            noVideoTitle={`Current ${name} 2 Video`}
+            subTitle={"(click to play)"}
+            videoData={findVideoByPriority(talent_video_sub_skills, 2)}
+            optionsData={{sub_skill_id: id, priority: 2}}
+            showCheckbox={false}
+            preCheckFunc={this.onPreCheckValidation}
+            signApi={signApi}
+            completeApi={completeApi}
+            deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
+            onFinishUploadingCallbackFunc={this.onFinishUploading}
+          />
+        </Grid>
+
+      </Grid>
+    )
+  }
+
+  renderOneVideo = () => {
+    const { classes, talentInfo } = this.props
+    const {
+      subSkill,
+      talent_video_sub_skills,
+      id,
+      name,
+      video_counts,
+      helpful_hint,
+      introduction_title,
+      introduction_link,
+      instruction_button_title,
+      instruction_button_link,
+      step1_title,
+      step1_sub_title,
+      step1_button_title,
+      step1_link,
+      step2_title,
+      step2_sub_title,
+      step2_button_title,
+      step2_link,
+    } = this.state
+    let signApi = ''
+    let completeApi = ''
+
+    if (talentInfo) {
+      signApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/policy/`
+      completeApi = `${apiConfig.url}/talent_video_sub_skills/upload/${talentInfo.user.id}/complete/`
     }
 
     return (
-      <Grid container spacing={16} direction="column" justify="center" alignItems="center">
-        <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Grid container spacing={24} justify="center" alignItems="center">
-
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <VideoUploader
-                title={`Current ${name} 1 Video`}
-                noVideoTitle={`Current ${name} 1 Video`}
-                subTitle={"(click to play)"}
-                videoData={findVideoByPriority(talent_video_sub_skills, 1)}
-                optionsData={{sub_skill_id: id, priority: 1}}
-                preCheckFunc={this.onPreCheckValidation}
-                signApi={signApi}
-                completeApi={completeApi}
-                deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
-                onFinishUploadingCallbackFunc={this.onFinishUploading}
-              />
-            </Grid>
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              { helpful_hint && <HelpfulHintForm/> }
-            </Grid>
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <VideoUploader
-                title={`${name} 2 Video`}
-                noVideoTitle={`Current ${name} 2 Video`}
-                subTitle={"(click to play)"}
-                videoData={findVideoByPriority(talent_video_sub_skills, 2)}
-                optionsData={{sub_skill_id: id, priority: 2}}
-                showCheckbox={false}
-                preCheckFunc={this.onPreCheckValidation}
-                signApi={signApi}
-                completeApi={completeApi}
-                deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
-                onFinishUploadingCallbackFunc={this.onFinishUploading}
-              />
-            </Grid>
-
-          </Grid>
+      <Grid container spacing={24} justify="center" alignItems="center">
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          { helpful_hint && <HelpfulHintForm/> }
         </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <VideoUploader
+            title={`${name} Video`}
+            noVideoTitle={`Current ${name} Video`}
+            subTitle={"(click to play)"}
+            videoData={findVideoByPriority(talent_video_sub_skills, 1)}
+            optionsData={{sub_skill_id: id, priority: 1}}
+            showCheckbox={false}
+            preCheckFunc={this.onPreCheckValidation}
+            signApi={signApi}
+            completeApi={completeApi}
+            deleteApiFunc={(videoID, responseCallback) => this.onDelete(videoID, responseCallback)}
+            onFinishUploadingCallbackFunc={this.onFinishUploading}
+          />
+        </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12} />
       </Grid>
     )
   }
 
   renderVideos() {
-    const { subSkill } = this.state
-    const video_counts = subSkill ? subSkill.video_counts : 0
+    const { classes, talentInfo } = this.props
+    const {
+      subSkill,
+      talent_video_sub_skills,
+      id,
+      name,
+      video_counts,
+      helpful_hint,
+      introduction_title,
+      introduction_link,
+      instruction_button_title,
+      instruction_button_link,
+      step1_title,
+      step1_sub_title,
+      step1_button_title,
+      step1_link,
+      step2_title,
+      step2_sub_title,
+      step2_button_title,
+      step2_link,
+    } = this.state
 
+
+    let renderVideoUploaders = this.renderOneVideo
     switch (video_counts) {
       case 1:
-        return this.renderVideosForOneStep()
+        renderVideoUploaders = this.renderOneVideo
+        break;
       case 2:
-        return this.renderVideosForTwoStep()
+        renderVideoUploaders = this.renderTwoVideos
+        break;
       default:
-        return (<div/>)
+        renderVideoUploaders = this.renderOneVideo
+        break;
     }
+    return (
+      <Grid container spacing={16} direction="column" justify="center" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Link to={introduction_link}>
+            <Typography className={classes.talentProfileVideoAuditionInstructionLinkedText}>
+              {introduction_title}
+            </Typography>
+          </Link>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography className={classes.talentProfileVideoAuditionSubTitleText}>
+            {`Step 1: ${step1_title}`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} className={classes.talentProfileGuideButtonItem}>
+          <Link to={'#'} onClick={(event) => this.handleClickDownload(event, step1_link)}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth={false}
+              className={classes.talentProfileGuideButton}
+            >
+              <Typography className={classes.talentProfileGuideButtonTitle}>
+                {step1_button_title}
+              </Typography>
+            </Button>
+          </Link>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography className={classes.talentProfileVideoAuditionSubTitleText}>
+            {`Step 2: ${step2_title}`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}
+              className={classes.talentProfileVideoAuditionUploadersRow}>
+          {renderVideoUploaders()}
+        </Grid>
+      </Grid>
+    )
   }
 
   renderContents() {
@@ -391,4 +472,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentActingVideosForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AuditionVideoType1Form));

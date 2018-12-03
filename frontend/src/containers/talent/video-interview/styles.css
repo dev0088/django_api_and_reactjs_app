@@ -1,7 +1,7 @@
 
 .video-interview {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
 }
 
 .video-interview-header {
@@ -146,21 +146,21 @@
 .playbackbtn-wrapper button {
   height: 100%!important;;
 }
-.btnn-video-buttons{
+.btn-video-buttons{
   margin-top: 20px;
   font-size: 12px;
 }
-.livebuttons-wrapper .btnn-video-buttons{
+.livebuttons-wrapper .btn-video-buttons{
   margin-top: 0px;
 }
-.btnn-video-buttons button{
+.btn-video-buttons button{
   height: auto !important;
   line-height: 1.2 !important;
 }
-.btnn-video-buttons button > div > div{
+.btn-video-buttons button > div > div{
   padding: 8px 0 !important;
 }
-.btnn-video-buttons button div{
+.btn-video-buttons button div{
   height: auto !important;
 }
 .video_container{

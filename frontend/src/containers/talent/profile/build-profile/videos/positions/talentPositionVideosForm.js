@@ -75,7 +75,9 @@ class TalentPositionVideosForm extends Component {
       const sub_skills = related_skill.sub_skills
 
       for(let i = 0; i < sub_skills.length; i ++) {
-        let title = `My ${sub_skills[i].name} Videos`
+        let title = sub_skills[i].video_audition_button_title
+                    ? sub_skills[i].video_audition_button_title
+                    : `My ${sub_skills[i].name} Videos`
         let subTitle = 'in progress'
         let link = {
           pathname: '/video-sub-skill',
@@ -83,6 +85,23 @@ class TalentPositionVideosForm extends Component {
             position: position,
             subSkill: sub_skills[i]
           }
+        }
+
+        if (sub_skills[i].is_video_interview_button) {
+          link = {
+            pathname: '/interview-start',
+            state: {
+              position: position.name,
+              subPosition: ''
+            }
+          }
+        }
+
+        let requireTitle = ''
+        if (sub_skills[i].is_required) {
+          requireTitle = 'Required'
+        } else if(sub_skills[i].is_required_all){
+          requireTitle = `Required for all ${position ? position.name : ''}`
         }
 
         items.push(
@@ -95,7 +114,16 @@ class TalentPositionVideosForm extends Component {
                 className={classes.talentProfileGuideButton}
               >
                 <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+                { requireTitle && (
+                  <Typography className={classes.talentProfileGuideButtonRequiredTitle}>
+                    {requireTitle}
+                  </Typography>
+                )}
+                { subTitle && (
+                  <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                    {subTitle}
+                  </Typography>
+                )}
               </Button>
             </Link>
           </Grid>

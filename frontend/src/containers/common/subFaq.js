@@ -75,7 +75,7 @@ class SubFaq extends Component {
             <Link to={"/home"}>
               <RaisedButton
                 label="Back"
-                className="btnn-video-buttons"
+                className="btn-video-buttons"
                 style={styles.raisedButton}
                 primary={true}
               />

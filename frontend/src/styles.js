@@ -229,6 +229,16 @@ export const styles = theme => ({
   talentProfileGuideDownloadButton: {
     borderRadius: '5px'
   },
+  talentProfileGuildDownloadCombinationButton: {
+    display: 'block',
+    borderRadius: '5px',
+    color: theme.palette.white.main,
+    boxShadow: 'none',
+    backgroundColor: '#C00',
+    '&:hover': {
+      backgroundColor: '#ab003c'
+    }
+  },
   talentProfileGuideButtonSelected: {
     display: 'block',
     borderRadius: '5px',
@@ -246,6 +256,11 @@ export const styles = theme => ({
     paddingBottom: '5px',
     textTransform: 'none',
     color: theme.palette.white.main,
+  },
+  talentProfileGuideButtonRequiredTitle: {
+    fontWeight: 600,
+    color: theme.palette.thinRed.main,
+    textTransform: 'none'
   },
   talentProfileGuideButtonSubTitle: {
     fontWeight: 100,
@@ -425,6 +440,12 @@ export const styles = theme => ({
   talentProfileVideoAuditionUploadersRow: {
     width: '100%'
   },
+  talentProfileVideoAuditionInstructionLinkedText: {
+    color: '#0366d6',
+    textDecoration: 'underline',
+    fontSize: '0.85rem',
+    textAlign: 'center'
+  },
   talentProfileVideoAuditionHelpfulHintTitle: {
     textAlign: 'center',
     fontSize: '1rem',
@@ -571,6 +592,12 @@ export const theme = createMuiTheme ({
     lightGrey: {
       main: grey[400]
     },
+    red: {
+      main: '#C00'
+    },
+    thinRed: {
+      main: red[400]
+    }
   },
   typography: {
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',

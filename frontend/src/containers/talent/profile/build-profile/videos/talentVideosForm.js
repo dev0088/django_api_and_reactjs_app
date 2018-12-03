@@ -45,7 +45,7 @@ class TalentVideosForm extends Component {
         let title = `My ${position.name} Audition Videos`
         let subTitle = 'in progress'
         let link = {
-          pathname: getPathByPositionName(position.name),
+          pathname: '/video-positions', // getPathByPositionName(position.name),
           state: {
             position: position
           }
