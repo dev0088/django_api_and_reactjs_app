@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Panel from 'components/general/panel';
 import Spacer from "components/general/spacer";
+import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import * as talentActions from 'actions/talentActions';
 import { findRelatedSkillByPositionName } from 'utils/appUtils';
 import { styles } from 'styles';
@@ -60,15 +61,25 @@ class TalentPositionVideosForm extends Component {
     }
   }
 
+  renderAdditionButtons() {
+    return (<div/>)
+  }
+
   renderSubPositionButtons() {
+
     const { classes } = this.props
     const { position, related_skill, checkedOptOut } = this.state
     let items = []
 
     if (related_skill && related_skill.sub_skills && related_skill.sub_skills.length > 0) {
       const sub_skills = related_skill.sub_skills
-      for(let i = 0; i < sub_skills.length; i +=2) {
-        let title = `My ${sub_skills[i].name} Videos`
+
+      for(let i = 0; i < sub_skills.length; i ++) {
+        if (sub_skills[i].video_audition_button_title === '') {
+          continue;
+        }
+
+        let title = sub_skills[i].video_audition_button_title
         let subTitle = 'in progress'
         let link = {
           pathname: '/video-sub-skill',
@@ -78,9 +89,25 @@ class TalentPositionVideosForm extends Component {
           }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        if (sub_skills[i].is_video_interview_button) {
+          link = {
+            pathname: '/interview-start',
+            state: {
+              position: position.name,
+              subPosition: ''
+            }
+          }
+        }
+
+        let requireTitle = ''
+        if (sub_skills[i].is_required) {
+          requireTitle = 'Required'
+        } else if(sub_skills[i].is_required_all){
+          requireTitle = `Required for all ${position ? position.name : ''}`
+        }
+
         items.push(
-          <Grid item lg={3} md={4} sm={5} xs={12}
+          <Grid item lg={6} md={6} sm={6} xs={12} key={`subPosition${i}`}
                 className={classes.talentProfileGuideButtonItem}>
             <Link to={link} onClick={this.handleClickLink}>
               <Button
@@ -89,49 +116,29 @@ class TalentPositionVideosForm extends Component {
                 className={classes.talentProfileGuideButton}
               >
                 <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                {subTitle && (<Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>)}
+                { requireTitle && (
+                  <Typography className={classes.talentProfileGuideButtonRequiredTitle}>
+                    {requireTitle}
+                  </Typography>
+                )}
+                { subTitle && (
+                  <Typography className={classes.talentProfileGuideButtonSubTitle}>
+                    {subTitle}
+                  </Typography>
+                )}
               </Button>
             </Link>
           </Grid>
         )
-
-        if (sub_skills[i + 1]) {
-          title = `My ${sub_skills[i + 1].name} Videos`
-          subTitle = 'in progress'
-          link = {
-            pathname: '/video-sub-skill',
-            state: {
-              position: position,
-              subSkill: sub_skills[i + 1]
-            }
-          }
-
-          items.push(
-            <Grid item lg={3} md={4} sm={5} xs={12}
-                  className={classes.talentProfileGuideButtonItem}>
-              <Link to={link} onClick={this.handleClickLink}>
-                <Button
-                  variant="contained" color={'primary'}
-                  fullWidth={true} disabled={checkedOptOut}
-                  className={classes.talentProfileGuideButton}
-                >
-                  <Typography className={classes.talentProfileGuideButtonTitle}>{title}</Typography>
-                  {subTitle && (
-                    <Typography className={classes.talentProfileGuideButtonSubTitle}>{subTitle}</Typography>
-                  )}
-                </Button>
-              </Link>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
-        }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
       }
-      return items
+      items.push(this.renderAdditionButtons());
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
   }
 
   renderContents() {
@@ -140,13 +147,41 @@ class TalentPositionVideosForm extends Component {
 
     return (
       <Panel title={contentTitle}>
-        <Spacer size={30}/>
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderSubPositionButtons() }
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <ColumnButton
+            link = {'/talent/video/position/introduction'}
+            color="primary"
+            itemClass = {classes.talentProfileGuideButtonItem}
+            buttonClass = {classes.talentProfileGuideButton}
+            title = {"INSTRUCTIONS"}
+            titleClass = {classes.talentProfileGuideButtonTitle}
+            size = {12}
+            fullWidth = {false}
+          />
+          <ColumnButton
+            link = {'#'}
+            color="primary"
+            itemClass = {classes.talentProfileGuideButtonItem}
+            buttonClass = {classes.talentProfileGuideButton}
+            title = {"Sample Videos"}
+            titleClass = {classes.talentProfileGuideButtonSubTitle}
+            size = {12}
+            fullWidth = {false}
+          />
+        </Grid>
+
+        <Spacer size={40}/>
+
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} >
+            { this.renderSubPositionButtons() }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
         <Spacer size={40}/>
         <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
           <Grid item lg={10} md={10} xs={12}>
             <Typography
               gutterBottom
@@ -158,8 +193,8 @@ class TalentPositionVideosForm extends Component {
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={1} md={1} xs={0}/>
-          <Grid item lg={2} md={1} sm={0} xs={0}/>
+          <Grid item lg={1} md={1} xs={12}/>
+          <Grid item lg={2} md={1} sm={12} xs={12}/>
           <Grid item lg={8} md={10} sm={12} xs={12}>
             <FormControlLabel
               control={
@@ -174,7 +209,7 @@ class TalentPositionVideosForm extends Component {
               I'll not be uploading any ${position ? position.name : ''} Audition Videos (you may opt back in at any time by unchecking the box)`}
             />
           </Grid>
-          <Grid item lg={2} md={1} sm={0} xs={0}/>
+          <Grid item lg={2} md={1} sm={12} xs={12}/>
         </Grid>
       </Panel>
     )

@@ -35,6 +35,10 @@ class TalentSerializer(serializers.ModelSerializer):
     talent_ratings = TalentRatingSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(source='get_average_rating', read_only=True)
     profile_status = serializers.JSONField(source='get_profile_status', read_only=True)
+    talent_availabilities_last_update = serializers.DateTimeField(
+        source='get_talent_availabilities_last_update',
+        read_only=True
+    )
 
     class Meta:
         model = Talent
@@ -89,6 +93,7 @@ class TalentSerializer(serializers.ModelSerializer):
             'talent_medicals',
 
             'talent_availabilities',
+            'talent_availabilities_last_update',
             'talent_ratings',
             'average_rating',
 

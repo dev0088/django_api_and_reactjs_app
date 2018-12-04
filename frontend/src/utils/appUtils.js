@@ -210,14 +210,9 @@ export function  getLanguageIndex(name) {
 }
 
 export function findRelatedSkillByPositionName(skills, positionName) {
-  let res = null
-  for (let i = 0; i < skills.length; i ++) {
-    if (skills[i].related_position_type === positionName) {
-      res = skills[i]
-      break
-    }
-  }
-  return res
+  return skills.find(function(skill) {
+    return skill.related_position_type === positionName;
+  });
 }
 
 export function findVideoIndexByPriority(videos, priority) {
@@ -257,6 +252,55 @@ export function getPrefixByWord(positionTypeName) {
     firstLetter === 'Y' ||  firstLetter === 'y'
   ) {
     res = 'an'
+  }
+
+  return res
+}
+
+export function getSubSkillVideosByPositionType(talentSubSkillVideos, allSkills, positionType) {
+  let videos = []
+
+  if (talentSubSkillVideos && allSkills && positionType) {
+    const skill = findRelatedSkillByPositionName(allSkills, positionType.name)
+
+    if (skill) {
+      const res = talentSubSkillVideos.map((video) => {
+        const subSkillID = video.sub_skill
+
+        let subSkill = skill.sub_skills.find(function(sub_skill) {
+          return sub_skill.id === subSkillID;
+        });
+
+        if (subSkill) {
+          videos.push(subSkill)
+        }
+
+        return subSkill
+      })
+    }
+  }
+
+  return videos
+}
+
+export function getSubSkillVideoNumbersByPositionType(talentSubSkillVideos, allSkills, positionType) {
+  const videos = getSubSkillVideosByPositionType(talentSubSkillVideos, allSkills, positionType)
+  return videos.length
+}
+
+const positionPaths = [
+  {name: 'Actor', path: '/video-acting-audition-videos'},
+  {name: 'Vocal', path: '/video-vocal-audition-videos'},
+  {name: 'Dance', path: '/video-dance-audition-videos'},
+]
+
+export function getPathByPositionName(positionName) {
+  let res = positionPaths.find(function(positionPath) {
+    return positionPath.name === positionName;
+  });
+
+  if (!res) {
+    res = '/video-positions'
   }
 
   return res

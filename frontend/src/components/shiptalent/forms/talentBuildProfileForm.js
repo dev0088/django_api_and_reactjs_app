@@ -31,6 +31,14 @@ class TalentBuildProfileForm extends Component {
     saveInfoAPI(data, handler)
   };
 
+  handleClickNextButton = (event) => {
+    const { handleClickNextButton } = this.props
+    this.checkChanges(event);
+    if (handleClickNextButton) {
+      handleClickNextButton(event)
+    }
+  };
+
   checkChanges = (event) => {
     const { isChanged } = this.state
 
@@ -85,7 +93,7 @@ class TalentBuildProfileForm extends Component {
           handleClickBackButton={handleClickBackButton}
           nextLink={nextLink}
           nextButtonTitle={nextButtonTitle}
-          handleClickNextButton={(e) => {this.checkChanges(e); handleClickNextButton(e)}}
+          handleClickNextButton={(e) => {this.handleClickNextButton(e)}}
         >
           {this.renderContents()}
         </TalentForm>

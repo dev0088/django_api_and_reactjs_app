@@ -330,7 +330,7 @@ class MyAvailability extends Component {
     return (
       <div>
         <Paper className={classes.paperContent} elevation={1}>
-          <Grid container spacing={30}>
+          <Grid container spacing={24}>
             <Grid item xs={12} />
             <Grid item xs={12} >
               <Typography align="center" component="h3" variant="h3" gutterBottom>

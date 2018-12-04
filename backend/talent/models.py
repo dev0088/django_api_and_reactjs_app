@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date
 from authentication.models import User
 from django.db.models import Avg
+from django.db.models.functions import Trunc
+from django.db.models import DateTimeField
 
 SEX_CHOICES = (
         ('m', 'Male'),
@@ -170,6 +172,16 @@ class Talent(models.Model):
             "is_completed_position_sub_types": self.get_is_completed_position_sub_types(),
         }
         return profile_status
+
+    def get_talent_availabilities_last_update(self):
+        talent_availabilities = self.talent_availabilities.order_by(
+                Trunc('updated_at', 'day', output_field=DateTimeField()).desc()
+        )
+        last_update_at = ''
+        if len(talent_availabilities) > 0:
+            last_update_at = talent_availabilities[0].updated_at
+
+        return last_update_at
 
     class Meta:
         db_table = "talent"

@@ -31,7 +31,7 @@ class ColumnButton extends Component {
 
     return (
       <Grid item xs={size} className={itemClass}>
-        <Link to={link ? link : "#"}>
+        <Link to={link ? link : "#"} onClick={this.onClickButton}>
           <Button variant="contained" color={color} fullWidth={fullWidth} className={buttonClass}>
             <Typography className={titleClass}>{title}</Typography>
             {subTitle && (<Typography className={subTitleClass}>{subTitle}</Typography>)}

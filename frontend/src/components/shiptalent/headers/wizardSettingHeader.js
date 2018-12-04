@@ -10,26 +10,24 @@ class WizardSettingHeader extends Component {
 
   renderOnlyPositionButton(position_type, classes) {
     return (
-      <Grid item md={12}>
-        <Grid container spacing={24}>
-          <Grid item md={1} sm={2} xs={3} >
-            <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
-              {"Who is a: "}
+      <Grid container spacing={24}>
+        <Grid item lg={1} md={2} sm={3} xs={3} >
+          <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
+            {"Who is a: "}
+          </Typography>
+        </Grid>
+        <Grid item wrap-xs-nowrap={true} lg={11} md={10} sm={9} xs={9} >
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            className={classes.wizardSettingHeaderButton}
+            fullWidth={false}
+          >
+            <Typography className={classes.wizardSettingHeaderText}>
+              {position_type}
             </Typography>
-          </Grid>
-          <Grid item wrap-xs-nowrap md={11} sm={10} xs={9} >
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              className={classes.wizardSettingHeaderButton}
-              fullWidth={false}
-            >
-              <Typography className={classes.wizardSettingHeaderText}>
-                {position_type}
-              </Typography>
-            </Button>
-          </Grid>
+          </Button>
         </Grid>
       </Grid>
     )
@@ -59,12 +57,12 @@ class WizardSettingHeader extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item md={1} sm={2} xs={3} >
+        <Grid item lg={1} md={2} sm={3} xs={3} >
           <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
             {"Who is a: "}
           </Typography>
         </Grid>
-        <Grid item wrap-xs-nowrap md={11} sm={10} xs={9}
+        <Grid item wrap-xs-nowrap={true} lg={11} md={10} sm={9} xs={9}
               className={classes.wizardSettingHeaderButtonsGroupGridItem}
         >
           {buttonItems}
@@ -75,26 +73,24 @@ class WizardSettingHeader extends Component {
 
   renderOnlySkillButton(skill, classes) {
     return (
-      <Grid item md={12}>
-        <Grid container spacing={24}>
-          <Grid item md={1} sm={2} xs={3} >
-            <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
-              {"Who also: "}
+      <Grid container spacing={24}>
+        <Grid item lg={1} md={2} sm={3} xs={3} >
+          <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
+            {"Who also: "}
+          </Typography>
+        </Grid>
+        <Grid item wrap-xs-nowrap={true} lg={11} md={10} sm={9} xs={9} >
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            className={classes.wizardSettingHeaderButton}
+            fullWidth={false}
+          >
+            <Typography className={classes.wizardSettingHeaderText}>
+              {skill}
             </Typography>
-          </Grid>
-          <Grid item wrap-xs-nowrap md={11} sm={10} xs={9} >
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              className={classes.wizardSettingHeaderButton}
-              fullWidth={false}
-            >
-              <Typography className={classes.wizardSettingHeaderText}>
-                {skill}
-              </Typography>
-            </Button>
-          </Grid>
+          </Button>
         </Grid>
       </Grid>
     )
@@ -124,12 +120,12 @@ class WizardSettingHeader extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item md={1} sm={2} xs={3} >
+        <Grid item lg={1} md={2} sm={3} xs={3} >
           <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
             {"Who also: "}
           </Typography>
         </Grid>
-        <Grid item wrap-xs-nowrap md={11} sm={10} xs={9}
+        <Grid item wrap-xs-nowrap={true} lg={11} md={10} sm={9} xs={9}
               className={classes.wizardSettingHeaderButtonsGroupGridItem}
         >
           {buttonItems}
@@ -147,12 +143,12 @@ class WizardSettingHeader extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item md={1} sm={2} xs={3} >
-          <Typography variant="subtitle1" className={classes.wizardSettingHeaders}>
+        <Grid wrap-xs-nowrap={true} item lg={1} md={2} sm={3} xs={3} >
+          <Typography variant="subtitle1" className={classes.wizardSettingHeaderTitle}>
             {"I am a: "}
           </Typography>
         </Grid>
-        <Grid  item md={11} sm={10} xs={9} >
+        <Grid wrap-xs-nowrap={true} item lg={11} md={10} sm={9} xs={9} >
           <Button
             variant="contained"
             color="primary"

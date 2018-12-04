@@ -25,9 +25,17 @@ const styles={
 class InterviewInstruction extends React.Component {
   render() {
     const { pageId } = this.props.match.params;
+    let link = {
+      pathname: '/interview-start',
+      state: {
+        position: pageId,
+        subPosition: ''
+      }
+    }
+
     return (<div className="video-interview">
         <div className="video-interview-header">
-          <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
+          <h1>{`My Video Interview (${pageId && pageId})`}</h1>
           <h3>Instructions</h3>
         </div>
         <div className="video-instruction-body">
@@ -87,10 +95,10 @@ class InterviewInstruction extends React.Component {
           </p>
           <p></p>
           <div className="text-center">
-            <Link to="/interview-start">
+            <Link to={link}>
               <RaisedButton
                 label="Back to My Video Interview"
-                className="btnn-video-buttons btnn-not-ready"
+                className="btn-video-buttons btnn-not-ready"
                 style={styles.raisedButton}
                 primary={true}
               />

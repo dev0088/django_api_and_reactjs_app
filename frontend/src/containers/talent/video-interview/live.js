@@ -629,7 +629,7 @@ class LiveInterview extends React.Component {
               {currentQuestion < 3 &&
                 <RaisedButton
                   label="Next Question"
-                  className="btnn-video-buttons btn-vpb"
+                  className="btn-video-buttons btn-vpb"
                   style={styles.raisedButton}
                   primary={true}
                   onClick={this.onNextQuestion}
@@ -637,7 +637,7 @@ class LiveInterview extends React.Component {
               {currentQuestion === 3 &&
                 <RaisedButton
                   label="Final Question"
-                  className="btnn-video-buttons btn-vpb"
+                  className="btn-video-buttons btn-vpb"
                   style={styles.raisedButton}
                   primary={true}
                   onClick={this.onNextQuestion}
@@ -646,7 +646,7 @@ class LiveInterview extends React.Component {
                 <Link to="/edit-profile">
                   <RaisedButton
                     label="Back to My Cruise Staff Audition Videos"
-                    className="btnn-video-buttons btn-vpb"
+                    className="btn-video-buttons btn-vpb"
                     primary={true}
                     style={styles.raisedButton}
                   />

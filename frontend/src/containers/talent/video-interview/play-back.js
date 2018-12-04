@@ -32,7 +32,7 @@ export default function VideoPlayBack(props) {
     <Col className="col-md-12">
       <RaisedButton
         label="Adjust Video and Audio Settings"
-        className="btnn-video-buttons btn-vpb"
+        className="btn-video-buttons btn-vpb"
         style={styles.raisedButton}
         primary={true}
         onClick={() => {props.onSettings()}}
@@ -43,7 +43,7 @@ export default function VideoPlayBack(props) {
     <div className="col-md-12">
       <RaisedButton
         label="Next Practice Question"
-        className="btnn-video-buttons btn-vpb"
+        className="btn-video-buttons btn-vpb"
         style={styles.raisedButton}
         primary={true}
         onClick={() => { props.onNext() } }
@@ -54,7 +54,7 @@ export default function VideoPlayBack(props) {
       <Link to={"/interview-instruction-live/" + props.pageId}>
         <RaisedButton
           label="Let's Go Live!"
-          className="btnn-video-buttons btn-vpb"
+          className="btn-video-buttons btn-vpb"
           style={styles.raisedButton}
           secondary={true}
         />
@@ -65,7 +65,7 @@ export default function VideoPlayBack(props) {
       <Link to="/edit-profile">
         <RaisedButton
           label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-          className="btnn-video-buttons btnn-not-ready"
+          className="btn-video-buttons btnn-not-ready"
           style={styles.raisedButton}
           primary={true}
         />

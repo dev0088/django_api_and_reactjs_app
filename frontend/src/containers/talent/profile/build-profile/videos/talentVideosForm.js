@@ -9,9 +9,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Panel from 'components/general/panel';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
-import * as talentActions from 'actions/talentActions';
-import { styles } from 'styles';
 import Spacer from "components/general/spacer";
+import * as talentActions from 'actions/talentActions';
+import { getPathByPositionName } from 'utils/appUtils';
+import defaultValues from 'constants/defaultValues';
+import { styles } from 'styles';
 
 
 class TalentVideosForm extends Component {
@@ -33,26 +35,35 @@ class TalentVideosForm extends Component {
   }
 
   renderPositionButtons() {
-    const { classes, allPositionTypes, fromWizard } = this.props
+    const { classes, allPositionTypes } = this.props
     let items = []
+
     if (allPositionTypes && allPositionTypes.length > 0) {
-      for(let i = 0; i < allPositionTypes.length; i +=2) {
+
+      for(let i = 0; i < allPositionTypes.length; i ++) {
         let position = allPositionTypes[i]
-        let title = `My ${position.name} Audition Videos`
+
+        if (!position.video_audition_button_title) {
+          continue;
+        }
+
+        let title = position.video_audition_button_title
         let subTitle = 'in progress'
         let link = {
-          pathname: '/video-positions',
+          pathname: '/video-positions', // getPathByPositionName(position.name),
           state: {
-            position: position,
-            fromWizard: fromWizard
+            position: position
           }
         }
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
+        if (position.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
+          continue
+        }
+
         items.push(
-          <Grid
-            item lg={3} md={4} sm={5} xs={12}
-            className={classes.talentProfileGuideButtonItem}
+          <Grid key={`position${i}-2`}
+                item lg={6} md={6} sm={6} xs={12}
+                className={classes.talentProfileGuideButtonItem}
           >
             <Link to={link}>
               <Button
@@ -72,64 +83,26 @@ class TalentVideosForm extends Component {
             </Link>
           </Grid>
         )
-
-        if (allPositionTypes[i + 1]) {
-          position = allPositionTypes[i + 1]
-          title = `My ${position.name} Audition Videos`
-          subTitle = 'in progress'
-          link = {
-            pathname: '/video-positions',
-            state: {
-              position: position,
-              fromWizard: fromWizard
-            }
-          }
-
-          items.push(
-            <Grid
-              item lg={3} md={4} sm={5} xs={12}
-              className={classes.talentProfileGuideButtonItem}
-            >
-              <Link to={link}>
-                <Button
-                  variant="contained" color={'primary'}
-                  fullWidth={true}
-                  className={classes.talentProfileGuideButton}
-                >
-                  <Typography className={classes.talentProfileGuideButtonTitle}>
-                    {title}
-                  </Typography>
-                  {subTitle && (
-                    <Typography className={classes.talentProfileGuideButtonSubTitle}>
-                      {subTitle}
-                    </Typography>
-                  )}
-                </Button>
-              </Link>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12}/>)
-        }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={0} />)
       }
-      return items
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
 
   }
 
   renderContents() {
-    const { classes, contentTitle, allPositionTypes, fromWizard } = this.props
+    const { classes, contentTitle, allPositionTypes } = this.props
 
     return (
       <Panel title={contentTitle}>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <ColumnButton
             link = {{
-              pathname: "/video-greetings",
-              state: { fromWizard: fromWizard }
+              pathname: "/video-greetings"
             }}
             color="primary"
             itemClass = {classes.talentProfileGuideButtonItem}
@@ -143,8 +116,12 @@ class TalentVideosForm extends Component {
           />
         </Grid>
         <Spacer size={30}/>
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderPositionButtons(allPositionTypes) }
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} >
+            { this.renderPositionButtons(allPositionTypes) }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
         <Spacer size={40}/>
         <Grid container spacing={24} justify="center" alignItems="center">

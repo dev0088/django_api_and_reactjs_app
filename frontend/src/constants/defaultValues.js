@@ -51,7 +51,7 @@ export default {
       "description": "Why use ShipTalent.com"
     }
   ],
-  DEFAULT_PRACTICE_POSITION_TYPE: 'Practice',
+  DEFAULT_PRACTICE_POSITION_TYPE: 'Staff', //'Practice',
 	GENDERS: ["Male", "Female"],
 	VISA_TYPES: [
 		'B-1',

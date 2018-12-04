@@ -215,7 +215,7 @@ class VideoPreview extends React.Component {
 
     return <div className="video-interview">
       <div className="video-interview-header">
-        <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
+        <h1>{`My Video Interview (${pageId})`}</h1>
         <h3>Video and Audio Preview</h3>
       </div>
 
@@ -231,7 +231,7 @@ class VideoPreview extends React.Component {
         <Link to={"/video-practice/" + pageId}>
           <RaisedButton
             label="Start Practice Questions"
-            className="btnn-video-buttons"
+            className="btn-video-buttons"
             style={styles.raisedButton}
             primary={true}
           />
@@ -243,7 +243,7 @@ class VideoPreview extends React.Component {
           <Link to={"/interview-instruction-live/" + positionName}>
             <RaisedButton
               label="Start Live Questions"
-              className="btnn-video-buttons"
+              className="btn-video-buttons"
               style={styles.raisedButton}
               secondary={true}
             />
@@ -251,7 +251,7 @@ class VideoPreview extends React.Component {
         ) : (
           <RaisedButton
             label="Start Live Questions"
-            className="btnn-video-buttons btnn-not-ready disabled_raied_button"
+            className="btn-video-buttons btnn-not-ready disabled_raied_button"
             style={styles.disabledRaisedButton}
             secondary={true}
           />
@@ -260,7 +260,7 @@ class VideoPreview extends React.Component {
       </div>
       <div className="col-md-12">
         <RaisedButton
-          className="btnn-video-buttons btnn-adjust-settings"
+          className="btn-video-buttons btnn-adjust-settings"
           style={styles.raisedButton}
           label="Adjust Video and Audio Settings"
           onClick={this.adjustSettings}
@@ -271,7 +271,7 @@ class VideoPreview extends React.Component {
       {
         has_sub_position_type ? (
             <RaisedButton
-              className="btnn-video-buttons btnn-not-ready"
+              className="btn-video-buttons btnn-not-ready"
               style={styles.raisedButton}
               label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
               primary={true}
@@ -281,7 +281,7 @@ class VideoPreview extends React.Component {
           <Link to="/edit-profile">
             <RaisedButton
               style={styles.raisedButton}
-              className="btnn-video-buttons btnn-adjust-settings"
+              className="btn-video-buttons btnn-adjust-settings"
               label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
               primary={true}
             />

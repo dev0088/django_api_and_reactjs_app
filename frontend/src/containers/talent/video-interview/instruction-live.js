@@ -49,7 +49,7 @@ class InterviewInstructionLive extends React.Component {
     }
     return (<div className="video-interview">
         <div className="video-interview-header">
-          <h1>My Video Interview ({title[pageId] && title[pageId]})</h1>
+          <h1>{`My Video Interview (${pageId})`}</h1>
           <h3>Live!</h3>
         </div>
         <div className="video-interview-body">
@@ -77,7 +77,7 @@ class InterviewInstructionLive extends React.Component {
             <Link to={"/live-interview/" + positionName}>
               <RaisedButton
                 label="Begin My Video Interview"
-                className="btnn-video-buttons btn-vpb"
+                className="btn-video-buttons btn-vpb"
                 style={styles.raisedButton}
                 secondary={true}
               />

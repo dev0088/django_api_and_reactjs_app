@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import { Row, Col, Alert } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import ClearRounded from '@material-ui/icons/ClearRounded';
+import Request from 'superagent';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import ClearRounded from '@material-ui/icons/ClearRounded';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Panel from 'components/general/panel'
 import Spacer from 'components/general/spacer';
 import * as talentActions from 'actions/talentActions';
@@ -39,8 +41,12 @@ class TalentPicturesForm extends Component {
     this.state = {
       pictures: [],
       currentPicture: null,
-      openImageModal: false
+      openImageModal: false,
+      progressPercent: 0.0,
+      progressing: false,
+      progressingCaption: null
     }
+    this.onFinish = this.onFinish.bind(this)
   }
 
   getInfoFromProps(props) {
@@ -49,6 +55,9 @@ class TalentPicturesForm extends Component {
     } = props
 
     let pictures = []
+    let progressPercent = 0.0
+    let progressing = false
+    let  progressingCaption = null
 
     if (talentInfo && talentInfo.user) {
       // Get nationality info
@@ -56,7 +65,10 @@ class TalentPicturesForm extends Component {
     }
 
     return {
-      pictures
+      pictures,
+      progressPercent,
+      progressing,
+      progressingCaption
     }
   }
 
@@ -70,20 +82,27 @@ class TalentPicturesForm extends Component {
     })
   }
 
-  handleUploadMyPictures = (files, caption) => {
+  handleUploadMyPictures = (files, caption, priority) => {
     // Upload image files
     let file = files[0]
     const {user_id} = this.props.auth.access
     const signAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/policy/`
     const completeAPI = `${apiConfig.url}/talent_picture/upload/${user_id}/complete/`
-    this.uploadToS3(signAPI, completeAPI, file, caption)
+
+    this.setState({
+      progressing: true,
+      progressingCaption: caption
+    }, () => {
+      this.signAndUploadToS3(signAPI, completeAPI, file, caption, priority)
+    })
   }
 
-  uploadToS3 = (signAPI, completeAPI, file, caption) => {
+  signAndUploadToS3 = (signAPI, completeAPI, file, caption, priority) => {
     const params = {
       objectName: file.name,
       contentType: file.type,
-      caption: caption
+      caption: caption,
+      priority: priority ? priority : 0
     }
 
     fetch(signAPI, {
@@ -101,7 +120,7 @@ class TalentPicturesForm extends Component {
         else {
           if (response.signedUrl){
             console.log('success: ', response, response.signedUrl)
-            this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
+            this.uploadToS3(response.signedUrl, completeAPI, response.fileID, file)
           } else {
             console.log('error: ', response)
             this.onError(file)
@@ -114,34 +133,37 @@ class TalentPicturesForm extends Component {
       })
   }
 
-  uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
-    fetch(s3PutUrl, {
-      method: 'put',
-      headers: {
-        'x-amz-acl': 'public-read',
-        'Content-Type': file.type,
-      },
-      body: file
-    })
-      .then(response => {
-        if(response.error) {
+  uploadToS3 = (s3PutUrl, completeAPI, fileID, file) => {
+    Request.put(s3PutUrl)
+      .set("Content-Type", file.type)
+      .set("x-amz-acl", 'public-read')
+      .send(file)
+      .on('progress', function(e) {
+        this.onProgress(e.percent);
+      }.bind(this))
+      .end((err, res) => {
+        if (err) {
           this.onError(fileID, file)
-        }
-        else {
+        } else {
           this.onFinish(completeAPI, fileID, file)
         }
       })
-      .catch(error => {
-        this.onError(fileID, file)
-      })
   }
 
-  onProgress = () => {
-    console.log('=== progress')
+  onProgress = (percent) => {
+    this.setState({ progressPercent: percent })
   }
+
+  doneUploadingProgress = () => {
+    this.setState({
+      progressing: false,
+      progressPercent: null
+    })
+  };
 
   onError = (file) => {
     console.log('==== Error: ', file)
+    this.doneUploadingProgress()
   }
 
   onFinish = (completeAPI, fileID, file) => {
@@ -164,6 +186,7 @@ class TalentPicturesForm extends Component {
         else {
           // Update pictures from server
           this.props.talentActions.getCurrentTalentInfo()
+          this.doneUploadingProgress()
         }
       })
       .catch(error => {
@@ -172,10 +195,14 @@ class TalentPicturesForm extends Component {
   }
 
   showImage = (picture) => {
-    this.setState({
-      currentPicture: picture,
-      openImageModal: true
-    })
+    const havePicture = picture && picture.url && picture.uploaded && picture.active
+
+    if (havePicture) {
+      this.setState({
+        currentPicture: picture,
+        openImageModal: true
+      })
+    }
   }
 
   deleteImage = (picture) => {
@@ -186,56 +213,49 @@ class TalentPicturesForm extends Component {
     this.props.talentActions.getCurrentTalentInfo()
   }
 
-  renderPictureView(caption) {
-    const { pictures } = this.state
+  renderPictureView(caption, priority) {
+    const { pictures, progressing, progressPercent, progressingCaption } = this.state
     const { classes } = this.props
 
     let picture = pictures.find(function(picture) {
       return (picture.caption === caption);
     });
+    const havePicture = picture && picture.url && picture.uploaded && picture.active
+    const isOwnerPicture = progressingCaption === caption
+
     return (
       <div>
         <Row>
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            {(picture && picture.url && picture.uploaded && picture.active) ?
-              (
-                <Row>
-                  <Col xs="12" md="12" className="pt-0 pt-md-0">
-                    <div onClick={() => this.deleteImage(picture)}>
+            {
+              progressing && isOwnerPicture ? (
+                <CircularProgress className={classes.talentProfileVideoGreetingImage}/>
+              ) : (
+                <div>
+                  <div onClick={() => this.showImage(picture)}>
+                    <ImageLoader
+                      className="profile-picture-image"
+                      src={havePicture ? picture.url : require('images/missing.png')}
+                      loading={() => <div className={classes.talentProfileVideoGreetingImage}>Loading...</div>}
+                      error={() => <div>Error</div>}
+                    />
+                  </div>
+                  <div>
+                    { havePicture ? (
                       <Button
                         variant="contained"
                         color="secondary"
                         aria-label="Edit"
-                        disabled = {false}
                         className={classes.talentProfilePictureDeleteButton}
                         onClick={() => this.deleteImage(picture)}
                       >
                         <ClearRounded style={{fontSize: '20px'}}/>
                       </Button>
-                    </div>
-                    <div onClick={() => this.showImage(picture)}>
-                      <ImageLoader
-                        className="profile-picture-image"
-                        src={picture.url}
-                        loading={() => <div className="profile-picture-image">Loading...</div>}
-                        error={() => <div>Error</div>}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-              ) : (
-                <Row>
-                  <Col xs="12" md="12" className="pt-0 pt-md-0">
-                    <div>
-                      <ImageLoader
-                        className="profile-picture-image"
-                        src={require('images/missing.png')}
-                        loading={() => <div className="profile-picture-image">Loading...</div>}
-                        error={() => <div>Error</div>}
-                      />
-                    </div>
-                  </Col>
-                </Row>
+                    ) : (
+                      <div className={classes.talentProfilePictureEmpty} />
+                    )}
+                  </div>
+                </div>
               )
             }
           </Col>
@@ -254,21 +274,38 @@ class TalentPicturesForm extends Component {
         </Row>
         <Row className="profile-picture-image-container">
           <Col xs="12" md="12" className="pt-3 pt-md-3 profile-picture-image-col">
-            <Dropzone
-              className="profile-picture-dropzone"
-              onDrop={ (files) => this.handleUploadMyPictures(files, caption) }
-              size={ 150 }
-              accept="image/*">
-              <div className="profile-picture-dropzone-description">
-                {`To upload or change Drop picture here`}
+            {progressPercent && isOwnerPicture > 0 ? (
+              <div>
+                <LinearProgress
+                  variant="determinate"
+                  className={classes.uploadProgressBar}
+                  value={progressPercent}
+                />
+                <Typography
+                  gutterBottom
+                  variant='Subheading'
+                  className={classes.talentProfileVideoUploadingText}
+                >
+                  {`Uploading (${progressPercent.toFixed(0)} %) ... `}
+                </Typography>
               </div>
-              <div className="profile-picture-dropzone-select-file-button">
-                {`OR SELECT FILE`}
-              </div>
-              <div className="profile-picture-dropzone-description">
-                {`Supported File Types: JPEG, GIF, BMP, PNG`}
-              </div>
-            </Dropzone>
+            ) : (
+              <Dropzone
+                className="profile-picture-dropzone"
+                onDrop={(files) => this.handleUploadMyPictures(files, caption, priority)}
+                size={150}
+                accept="image/*">
+                <div className="profile-picture-dropzone-description">
+                  {`To upload or change Drop picture here`}
+                </div>
+                <div className="profile-picture-dropzone-select-file-button">
+                  {`OR SELECT FILE`}
+                </div>
+                <div className="profile-picture-dropzone-description">
+                  {`Supported File Types: JPEG, GIF, BMP, PNG`}
+                </div>
+              </Dropzone>
+            )}
           </Col>
         </Row>
       </div>
@@ -280,13 +317,13 @@ class TalentPicturesForm extends Component {
       <Row className="profile-gender-row">
         <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
         <Col sm="12" md="6" lg="4" xl="3" className="pt-0 pt-md-0">
-          {this.renderPictureView("My Current Headshot")}
+          {this.renderPictureView("My Current Headshot", 0)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="4" className="pt-0 pt-md-0">
-          {this.renderPictureView("My Current Body Shot 1")}
+          {this.renderPictureView("My Current Body Shot 1", 1)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="3" className="pt-0 pt-md-0">
-          {this.renderPictureView("My Current Body Shot 2")}
+          {this.renderPictureView("My Current Body Shot 2", 2)}
         </Col>
         <Col sm="12" md="0" lg="0" xl="1" className="pt-0 pt-md-0" />
       </Row>
@@ -298,19 +335,19 @@ class TalentPicturesForm extends Component {
       <Row className="profile-gender-row">
         <Col sm="12" md="0" lg="0" xl="0" className="pt-0 pt-md-0" />
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
-          {this.renderPictureView("My Other Pic 1")}
+          {this.renderPictureView("My Other Pic 1", 3)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="3" className="pt-1 pt-md-1">
-          {this.renderPictureView("My Other Pic 2")}
+          {this.renderPictureView("My Other Pic 2", 4)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
-          {this.renderPictureView("My Other Pic 3")}
+          {this.renderPictureView("My Other Pic 3", 5)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="3" className="pt-1 pt-md-1">
-          {this.renderPictureView("My Other Pic 4")}
+          {this.renderPictureView("My Other Pic 4", 6)}
         </Col>
         <Col sm="12" md="6" lg="4" xl="2" className="pt-1 pt-md-1">
-          {this.renderPictureView("My Other Pic 5")}
+          {this.renderPictureView("My Other Pic 5", 7)}
         </Col>
         <Col sm="12" md="0" lg="0" xl="0" className="pt-0 pt-md-0" />
       </Row>

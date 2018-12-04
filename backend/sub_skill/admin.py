@@ -4,8 +4,16 @@ from . import models
 @admin.register(models.SubSkill)
 
 class SubSkillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'related_position_type_display', 'skill_display', 'name', 'video_steps', 'max_video_time', 'download_video_link', 'description')
-    list_display_links = ('id', 'name', 'video_steps', 'max_video_time', 'download_video_link', 'description')
+    list_display = (
+        'id', 'related_position_type_display', 'skill_display', 'name', 'video_audition_button_title',
+        'wizard_button_title', 'priority', 'opts_in', 'video_audition_type', 'video_counts', 'max_video_time',
+        'is_special_video_audition', 'is_required_all', 'is_required', 'is_video_interview_button'
+    )
+    list_display_links = (
+        'id', 'name', 'priority', 'opts_in', 'video_audition_type', 'video_audition_button_title', 'video_counts',
+        'wizard_button_title', 'max_video_time',
+        'is_special_video_audition', 'is_required_all', 'is_required', 'is_video_interview_button'
+    )
     list_per_page = 25
 
     def related_position_type_display(self, obj):
