@@ -61,7 +61,7 @@ class SelectPositionTypeWizard extends Component {
   handleClickNextButton = () => {
     const { selectedPositionType } = this.state
     const { auth } = this.props
-    console.log('==== selectedPositionType: ', selectedPositionType)
+
     let data = {
       talent_position_type: selectedPositionType,
     }
@@ -81,67 +81,41 @@ class SelectPositionTypeWizard extends Component {
     let items = []
 
     if (allPositionTypes && allPositionTypes.length > 0) {
-      for(let i = 0; i < allPositionTypes.length; i +=2) {
-        let positionType1 = allPositionTypes[i]
+      for(let i = 0; i < allPositionTypes.length; i ++) {
+        let positionType = allPositionTypes[i]
 
-        items.push(<Grid key={`item${i}-1`} item lg={3} md={2} sm={1} xs={12}/>)
+        if (!positionType.wizard_button_title) {
+          continue
+        }
+
         items.push(
-          <Grid key={`item${i}-2`}
-            item lg={3} md={4} sm={5} xs={12}
-            className={classes.talentProfileGuideButtonItem}
-          >
+          <Grid item lg={6} md={6} sm={6} xs={12} key={`position${i}`}
+                className={classes.talentProfileGuideButtonItem}>
             <Button
               variant="contained"
               color="primary"
               className={
-                positionType1.name === selectedPositionType
+                positionType.name === selectedPositionType
                   ? classes.talentProfileGuideButtonSelected
                   : classes.talentProfileGuideButton
               }
               fullWidth={true}
-              onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType1.name)}
+              onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType.name)}
             >
               <Typography className={classes.talentProfileGuideButtonTitle}>
-                {`I am ${getPrefixByWord(positionType1.name)} ${positionType1.name}`}
+                {positionType.wizard_button_title}
               </Typography>
             </Button>
           </Grid>
         )
-
-        if (allPositionTypes[i + 1]) {
-          let positionType2 = allPositionTypes[i + 1]
-
-          items.push(
-            <Grid key={`item${i}-3`}
-              item lg={3} md={4} sm={5} xs={12}
-              className={classes.talentProfileGuideButtonItem}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                className={
-                  positionType2.name === selectedPositionType
-                    ? classes.talentProfileGuideButtonSelected
-                    : classes.talentProfileGuideButton
-                }
-                fullWidth={true}
-                onClick={() => this.handleClickPositionTypeButton('selectedPositionType', positionType2.name)}
-              >
-                <Typography className={classes.talentProfileGuideButtonTitle}>
-                  {`I am ${getPrefixByWord(positionType2.name)} ${positionType2.name}`}
-                </Typography>
-              </Button>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid key={`item${i}-3`} item lg={3} md={4} sm={5} xs={12}/>)
-        }
-        items.push(<Grid key={`item${i}-4`} item lg={3} md={2} sm={1} xs={12} />)
       }
-      return items
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
   }
 
   renderContents() {
@@ -164,8 +138,12 @@ class SelectPositionTypeWizard extends Component {
         </h5>
         <br/>
 
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderPositionButtons() }
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} justify="center" alignItems="center">
+            { this.renderPositionButtons() }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
       </Panel>
     )

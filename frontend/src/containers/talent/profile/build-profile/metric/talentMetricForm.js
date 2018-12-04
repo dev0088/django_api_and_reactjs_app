@@ -110,14 +110,14 @@ class TalentMetricForm extends Component {
       height,
       weight,
       bmi,
-      age,
+      age_range,
     } = this.state
 
     let data = {
       height: height,
       weight: weight,
       bmi: bmi,
-      age: age,
+      age_range: age_range,
     }
 
     this.props.onSave(data, this.handleSaveResponse)

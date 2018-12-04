@@ -1,14 +1,16 @@
 from rest_framework import serializers
 from position_type.models import PositionType
+from position_sub_type.serializers import PositionSubTypeSerializer
 
 
 class PositionTypeSerializer(serializers.ModelSerializer):
-    position_sub_types = serializers.SlugRelatedField(
-                          many=True,
-                          read_only=True,
-                          slug_field='name'
-                        )
-
+    # position_sub_types = serializers.SlugRelatedField(
+    #                       many=True,
+    #                       read_only=True,
+    #                       slug_field='name'
+    #                     )
+    position_sub_types = PositionSubTypeSerializer(many=True)
+    
     class Meta:
         model = PositionType
         fields = (

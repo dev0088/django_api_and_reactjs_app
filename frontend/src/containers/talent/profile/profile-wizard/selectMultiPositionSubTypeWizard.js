@@ -41,7 +41,6 @@ class SelectMultiPositionSubTypeWizard extends Component {
         talentInfo.talent_position_types.length > 0) {
         res.selectedPositionType =  talentInfo.talent_position_types[0].position_type
         res.prevPositionType = findPositionTypeByName(res.allPositionTypes, res.selectedPositionType)
-        console.log('==== res.selectedPositionType: ', res.selectedPositionType)
       }
 
       if (talentInfo.talent_position_sub_types &&
@@ -53,8 +52,6 @@ class SelectMultiPositionSubTypeWizard extends Component {
         }
       }
     }
-
-    console.log('==== Multi: getInfoFromProps: res: ', res)
 
     return res
   }
@@ -92,7 +89,6 @@ class SelectMultiPositionSubTypeWizard extends Component {
   handleClickNextButton = () => {
     const { selectedPositionType, multiSelectedPositionSubType } = this.state
     const { auth } = this.props
-    console.log('==== multiSelectedPositionSubType: ', multiSelectedPositionSubType)
     let data = {
       talent_position_type: selectedPositionType,
       talent_position_sub_types: multiSelectedPositionSubType,
@@ -114,71 +110,43 @@ class SelectMultiPositionSubTypeWizard extends Component {
 
     if (prevPositionType && prevPositionType.position_sub_types) {
       let position_sub_types = prevPositionType.position_sub_types
-      for(let i = 0; i < position_sub_types.length; i +=2) {
-        let positionSubType1 = position_sub_types[i]
+      for(let i = 0; i < position_sub_types.length; i ++) {
+        let positionSubType = position_sub_types[i]
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`positionSubType${i}-1`}/>)
+        if(!positionSubType.wizard_button_title) {
+          continue;
+        }
+
         items.push(
-          <Grid key={`positionSubType${i}-2`}
-            item lg={3} md={4} sm={5} xs={12}
-            className={classes.talentProfileGuideButtonItem}
-          >
+          <Grid item lg={6} md={6} sm={6} xs={12} key={`subPosition${i}`}
+                className={classes.talentProfileGuideButtonItem}>
             <Button
               variant="contained"
               color="primary"
               className={
-                multiSelectedPositionSubType.indexOf(positionSubType1) >= 0
+                multiSelectedPositionSubType.indexOf(positionSubType) >= 0
                   ? classes.talentProfileGuideButtonSelected
                   : classes.talentProfileGuideButton
               }
               fullWidth={true}
               onClick={() => this.handleClickPositionSubTypeButton(
-                'multiSelectedPositionSubType', positionSubType1
+                'multiSelectedPositionSubType', positionSubType
               )}
             >
               <Typography className={classes.talentProfileGuideButtonTitle}>
-                { positionSubType1 }
+                { positionSubType.wizard_button_title }
               </Typography>
             </Button>
           </Grid>
         )
-
-        if (position_sub_types[i + 1]) {
-          let positionSubType2 = position_sub_types[i + 1]
-
-          items.push(
-            <Grid key={`positionSubType${i}-3`}
-              item lg={3} md={4} sm={5} xs={12}
-              className={classes.talentProfileGuideButtonItem}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                className={
-                  multiSelectedPositionSubType.indexOf(positionSubType2) >= 0
-                    ? classes.talentProfileGuideButtonSelected
-                    : classes.talentProfileGuideButton
-                }
-                fullWidth={true}
-                onClick={() => this.handleClickPositionSubTypeButton(
-                  'multiSelectedPositionSubType', positionSubType2
-                )}
-              >
-                <Typography className={classes.talentProfileGuideButtonTitle}>
-                  { positionSubType2 }
-                </Typography>
-              </Button>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12} key={`positionSubType${i}-3`}/>)
-        }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`positionSubType${i}-4`}/>)
       }
-      return items
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
   }
 
 
@@ -195,7 +163,7 @@ class SelectMultiPositionSubTypeWizard extends Component {
           showSkill={false}
         />
         <Spacer size={15} />
-        <Grid container className={classes.root} spacing={30}>
+        <Grid container className={classes.root} spacing={24}>
           <Grid item md={12}>
             <Typography className={classes.wizardSettingSubTitle}>
               {prevPositionType && (prevPositionType.question ? prevPositionType.question : '')}
@@ -212,8 +180,12 @@ class SelectMultiPositionSubTypeWizard extends Component {
           </Grid>
         </Grid>
         <Spacer size={15} />
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderSubPositionButtons() }
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} >
+            { this.renderSubPositionButtons() }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
       </Panel>
     )

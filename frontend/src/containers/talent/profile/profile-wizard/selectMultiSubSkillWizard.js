@@ -203,7 +203,7 @@ class SelectMultiSubSkillWizard extends Component {
           showSkill={true}
         />
         <Spacer size={15} />
-        <Grid container className={classes.root} spacing={30}>
+        <Grid container className={classes.root} spacing={24}>
           <Grid item md={12}>
             <h5 align="center" className="profile-bio-description">
               {prevSkill && (prevSkill.question ? prevSkill.question : '')}

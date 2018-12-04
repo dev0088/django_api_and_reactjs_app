@@ -107,7 +107,7 @@ class TalentPositionVideosForm extends Component {
         }
 
         items.push(
-          <Grid item lg={6} md={6} sm={6} xs={12}
+          <Grid item lg={6} md={6} sm={6} xs={12} key={`subPosition${i}`}
                 className={classes.talentProfileGuideButtonItem}>
             <Link to={link} onClick={this.handleClickLink}>
               <Button

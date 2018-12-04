@@ -38,7 +38,6 @@ class SelectSubSkillWizard extends Component {
       res.allSkills = allSkills ? allSkills : []
       if (talentInfo.talent_skills && talentInfo.talent_skills.length > 0) {
         res.selectedSkill =  talentInfo.talent_skills[0].skill
-        console.log('==== res.selectedSkill: ', res.selectedSkill)
       }
 
       res.prevSkill = findSkillByName(res.allSkills, res.selectedSkill)
@@ -49,8 +48,6 @@ class SelectSubSkillWizard extends Component {
         res.singleSelectedSubSkill = talentInfo.talent_sub_skills[0].sub_skill.name
       }
     }
-
-    console.log('==== getInfoFromProps: res: ', res)
 
     return res
   }
@@ -78,7 +75,7 @@ class SelectSubSkillWizard extends Component {
   handleClickNextButton = () => {
     const { selectedSkill, singleSelectedSubSkill } = this.state
     const { auth } = this.props
-    console.log('==== singleSelectedSubSkill: ', singleSelectedSubSkill)
+
     let data = {
       talent_skills: [{name: selectedSkill}],
       talent_sub_skills: [{name: singleSelectedSubSkill}],
@@ -100,15 +97,16 @@ class SelectSubSkillWizard extends Component {
 
     if (prevSkill && prevSkill.sub_skills) {
       let sub_skills = prevSkill.sub_skills
-      for(let i = 0; i < sub_skills.length; i +=2) {
+      for(let i = 0; i < sub_skills.length; i ++) {
+        if (!sub_skills[i].wizard_button_title) {
+          continue
+        }
         let subSkill1 = sub_skills[i].name
 
-        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`subSkill${i}-1`} />)
+        // items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`subSkill${i}-1`} />)
         items.push(
-          <Grid  key={`subSkill${i}-2`}
-            item lg={3} md={4} sm={5} xs={12}
-            className={classes.talentProfileGuideButtonItem}
-          >
+          <Grid item lg={6} md={6} sm={6} xs={12} key={`subSkill${i}`}
+                className={classes.talentProfileGuideButtonItem}>
             <Button
               variant="contained"
               color="primary"
@@ -128,43 +126,14 @@ class SelectSubSkillWizard extends Component {
             </Button>
           </Grid>
         )
-
-        if (sub_skills[i + 1]) {
-          let subSkill2 = sub_skills[i + 1].name
-
-          items.push(
-            <Grid  key={`subSkill${i}-3`}
-              item lg={3} md={4} sm={5} xs={12}
-              className={classes.talentProfileGuideButtonItem}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                className={
-                  subSkill2 === singleSelectedSubSkill
-                    ? classes.talentProfileGuideButtonSelected
-                    : classes.talentProfileGuideButton
-                }
-                fullWidth={true}
-                onClick={() => this.handleClickPositionSubTypeButton(
-                  'singleSelectedSubSkill', subSkill2
-                )}
-              >
-                <Typography className={classes.talentProfileGuideButtonTitle}>
-                  { subSkill2 }
-                </Typography>
-              </Button>
-            </Grid>
-          )
-        } else {
-          items.push(<Grid item lg={3} md={4} sm={5} xs={12} key={`subSkill${i}-3`}/>)
-        }
-        items.push(<Grid item lg={3} md={2} sm={1} xs={12} key={`subSkill${i}-4`}/>)
       }
-      return items
     }
 
-    return (<div/>)
+    return (
+      <Grid container spacing={16} >
+        { items }
+      </Grid>
+    )
   }
 
 
@@ -181,7 +150,7 @@ class SelectSubSkillWizard extends Component {
           showSkill={false}
         />
         <Spacer size={15} />
-        <Grid container className={classes.root} spacing={30}>
+        <Grid container className={classes.root} direction="column"  justify="center" alignItems="center" spacing={24}>
           <Grid item md={12}>
             <Typography className={classes.wizardSettingSubTitle}>
               {prevSkill && (prevSkill.question ? prevSkill.question : '')}
@@ -198,8 +167,12 @@ class SelectSubSkillWizard extends Component {
           </Grid>
         </Grid>
         <Spacer size={15} />
-        <Grid container spacing={16} justify="center" alignItems="center">
-          { this.renderSubPositionButtons() }
+        <Grid container spacing={16} direction="row" justify="center" alignItems="center">
+          <Grid item lg={3} md={2} sm={1} xs={2} />
+          <Grid item lg={6} md={8} sm={10} xs={8} >
+            { this.renderSubPositionButtons() }
+          </Grid>
+          <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
       </Panel>
     )
