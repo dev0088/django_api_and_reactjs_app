@@ -10,6 +10,6 @@ class WizardPositionTypeSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            # 'priority',
-            # 'wizard_button_title',
+            'priority',
+            'wizard_button_title',
         )

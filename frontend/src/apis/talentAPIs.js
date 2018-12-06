@@ -71,11 +71,7 @@ class TalentAPI {
     TalentAPI.processRequestWithToken(`talent/${getUserID()}/`, 'put', data, handleResponse)
   }
 
-  static addTalentSubPositions(user_id, data, handleResponse) {
-    TalentAPI.processRequest(`talent/${getUserID()}/`, 'post', data, handleResponse)
-  }
-
-  static addTalentSkills(user_id, data, handleResponse) {
+  static addTalentPositionAndSkills(data, handleResponse) {
     TalentAPI.processRequest(`talent/${getUserID()}/`, 'post', data, handleResponse)
   }
 

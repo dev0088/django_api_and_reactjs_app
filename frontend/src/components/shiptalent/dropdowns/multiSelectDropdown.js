@@ -284,8 +284,8 @@ class MultiSelectDropdown extends React.Component {
             input={<Input id="select-multiple-checkbox" />}
             renderValue={selected => (
               <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip key={value} label={value} className={classes.chip} />
+                {selected.map((value, index) => (
+                  <Chip key={`chip${index}`} label={value} className={classes.chip} />
                 ))}
               </div>
             )}

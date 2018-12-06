@@ -337,7 +337,7 @@ class SingleSelectDropdown extends React.Component {
               group_items.push(
                 <MenuItem key={`position_${index}`} value={group.value} className={classes.groupMenuItem} >
                   {<Checkbox checked={selectedItemIndex === group.value} color="primary"/>}
-                  <ListItemText primary={group.label} />
+                  <ListItemText primary={group.label ? group.label : ''} />
                 </MenuItem>
               )
               let group_sub_items = []
@@ -348,7 +348,7 @@ class SingleSelectDropdown extends React.Component {
                       {<Checkbox
                         checked={selectedItemIndex === option.value}
                         color="primary"/>}
-                      <ListItemText primary={option.label} />
+                      <ListItemText primary={option.label ? option.label : ''} />
                     </MenuItem>
                   )}
                 )

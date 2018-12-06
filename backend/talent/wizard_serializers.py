@@ -5,8 +5,9 @@ from talent_skill.wizard_serializers import WizardTalentSkillSerializer
 
 
 class WizardTalentInfoSerializer(serializers.ModelSerializer):
-    talent_position_types = WizardTalentPositionTypeSerializer(many=True)
-    talent_skills = WizardTalentSkillSerializer(many=True)
+    talent_position_types = WizardTalentPositionTypeSerializer(many=True, required=False, default=[])
+    talent_skills = WizardTalentSkillSerializer(many=True, required=False, default=[])
+    need_initialize = serializers.BooleanField(default=False, required=False)
 
     class Meta:
         model = Talent
@@ -14,4 +15,5 @@ class WizardTalentInfoSerializer(serializers.ModelSerializer):
             'id',
             'talent_position_types',
             'talent_skills',
+            'need_initialize'
         )
