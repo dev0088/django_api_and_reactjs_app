@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import NavigateButtonGroup from 'components/shiptalent/buttonGroups/navigateButtonGroup';
 import styles from 'styles';
 
-class ProfileWizard extends Component {
+class ProfileWizardForm extends Component {
 
   handleClickBackButton = () => {
     const { handleClickBackButton } = this.props;
@@ -22,35 +22,47 @@ class ProfileWizard extends Component {
   };
 
   render() {
-    const { contents, backLink, nextLink } = this.props;
+    const {
+      formTitle, formSubTitle, children,
+      backLink, backButtonTitle, handleClickBackButton,
+      nextLink, nextButtonTitle, handleClickNextButton,
+      classes
+    } = this.props;
 
     return (
       <div className="contact-info-view-container">
-        {contents}
-        <Row>
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-back-button-group-col">
-            <Link to={backLink}>
-              <RaisedButton
-                label="Back"
-                primary={true}
-                onClick={this.handleClickBackButton}
-              />
-            </Link>
-          </Col>
-          <Col xs="4" md="4" className="pt-4 pt-md-4" />
-          <Col xs="4" md="4" className="pt-3 pt-md-3 profile-save-button-group-col">
-            <Link to={nextLink}>
-              <RaisedButton
-                label="Next"
-                primary={true}
-                onClick={this.handleClickNextButton}
-              />
-            </Link>
-          </Col>
-        </Row>
+        <Grid container spacing={24}>
+          <Grid item xs={12} />
+          <Grid item xs={12} >
+            <Typography align="center" component="h3" variant="h3">
+              {formTitle}
+            </Typography>
+            <Typography align="center" className={classes.clientFormSubTitle}>
+              {formSubTitle}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12} >
+            {children}
+          </Grid>
+
+          <Grid item xs={12} >
+            <NavigateButtonGroup
+              backLink={backLink}
+              backButtonTitle={backButtonTitle}
+              backButtonClass={classes.talentFormBackButton}
+              handleClickBackButton={handleClickBackButton}
+              nextLink={nextLink}
+              nextButtonTitle={nextButtonTitle}
+              nextButtonClass={classes.talentFormNextButton}
+              handleClickNextButton={handleClickNextButton}
+            />
+          </Grid>
+        </Grid>
+
       </div>
     )
   }
 }
 
-export default (withStyles(styles)(ProfileWizard));
+export default (withStyles(styles)(ProfileWizardForm));

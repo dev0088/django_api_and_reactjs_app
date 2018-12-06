@@ -1,8 +1,8 @@
 from django.contrib import admin
 from . import models
 
-@admin.register(models.SubSkill)
 
+@admin.register(models.SubSkill)
 class SubSkillAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'related_position_type_display', 'skill_display', 'name', 'video_audition_button_title',

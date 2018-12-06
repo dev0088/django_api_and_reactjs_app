@@ -10,7 +10,7 @@ class PositionTypeSerializer(serializers.ModelSerializer):
     #                       slug_field='name'
     #                     )
     position_sub_types = PositionSubTypeSerializer(many=True)
-    
+
     class Meta:
         model = PositionType
         fields = (

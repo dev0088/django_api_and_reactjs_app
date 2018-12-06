@@ -35,6 +35,8 @@ import SelectBioWizard from "containers/talent/profile/profile-wizard/selectBioW
 import SelectResumeWizard from "containers/talent/profile/profile-wizard/selectResumeWizard";
 import SelectPictureWizard from "containers/talent/profile/profile-wizard/selectPictureWizard";
 import SelectVideoWizard from "containers/talent/profile/profile-wizard/selectVideoWizard";
+import SelectMultiAnswerWizard from "containers/talent/profile/profile-wizard/selectMultiAnswerWizard";
+import SelectSingleAnswerWizard from "containers/talent/profile/profile-wizard/selectSingleAnswerWizard";
 
 // Videos routes
 import MyVideos from "containers/talent/profile/build-profile/videos/myVideosScreen";
@@ -529,6 +531,23 @@ const Index = () => (
         </TemplateTopbar>
       )}
     />
+    <Route
+      path="/profile-wizard/select-multi-answer"
+      render={props => (
+        <TemplateTopbar>
+          <SelectMultiAnswerWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+    <Route
+      path="/profile-wizard/select-single-answer"
+      render={props => (
+        <TemplateTopbar>
+          <SelectSingleAnswerWizard {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
     <Route
       path="/profile"
       render={props => (

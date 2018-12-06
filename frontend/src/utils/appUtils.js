@@ -305,3 +305,24 @@ export function getPathByPositionName(positionName) {
 
   return res
 }
+
+export function filterWizardQuestionScenarioByPosition(wizardQuestionScenario, position) {
+  return wizardQuestionScenario.filter(scenarioItem => scenarioItem.position_type.id === position.id);
+}
+
+export function filterWizardQuestionScenarioByPositionName(wizardQuestionScenario, positionName) {
+  return wizardQuestionScenario.filter(scenarioItem => scenarioItem.position_type.name === positionName);
+}
+
+export function findAnswer(wizardQuestionAnswers, answer) {
+  return wizardQuestionAnswers.find(function(wizardQuestionAnswer) {
+    return wizardQuestionAnswer.id === answer.id;
+  });
+}
+
+export function findAnswerIndex(wizardQuestionAnswers, answer) {
+  return wizardQuestionAnswers.find(function(wizardQuestionAnswer, index) {
+    if(wizardQuestionAnswer.id === answer.id)
+      return index
+  });
+}

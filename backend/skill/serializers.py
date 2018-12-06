@@ -3,6 +3,7 @@ from skill.models import Skill
 from sub_skill.serializers import SubSkillSerializer
 from position_type.serializers import PositionTypeNameSerializer
 
+
 class SkillSerializer(serializers.ModelSerializer):
     # sub_skills = serializers.SlugRelatedField(
     #     many=True,
