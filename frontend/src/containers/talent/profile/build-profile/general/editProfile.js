@@ -57,13 +57,6 @@ class EditProfile extends Component {
       },
       allPositionTypes: [],
       allSkills: [],
-      // currentSubPositionType: props.talentInfo && props.talentInfo.talent_position_sub_type
-      //   ? { value: props.talentInfo.talent_position_sub_type.name,
-      //       label: props.talentInfo.talent_position_sub_type.name }
-      //   : '',
-      // currentAdditionalPositionTypes: null,
-      // currentAdditionalPositionSubTypes: null,
-
       currentPositionTypesGroup: [],
 			currentSkillGroups: [],
 
@@ -139,14 +132,14 @@ class EditProfile extends Component {
 			  for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
 					let positionSubType = positionType.position_sub_types[j]
 					options.push({
-						label: positionSubType,
+						label: positionSubType.name,
 						value: index ++,
 						group: positionType.name,
             // index: index ++,
 						isGroup: false,
 						isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
                           positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
-                          positionSubType === talent_position_sub_types[0].position_sub_type.name)
+                          positionSubType.name === talent_position_sub_types[0].position_sub_type.name)
 					})
 				}
         group.options = options

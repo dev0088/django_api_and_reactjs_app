@@ -327,13 +327,13 @@ class TalentDetail(APIView):
                             talent_position_type_data
                     )
 
-            # # Check and save skills
-            # if talent_skills_data:
-            #     self.save_talent_skills(talent_item, talent_skills_data)
-            #
-            # # Check and save skills
-            # if talent_sub_skills_data:
-            #     self.save_talent_sub_skills(talent_item, talent_sub_skills_data)
+            # Check and save skills
+            if talent_skills_data:
+                self.save_talent_skills(talent_item, talent_skills_data)
+
+            # Check and save skills
+            if talent_sub_skills_data:
+                self.save_talent_sub_skills(talent_item, talent_sub_skills_data)
 
             # Check and save visa types
             if talent_visas_data:
