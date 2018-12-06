@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import auth, * as fromAuth from './auth.js'
-import register from './register.js'
-import echo, * as fromEcho from './echo.js'
-import shiptalentInfo from './shiptalentInfo.js'
-import videoQuestions, { videoSettings } from './video.js'
+import auth, * as fromAuth from './auth'
+import register from './register'
+import echo, * as fromEcho from './echo'
+import shiptalentInfo from './shiptalentInfo'
+import videoQuestions, { videoSettings } from './video'
 import { getCurrentTalentInfo } from './talent.js'
-import { getAllPositionTypes } from './positionTypes.js'
-import { getAllSkills } from './skills.js'
-import deviceSettings from './deviceSettings.js'
-import contactUs from './contactus.js'
+import { getAllPositionTypes } from './positionTypes'
+import { getAllSkills } from './skills'
+import { getWizardQuestionScenario } from './wizardQuestionScenario'
+import deviceSettings from './deviceSettings'
+import contactUs from './contactus'
 import {getCurrentClientInfo, talentSearchReducer, requestViewReducer, searchViewReducer} from './clientReducer'
 
 export default combineReducers({
@@ -26,6 +27,7 @@ export default combineReducers({
   contactUs: contactUs,
   allPositionTypes: getAllPositionTypes,
   allSkills: getAllSkills,
+  wizardQuestionScenario: getWizardQuestionScenario,
   talentSearchResult: talentSearchReducer,
   requestViewReducer,
   searchViewReducer,

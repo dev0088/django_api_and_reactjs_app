@@ -108,3 +108,16 @@ export const getAllSkills = () => ({
       ]
     }
 })
+
+export const getWizardQuestionScenario = () => ({
+  [RSAA]: {
+    endpoint: `${apiConfig.url}/position_wizard_question_scenario/all`,
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    types: [
+      types.WIZARD_QUESTION_SCENARIO.REQUEST,
+      types.WIZARD_QUESTION_SCENARIO.SUCCESS,
+      types.WIZARD_QUESTION_SCENARIO.FAILURE
+    ]
+  }
+})

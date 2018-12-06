@@ -11,7 +11,7 @@ import WizardSettingHeader from 'components/shiptalent/headers/wizardSettingHead
 import TalentForm from 'components/shiptalent/forms/talentForm';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
-import { getPrefixByWord, findPositionTypeByName } from 'utils/appUtils';
+import { getPrefixByWord, findPositionTypeByName, filterWizardQuestionScenarioByPositionName } from 'utils/appUtils';
 import styles from 'styles';
 
 class SelectPositionTypeWizard extends Component {
@@ -19,15 +19,17 @@ class SelectPositionTypeWizard extends Component {
     super(props);
     this.state = {
       allPositionTypes: [],
-      selectedPositionType: null
+      selectedPositionType: null,
+      positionWizardQuestions: []
     }
   }
 
   getInfoFromProps(props) {
-    const { talentInfo, allPositionTypes } = props
+    const { talentInfo, allPositionTypes, wizardQuestionScenario } = props
     let res = {
       allPositionTypes: [],
-      selectedPositionType: null
+      selectedPositionType: null,
+      positionWizardQuestions: []
     }
 
     if (talentInfo) {
@@ -38,6 +40,11 @@ class SelectPositionTypeWizard extends Component {
                  talentInfo.talent_position_sub_types[0].position_sub_type) {
         res.selectedPositionType = talentInfo.talent_position_sub_types[0].position_sub_type.position_type
       }
+
+      if (wizardQuestionScenario) {
+        res.positionWizardQuestions = filterWizardQuestionScenarioByPositionName(
+          wizardQuestionScenario, res.selectedPositionType)
+      }
     }
 
     return res
@@ -46,6 +53,7 @@ class SelectPositionTypeWizard extends Component {
   componentWillMount() {
     this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getCurrentTalentInfo()
+    this.props.talentActions.getWizardQuestionScenario()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +63,14 @@ class SelectPositionTypeWizard extends Component {
   }
 
   handleClickPositionTypeButton = (type, val) =>  {
-    this.setState({ [type]: val});
+    const { wizardQuestionScenario } = this.props
+
+    let positionWizardQuestions = filterWizardQuestionScenarioByPositionName(
+      wizardQuestionScenario, val)
+    this.setState({
+      [type]: val,
+      positionWizardQuestions
+    });
   }
 
   handleClickNextButton = () => {
@@ -150,15 +165,35 @@ class SelectPositionTypeWizard extends Component {
   }
 
   render() {
-    const { talentInfo, allPositionTypes } = this.props
-    const { selectedPositionType } = this.state
+    const { talentInfo, allPositionTypes, wizardQuestionScenario } = this.props
+    const { selectedPositionType, positionWizardQuestions } = this.state
     let prevPositionType = {}
     let nextLink = "/profile-wizard/select-position-sub-type"
 
     if (talentInfo && allPositionTypes && selectedPositionType) {
       prevPositionType = findPositionTypeByName(allPositionTypes, selectedPositionType)
       if (prevPositionType && prevPositionType.multi_selection) {
-        nextLink = "/profile-wizard/select-multi-position-sub-type"
+        // nextLink = "/profile-wizard/select-multi-position-sub-type"
+        nextLink = "/profile-wizard/select-multi-answer"
+      }
+    }
+    let isLast = positionWizardQuestions.length === 0 ? true : false
+    let currentScenarioStep = positionWizardQuestions[0]
+    let nextPath = isLast ? "/profile-wizard/lastWizard" : "/profile-wizard/select-multi-answer"
+
+    if (currentScenarioStep && currentScenarioStep.wizard_question) {
+      nextPath = currentScenarioStep.wizard_question.multi_selection
+        ? nextPath : "/profile-wizard/select-single-answer"
+    }
+
+    nextLink = {
+      pathname: nextPath,
+      state: {
+        currentScenarioStep: currentScenarioStep,
+        positionType: currentScenarioStep ? currentScenarioStep.position_type : null,
+        currentIndex: 0,
+        isFirst: true,
+        isLast: isLast
       }
     }
 
@@ -178,12 +213,13 @@ class SelectPositionTypeWizard extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, talentInfo, allPositionTypes } = state;
+  const { auth, talentInfo, allPositionTypes, wizardQuestionScenario } = state;
 
   return {
     auth: auth.access,
     talentInfo: talentInfo.value,
-    allPositionTypes: allPositionTypes.value
+    allPositionTypes: allPositionTypes.value,
+    wizardQuestionScenario: wizardQuestionScenario.value
   }
 }
 

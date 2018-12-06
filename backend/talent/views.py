@@ -1,6 +1,7 @@
 from talent.models import Talent
 from authentication.models import User
 from talent.serializers import TalentSerializer
+from talent.wizard_serializers import WizardTalentInfoSerializer
 from django.http import Http404
 from rest_framework.compat import coreapi, coreschema
 from rest_framework.views import APIView
@@ -19,6 +20,7 @@ from talent_sub_skill.models import TalentSubSkill
 
 from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
 
 
 class TalentViewSet(viewsets.ModelViewSet):
@@ -151,6 +153,98 @@ class TalentDetail(APIView):
                 )
             new_visa.save()
 
+    def add_talent_position_types(self, talent, talent_position_types):
+        for talent_position_type in talent_position_types:
+            position_type = talent_position_type.position_type
+            position_sub_types = talent_position_type.position_sub_types
+
+            if position_type:
+                # check position type and skip if exist, else add it
+                if 'id' in position_type:
+                    pt = PositionType.objects.get(id=position_type.id)
+                else:
+                    pt = PositionType.objects.get(name=position_type.name)
+
+                if pt:
+                    res_talent_position_type = TalentPositionType.objects.get(talent=talent, position_type=pt)
+
+                    if not res_talent_position_type:
+                        # add this item
+                        new_talent_position_type = TalentPositionType.object.create(
+                            talent=talent, position_type=pt
+                        )
+                        new_talent_position_type.save()
+
+                # add position sub types
+                if position_sub_types:
+                   self.add_talent_position_sub_types(talent, pt, position_sub_types)
+
+    def add_talent_position_sub_types(self, talent, position_type, position_sub_types):
+        for position_sub_type in position_sub_types:
+            # check position sub types and skill if exist, else add it.
+            if 'id' in position_sub_type:
+                pst = PositionSubType.objects.get(id=position_sub_type.id)
+            else:
+                pst = PositionSubType.objects.get(position_type=position_type, name=position_sub_type.name)
+
+            if pst:
+                res_talent_position_sub_type = TalentPositionSubType.objects.get(
+                    talent=talent, position_sub_type=pst
+                )
+
+                if not res_talent_position_sub_type:
+                    # add this item
+                    new_talent_position_sub_type = TalentPositionSubType.object.create(
+                        talent=talent, position_sub_type=pst
+                    )
+                    new_talent_position_sub_type.save()
+
+    def add_talent_skills(self, talent, talent_skills):
+        for talent_skill in talent_skills:
+            skill = talent_skill.skill
+            sub_skills = talent_skill.sub_skills
+
+            if skill:
+                # check skill and skip if exist, else add it
+                if 'id' in skill:
+                    sk = Skill.objects.get(id=skill.id)
+                else:
+                    sk = Skill.objects.get(name=skill.name)
+
+                if sk:
+                    res_talent_skill = TalentSkill.objects.get(talent=talent, skill=sk)
+
+                    if not res_talent_skill:
+                        # add this item
+                        new_talent_skill = TalentSkill.object.create(
+                            talent=talent, skill=sk
+                        )
+                        new_talent_skill.save()
+
+                # add position sub types
+                if sub_skills:
+                   self.add_talent_sub_skills(talent, sk, sub_skills)
+
+    def add_talent_sub_skills(self, talent, skill, sub_skills):
+        for sub_skill in sub_skills:
+            # check position sub types and skill if exist, else add it.
+            if 'id' in sub_skill:
+                ssk = SubSkill.objects.get(id=sub_skill.id)
+            else:
+                ssk = SubSkill.objects.get(skill=skill, name=sub_skill.name)
+
+            if ssk:
+                res_talent_sub_skill = TalentSubSkill.objects.get(
+                    talent=talent, sub_skill=ssk
+                )
+
+                if not res_talent_sub_skill:
+                    # add this item
+                    new_talent_sub_skill = TalentSubSkill.object.create(
+                        talent=talent, sub_skill=ssk
+                    )
+                    new_talent_sub_skill.save()
+
     def pickout_data(self, data, child_name):
         res = {}
         if child_name in data:
@@ -158,11 +252,13 @@ class TalentDetail(APIView):
             data.pop(child_name, None)
         return res
 
+    @swagger_auto_schema(responses={200: TalentSerializer(many=False)})
     def get(self, request, pk, format=None):
         talent_item = self.get_object(pk)
         serializer = TalentSerializer(talent_item)
         return Response(serializer.data)
 
+    @swagger_auto_schema(request_body=TalentSerializer, responses={200: TalentSerializer(many=False)})
     def put(self, request, pk, format=None):
         print('== request.data: ', request.data)
         talent_item = self.get_object(pk)
@@ -236,3 +332,37 @@ class TalentDetail(APIView):
         talent_item = self.get_object(pk)
         talent_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @swagger_auto_schema(request_body=WizardTalentInfoSerializer, responses={200: WizardTalentInfoSerializer(many=False)})
+    def post(self, request, pk, format=None):
+        print('== request.data: ', request.data)
+        talent_item = self.get_object(pk)
+        talent_data = request.data
+
+        # pick out position types
+        talent_position_types_data = self.pickout_data(talent_data, 'talent_position_types')
+
+        # pick out skills
+        talent_skills_data = self.pickout_data(talent_data, 'talent_skills')
+
+        serializer = WizardTalentInfoSerializer(talent_item, data=talent_data)
+        if serializer.is_valid():
+            serializer.save()
+
+            if talent_position_types_data:
+                self.add_talent_position_types(talent_item, talent_position_types_data)
+
+            if talent_skills_data:
+                self.add_talent_skills(talent_item, talent_skills_data)
+
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TalentAddPositionSubType(APIView):
+
+
+    def pickout_data(self, data, child_name):
+        res = {}
+        if child_name in data:
+            res = data[child_name]
+        return res

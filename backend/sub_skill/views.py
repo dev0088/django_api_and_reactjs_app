@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
 from sub_skill.models import SubSkill
 from sub_skill.serializers import SubSkillSerializer
 from django.http import Http404

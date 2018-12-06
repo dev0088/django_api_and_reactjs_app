@@ -27,6 +27,7 @@ class HomeScreen extends Component {
     this.props.shiptalentInfoActions.getShipTalentInfo()
     this.props.talentActions.getAllPositionTypes()
     this.props.talentActions.getAllSkills()
+    this.props.talentActions.getWizardQuestionScenario()
 
     this.setState({
       shiptalentInfo: this.props.shiptalentInfo.value
