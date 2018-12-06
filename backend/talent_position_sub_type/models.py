@@ -11,6 +11,7 @@ class TalentPositionSubTypeManager(models.Manager):
 class TalentPositionSubType(models.Model):
     talent = models.ForeignKey(Talent, related_name='talent_position_sub_types', on_delete=models.CASCADE)
     position_sub_type = models.ForeignKey(PositionSubType, related_name='talent_position_sub_types', on_delete=models.CASCADE)
+    # objects = models.Manager()
 
     def __str__(self):
         return '{talent}: {position_type} -> {position_sub_type}'.format(

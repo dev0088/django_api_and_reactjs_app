@@ -176,20 +176,38 @@ class SelectSingleAnswerWizard extends Component {
     if (singleSelectedAnswer) {
       if (singleSelectedAnswer.is_sub_skill) {
         data = {
-          talent_skills: [{name: singleSelectedAnswer.sub_skill.skill.name}],
-          talent_sub_skills: [{name: singleSelectedAnswer.sub_skill.name}],
+          talent_position_types: [],
+          talent_skills: [
+            {
+              skill: {id: singleSelectedAnswer.sub_skill.skill.id, name: singleSelectedAnswer.sub_skill.skill.name },
+              sub_skills: [
+                {
+                  id: singleSelectedAnswer.sub_skill.id,
+                  name: singleSelectedAnswer.sub_skill.name,
+                  skill: {
+                    id: singleSelectedAnswer.sub_skill.skill.id,
+                    name: singleSelectedAnswer.sub_skill.skill.name
+                  },
+                },
+              ]
+            },
+          ]
         }
-        TalentAPI.addTalentSkills(data, this.handleNextResponse)
       } else {
         data = {
-          talent_position_type: positionType.name,
-          talent_position_sub_types: [singleSelectedAnswer.position_sub_type.name]
+          talent_position_types: [
+            {
+              position_type: {id: positionType.id, name: positionType.name},
+              position_sub_types: [
+                {id: singleSelectedAnswer.position_sub_type.id, name: singleSelectedAnswer.position_sub_type.name},
+              ]
+            },
+          ],
+          talent_skills: []
         }
-        TalentAPI.addTalentSubPositions(data, this.handleNextResponse)
       }
+      TalentAPI.addTalentPositionAndSkills(data, this.handleNextResponse)
     }
-
-
   }
 
   handleNextResponse = (response, isFailed) => {
@@ -216,7 +234,7 @@ class SelectSingleAnswerWizard extends Component {
         if (answer.is_sub_skill) {
           title = answer.sub_skill.wizard_button_title
         } else {
-          title = answer.position_sub_type
+          title = answer.position_sub_type.wizard_button_title
         }
 
         let btnClass = singleSelectedAnswer && (singleSelectedAnswer.id === answer.id)

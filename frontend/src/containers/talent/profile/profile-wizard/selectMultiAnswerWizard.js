@@ -81,10 +81,6 @@ class SelectMultiAnswerWizard extends Component {
           res.prevScenarioStep = res.positionWizardQuestions[res.isFirst ? 0 : (res.currentIndex - 1)]
           res.nextScenarioStep = res.positionWizardQuestions[res.isLast ? 0 : (res.currentIndex + 1)]
 
-          if (res.isLast || !res.prevScenarioStep) {
-            console.log('==== xxx')
-          }
-
           res.backLink = {
             pathname: res.isFirst
                       ? "/profile-wizard/select-male"
@@ -149,14 +145,56 @@ class SelectMultiAnswerWizard extends Component {
   }
 
   handleClickNextButton = () => {
-    const { selectedAnswer, multiSelectedAnswers } = this.state
-    const { auth } = this.props
-    let data = {
-      talent_position_type: selectedAnswer,
-      talent_position_sub_types: multiSelectedAnswers,
+    const { selectedAnswer, multiSelectedAnswers, positionType } = this.state
+    let data = {}
+    let sub_skills = []
+    let position_sub_types = []
+
+    for(let i = 0; i < multiSelectedAnswers.length; i ++) {
+      let answer = multiSelectedAnswers[i]
+
+      if (answer.is_sub_skill) {
+        sub_skills.push(
+          {
+            id: answer.sub_skill.id,
+            name: answer.sub_skill.name,
+            skill: {
+              id: answer.sub_skill.skill.id,
+              name: answer.sub_skill.skill.name
+            },
+          }
+        )
+      } else {
+        position_sub_types.push(
+          {
+            id: answer.position_sub_type.id,
+            name: answer.position_sub_type.name
+          }
+        )
+      }
     }
 
-    // TalentAPI.saveTalentInfo(auth.user_id, data, this.handleNextResponse)
+    let talent_position_types = position_sub_types.length === 0
+      ? []
+      : [{
+        position_type: { id: positionType.id, name: positionType.name },
+        position_sub_types: position_sub_types
+      }]
+
+    let talent_skills = sub_skills.length === 0
+      ? []
+      : [{
+        skill: {id: sub_skills[0].skill.id, name: sub_skills[0].skill.name },
+        sub_skills: sub_skills
+      }]
+
+    data = {
+      talent_position_types: talent_position_types,
+      talent_skills: talent_skills
+    }
+
+    TalentAPI.addTalentPositionAndSkills(data, this.handleNextResponse)
+
   }
 
   handleNextResponse = (response, isFailed) => {
@@ -187,9 +225,9 @@ class SelectMultiAnswerWizard extends Component {
         let answer = answers[i]
         let title = ''
         if (answer.is_sub_skill) {
-          title = answer.sub_skill
+          title = answer.sub_skill.wizard_button_title
         } else {
-          title = answer.position_sub_type
+          title = answer.position_sub_type.wizard_button_title
         }
 
         let btnClass = findAnswer(multiSelectedAnswers, answer)
