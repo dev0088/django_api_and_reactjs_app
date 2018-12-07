@@ -1,19 +1,23 @@
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import { styles } from 'styles';
 
-const styles={
-  raisedButton: {
-    whiteSpace: "normal",
-    width: "240px",
-    textTransform: "none"
-  }
-}
+// const styles={
+//   raisedButton: {
+//     whiteSpace: "normal",
+//     width: "240px",
+//     textTransform: "none"
+//   }
+// }
+
 class InterviewStart extends React.Component {
   render() {
+    const { classes } = this.props
+
     let position_type = 'Cruise Staff';
     let page_id = 'Cruise Staff';
-
     if (this.props.history &&
       this.props.history.location &&
       this.props.history.location.state &&
@@ -31,12 +35,14 @@ class InterviewStart extends React.Component {
         </div>
         <div className="col-md-12">
           <Link to={`/interview-instruction/${page_id}`}>
-            <RaisedButton
-              label="Instructions"
-              className="btn-video-buttons"
-              style={styles.raisedButton}
-              primary={true}
-            />
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              className={classes.generalButtonClass}
+            >
+              {`INSTRUCTIONS`}
+            </Button>
           </Link>
         </div>
         <div className="video-interview-body" style={{marginTop: '50px', marginBottom: '50px'}}>
@@ -48,12 +54,14 @@ class InterviewStart extends React.Component {
         </div>
         <div className="col-md-12">
           <Link to={`/interview-device-allow/${page_id}`}>
-            <RaisedButton
-              label="Let's begin"
-              className="btn-video-buttons"
-              style={styles.raisedButton}
-              primary={true}
-            />
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              className={classes.generalButtonClass}
+            >
+              {`Let's Begin`}
+            </Button>
           </Link>
         </div>
       </div>
@@ -61,4 +69,4 @@ class InterviewStart extends React.Component {
   }
 }
 
-export default InterviewStart;
+export default withStyles(styles)(InterviewStart);

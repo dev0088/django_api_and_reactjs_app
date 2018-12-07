@@ -201,6 +201,13 @@ export const styles = theme => ({
     fontWeight: 600,
     textDecoration: 'underline'
   },
+  generalButtonClass: {
+    textTransform: 'none',
+    borderRadius: 0,
+    fontWeight: 'bold',
+    fontSize: '1.15rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+  },
   backButtonClass: {
     textTransform: 'none',
   },

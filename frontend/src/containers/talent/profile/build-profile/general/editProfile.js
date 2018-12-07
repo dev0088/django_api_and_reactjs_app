@@ -115,37 +115,46 @@ class EditProfile extends Component {
 		for (let i = 0; i < allPositionTypes.length; i ++) {
 			let positionType = allPositionTypes[i]
 
-			if (positionType.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-        let options = []
-        console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types)
-			  let group = {
-          label: positionType.name,
-          value: index ++,
-          // index: index ++,
-          isGroup: true,
-          isChecked: (talent_position_types && talent_position_types.length > 0 &&
-                      positionType.name === talent_position_types[0].position_type &&
-                      talent_position_sub_types &&  talent_position_sub_types.length === 0),
-          options: []
+      if (positionType.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE ||
+          !positionType.select_option_title) {
+			  continue;
+      }
+
+      let options = []
+      console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types)
+      let group = {
+        label: positionType.name,
+        value: index ++,
+        // index: index ++,
+        isGroup: true,
+        isChecked: (talent_position_types && talent_position_types.length > 0 &&
+                    positionType.name === talent_position_types[0].position_type &&
+                    talent_position_sub_types &&  talent_position_sub_types.length === 0),
+        options: []
+      }
+
+      for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
+        let positionSubType = positionType.position_sub_types[j]
+
+        if (!positionSubType.select_option_title) {
+          continue;
         }
 
-			  for (let j = 0; j < positionType.position_sub_types.length; j ++ ) {
-					let positionSubType = positionType.position_sub_types[j]
-					options.push({
-						label: positionSubType.name,
-						value: index ++,
-						group: positionType.name,
-            // index: index ++,
-						isGroup: false,
-						isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
-                          positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
-                          positionSubType.name === talent_position_sub_types[0].position_sub_type.name)
-					})
-				}
-        group.options = options
+        options.push({
+          label: positionSubType.name,
+          value: index ++,
+          group: positionType.name,
+          // index: index ++,
+          isGroup: false,
+          isChecked: (talent_position_sub_types &&  talent_position_sub_types.length > 0 &&
+                        positionType.name === talent_position_sub_types[0].position_sub_type.position_type &&
+                        positionSubType.name === talent_position_sub_types[0].position_sub_type.name)
+        })
+      }
+      group.options = options
 
-				groups.push(group)
-			}
+      groups.push(group)
+
 		}
 
 		return groups
@@ -158,43 +167,51 @@ class EditProfile extends Component {
     for (let i = 0; i < allSkills.length; i ++) {
       let skill = allSkills[i]
 
-      if (skill.name !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
-        let options = []
-        let group = {
-          label: skill.name,
-          value: skill.name,
-          index: index ++,
-          isGroup: true,
-          options: [],
-          isChecked: this.exitSkill('skill', skill.name, currentSkills),
-          multiSelection: skill.multi_selection,
-          data: skill
-        }
-
-        for (let j = 0; j < skill.sub_skills.length; j ++ ) {
-          let subSkill = skill.sub_skills[j]
-          options.push({
-            label: subSkill.name,
-            value: subSkill.name,
-            group: skill.name,
-            index: index ++,
-            isGroup: false,
-            isChecked: this.exitType(
-              'sub_skill',
-              subSkill.name,
-              currentSubSkills)
-          })
-        }
-        group.options = options
-
-        groups.push(group)
+      if (skill.name === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE ||
+          !skill.select_option_title) {
+        continue;
       }
+
+      let options = []
+      let group = {
+        label: skill.name,
+        value: skill.name,
+        index: index ++,
+        isGroup: true,
+        options: [],
+        isChecked: this.exitSkill('skill', skill.name, currentSkills),
+        multiSelection: skill.multi_selection,
+        data: skill
+      }
+
+      for (let j = 0; j < skill.sub_skills.length; j ++ ) {
+        let subSkill = skill.sub_skills[j]
+
+        if (!subSkill.select_option_title) {
+          continue;
+        }
+
+        options.push({
+          label: subSkill.name,
+          value: subSkill.name,
+          group: skill.name,
+          index: index ++,
+          isGroup: false,
+          isChecked: this.exitType(
+            'sub_skill',
+            subSkill.name,
+            currentSubSkills)
+        })
+      }
+      group.options = options
+
+      groups.push(group)
     }
 
     return groups
   }
 
-	isChckedPositionType = (name, positionTypes) => {
+	isCheckedPositionType = (name, positionTypes) => {
 		for(let i = 0; i < positionTypes.length; i ++ ) {
 			if (positionTypes[i].name === name) {
 				return true

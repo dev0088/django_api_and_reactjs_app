@@ -25,8 +25,9 @@ class SkillSerializer(serializers.ModelSerializer):
             'priority',
             'multi_selection',
             'related_position_type',
-            'video_audition_button_title',
+            'select_option_title',
             'wizard_button_title',
+            'video_audition_button_title',
             'question',
             'description',
             'sub_skills'

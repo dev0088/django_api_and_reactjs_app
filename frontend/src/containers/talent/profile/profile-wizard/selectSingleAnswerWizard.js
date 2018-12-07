@@ -83,7 +83,7 @@ class SelectSingleAnswerWizard extends Component {
 
           res.backLink = {
             pathname: res.isFirst
-              ? "/profile-wizard/select-male"
+              ? "/profile-wizard/select-position-type"
               : (res.prevScenarioStep.wizard_question.multi_selection
                 ? "/profile-wizard/select-multi-answer"
                 : "/profile-wizard/select-single-answer"),
@@ -174,6 +174,11 @@ class SelectSingleAnswerWizard extends Component {
     let data = {}
 
     if (singleSelectedAnswer) {
+
+      if (singleSelectedAnswer.not_add || singleSelectedAnswer.is_skippable) {
+        return;
+      }
+
       if (singleSelectedAnswer.is_sub_skill) {
         data = {
           talent_position_types: [],
@@ -288,7 +293,7 @@ class SelectSingleAnswerWizard extends Component {
           talentInfo={this.props.talentInfo}
           showSex={true}
           showPositionType={true}
-          showSkill={false}
+          showSkill={true}
         />
         <Spacer size={15} />
         <Grid container className={classes.root} spacing={24}>

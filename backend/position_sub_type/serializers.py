@@ -8,10 +8,11 @@ class PositionSubTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PositionSubType
         fields = (
-          'id',
-          'name',
-          'priority',
-          'position_type',
-          'video_audition_button_title',
-          'wizard_button_title'
+            'id',
+            'name',
+            'priority',
+            'position_type',
+            'select_option_title',
+            'wizard_button_title',
+            'video_audition_button_title'
         )

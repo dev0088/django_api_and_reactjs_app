@@ -5,8 +5,9 @@ from . import models
 @admin.register(models.PositionSubType)
 class PositionSubTypeAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'position_type_display', 'name', 'priority', 'video_audition_button_title',
-        'wizard_button_title')
+        'id', 'position_type_display', 'name', 'priority',
+        'select_option_title', 'wizard_button_title', 'video_audition_button_title',
+        )
     list_display_links = (
         'id', 'position_type_display', 'name', 'priority', 'video_audition_button_title',
         'wizard_button_title')

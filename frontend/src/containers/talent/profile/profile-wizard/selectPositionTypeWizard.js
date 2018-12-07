@@ -65,12 +65,14 @@ class SelectPositionTypeWizard extends Component {
   handleClickPositionTypeButton = (type, val) =>  {
     const { wizardQuestionScenario } = this.props
 
-    let positionWizardQuestions = filterWizardQuestionScenarioByPositionName(
-      wizardQuestionScenario, val)
-    this.setState({
-      [type]: val,
-      positionWizardQuestions
-    });
+    if (wizardQuestionScenario) {
+      let positionWizardQuestions = filterWizardQuestionScenarioByPositionName(
+        wizardQuestionScenario, val)
+      this.setState({
+        [type]: val,
+        positionWizardQuestions
+      });
+    }
   }
 
   handleClickNextButton = () => {

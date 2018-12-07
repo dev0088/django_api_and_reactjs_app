@@ -15,4 +15,5 @@ class WizardSubSkillSerializer(serializers.ModelSerializer):
             'priority',
             'skill',
             'wizard_button_title',
+            'select_option_title',
         )

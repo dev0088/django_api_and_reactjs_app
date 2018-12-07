@@ -17,5 +17,6 @@ class WizardQuestionAnswerSerializer(serializers.ModelSerializer):
             'sub_skill',
             'position_sub_type',
             'is_sub_skill',
-            'is_skippable'
+            'is_skippable',
+            'not_add'
         )

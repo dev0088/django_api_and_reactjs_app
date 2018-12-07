@@ -83,7 +83,7 @@ class SelectMultiAnswerWizard extends Component {
 
           res.backLink = {
             pathname: res.isFirst
-                      ? "/profile-wizard/select-male"
+                      ? "/profile-wizard/select-position-type"
                       : (res.prevScenarioStep.wizard_question.multi_selection
                         ? "/profile-wizard/select-multi-answer"
                         : "/profile-wizard/select-single-answer"),
@@ -281,7 +281,7 @@ class SelectMultiAnswerWizard extends Component {
           talentInfo={this.props.talentInfo}
           showSex={true}
           showPositionType={true}
-          showSkill={false}
+          showSkill={true}
         />
         <Spacer size={15} />
         <Grid container className={classes.root} spacing={24}>
