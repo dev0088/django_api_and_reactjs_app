@@ -14,9 +14,10 @@ class Skill(models.Model):
     related_position_type = models.ForeignKey(PositionType, related_name='related_skills', on_delete=models.CASCADE)
     description = models.CharField(blank=True, max_length=50)
     question = models.TextField(max_length=300, blank=True)
-    video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
+    select_option_title = models.CharField(blank=True, max_length=100, default='')
     wizard_button_title = models.CharField(blank=True, max_length=100, default='')
-    
+    video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
+
     def __str__(self):
         return self.name
 

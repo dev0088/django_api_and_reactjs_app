@@ -20,6 +20,7 @@ class SubSkill(models.Model):
     name = models.CharField(blank=False, max_length=50)
     caption = models.CharField(blank=True, max_length=50, default='')
     priority = models.IntegerField(blank=True, default=100)
+    select_option_title = models.CharField(blank=True, max_length=100, default='')
     wizard_button_title = models.CharField(blank=True, max_length=100, default='')
     video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
     form_title = models.CharField(blank=True, max_length=50, default='')

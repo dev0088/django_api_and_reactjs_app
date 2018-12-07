@@ -12,8 +12,9 @@ class PositionSubType(models.Model):
     position_type = models.ForeignKey(PositionType, related_name='position_sub_types', on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=50)
     priority = models.IntegerField(blank=True, default=100)
-    video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
+    select_option_title = models.CharField(blank=True, max_length=100, default='')
     wizard_button_title = models.CharField(blank=True, max_length=100, default='')
+    video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
 
     def __str__(self):
         return self.position_type.name + ' -> ' + self.name

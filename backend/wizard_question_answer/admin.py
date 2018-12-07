@@ -11,7 +11,8 @@ class WizardQuestionAnswerAdmin(admin.ModelAdmin):
         'position_sub_type_display',
         'sub_skill_display',
         'is_sub_skill',
-        'is_skippable'
+        'is_skippable',
+        'not_add'
     )
     list_display_links = (
         'id',

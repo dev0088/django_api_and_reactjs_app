@@ -19,8 +19,9 @@ class PositionTypeSerializer(serializers.ModelSerializer):
             'priority',
             'multi_selection',
             'position_sub_types',
-            'video_audition_button_title',
+            'select_option_title',
             'wizard_button_title',
+            'video_audition_button_title',
             'question'
         )
 

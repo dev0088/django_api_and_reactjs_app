@@ -128,7 +128,7 @@ class WizardSettingHeader extends Component {
         <Grid item wrap-xs-nowrap={true} lg={11} md={10} sm={9} xs={9}
               className={classes.wizardSettingHeaderButtonsGroupGridItem}
         >
-          {buttonItems}
+          { buttonItems }
         </Grid>
       </Grid>
     )
@@ -193,7 +193,12 @@ class WizardSettingHeader extends Component {
     }
 
     if (sub_skills.length === 0) {
-      return this.renderOnlySkillButton(skill, classes)
+      if (skill) {
+        return this.renderOnlySkillButton(skill, classes)
+      } else {
+        return <div/>
+      }
+
     }
     return this.renderSubSkillsButtons(sub_skills, classes)
   }

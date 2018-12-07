@@ -26,6 +26,7 @@ class WizardQuestionAnswer(models.Model):
     )
     is_sub_skill = models.BooleanField(default=False)
     is_skippable = models.BooleanField(default=False)
+    not_add = models.BooleanField(default=False)
 
     def __str__(self):
         name = ''

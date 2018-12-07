@@ -70,7 +70,7 @@ class LastWizard extends Component {
           showPositionType={true}
           showSkill={true}
         />
-        <Spacer size={20} />
+        <Spacer size={50} />
         <Typography className={classes.wizardSettingSubTitle}>
           {"Great."}
         </Typography>

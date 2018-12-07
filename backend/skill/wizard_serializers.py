@@ -18,5 +18,6 @@ class WizardSkillSerializer(serializers.ModelSerializer):
             'multi_selection',
             'related_position_type',
             'wizard_button_title',
+            'select_option_title',
             'question',
         )
