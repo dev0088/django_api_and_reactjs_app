@@ -121,7 +121,6 @@ class EditProfile extends Component {
       }
 
       let options = []
-      console.log('==== positionType, talent_position_types: ', positionType.name, talent_position_types)
       let group = {
         label: positionType.name,
         value: index ++,
@@ -303,7 +302,6 @@ class EditProfile extends Component {
   }
 
   handleSubPositionSelect = (groups) => {
-    console.log('==== handleSubPositionSelect: groups: ', groups)
     this.setState({
       // currentSubPositionType: item,
       currentPositionTypesGroup: groups,
@@ -373,7 +371,7 @@ class EditProfile extends Component {
 	groups2SubSkills(groups) {
 		let talent_skills = []
 		let talent_sub_skills = []
-    console.log('===== groups2SubSkills: groups: ', groups)
+
 		for (let i = 0; i < groups.length; i ++) {
 			let group = groups[i]
 			if (group.isChecked) {

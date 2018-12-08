@@ -133,7 +133,7 @@ class TalentDetail(APIView):
         TalentSubSkill.objects.filter(talent=talent).delete()
         # save all talent sub skills
         for talent_sub_skill in talent_sub_skills:
-            sub_skill = SubSkill.objects.get(name=talent_sub_skill['name'])
+            sub_skill = SubSkill.objects.filter(name=talent_sub_skill['name']).first()
             new_talent_sub_skill = TalentSubSkill.objects.create(
                     talent = talent,
                     sub_skill = sub_skill
@@ -339,7 +339,7 @@ class TalentDetail(APIView):
             if talent_visas_data:
                 self.save_talent_visas(talent_item, talent_visas_data)
 
-            return Response(serializer.data)
+            return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
