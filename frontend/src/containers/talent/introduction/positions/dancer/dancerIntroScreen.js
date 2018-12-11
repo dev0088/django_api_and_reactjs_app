@@ -10,16 +10,16 @@ class DancerIntro extends Component {
       ? this.props.history.location.state.position
       : null
     const nextLink = {
-      pathname: "/talent/video-audition/vocalist-main-intro",
+      pathname: "/talent/video-audition/dancer-main-intro",
       state: { position: position }
     }
     return (
       <TalentBuildProfileForm
         ContentLayout={DancerIntroForm}
-        formTitle={"My Vocal Audition Videos Instructions"}
-        formSubTitle={"(Vocalist)"}
+        formTitle={"My Dance Audition Videos Instructions"}
+        formSubTitle={"(Dancer)"}
         nextLink={nextLink}
-        nextButtonTitle={"Back to My Vocal Audition Videos Instructions"}
+        nextButtonTitle={"Back to My Dancer Audition Videos Instructions"}
         position={position}
       />
     )

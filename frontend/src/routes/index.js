@@ -71,6 +71,7 @@ import EditProfile from "containers/talent/profile/build-profile/general/editPro
 import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
 
 // Introduction routes
+import LandscapeOrientationIntro from 'containers/talent/introduction/general/landscapeOrientationIntroScreen'
 import VocalistIntroMain from 'containers/talent/introduction/positions/vocalist/vocalistIntroMainScreen'
 import VocalistIntro from 'containers/talent/introduction/positions/vocalist/vocalistIntroScreen'
 import VocalistWhoMovesIntro from 'containers/talent/introduction/positions/vocalist/vocalistWhoMovesIntroScreen'
@@ -79,6 +80,19 @@ import VocalistWhoActsIntro from 'containers/talent/introduction/positions/vocal
 import VocalistDancerWhoSingsIntro from 'containers/talent/introduction/positions/vocalist/vocalistDancerWhoSingsIntroScreen'
 import VocalistActorWhoSingsIntro from 'containers/talent/introduction/positions/vocalist/vocalistActorWhoSingsIntroScreen'
 import DancerIntroMain from 'containers/talent/introduction/positions/dancer/dancerIntroMainScreen'
+import DancerIntro from 'containers/talent/introduction/positions/dancer/dancerIntroScreen'
+import DancerWhoSingsIntro from 'containers/talent/introduction/positions/dancer/dancerWhoSingsIntroScreen'
+import DancerWhoActsIntro from 'containers/talent/introduction/positions/dancer/dancerWhoActsIntroScreen'
+import DancerDanceCombinationIntro from 'containers/talent/introduction/positions/dancer/dancerDanceCombinationIntroScreen'
+import DancerMovementCombinationIntro from 'containers/talent/introduction/positions/dancer/dancerMovementCombinationIntroScreen'
+import ActorIntroMain from 'containers/talent/introduction/positions/actor/actorIntroMainScreen'
+import ActorIntro from 'containers/talent/introduction/positions/actor/actorIntroScreen'
+import ActorWhoSingsIntro from 'containers/talent/introduction/positions/actor/actorWhoSingsIntroScreen'
+import ActorWhoSingsMoreIntro from 'containers/talent/introduction/positions/actor/actorWhoSingsMoreIntroScreen'
+import ActorWhoMovesIntro from 'containers/talent/introduction/positions/actor/actorWhoMovesIntroScreen'
+import ActorWhoDancesIntro from 'containers/talent/introduction/positions/actor/actorWhoDancesIntroScreen'
+import ActorVocalistWhoActsIntro from 'containers/talent/introduction/positions/actor/actorVocalistWhoActsIntroScreen'
+import ActorDancerWhoActsIntro from 'containers/talent/introduction/positions/actor/actorDancerWhoActsIntroScreen'
 
 // Footer routes
 import SubFaq from "containers/common/subFaq";
@@ -793,6 +807,132 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <DancerIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-sings-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerWhoSingsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-acts-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-dance-combination-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerDanceCombinationIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-movement-combination-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerMovementCombinationIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-sings-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorWhoSingsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-sings-more-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorWhoSingsMoreIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-moves-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorWhoMovesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-dances-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorWhoDancesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-vocalist-acts-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorVocalistWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/actor-dancer-acts-intro"
+      render={props => (
+        <TemplateTopbar>
+          <ActorDancerWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/landscape-orientation"
+      render={props => (
+        <TemplateTopbar>
+          <LandscapeOrientationIntro {...props} />
         </TemplateTopbar>
       )}
     />

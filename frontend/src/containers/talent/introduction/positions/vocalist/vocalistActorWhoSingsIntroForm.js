@@ -25,6 +25,7 @@ class VocalistActorWhoSingsIntroForm extends Component {
             <br/>
             <VocalistIntroCommon
               requiredName="ALL Actors Who Sing"
+              formTitle={this.props.formTitle}
             />
           </Grid>
           <Grid item lg={1} md={1} sm={1} xs={1} />

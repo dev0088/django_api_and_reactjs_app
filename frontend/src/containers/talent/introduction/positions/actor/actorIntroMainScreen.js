@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import TalentBuildProfileForm from 'components/shiptalent/forms/talentBuildProfileForm';
-import DancerIntroMainForm from './dancerIntroMainForm';
+import ActorIntroMainForm from './actorIntroMainForm';
 
 
-class DancerIntroMain extends Component {
+class ActorIntroMain extends Component {
 
   render() {
     const position = this.props.history && this.props.history.location && this.props.history.location.state
@@ -16,14 +16,14 @@ class DancerIntroMain extends Component {
 
     return (
       <TalentBuildProfileForm
-        ContentLayout={DancerIntroMainForm}
-        formTitle={"My Dance Audition Videos Instructions"}
+        ContentLayout={ActorIntroMainForm}
+        formTitle={"My Acting Audition Videos Instructions"}
         nextLink={nextLink}
-        nextButtonTitle={"Back to My Dance Audition Videos"}
+        nextButtonTitle={"Back to My Acting Audition Videos"}
         position={position}
       />
     )
   }
 }
 
-export default DancerIntroMain;
+export default ActorIntroMain;

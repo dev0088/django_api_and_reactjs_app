@@ -75,17 +75,17 @@ class DancerIntroMainForm extends Component {
         <Grid container spacing={16} justify="center" alignItems="center">
           {
             this.renderIntroductionButton('I am a ', 'Dancer',
-              generateLinkWithPosition(position, '/talent/video-audition/vocalist-general-intro')
+              generateLinkWithPosition(position, '/talent/video-audition/dancer-intro')
             )
           }
           {
             this.renderIntroductionButton('I am a ', 'Dancer Who Sings',
-              generateLinkWithPosition(position, '/talent/video-audition/vocalist-moves-intro')
+              generateLinkWithPosition(position, '/talent/video-audition/dancer-sings-intro')
             )
           }
           {
             this.renderIntroductionButton('I am a ', 'Dancer Who Acts',
-              generateLinkWithPosition(position, '/talent/video-audition/vocalist-dances-intro')
+              generateLinkWithPosition(position, '/talent/video-audition/dancer-acts-intro')
             )
           }
           <Grid item lg={12} md={12} sm={12} xs={12} >
@@ -93,13 +93,13 @@ class DancerIntroMainForm extends Component {
           </Grid>
           {
             this.renderIntroductionButton('', 'Dance Combination Video Instructions',
-              generateLinkWithPosition(position, '/talent/video-audition/vocalist-acts-intro'),
+              generateLinkWithPosition(position, '/talent/video-audition/dancer-dance-combination-intro'),
               'For Vocalists, Actors & Aerialists'
             )
           }
           {
             this.renderIntroductionButton('', 'Movement Combination Video Instructions',
-              generateLinkWithPosition(position, '/talent/video-audition/vocalist-dancer-sings-intro'),
+              generateLinkWithPosition(position, '/talent/video-audition/dancer-movement-combination-intro'),
               'For Vocalists, Actors & Aerialists'
             )
           }

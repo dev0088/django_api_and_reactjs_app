@@ -59,7 +59,7 @@ class TalentBuildProfileForm extends Component {
   renderContents() {
     const { ContentLayout, contentTitle,
       talentInfo, position, subSkill,
-      fromWizard
+      fromWizard, formTitle
     } = this.props
 
     return (
@@ -69,6 +69,7 @@ class TalentBuildProfileForm extends Component {
         position={position}
         subSkill={subSkill}
         fromWizard={fromWizard}
+        formTitle={formTitle}
         onSave={this.handleClickSave}
         onChange={this.handleChange}
       />
