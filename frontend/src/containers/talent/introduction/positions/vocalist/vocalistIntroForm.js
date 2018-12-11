@@ -13,7 +13,7 @@ class VocalistIntroForm extends Component {
         <Grid container spacing={16} justify="center" alignItems="center">
           <Grid item lg={1} md={1} sm={1} xs={1} />
           <Grid item lg={10} md={10} sm={10} xs={10}>
-            <VocalistIntroCommon />
+            <VocalistIntroCommon formTitle={this.props.formTitle} />
           </Grid>
           <Grid item lg={1} md={1} sm={1} xs={1} />
         </Grid>

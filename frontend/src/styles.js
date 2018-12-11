@@ -215,6 +215,7 @@ export const styles = theme => ({
   underlineText: {
     textDecoration: 'underline',
     display: 'inline',
+    fontSize: '1rem'
   },
   boldText: {
     fontWeight: 600,

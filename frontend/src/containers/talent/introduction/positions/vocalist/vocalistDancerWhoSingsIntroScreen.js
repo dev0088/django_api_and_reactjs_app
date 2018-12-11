@@ -4,11 +4,23 @@ import VocalistDancerWhoSingsIntroForm from './vocalistDancerWhoSingsIntroForm';
 
 
 class VocalistDancerWhoSingsIntro extends Component {
+  handleClickNextButton = (event) => {
+    event.preventDefault();
+    this.props.history.goBack();
+  };
 
   render() {
-    const position = this.props.history && this.props.history.location && this.props.history.location.state
-      ? this.props.history.location.state.position
-      : null;
+    let position = null;
+    let previousFormTitle = '';
+
+    if (this.props.history && this.props.history.location && this.props.history.location.state) {
+      let locationState = this.props.history.location.state
+      position = locationState.position;
+      previousFormTitle = locationState.previousFormTitle
+                          ? locationState.previousFormTitle
+                          : "My Vocal Audition Videos Instructions"
+    }
+
 
     const nextLink = {
       pathname: "/talent/video-audition/vocalist-main-intro",
@@ -21,7 +33,8 @@ class VocalistDancerWhoSingsIntro extends Component {
         formTitle={"My Vocal Audition Videos Instructions"}
         formSubTitle={"(Dancer Who Sings)"}
         nextLink={nextLink}
-        nextButtonTitle={"Back to My Vocal Audition Videos Instructions"}
+        nextButtonTitle={`Back to ${previousFormTitle}`}
+        handleClickNextButton={this.handleClickNextButton}
         position={position}
       />
     )

@@ -9,6 +9,13 @@ class VocalistIntroCommon extends Component {
   render() {
     const { classes } = this.props;
     let requiredName = this.props.requiredName ? this.props.requiredName : 'ALL Vocalists'
+    let landscapeOrientationLink = {
+      pathname: '/talent/video-audition/landscape-orientation',
+      state: {
+        position: null,
+        previousFormTitle: this.props.formTitle
+      }
+    };
 
     return (
       <div>
@@ -90,7 +97,7 @@ class VocalistIntroCommon extends Component {
             {" Landscape Orientation"}
           </Typography>
           {". "}
-          <Link to="?">
+          <Link to={landscapeOrientationLink}>
             <Typography color="primary" className={classes.boldUnderlineText}>
               What is Landscape Orientation?
             </Typography>
