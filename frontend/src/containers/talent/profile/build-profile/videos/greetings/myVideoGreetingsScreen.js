@@ -5,9 +5,9 @@ import TalentVideoGreetingsForm from './talentVideoGreetingsForm';
 
 class MyVideosGreetings extends Component {
   handleClickNextButton = (event) => {
-    console.log('==== MyVideosGreetings: event: ', event);
-    event.preventDefault();
-    this.props.history.goBack();
+    // console.log('==== MyVideosGreetings: event: ', event);
+    // event.preventDefault();
+    // this.props.history.goBack();
   };
 
   render() {

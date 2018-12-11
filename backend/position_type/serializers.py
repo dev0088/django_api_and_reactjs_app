@@ -22,7 +22,8 @@ class PositionTypeSerializer(serializers.ModelSerializer):
             'select_option_title',
             'wizard_button_title',
             'video_audition_button_title',
-            'question'
+            'question',
+            'introduction_link'
         )
 
 

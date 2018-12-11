@@ -333,7 +333,7 @@ class MyAvailability extends Component {
           <Grid container spacing={24}>
             <Grid item xs={12} />
             <Grid item xs={12} >
-              <Typography align="center" component="h3" variant="h3" gutterBottom>
+              <Typography align="center" component="h4" variant="h4" gutterBottom>
                 My Availability Calendar
               </Typography>
             </Grid>

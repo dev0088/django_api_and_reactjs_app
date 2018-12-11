@@ -326,3 +326,10 @@ export function findAnswerIndex(wizardQuestionAnswers, answer) {
       return index
   });
 }
+
+export function generateLinkWithPosition(position, link) {
+  return {
+    pathname: link,
+    state: { position }
+  }
+}

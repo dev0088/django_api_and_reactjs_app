@@ -152,13 +152,28 @@ export const styles = theme => ({
   },
   descriptionText: {
     color: '#2a3134',
-    // color: rgba(0, 0, 0, 0.87),
     fontSize: '1rem',
     fontWeight: 400,
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
-
+  descriptionStrongRed: {
+    color: theme.palette.red.main,
+    display: 'inline',
+    fontSize: '1rem',
+    fontWeight: 600,
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  descriptionItalicRed: {
+    color: theme.palette.red.main,
+    display: 'inline',
+    fontSize: '1rem',
+    fontWeight: 600,
+    fontStyle: 'italic',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
   h4: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
@@ -197,9 +212,23 @@ export const styles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  underlineText: {
+    textDecoration: 'underline',
+    display: 'inline',
+  },
+  boldText: {
+    fontWeight: 600,
+    display: 'inline',
+    fontSize: '1rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
   boldUnderlineText: {
     fontWeight: 600,
-    textDecoration: 'underline'
+    textDecoration: 'underline',
+    display: 'inline',
+    fontSize: '1rem',
+    lineHeight: '1.46429em',
   },
   generalButtonClass: {
     textTransform: 'none',
@@ -266,12 +295,12 @@ export const styles = theme => ({
   },
   talentProfileGuideButtonRequiredTitle: {
     fontWeight: 600,
-    color: theme.palette.thinRed.main,
+    color: theme.palette.red.light,
     textTransform: 'none'
   },
   talentProfileGuideButtonSubTitle: {
     fontWeight: 100,
-    color: theme.palette.thinWhite.main,
+    color: theme.palette.white.thin,
     textTransform: 'none'
   },
   talentProfileVideoGreetingImage: {
@@ -319,7 +348,7 @@ export const styles = theme => ({
     marginBottom: '4px',
     marginRight: '7px',
     '&:hover': {
-      color: theme.palette.thinBlack.main,
+      color: theme.palette.black.light,
     },
   },
   talentProfileSpecialInfoEditIcon: {
@@ -328,7 +357,7 @@ export const styles = theme => ({
     marginRight: '7px',
     marginTop: '3px',
     '&:hover': {
-      color: theme.palette.thinBlack.main,
+      color: theme.palette.black.light,
     },
   },
   talentProfileHeadlineEditIcon: {
@@ -337,7 +366,7 @@ export const styles = theme => ({
     marginRight: '7px',
     marginTop: '10px',
     '&:hover': {
-      color: theme.palette.thinBlack.main,
+      color: theme.palette.black.light,
     },
   },
   talentProfileEditIconEmpty: {
@@ -472,6 +501,26 @@ export const styles = theme => ({
   talentProfileVideoAuditionHelpfulHintImage: {
     width: '100%',
   },
+  talentIntroductionButton: {
+    borderRadius: '5px',
+    padding: '16px 8px',
+    display: 'block'
+  },
+  talentIntroductionButtonTitle: {
+    fontWeight: 100,
+    fontSize: '1rem',
+    color: theme.palette.white.main,
+    textTransform: 'none'
+  },
+  talentIntroductionButtonSuffixTitle: {
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    display: 'inline',
+    color: theme.palette.white.main,
+  },
   clientFormNextButton: {
     textTransform: 'none',
     borderRadius: '0px',
@@ -488,10 +537,12 @@ export const styles = theme => ({
     color: '#000000'
   },
   clientFormSubTitle: {
-    fontSize: '1rem',
+    fontSize: '1.25rem',
     fontWeight: 600,
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    //fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
+    marginTop: '0.5rem'
   },
   clientFormBackButton: {
     textTransform: 'none',
@@ -538,7 +589,7 @@ export const styles = theme => ({
     display: 'block',
     borderRadius: '5px',
     '&:hover': {
-      backgroundColor: theme.palette.thinBlack.main,
+      backgroundColor: theme.palette.black.light,
     },
   },
   clientTalentViewVideoButtonGridItem: {
@@ -550,7 +601,7 @@ export const styles = theme => ({
     display: 'block',
     borderRadius: '10px',
     '&:hover': {
-      backgroundColor: theme.palette.thinBlack.main
+      backgroundColor: theme.palette.black.light
     },
   },
   clientTalentViewVideoButtonText: {
@@ -562,7 +613,7 @@ export const styles = theme => ({
     color: theme.palette.white.main
   },
   clientTalentViewVideoButtonStatusText: {
-    color: theme.palette.thinWhite.main,
+    color: theme.palette.white.thin,
     textTransform: 'none',
   }
 });
@@ -582,16 +633,21 @@ export const theme = createMuiTheme ({
       main: '#20c997'
     },
     white: {
-      main: '#FFFFFF'
+      main: '#FFFFFF',
+      light: grey[100],
+      dark: grey[300],
+      thin: '#d6d7d8',
+      contrastText: '#fff'
     },
     black: {
-      main: grey[900]
+      main: grey[900],
+      thin: grey[600],
+      light: grey[600],
     },
-    thinBlack: {
-      main: grey[600]
-    },
-    thinWhite: {
-      main: '#d6d7d8'
+    grey: {
+      main: grey[900],
+      dark: grey[800],
+      light: grey[400]
     },
     darkGrey: {
       main: grey[800]
@@ -600,10 +656,9 @@ export const theme = createMuiTheme ({
       main: grey[400]
     },
     red: {
-      main: '#C00'
-    },
-    thinRed: {
-      main: red[400]
+      main: '#C00',
+      thin: red[400],
+      light: red[400]
     }
   },
   typography: {

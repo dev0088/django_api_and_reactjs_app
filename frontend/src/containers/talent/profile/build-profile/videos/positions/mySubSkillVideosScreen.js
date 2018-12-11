@@ -8,7 +8,6 @@ import AuditionVideoType3Form from 'containers/talent/profile/build-profile/vide
 
 class MySubSkillVideos extends Component {
   handleClickNextButton = (event) => {
-    console.log('==== MyVideosGreetings: event: ', event);
     event.preventDefault();
     this.props.history.goBack();
   };

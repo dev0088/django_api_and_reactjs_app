@@ -144,12 +144,16 @@ class TalentPositionVideosForm extends Component {
   renderContents() {
     const { classes, contentTitle } = this.props
     const { position, checkedOptOut} = this.state
+    const link =  {
+      pathname: position ? position.introduction_link : '#',
+      state: { position: position }
+    }
 
     return (
       <Panel title={contentTitle}>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <ColumnButton
-            link = {'/talent/video/position/introduction'}
+            link = {link}
             color="primary"
             itemClass = {classes.talentProfileGuideButtonItem}
             buttonClass = {classes.talentProfileGuideButton}
