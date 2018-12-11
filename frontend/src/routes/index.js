@@ -70,6 +70,16 @@ import MyMedical from "containers/talent/profile/build-profile/medical/myMedical
 import EditProfile from "containers/talent/profile/build-profile/general/editProfile";
 import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
 
+// Introduction routes
+import VocalistIntroMain from 'containers/talent/introduction/positions/vocalist/vocalistIntroMainScreen'
+import VocalistIntro from 'containers/talent/introduction/positions/vocalist/vocalistIntroScreen'
+import VocalistWhoMovesIntro from 'containers/talent/introduction/positions/vocalist/vocalistWhoMovesIntroScreen'
+import VocalistWhoDancesIntro from 'containers/talent/introduction/positions/vocalist/vocalistWhoDancesIntroScreen'
+import VocalistWhoActsIntro from 'containers/talent/introduction/positions/vocalist/vocalistWhoActsIntroScreen'
+import VocalistDancerWhoSingsIntro from 'containers/talent/introduction/positions/vocalist/vocalistDancerWhoSingsIntroScreen'
+import VocalistActorWhoSingsIntro from 'containers/talent/introduction/positions/vocalist/vocalistActorWhoSingsIntroScreen'
+import DancerIntroMain from 'containers/talent/introduction/positions/dancer/dancerIntroMainScreen'
+
 // Footer routes
 import SubFaq from "containers/common/subFaq";
 import Faq from "containers/common/faq";
@@ -712,6 +722,78 @@ const Index = () => (
       <TemplateTopbar>
         <MyAvailability {...props} />
       </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-general-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-moves-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistWhoMovesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-dances-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistWhoDancesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-acts-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-dancer-sings-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistDancerWhoSingsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/vocalist-actor-sings-intro"
+      render={props => (
+        <TemplateTopbar>
+          <VocalistActorWhoSingsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/dancer-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <DancerIntroMain {...props} />
+        </TemplateTopbar>
       )}
     />
 

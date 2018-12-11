@@ -13,4 +13,5 @@ class WizardPositionTypeSerializer(serializers.ModelSerializer):
             'priority',
             'wizard_button_title',
             'select_option_title',
+            'introduction_link'
         )

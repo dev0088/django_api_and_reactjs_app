@@ -14,6 +14,7 @@ class PositionType(models.Model):
     wizard_button_title = models.CharField(blank=True, max_length=100, default='')
     video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
     question = models.TextField(max_length=300, blank=True)
+    introduction_link = models.CharField(blank=True, max_length=1024)
 
     def __str__(self):
         return self.name

@@ -34,7 +34,7 @@ class ProfileWizardForm extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" component="h3" variant="h3">
+            <Typography align="center" component="h4" variant="h4">
               {formTitle}
             </Typography>
             <Typography align="center" className={classes.clientFormSubTitle}>

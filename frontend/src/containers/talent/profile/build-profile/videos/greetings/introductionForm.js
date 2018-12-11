@@ -2,16 +2,11 @@ import React, {Component} from 'react';
 import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Panel from 'components/general/panel';
-import ColumnButton from 'components/shiptalent/buttons/columnButton';
-import * as talentActions from 'actions/talentActions';
 import { styles } from 'styles';
-import Spacer from "components/general/spacer";
 
 
 class IntroductionForm extends Component {
