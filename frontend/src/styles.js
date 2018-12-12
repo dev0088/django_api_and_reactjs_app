@@ -150,6 +150,23 @@ export const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  descriptionUl: {
+    paddingInlineStart: '15px',
+  },
+  olParentheses: {
+    counterReset: 'list',
+    paddingInlineStart: '0px',
+    '& > li': {
+      listStyle: 'none',
+      '&:before': {
+        textAlign: 'center',
+        content: `counter(list) ") "`,
+        counterIncrement: 'list',
+        paddingRight: '0.5rem'
+      }
+    },
+
+  },
   descriptionText: {
     color: '#2a3134',
     fontSize: '1rem',
@@ -231,6 +248,12 @@ export const styles = theme => ({
     fontSize: '1rem',
     lineHeight: '1.46429em',
   },
+  italicText: {
+    fontStyle: 'italic',
+  },
+  centerText: {
+    textAlign: 'center',
+  },
   generalButtonClass: {
     textTransform: 'none',
     borderRadius: 0,
@@ -253,6 +276,24 @@ export const styles = theme => ({
     textTransform: 'none',
     borderRadius: '0px',
     primaryColor: theme.palette.white.main,
+  },
+  talentImportantRegardingButton: {
+    display: 'block',
+    borderRadius: '5px',
+    color: theme.palette.white.main,
+    boxShadow: 'none',
+    backgroundColor: '#C00',
+    '&:hover': {
+      backgroundColor: '#ab003c'
+    }
+  },
+  talentImportantRegardingButtonTitle: {
+    ontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.black.main,
   },
   talentProfileGuideButtonItem: {
     textAlign: 'center',

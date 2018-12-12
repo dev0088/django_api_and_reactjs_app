@@ -7,12 +7,11 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
 import ImportantRegardingButton from 'components/shiptalent/buttons/importantRegardingButton';
-import Spacer from "components/general/spacer";
-import { generateLinkWithPosition } from 'utils/appUtils';
+import { generateLinkWithPosition } from 'utils/appUtils'
 import styles from 'styles';
+import Spacer from "components/general/spacer";
 
-
-class ActorIntroMainForm extends Component {
+class AerialistIntroMainForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,38 +75,33 @@ class ActorIntroMainForm extends Component {
       <Panel>
         <Grid container spacing={16} justify="center" alignItems="center">
           {
-            this.renderIntroductionButton('I am an ', 'Actor',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-intro')
+            this.renderIntroductionButton('I am an ', 'Aerialist',
+              generateLinkWithPosition(position, '/talent/video-audition/aerialist-intro')
             )
           }
           {
-            this.renderIntroductionButton('I am an ', 'Actor Who Sings',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-sings-intro')
+            this.renderIntroductionButton('I am an ', 'Aerialist Who Sings',
+              generateLinkWithPosition(position, '/talent/video-audition/aerialist-sings-intro')
             )
           }
           {
-            this.renderIntroductionButton('I am an ', 'Actor Who Moves',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-moves-intro')
+            this.renderIntroductionButton('I am an ', 'Aerialist Who Moves',
+              generateLinkWithPosition(position, '/talent/video-audition/aerialist-moves-intro')
             )
           }
           {
-            this.renderIntroductionButton('I am an ', 'Actor Who Dances',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-dances-intro')
+            this.renderIntroductionButton('I am an ', 'Aerialist Who Dances',
+              generateLinkWithPosition(position, '/talent/video-audition/aerialist-dances-intro')
             )
           }
           {
-            this.renderIntroductionButton('I am a ', 'Vocalist Who Acts',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-vocalist-acts-intro')
-            )
-          }
-          {
-            this.renderIntroductionButton('I am a ', 'Dancer Who Acts',
-              generateLinkWithPosition(position, '/talent/video-audition/actor-dancer-acts-intro')
+            this.renderIntroductionButton('I am a ', 'Aerialist Who Acts',
+              generateLinkWithPosition(position, '/talent/video-audition/aerialist-acts-intro')
             )
           }
         </Grid>
 
-        <Spacer size={50} />
+        <Spacer size={50}/>
 
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
           <Grid item lg={6} md={6} sm={6} xs={10} className={classes.talentProfileGuideButtonItem} >
@@ -128,4 +122,4 @@ class ActorIntroMainForm extends Component {
   }
 }
 
-export default withStyles(styles)(ActorIntroMainForm);
+export default withStyles(styles)(AerialistIntroMainForm);

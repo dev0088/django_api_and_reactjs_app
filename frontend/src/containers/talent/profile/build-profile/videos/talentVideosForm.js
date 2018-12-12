@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Panel from 'components/general/panel';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
+import ImportantRegardingButton from 'components/shiptalent/buttons/importantRegardingButton';
 import Spacer from "components/general/spacer";
 import * as talentActions from 'actions/talentActions';
 import { getPathByPositionName } from 'utils/appUtils';
@@ -123,14 +124,20 @@ class TalentVideosForm extends Component {
           </Grid>
           <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
-        <Spacer size={40}/>
-        <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={12}/>
-            <Typography gutterBottom variant='Subheading'>
-              <b>{"Video Interviews (required)"}</b>
+        <Spacer size={50}/>
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <Grid item lg={7} >
+            <Typography className={[classes.descriptionText, classes.italicText, classes.centerText]}>
+              <Typography className={classes.boldText}>
+                {"Video Interviews (required)"}
+              </Typography>
               {` are located within the section of your primary discripline
                 (vocalist, dancer, musician, techinician, cruise staff or youth staff).`}
             </Typography>
+          </Grid>
+          <Grid item lg={12} md={12} xs={12}>
+            <ImportantRegardingButton formTitle={this.props.formTitle} />
+          </Grid>
         </Grid>
       </Panel>
     )

@@ -93,6 +93,17 @@ import ActorWhoMovesIntro from 'containers/talent/introduction/positions/actor/a
 import ActorWhoDancesIntro from 'containers/talent/introduction/positions/actor/actorWhoDancesIntroScreen'
 import ActorVocalistWhoActsIntro from 'containers/talent/introduction/positions/actor/actorVocalistWhoActsIntroScreen'
 import ActorDancerWhoActsIntro from 'containers/talent/introduction/positions/actor/actorDancerWhoActsIntroScreen'
+import AerialistIntroMain from 'containers/talent/introduction/positions/aerialist/aerialistIntroMainScreen'
+import AerialistIntro from 'containers/talent/introduction/positions/aerialist/aerialistIntroScreen'
+import AerialistWhoSingsIntro from 'containers/talent/introduction/positions/aerialist/aerialistWhoSingsIntroScreen'
+import AerialistWhoSingsMoreIntro from 'containers/talent/introduction/positions/aerialist/aerialistWhoSingsMoreIntroScreen'
+import AerialistWhoMovesIntro from 'containers/talent/introduction/positions/aerialist/aerialistWhoMovesIntroScreen'
+import AerialistWhoDancesIntro from 'containers/talent/introduction/positions/aerialist/aerialistWhoDancesIntroScreen'
+import AerialistWhoActsIntro from 'containers/talent/introduction/positions/aerialist/aerialistWhoActsIntroScreen'
+import MusicianIntroMain from 'containers/talent/introduction/positions/musician/musicianIntroMainScreen'
+import TechnicianIntroMain from 'containers/talent/introduction/positions/technician/technicianIntroMainScreen'
+import CruiseStaffIntroMain from 'containers/talent/introduction/positions/cruise-staff/cruiseStaffIntroMainScreen'
+import YouthStaffIntroMain from 'containers/talent/introduction/positions/youth-staff/youthStaffIntroMainScreen'
 
 // Footer routes
 import SubFaq from "containers/common/subFaq";
@@ -924,6 +935,105 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <ActorDancerWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-sings-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistWhoSingsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-sings-more-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistWhoSingsMoreIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-moves-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistWhoMovesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-dances-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistWhoDancesIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/aerialist-acts-intro"
+      render={props => (
+        <TemplateTopbar>
+          <AerialistWhoActsIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/musician-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <MusicianIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/technician-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <TechnicianIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/cruise-staff-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <CruiseStaffIntroMain {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent/video-audition/youth-staff-main-intro"
+      render={props => (
+        <TemplateTopbar>
+          <YouthStaffIntroMain {...props} />
         </TemplateTopbar>
       )}
     />

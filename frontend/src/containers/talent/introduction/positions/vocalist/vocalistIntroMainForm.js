@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
+import ImportantRegardingButton from 'components/shiptalent/buttons/importantRegardingButton';
+import Spacer from "components/general/spacer";
 import { generateLinkWithPosition } from 'utils/appUtils'
 import styles from 'styles';
 
@@ -96,6 +98,14 @@ class VocalistIntroMainForm extends Component {
               generateLinkWithPosition(position, '/talent/video-audition/vocalist-actor-sings-intro')
             )
           }
+        </Grid>
+
+        <Spacer size={50} />
+
+        <Grid container spacing={16} direction="column" justify="center" alignItems="center">
+          <Grid item lg={7} md={7} sm={7} xs={10} className={classes.talentProfileGuideButtonItem} >
+            <ImportantRegardingButton formTitle={this.props.formTitle} />
+          </Grid>
         </Grid>
       </Panel>
     )

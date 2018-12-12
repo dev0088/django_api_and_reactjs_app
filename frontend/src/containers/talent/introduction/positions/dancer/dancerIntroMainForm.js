@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Panel from 'components/general/panel';
+import ImportantRegardingButton from 'components/shiptalent/buttons/importantRegardingButton';
 import { generateLinkWithPosition } from 'utils/appUtils'
 import styles from 'styles';
 import Spacer from "../../../../../components/general/spacer";
@@ -103,6 +104,14 @@ class DancerIntroMainForm extends Component {
               'For Vocalists, Actors & Aerialists'
             )
           }
+        </Grid>
+
+        <Spacer size={50} />
+
+        <Grid container spacing={16} direction="column" justify="center" alignItems="center">
+          <Grid item lg={6} md={6} sm={6} xs={10} className={classes.talentProfileGuideButtonItem} >
+            <ImportantRegardingButton formTitle={this.props.formTitle} />
+          </Grid>
         </Grid>
       </Panel>
     )

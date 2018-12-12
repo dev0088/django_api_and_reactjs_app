@@ -27,17 +27,24 @@ class IntroductionForm extends Component {
 
   renderContents() {
     const { classes, contentTitle } = this.props
+    let landscapeOrientationLink = {
+      pathname: '/talent/video-audition/landscape-orientation',
+      state: {
+        position: null,
+        previousFormTitle: this.props.formTitle
+      }
+    };
 
     return (
       <Panel title={contentTitle}>
-        <Grid container spacing={24} direction="column" justify="flex-start" alignItems="flex-start">
-          <Grid item xl={1} lg={1} xs={12} />
-          <Grid item xl={10} lg={10} md={12} xs={12}>
-            <p>
+        <Grid container spacing={16}  justify="center" alignItems="center">
+          <Grid item xl={1} lg={1} md={1} xs={1} />
+          <Grid item xl={10} lg={10} md={10} xs={10}>
+            <Typography className={classes.descriptionText}>
               {`The Video Greeting and Introduction is a 90- to 120-second presentation on camera
                 in which you tell cruise line casting directors and hiring managers the following
                 (at a minimum, be certain to include all of these topics):`}
-              <ul>
+              <ul className={classes.descriptionUl}>
                 <li>
                   {"Your name, age and nationality"}
                 </li>
@@ -53,47 +60,56 @@ class IntroductionForm extends Component {
                   {`The reasons why you want to work at sea on a cruise ship`}
                 </li>
               </ul>
-              <p>
-                {`Personality is a big part of working on a cruise ship, so let your personality
-                  shine through in the video.`}
-              </p>
-              <p>
-                {`Dress sharp and look your best, including make-up for the ladies.
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Personality is a big part of working on a cruise ship, so let your personality
+                shine through in the video.`}
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Dress sharp and look your best, including make-up for the ladies.
                 No sunglasses, hats or anything else that “hides” you in any way.`}
-              </p>
-              <p>
-                {`Your video should be shot from the waist up so that casting directors and
-                  hiring managers can see your face clearly.  Speak directly to the camera.`}
-              </p>
-              <p>
-                {`Your video should be in English only.  However, if you are fluent or conversant
-                  in another language, you should create a separate Video Greeting and Introduction
-                  for each additional language.  Speaking two or more languages can give you a
-                  significant competitive advantage in the auditioning and hiring process.`}
-              </p>
-              <p>
-                {`Your video should be between 1.5- and 2-minutes in length.  No shorter; no longer.`}
-              </p>
-              <p>
-                {`In general, your Video Greeting and Introduction should be an accurate representation
-                  of how you will interact with cruise guests on a daily basis.`}
-              </p>
-              <p>
-                {`Be sure to trim the beginning and ending of your video so that there is no
-                  “dead space” before or after you speak.  If you’re using your smartphone camera,
-                   always remember to shoot in `}
-                   <b className={classes.boldUnderlineText}>
-                     {`Landscape Orientation.`}
-                   </b>
-              </p>
-              <p>
-                <Link to="#">
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Your video should be shot from the waist up so that casting directors and
+                hiring managers can see your face clearly.  Speak directly to the camera.`}
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Your video should be in English only.  However, if you are fluent or conversant
+                in another language, you should create a separate Video Greeting and Introduction
+                for each additional language.  Speaking two or more languages can give you a
+                significant competitive advantage in the auditioning and hiring process.`}
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Your video should be between 1.5- and 2-minutes in length.  No shorter; no longer.`}
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`In general, your Video Greeting and Introduction should be an accurate representation
+                of how you will interact with cruise guests on a daily basis.`}
+            </Typography>
+            <br/>
+            <Typography className={classes.descriptionText}>
+              {`Be sure to trim the beginning and ending of your video so that there is no
+                “dead space” before or after you speak.  If you’re using your smartphone camera,
+                 always remember to shoot in `}
+              <Typography className={classes.boldUnderlineText}>
+                {`Landscape Orientation.`}
+              </Typography>
+            </Typography>
+            <Typography color="primary" className={classes.descriptionText}>
+              <Link to={landscapeOrientationLink}>
+                <Typography color="primary" className={classes.boldUnderlineText}>
                   {`What is Landscape Orientation?`}
-                </Link>
-              </p>
-            </p>
+                </Typography>
+              </Link>
+            </Typography>
           </Grid>
-          <Grid item xl={1} lg={1} xs={12} />
+          <Grid item xl={1} lg={1} md={1} xs={1} />
         </Grid>
 
       </Panel>
