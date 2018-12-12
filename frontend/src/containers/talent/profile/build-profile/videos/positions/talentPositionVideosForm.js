@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Panel from 'components/general/panel';
 import Spacer from "components/general/spacer";
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
+import ImportantRegardingButton from 'components/shiptalent/buttons/importantRegardingButton';
 import * as talentActions from 'actions/talentActions';
 import { findRelatedSkillByPositionName } from 'utils/appUtils';
 import { styles } from 'styles';
@@ -142,12 +143,19 @@ class TalentPositionVideosForm extends Component {
   }
 
   renderContents() {
-    const { classes, contentTitle } = this.props
-    const { position, checkedOptOut} = this.state
+    const { classes, contentTitle } = this.props;
+    const { position, checkedOptOut} = this.state;
     const link =  {
       pathname: position ? position.introduction_link : '#',
       state: { position: position }
-    }
+    };
+    let landscapeOrientationLink = {
+      pathname: '/talent/video-audition/landscape-orientation',
+      state: {
+        position: null,
+        previousFormTitle: this.props.formTitle
+      }
+    };
 
     return (
       <Panel title={contentTitle}>
@@ -183,22 +191,19 @@ class TalentPositionVideosForm extends Component {
           </Grid>
           <Grid item lg={3} md={2} sm={1} xs={2} />
         </Grid>
-        <Spacer size={40}/>
-        <Grid container spacing={24} justify="center" alignItems="center">
-          <Grid item lg={1} md={1} xs={12}/>
+        <Spacer size={50}/>
+        <Grid container spacing={16} direction="column" justify="center" alignItems="center">
+          <Grid item lg={12} md={12} xs={12}>
+            <ImportantRegardingButton formTitle={this.props.formTitle} />
+          </Grid>
           <Grid item lg={10} md={10} xs={12}>
-            <Typography
-              gutterBottom
-              variant='Subheading'
-              className={classes.talentProfileVideoAuditionDescriptionText}
+            <Typography className={classes.talentProfileVideoAuditionDescriptionText}
             >
               {`NOTE: You will see your uploaded ${position ? position.name : ''} Audition Videos in your Profile immediately. However, before casing directors can see the uploaded ${position ? position.name : ''} Audition Videos in your Profile, they must be reviewed and approved by ShipTalent.com.`}
               <br/>
               {`(usually within 24 hours)`}
             </Typography>
           </Grid>
-          <Grid item lg={1} md={1} xs={12}/>
-          <Grid item lg={2} md={1} sm={12} xs={12}/>
           <Grid item lg={8} md={10} sm={12} xs={12}>
             <FormControlLabel
               control={
@@ -213,7 +218,6 @@ class TalentPositionVideosForm extends Component {
               I'll not be uploading any ${position ? position.name : ''} Audition Videos (you may opt back in at any time by unchecking the box)`}
             />
           </Grid>
-          <Grid item lg={2} md={1} sm={12} xs={12}/>
         </Grid>
       </Panel>
     )
