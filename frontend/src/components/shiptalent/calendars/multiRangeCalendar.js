@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import ClearIcon from '@material-ui/icons/Clear';
+import ClearRounded from '@material-ui/icons/ClearRounded';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -64,10 +66,6 @@ class MultiRangeCalendar extends Component {
       res.push(this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate));
     }
 
-    if (year === "2018" && month === 5) {
-      console.log('=== convertStr2Date: ', res);
-    }
-
     return res;
   };
 
@@ -119,19 +117,31 @@ class MultiRangeCalendar extends Component {
     })
   }
 
-  handleRangeSelect = (range, year, month) => {
+  handleRangeSelect = (selectedRange, year, month) => {
     const { ranges, selections } = this.state;
     let newSelections = selections + 1;
-    let newRanges = ranges;
-    console.log(`===== handleRangeSelect: range: `, range);
-    console.log(`===== key: `, `selection-${year}-${month}-${selections}`);
-    let firstRange = range[Object.keys(range)[0]];
+    let newRanges = [];
+    let firstRange = selectedRange[Object.keys(selectedRange)[0]];
     let newRange = {
       startDate: firstRange.startDate,
       endDate: firstRange.endDate,
       key: `selection-${year}-${month}-${selections + 1}`,
       color: '#3d91ff'
     };
+
+    // Check previous ranges and overwrite this rage
+    for (let i = 0; i < ranges.length; i ++) {
+      let range = ranges[i];
+
+      if (((newRange.startDate >= range.startDate) && (newRange.startDate <= range.endDate)) ||
+          ((newRange.endDate >= range.startDate) && (newRange.endDate <= range.endDate)) ||
+          ((newRange.startDate <= range.startDate) && (newRange.endDate >= range.endDate))
+      ) {
+        // Nothing
+      } else {
+        newRanges.push(range);
+      }
+    }
 
     newRanges.push(newRange);
 
@@ -140,6 +150,31 @@ class MultiRangeCalendar extends Component {
     }
 
     this.setState({ ranges: newRanges, selections: newSelections }, () => {
+      // const { onChange } = this.props;
+      // const { ranges } = this.state;
+      // if (onChange) {
+      //   let strRanges = this.convertDate2Str(newRanges);
+      //   onChange(strRanges, year, month);
+      // }
+    });
+    const { onChange } = this.props;
+    if (onChange) {
+      let strRanges = this.convertDate2Str(newRanges);
+      onChange(strRanges, year, month);
+    }
+  };
+
+  handleRangeFocusChange = (focusedRange) => {
+    this.setState({
+      ranges: this.removeDefaultFocusRange(this.state.ranges, this.state.defaultFocusRangeKey)
+    });
+  };
+
+  handleClickClear = () => {
+    const { year, month, defaultFocusRangeKey, minDate } = this.state;
+    this.setState({
+      ranges: [this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate)]
+    }, () => {
       const { onChange } = this.props;
       const { ranges } = this.state;
       if (onChange) {
@@ -149,17 +184,22 @@ class MultiRangeCalendar extends Component {
     });
   };
 
-  handleRangeFocusChange = (focusedRange) => {
-    this.setState({
-      ranges: this.removeDefaultFocusRange(this.state.ranges, this.state.defaultFocusRangeKey)
-    });
-  };
-
   render() {
     const { year, month, minDate, maxDate, ranges, focusedRange } = this.state
+    const { classes } = this.props;
 
     return (
       <Grid container spacing={0}>
+        <Grid item xs={12} className={classes.talentAvailabilityCalendarDeleteButtonGridItem}>
+          <Button
+            variant="contained"
+            aria-label="Clear"
+            className={classes.talentAvailabilityCalendarDeleteButton}
+            onClick={this.handleClickClear}
+          >
+            <ClearRounded style={{fontSize: '20px'}}/>
+          </Button>
+        </Grid>
         <Grid item xs={12}>
           <DateRange
             showMonthAndYearPickers={false}

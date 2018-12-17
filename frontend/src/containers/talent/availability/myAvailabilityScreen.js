@@ -21,9 +21,6 @@ import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
 import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/saveCancelButtonGroup';
 import MultiRangeCalendar from 'components/shiptalent/calendars/multiRangeCalendar';
-
-// import 'react-date-range/dist/styles.css';
-// import 'react-date-range/dist/theme/default.css';
 import { styles } from 'styles';
 
 const FIRST_YEAR = (new Date().getFullYear()).toString()
@@ -126,7 +123,7 @@ class MyAvailability extends Component {
         selectionRange[year][month].startDate = new Date(availability.start_date)
         selectionRange[year][month].endDate = new Date(availability.end_date)
       }
-    })
+    });
 
     return selectionRange
   }
@@ -188,7 +185,7 @@ class MyAvailability extends Component {
 
   handleClickNextYear = (yearIndex) => {
     this.setState({ yearIndex: (yearIndex + 1) });
-  }
+  };
 
   handleChangeYearIndex = (index, value) => {
     this.setState({ yearIndex: index });
@@ -202,9 +199,7 @@ class MyAvailability extends Component {
   }
 
   handleSave = () => {
-    const { selectionRange, availabilities } = this.state
-    const { auth } = this.props
-
+    const { availabilities } = this.state
     let data = {
       talent_availabilities: availabilities,
     }
@@ -414,9 +409,6 @@ class MyAvailability extends Component {
 
       for(let i = 1; i <= 12; i ++) {
         let filteredAvailabilities = this.filterAvailabilitiesByYearAndMonth(availabilities, year, i);
-        if (i === 5) {
-          console.log('=== renderMultiRangeCalendars: ', filteredAvailabilities);
-        }
         calendars.push(
           <Grid item xl={3} md={4} sm={6} xs={12} key={`multiRangeCalendar${i}`}>
             <MultiRangeCalendar
@@ -440,16 +432,13 @@ class MyAvailability extends Component {
 
   onChangeCallback = (ranges, year, month) => {
     const { availabilities } = this.state;
-    console.log('=== onChangeCallback: ranges', ranges);
     // Remove availabilities matching to year and month
     let filteredAvailabilities = availabilities.filter(function(availability) {
       return !(new RegExp(`${year}-${((month.length === 1) ? "0" + month : month)}-[0-3][0-9]`, "g"))
               .test(availability.start_date);
     });
-    console.log('=== onChangeCallback: filteredAvailabilities', filteredAvailabilities);
     // Add ranges parameter
     let mergedAvailabilities = filteredAvailabilities.concat(ranges);
-    console.log('=== onChangeCallback: mergedAvailabilities', mergedAvailabilities);
 
     this.setState({
       availabilities: mergedAvailabilities
