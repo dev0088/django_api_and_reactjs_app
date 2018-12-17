@@ -97,7 +97,7 @@ class HomeScreen extends Component {
 						<Row>
 							<Col xs="12" md="3" className="pt-4 pt-md-4" />
 							<Col xs="12" md="3" className="pt-4 pt-md-4">
-								<Link to="/home">
+								<Link to="/talent-auditions">
 									<Button variant="contained"  color="primary" className={"home-button"} >
 										<div className="home-button-title">
 											{"My Auditions"}

@@ -347,7 +347,7 @@ class TalentContactInfoForm extends Component {
               name="birthday"
               label="Date of Birth"
               type="date"
-              value={contactInfo.birthday ? contactInfo.birthday : moment().format('YYYY-MM-DD')}
+              value={contactInfo.birthday ? contactInfo.birthday : moment().format('YYYY-MM-DD HH:mm ZZ')}
               className="datePicker"
               onChange={this.handleBirthdayChange}
             />

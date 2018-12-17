@@ -177,7 +177,7 @@ class TalentNationalityForm extends Component {
 
   handleGreenCardeExpirationDateChange = (event) => {
     this.setState({
-      green_card_expiration_date: moment(event.target.value).format('YYYY-MM-DD'),
+      green_card_expiration_date: moment(event.target.value).format('YYYY-MM-DD HH:mm ZZ'),
       isChanged: true
     }, () => {
       if (this.props.onChange) {

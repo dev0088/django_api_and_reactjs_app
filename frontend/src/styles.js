@@ -165,7 +165,18 @@ export const styles = theme => ({
         paddingRight: '0.5rem'
       }
     },
-
+  },
+  auditionTableTitle: {
+    color: theme.palette.black.main,
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    lineHeight: '1.46429em',
+  },
+  auditionTableContentText: {
+    color: theme.palette.black.main,
+    fontSize: '1rem',
+    fontWeight: 400,
+    lineHeight: '1em',
   },
   descriptionText: {
     color: '#2a3134',
@@ -449,6 +460,25 @@ export const styles = theme => ({
     width: '20px',
     height: '20px',
   },
+  talentAvailabilityCalendarDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    display: 'block',
+    fontWeight: 600,
+    right: '-300px',
+    bottom: '-15px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.red.main,
+    '&:hover': {
+      backgroundColor: theme.palette.red.dark,
+    },
+  },
+  talentAvailabilityCalendarDeleteButtonGridItem: {
+    textAlign: 'right',
+  },
   talentProfilePictureDeleteButton: {
     padding: '0px',
     minWidth: '10px',
@@ -700,7 +730,8 @@ export const theme = createMuiTheme ({
     red: {
       main: '#C00',
       thin: red[400],
-      light: red[400]
+      light: red[400],
+      dark: red[900]
     }
   },
   typography: {

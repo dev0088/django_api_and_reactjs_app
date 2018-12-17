@@ -15,20 +15,18 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Spacer from "components/general/spacer";
 import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
-import { DateRangePicker, DateRange } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
 import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/saveCancelButtonGroup';
-
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import MultiRangeCalendar from 'components/shiptalent/calendars/multiRangeCalendar';
 import { styles } from 'styles';
 
 const FIRST_YEAR = (new Date().getFullYear()).toString()
 const SECOND_YEAR = (parseInt(FIRST_YEAR) + 1).toString()
 const THIRD_YEAR = (parseInt(FIRST_YEAR) + 2).toString()
-const YEARES = [ FIRST_YEAR, SECOND_YEAR, THIRD_YEAR ]
+const YEARS = [ FIRST_YEAR, SECOND_YEAR, THIRD_YEAR ]
 
 function TabContainer({ children, dir }) {
   return (
@@ -51,7 +49,7 @@ class MyAvailability extends Component {
       yearIndex: 0,
       showConfirmChanges: false,
       selectionRange: null,
-      isChanged: false
+      isChanged: false,
     }
   }
 
@@ -63,8 +61,8 @@ class MyAvailability extends Component {
     }
 
     for(let i = 0; i < availabilities.length; i ++) {
-      let availability = availabilities[i]
-      let year = moment(availability.start_date).format('YYYY')
+      let availability = availabilities[i];
+      let year = moment(availability.start_date).format('YYYY');
 
       if ( year === FIRST_YEAR) {
         res[FIRST_YEAR].push(availability)
@@ -72,6 +70,21 @@ class MyAvailability extends Component {
         res[SECOND_YEAR].push(availability)
       } else if ( year === THIRD_YEAR) {
         res[THIRD_YEAR].push(availability)
+      }
+    }
+
+    return res
+  }
+
+  filterAvailabilitiesByYearAndMonth(availabilities, year, month) {
+    let res = []
+
+    for(let i = 0; i < availabilities.length; i ++) {
+      let availability = availabilities[i];
+      let start_year = moment(availability.start_date).format('YYYY');
+      let start_month = moment(availability.start_date).format('M');
+      if (start_year === year && parseInt(start_month) === month ) {
+        res.push(availability);
       }
     }
 
@@ -110,7 +123,7 @@ class MyAvailability extends Component {
         selectionRange[year][month].startDate = new Date(availability.start_date)
         selectionRange[year][month].endDate = new Date(availability.end_date)
       }
-    })
+    });
 
     return selectionRange
   }
@@ -121,8 +134,8 @@ class MyAvailability extends Component {
       let yearRanges = selectionRange[yearKey]
       let result = Object.keys(yearRanges).map(monthKey => {
         let monthRange = yearRanges[monthKey]
-        let start_date = moment(monthRange.startDate).format('YYYY-MM-DD')
-        let end_date = moment(monthRange.endDate).format('YYYY-MM-DD')
+        let start_date = moment(monthRange.startDate).format('YYYY-MM-DD HH:mm ZZ')
+        let end_date = moment(monthRange.endDate).format('YYYY-MM-DD HH:mm ZZ')
         if (start_date !== end_date) {
           // Add updated date range
           res.push({ start_date, end_date })
@@ -143,8 +156,7 @@ class MyAvailability extends Component {
     let selectionRange = null
 
     if (talentInfo) {
-      availabilities = this.filterAvailabiilities(talentInfo.talent_availabilities)
-      selectionRange = this.convertAvailabilities2SelectionRange(availabilities)
+      availabilities = talentInfo.talent_availabilities;
     }
 
     return {
@@ -173,7 +185,7 @@ class MyAvailability extends Component {
 
   handleClickNextYear = (yearIndex) => {
     this.setState({ yearIndex: (yearIndex + 1) });
-  }
+  };
 
   handleChangeYearIndex = (index, value) => {
     this.setState({ yearIndex: index });
@@ -187,11 +199,9 @@ class MyAvailability extends Component {
   }
 
   handleSave = () => {
-    const { selectionRange } = this.state
-    const { auth } = this.props
-
+    const { availabilities } = this.state
     let data = {
-      talent_availabilities: this.convertSelectionRange2Availabilities(selectionRange)
+      talent_availabilities: availabilities,
     }
 
     TalentAPI.saveAvailabilityWithToken(data, this.handleSaveResponse)
@@ -251,7 +261,7 @@ class MyAvailability extends Component {
                     onClick={() => this.handleClickPreviousYear(yearIndex)}
                   >
                     <NavigateBeforeIcon className={classes.buttonIcon}/>
-                    {YEARES[yearIndex - 1]}
+                    {YEARS[yearIndex - 1]}
                   </Button>
                 ) : (
                   <div />
@@ -273,7 +283,7 @@ class MyAvailability extends Component {
                     className={classes.button}
                     onClick={() => this.handleClickNextYear(yearIndex)}
                   >
-                    {YEARES[yearIndex + 1]}
+                    {YEARS[yearIndex + 1]}
                     <NavigateNextIcon className={classes.buttonIcon}/>
                   </Button>
                 ) : (
@@ -289,7 +299,7 @@ class MyAvailability extends Component {
 
   renderCalendars = (yearIndex) => {
     const { selectionRange } = this.state
-    const year = YEARES[yearIndex]
+    const year = YEARS[yearIndex]
 
     if (selectionRange) {
       return (
@@ -297,17 +307,21 @@ class MyAvailability extends Component {
           {
             Object.keys(selectionRange[year]).map(key => {
               let monthRange = selectionRange[year][key]
+              let minDate = new Date(`${year}-${parseInt(key) + 1}-1`)
+              let maxDate = new Date(`${year}-${parseInt(key) + 1}-${31}`)
+              let ranges = monthRange.startDate ? [monthRange] : []
+
               return (
                 <Grid item xl={3} md={4} sm={6} xs={12} key={key}>
                   <DateRange
                     showMonthAndYearPickers={false}
                     showDateDisplay={false}
-                    shownDate={new Date(`${year}-${parseInt(key) + 1}-1`)}
-                    date={new Date(`${year}-${parseInt(key) + 1}-1`)}
+                    shownDate={''}
+                    date={''}
                     moveRangeOnFirstSelection={false}
-                    minDate={new Date(`${year}-${parseInt(key) + 1}-${1}`)}
-                    maxDate={new Date(`${year}-${parseInt(key) + 1}-${31}`)}
-                    ranges={monthRange.startDate ? [monthRange] : []}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    ranges={ranges}
                     onChange={range => this.handleCalendarSelect(range, year, key)}
                     className={'PreviewArea'}
                   />
@@ -318,10 +332,10 @@ class MyAvailability extends Component {
         </Grid>
       )
     }
+
     return (
       <div/>
     )
-
   }
 
   renderContents() {
@@ -357,26 +371,26 @@ class MyAvailability extends Component {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={12} sd>
+            <Grid item xs={12} md={12} sm={12}>
               <Grid container spacing={40}>
-                <Grid item xs={12} md={12} sd>
+                <Grid item xs={12} md={12} sm={12}>
                   <SwipeableViews
                     axis={'x'}
                     index={yearIndex}
                     onChangeIndex={(index) => this.handleChangeYearIndex(index, yearIndex)}
                   >
-                    <TabContainer dir={'x'}>{this.renderCalendars(0)}</TabContainer>
-                    <TabContainer dir={'x'}>{this.renderCalendars(1)}</TabContainer>
-                    <TabContainer dir={'x'}>{this.renderCalendars(2)}</TabContainer>
+                    <TabContainer dir={'x'}>{this.renderMultiRangeCalendars(YEARS[0])}</TabContainer>
+                    {<TabContainer dir={'x'}>{this.renderMultiRangeCalendars(YEARS[1])}</TabContainer>}
+                    {<TabContainer dir={'x'}>{this.renderMultiRangeCalendars(YEARS[0])}</TabContainer>}
                   </SwipeableViews>
                 </Grid>
-                <Grid item xs={12} md={12} sd>
+                <Grid item xs={12} md={12} sm={12}>
                   { this.renderYearButton() }
                 </Grid>
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={12} sd>
+            <Grid item xs={12} md={12} sm={12}>
               <SaveCancelButtonGroup
                 onSave={this.handleSave}
                 onCancel={this.handleCancel}
@@ -387,6 +401,50 @@ class MyAvailability extends Component {
       </div>
     )
   }
+
+  renderMultiRangeCalendars = (year) => {
+    const { availabilities } = this.state
+
+    let calendars = [];
+
+      for(let i = 1; i <= 12; i ++) {
+        let filteredAvailabilities = this.filterAvailabilitiesByYearAndMonth(availabilities, year, i);
+        calendars.push(
+          <Grid item xl={3} md={4} sm={6} xs={12} key={`multiRangeCalendar${i}`}>
+            <MultiRangeCalendar
+              ranges={filteredAvailabilities}
+              year={year}
+              month={i.toString()}
+              moveRangeOnFirstSelection={false}
+              className={'PreviewArea'}
+              onChange={this.onChangeCallback}
+            />
+          </Grid>
+        )
+      }
+
+    return (
+      <Grid container spacing={24}>
+        { calendars }
+      </Grid>
+    );
+  };
+
+  onChangeCallback = (ranges, year, month) => {
+    const { availabilities } = this.state;
+    // Remove availabilities matching to year and month
+    let filteredAvailabilities = availabilities.filter(function(availability) {
+      return !(new RegExp(`${year}-${((month.length === 1) ? "0" + month : month)}-[0-3][0-9]`, "g"))
+              .test(availability.start_date);
+    });
+    // Add ranges parameter
+    let mergedAvailabilities = filteredAvailabilities.concat(ranges);
+
+    this.setState({
+      availabilities: mergedAvailabilities
+    });
+  };
+
 
   render() {
     const { classes } = this.props;
