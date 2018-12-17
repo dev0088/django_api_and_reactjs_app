@@ -57,6 +57,7 @@
     "superagent": "^4.0.0",
     "typeface-roboto": "0.0.54",
     "uuid": "^3.3.2",
+    "v-calendar": "^0.9.7",
     "video-react": "^0.13.0"
   },
   "scripts": {

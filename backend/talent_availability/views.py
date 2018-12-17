@@ -8,6 +8,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from dateutil.parser import parse
 
 class TalentAvailabilityList(APIView):
     def get_object(self, pk):
@@ -43,8 +44,8 @@ class TalentAvailabilityList(APIView):
         for availability in data:
             talent_availability = TalentAvailability.objects.create(
                     talent = talent,
-                    start_date = availability['start_date'],
-                    end_date = availability['end_date']
+                    start_date = parse(availability['start_date']),
+                    end_date = parse(availability['end_date'])
                 )
             talent_availability.save()
 

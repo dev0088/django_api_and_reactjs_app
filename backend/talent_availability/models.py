@@ -12,8 +12,8 @@ class TalentAvailabilityManager(models.Manager):
 
 class TalentAvailability(models.Model):
     talent = models.ForeignKey(Talent, related_name='talent_availabilities', on_delete=models.CASCADE)
-    start_date = models.DateField(blank=False, default=date.today)
-    end_date = models.DateField(blank=False, default=date.today)
+    start_date = models.DateTimeField(blank=False, default=timezone.now)
+    end_date = models.DateTimeField(blank=False, default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):

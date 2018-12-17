@@ -105,6 +105,8 @@ import TechnicianIntroMain from 'containers/talent/introduction/positions/techni
 import CruiseStaffIntroMain from 'containers/talent/introduction/positions/cruise-staff/cruiseStaffIntroMainScreen'
 import YouthStaffIntroMain from 'containers/talent/introduction/positions/youth-staff/youthStaffIntroMainScreen'
 
+import MyAuditions from 'containers/talent/audition/myAuditionsScreen'
+
 // Footer routes
 import SubFaq from "containers/common/subFaq";
 import Faq from "containers/common/faq";
@@ -1043,6 +1045,15 @@ const Index = () => (
       render={props => (
         <TemplateTopbar>
           <LandscapeOrientationIntro {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/talent-auditions"
+      render={props => (
+        <TemplateTopbar>
+          <MyAuditions {...props} />
         </TemplateTopbar>
       )}
     />

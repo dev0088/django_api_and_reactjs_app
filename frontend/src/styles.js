@@ -165,7 +165,18 @@ export const styles = theme => ({
         paddingRight: '0.5rem'
       }
     },
-
+  },
+  auditionTableTitle: {
+    color: theme.palette.black.main,
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    lineHeight: '1.46429em',
+  },
+  auditionTableContentText: {
+    color: theme.palette.black.main,
+    fontSize: '1rem',
+    fontWeight: 400,
+    lineHeight: '1em',
   },
   descriptionText: {
     color: '#2a3134',
