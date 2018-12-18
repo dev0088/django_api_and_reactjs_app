@@ -60,7 +60,7 @@ class UserProfile extends React.Component {
                   <h1> NEW PORFILES FOR APPROVAL</h1>
                 </Grid>
                 <Grid item xs={12} style={{textAlign: 'left'}}>  
-                 <Link to="/view-profile">
+                 <Link to="/admin/view-profile">
                   <Button variant="contained" size="large" className={classes.button} >
                     Thomas Tomasello(VM213)
                   </Button>
@@ -100,7 +100,7 @@ class UserProfile extends React.Component {
                 <Grid item xs={3} style={{textAlign:'center'}}/>
                 <Grid item xs={3} style={{textAlign:'center'}}/>
                 <Grid item xs={3} style={{textAlign:'right'}}>
-                 <Link to="/dashboard">
+                 <Link to="/admin/dashboard">
                   <Button variant="contained" style={{width: '250px'}}>
                     Agetn Dashbord
                   </Button>

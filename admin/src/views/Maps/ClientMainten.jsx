@@ -104,7 +104,7 @@ function ClientMainten(props) {
       <Grid item xs={3} style={{textAlign:'center'}}/>
       <Grid item xs={3} style={{textAlign:'center'}}/>
       <Grid item xs={3} style={{textAlign:'right'}}>
-       <Link to="/metrics-tools">
+       <Link to="/admin/metrics-tools">
         <Button variant="contained" style={{width: '250px'}}>
           Metric & Tools
         </Button>

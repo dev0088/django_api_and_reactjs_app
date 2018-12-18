@@ -218,7 +218,7 @@ function ViewProfile(props) {
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/new-profiles">
+               <Link to="/admin/new-profiles">
                 <Button variant="contained" style={{width: '250px'}}>
                   New Profiles
                 </Button>
@@ -228,7 +228,7 @@ function ViewProfile(props) {
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/dashboard">
+               <Link to="/admin/dashboard">
                 <Button variant="contained" style={{width: '250px'}}>
                   Agetn Dashbord
                 </Button>

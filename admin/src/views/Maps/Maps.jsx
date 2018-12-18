@@ -40,21 +40,21 @@ function Metrics(props) {
       <Grid item xs={12}>
         <Grid container spacing={16}>          
             <Grid item xs={12} md={4} >  
-              <Link to="/metric-tool">
+              <Link to="/admin/metric-tool">
                <Button variant="contained" size="large" className={classes.button} >
                     TELENT<br></br>METRICS
                </Button>
               </Link> 
             </Grid>
             <Grid item xs={12} md={4} >  
-             <Link to="/choose-client">  
+             <Link to="/admin/choose-client">  
                <Button variant="contained" size="large" className={classes.button} >
                     CLIENT<br></br>METRICS
                </Button>
              </Link>
             </Grid>
             <Grid item xs={12} md={4} >
-             <Link to="/dance-combo">    
+             <Link to="/admin/dance-combo">    
               <Button variant="contained" size="large" className={classes.button} >
                   DANCE COMBO<br></br>METRICS
               </Button>
@@ -65,14 +65,14 @@ function Metrics(props) {
       <Grid item xs={12}>
         <Grid container spacing={16}>          
             <Grid item xs={12} md={6} >
-              <Link to="/add-edit" >
+              <Link to="/admin/add-edit" >
                 <Button variant="contained" size="large" className={classes.button} >
                   ADD/EDIT<br></br>DANCE COMBO<br></br>VIDEOS
                 </Button>
               </Link>
             </Grid>
             <Grid item xs={12} md={6} >
-              <Link to="/add-video">    
+              <Link to="/admin/add-video">    
                 <Button variant="contained" size="large" className={classes.button} >
                   ADD/EDIT<br></br>INTERVIEW<br></br>QUESTIONS
                 </Button>
@@ -83,21 +83,21 @@ function Metrics(props) {
       <Grid item xs={12}>
         <Grid container spacing={16}>          
             <Grid item xs={12} md={3} alignContent="flex-start"> 
-              <Link to="/client-look">   
+              <Link to="/admin/client-look">   
                 <Button variant="contained" size="large" className={classes.button} >
                   CLIENT LOOKUP
                 </Button>
               </Link>
             </Grid>
             <Grid item xs={12} md={3}>  
-              <Link to="/client-mainten"> 
+              <Link to="/admin/client-mainten"> 
                 <Button variant="contained" size="large" className={classes.button} >
                   CLIENT<br></br>MAINTENACE
                 </Button>
               </Link>
             </Grid>
             <Grid item xs={12} md={3}> 
-              <Link to="/add-client">  
+              <Link to="/admin/add-client">  
                 <Button variant="contained" size="large" className={classes.button} >
                   ADD CLIENT
                 </Button>
@@ -128,7 +128,7 @@ function Metrics(props) {
       <Grid item xs={3} style={{textAlign:'center'}}/>
       <Grid item xs={3} style={{textAlign:'center'}}/>
       <Grid item xs={3} style={{textAlign:'right'}}>
-       <Link to="/dashboard">
+       <Link to="/admin/dashboard">
         <Button variant="contained" style={{width: '250px'}}>
           Agetn Dashbord
         </Button>

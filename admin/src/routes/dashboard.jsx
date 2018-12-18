@@ -20,56 +20,56 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
+    path: "/admin/dashboard",
     sidebarName: "Dashboard",
     navbarName: "Material Dashboard",
     icon: Dashboard,
     component: DashboardPage
   },
   {
-    path: "/profile-search",
+    path: "/admin/profile-search",
     sidebarName: "Profile Search",
     navbarName: "Profile Search",
     icon: "content_paste",
     component: ProfileSearch
   },
   {
-    path: "/new-profiles",
+    path: "/admin/new-profiles",
     sidebarName: "New Profiles",
     navbarName: "New Profiles",
     icon: Person,
     component: UserProfile,
   },
   {
-    path: "/edited-profiles",
+    path: "/admin/edited-profiles",
     sidebarName: "Edit Profiles",
     navbarName: "Edit Profiles",
     icon: LibraryBooks,
     component: Editprofiles
   },
   {
-    path: "/casting-requests",
+    path: "/admin/casting-requests",
     sidebarName: "Casting Requests",
     navbarName: "Casting Requests",
     icon: BubbleChart,
     component: Castingrequests
   },
   {
-    path: "/metrics-tools",
+    path: "/admin/metrics-tools",
     sidebarName: "Metrics Tools",
     navbarName: "Metrics Tools",
     icon: LocationOn,
     component: Maps
   },
   {
-    path: "/dance-combo-lockouts",
+    path: "/admin/dance-combo-lockouts",
     sidebarName: "Dance Combo Lockouts",
     navbarName: "Dance Combo Lockouts",
     icon: Notifications,
     component: NotificationsPage
   },
   {
-    path: "/medicial-disclosure",
+    path: "/admin/medicial-disclosure",
     sidebarName: "Medicial Disclosure",
     navbarName: "Medicial Disclosure",
     icon: Unarchive,

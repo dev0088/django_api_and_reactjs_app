@@ -15,63 +15,63 @@ import HeadLine from "views/Editprofiles/HeadLine.jsx"
 
 const pageRoutes = [
   {
-    path: "/view-profile",
+    path: "/admin/view-profile",
     component: ViewProfile
   },
   {
-    path: "/edit-profiles/edit-profile",
+    path: "/admin/edit-profiles/edit-profile",
     component: EditProfile
   },
   {
-    path: "/new-casting",
+    path: "/admin/new-casting",
     component: NewCasting
   },
   {
-    path: "/casting-request",
+    path: "/admin/casting-request",
     component: CastingRequest
   },
   {
-    path: "/casting-detail",
+    path: "/admin/casting-detail",
     component: CastingDetail
   },
   {
-    path: "/metric-tool",
+    path: "/admin/metric-tool",
     component: MetricTool
   },
   {
-    path: "/choose-client",
+    path: "/admin/choose-client",
     component: ChooseClient
   },
   {
-    path: "/dance-combo",
+    path: "/admin/dance-combo",
     component: DanceCombo
   },
   {
-    path: "/add-edit",
+    path: "/admin/add-edit",
     component: AddEdit
   },
   {
-    path: "/add-video",
+    path: "/admin/add-video",
     component: AddVideo
   },
   {
-    path: "/client-look",
+    path: "/admin/client-look",
     component: ClientLook
   },
   {
-    path: "/client-mainten",
+    path: "/admin/client-mainten",
     component: ClientMainten
   },
   {
-    path: "/add-client",
+    path: "/admin/add-client",
     component: AddClient
   },
   {
-    path: "/head-line",
+    path: "/admin/head-line",
     component: HeadLine
   },
   // {
-  //   path: "/view-profile/:id",
+  //   path: "/admin/view-profile/:id",
   //   component: ViewProfile
   // },
 ];

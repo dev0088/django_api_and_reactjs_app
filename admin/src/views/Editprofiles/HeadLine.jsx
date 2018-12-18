@@ -58,7 +58,7 @@ function EditProfile(props) {
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/edit-profiles/edit-profile">
+               <Link to="/admin/edit-profiles/edit-profile">
                 <Button variant="contained" style={{width: '250px'}}>
                   Back to Profile
                 </Button>
