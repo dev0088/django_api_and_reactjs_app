@@ -71,6 +71,10 @@ class TalentAPI {
     TalentAPI.processRequestWithToken(`talent/${getUserID()}/`, 'put', data, handleResponse)
   }
 
+  static changeTalentPassword(data, handleResponse) {
+    TalentAPI.processRequestWithToken(`talent/${getUserID()}/changePassword/`, 'put', data, handleResponse)
+  }
+
   static addTalentPositionAndSkills(data, handleResponse) {
     TalentAPI.processRequest(`talent/${getUserID()}/`, 'post', data, handleResponse)
   }

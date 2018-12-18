@@ -1,6 +1,6 @@
 from talent.models import Talent
 from authentication.models import User
-from talent.serializers import TalentSerializer
+from talent.serializers import TalentSerializer, ChangePasswordSerializer
 from talent.wizard_serializers import WizardTalentInfoSerializer
 from django.http import Http404
 from rest_framework.compat import coreapi, coreschema
@@ -20,6 +20,7 @@ from talent_sub_skill.models import TalentSubSkill
 
 from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
+from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
 import json
 
@@ -377,3 +378,38 @@ class TalentDetail(APIView):
 
             return Response(request.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TalentChangePassword(APIView):
+    # """
+    # Update password of talent
+    # """
+    serializer_class = ChangePasswordSerializer
+    model = User
+    authentication_classes = (authentication.TokenAuthentication, )
+
+    def get_object(self, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            return user
+        except User.DoesNotExist:
+            raise Http404
+
+    @swagger_auto_schema(request_body=ChangePasswordSerializer, responses={200: 'Success'})
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        data = request.data
+        serializer = ChangePasswordSerializer(data=data)
+        print('==== request.data: ', request.data)
+        if serializer.is_valid():
+            # Check old password
+            if not user.check_password(serializer.data.get("current_password")):
+                return Response(
+                            {'error': {"current_password": ["Wrong current password."]}},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+            # set_password also hashes the password that the user will get
+            user.set_password(serializer.data.get("new_password"))
+            user.save()
+            return Response("Success.", status=status.HTTP_200_OK)
+
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

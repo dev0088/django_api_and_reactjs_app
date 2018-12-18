@@ -34,6 +34,7 @@ export const TALENT_UPLOAD_PICTURE = createRequestTypes('@@jwt/TALENT_UPLOAD_PIC
 export const TALENT_INFO = createRequestTypes('@@jwt/TALENT_INFO');
 export const SAVE_TALENT_INFO = createRequestTypes('@@jwt/SAVE_TALENT_INFO');
 export const TALENT_POSITION_TYPES = createRequestTypes('@@jwt/TALENT_POSITION_TYPES');
+export const TALENT_CHANGE_PASSWORD = createRequestTypes('@@jwt/TALENT_CHANGE_PASSWORD');
 
 export const ALL_POSITION_TYPES = createRequestTypes('ALL_POSITION_TYPES');
 export const ALL_SKILLS = createRequestTypes('ALL_SKILLS');

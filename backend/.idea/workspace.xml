@@ -52,13 +52,58 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/talent_availability/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4560811">
-              <caret line="14" column="71" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="71" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/talent/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/talent/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3614865">
+              <caret line="406" column="74" selection-start-line="406" selection-start-column="74" selection-end-line="406" selection-end-column="74" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#1159#1276#0" expanded="false" />
+                <element signature="e#3446#4056#0" expanded="false" />
+                <element signature="e#4165#4844#0" expanded="false" />
+                <element signature="e#4911#5324#0" expanded="false" />
+                <element signature="e#6005#6420#0" expanded="false" />
+                <element signature="e#7804#8687#0" expanded="false" />
+                <element signature="e#8753#9703#0" expanded="false" />
+                <element signature="e#11336#11461#0" expanded="false" />
+                <element signature="e#14495#14616#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/talent/serializers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="112" column="11" selection-start-line="112" selection-start-column="11" selection-end-line="112" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,7 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/talent_picture/models.py" />
         <option value="$PROJECT_DIR$/talent_video_greeting/models.py" />
         <option value="$PROJECT_DIR$/wizard_question_answer/tests.py" />
         <option value="$PROJECT_DIR$/sub_skill/views.py" />
@@ -96,7 +140,6 @@
         <option value="$PROJECT_DIR$/talent_position_sub_type/views.py" />
         <option value="$PROJECT_DIR$/talent_position_sub_type/urls.py" />
         <option value="$PROJECT_DIR$/talent_position_type/serializers.py" />
-        <option value="$PROJECT_DIR$/talent/serializers.py" />
         <option value="$PROJECT_DIR$/talent_position_type/models.py" />
         <option value="$PROJECT_DIR$/talent_position_type/wizard_serializers.py" />
         <option value="$PROJECT_DIR$/talent_sub_skill/wizard_serializers.py" />
@@ -120,13 +163,15 @@
         <option value="$PROJECT_DIR$/sub_skill/wizard_serializers.py" />
         <option value="$PROJECT_DIR$/skill/wizard_serializers.py" />
         <option value="$PROJECT_DIR$/position_sub_type/wizard_serializers.py" />
-        <option value="$PROJECT_DIR$/talent/views.py" />
         <option value="$PROJECT_DIR$/position_type/models.py" />
         <option value="$PROJECT_DIR$/position_type/serializers.py" />
         <option value="$PROJECT_DIR$/position_type/wizard_serializers.py" />
         <option value="$PROJECT_DIR$/position_type/admin.py" />
         <option value="$PROJECT_DIR$/talent_availability/views.py" />
         <option value="$PROJECT_DIR$/talent_availability/models.py" />
+        <option value="$PROJECT_DIR$/talent/urls.py" />
+        <option value="$PROJECT_DIR$/talent/serializers.py" />
+        <option value="$PROJECT_DIR$/talent/views.py" />
       </list>
     </option>
   </component>
@@ -166,7 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -195,12 +239,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="talent_availability" />
+              <option name="myItemId" value="talent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -501,7 +546,7 @@
     <frame x="20" y="23" width="1892" height="990" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19912949" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20184983" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.49782372" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24295774" sideWeight="0.50489664" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -547,7 +592,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/talent/views.py</url>
-          <line>211</line>
+          <line>212</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
@@ -566,20 +611,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/talent_position_type/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/talent_position_sub_type/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/talent_position_type/wizard_serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -835,23 +866,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/talent/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="369" column="0" selection-start-line="369" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-            <element signature="e#3383#3993#0" expanded="false" />
-            <element signature="e#4102#4781#0" expanded="false" />
-            <element signature="e#4848#5261#0" expanded="false" />
-            <element signature="e#5942#6357#0" expanded="false" />
-            <element signature="e#7741#8624#0" expanded="false" />
-            <element signature="e#8690#9640#0" expanded="false" />
-            <element signature="e#14432#14553#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sub_skill/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -905,7 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1978022">
           <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -914,7 +927,7 @@
         <state vertical-scroll-proportion="0.5472973">
           <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
           <folding>
-            <element signature="e#49#64#0" expanded="true" />
+            <element signature="e#49#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -941,10 +954,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/talent_availability/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4560811">
-          <caret line="14" column="71" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/talent/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/talent/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="11" selection-start-line="112" selection-start-column="11" selection-end-line="112" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/talent/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3614865">
+          <caret line="406" column="74" selection-start-line="406" selection-start-column="74" selection-end-line="406" selection-end-column="74" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#1159#1276#0" expanded="false" />
+            <element signature="e#3446#4056#0" expanded="false" />
+            <element signature="e#4165#4844#0" expanded="false" />
+            <element signature="e#4911#5324#0" expanded="false" />
+            <element signature="e#6005#6420#0" expanded="false" />
+            <element signature="e#7804#8687#0" expanded="false" />
+            <element signature="e#8753#9703#0" expanded="false" />
+            <element signature="e#11336#11461#0" expanded="false" />
+            <element signature="e#14495#14616#0" expanded="false" />
           </folding>
         </state>
       </provider>
