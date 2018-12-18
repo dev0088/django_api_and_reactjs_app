@@ -84,7 +84,7 @@ function EditProfile(props) {
             <Grid item xs={6}>
               <Grid container item xs={12} spacing={16}  >
                <Grid item xs={4} >
-                <Link to="/head-line">
+                <Link to="/admin/head-line">
                  <Button variant="contained" size="large" className={classes.agent}>
                     Headline, Bio& Resume
                  </Button>
@@ -206,7 +206,7 @@ function EditProfile(props) {
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/new-profiles">
+               <Link to="/admin/new-profiles">
                 <Button variant="contained" style={{width: '250px'}}>
                   New Profiles
                 </Button>
@@ -216,7 +216,7 @@ function EditProfile(props) {
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'center'}}/>
               <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/dashboard">
+               <Link to="/admin/dashboard">
                 <Button variant="contained" style={{width: '250px'}}>
                   Agetn Dashbord
                 </Button>

@@ -31,7 +31,7 @@ function CastingRequest(props) {
         </Grid> 
         <Grid container item xs={12} spacing={16}>
           <Grid item xs={12} style={{textAlign:'left'}}>
-           <Link to="/casting-detail">
+           <Link to="/admin/casting-detail">
             <Button variant="contained" className={classes.button} style={{backgroundColor:'yellow'}}>
               Philip LaVerne(VDA222)
             </Button>
@@ -80,7 +80,7 @@ function CastingRequest(props) {
          <Grid item xs={3} style={{textAlign:'center'}}/>
          <Grid item xs={3} style={{textAlign:'center'}}/>
          <Grid item xs={3} style={{textAlign:'right'}}>
-          <Link to="/casting-requests">
+          <Link to="/admin/casting-requests">
            <Button variant="contained" style={{width: '250px'}}>
             Casting Requests
            </Button>
@@ -90,7 +90,7 @@ function CastingRequest(props) {
          <Grid item xs={3} style={{textAlign:'center'}}/>
          <Grid item xs={3} style={{textAlign:'center'}}/>
          <Grid item xs={3} style={{textAlign:'right'}}>
-          <Link to="/dashboard">
+          <Link to="/admin/dashboard">
            <Button variant="contained" style={{width: '250px'}}>
              Agetn Dashbord
            </Button>

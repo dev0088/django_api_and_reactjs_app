@@ -40,7 +40,7 @@ function Castingrequests(props) {
           </Grid>
           <Grid container xs={12} spacing={24} style={{textAlign: 'center'}}>
            <Grid item xs={12} md={4} > 
-            <Link to="/new-casting">   
+            <Link to="/admin/new-casting">   
               <Button variant="contained" size="large" className={classes.button} >
                 NEW<br></br>2
               </Button>
@@ -60,7 +60,7 @@ function Castingrequests(props) {
              <Grid item xs={3} style={{textAlign:'center'}}/>
              <Grid item xs={3} style={{textAlign:'center'}}/>
              <Grid item xs={3} style={{textAlign:'right'}}>
-              <Link to="/dashboard">
+              <Link to="/admin/dashboard">
                <Button variant="contained" style={{width: '250px'}}>
                  Agetn Dashbord
                </Button>

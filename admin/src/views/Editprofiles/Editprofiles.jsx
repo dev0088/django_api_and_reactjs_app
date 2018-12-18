@@ -70,7 +70,7 @@ function Editprofiles(props) {
               <h1> EDITOR PROFILES</h1>
              </Grid>
              <Grid item xs={12} style={{textAlign: 'left'}}>    
-               <Link to="/edit-profiles/edit-profile">
+               <Link to="/admin/edit-profiles/edit-profile">
                 <Button variant="contained" size="large" className={classes.button} >
                   Philip LaVerne(VDA222)
                 </Button>
@@ -100,7 +100,7 @@ function Editprofiles(props) {
             <Grid item xs={3} style={{textAlign:'center'}}/>
             <Grid item xs={3} style={{textAlign:'center'}}/>
             <Grid item xs={3} style={{textAlign:'right'}}>
-             <Link to="/dashboard">
+             <Link to="/admin/dashboard">
               <Button variant="contained" style={{width: '250px'}}>
                 Agetn Dashbord
               </Button>
