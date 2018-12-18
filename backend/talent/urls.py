@@ -8,6 +8,8 @@ router.register(r'^', views.TalentViewSet)
 
 urlpatterns = [
     url(r'/currentTalentInfo/', views.CurrentTalent.as_view()),
+    url(r'^/(?P<pk>[0-9]+)/changePassword/', views.TalentChangePassword.as_view()),
     url(r'^/(?P<pk>[0-9]+)/$', views.TalentDetail.as_view()),
+
     # url(r'^', include(router.urls))
 ]

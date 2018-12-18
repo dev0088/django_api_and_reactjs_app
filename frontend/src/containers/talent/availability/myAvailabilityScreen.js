@@ -196,29 +196,29 @@ class MyAvailability extends Component {
       ...this.getInfoFromProps(this.props),
       isChanged: false
     })
-  }
+  };
 
   handleSave = () => {
     const { availabilities } = this.state
     let data = {
       talent_availabilities: availabilities,
-    }
+    };
 
     TalentAPI.saveAvailabilityWithToken(data, this.handleSaveResponse)
-  }
+  };
 
 
   handleSaveResponse = (response, isFailed) => {
-    this.props.talentActions.getCurrentTalentInfo()
+    this.props.talentActions.getCurrentTalentInfo();
     this.setState({
       isChanged: false
     })
-  }
+  };
 
   checkChanges = (event) => {
-    const { isChanged } = this.state
+    const { isChanged } = this.state;
     if (isChanged) {
-      event.preventDefault()
+      event.preventDefault();
       this.setState({
         showConfirmChanges: true
       })

@@ -69,6 +69,8 @@ import MyLanguage from "containers/talent/profile/build-profile/language/myLangu
 import MyMedical from "containers/talent/profile/build-profile/medical/myMedicalScreen";
 import EditProfile from "containers/talent/profile/build-profile/general/editProfile";
 import MyAvailability from "containers/talent/availability/myAvailabilityScreen";
+import MyAccount from "containers/talent/account/myAccountScreen";
+import MyFinance from "containers/talent/account/finance/myFinanceScreen";
 
 // Introduction routes
 import LandscapeOrientationIntro from 'containers/talent/introduction/general/landscapeOrientationIntroScreen'
@@ -134,6 +136,7 @@ import BlockedProfile from "containers/client/my_blocked_profile/blocked.profile
 import MyRate from "containers/client/my_rating/myrate";
 import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
+import TalentChangePassword from "../containers/talent/account/change-password/changePasswordScreen";
 
 
 const Index = () => (
@@ -171,6 +174,7 @@ const Index = () => (
         </TemplateNothing>
       )}
     />
+
     <Route
       path="/forgot-password"
       render={props => (
@@ -749,6 +753,33 @@ const Index = () => (
       <TemplateTopbar>
         <MyAvailability {...props} />
       </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/finance-info"
+      render={props => (
+        <TemplateTopbar>
+          <MyFinance {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/my-account"
+      render={props => (
+        <TemplateTopbar>
+          <MyAccount {...props} />
+        </TemplateTopbar>
+      )}
+    />
+
+    <Route
+      path="/change-password"
+      render={props => (
+        <TemplateTopbar>
+          <TalentChangePassword {...props} />
+        </TemplateTopbar>
       )}
     />
 

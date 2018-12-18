@@ -166,6 +166,39 @@ export const styles = theme => ({
       }
     },
   },
+  financeTable: {
+    border: `2px solid ${theme.palette.black.main}`,
+    padding: `10px!important`
+  },
+  financeTableTitle: {
+    color: theme.palette.black.main,
+    fontSize: '1rem',
+    fontWeight: 600,
+    lineHeight: '1.46429em',
+  },
+  financeTableContentText: {
+    color: theme.palette.black.main,
+    fontSize: '0.85rem',
+    fontWeight: 100,
+    lineHeight: '0.8em',
+  },
+  financeIconGridItem: {
+    textAlign: 'right',
+    paddingRight: '0px!important',
+    verticalAlign: 'top',
+    paddingTop: '10px!important',
+    marginBottom: 'auto'
+  },
+  financeIcon: {
+    fontSize: '2rem',
+    fontWeight: '700',
+    paddingRight: '0px',
+    textAlign: 'right',
+    verticalAlign: 'top',
+    marginTop: '0px',
+    marginBottom: 'auto',
+    color: theme.palette.black.main
+  },
   auditionTableTitle: {
     color: theme.palette.black.main,
     fontSize: '1.25rem',
@@ -265,6 +298,15 @@ export const styles = theme => ({
   centerText: {
     textAlign: 'center',
   },
+  leftText: {
+    textAlign: 'left',
+  },
+  rightText: {
+    textAlign: 'right',
+  },
+  fullWidth: {
+    width: '100%'
+  },
   generalButtonClass: {
     textTransform: 'none',
     borderRadius: 0,
@@ -282,6 +324,20 @@ export const styles = theme => ({
     width: '200px',
     margin: 'auto',
     height: '30px'
+  },
+  fullWidthButtonGridItem: {
+    width: '100%'
+  },
+  generalAssistButtonTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main,
+  },
+  generalAssistButton: {
+    borderRadius: '5px'
   },
   talentFormBackButton: {
     textTransform: 'none',

@@ -5,7 +5,7 @@ import register from './register'
 import echo, * as fromEcho from './echo'
 import shiptalentInfo from './shiptalentInfo'
 import videoQuestions, { videoSettings } from './video'
-import { getCurrentTalentInfo } from './talent.js'
+import { getCurrentTalentInfo, changePassword } from './talent.js'
 import { getAllPositionTypes } from './positionTypes'
 import { getAllSkills } from './skills'
 import { getWizardQuestionScenario } from './wizardQuestionScenario'
@@ -24,6 +24,7 @@ export default combineReducers({
   // talentReducer: talentReducer,
   deviceSettings: deviceSettings,
   talentInfo: getCurrentTalentInfo,
+  changePassword: changePassword,
   contactUs: contactUs,
   allPositionTypes: getAllPositionTypes,
   allSkills: getAllSkills,

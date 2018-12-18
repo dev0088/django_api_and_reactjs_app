@@ -15,6 +15,7 @@ from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
 from talent_availability.serializers import TalentAvailabilitySerializerWithoutTalentID
 from talent_rating.serializers import TalentRatingSerializer
+from django.contrib.auth.password_validation import validate_password
 
 
 class TalentSerializer(serializers.ModelSerializer):
@@ -103,3 +104,15 @@ class TalentSerializer(serializers.ModelSerializer):
 
             'profile_status'
         )
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    current_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        validate_password(value)
+        return value

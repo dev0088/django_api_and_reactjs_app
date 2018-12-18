@@ -16,7 +16,7 @@ export const getSignedUrl = (url, params) => ({
         types.TALENT_UPLOAD_PICTURE.FAILURE
       ]
     }
-})
+});
 
 
 export const getCurrentTalentInfo = () => {
@@ -121,3 +121,25 @@ export const getWizardQuestionScenario = () => ({
     ]
   }
 })
+
+export const changePassword = (oldPassword, newPassword, confirmNewPassword) => {
+  let token = getToken();
+
+  if (token) {
+    return {
+      [RSAA]: {
+        endpoint: `${apiConfig.url}/talent/changePassword/`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({oldPassword, newPassword, confirmNewPassword}),
+        types: [
+          types.TALENT_CHANGE_PASSWORD.REQUEST,
+          types.TALENT_CHANGE_PASSWORD.SUCCESS,
+          types.TALENT_CHANGE_PASSWORD.FAILURE
+        ]
+      }}
+  }
+};

@@ -14,11 +14,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/general/loading';
-// import { translate } from '../i18n';
-import { bindActionCreators } from 'redux'
-import * as registerActions from '../../actions/registerActions'
-// import defaultValues from '../constants/defaultValues'
-import './signUpScreen.css'
+import { bindActionCreators } from 'redux';
+import * as registerActions from '../../actions/registerActions';
+import './signUpScreen.css';
 const styles = {
   flatPrimary: {
     color: "#258df2",

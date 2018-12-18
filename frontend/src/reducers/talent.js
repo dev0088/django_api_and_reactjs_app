@@ -78,3 +78,42 @@ export function getCurrentTalentInfo(state = initialTalentInfoState, action) {
       return state;
   }
 }
+
+const initialChangePasswordState = {
+  init: true,
+  isFetched: false,
+  errorMessage: false,
+  isFailure: false,
+  value: null
+};
+
+export function changePassword(state = initialChangePasswordState, action) {
+  switch(action.type) {
+    case types.TALENT_CHANGE_PASSWORD.REQUEST:
+      return Object.assign({}, state, {
+        init: false,
+        isFetched: false,
+        isFailure: false,
+        errorMessage: false,
+        value: null
+      });
+    case types.TALENT_CHANGE_PASSWORD.SUCCESS:
+      return Object.assign({}, state, {
+        init: false,
+        isFetched: true,
+        isFailure: false,
+        failure: true,
+        value: action.payload,
+      });
+    case types.TALENT_CHANGE_PASSWORD.FAILURE:
+      return Object.assign({}, state, {
+        init: true,
+        isFetched: false,
+        isFailure: true,
+        errorMessage: action.payload,
+        value: null
+      });
+    default:
+      return state;
+  }
+}
