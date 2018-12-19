@@ -78,6 +78,6 @@ urlpatterns = [
   url(r'^api/v1/shiptalent_info', include('shiptalent_info.urls')),
   url(r'^api/v1/submission', include('submission.urls')),
   url(r'^api/v1/video_interview_settings', include('admin_setting.urls')),
-  url(r'^api/v1/client_casting_request', include('client_casting_request.urls')),
+  url(r'^api/v1/client/casting_request', include('client_casting_request.urls')),
   url(r'^api/v1/client', include('client.urls')),
 ]

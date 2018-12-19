@@ -12,7 +12,7 @@ import '../client.css'
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOnlineData: bindActionCreators(requestView, dispatch)
+
   }
 };
 
@@ -57,7 +57,7 @@ class RequestSelection extends Component {
               fullWidth = {true}
             />
             <ColumnButton
-              link = {'/client/casting_request/view'}
+              link = {'/client/casting_request/list_view'}
               itemClass = {classes.clientTalentViewVideoButtonGridItem}
               buttonClass = {classes.clientTalentViewVideoButton}
               title = {"View My Casting Requests"}

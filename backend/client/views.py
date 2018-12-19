@@ -41,6 +41,9 @@ class ClientViewSet(generics.ListCreateAPIView):
 
 
 class CurrentClient(APIView):
+    """
+    Get current client info
+    """
     # authentication_classes = (authentication.TokenAuthentication, )
     # permission_classes = (permissions.IsAuthenticated,)
     schema = AutoSchema(manual_fields=[
@@ -60,13 +63,13 @@ class CurrentClient(APIView):
         return client
       except Client.DoesNotExist:
         raise Http404
-    """
-    Get current client info
-    """
+
+    @swagger_auto_schema(request_body=ClientCastingRequestSerializer,
+                         responses={200: ClientCastingRequestSerializer(many=False)})
     def get(self, request, format=None):
         print('==== request.user: ', request.user)
         client_item = self.get_object(request.user)
-        serializer = ClientSerializer(client_item)
+        serializer = ClientAllInfoSerializer(client_item)
         return Response(serializer.data)
 
 
@@ -99,7 +102,7 @@ class ClientDetail(APIView):
             serializer.save()
 
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         client_item = self.get_object(pk)

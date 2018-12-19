@@ -765,6 +765,31 @@ export const styles = theme => ({
   clientTalentViewVideoButtonStatusText: {
     color: theme.palette.white.thin,
     textTransform: 'none',
+  },
+  clientCastingRequestGridItem: {
+    textAlign: 'right',
+    paddingRight: '5px!important',
+    verticalAlign: 'top',
+    // paddingTop: '10px!important',
+    marginBottom: 'auto',
+    justifyContent: 'flex-end',
+    display: 'flex'
+  },
+  clientCastingRequestListViewButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '2px',
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+  },
+  clientCastingRequestListViewButtonText: {
+    fontSize: '0.95rem',
+    fontWeight: 400,
+    paddingTop: '1px',
+    paddingBottom: '1px',
+    textTransform: 'none',
+    color: theme.palette.white.main
   }
 });
 

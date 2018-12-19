@@ -38,7 +38,7 @@ const Panel = (props) => {
     <div className={panelClass}>
       {props.title && (
         <div className="panel-heading">
-          <h5>{props.title}</h5>
+          <h5 style={{fontWeight: props.boldText ? 'bold' : '400'}}>{props.title}</h5>
           { props.righticon ? <RightIconOption /> : ''}
         </div>
       )}

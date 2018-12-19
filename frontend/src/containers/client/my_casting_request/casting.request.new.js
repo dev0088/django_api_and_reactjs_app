@@ -1,33 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
-import '../client.css'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import { Alert } from 'reactstrap';
 import {onCastingViewSearch} from 'actions/clientActions'
 import {bindActionCreators} from "redux";
+import ClientAPI from 'apis/clientAPIs';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../client.css'
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getOnlineData: bindActionCreators(onCastingViewSearch, dispatch)
-  }
-};
 
 class CastingRequestNew extends Component {
-  state = {
-    request_name: '',
-    ship_name: '',
-    employStartDate: moment(),
-    employEndDate: moment(),
-    joinDate: moment(),
-    rehearsalPlace: '',
-    rehearsalStartDate: moment(),
-    rehearsalEndDate: moment(),
-    performanceStartDate: moment(),
-    performanceEndDate: moment(),
-    visa_requirement: '',
-    comment: ''
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      request_name: '',
+      ship_name: '',
+      employStartDate: moment(),
+      employEndDate: moment(),
+      joinDate: moment(),
+      rehearsalPlace: '',
+      rehearsalStartDate: moment(),
+      rehearsalEndDate: moment(),
+      performanceStartDate: moment(),
+      performanceEndDate: moment(),
+      visa_requirement: '',
+      comment: '',
+      error: false
+    };
+  }
 
   textAreaStyle = {
     width: '80%'
@@ -90,9 +92,36 @@ class CastingRequestNew extends Component {
   };
 
   onAddCastingRequest = () => {
-    // window.location.href = "/client/casting_request/confirm"
-    // console.log(this.state);
-    this.props.getOnlineData(this.state);
+    const {
+      request_name, ship_name, employStartDate, employEndDate, joinDate, rehearsalPlace,
+      rehearsalStartDate, rehearsalEndDate, performanceStartDate, performanceEndDate,
+      visa_requirement, comment
+    } = this.state;
+
+    let data = {
+      casting_request_name: request_name,
+      ship_name: ship_name,
+      employment_start_date: employStartDate.format(),
+      employment_end_date: employEndDate.format(),
+      talent_join_date: joinDate.format(),
+      rehearsal_start_date: rehearsalStartDate.format(),
+      rehearsal_end_date: rehearsalEndDate.format(),
+      performance_start_date: performanceStartDate.format(),
+      performance_end_date: performanceEndDate.format(),
+      visa_requirements: visa_requirement,
+      comments: comment
+    };
+    ClientAPI.createCastingRequest(data, this.handleAddCastingRequest);
+  };
+
+  handleAddCastingRequest = (response, isFailed) => {
+    console.log('==== response: ', response, isFailed);
+    if(isFailed) {
+      console.log(response[Object.keys(response)[0]][0]);
+      this.setState({ error: 'Failed to create a casting request. Please input every values.'});
+    } else {
+      this.props.history.push('/client/casting_request/confirm');
+    }
   };
 
   onChangeReuqestName = (e) => {
@@ -126,10 +155,12 @@ class CastingRequestNew extends Component {
   };
 
   render() {
+    const { error } = this.state;
+
     return (
       <div className="ml-5">
         <div className="title text-center mt-3" style={this.parentStyle}>New Casting Request</div>
-
+        {!!error && <Alert color="danger">{error}</Alert>}
         <div className="mt-3">
           <div className="master-title">
             Create a name for this Casting Request:
@@ -243,5 +274,13 @@ class CastingRequestNew extends Component {
     )
   }
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+};
+
 
 export default connect(null, mapDispatchToProps)(CastingRequestNew);

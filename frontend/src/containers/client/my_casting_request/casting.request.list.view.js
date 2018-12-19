@@ -8,7 +8,7 @@ import styles from 'styles';
 import '../client.css';
 
 
-class CastingRequestView extends Component {
+class CastingRequestListView extends Component {
 
   constructor(props) {
     super(props);
@@ -103,4 +103,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CastingRequestView));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CastingRequestListView));
