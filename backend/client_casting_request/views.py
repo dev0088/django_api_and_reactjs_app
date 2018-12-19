@@ -1,21 +1,29 @@
 from django.shortcuts import render
 
 # Create your views here.
+from authentication.models import User
+from client.models import Client
 from client_casting_request.models import ClientCastingRequest
-from client_casting_request.serializers import ClientCastingRequestSerializer
+from client_casting_request.serializers import ClientCastingRequestSerializer, ClientCastingRequestCreateSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
+
 
 class ClientCastingRequestList(APIView):
     """
     Retrieve all casting requests of client.
     """
+    @swagger_auto_schema(responses={200: ClientCastingRequestSerializer(many=True)})
     def get(self, request, format=None):
-        client_casting_request = ClientCastingRequest.objects.all()
+        user = User.objects.get(pk=request.user.pk)
+        client = Client.objects.get(user=user)
+        client_casting_request = ClientCastingRequest.objects.filter(client=client)
         serializer = ClientCastingRequestSerializer(client_casting_request, many=True)
         return Response(serializer.data)
+
 
 class ClientCastingRequestDetail(APIView):
     """
@@ -27,20 +35,65 @@ class ClientCastingRequestDetail(APIView):
         except ClientCastingRequest.DoesNotExist:
             raise Http404
 
+    @swagger_auto_schema(responses={200: ClientCastingRequestSerializer(many=False)})
     def get(self, request, pk, format=None):
         client_casting_request = self.get_object(pk)
         serializer = ClientCastingRequestSerializer(client_casting_request)
         return Response(serializer.data)
 
+    @swagger_auto_schema(responses={200: ClientCastingRequestCreateSerializer(many=False)})
     def put(self, request, pk, format=None):
         client_casting_request = self.get_object(pk)
         serializer = ClientCastingRequestSerializer(client_casting_request, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(responses={200: 'OK'})
     def delete(self, request, pk, format=None):
         client_casting_request = self.get_object(pk)
         client_casting_request.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ClientCastingRequestCreate(APIView):
+    """
+    Get current client info
+    """
+    # authentication_classes = (authentication.TokenAuthentication, )
+    # permission_classes = (permissions.IsAuthenticated,)
+
+    def get_object(self, user):
+      try:
+        user = User.objects.get(pk=user.pk)
+        client = Client.objects.get(user=user.id)
+        return client
+      except Client.DoesNotExist:
+        raise Http404
+
+    @swagger_auto_schema(request_body=ClientCastingRequestCreateSerializer,
+                         responses={200: ClientCastingRequestCreateSerializer(many=False)})
+    def post(self, request, format=None):
+        client = self.get_object(request.user)
+        serializer = ClientCastingRequestCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            new_casting_request = ClientCastingRequest.objects.create(
+                client=client,
+                casting_request_name=data['casting_request_name'],
+                ship_name=data['ship_name'],
+                employment_start_date=data['employment_start_date'],
+                employment_end_date=data['employment_end_date'],
+                talent_join_date=data['talent_join_date'],
+                rehearsal_start_date=data['rehearsal_start_date'],
+                rehearsal_end_date=data['rehearsal_end_date'],
+                performance_start_date=data['performance_start_date'],
+                performance_end_date=data['performance_end_date'],
+                visa_requirements=data['visa_requirements'],
+                comments=data['comments']
+            )
+            new_casting_request.save()
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

@@ -447,8 +447,8 @@ class EditProfile extends Component {
 	}
 
 	handleWorkedCruiseShipSaveResponse = (response, isFailed) => {
-		this.props.talentActions.getCurrentTalentInfo(this.state.userID)
-	}
+    this.props.talentActions.getCurrentTalentInfo(this.state.userID)
+  }
 
 	checkChanges = (event) => {
 		const { isChanged } = this.state

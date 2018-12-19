@@ -647,7 +647,7 @@ class ViewProfile extends Component {
               titleClass = {classes.clientTalentViewVideoButtonText}
               subTitle = {talent_video_greetings ? talent_video_greetings.length : 0}
               subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-              size = {12}
+              xs = {12}
               fullWidth = {false}
             />
           </Grid>
@@ -674,7 +674,7 @@ class ViewProfile extends Component {
           titleClass = {classes.clientTalentViewVideoButtonText}
           subTitle = {this.makeImmigrationSubTitle(talent_visas)}
           subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-          size = {12}
+          xs = {12}
           fullWidth = {false}
         />
         <ColumnButton
@@ -686,7 +686,7 @@ class ViewProfile extends Component {
           titleClass = {classes.clientTalentViewVideoButtonText}
           subTitle = {this.makeMedicalSubTitle(talent_medicals)}
           subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-          size = {12}
+          xs = {12}
           fullWidth = {false}
         />
         <ColumnButton
@@ -698,7 +698,7 @@ class ViewProfile extends Component {
           titleClass = {classes.clientTalentViewVideoButtonText}
           subTitle = {this.makeAvailabilitySubTitle(talent_availabilities_last_update)}
           subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-          size = {12}
+          xs = {12}
           fullWidth = {false}
         />
       </Grid>

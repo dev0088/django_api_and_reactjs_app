@@ -112,7 +112,7 @@ class TalentVideosForm extends Component {
             titleClass = {classes.talentProfileGuideButtonTitle}
             subTitle = {"completed"}
             subTitleClass = {classes.talentProfileGuideButtonSubTitle}
-            size = {12}
+            xs = {12}
             fullWidth = {false}
           />
         </Grid>

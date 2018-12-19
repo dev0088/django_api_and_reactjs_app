@@ -297,7 +297,7 @@ class TalentView extends Component {
         titleClass = {classes.clientTalentViewVideoButtonText}
         subTitle = {subTitle}
         subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-        size = {12}
+        xs = {12}
         color = "primary"
         fullWidth = {true}
       />
@@ -325,7 +325,7 @@ class TalentView extends Component {
         titleClass = {classes.clientTalentViewVideoButtonText}
         subTitle = {subTitle}
         subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-        size = {6}
+        xs = {6}
         color = "primary"
         fullWidth = {true}
       />
@@ -363,7 +363,7 @@ class TalentView extends Component {
         titleClass = {classes.clientTalentViewVideoButtonText}
         subTitle = {statusValue}
         subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-        size = {12}
+        xs = {12}
         color = ''
         fullWidth = {false}
       />
@@ -394,7 +394,7 @@ class TalentView extends Component {
         titleClass = {classes.clientTalentViewVideoButtonText}
         subTitle = {subTitle}
         subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-        size = {size}
+        xs = {size}
         color = {color}
         fullWidth = {fullWidth}
       />

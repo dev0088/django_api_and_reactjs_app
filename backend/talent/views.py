@@ -341,7 +341,7 @@ class TalentDetail(APIView):
                 self.save_talent_visas(talent_item, talent_visas_data)
 
             return Response(status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_item = self.get_object(pk)
@@ -377,7 +377,7 @@ class TalentDetail(APIView):
                 self.add_talent_skills(talent_item, talent_skills_data)
 
             return Response(request.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class TalentChangePassword(APIView):
     # """

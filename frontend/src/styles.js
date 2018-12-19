@@ -337,7 +337,8 @@ export const styles = theme => ({
     color: theme.palette.white.main,
   },
   generalAssistButton: {
-    borderRadius: '5px'
+    borderRadius: '5px',
+    display: 'block',
   },
   talentFormBackButton: {
     textTransform: 'none',
@@ -362,6 +363,27 @@ export const styles = theme => ({
     textTransform: 'none',
     color: theme.palette.black.main,
   },
+  talentProfileOtherInfoButton: {
+    display: 'block!important'
+  },
+
+  talentProfileOtherInfoButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: '600',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+  },
+
+  talentProfileOtherInfoButtonStatus: {
+    color: '#d6d7d8',
+    textTransform: 'none',
+  },
+
+  talentProfileOtherInfoButtonGroup: {
+    display: 'inherit'
+  },
+
   talentProfileGuideButtonItem: {
     textAlign: 'center',
     padding: '5px',
@@ -743,6 +765,31 @@ export const styles = theme => ({
   clientTalentViewVideoButtonStatusText: {
     color: theme.palette.white.thin,
     textTransform: 'none',
+  },
+  clientCastingRequestGridItem: {
+    textAlign: 'right',
+    paddingRight: '5px!important',
+    verticalAlign: 'top',
+    // paddingTop: '10px!important',
+    marginBottom: 'auto',
+    justifyContent: 'flex-end',
+    display: 'flex'
+  },
+  clientCastingRequestListViewButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '2px',
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+  },
+  clientCastingRequestListViewButtonText: {
+    fontSize: '0.95rem',
+    fontWeight: 400,
+    paddingTop: '1px',
+    paddingBottom: '1px',
+    textTransform: 'none',
+    color: theme.palette.white.main
   }
 });
 

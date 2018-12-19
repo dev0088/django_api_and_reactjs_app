@@ -126,16 +126,6 @@ class Header extends Component {
                       <Typography className={classes.menuItemText}>{"My Profile"}</Typography>
                     </MenuItem>
                   </Link>
-                  <Link to="/home">
-                    <MenuItem className={classes.topbarMenuItem}>
-                      <Typography className={classes.menuItemText}>{"My Auditions"}</Typography>
-                    </MenuItem>
-                  </Link>
-                  <Link to="/availability-info">
-                    <MenuItem className={classes.topbarMenuItem}>
-                      <Typography className={classes.menuItemText}>{"My Availability"}</Typography>
-                    </MenuItem>
-                  </Link>
               </div>
             )}
 

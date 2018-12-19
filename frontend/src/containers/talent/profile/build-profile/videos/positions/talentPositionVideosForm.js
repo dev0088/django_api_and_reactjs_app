@@ -167,7 +167,7 @@ class TalentPositionVideosForm extends Component {
             buttonClass = {classes.talentProfileGuideButton}
             title = {"INSTRUCTIONS"}
             titleClass = {classes.talentProfileGuideButtonTitle}
-            size = {12}
+            xs = {12}
             fullWidth = {false}
           />
           <ColumnButton
@@ -177,7 +177,7 @@ class TalentPositionVideosForm extends Component {
             buttonClass = {classes.talentProfileGuideButton}
             title = {"Sample Videos"}
             titleClass = {classes.talentProfileGuideButtonSubTitle}
-            size = {12}
+            xs = {12}
             fullWidth = {false}
           />
         </Grid>

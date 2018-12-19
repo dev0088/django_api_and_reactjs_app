@@ -14,6 +14,7 @@ class TalentPositionTypeViewSet(viewsets.ModelViewSet):
     serializer_class = TalentPositionTypeSerializer
     # permission_classes = (IsAuthenticated,)
 
+
 class TalentPositionTypeList(APIView):
     """
     List all talent_position_type.
@@ -28,7 +29,8 @@ class TalentPositionTypeList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class TalentPositionTypeDetail(APIView):
     """
@@ -51,7 +53,7 @@ class TalentPositionTypeDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_position_type_item = self.get_object(pk)

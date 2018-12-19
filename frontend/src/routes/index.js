@@ -124,7 +124,7 @@ import TalentView from "containers/client/talent_view/talent.view";
 import RequestSelection from "containers/client/my_casting_request/request.selection";
 import CastingRequestNew from "containers/client/my_casting_request/casting.request.new";
 import CastingRequestAddConfirm from "containers/client/my_casting_request/casting.request.add.confirm";
-import CastingRequestView from "containers/client/my_casting_request/casting.request.view";
+import CastingRequestListView from "containers/client/my_casting_request/casting.request.list.view";
 import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
 import MyFavorite from "containers/client/my_saved_talent/myfavorite";
@@ -249,10 +249,10 @@ const Index = () => (
       )}
     />
     <Route
-      path="/client/casting_request/view"
+      path="/client/casting_request/list_view"
       render={props => (
         <TemplateClientTopbar>
-        <CastingRequestView {...props} />
+        <CastingRequestListView {...props} />
         </TemplateClientTopbar>
       )}
     />
