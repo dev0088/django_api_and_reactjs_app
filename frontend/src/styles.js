@@ -337,7 +337,8 @@ export const styles = theme => ({
     color: theme.palette.white.main,
   },
   generalAssistButton: {
-    borderRadius: '5px'
+    borderRadius: '5px',
+    display: 'block',
   },
   talentFormBackButton: {
     textTransform: 'none',
@@ -362,6 +363,27 @@ export const styles = theme => ({
     textTransform: 'none',
     color: theme.palette.black.main,
   },
+  talentProfileOtherInfoButton: {
+    display: 'block!important'
+  },
+
+  talentProfileOtherInfoButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: '600',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+  },
+
+  talentProfileOtherInfoButtonStatus: {
+    color: '#d6d7d8',
+    textTransform: 'none',
+  },
+
+  talentProfileOtherInfoButtonGroup: {
+    display: 'inherit'
+  },
+
   talentProfileGuideButtonItem: {
     textAlign: 'center',
     padding: '5px',

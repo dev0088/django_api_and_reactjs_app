@@ -53,7 +53,7 @@ class RequestSelection extends Component {
               buttonClass = {classes.clientTalentViewVideoButton}
               title = {"Create New Casting Request"}
               titleClass = {classes.clientTalentViewVideoButtonText}
-              size = {12}
+              xs = {12}
               fullWidth = {true}
             />
             <ColumnButton
@@ -62,7 +62,7 @@ class RequestSelection extends Component {
               buttonClass = {classes.clientTalentViewVideoButton}
               title = {"View My Casting Requests"}
               titleClass = {classes.clientTalentViewVideoButtonText}
-              size = {12}
+              xs = {12}
               fullWidth = {true}
             />
           </Grid>

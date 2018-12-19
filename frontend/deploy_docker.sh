@@ -5,6 +5,9 @@ docker-compose down
 docker-compose stop
 
 # Re-build npm on local
+export NVM_DIR="$HOME/.nvm"
+source ~/.nvm/nvm.sh
+
 nvm use 9.8.0
 npm install
 npm run build

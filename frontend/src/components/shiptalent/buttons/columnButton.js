@@ -27,10 +27,20 @@ class ColumnButton extends Component {
       size,
       color,
       fullWidth,
+      xl,
+      lg,
+      md,
+      sm
     } = this.props;
 
+    let sizeProps = {}
+    if (xl) sizeProps = {...sizeProps, xl};
+    if (lg) sizeProps = {...sizeProps, lg};
+    if (md) sizeProps = {...sizeProps, md};
+    if (sm) sizeProps = {...sizeProps, sm};
+
     return (
-      <Grid item xs={size} className={itemClass}>
+      <Grid item xs={size} {...sizeProps} className={itemClass}>
         <Link to={link ? link : "#"} onClick={this.onClickButton}>
           <Button variant="contained" color={color} fullWidth={fullWidth} className={buttonClass}>
             <Typography className={titleClass}>{title}</Typography>
