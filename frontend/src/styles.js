@@ -2,6 +2,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
+import blue from '@material-ui/core/colors/blue';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 export const styles = theme => ({
@@ -293,6 +294,30 @@ export const styles = theme => ({
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
+  h4NoMargin: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '2.125rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.17,
+    letterSpacing: '0.00735em',
+    marginBlockStart: '0em',
+    marginBlockEnd: '0em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+  },
+  h4SmallMargin: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '2.125rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.17,
+    letterSpacing: '0.00735em',
+    marginBlockStart: '0.5em',
+    marginBlockEnd: '0.5em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+  },
   h4: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
@@ -370,6 +395,15 @@ export const styles = theme => ({
   },
   bold: {
     fontWeight: 600,
+  },
+  red: {
+    color: theme.palette.red.main
+  },
+  blue: {
+    color: theme.palette.blue.main
+  },
+  green: {
+    color: theme.palette.green.main
   },
   generalButtonClass: {
     textTransform: 'none',
@@ -735,6 +769,45 @@ export const styles = theme => ({
     display: 'inline',
     color: theme.palette.white.main,
   },
+  homeBackgroundImage: {
+    width: '100%'
+  },
+  clientHomeContainer: {
+    marginLeft: '-15px',
+    marginRight: '-15px',
+    marginBottom: '-16px'
+  },
+  clientHomeButtonsContainer: {
+    width: '100%',
+    borderRadius: '0rem',
+    marginBottom: '0rem',
+    marginTop: '0rem',
+    paddingTop: '22px',
+    backgroundColor: 'transparent!important',
+    position: 'absolute'
+  },
+  clientHomeButton: {
+    minWidth: '300px',
+    maxWidth: '300px',
+    minHeight: '105px',
+    padding: '8px',
+    display: 'block',
+    borderRadius: '5px'
+  },
+  clientHomeButtonTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    whiteSpace: 'nowrap',
+    color: theme.palette.white.main,
+  },
+  clientHomeButtonSubTitle: {
+    fontWeight: 400,
+    color: theme.palette.white.light,
+    textTransform: 'none'
+  },
   clientTalentSearchResultPicture: {
     width: '70px',
     height: '70px',
@@ -755,8 +828,9 @@ export const styles = theme => ({
   },
   clientFormBackButton: {
     textTransform: 'none',
-    borderRadius: '0px',
+    borderRadius: '8px',
     backgroundColor: theme.palette.black.main,
+    // border: '1px solid #EEEEEE',
     primaryColor: theme.palette.white.main,
     '&:hover': {
       backgroundColor: theme.palette.black.thin,
@@ -767,9 +841,10 @@ export const styles = theme => ({
   },
   clientFormNextButton: {
     textTransform: 'none',
-    borderRadius: '0px',
+    borderRadius: '8px',
     backgroundColor: theme.palette.black.main,
     primaryColor: theme.palette.white.main,
+    // border: '1px solid #EEEEEE',
     '&:hover': {
       backgroundColor: theme.palette.black.thin,
     },
@@ -843,7 +918,8 @@ export const styles = theme => ({
   clientCastingRequestListViewButton: {
     backgroundColor: theme.palette.black.main,
     display: 'block',
-    borderRadius: '2px',
+    borderRadius: '9px',
+    border: '2px solid #EEEEEE',
     '&:hover': {
       backgroundColor: theme.palette.black.light
     },
@@ -912,6 +988,11 @@ export const theme = createMuiTheme ({
       thin: red[400],
       light: red[400],
       dark: red[900]
+    },
+    blue: {
+      main: blue[700],
+      light: blue[400],
+      dark: blue[900]
     }
   },
   typography: {

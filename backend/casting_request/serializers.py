@@ -4,7 +4,6 @@ from client.general_serializers import ClientSerializer
 
 
 class CastingRequestSerializer(serializers.ModelSerializer):
-    # user = GeneralUserSerializer(many=False, read_only=True)
     client = ClientSerializer(many=False, read_only=True)
 
     class Meta:
@@ -24,6 +23,7 @@ class CastingRequestSerializer(serializers.ModelSerializer):
             'visa_requirements',
             'comments',
             'status',
+            'status_updated_date',
             'saved',
             'created'
         )
@@ -45,4 +45,6 @@ class CastingRequestCreateSerializer(serializers.ModelSerializer):
             'performance_end_date',
             'visa_requirements',
             'comments',
+            'status',
+            'status_updated_date'
         )

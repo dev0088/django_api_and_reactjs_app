@@ -39,7 +39,8 @@ class CastingRequestDetail(APIView):
         serializer = CastingRequestDetailSerializer(casting_request)
         return Response(serializer.data)
 
-    @swagger_auto_schema(responses={200: CastingRequestCreateSerializer(many=False)})
+    @swagger_auto_schema(request_body=CastingRequestCreateSerializer,
+                         responses={200: CastingRequestCreateSerializer(many=False)})
     def put(self, request, pk, format=None):
         casting_request = self.get_object(pk)
         serializer = CastingRequestSerializer(casting_request, data=request.data)
@@ -95,3 +96,20 @@ class CastingRequestCreate(APIView):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CastingRequestSubmit(APIView):
+    """
+    Set submit status of a casting request from client.
+    """
+    def get_object(self, pk):
+        try:
+            return CastingRequest.objects.get(pk=pk)
+        except CastingRequest.DoesNotExist:
+            raise Http404
+
+    @swagger_auto_schema(responses={200: CastingRequestDetailSerializer(many=False)})
+    def get(self, request, pk, format=None):
+        casting_request = self.get_object(pk)
+        serializer = CastingRequestDetailSerializer(casting_request)
+        return Response(serializer.data)

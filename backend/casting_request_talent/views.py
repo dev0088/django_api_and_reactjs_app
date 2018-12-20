@@ -41,7 +41,7 @@ class CastingRequestTalentDetail(APIView):
         serializer = CastingRequestTalentSerializer(casting_request)
         return Response(serializer.data)
 
-    @swagger_auto_schema(responses={200: CastingRequestTalentCreateSerializer(many=False)})
+    @swagger_auto_schema(responses={200: CastingRequestTalentSerializer(many=False)})
     def put(self, request, pk, format=None):
         casting_request = self.get_object(pk)
         serializer = CastingRequestTalentSerializer(casting_request, data=request.data)

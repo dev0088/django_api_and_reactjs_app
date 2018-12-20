@@ -76,12 +76,21 @@ class ClientAPI {
     this.processRequestWithToken(`client/casting_request/create`, 'post', data, handleResponse)
   }
 
-  static saveCastingRequest(data, handleResponse) {
-    this.processRequestWithToken(`client/casting_request/${getUserID()}/`, 'put', data, handleResponse)
+  static saveCastingRequest(crID, data, handleResponse) {
+    this.processRequestWithToken(`client/casting_request/${crID}/`, 'put', data, handleResponse)
   }
 
   static getCastingRequestDetail(crID, handleResponse) {
     this.processRequestWithToken(`client/casting_request/${crID}/`, 'get', null, handleResponse)
   }
+
+  static getCastingRequestTalent(crtID, handleResponse) {
+    this.processRequestWithToken(`client/casting_request_talent/${crtID}/`, 'get', null, handleResponse)
+  }
+
+  static saveCastingRequestTalent(crtID, data, handleResponse) {
+    this.processRequestWithToken(`client/casting_request_talent/${crtID}/`, 'put', data, handleResponse)
+  }
+
 }
 export default ClientAPI

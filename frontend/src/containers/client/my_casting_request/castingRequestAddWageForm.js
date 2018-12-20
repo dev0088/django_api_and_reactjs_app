@@ -1,83 +1,202 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import { Alert } from 'reactstrap';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Panel from 'components/general/panel';
+import ClientForm from 'components/shiptalent/forms/clientForm';
+import CastingRequestTalent from './castingRequestTalent';
+import ClientAPI from 'apis/clientAPIs';
 import styles from 'styles';
 
 
 class CastingRequestAddWageForm extends Component {
 
-  handleClickSubmit = () => {
-    const { castingRequest } = this.props;
-    // Call API
-    window.location.href = "/client/casting_request/submit_confirm";
+  state = {
+    castingRequestTalent: {},
+    rehearsalWage: null,
+    performanceWage: null,
+    comment: null,
+    error: false,
+    errorMessage: null
   };
 
-  renderCastingRequestItem = (name, value) => {
-    const { classes } = this.props;
-    return (
-      <Grid item xs={12}>
-        <Typography className={[classes.financeTableTitle, classes.inlineText]}>
-          {`${name}: `}
-        </Typography>
-        <Typography className={[classes.descriptionText, classes.inlineText]}>
-          {value}
-        </Typography>
-      </Grid>
-    )
+  getInfoFromProps = (props) => {
+    let castingRequestTalent = (props.location && props.location.state)
+      ? props.location.state.castingRequestTalent
+      : null
+    return {
+      castingRequestTalent: (props.location && props.location.state)
+                            ? props.location.state.castingRequestTalent
+                            : null,
+      rehearsalWage: castingRequestTalent ? castingRequestTalent.rehearsal_wage : null,
+      performanceWage: castingRequestTalent ? castingRequestTalent.performance_wage: null,
+      comment: castingRequestTalent ? castingRequestTalent.comment : null
+    }
   };
 
-  renderCastingRequestTable() {
-    const { classes, castingRequest } = this.props;
-    return (
-      <Grid container spacing={16} direction="row" justify="center" alignItems="center">
-        <Grid item md={7} xs={12}>
-          <Grid container spacing={16} direction="column" justify="flex-start" alignItems="flex-start">
-            { this.renderCastingRequestItem('Ship', castingRequest.ship_name : '') }
-            { this.renderCastingRequestItem('Date of Employment',
-              `From ${castingRequest.employment_start_date} To ${castingRequest.employment_end_date}`)
-            }
-            { this.renderCastingRequestItem('Deployment Date', castingRequest.talent_join_date) }
-            { this.renderCastingRequestItem('Rehearsal Dates',
-              `From ${castingRequest.rehearsal_start_date} To ${castingRequest.rehearsal_end_date}`)
-            }
-            { this.renderCastingRequestItem('Rehearsal Location', '') }
-            { this.renderCastingRequestItem('Performance Dates',
-              `From ${castingRequest.performance_start_date} To ${castingRequest.performance_end_date}`)
-            }
-            { this.renderCastingRequestItem('Visas Required', castingRequest.visa_requirements) }
-            { this.renderCastingRequestItem('Other Cast Requirements and/or Comments', castingRequest.comments) }
-          </Grid>
-        </Grid>
-        <Grid item md={5} xs={12}>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.submitCastingRequestButton}
-            onClick={this.handleClickSubmit}
-          >
-            <Typography className={classes.submitCastingRequestButtonText}>
-              {"Submit Casting Request"}
-            </Typography>
-          </Button>
-        </Grid>
-      </Grid>
-    )
+  componentWillMount() {
+    this.setState({ ...this.getInfoFromProps(this.props)});
   }
 
-  render() {
-    const { title } = this.props;
+  componentWillReceiveProps(nextProps) {
+    this.setState({ ...this.getInfoFromProps(nextProps)});
+  }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleClickSaveAndReturn = (event) => {
+    const { castingRequestTalent, rehearsalWage, performanceWage, comment } = this.state;
+    let data = {...castingRequestTalent};
+
+    data.rehearsal_wage = parseInt(rehearsalWage);
+    data.performance_wage = parseInt(performanceWage);
+    data.comment = comment;
+
+    event.preventDefault();
+
+    ClientAPI.saveCastingRequestTalent(castingRequestTalent.id, data, this.handleSaveWageResponse);
+  };
+
+  handleSaveWageResponse = (response, isFailed) => {
+    if(isFailed) {
+      this.setState({ error: true, errorMessage: 'Failed save wages.' });
+    } else {
+      this.setState({ error: false, errorMessage: false });
+      this.props.history.push('/client/casting_request/view', {castingRequest: response.casting_request});
+    }
+  };
+
+  handleClickCancel = (event) => {
+    const { castingRequestTalent, rehearsalWage, performanceWage, comment } = this.state;
+
+    event.preventDefault();
+
+    ClientAPI.getCastingRequestTalent(castingRequestTalent.id, this.handleCancelResponse);
+  };
+
+  handleCancelResponse = (response, isFailed) => {
+    if(isFailed) {
+      this.setState({ error: true, errorMessage: 'Failed to go back.' });
+    } else {
+      this.setState({ error: false, errorMessage: false });
+      this.props.history.push('/client/casting_request/view', {castingRequest: response.casting_request});
+    }
+  }
+
+  renderContent = () => {
+    const { title, classes } = this.props;
+    const { castingRequestTalent, rehearsalWage, performanceWage, comment, error, errorMessage } = this.state;
 
     return (
-      <Panel title={title} bold={true} center={true} key="casting-request-submit-form">
+      <Panel title={title} bold={true} center={true} key="cr-aw-f" className={[classes.h4NoMargin, classes.bold, classes.centerText]}>
+        {error && <Alert color="danger">{errorMessage}</Alert>}
         <Grid container spacing={16} justify="flex-start" alignItems="flex-start">
-          { this.renderCastingRequestTable() }
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <CastingRequestTalent castingRequestTalent={castingRequestTalent} hideWage={true} />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.leftText}>
+            <Typography className={classes.financeTableTitle}>
+              {'Rehearsal Wage'}
+            </Typography>
+            <TextField
+              id="outlined-name"
+              label=""
+              className={classes.textField}
+              value={rehearsalWage}
+              type="number"
+              onChange={this.handleChange('rehearsalWage')}
+              margin="normal"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.leftText}>
+            <Typography className={classes.financeTableTitle}>
+              {'Performance Wage'}
+            </Typography>
+            <TextField
+              id="outlined-name"
+              label=""
+              className={classes.textField}
+              value={performanceWage}
+              type="number"
+              onChange={this.handleChange('performanceWage')}
+              margin="normal"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.leftText}>
+            <Typography className={classes.financeTableTitle}>
+              {'Talent-Specific Comments and/or Requirements'}
+            </Typography>
+            <TextField
+              id="outlined-name"
+              label=""
+              className={classes.textField}
+              value={comment}
+              type="number"
+              onChange={this.handleChange('comment')}
+              margin="normal"
+              variant="outlined"
+              multiline
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
         </Grid>
       </Panel>
-    )
+    );
+  };
+
+  render() {
+    const { title, classes } = this.props;
+    const { castingRequestTalent } = this.state;
+
+    let backLink = {
+      pathname: "/client/casting_request/view",
+      state: {castingRequestTalent}
+    };
+    let nextLink = {
+      pathname: "/client/casting_request/view",
+      state: {castingRequest: castingRequestTalent ? castingRequestTalent.castingRequest : null}
+    };
+
+    return (
+      <ClientForm
+        formTitle="Talent Wage and Comments"
+        backLink={backLink}
+        backButtonTitle="Save and Return to Casting Request"
+        handleClickBackButton={this.handleClickSaveAndReturn}
+        nextLink={nextLink}
+        nextButtonTitle="Cancel and Return to Casting Request"
+        handleClickNextButton={this.handleClickCancel}
+      >
+        {this.renderContent()}
+      </ClientForm>
+    );
   }
 }
 
-export default (withStyles(styles)(CastingRequestAddWageForm));
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+};
+
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(CastingRequestAddWageForm));

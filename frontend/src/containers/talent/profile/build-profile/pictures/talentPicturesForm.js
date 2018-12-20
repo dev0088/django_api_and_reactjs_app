@@ -32,7 +32,7 @@ const theme = createMuiTheme ({
       main: '#C00'
     }
   }
-})
+});
 
 class TalentPicturesForm extends Component {
 

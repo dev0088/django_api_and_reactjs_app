@@ -22,13 +22,18 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle, formSubTitle, children, backLink, nextLink, backButtonTitle, nextButtonTitle, classes } = this.props;
+    const { formTitle, formSubTitle, children,
+      backLink, backButtonTitle, handleClickBackButton,
+      nextLink, nextButtonTitle, handleClickNextButton,
+      classes
+    } = this.props;
+
     return (
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" component="h4" variant="h4" gutterBottom>
+            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
               {formTitle}
             </Typography>
             <Typography align="center" className={classes.clientFormSubTitle}>
@@ -45,9 +50,12 @@ class ClientForm extends Component {
               backLink={backLink}
               backButtonTitle={backButtonTitle}
               backButtonClass={classes.clientFormBackButton}
+              handleClickBackButton={handleClickBackButton}
               nextLink={nextLink}
               nextButtonTitle={nextButtonTitle}
               nextButtonClass={classes.clientFormNextButton}
+              handleClickNextButton={handleClickNextButton}
+              direction="column"
             />
           </Grid>
         </Grid>

@@ -60,17 +60,13 @@ class RequestSelection extends Component {
 
   render() {
     return(
-      <Grid container spacing={24}>
-        <Grid item xs={12} >
-          <ClientForm
-            formTitle="My Casting Requests Selection"
-            nextLink="/client/home"
-            nextButtonTitle="Back to My Home Page"
-          >
-            {this.renderContent()}
-          </ClientForm>
-        </Grid>
-      </Grid>
+      <ClientForm
+        formTitle="My Casting Requests Selection"
+        nextLink="/client/home"
+        nextButtonTitle="Back to My Home Page"
+      >
+        {this.renderContent()}
+      </ClientForm>
     );
   }
 }

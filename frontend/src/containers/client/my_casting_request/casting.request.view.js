@@ -34,7 +34,7 @@ class CastingRequestView extends Component {
     const { castingRequest } = this.getInfoFromProps(this.props);
 
     this.setState({ ...castingRequest }, () => {
-      if (castingRequest) {
+      if (castingRequest && castingRequest.id) {
         ClientAPI.getCastingRequestDetail(castingRequest.id, this.handleGetCastingRequestResponse);
       }
     });
@@ -44,7 +44,7 @@ class CastingRequestView extends Component {
     const { castingRequest } = this.getInfoFromProps(nextProps);
 
     this.setState({ ...castingRequest }, () => {
-      if (castingRequest) {
+      if (castingRequest && castingRequest.id) {
         ClientAPI.getCastingRequestDetail(castingRequest.id, this.handleGetCastingRequestResponse);
       }
     });
