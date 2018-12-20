@@ -127,6 +127,7 @@ import CastingRequestAddConfirm from "containers/client/my_casting_request/casti
 import CastingRequestListView from "containers/client/my_casting_request/casting.request.list.view";
 import CastingRequestView from "containers/client/my_casting_request/casting.request.view";
 import CastingRequestSubmitConfirm from "containers/client/my_casting_request/submit.confirm";
+import CastingRequestAddWageForm from "containers/client/my_casting_request/castingRequestAddWageForm";
 import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
 import MyFavorite from "containers/client/my_saved_talent/myfavorite";
@@ -263,6 +264,15 @@ const Index = () => (
       render={props => (
         <TemplateClientTopbar>
           <CastingRequestView {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+
+    <Route
+      path="/client/casting_request/add_wage"
+      render={props => (
+        <TemplateClientTopbar>
+          <CastingRequestAddWageForm {...props} />
         </TemplateClientTopbar>
       )}
     />

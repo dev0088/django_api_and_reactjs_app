@@ -34,7 +34,7 @@ class TalentForm extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" component="h4" variant="h4">
+            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
               {formTitle}
             </Typography>
             <Typography align="center" className={classes.clientFormSubTitle}>

@@ -18,7 +18,8 @@ class CastingRequestTalent extends Component {
         src={getAvatarFromTalentInfo(castingRequestTalent.talent)}
         className="profile-picture-size"
         containerClass="profile-picture-container-div"
-        key={`${castingRequestTalent.talent.id}`}
+        key={`${(castingRequestTalent.talent && castingRequestTalent.talent.id)
+                ? castingRequestTalent.talent.id : 'crt'}`}
       />
     );
   };
@@ -61,7 +62,7 @@ class CastingRequestTalent extends Component {
           <Grid item lg={12} md={12} xs={12}>
             <Link
               to={{
-                pathname: '/client/cast_request/add_wage',
+                pathname: '/client/casting_request/add_wage',
                 state: {castingRequestTalent}
               }}
             >
@@ -102,22 +103,32 @@ class CastingRequestTalent extends Component {
   };
 
   render() {
-    const { castingRequestTalent } = this.props;
+    const { castingRequestTalent, hideWage } = this.props;
 
-    return (
-      <Grid container spacing={0} direction="row" justify="flex-start" alignItems="flex-start" key={`casting-request-talent-table-item-${castingRequestTalent.talent.id}`}>
-        <Grid item lg={1} md={1} xs={4}>
-          {this.renderImage(castingRequestTalent)}
+    if (castingRequestTalent) {
+      return (
+        <Grid container spacing={0} direction="row" justify="flex-start" alignItems="flex-start"
+              key={`casting-request-talent-table-item-
+                ${(castingRequestTalent && castingRequestTalent.talent && castingRequestTalent.talent.id)
+                ? castingRequestTalent.talent.id : ''}`
+              }
+        >
+          <Grid item lg={1} md={1} xs={4}>
+            {this.renderImage(castingRequestTalent)}
+          </Grid>
+          <Grid item lg={8} md={8} xs={4}>
+            {this.renderTalentDescription(castingRequestTalent)}
+          </Grid>
+          {!hideWage && <Grid item lg={3} md={3} xs={4}>
+            {this.renderWage(castingRequestTalent)}
+          </Grid>
+          }
         </Grid>
-        <Grid item lg={8} md={8} xs={4}>
-          {this.renderTalentDescription(castingRequestTalent)}
-        </Grid>
-        <Grid item lg={3} md={3} xs={4}>
-          {this.renderWage(castingRequestTalent)}
-        </Grid>
-      </Grid>
+      )
+    } else {
+      return <div/>
+    }
 
-    )
   }
 }
 

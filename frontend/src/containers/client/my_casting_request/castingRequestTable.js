@@ -15,6 +15,7 @@ const castingRequestTableDesign = {
   venue: {lg: 2, md: 2, sm: 6, xs: 12},
   dates: {lg: 3, md: 3, sm: 6, xs: 12},
   status: {lg: 1, md: 1, sm: 2, xs: 12},
+  statusDraft: {lg: 3, md: 3, sm: 4, xs: 12},
   requestDate: {lg: 2, md: 2, sm: 4, xs: 12},
 };
 
@@ -28,7 +29,7 @@ class CastingRequestTable extends Component {
 
   renderViewButton = (castingRequest) => {
     const { classes } = this.props;
-    console.log('----- path: \'/client/casting_request/view\': ', castingRequest)
+
     return (
       <Grid item {...castingRequestTableDesign['view']} className={ classes.clientCastingRequestGridItem }>
         <Link to={{ pathname: "/client/casting_request/view", state: { castingRequest } }} >
@@ -55,30 +56,64 @@ class CastingRequestTable extends Component {
   };
 
   renderGeneralHeader = () => {
-    const { classes } = this.props;
+    const { hideRequestDate, classes } = this.props;
     let items = [];
     items.push(this.renderValue('', 'view', [classes.financeTableTitle, classes.underlineText]));
     items.push(this.renderValue('Casting Request Name', 'name', [classes.financeTableTitle, classes.underlineText]));
     items.push(this.renderValue('Venue', 'venue', [classes.financeTableTitle, classes.underlineText]));
     items.push(this.renderValue('Dates', 'dates', [classes.financeTableTitle, classes.underlineText]));
-    items.push(this.renderValue('Status', 'status', [classes.financeTableTitle, classes.underlineText]));
-    items.push(this.renderValue('Request Date', 'requestDate', [classes.financeTableTitle, classes.underlineText]));
+
+    items.push(
+      this.renderValue(
+        'Status',
+        hideRequestDate ? 'statusDraft' : 'status',
+        [classes.financeTableTitle, classes.underlineText]
+      )
+    );
+
+    if(!hideRequestDate) {
+      items.push(this.renderValue('Request Date', 'requestDate', [classes.financeTableTitle, classes.underlineText]))
+    }
 
     return items;
   };
 
   renderCastingRequest = (castingRequest) => {
+    const { name, client, employment_start_date, employment_end_date, status, status_updated_date, created } = castingRequest;
+    const { hideRequestDate, classes } = this.props;
+
     let items = [];
     items.push (this.renderViewButton(castingRequest));
-    items.push (this.renderValue(`${castingRequest.name}`, 'name'));
-    items.push (this.renderValue(`${castingRequest.client.user.first_name} ${castingRequest.client.user.last_name}`, 'venue'));
+    items.push (this.renderValue(`${name}`, 'name'));
+    items.push (this.renderValue(`${client.user.first_name} ${client.user.last_name}`, 'venue'));
     items.push (this.renderValue(
-      `From: ${moment(castingRequest.employment_start_date).format(castingRequestDateFormat)} 
-       To: ${moment(castingRequest.employment_end_date).format(castingRequestDateFormat)}`,
+      `From: ${moment(employment_start_date).format(castingRequestDateFormat)} 
+       To: ${moment(employment_end_date).format(castingRequestDateFormat)}`,
       'dates')
     );
-    items.push (this.renderValue(castingRequest.status, 'status'));
-    items.push (this.renderValue(moment(castingRequest.created).format(castingRequestDateFormat), 'requestDate'));
+
+    let classNames = [classes.financeTableContentText, classes.bold];
+    let statusText = status
+    let fieldName = 'status'
+    if(status === 'Draft') {
+      classNames.push(classes.red);
+      statusText = 'Not Yet Submitted';
+      fieldName = 'statusDraft'
+    } else if (status === 'Requested') {
+      classNames.push(classes.blue)
+    } else if (status === 'In Progress') {
+      classNames.push(classes.green);
+    }
+    items.push (
+      this.renderValue(
+        statusText,
+        hideRequestDate ? 'statusDraft' : 'status',
+        classNames)
+    );
+
+    if (!hideRequestDate) {
+      items.push (this.renderValue(moment(status_updated_date).format(castingRequestDateFormat), 'requestDate'));
+    }
 
     return items;
   };

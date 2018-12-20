@@ -3,6 +3,7 @@ from casting_request.models import CastingRequest
 from casting_request_talent.casting_request_serializers import CastingRequestTalentSerializer
 from client.serializers import ClientSerializer
 
+
 class CastingRequestDetailSerializer(serializers.ModelSerializer):
     client = ClientSerializer(many=False, read_only=True)
     casting_request_talents = CastingRequestTalentSerializer(many=True, read_only=True)
@@ -24,6 +25,7 @@ class CastingRequestDetailSerializer(serializers.ModelSerializer):
             'visa_requirements',
             'comments',
             'status',
+            'status_updated_date',
             'saved',
             'created',
             'casting_request_talents',

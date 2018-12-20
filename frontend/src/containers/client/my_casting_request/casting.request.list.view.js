@@ -60,6 +60,7 @@ class CastingRequestListView extends Component {
         <CastingRequestTable
           title="My Saved Casting Requests"
           castingRequests={this.filterCastingRequestsByStatus(['Draft'])}
+          hideRequestDate={true}
           key="saved-cr-t"
         />
 

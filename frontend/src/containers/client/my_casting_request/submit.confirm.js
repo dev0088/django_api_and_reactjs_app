@@ -40,7 +40,7 @@ class CastingRequestSubmitConfirm extends Component {
           align="center" component="h4" variant="h4" gutterBottom
           className={[classes.centerText, classes.bold]}
         >
-          will be contracting you shortly to confirm
+          will be contracting you shortly to confirm.
         </Typography>
         <Spacer size={100}/>
       </ClientForm>

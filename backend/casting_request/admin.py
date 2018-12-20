@@ -20,6 +20,8 @@ class CastingRequestAdmin(admin.ModelAdmin):
         'performance_end_date',
         'visa_requirements',
         'comments',
+        'status',
+        'status_updated_date',
         'created'
     )
     list_display_links = (
@@ -37,6 +39,8 @@ class CastingRequestAdmin(admin.ModelAdmin):
         'performance_end_date',
         'visa_requirements',
         'comments',
+        'status',
+        'status_updated_date',
         'created'
     )
     list_per_page = 25
