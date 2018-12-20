@@ -333,3 +333,7 @@ export function generateLinkWithPosition(position, link) {
     state: { position }
   }
 }
+
+export function makeTalentOverviewTitle(talent) {
+  return `${talent.user.first_name} ${talent.user.last_name} (${talent.tid}) - ${getSexTitle(talent.sex)} ${makeTitleWithAllPositionTypes(talent)}`
+}

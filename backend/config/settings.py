@@ -80,9 +80,10 @@ LOCAL_APPS = (
     'question',
     'admin_setting',
     'submission',
-    'client_casting_request',
+    'casting_request',
     # 'auth_permission',
-    'client'
+    'client',
+    'casting_request_talent',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -125,6 +125,8 @@ import RequestSelection from "containers/client/my_casting_request/request.selec
 import CastingRequestNew from "containers/client/my_casting_request/casting.request.new";
 import CastingRequestAddConfirm from "containers/client/my_casting_request/casting.request.add.confirm";
 import CastingRequestListView from "containers/client/my_casting_request/casting.request.list.view";
+import CastingRequestView from "containers/client/my_casting_request/casting.request.view";
+import CastingRequestSubmitConfirm from "containers/client/my_casting_request/submit.confirm";
 import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
 import MyFavorite from "containers/client/my_saved_talent/myfavorite";
@@ -252,7 +254,23 @@ const Index = () => (
       path="/client/casting_request/list_view"
       render={props => (
         <TemplateClientTopbar>
-        <CastingRequestListView {...props} />
+          <CastingRequestListView {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/casting_request/view"
+      render={props => (
+        <TemplateClientTopbar>
+          <CastingRequestView {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/casting_request/submit_confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <CastingRequestSubmitConfirm {...props} />
         </TemplateClientTopbar>
       )}
     />
@@ -260,7 +278,7 @@ const Index = () => (
       path="/client/mytalent/saved"
       render={props => (
         <TemplateClientTopbar>
-        <MyTalentSaved {...props} />
+          <MyTalentSaved {...props} />
         </TemplateClientTopbar>
       )}
     />

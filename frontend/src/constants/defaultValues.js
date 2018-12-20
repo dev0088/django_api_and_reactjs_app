@@ -144,14 +144,16 @@ export default {
 	  'Fluent',
 	  'Conversational',
 	  'Basic'
-	]
+	],
+  CASTING_REQUEST_TITLE_DATE_FORMAT: 'M/D/YY',
+  CASTING_REQUEST_DESCRIPTION_DATE_FORMAT: 'MM/DD/YYYY'
 };
 
 function generateWeightConst() {
 	let weights = []
 	for (let i = 99; i <= 251; i ++) {
-		Math.round()
-		weights.push(i)
+		Math.round();
+		weights.push(i);
 	}
 	return weights
 }

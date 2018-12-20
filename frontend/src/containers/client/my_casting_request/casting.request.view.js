@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import ClientForm from 'components/shiptalent/forms/clientForm';
+import CastingRequestSubmitForm from './castingRequestSubmitForm';
+import CastingRequestTalentsForm from './castingRequestTalentsForm';
 import * as clientActions from 'actions/clientActions';
-import CastingRequestTable from './castingRequestTable';
+import ClientAPI from 'apis/clientAPIs';
+import defaultValues from 'constants/defaultValues';
 import styles from 'styles';
 import '../client.css';
 
@@ -13,77 +18,76 @@ class CastingRequestView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      castingRequests: [],
+      castingRequest: null,
+      castingRequestTalents: [],
       error: false
     };
   }
 
-  btnStyle = {
-    width: '18rem'
-  };
-
   getInfoFromProps(props) {
     return {
-      castingRequests: props.clientInfo ? props.clientInfo.client_casting_requests : []
+      castingRequest: (props.location && props.location.state) ? props.location.state.castingRequest : null
     }
   }
 
   componentWillMount() {
-    this.props.clientActions.getCurrentClientInfo();
+    const { castingRequest } = this.getInfoFromProps(this.props);
+
+    this.setState({ ...castingRequest }, () => {
+      if (castingRequest) {
+        ClientAPI.getCastingRequestDetail(castingRequest.id, this.handleGetCastingRequestResponse);
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ ...this.getInfoFromProps(nextProps) })
+    const { castingRequest } = this.getInfoFromProps(nextProps);
+
+    this.setState({ ...castingRequest }, () => {
+      if (castingRequest) {
+        ClientAPI.getCastingRequestDetail(castingRequest.id, this.handleGetCastingRequestResponse);
+      }
+    });
   }
 
-  onCreateNew = () => {
-    this.props.history.push("/client/casting_request/new");
-  };
-
-  goWelcomeScreen = () => {
-    this.props.history.push("/client/home");
-  };
-
-  filterCastingRequestsByStatus = (conditions) => {
-    return this.state.castingRequests.filter((castingRequest) => {
-      return conditions.indexOf(castingRequest.status) > -1
-    });
+  handleGetCastingRequestResponse = (response, isFailed) => {
+    console.log('==== response: ', response, isFailed);
+    if (isFailed) {
+      this.setState({ castingRequestTalents: [] })
+    } else {
+      this.setState({
+        castingRequest: response,
+        castingRequestTalents: response.casting_request_talents
+      })
+    }
   };
 
   render() {
+    const { castingRequest, castingRequestTalents } = this.state;
 
     return (
-      <div className="ml-3">
-        <div className="title text-center mt-3">My Casting Requests</div>
-
-        <CastingRequestTable
-          title="My Submitted Casting Requests"
-          castingRequests={this.filterCastingRequestsByStatus(['Requested', 'In Progress'])}
-        />
-
-        <CastingRequestTable
-          title="My Saved Casting Requests"
-          castingRequests={this.filterCastingRequestsByStatus(['Draft'])}
-        />
-
-        <CastingRequestTable
-          title="My Submitted Casting Requests"
-          castingRequests={this.filterCastingRequestsByStatus(['Completed', 'Canceled'])}
-        />
-
-        <div className="mt-5 pb-4">
-          <div className="d-flex justify-content-end mr-3">
-            <button className="btn btn-dark" style={this.btnStyle} onClick={this.onCreateNew}>
-              Create New Casting Request
-            </button>
-          </div>
-          <div className="mt-2 d-flex justify-content-end mr-3">
-            <button className="btn btn-dark" style={this.btnStyle} onClick={this.goWelcomeScreen}>
-              Back to My Home Page
-            </button>
-          </div>
-        </div>
-      </div>
+      <ClientForm
+        formTitle="Casting Request"
+        backLink={'#'}
+        backButtonTitle="Add Talent to this Casting Request"
+        nextLink={'/client/casting_request/list_view'}
+        nextButtonTitle="Save Changes and Return to My Casting Requests"
+      >
+        { !!castingRequest && <CastingRequestSubmitForm
+            title={`${castingRequest.name}
+            ${moment(castingRequest.employment_start_date).format(defaultValues.CASTING_REQUEST_TITLE_DATE_FORMAT)} -
+            ${moment(castingRequest.employment_end_date).format(defaultValues.CASTING_REQUEST_DESCRIPTION_DATE_FORMAT)
+              }`}
+            castingRequest={castingRequest}
+          />
+        }
+        { !!castingRequest && <CastingRequestTalentsForm
+            title="Talent Included in this Casting Request"
+            castingRequest={castingRequest}
+            castingRequestTalents={castingRequestTalents}
+          />
+        }
+      </ClientForm>
     )
   }
 }

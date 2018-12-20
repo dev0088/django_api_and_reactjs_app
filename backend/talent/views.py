@@ -84,8 +84,8 @@ class TalentDetail(APIView):
         position_type = PositionType.objects.get(name=position_type_name)
         if position_type:
             new_talent_position_type = TalentPositionType.objects.create(
-                    talent = talent,
-                    position_type = position_type
+                    talent=talent,
+                    position_type=position_type
                 )
             new_talent_position_type.save()
 
@@ -265,6 +265,37 @@ class TalentDetail(APIView):
             data.pop(child_name, None)
         return res
 
+    def wrap_generate_tid(self, tid, object_list):
+        new_tid = tid
+        for object in object_list:
+            new_tid = "{tid}{prefix}".format(
+                tid=new_tid,
+                prefix=object.name[0]
+            )
+        return new_tid
+
+    def generate_tid_by_list(self, talent, positions, sub_positions):
+        tid = self.wrap_generate_tid('', positions)
+
+        tid = "{tid}{talent_id}".format(
+            tid=tid,
+            talent_id=talent.id
+        )
+        talent.tid = tid
+        talent.save
+
+        return tid
+
+    def generate_tid_by_one(self, talent, position):
+        tid = "{prefix}{talent_id}".format(
+            prefix=position[0],
+            talent_id=talent.id
+        )
+        talent.tid = tid
+        talent.save
+
+        return tid
+
     @swagger_auto_schema(responses={200: TalentSerializer(many=False)})
     def get(self, request, pk, format=None):
         talent_item = self.get_object(pk)
@@ -303,6 +334,9 @@ class TalentDetail(APIView):
         print('==== talent_sub_skills_data: ', talent_sub_skills_data)
 
         serializer = TalentSerializer(talent_item, data=talent_data)
+        # Reset tid
+        serializer.tid = self.generate_tid_by_one(talent_item, talent_position_type_data)
+
         if serializer.is_valid():
             serializer.save()
 
@@ -375,6 +409,8 @@ class TalentDetail(APIView):
 
             if talent_skills_data:
                 self.add_talent_skills(talent_item, talent_skills_data)
+
+            self.generate_tid_by_list(talent_item, talent_position_types_data)
 
             return Response(request.data, status=status.HTTP_200_OK)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

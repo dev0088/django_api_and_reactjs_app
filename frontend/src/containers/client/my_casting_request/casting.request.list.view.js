@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import * as clientActions from 'actions/clientActions';
 import CastingRequestTable from './castingRequestTable';
+import ClientForm from 'components/shiptalent/forms/clientForm';
 import styles from 'styles';
 import '../client.css';
 
@@ -18,31 +19,20 @@ class CastingRequestListView extends Component {
     };
   }
 
-  btnStyle = {
-    width: '18rem'
-  };
-
-  getInfoFromProps(props) {
+  getInfoFromProps = (props) => {
     return {
-      castingRequests: props.clientInfo ? props.clientInfo.client_casting_requests : []
+      castingRequests: props.clientInfo ? props.clientInfo.casting_requests : []
     }
   }
 
   componentWillMount() {
+    this.setState({ ...this.getInfoFromProps(this.props) });
     this.props.clientActions.getCurrentClientInfo();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ ...this.getInfoFromProps(nextProps) })
   }
-
-  onCreateNew = () => {
-    this.props.history.push("/client/casting_request/new");
-  };
-
-  goWelcomeScreen = () => {
-    this.props.history.push("/client/home");
-  };
 
   filterCastingRequestsByStatus = (conditions) => {
     return this.state.castingRequests.filter((castingRequest) => {
@@ -53,37 +43,33 @@ class CastingRequestListView extends Component {
   render() {
 
     return (
-      <div className="ml-3">
-        <div className="title text-center mt-3">My Casting Requests</div>
+      <ClientForm
+        formTitle='My Casting Requests'
+        backLink={'/client/casting_request/new'}
+        backButtonTitle='Create New Casting Request'
+        nextLink={'/client/home'}
+        nextButtonTitle="Back to My Home Page"
+      >
 
         <CastingRequestTable
           title="My Submitted Casting Requests"
           castingRequests={this.filterCastingRequestsByStatus(['Requested', 'In Progress'])}
+          key="submit-cr-t"
         />
 
         <CastingRequestTable
           title="My Saved Casting Requests"
           castingRequests={this.filterCastingRequestsByStatus(['Draft'])}
+          key="saved-cr-t"
         />
 
         <CastingRequestTable
-          title="My Submitted Casting Requests"
+          title="My Completed Casting Requests"
           castingRequests={this.filterCastingRequestsByStatus(['Completed', 'Canceled'])}
+          key="completed-cr-t"
         />
 
-        <div className="mt-5 pb-4">
-          <div className="d-flex justify-content-end mr-3">
-            <button className="btn btn-dark" style={this.btnStyle} onClick={this.onCreateNew}>
-              Create New Casting Request
-            </button>
-          </div>
-          <div className="mt-2 d-flex justify-content-end mr-3">
-            <button className="btn btn-dark" style={this.btnStyle} onClick={this.goWelcomeScreen}>
-              Back to My Home Page
-            </button>
-          </div>
-        </div>
-      </div>
+      </ClientForm>
     )
   }
 }

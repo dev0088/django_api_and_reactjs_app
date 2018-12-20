@@ -22,19 +22,17 @@ const castingRequestDateFormat = 'MM/DD/YYYY';
 
 class CastingRequestTable extends Component {
 
-  handleClickViewButton = () => {
-    this.props.g
+  handleClickViewButton = (castingRequest) => {
+    this.props.history.push('/client/casting_request/view', {castingRequest: castingRequest})
   };
 
-  renderViewButton = (id) => {
+  renderViewButton = (castingRequest) => {
     const { classes } = this.props;
+    console.log('----- path: \'/client/casting_request/view\': ', castingRequest)
     return (
       <Grid item {...castingRequestTableDesign['view']} className={ classes.clientCastingRequestGridItem }>
-        <Link to={{ path: '#', state: {castingRequestID: id}}}>
-          <Button
-            className={classes.clientCastingRequestListViewButton}
-            onClick={() => this.handleClickViewButton(id)}
-          >
+        <Link to={{ pathname: "/client/casting_request/view", state: { castingRequest } }} >
+          <Button className={classes.clientCastingRequestListViewButton}>
             <Typography className={classes.clientCastingRequestListViewButtonText}>
               {'view'}
             </Typography>
@@ -48,7 +46,7 @@ class CastingRequestTable extends Component {
     const { classes } = this.props;
 
     return (
-      <Grid item {...castingRequestTableDesign[fieldName]} >
+      <Grid item {...castingRequestTableDesign[fieldName]} key={`${fieldName}`}>
         <Typography className={classNames ? classNames : classes.financeTableContentText}>
           {text}
         </Typography>
@@ -71,9 +69,9 @@ class CastingRequestTable extends Component {
 
   renderCastingRequest = (castingRequest) => {
     let items = [];
-    items.push (this.renderViewButton(castingRequest.id));
-    items.push (this.renderValue(`${castingRequest.casting_request_name}`, 'name'));
-    items.push (this.renderValue(castingRequest.ship_name, 'venue'));
+    items.push (this.renderViewButton(castingRequest));
+    items.push (this.renderValue(`${castingRequest.name}`, 'name'));
+    items.push (this.renderValue(`${castingRequest.client.user.first_name} ${castingRequest.client.user.last_name}`, 'venue'));
     items.push (this.renderValue(
       `From: ${moment(castingRequest.employment_start_date).format(castingRequestDateFormat)} 
        To: ${moment(castingRequest.employment_end_date).format(castingRequestDateFormat)}`,
@@ -101,8 +99,8 @@ class CastingRequestTable extends Component {
     const { title, castingRequests } = this.props;
 
     return (
-      <Panel title={title} boldText={true} key={title}>
-        <Grid container spacing={16} justify="flex-start" alignItems="flex-start">
+      <Panel title={title} bold={true} key={`cr-t-p-${title.replace(/\s/g, '')}`} >
+        <Grid container spacing={16} justify="flex-start" alignItems="flex-start" key={`cr-t-p-g-${title.replace(/\s/g, '')}`}>
           { this.renderGeneralHeader() }
           { this.renderCastingRequests(castingRequests) }
         </Grid>

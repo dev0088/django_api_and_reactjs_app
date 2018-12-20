@@ -47,14 +47,21 @@ class ClientAPI {
 
   static processRequestWithToken(url, method, data, handleResponse) {
     console.log('==== processRequest: ', url, data)
-    fetch(`${apiConfig.url}/${url}`, {
+    let parameters = {
       method: method,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${getToken()}`
-      },
-      body: JSON.stringify(data)
-    })
+      }
+    };
+
+    if (method !== 'get' && data !== '' && data !== null) {
+      parameters = {...parameters, body: JSON.stringify(data)};
+    }
+
+    console.log('==== parameters: ', parameters)
+
+    fetch(`${apiConfig.url}/${url}`, parameters)
       .then(response => response.json())
       .then(response => {
         this.processResponse(response, handleResponse)
@@ -73,5 +80,8 @@ class ClientAPI {
     this.processRequestWithToken(`client/casting_request/${getUserID()}/`, 'put', data, handleResponse)
   }
 
+  static getCastingRequestDetail(crID, handleResponse) {
+    this.processRequestWithToken(`client/casting_request/${crID}/`, 'get', null, handleResponse)
+  }
 }
 export default ClientAPI
