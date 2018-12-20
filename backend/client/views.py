@@ -64,8 +64,7 @@ class CurrentClient(APIView):
       except Client.DoesNotExist:
         raise Http404
 
-    @swagger_auto_schema(request_body=ClientCastingRequestSerializer,
-                         responses={200: ClientCastingRequestSerializer(many=False)})
+    @swagger_auto_schema(responses={200: CastingRequestSerializer(many=False)})
     def get(self, request, format=None):
         print('==== request.user: ', request.user)
         client_item = self.get_object(request.user)

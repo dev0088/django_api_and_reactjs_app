@@ -17,6 +17,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import Divider from 'material-ui/Divider';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -85,6 +87,17 @@ class ClientHeader extends Component {
     const { clientInfo } = this.props
 
     return null
+  }
+
+  renderTopbarMenuItem(title, link) {
+    const { classes } = this.props;
+    return (
+      <Link to={link} style={{display: 'inline-block'}}>
+        <Typography className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}>
+          {title}
+        </Typography>
+      </Link>
+    )
   }
 
   render() {
@@ -178,44 +191,30 @@ class ClientHeader extends Component {
                    src={require('images/logo.png')} />
             </Link>
 
-            { loggedIn && (
-              <div className={classes.grow}>
-                <Link to="/client/home">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Home"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/talent_search">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Find Talent"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/request_selection">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Casting Requests"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/mytalent/saved">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Saved Talent"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/myshared_profile">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Shared Profiles"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/blocked_profile">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Blocked Profiles"}</Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/client/my_rate">
-                  <MenuItem className={classes.topbarMenuItem}>
-                    <Typography className={classes.menuItemText}>{"Ratings"}</Typography>
-                  </MenuItem>
-                </Link>
-                <div className={classes.grow}/>
+            <div className={[classes.grow, classes.topbarDynamicShow]}>
+              {this.renderTopbarMenuItem('Home', '/client/home')}
+              {this.renderTopbarMenuItem('Find Talent', '/client/talent_search')}
+              {this.renderTopbarMenuItem('Casting Requests', '/client/request_selection')}
+              {this.renderTopbarMenuItem('Saved Talent', '/client/mytalent/saved')}
+              {this.renderTopbarMenuItem('Shared Profiles', '/client/myshared_profile')}
+              {this.renderTopbarMenuItem('Blocked Profiles', '/client/blocked_profile')}
+              {this.renderTopbarMenuItem('Ratings', '/client/my_rate')}
+            </div>
+
+            <div className={classes.grow}/>
+
+            {loggedIn && (
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                />
               </div>
             )}
 

@@ -2,6 +2,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 export const styles = theme => ({
   root: {
@@ -18,6 +19,47 @@ export const styles = theme => ({
   },
   buttonIcon: {
     margin: 0,
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit,
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%',
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
+    },
   },
   selectedButton: {
     display: 'block!important',
@@ -108,6 +150,22 @@ export const styles = theme => ({
     fontWeight: 'bold',
     paddingTop: '3px',
     textTransform: 'none',
+    display: 'inline-block',
+    whiteSpace: 'nowrap',
+    marginRight: '18px',
+  },
+  topbarMenuItemTitle: {
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    '&:hover': {
+      color: theme.palette.grey.light,
+    },
+  },
+  topbarDynamicShow: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   topbarMenuItem: {
     display: 'inline-block'
@@ -295,6 +353,9 @@ export const styles = theme => ({
   italicText: {
     fontStyle: 'italic',
   },
+  inlineText: {
+    display: 'inline'
+  },
   centerText: {
     textAlign: 'center',
   },
@@ -306,6 +367,9 @@ export const styles = theme => ({
   },
   fullWidth: {
     width: '100%'
+  },
+  bold: {
+    fontWeight: 600,
   },
   generalButtonClass: {
     textTransform: 'none',
@@ -671,11 +735,6 @@ export const styles = theme => ({
     display: 'inline',
     color: theme.palette.white.main,
   },
-  clientFormNextButton: {
-    textTransform: 'none',
-    borderRadius: '0px',
-    primaryColor: theme.palette.white.main,
-  },
   clientTalentSearchResultPicture: {
     width: '70px',
     height: '70px',
@@ -697,8 +756,11 @@ export const styles = theme => ({
   clientFormBackButton: {
     textTransform: 'none',
     borderRadius: '0px',
-    backgroundColor: '#343a40',
+    backgroundColor: theme.palette.black.main,
     primaryColor: theme.palette.white.main,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin,
+    },
   },
   clientFormNextButtonContainerGridItem: {
     textAlign: 'right',
@@ -706,8 +768,11 @@ export const styles = theme => ({
   clientFormNextButton: {
     textTransform: 'none',
     borderRadius: '0px',
-    backgroundColor: '#343a40',
+    backgroundColor: theme.palette.black.main,
     primaryColor: theme.palette.white.main,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin,
+    },
   },
   clientFormBackButtonText: {
     color: theme.palette.white.main,
@@ -790,6 +855,17 @@ export const styles = theme => ({
     paddingBottom: '1px',
     textTransform: 'none',
     color: theme.palette.white.main
+  },
+  submitCastingRequestButton: {
+    borderRadius: '5px',
+  },
+  submitCastingRequestButtonText: {
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main
   }
 });
 
@@ -816,7 +892,8 @@ export const theme = createMuiTheme ({
     },
     black: {
       main: grey[900],
-      thin: grey[600],
+      dark: grey[800],
+      thin: grey[700],
       light: grey[600],
     },
     grey: {

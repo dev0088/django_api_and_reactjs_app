@@ -9,6 +9,7 @@ import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import {requestView} from "actions/clientActions";
 import styles from 'styles';
 import '../client.css'
+import Spacer from "../../../components/general/spacer";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -23,51 +24,36 @@ const mapStateToProps = state => {
 };
 
 class RequestSelection extends Component {
-  button_style = {
-    fontWeight: 'bold',
-    fontSize: '1.6rem',
-    width: '22rem'
-  };
-
-  parentStyle = {
-    paddingTop: '0'
-  };
-
-  btnStyles = {
-    position: 'absolute',
-    right: '3rem',
-    bottom: '3rem'
-  };
 
   renderContent() {
     const { classes } = this.props
 
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={4} />
-        <Grid item xs={4} >
-          <Grid container spacing={24}>
-            <ColumnButton
-              link = {'/client/casting_request/new'}
-              itemClass = {classes.clientTalentViewVideoButtonGridItem}
-              buttonClass = {classes.clientTalentViewVideoButton}
-              title = {"Create New Casting Request"}
-              titleClass = {classes.clientTalentViewVideoButtonText}
-              xs = {12}
-              fullWidth = {true}
-            />
-            <ColumnButton
-              link = {'/client/casting_request/list_view'}
-              itemClass = {classes.clientTalentViewVideoButtonGridItem}
-              buttonClass = {classes.clientTalentViewVideoButton}
-              title = {"View My Casting Requests"}
-              titleClass = {classes.clientTalentViewVideoButtonText}
-              xs = {12}
-              fullWidth = {true}
-            />
-          </Grid>
+      <Grid container spacing={40} direction="column" justify="center" alignItems="center">
+        <Grid item xs={12} >
+          <Spacer size={10} />
         </Grid>
-        <Grid item xs={4} />
+        <ColumnButton
+          link = {'/client/casting_request/new'}
+          itemClass = {classes.clientTalentViewVideoButtonGridItem}
+          buttonClass = {classes.clientTalentViewVideoButton}
+          title = {"Create New Casting Request"}
+          titleClass = {classes.clientTalentViewVideoButtonText}
+          xs = {12}
+          fullWidth = {true}
+        />
+        <ColumnButton
+          link = {'/client/casting_request/list_view'}
+          itemClass = {classes.clientTalentViewVideoButtonGridItem}
+          buttonClass = {classes.clientTalentViewVideoButton}
+          title = {"View My Casting Requests"}
+          titleClass = {classes.clientTalentViewVideoButtonText}
+          xs = {12}
+          fullWidth = {true}
+        />
+        <Grid item xs={12} >
+          <Spacer size={50} />
+        </Grid>
       </Grid>
     )
   }

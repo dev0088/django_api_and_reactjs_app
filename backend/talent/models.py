@@ -82,6 +82,7 @@ class Talent(models.Model):
 
     # worked_cruise_ship
     worked_cruise_ship = models.BooleanField(default=False)
+    tid = models.CharField(max_length=30, blank=True)
 
     # availability
     # availabilities: has_many -> talent_schedulings

@@ -1,29 +1,22 @@
 from rest_framework import serializers
 from talent.models import Talent
 from talent_picture.serializers import TalentPictureSerializer
-from talent_video.serializers import TalentVideoSerializer
-from talent_video_greeting.serializers import TalentVideoGreetingSerializer
-from talent_video_sub_skill.serializers import TalentVideoSubSkillSerializer
 from talent_resume.serializers import TalentResumeSerializer
 from talent_position_type.serializers import TalentPositionTypeSerializer
-from talent_position_sub_type.serializers import TalentPositionSubTypeSerializer, GeneralTalentPositionSubTypeSerializer
+from talent_position_sub_type.serializers import GeneralTalentPositionSubTypeSerializer
 from authentication.serializers import GeneralUserSerializer
-from talent_skill.serializers import TalentSkillSerializer, GeneralTalentSkillSerializerWithTalent
-from talent_sub_skill.serializers import TalentSubSkillSerializer, GeneralTalentSubSkillSerializer
+from talent_skill.serializers import TalentSkillSerializer
+from talent_sub_skill.serializers import GeneralTalentSubSkillSerializer
 from talent_visa.serializers import TalentVisaSerializer
 from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
 from talent_availability.serializers import TalentAvailabilitySerializerWithoutTalentID
 from talent_rating.serializers import TalentRatingSerializer
-from django.contrib.auth.password_validation import validate_password
 
 
-class TalentSerializer(serializers.ModelSerializer):
+class TalentForCastingRequestSerializer(serializers.ModelSerializer):
     talent_resume = TalentResumeSerializer(many=True, read_only=True)
     talent_pictures = TalentPictureSerializer(many=True, read_only=True)
-    talent_videos = TalentVideoSerializer(many=True, read_only=True)
-    talent_video_greetings = TalentVideoGreetingSerializer(many=True, read_only=True)
-    talent_video_sub_skills = TalentVideoSubSkillSerializer(many=True, read_only=True)
     talent_position_types = TalentPositionTypeSerializer(many=True, read_only=True)
     talent_position_sub_types = GeneralTalentPositionSubTypeSerializer(many=True, read_only=True)
     talent_skills = TalentSkillSerializer(many=True, read_only=True)
@@ -51,7 +44,7 @@ class TalentSerializer(serializers.ModelSerializer):
             'talent_position_sub_types',
             'talent_skills',
             'talent_sub_skills',
-            
+
             'phone_number',
             'mailing_addresse1',
             'mailing_addresse2',
@@ -87,9 +80,6 @@ class TalentSerializer(serializers.ModelSerializer):
             'talent_visas',
             'talent_languages',
             'talent_pictures',
-            'talent_videos',
-            'talent_video_greetings',
-            'talent_video_sub_skills',
             'talent_resume',
             'talent_medicals',
 
@@ -105,15 +95,3 @@ class TalentSerializer(serializers.ModelSerializer):
 
             'profile_status'
         )
-
-
-class ChangePasswordSerializer(serializers.Serializer):
-    """
-    Serializer for password change endpoint.
-    """
-    current_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
-
-    def validate_new_password(self, value):
-        validate_password(value)
-        return value

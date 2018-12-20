@@ -1,6 +1,4 @@
 from django.db import models
-
-from datetime import datetime, timedelta
 from client.models import Client
 from authentication.models import User
 
@@ -15,13 +13,11 @@ STATUS_CHOICES = (
 )
 
 
-
-
-class ClientCastingRequest(models.Model):
+class CastingRequest(models.Model):
     # Relation with user
-    client = models.ForeignKey(Client, related_name='client_casting_requests', on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, related_name='casting_requests', on_delete=models.CASCADE)
     # general info
-    casting_request_name = models.CharField(blank=False, default='', max_length=100)
+    name = models.CharField(blank=False, default='', max_length=100)
     ship_name = models.CharField(blank=False, default='', max_length=100)
     employment_start_date = models.DateTimeField(blank=False)
     employment_end_date = models.DateTimeField(blank=False)
@@ -38,12 +34,13 @@ class ClientCastingRequest(models.Model):
 
     def __str__(self):
         """
-        Returns a string representation of this `ClientCastingRequest`.
-        This string is used when a `ClientCastingRequest` is printed in the console.
+        Returns a string representation of this `CastingRequest`.
+        This string is used when a `CastingRequest` is printed in the console.
         """
-        return self.client.user.username + '(' + self.client.user.email + '), ' + 'ship: ' + self.ship_name + ', ' +    'casting_request: ' + self.casting_request_name
+        return self.client.user.username + '(' + self.client.user.email + '), ' + 'ship: ' + self.ship_name + ', ' + \
+            'casting_request: ' + self.name
 
     class Meta:
-        db_table = "client_casting_request"
+        db_table = "casting_request"
         ordering = ('id', 'client', 'created')
         managed = True

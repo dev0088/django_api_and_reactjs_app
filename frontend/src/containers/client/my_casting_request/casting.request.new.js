@@ -99,7 +99,7 @@ class CastingRequestNew extends Component {
     } = this.state;
 
     let data = {
-      casting_request_name: request_name,
+      name: request_name,
       ship_name: ship_name,
       employment_start_date: employStartDate.format(),
       employment_end_date: employEndDate.format(),
@@ -117,7 +117,7 @@ class CastingRequestNew extends Component {
   handleAddCastingRequest = (response, isFailed) => {
     console.log('==== response: ', response, isFailed);
     if(isFailed) {
-      console.log(response[Object.keys(response)[0]][0]);
+      // console.log(response[Object.keys(response)[0]][0]);
       this.setState({ error: 'Failed to create a casting request. Please input every values.'});
     } else {
       this.props.history.push('/client/casting_request/confirm');

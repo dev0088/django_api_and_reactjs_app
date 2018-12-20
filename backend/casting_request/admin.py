@@ -3,13 +3,13 @@ from . import models
 from rest_framework.authtoken.admin import TokenAdmin
 
 
-@admin.register(models.ClientCastingRequest)
-class TalentClientCastingRequestAdmin(admin.ModelAdmin):
+@admin.register(models.CastingRequest)
+class CastingRequestAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'client_id_display',
         'client_name_display',
-        'casting_request_name',
+        'name',
         'ship_name',
         'employment_start_date',
         'employment_end_date',
@@ -26,7 +26,7 @@ class TalentClientCastingRequestAdmin(admin.ModelAdmin):
         'id',
         'client_id_display',
         'client_name_display',
-        'casting_request_name',
+        'name',
         'ship_name',
         'employment_start_date',
         'employment_end_date',

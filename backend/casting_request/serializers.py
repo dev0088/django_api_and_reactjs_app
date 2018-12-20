@@ -1,17 +1,18 @@
 from rest_framework import serializers
-from client_casting_request.models import ClientCastingRequest
-from authentication.models import User
-from authentication.serializers import GeneralUserSerializer
+from casting_request.models import CastingRequest
+from client.general_serializers import ClientSerializer
 
 
-class ClientCastingRequestSerializer(serializers.ModelSerializer):
-    # user = GeneralUserSerializer(many=False, read_only=True) #User.StringRelatedField(many=False, read_only=True)
+class CastingRequestSerializer(serializers.ModelSerializer):
+    # user = GeneralUserSerializer(many=False, read_only=True)
+    client = ClientSerializer(many=False, read_only=True)
 
     class Meta:
-        model = ClientCastingRequest
+        model = CastingRequest
         fields = (
             'id',
-            'casting_request_name',
+            'client',
+            'name',
             'ship_name',
             'employment_start_date',
             'employment_end_date',
@@ -28,12 +29,12 @@ class ClientCastingRequestSerializer(serializers.ModelSerializer):
         )
 
 
-class ClientCastingRequestCreateSerializer(serializers.ModelSerializer):
-    
+class CastingRequestCreateSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = ClientCastingRequest
+        model = CastingRequest
         fields = (
-            'casting_request_name',
+            'name',
             'ship_name',
             'employment_start_date',
             'employment_end_date',
