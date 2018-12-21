@@ -26,9 +26,13 @@ class CastingRequestTalent(models.Model):
         Returns a string representation of this `CastingRequest`.
         This string is used when a `CastingRequest` is printed in the console.
         """
-        return self.casting_request.name #+ ': ' + self.talent.user.username
+        return "name: {casting_request_name}, talent: {talent_name}".format(
+                    casting_request_name=self.casting_request.name,
+                    talent_name=self.talent.user.username
+                )
 
     class Meta:
         db_table = "casting_request_talents"
         ordering = ('id', 'casting_request', 'created')
+        unique_together = ('casting_request', 'talent')
         managed = True

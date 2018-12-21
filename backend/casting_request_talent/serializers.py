@@ -33,3 +33,7 @@ class CastingRequestTalentCreateSerializer(serializers.ModelSerializer):
             'performance_wage',
             'comment'
         )
+
+    def create(self, validated_data):
+        return CastingRequestTalent.objects.create(**validated_data)
+

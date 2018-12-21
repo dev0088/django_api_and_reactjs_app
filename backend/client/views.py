@@ -1,43 +1,24 @@
 import coreapi
 import coreschema
-from django.http import HttpResponse
-from django.shortcuts import render
-from rest_framework import status, viewsets, schemas
-from rest_framework.decorators import api_view
 from rest_framework.schemas import AutoSchema
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from rest_framework.schemas import ManualSchema
 from rest_framework.views import APIView
-from client.models import *
-from datetime import timedelta
-
-from client.serializers import *
-from client.models import *
 from client.serializers import *
 from talent.models import Talent
 from talent.serializers import TalentSerializer
+from casting_request.models import CastingRequest
+from casting_request_talent.models import CastingRequestTalent
 from rest_framework import generics
-from rest_framework.decorators import action
 from drf_yasg.utils import swagger_auto_schema
-
-import datetime
-import json
-
+from django.db.models import Q
 
 class ClientViewSet(generics.ListCreateAPIView):
     model = Client
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     # permission_classes = (IsAuthenticated,)
-
-    # def list(self, request, *args, **kwargs):
-    #     """
-    #     Return a list of objects.
-    #
-    #     """
-    #     return super(ClientViewSet, self).list(request, *args, **kwargs)
 
 
 class CurrentClient(APIView):
@@ -106,7 +87,7 @@ class ClientDetail(APIView):
     def delete(self, request, pk, format=None):
         client_item = self.get_object(pk)
         client_item.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'id': int(pk)}, status=status.HTTP_204_NO_CONTENT)
 
 
 class ClientFindTalentList(APIView):
@@ -117,19 +98,40 @@ class ClientFindTalentList(APIView):
         """
         # Filter talents according to search condition
         search_conditions = request.data
+        print('===== search_conditions: ', search_conditions)
         talent_name = self.pickout_data(search_conditions, 'talent_name')
-        talent_id = self.pickout_data(search_conditions, 'talent_id')
+        talent_tid = self.pickout_data(search_conditions, 'talent_tid')
+        casting_request_id = self.pickout_data(search_conditions, 'casting_request_id')
+        talent_name_or_tid = self.pickout_data(search_conditions, 'talent_name_or_tid')
         talents = Talent.objects.all()
-        if talent_id:
+        if talent_tid:
             try:
-                talent = talents.get(id=talent_id)
-                serializer = TalentSerializer(talent)
-                return Response(serializer.data)
+                talents = talents.filter(tid__icontains=talent_tid)
             except Talent.DoesNotExist:
                 raise Http404
-        else:
-            if talent_name:
-                talents = talents.filter(user__first_name__contains=talent_name)
+
+        if talent_name:
+            talents = talents.filter(
+                Q(user__first_name__icontains=talent_name) |
+                Q(user__last_name__icontains=talent_name)
+            )
+
+        if casting_request_id:
+            casting_request = CastingRequest.objects.get(pk=casting_request_id)
+            #casting_request_talent_ids
+            talent_ids = CastingRequestTalent.objects\
+                .filter(casting_request_id=casting_request.id)\
+                .values_list('talent', flat=True)\
+                .order_by('talent')
+            talents = talents.filter(~Q(id__in=talent_ids))
+
+        if talent_name_or_tid:
+            talents = talents.filter(
+                Q(user__first_name__icontains=talent_name_or_tid) |
+                Q(user__last_name__icontains=talent_name_or_tid) |
+                Q(tid__icontains=talent_name_or_tid)
+            )
+
         serializer = TalentSerializer(talents, many=True)
         return Response(serializer.data)
 
@@ -138,30 +140,3 @@ class ClientFindTalentList(APIView):
         if child_name in data:
             res = data[child_name]
         return res
-
-# class CastingRequest(APIView):
-#     def get(self, request):
-#         qs_submitted = CastingRequestModel.objects.filter(status__in=[1, 2])
-#         qs_not_submitted = CastingRequestModel.objects.filter(status=0)
-#         qs_completed = CastingRequestModel.objects.filter(status=3)
-#
-#         serial_submitted = RequestViewSerializer(qs_submitted, many=True)
-#         serial_not_submitted = RequestViewSerializer(qs_not_submitted, many=True)
-#         serial_completed = RequestViewSerializer(qs_completed, many=True)
-#
-#         ret_data = json.dumps({
-#             'on_submitted': serial_submitted.data,
-#             'not_submitted': serial_not_submitted.data,
-#             'completed': serial_completed.data
-#         })
-#
-#         print(ret_data)
-#
-#         return Response(data=ret_data, status=status.HTTP_200_OK)
-#
-#     def post(self, request):
-#         print(request.data)
-#
-#         # CHECK PARAMETERS IN ADD AND VIEW SCREENS
-#
-#         return Response(status=status.HTTP_200_OK)
