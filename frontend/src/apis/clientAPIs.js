@@ -62,7 +62,7 @@ class ClientAPI {
     console.log('==== parameters: ', parameters)
 
     fetch(`${apiConfig.url}/${url}`, parameters)
-      .then(response => response.json())
+      .then(response => {console.log('=== response: ', response); return response.json()})
       .then(response => {
         this.processResponse(response, handleResponse)
       })
@@ -90,6 +90,14 @@ class ClientAPI {
 
   static saveCastingRequestTalent(crtID, data, handleResponse) {
     this.processRequestWithToken(`client/casting_request_talent/${crtID}/`, 'put', data, handleResponse)
+  }
+
+  static createAllCastingRequestTalents(data, handleResponse) {
+    this.processRequestWithToken(`client/casting_request_talent/create/`, 'post', data, handleResponse)
+  }
+
+  static deleteCastingRequestTalent(crtID, handleResponse) {
+    this.processRequestWithToken(`client/casting_request_talent/${crtID}/`, 'delete', null, handleResponse)
   }
 
 }

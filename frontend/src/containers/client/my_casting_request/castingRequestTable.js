@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Panel from 'components/general/panel';
 import moment from 'moment';
+import defaultValues from 'constants/defaultValues';
 import styles from 'styles';
 
 
@@ -19,13 +20,8 @@ const castingRequestTableDesign = {
   requestDate: {lg: 2, md: 2, sm: 4, xs: 12},
 };
 
-const castingRequestDateFormat = 'MM/DD/YYYY';
 
 class CastingRequestTable extends Component {
-
-  handleClickViewButton = (castingRequest) => {
-    this.props.history.push('/client/casting_request/view', {castingRequest: castingRequest})
-  };
 
   renderViewButton = (castingRequest) => {
     const { classes } = this.props;
@@ -48,7 +44,7 @@ class CastingRequestTable extends Component {
 
     return (
       <Grid item {...castingRequestTableDesign[fieldName]} key={`${fieldName}`}>
-        <Typography className={classNames ? classNames : classes.financeTableContentText}>
+        <Typography className={classNames ? classNames : [classes.descriptionText, classes.fontLightWeight]}>
           {text}
         </Typography>
       </Grid>
@@ -72,27 +68,36 @@ class CastingRequestTable extends Component {
     );
 
     if(!hideRequestDate) {
-      items.push(this.renderValue('Request Date', 'requestDate', [classes.financeTableTitle, classes.underlineText]))
+      items.push(
+        this.renderValue(
+          'Request Date', 'requestDate',
+          [classes.financeTableTitle, classes.underlineText]
+        )
+      )
     }
 
     return items;
   };
 
   renderCastingRequest = (castingRequest) => {
-    const { name, client, employment_start_date, employment_end_date, status, status_updated_date, created } = castingRequest;
+    const {
+      name, client, employment_start_date, employment_end_date,
+      status, status_updated_date, created
+    } = castingRequest;
     const { hideRequestDate, classes } = this.props;
+    const dateFormat = defaultValues.CASTING_REQUEST_DESCRIPTION_DATE_FORMAT;
 
     let items = [];
     items.push (this.renderViewButton(castingRequest));
     items.push (this.renderValue(`${name}`, 'name'));
     items.push (this.renderValue(`${client.user.first_name} ${client.user.last_name}`, 'venue'));
     items.push (this.renderValue(
-      `From: ${moment(employment_start_date).format(castingRequestDateFormat)} 
-       To: ${moment(employment_end_date).format(castingRequestDateFormat)}`,
+      `From: ${moment(employment_start_date).format(dateFormat)} 
+       To: ${moment(employment_end_date).format(dateFormat)}`,
       'dates')
     );
 
-    let classNames = [classes.financeTableContentText, classes.bold];
+    let classNames = [classes.descriptionText, classes.bold];
     let statusText = status
     let fieldName = 'status'
     if(status === 'Draft') {
@@ -112,15 +117,15 @@ class CastingRequestTable extends Component {
     );
 
     if (!hideRequestDate) {
-      items.push (this.renderValue(moment(status_updated_date).format(castingRequestDateFormat), 'requestDate'));
+      items.push (this.renderValue(moment(status_updated_date).format(dateFormat), 'requestDate'));
     }
 
     return items;
   };
 
   renderCastingRequests = (castingRequests) => {
-
     let items = [];
+
     if (castingRequests.length > 0) {
       items = castingRequests.map(castingRequest => {
         return this.renderCastingRequest(castingRequest);

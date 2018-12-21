@@ -62,7 +62,7 @@ class CastingRequestSubmitForm extends Component {
       <Grid container spacing={16} direction="row" justify="center" alignItems="center">
         <Grid item md={7} xs={12}>
           <Grid container spacing={16} direction="column" justify="flex-start" alignItems="flex-start">
-            { this.renderCastingRequestItem('Ship', castingRequest.ship_name : '') }
+            { this.renderCastingRequestItem('Ship', castingRequest.ship_name ? castingRequest.ship_name : '') }
             { this.renderCastingRequestItem('Date of Employment',
               `From ${moment(castingRequest.employment_start_date).format(defaultValues.CASTING_REQUEST_DESCRIPTION_DATE_FORMAT)}
               To ${moment(castingRequest.employment_end_date).format(defaultValues.CASTING_REQUEST_DESCRIPTION_DATE_FORMAT)}`)

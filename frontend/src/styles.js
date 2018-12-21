@@ -209,6 +209,10 @@ export const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  searchTextField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
   descriptionUl: {
     paddingInlineStart: '15px',
   },
@@ -375,6 +379,12 @@ export const styles = theme => ({
     fontSize: '1rem',
     lineHeight: '1.46429em',
   },
+  fontLightWeight: {
+    fontWeight: 100
+  },
+  fontMiddleWeight: {
+    fontWeight: 400
+  },
   italicText: {
     fontStyle: 'italic',
   },
@@ -398,6 +408,9 @@ export const styles = theme => ({
   },
   red: {
     color: theme.palette.red.main
+  },
+  white: {
+    color: theme.palette.white.main
   },
   blue: {
     color: theme.palette.blue.main
@@ -770,7 +783,8 @@ export const styles = theme => ({
     color: theme.palette.white.main,
   },
   homeBackgroundImage: {
-    width: '100%'
+    width: '1920px',
+    height: '1080px'
   },
   clientHomeContainer: {
     marginLeft: '-15px',
@@ -808,10 +822,63 @@ export const styles = theme => ({
     color: theme.palette.white.light,
     textTransform: 'none'
   },
+  clientTalentTableCheckboxGridItem: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'right'
+  },
   clientTalentSearchResultPicture: {
     width: '70px',
-    height: '70px',
+    height: '72px',
     objectFit: 'cover',
+  },
+  clientTalentControlButtonContainer: {
+    padding: '0px',
+    maxWidth: '30px',
+    margin: '0px'
+  },
+  clientTalentControlNewText: {
+    padding: '0px',
+    fontSize: '14px',
+    fontWeight: 600,
+  },
+  clientTalentControlContainerDiv: {
+    width: '34px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'top',
+    marginTop: '10px'
+  },
+  clientTalentContainerDiv: {
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    // white-space: nowrap;
+    width: '90%'
+  },
+  clientTalentControlEditIcon: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  clientTalentControlDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    fontWeight: 600,
+  },
+  clientTalentControlDeleteIcon: {
+    color: theme.palette.grey.thin,
+    fontSize: '20px',
+    fontWeight: 600,
   },
   pictureContainer: {
     display: 'inline-block',
@@ -890,6 +957,7 @@ export const styles = theme => ({
     backgroundColor: theme.palette.black.main,
     display: 'block',
     borderRadius: '10px',
+    border: `2px solid ${theme.palette.grey.thin}`,
     '&:hover': {
       backgroundColor: theme.palette.black.light
     },
@@ -919,10 +987,20 @@ export const styles = theme => ({
     backgroundColor: theme.palette.black.main,
     display: 'block',
     borderRadius: '9px',
-    border: '2px solid #EEEEEE',
+    border: `2px solid ${theme.palette.grey.thin}`,
     '&:hover': {
       backgroundColor: theme.palette.black.light
     },
+  },
+  clientTalentSearchButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '9px',
+    border: `2px solid ${theme.palette.grey.thin}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+    // width: '100px'
   },
   clientCastingRequestListViewButtonText: {
     fontSize: '0.95rem',
@@ -975,7 +1053,8 @@ export const theme = createMuiTheme ({
     grey: {
       main: grey[900],
       dark: grey[800],
-      light: grey[400]
+      light: grey[400],
+      thin: grey[200],
     },
     darkGrey: {
       main: grey[800]
@@ -1004,7 +1083,7 @@ export const theme = createMuiTheme ({
     primaryColor: '#FFFFFF',
     primaryFontSize: '1.5rem'
   },
-})
+});
 
 export const themeV0 = getMuiTheme({
   palette: {

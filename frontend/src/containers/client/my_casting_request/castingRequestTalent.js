@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 // import ImageLoader from 'react-loading-image';
-import ShipTalentImageLoader from 'components/shiptalent/loaders/ImageLoader'
+import ShipTalentImageLoader from 'components/shiptalent/loaders/ImageLoader';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,16 +10,19 @@ import { getAvatarFromTalentInfo, makeTalentOverviewTitle } from 'utils/appUtils
 import styles from 'styles';
 
 
-class CastingRequestTalent extends Component {
+class CastingRequestTalent extends React.Component {
 
   renderImage = (castingRequestTalent) => {
+    const { classes } = this.props;
+    const { talent } = castingRequestTalent;
+
     return (
       <ShipTalentImageLoader
-        src={getAvatarFromTalentInfo(castingRequestTalent.talent)}
-        className="profile-picture-size"
-        containerClass="profile-picture-container-div"
-        key={`${(castingRequestTalent.talent && castingRequestTalent.talent.id)
-                ? castingRequestTalent.talent.id : 'crt'}`}
+        src={getAvatarFromTalentInfo(talent)}
+        containerClass={classes.pictureContainer}
+        imageClassName={classes.clientTalentSearchResultPicture}
+        link={{pathname: '/client/talent_view', state: { talentInfo: talent } }}
+        key={`${(talent && talent.id) ? talent.id : 'crt'}`}
       />
     );
   };
@@ -35,17 +38,17 @@ class CastingRequestTalent extends Component {
       >
         <Grid item lg={12} md={12} xs={12}>
           <Typography className={[classes.descriptionText, classes.leftText]}>
-            { !!talent && makeTalentOverviewTitle(talent)}
+            { talent && makeTalentOverviewTitle(talent)}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
           <Typography className={[classes.descriptionText, classes.bold, classes.leftText]}>
-            {!!talent && `“${talent.head_line}”`}
+            {talent && `“${talent.head_line}”`}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
           <Typography className={[classes.descriptionText, classes.leftText]}>
-            {!!talent && `Average Rating: ${talent.average_rating}`}
+            {talent && `Average Rating: ${talent.average_rating}`}
           </Typography>
         </Grid>
       </Grid>

@@ -3,39 +3,50 @@ import { Link } from 'react-router-dom';
 import ImageLoader from 'react-loading-image';
 import ImageLightbox from 'react-image-lightbox';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import styles from 'styles';
 
 
-class ShipTalentImageLoader extends Component {
+class ShipTalentImageLoader extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      openImageModal: false,
-    }
-  }
+  state = {
+    openImageModal: false,
+  };
 
   showImage = () => {
     this.setState({ openImageModal: true })
   };
 
-  render() {
-    const { src, className, containerClass } = this.props;
+  renderImageLoader = () => {
+    const { src, imageClassName } = this.props;
+    return (
+      <ImageLoader
+        src={src}
+        className={imageClassName}
+        loading={() => <img src={require('images/missing.png')} className={imageClassName} />}
+        error={() => <img src={require('images/missing.png')} className={imageClassName} />}
+      />
+    );
+  };
+
+  renderWithLink = () => {
+    const { link, containerClass } = this.props;
+
+    return (
+      <Link to={link} className={containerClass} >
+        { this.renderImageLoader() }
+      </Link>
+    )
+  };
+
+  renderWithoutLink = () => {
+    const { src, containerClass } = this.props;
     const { openImageModal } = this.state;
 
     return (
       <div onClick={() => this.showImage()} key={`shiptalent-image-loader`}
            className={ containerClass ? containerClass : "profile-picture-container-div"}
       >
-        <ImageLoader
-          src={src}
-          className={className}
-          loading={() => <img src={require('images/missing.png')} className={className} />}
-          error={() => <img src={require('images/missing.png')} className={className} />}
-        />
+        { this.renderImageLoader() }
         {openImageModal && (
           <ImageLightbox
             mainSrc={src}
@@ -44,6 +55,14 @@ class ShipTalentImageLoader extends Component {
         )}
       </div>
     );
+  }
+
+  render() {
+    const { link } = this.props;
+
+    if (link) return this.renderWithLink();
+
+    return this.renderWithoutLink();
   }
 }
 

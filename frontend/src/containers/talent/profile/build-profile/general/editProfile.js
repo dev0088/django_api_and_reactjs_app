@@ -5,14 +5,11 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-import DropDown from 'react-dropdown';
 import moment from 'moment';
-
 import Panel from 'components/general/panel';
 import MultiSelectDropdown from 'components/shiptalent/dropdowns/multiSelectDropdown';
 import SingleSelectDropdown from 'components/shiptalent/dropdowns/singleSelectDropdown';
@@ -20,12 +17,10 @@ import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDi
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs';
 import defaultValues from 'constants/defaultValues';
-
 import 'react-dropdown/style.css'
 import './editProfile.css'
 import { styles, theme } from 'styles';
 
-// var ReactS3Uploader = require('react-s3-uploader');
 
 class EditProfile extends Component {
 

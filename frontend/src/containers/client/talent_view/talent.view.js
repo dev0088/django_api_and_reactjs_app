@@ -27,7 +27,7 @@ import {
 import styles from 'styles';
 import 'react-image-lightbox/style.css';
 
-class TalentView extends Component {
+class TalentView extends React.Component {
 
   constructor(props) {
     super(props);
@@ -335,6 +335,33 @@ class TalentView extends Component {
 
   renderVideoButtonsGroup() {
     const { talent_videos } = this.state.talentInfo
+
+    // return (
+    //   <div>
+    //     <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+    //       <ColumnButton
+    //         link = {{
+    //           pathname: "#"
+    //         }}
+    //         color="primary"
+    //         itemClass = {classes.clientTalentViewVideoButtonGridItem}
+    //         buttonClass = {classes.clientTalentViewVideoButton}
+    //         title = {"My Video Greetings"}
+    //         titleClass = {classes.clientTalentViewVideoButtonText}
+    //         subTitle = {talent_video_greetings ? talent_video_greetings.length : 0}
+    //         subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+    //         xs = {12}
+    //         fullWidth = {false}
+    //       />
+    //     </Grid>
+    //
+    //     <Spacer size={30}/>
+    //
+    //     <Grid container spacing={16} justify="center" alignItems="center">
+    //       { this.renderPositionButtons() }
+    //     </Grid>
+    //   </div>
+    // )
 
     return (
       <Grid container spacing={24} justify="center" alignItems="center">
