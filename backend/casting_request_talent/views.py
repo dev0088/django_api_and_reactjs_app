@@ -3,11 +3,14 @@ from client.models import Client
 from casting_request.models import CastingRequest
 from casting_request_talent.models import CastingRequestTalent
 from casting_request_talent.serializers import CastingRequestTalentSerializer, CastingRequestTalentCreateSerializer
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
+from django.core import serializers
+from django.http import HttpResponse
+import json
 
 
 class CastingRequestTalentList(APIView):
@@ -54,10 +57,10 @@ class CastingRequestTalentDetail(APIView):
     def delete(self, request, pk, format=None):
         casting_request = self.get_object(pk)
         casting_request.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'id': int(pk)}, status=status.HTTP_200_OK)
 
 
-class CastingRequestTalentCreate(APIView):
+class CastingRequestTalentBulkCreate(APIView):
     """
     Get current client info
     """
@@ -72,29 +75,21 @@ class CastingRequestTalentCreate(APIView):
       except Client.DoesNotExist:
         raise Http404
 
-    @swagger_auto_schema(request_body=CastingRequestTalentCreateSerializer,
-                         responses={200: CastingRequestTalentCreateSerializer(many=False)})
+    @swagger_auto_schema(request_body=CastingRequestTalentCreateSerializer(many=True),
+                         responses={200: CastingRequestTalentSerializer(many=True)})
     def post(self, request, format=None):
         client = self.get_object(request.user)
 
-        serializer = CastingRequestTalentCreateSerializer(data=request.data)
+        serializer = CastingRequestTalentCreateSerializer(data=request.data, many=True)
         if serializer.is_valid():
-            data = serializer.validated_data
-            new_casting_request = CastingRequestTalent.objects.create(
-                client=client,
-                name=data['name'],
-                ship_name=data['ship_name'],
-                employment_start_date=data['employment_start_date'],
-                employment_end_date=data['employment_end_date'],
-                talent_join_date=data['talent_join_date'],
-                rehearsal_start_date=data['rehearsal_start_date'],
-                rehearsal_end_date=data['rehearsal_end_date'],
-                performance_start_date=data['performance_start_date'],
-                performance_end_date=data['performance_end_date'],
-                visa_requirements=data['visa_requirements'],
-                comments=data['comments']
-            )
-            new_casting_request.save()
+            new_crt_ids = []
+            for casting_request_talent in serializer.validated_data:
+                new_casting_request_talent = CastingRequestTalent(**casting_request_talent)
+                new_casting_request_talent.save()
+                new_crt_ids.append(new_casting_request_talent.id)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            new_casting_request_talents = CastingRequestTalent.objects.all().filter(id__in=new_crt_ids)
+            new_serializer = CastingRequestTalentSerializer(new_casting_request_talents, many=True)
+            return Response(new_serializer.data, status=status.HTTP_201_CREATED)
+
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

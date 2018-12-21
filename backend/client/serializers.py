@@ -35,4 +35,7 @@ class ClientAllInfoSerializer(serializers.ModelSerializer):
 class TalentSearchConditionSerializer(serializers.Serializer):
     talent_name = serializers.CharField()
     talent_id = serializers.IntegerField()
+    talent_tid = serializers.CharField()
+    talent_name_or_tid = serializers.CharField()
+    casting_request_id = serializers.IntegerField()
 
