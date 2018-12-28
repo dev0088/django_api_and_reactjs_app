@@ -152,7 +152,7 @@ class ClientAPI {
   }
 
   static addRating(data, handleResponse) {
-    this.processRequestWithToken(`client/talent_rating/create`, 'post', data, handleResponse)
+    this.processRequestWithToken(`talent_rating/create`, 'post', data, handleResponse)
   }
 
 }

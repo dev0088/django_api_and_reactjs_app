@@ -9,6 +9,7 @@ class TalentRatingAdmin(admin.ModelAdmin):
         'talent_display',
         'rating',
         'client_display',
+        'casting_request_talent_display',
         'updated')
 
     list_display_links = (
@@ -16,6 +17,7 @@ class TalentRatingAdmin(admin.ModelAdmin):
         'talent_display',
         'rating',
         'client_display',
+        'casting_request_talent_display',
         'updated')
 
     list_per_page = 25
@@ -26,4 +28,9 @@ class TalentRatingAdmin(admin.ModelAdmin):
     def client_display(self, obj):
         return obj.client.user.email
 
-    
+    def casting_request_talent_display(self, obj):
+        return obj.casting_request_talent.casting_request.name
+
+    talent_display.short_description = "Talent"
+    client_display.short_description = "Client"
+    casting_request_talent_display.short_description = "Casting Request"

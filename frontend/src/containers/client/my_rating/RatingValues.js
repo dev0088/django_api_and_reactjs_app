@@ -14,11 +14,16 @@ class RatingValues extends Component {
 
   state = {
     mainRating: '0.00', //defaultValues.MAIN_RATING_VALUES[0],
-    bonusRating: '0.00', //defaultValues.BONUS_RATING_VALUES[0]
+    bonusRating: '+.00', //defaultValues.BONUS_RATING_VALUES[0]
   };
 
-  handleChange = (event, name) => {
-    this.setState({ [name]: event.target.value });
+  onChange = (event, name) => {
+    this.setState({ [name]: event.target.value }, () => {
+      if(this.props.onChange) {
+        const { mainRating, bonusRating } = this.state;
+        this.props.onChange(parseFloat(mainRating) + parseFloat(bonusRating));
+      }
+    });
   };
 
   render() {
@@ -41,7 +46,7 @@ class RatingValues extends Component {
                 aria-label="mainRating"
                 name="mainRating"
                 value={mainRating}
-                onChange={event => this.handleChange(event, 'mainRating')}
+                onChange={event => this.onChange(event, 'mainRating')}
                 row
               >
                 { defaultValues.MAIN_RATING_VALUES.map(mainRatingValue => {
@@ -65,7 +70,7 @@ class RatingValues extends Component {
                 aria-label="bonusRating"
                 name="bonusRating"
                 value={bonusRating}
-                onChange={event => this.handleChange(event, 'bonusRating')}
+                onChange={event => this.onChange(event, 'bonusRating')}
                 row
               >
                 { defaultValues.BONUS_RATING_VALUES.map(bonusRatingValue => {

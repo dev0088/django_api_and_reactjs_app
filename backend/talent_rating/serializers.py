@@ -3,7 +3,7 @@ from .models import TalentRating
 
 
 class TalentRatingSerializer(serializers.ModelSerializer):
-  # talent = serializers.SlugRelatedField(many=False, read_only=True, slug_field='id')
+    # talent = serializers.SlugRelatedField(many=False, read_only=True, slug_field='id')
 
     class Meta:
         model = TalentRating
@@ -13,5 +13,6 @@ class TalentRatingSerializer(serializers.ModelSerializer):
             'rating',
             'comments',
             'client',
-            'updated'
+            'updated',
+            'casting_request_talent'
         )

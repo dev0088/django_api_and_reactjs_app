@@ -12,5 +12,6 @@ class TalentRatingCreateSerializer(serializers.ModelSerializer):
             'rating',
             'comments',
             'client',
-            'updated'
+            'updated',
+            'casting_request_talent'
         )

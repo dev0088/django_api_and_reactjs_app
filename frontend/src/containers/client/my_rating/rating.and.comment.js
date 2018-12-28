@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import TextField from '@material-ui/core/TextField';
 import Panel from 'components/general/panel';
@@ -12,6 +12,7 @@ import Spacer from 'components/general/spacer';
 import RatingTalentAvatar from './RatingTalentAvatar';
 import RatingValues from './RatingValues';
 import ClientAPI from 'apis/clientAPIs';
+import * as globalNotificationActions from 'actions/globalNotificationActions';
 import {getAvatarFromTalentInfo} from 'utils/appUtils';
 import styles from 'styles';
 
@@ -42,10 +43,14 @@ class RatingAndComment extends Component {
     this.setState({ ...this.getInfoFromProps(nextProps)});
   }
 
-  handleChange = name => event => {
+  onChangeComment = name => event => {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  onChangeRatingValue = (rating) => {
+    this.setState({rating});
   };
 
   handleSubmit = (event) => {
@@ -54,7 +59,8 @@ class RatingAndComment extends Component {
       talent: castingRequestTalent.talent.id,
       rating: rating,
       comments: comment,
-      client: castingRequestTalent.client.id
+      client: castingRequestTalent.casting_request.client.id,
+      casting_request_talent: castingRequestTalent.id
     };
 
     event.preventDefault();
@@ -65,8 +71,10 @@ class RatingAndComment extends Component {
   handleSubmitResponse = (response, isFailed) => {
     if(isFailed) {
       // this.setState({ error: true, errorMessage: 'Failed save wages.' });
+      this.props.globalNotificationActions.notify(true, 'error', response['talent'] ? response['talent'][0] : 'Failed rating. Please try later.');
     } else {
       // this.setState({ error: false, errorMessage: false });
+      this.props.globalNotificationActions.notify(true, 'success', 'Add rating of the talent successfully.');
       this.props.history.push('/client/rating_comment/submitted');
     }
   };
@@ -86,7 +94,7 @@ class RatingAndComment extends Component {
           </Grid>
 
           <Grid item lg={12} md={12} sm={12} xs={12} className={classes.leftText}>
-            <RatingValues castingRequest={casting_request} talent={talent} />
+            <RatingValues castingRequest={casting_request} talent={talent} onChange={this.onChangeRatingValue} />
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12} className={classes.leftText}>
             <Typography className={classes.financeTableTitle}>
@@ -97,7 +105,7 @@ class RatingAndComment extends Component {
               label=""
               value={comment}
               type="text"
-              onChange={this.handleChange('comment')}
+              onChange={this.onChangeComment('comment')}
               margin="normal"
               variant="outlined"
               placeholder="Type comments here..."
@@ -132,9 +140,8 @@ class RatingAndComment extends Component {
     return (
       <ClientForm
         formTitle="Rating and Comments"
-        nextLink={'/client/rating_comment'}
+        nextLink={'/client/my_rate'}
         nextButtonTitle="Back to My Rating"
-        handleClickNextButton={this.handleSubmit}
       >
         {this.renderContent()}
       </ClientForm>
@@ -144,7 +151,7 @@ class RatingAndComment extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    globalNotificationActions: bindActionCreators(globalNotificationActions, dispatch)
   }
 };
 

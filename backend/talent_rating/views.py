@@ -24,31 +24,31 @@ class TalentRatingList(APIView):
         return Response(serializer.data)
 
 
-class TalentRatingCompletedList(APIView):
-    """
-    List all talent ratings.
-    """
-    @swagger_auto_schema(responses={200: TalentRatingDetailSerializer(many=True)})
-    def get(self, request, format=None):
-        user = request.user
-        client = Client.objects.filter(user_id=user.id).first
-        if client:
-            talent_rating = TalentRating.objects.all()
-
-            completed_casting_request_ids = CastingRequest.objects\
-                .filter(client=client, status='Completed')\
-                .order_by('status_updated_date')\
-                .values_list('id', falt=True)
-
-            talent_ids = CastingRequestTalent.objects\
-                .filter(casting_request_id__in=completed_casting_request_ids)\
-                .values_list('talent', flat=True)
-
-            completed_talent_ratings = TalentRating.objects.filter(talent_id__in=talent_ids)
-            serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
-
-        serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
-        return Response(serializer.data)
+# class TalentRatingCompletedList(APIView):
+#     """
+#     List all talent ratings.
+#     """
+#     @swagger_auto_schema(responses={200: TalentRatingDetailSerializer(many=True)})
+#     def get(self, request, format=None):
+#         user = request.user
+#         client = Client.objects.filter(user_id=user.id).first
+#         if client:
+#             talent_rating = TalentRating.objects.all()
+#
+#             completed_casting_request_ids = CastingRequest.objects\
+#                 .filter(client=client, status='Completed')\
+#                 .order_by('status_updated_date')\
+#                 .values_list('id', falt=True)
+#
+#             talent_ids = CastingRequestTalent.objects\
+#                 .filter(casting_request_id__in=completed_casting_request_ids)\
+#                 .values_list('talent', flat=True)
+#
+#             completed_talent_ratings = TalentRating.objects.filter(talent_id__in=talent_ids)
+#             serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
+#
+#         serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
+#         return Response(serializer.data)
 
 class TalentRatingDetail(APIView):
     """
