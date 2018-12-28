@@ -47,7 +47,6 @@ class CurrentClient(APIView):
 
     @swagger_auto_schema(responses={200: CastingRequestSerializer(many=False)})
     def get(self, request, format=None):
-        print('==== request.user: ', request.user)
         client_item = self.get_object(request.user)
         serializer = ClientAllInfoSerializer(client_item)
         return Response(serializer.data)

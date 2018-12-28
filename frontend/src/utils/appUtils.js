@@ -1,6 +1,7 @@
 import UnitConverter from 'convert-units';
 import defaultValues from 'constants/defaultValues';
 
+
 // handle user media capture
 export function captureUserMedia(options, callback) {
   let params = { audio: true, video: options };

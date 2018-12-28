@@ -87,7 +87,10 @@ class CastingRequestSearchTalentsForm extends Component {
     const { castingRequest, talentSearchResult } = this.state;
 
     return (
-      <Panel title={title} bold={true} center={true} key="cr-aw-f" className={[classes.h4NoMargin, classes.bold, classes.centerText]}>
+      <Panel
+        title={title} bold={true} center={true} key="cr-aw-f"
+        className={[classes.h4NoMargin, classes.bold, classes.centerText]}
+      >
         <Grid container spacing={16} justify="flex-start" alignItems="flex-start">
           <Grid item xs={12} >
             <TalentSearchBar castingRequestID={castingRequest ? castingRequest.id : 0} />

@@ -3,8 +3,8 @@
 # from talent_position_type import views
 
 # urlpatterns = [
-#     url(r'^/all', views.TalentPositionTypeList.as_view()),
-#     url(r'^/(?P<pk>[0-9]+)/$', views.TalentPositionTypeDetail.as_view()),
+#     url(r'^all', views.TalentPositionTypeList.as_view()),
+#     url(r'^(?P<pk>[0-9]+)/', views.TalentPositionTypeDetail.as_view()),
 # ]
 
 from django.conf.urls import include, url
@@ -16,6 +16,6 @@ router = DefaultRouter()
 router.register(r'^', views.TalentPositionTypeViewSet)
 
 urlpatterns = [
-    # url(r'^/(?P<pk>[0-9]+)/$', views.TalentDetail.as_view()),
+    # url(r'^(?P<pk>[0-9]+)/', views.TalentDetail.as_view()),
     url(r'^', include(router.urls))
 ]

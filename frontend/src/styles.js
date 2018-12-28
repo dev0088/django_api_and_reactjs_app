@@ -5,6 +5,8 @@ import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
+const drawerWidth = 240;
+
 export const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -154,6 +156,34 @@ export const styles = theme => ({
     display: 'inline-block',
     whiteSpace: 'nowrap',
     marginRight: '18px',
+  },
+  drawerMenuButton: {
+    marginLeft: 12,
+    marginRight: 20,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  drawerBandImage: {
+    paddingTop: '0.3rem',
+    width: '100px',
+    textAlign: 'left',
+    marginLeft: '10px',
+    marginRight: 'auto'
   },
   topbarMenuItemTitle: {
     paddingLeft: '8px',
@@ -783,7 +813,7 @@ export const styles = theme => ({
     color: theme.palette.white.main,
   },
   homeBackgroundImage: {
-    width: '1920px',
+    width: '100%',
     height: '1080px'
   },
   clientHomeContainer: {
@@ -842,14 +872,38 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 600,
   },
-  clientTalentControlContainerDiv: {
-    width: '34px',
+  clientCallbackTalentControlContainerDiv: {
+    width: '64px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'bottom',
+    textAlign: 'right',
+    marginBottom: '10px',
+    marginRight: '5px',
+  },
+  clientRatingTalentControlContainerDiv: {
+    width: '64px',
     clear: 'both',
     display: 'inline-block',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     verticalAlign: 'top',
-    marginTop: '10px'
+    textAlign: 'right',
+    marginTop: '23px',
+    marginRight: '5px',
+  },
+  clientTalentControlContainerDiv: {
+    width: '64px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'top',
+    textAlign: 'right',
+    marginTop: '10px',
+    marginRight: '5px',
   },
   clientTalentContainerDiv: {
     clear: 'both',
@@ -880,6 +934,29 @@ export const styles = theme => ({
     fontSize: '20px',
     fontWeight: 600,
   },
+  clientTalentControlBlockProfileExpirationText: {
+    padding: '0px',
+    fontSize: '0.8rem',
+    fontWeight: 100,
+  },
+  clientTalentControlRatingButton: {
+    padding: '3px 10px 3px 10px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '50px',
+    fontWeight: 400,
+  },
+  clientTalentControlRatingButtonText: {
+    color: theme.palette.white.main,
+    fontSize: '0.8rem',
+    fontWeight: 400,
+    textTransform: 'none',
+  },
+  clientRatingAvatarImageContainer: {
+    width: 300,
+    height: '100%',
+    objectFit: 'cover'
+  },
   pictureContainer: {
     display: 'inline-block',
     border: 'solid 3px',
@@ -892,6 +969,10 @@ export const styles = theme => ({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
     marginTop: '0.5rem'
+  },
+  clientRatingSubTitle: {
+    width: '60%',
+    margin: 'auto'
   },
   clientFormBackButton: {
     textTransform: 'none',
@@ -930,7 +1011,8 @@ export const styles = theme => ({
   },
   clientTalentViewHeaderTitleText: {
     border: '2px solid',
-    // display: 'inline',
+    fontWeight: 'bold',
+    fontSize: '1.5rem',
     padding: '5px 10px 5px 10px'
   },
   clientTalentViewMoreInfoButtonGridItemWithoutFullWidth: {
@@ -939,15 +1021,24 @@ export const styles = theme => ({
   clientTalentViewMoreInfoButtonGridItem: {
     textAlign: 'center',
     paddingLeft: '15%!important',
-    paddingRight: '15%!important'
+    paddingRight: '15%!important',
+    width: '100%'
   },
   clientTalentViewMoreInfoButton: {
-    backgroundColor: theme.palette.black.main,
     display: 'block',
     borderRadius: '5px',
-    '&:hover': {
-      backgroundColor: theme.palette.black.light,
-    },
+  },
+  clientTalentViewMoreInfoButtonText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main
+  },
+  clientTalentViewMoreInfoButtonStatusText: {
+    color: theme.palette.white.thin,
+    textTransform: 'none',
   },
   clientTalentViewVideoButtonGridItem: {
     textAlign: 'center',
@@ -1027,6 +1118,7 @@ export const theme = createMuiTheme ({
   palette: {
     primary: {
       main: '#007bff',
+      light: '#2196F3'
     },
     secondary: {
       main: '#28a745'//'#C00'
@@ -1089,6 +1181,17 @@ export const themeV0 = getMuiTheme({
   palette: {
     primary1Color: '#007bff',
     accent1Color: '#40c741',
+  }
+});
+
+export const themeClientSpecialActionButton = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#2a3134',
+    },
+    secondary: {
+      main: '#C00'
+    }
   }
 });
 

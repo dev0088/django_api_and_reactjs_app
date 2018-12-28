@@ -5,7 +5,7 @@ from client.models import Client
 
 class TalentRating(models.Model):
     talent = models.ForeignKey(Talent, related_name='talent_ratings', on_delete=models.CASCADE)
-    rating = models.FloatField(blank=True, default=0.0)
+    rating = models.FloatField(blank=False, default=0.0)
     comments = models.TextField(blank=True, null=True)
     client = models.ForeignKey(Client, related_name='talent_ratings_by_client', on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)

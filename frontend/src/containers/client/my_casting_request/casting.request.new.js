@@ -7,7 +7,6 @@ import {onCastingViewSearch} from 'actions/clientActions'
 import {bindActionCreators} from "redux";
 import ClientAPI from 'apis/clientAPIs';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../client.css'
 
 
 class CastingRequestNew extends Component {
@@ -30,20 +29,6 @@ class CastingRequestNew extends Component {
       error: false
     };
   }
-
-  textAreaStyle = {
-    width: '80%'
-  };
-
-  parentStyle = {
-    paddingTop: '0'
-  };
-
-  btnStyle = {
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    width: '15rem'
-  };
 
   handleChangeEmployStartDate = (date) => {
     this.setState({

@@ -630,8 +630,8 @@ class ViewProfile extends Component {
   }
 
   renderVideoButtonsGroup() {
-    const { classes, allPositionTypes } = this.props
-    const { talent_video_greetings } = this.state
+    const { classes, allPositionTypes } = this.props;
+    const { talent_video_greetings } = this.state;
 
     return (
       <div>

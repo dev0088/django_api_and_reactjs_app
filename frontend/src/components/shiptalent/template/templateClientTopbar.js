@@ -4,13 +4,16 @@ import { Container } from 'reactstrap';
 import MemberScreen from '../../../containers/talent/memberScreen';
 import ClientHeader from '../headers/clientHeader';
 import ClientFooter from '../footer/clientFooter';
+import GlobalNotification from 'containers/common/globalNotification';
+
 
 const Template = ({ children }) => (
   <div>
     <MemberScreen Layout={ClientHeader} />
-    <Container fluid>
-      {children}
-    </Container>
+      <Container fluid>
+        {children}
+      </Container>
+      <GlobalNotification />
     <ClientFooter />
   </div>
 );

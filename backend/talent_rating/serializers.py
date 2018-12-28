@@ -13,4 +13,5 @@ class TalentRatingSerializer(serializers.ModelSerializer):
             'rating',
             'comments',
             'client',
-            'updated')
+            'updated'
+        )

@@ -64,7 +64,7 @@ class ClientHomeScreen extends Component {
               xs={12}
               fullWidth={false}
             />
-            <Grid item md={12} xs={12}>
+            <Grid item md={7} sm={12} xs={12}>
               <Grid container spacing={16} direction="row" justify="center" alignItems="center">
                 <Grid item lg={6} md={6} sm={6} xs={12} className={classes.talentProfileGuideButtonItem}>
                   <Link to='/client/request_selection'>
@@ -101,7 +101,7 @@ class ClientHomeScreen extends Component {
               </Grid>
             </Grid>
 
-            <Grid item md={12} xs={12}>
+            <Grid item md={7} sm={12} xs={12}>
               <Grid container spacing={16} direction="row" justify="center" alignItems="center">
                 <Grid item lg={6} md={6} sm={6} xs={12} className={classes.talentProfileGuideButtonItem}>
                   <Link to='/client/myshared_profile'>

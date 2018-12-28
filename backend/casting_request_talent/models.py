@@ -13,7 +13,8 @@ class CastingRequestTalent(models.Model):
             on_delete=models.CASCADE
     )
     talent = models.ForeignKey(
-        Talent, related_name='talent_casting_requests',
+        Talent,
+        related_name='talent_casting_requests',
         on_delete=models.CASCADE
     )
     rehearsal_wage = models.IntegerField(blank=True, default=0)

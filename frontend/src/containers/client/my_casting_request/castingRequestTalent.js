@@ -21,7 +21,7 @@ class CastingRequestTalent extends React.Component {
         src={getAvatarFromTalentInfo(talent)}
         containerClass={classes.pictureContainer}
         imageClassName={classes.clientTalentSearchResultPicture}
-        link={{pathname: '/client/talent_view', state: { talentInfo: talent } }}
+        link={{pathname: '/client/talent_view', state: { talentId: talent.id } }}
         key={`${(talent && talent.id) ? talent.id : 'crt'}`}
       />
     );

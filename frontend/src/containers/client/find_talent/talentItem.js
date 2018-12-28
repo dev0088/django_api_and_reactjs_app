@@ -4,31 +4,38 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ImageLoader from 'react-loading-image';
-import { makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo, makeTalentOverviewTitle } from 'utils/appUtils';
+import {
+  makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo, makeTalentOverviewTitle
+} from 'utils/appUtils';
 import styles from 'styles';
-import '../client.css';
+
 
 class TalentItem extends Component {
 
   render() {
-    const { talent, classes } = this.props
-    const talent_picture = getAvatarFromTalentInfo(talent)
+    const { talent, classes } = this.props;
+    const talent_picture = getAvatarFromTalentInfo(talent);
+
     if (talent) {
 
       return (
-        <Grid container spacing={24}>
+        <Grid container spacing={16}>
           <Grid item xl={1} lg={1} md={1} sm={2} xs={3}>
-            <Link to={{
-                    pathname: '/client/talent_view',
-                    state: { talentInfo: talent }
-                  }}
-                  className={classes.pictureContainer}
+            <Link
+              to={{
+                pathname: '/client/talent_view',
+                state: { talentId: talent.id }
+              }}
+              className={classes.pictureContainer}
             >
               <ImageLoader
                 src={talent_picture}
                 className={classes.clientTalentSearchResultPicture}
                 loading={() => <div className={classes.clientTalentSearchResultPicture}>Loading...</div>}
-                error={() => <img src={require('images/missing.png')} className={classes.clientTalentSearchResultPicture}/>} />
+                error={
+                  () => <img src={require('images/missing.png')} className={classes.clientTalentSearchResultPicture} />
+                }
+              />
             </Link>
           </Grid>
           <Grid item xl={11} lg={11} md={11} sm={10} xs={9}>

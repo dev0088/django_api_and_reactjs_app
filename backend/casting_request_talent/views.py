@@ -28,6 +28,21 @@ class CastingRequestTalentList(APIView):
         return Response(serializer.data)
 
 
+class CastingRequestTalentCompletedList(APIView):
+    """
+    Retrieve all completed casting requests of client.
+    """
+    @swagger_auto_schema(responses={200: CastingRequestTalentSerializer(many=True)})
+    def get(self, request, format=None):
+        user = User.objects.get(pk=request.user.pk)
+        client = Client.objects.get(user=user)
+        casting_requests = CastingRequest.objects.filter(client_id=client.id, status='Completed')
+        casting_request_talents = CastingRequestTalent.objects.filter(
+                casting_request_id__in=casting_requests.values_list('id'))
+        serializer = CastingRequestTalentSerializer(casting_request_talents, many=True)
+        return Response(serializer.data)
+
+
 class CastingRequestTalentDetail(APIView):
     """
     Retrieve, update or delete a casting request of client.

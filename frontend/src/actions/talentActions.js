@@ -20,48 +20,36 @@ export const getSignedUrl = (url, params) => ({
 
 
 export const getCurrentTalentInfo = () => {
-  let token = getToken()
+  let token = getToken();
+  let headers = { 'Content-Type': 'application/json' };
 
-  if (token) {
-    return {
-      [RSAA]: {
-        endpoint: `${apiConfig.url}/talent/currentTalentInfo/`,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        types: [
-          types.TALENT_INFO.REQUEST,
-          types.TALENT_INFO.SUCCESS,
-          types.TALENT_INFO.FAILURE
-        ]
-      }}
-  } else {
-    return {
-      [RSAA]: {
-        endpoint: `${apiConfig.url}/talent/currentTalentInfo/`,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        types: [
-          types.TALENT_INFO.REQUEST,
-          types.TALENT_INFO.SUCCESS,
-          types.TALENT_INFO.FAILURE
-        ]
-      }}
+  if (token) headers = {...headers, 'Authorization': `Bearer ${token}`};
+
+  return {
+    [RSAA]: {
+      endpoint: `${apiConfig.url}/talent/currentTalentInfo/`,
+      method: 'GET',
+      headers: headers,
+      types: [
+        types.TALENT_INFO.REQUEST,
+        types.TALENT_INFO.SUCCESS,
+        types.TALENT_INFO.FAILURE
+      ]
+    }
   }
 };
 
 export const getTalentInfo = (id) => {
+  let token = getToken();
+  let headers = { 'Content-Type': 'application/json' };
+
+  if (token) headers = {...headers, 'Authorization': `Bearer ${token}`};
+
   return {
     [RSAA]: {
     endpoint: `${apiConfig.url}/talent/${id}/`,
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-    },
+      headers: headers,
     types: [
       types.TALENT_INFO.REQUEST,
       types.TALENT_INFO.SUCCESS,

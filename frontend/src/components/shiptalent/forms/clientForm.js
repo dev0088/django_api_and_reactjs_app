@@ -22,7 +22,9 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle, formSubTitle, children,
+    const { formTitle,
+      formSubTitle, formSubTitleClass,
+      children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
       classes
@@ -33,10 +35,20 @@ class ClientForm extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
+            <Typography
+              align="center"
+              className={[classes.h4SmallMargin, classes.bold]}
+            >
               {formTitle}
             </Typography>
-            <Typography align="center" className={classes.clientFormSubTitle}>
+            <Typography
+              align="center"
+              className={
+                formSubTitleClass
+                ? [classes.clientFormSubTitle, formSubTitleClass]
+                : classes.clientFormSubTitle
+              }
+            >
               {formSubTitle}
             </Typography>
           </Grid>

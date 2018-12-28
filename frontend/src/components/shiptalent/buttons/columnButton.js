@@ -8,40 +8,31 @@ import styles from 'styles';
 
 class ColumnButton extends Component {
 
-  onClickButton = () => {
+  onClickButton = (event) => {
     const { onClickButton } = this.props;
     if(onClickButton) {
-      onClickButton()
+      onClickButton(event)
     }
   };
 
   render() {
     const {
-      link,
-      itemClass,
-      buttonClass,
-      title,
-      titleClass,
-      subTitle,
-      subTitleClass,
-      size,
-      color,
-      fullWidth,
-      xl,
-      lg,
-      md,
-      sm
+      link, itemClass, buttonClass,
+      title, titleClass, subTitle, subTitleClass,
+      color, fullWidth, size, xl, lg, md, sm, xs
     } = this.props;
 
-    let sizeProps = {}
+    let sizeProps = {};
     if (xl) sizeProps = {...sizeProps, xl};
     if (lg) sizeProps = {...sizeProps, lg};
     if (md) sizeProps = {...sizeProps, md};
     if (sm) sizeProps = {...sizeProps, sm};
+    if (size) sizeProps = {...sizeProps, xs: size};
+    else if (xs) sizeProps = {...sizeProps, xs};
 
     return (
-      <Grid item xs={size} {...sizeProps} className={itemClass}>
-        <Link to={link ? link : "#"} onClick={this.onClickButton}>
+      <Grid item {...sizeProps} className={itemClass}>
+        <Link to={link ? link : "#"} onClick={event => this.onClickButton(event)}>
           <Button variant="contained" color={color} fullWidth={fullWidth} className={buttonClass}>
             <Typography className={titleClass}>{title}</Typography>
             {subTitle && (<Typography className={subTitleClass}>{subTitle}</Typography>)}

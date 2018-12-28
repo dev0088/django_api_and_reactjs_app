@@ -1,93 +1,66 @@
 import React, {Component} from 'react'
-import '../client.css'
-import face from "../../../images/user3.jpg";
-import pencil from "../../../images/pencil.svg"
-import delete_icon from "../../../images/delete.png"
+import ClientForm from 'components/shiptalent/forms/clientForm';
+import Panel from 'components/general/panel';
+import BlockedTalentTable from './BlockedTalentTable';
+import ClientAPI from 'apis/clientAPIs';
+
 
 class BlockedProfile extends Component {
-    state = {
-        talent_list: [
-            {
-                name: 'Philip LaVerne',
-                number: 'VDA222',
-                role: 'Male Vocalist (tenor) who Dances and Acts',
-                description: 'Pop/Rock Tenor with Strong Dancing and Acting Skills and Five Years of Cruise Ship Experience',
-                rate: '9.41',
-                block_period: 'month'
-            },
-            {
-                name: 'Nadia Romansky',
-                number: 'ED180',
-                role: 'Female Aerialist Who Dances',
-                description: 'Experienced Aerialist in Multiple Disciplines with Extensive Ballet, Jazz and Tap Training',
-                rate: '9.84',
-                block_period: 'today'
-            },
-            {
-                name: 'Fernando Vasquez',
-                number: 'VDA144',
-                role: 'Male Vocalist (tenor) who Dances and Acts',
-                description: 'Bi-lingual Singer who Dances and Acts',
-                rate: '9.33',
-                block_period: 'forever'
-            }
-        ]
-    };
+  state = {
+    blockedProfiles: []
+  };
 
-    imgButton = {
-        cursor: 'pointer'
-    };
+  getInfoFromProps = (props) => {
 
-    goWelcome = () => {
-        window.location.href = "/client/home"
-    };
+  };
 
-    render() {
-        return (
-            <div>
-                <div className="text-center pb-3">
-                    <div className="result-title mt-4">My Blocked Profiles</div>
-                    <div className="result-subtitle">
-                        Talent currently blocked from your Search Results
-                    </div>
-                </div>
+  componentWillMount() {
+    ClientAPI.getAllBlockedProfiles(this.handleAllBlockedProfilesResponse);
+  }
 
-                {this.state.talent_list.map(talent => (
-                    <div className="row no-gutters ml-5 mr-5 pb-3">
-                        <div className="col-1 mr-2 text-right my-auto">
-                            <div>
-                                <small>{talent.block_period}</small>
-                            </div>
-                            <div><img src={pencil} width="16px" height="16px" style={this.imgButton} /></div>
-                            <div><img src={delete_icon} width="16px" height="16px" style={this.imgButton} /></div>
-                        </div>
-                        <div className="col-9 d-flex my-auto">
-                            <div>
-                                <img className="talent-img mr-3" src={face}/>
-                            </div>
-                            <div>
-                                <div>
-                                    {talent.name} ({talent.number}) - {talent.role}
-                                </div>
-                                <div>
-                                    <b>"{talent.description}"</b>
-                                </div>
-                                <div>
-                                    Average Rating: {talent.rate}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+  handleAllBlockedProfilesResponse = (response, isFailed) => {
+    console.log('==== handleAllBlockedProfilesResponse: response: ', response);
+    if(isFailed) {
 
-                <div className="d-flex justify-content-end mt-3 mr-3">
-                    <button className="btn btn-dark" style={this.btnStyle} onClick={this.goWelcome}>
-                        Back to My Home Page
-                    </button>
-                </div>
-            </div>
-        )
+    } else {
+      this.setState({blockedProfiles: response});
     }
+  };
+
+  onUnblockedProfile = (blockedProfileID) => {
+    const { blockedProfiles } = this.state;
+    let newBLockedProfiles = blockedProfiles;
+    let index = blockedProfiles.findIndex(profile => {
+      return profile.id === blockedProfileID;
+    });
+
+    newBLockedProfiles.splice(index, 1);
+    this.setState({blockedProfiles: newBLockedProfiles});
+  };
+
+  renderContent = () => {
+    return (
+      <Panel title="Talent currently Blocked from your search Results" bold={true} center={true} >
+        <BlockedTalentTable
+          blockedProfiles={this.state.blockedProfiles}
+          onUnblockedProfile={this.onUnblockedProfile}
+        />
+      </Panel>
+    )
+  };
+
+  render() {
+    return (
+      <ClientForm
+        formTitle="My Blocked Profiles"
+        formSubTitle=""
+        nextLink="/client/home"
+        nextButtonTitle="Back to My Home Page"
+      >
+        {this.renderContent()}
+      </ClientForm>
+    )
+  }
 }
 
 export default BlockedProfile
