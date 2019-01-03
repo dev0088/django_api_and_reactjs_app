@@ -19,7 +19,7 @@ import ClientAPI from 'apis/clientAPIs';
 import styles from 'styles/clientStyles';
 
 
-class  SelectTeamMembers extends Component {
+class SelectTeamMembers extends Component {
 
   state = {
     talent: null,
@@ -248,6 +248,7 @@ class  SelectTeamMembers extends Component {
 
   renderDescription = () => {
     const { clientInfo, classes } = this.props;
+    const { talent } = this.state;
 
     return (
 
@@ -257,7 +258,7 @@ class  SelectTeamMembers extends Component {
           </Typography>
           <Link to={{
             pathname: '/client/shared_profile/invitation',
-            state: {team: (clientInfo && clientInfo.client_teams[0]) ? clientInfo.client_teams[0].id : 0}
+            state: {talent, team: (clientInfo && clientInfo.client_teams[0]) ? clientInfo.client_teams[0].id : 0}
           }}
           >
             <Typography color="primary" className={[classes.clientFromTalentName, classes.boldUnderlineText]}>

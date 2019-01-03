@@ -133,9 +133,11 @@ import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
 import MyFavorite from "containers/client/favorite/myfavorite";
 import CallBackConfirm from "containers/client/my_saved_talent/mycallback.confirm";
+import MySharedProfile from "containers/client/my_shared_profile/myshared.profile";
 import SelectTeamMembers from "containers/client/my_shared_profile/selectTeamMembers";
 import SharedProfileConfirm from "containers/client/my_shared_profile/sharedProfileConfirm";
-import MySharedProfile from "containers/client/my_shared_profile/myshared.profile";
+import InviteTeamMembers from "containers/client/my_shared_profile/inviteTeamMember";
+import InviteTeamMembersConfirm from "containers/client/my_shared_profile/inviteTeamMemberConfirm";
 import TalentSharedWith from "containers/client/my_shared_profile/talent.shared.with";
 import TalentSharedBy from "containers/client/my_shared_profile/talent.shared.by";
 import TalentSharedTeam from "containers/client/my_shared_profile/talent.shared.team";
@@ -365,6 +367,22 @@ const Index = () => (
       render={props => (
         <TemplateClientTopbar>
           <SharedProfileConfirm {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/shared_profile/invitation"
+      render={props => (
+        <TemplateClientTopbar>
+          <InviteTeamMembers {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/shared_profile/invite_confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <InviteTeamMembersConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />
