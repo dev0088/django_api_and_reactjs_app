@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from authentication.serializers import GeneralUserSerializer
 from casting_request.serializers import CastingRequestSerializer
+from team.create_serializers import TeamCreateSerializer
+from team.serializers import TeamSerializer
 from client.models import *
 from talent.models import *
 from drf_yasg.utils import swagger_serializer_method
@@ -21,6 +23,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class ClientAllInfoSerializer(serializers.ModelSerializer):
     user = GeneralUserSerializer(many=False, read_only=True)
     casting_requests = CastingRequestSerializer(many=True, read_only=True)
+    client_teams = TeamSerializer(many=True, read_only=True)
 
     class Meta:
         model = Client
@@ -28,7 +31,8 @@ class ClientAllInfoSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'created',
-            'casting_requests'
+            'casting_requests',
+            'client_teams'
         )
 
 

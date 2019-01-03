@@ -133,6 +133,8 @@ import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
 import MyFavorite from "containers/client/favorite/myfavorite";
 import CallBackConfirm from "containers/client/my_saved_talent/mycallback.confirm";
+import SelectTeamMembers from "containers/client/my_shared_profile/selectTeamMembers";
+import SharedProfileConfirm from "containers/client/my_shared_profile/sharedProfileConfirm";
 import MySharedProfile from "containers/client/my_shared_profile/myshared.profile";
 import TalentSharedWith from "containers/client/my_shared_profile/talent.shared.with";
 import TalentSharedBy from "containers/client/my_shared_profile/talent.shared.by";
@@ -343,10 +345,26 @@ const Index = () => (
       )}
     />
     <Route
+      path="/client/select_team_members"
+      render={props => (
+        <TemplateClientTopbar>
+          <SelectTeamMembers {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
       path="/client/myshared_profile"
       render={props => (
         <TemplateClientTopbar>
           <MySharedProfile {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/shared_profile/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <SharedProfileConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />

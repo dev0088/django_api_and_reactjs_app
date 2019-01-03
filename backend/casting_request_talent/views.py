@@ -86,7 +86,7 @@ class CastingRequestTalentDetail(APIView):
 
 class CastingRequestTalentBulkCreate(APIView):
     """
-    Get current client info
+    Create casting requests for each talent
     """
     # authentication_classes = (authentication.TokenAuthentication, )
     # permission_classes = (permissions.IsAuthenticated,)
@@ -103,8 +103,8 @@ class CastingRequestTalentBulkCreate(APIView):
                          responses={200: CastingRequestTalentSerializer(many=True)})
     def post(self, request, format=None):
         client = self.get_object(request.user)
-
         serializer = CastingRequestTalentCreateSerializer(data=request.data, many=True)
+
         if serializer.is_valid():
             new_crt_ids = []
             for casting_request_talent in serializer.validated_data:

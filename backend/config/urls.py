@@ -85,4 +85,7 @@ urlpatterns = [
   url(r'^api/v1/client/blocked_profile/', include('blocked_profile.urls')),
   url(r'^api/v1/client/call_back/', include('call_back.urls')),
   url(r'^api/v1/client/favorite/', include('favorite.urls')),
+  url(r'^api/v1/client/team/', include('team.urls')),
+  url(r'^api/v1/client/team_member/', include('team_member.urls')),
+  url(r'^api/v1/client/shared_profile/', include('shared_profile.urls')),
 ]

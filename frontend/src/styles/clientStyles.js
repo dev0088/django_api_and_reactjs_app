@@ -13,12 +13,15 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
-  button: {
-    margin: theme.spacing.unit,
-  },
   typography: {
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     textTransform: "none",
+    useNextVariants: true
+  },
+  button: {
+    primaryColor: '#FFFFFF',
+    primaryFontSize: '1.5rem',
+    margin: theme.spacing.unit,
   },
   buttonIcon: {
     margin: 0,
@@ -77,29 +80,6 @@ export const styles = theme => ({
     paddingBottom: '0.8rem',
     lineHeight: 1.3,
     textTransform: 'none',
-  },
-  wizardSettingHeaderTitle: {
-    whiteSpace: 'nowrap'
-  },
-  wizardSettingHeaderButton: {
-    display: 'block!important',
-    borderRadius: '4px!important',
-    marginLeft: '5px',
-    marginRight: '5px'
-  },
-  wizardSettingHeaderButtonsGroupGridItem: {
-    display: 'inherit'
-  },
-  wizardSettingHeaderText: {
-    color: theme.button.primaryColor,
-    fontWeight: 400,
-    textTransform: 'none'
-  },
-  wizardSettingSubTitle: {
-    fontSize: '1.45rem',
-    fontWeight: 600,
-    textAlign: 'center',
-    color: 'rgba(0, 0, 0, 0.87)'
   },
   chips: {
     display: 'flex',
@@ -259,51 +239,6 @@ export const styles = theme => ({
       }
     },
   },
-  financeTable: {
-    border: `2px solid ${theme.palette.black.main}`,
-    padding: `10px!important`
-  },
-  financeTableTitle: {
-    color: theme.palette.black.main,
-    fontSize: '1rem',
-    fontWeight: 600,
-    lineHeight: '1.46429em',
-  },
-  financeTableContentText: {
-    color: theme.palette.black.main,
-    fontSize: '0.85rem',
-    fontWeight: 100,
-    lineHeight: '0.8em',
-  },
-  financeIconGridItem: {
-    textAlign: 'right',
-    paddingRight: '0px!important',
-    verticalAlign: 'top',
-    paddingTop: '10px!important',
-    marginBottom: 'auto'
-  },
-  financeIcon: {
-    fontSize: '2rem',
-    fontWeight: '700',
-    paddingRight: '0px',
-    textAlign: 'right',
-    verticalAlign: 'top',
-    marginTop: '0px',
-    marginBottom: 'auto',
-    color: theme.palette.black.main
-  },
-  auditionTableTitle: {
-    color: theme.palette.black.main,
-    fontSize: '1.25rem',
-    fontWeight: 600,
-    lineHeight: '1.46429em',
-  },
-  auditionTableContentText: {
-    color: theme.palette.black.main,
-    fontSize: '1rem',
-    fontWeight: 400,
-    lineHeight: '1em',
-  },
   descriptionText: {
     color: '#2a3134',
     fontSize: '1rem',
@@ -461,356 +396,8 @@ export const styles = theme => ({
   nextButtonClass: {
     textTransform: 'none',
   },
-  uploadProgressBar: {
-    width: '200px',
-    margin: 'auto',
-    height: '30px'
-  },
   fullWidthButtonGridItem: {
     width: '100%'
-  },
-  generalAssistButtonTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 600,
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    textTransform: 'none',
-    color: theme.palette.white.main,
-  },
-  generalAssistButton: {
-    borderRadius: '5px',
-    display: 'block',
-  },
-  talentFormBackButton: {
-    textTransform: 'none',
-    borderRadius: '0px',
-    primaryColor: theme.palette.white.main,
-  },
-  talentImportantRegardingButton: {
-    display: 'block',
-    borderRadius: '5px',
-    color: theme.palette.white.main,
-    boxShadow: 'none',
-    backgroundColor: '#C00',
-    '&:hover': {
-      backgroundColor: '#ab003c'
-    }
-  },
-  talentImportantRegardingButtonTitle: {
-    ontSize: '1rem',
-    fontWeight: 600,
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    textTransform: 'none',
-    color: theme.palette.black.main,
-  },
-  talentProfileOtherInfoButton: {
-    display: 'block!important'
-  },
-
-  talentProfileOtherInfoButtonTitle: {
-    fontSize: '1rem',
-    fontWeight: '600',
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    textTransform: 'none',
-  },
-
-  talentProfileOtherInfoButtonStatus: {
-    color: '#d6d7d8',
-    textTransform: 'none',
-  },
-
-  talentProfileOtherInfoButtonGroup: {
-    display: 'inherit'
-  },
-
-  talentProfileGuideButtonItem: {
-    textAlign: 'center',
-    padding: '5px',
-    display: 'block!important'
-  },
-  talentProfileGuideButton: {
-    display: 'block',
-    borderRadius: '5px'
-  },
-  talentProfileGuideDownloadButton: {
-    borderRadius: '5px'
-  },
-  talentProfileGuildDownloadCombinationButton: {
-    display: 'block',
-    borderRadius: '5px',
-    color: theme.palette.white.main,
-    boxShadow: 'none',
-    backgroundColor: '#C00',
-    '&:hover': {
-      backgroundColor: '#ab003c'
-    }
-  },
-  talentProfileGuideButtonSelected: {
-    display: 'block',
-    borderRadius: '5px',
-    color: theme.palette.white.main,
-    boxShadow: 'none',
-    backgroundColor: grey[500],
-    '&:hover': {
-      backgroundColor: grey[600]
-    }
-  },
-  talentProfileGuideButtonTitle: {
-    fontSize: '1rem',
-    fontWeight: 600,
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    textTransform: 'none',
-    color: theme.palette.white.main,
-  },
-  talentProfileGuideButtonRequiredTitle: {
-    fontWeight: 600,
-    color: theme.palette.red.light,
-    textTransform: 'none'
-  },
-  talentProfileGuideButtonSubTitle: {
-    fontWeight: 100,
-    color: theme.palette.white.thin,
-    textTransform: 'none'
-  },
-  talentProfileVideoGreetingImage: {
-    width: '100px',
-    height: '100px',
-    objectFit: 'cover'
-  },
-  talentProfileGeneralInfoNameCol: {
-    fontSize: '1rem!important',
-    fontWeight: '600!important',
-    textAlign: 'left',
-    display: 'inherit',
-    margin: 'auto'
-  },
-  talentProfileSpecialInfoNameCol: {
-    fontSize: '1rem!important',
-    fontWeight: '600!important',
-    textAlign: 'center',
-    display: 'inherit',
-    margin: 'auto'
-  },
-  talentProfileGeneralInfoName: {
-    fontSize: '1rem!important',
-    fontWeight: '600!important',
-    textAlign: 'left'
-  },
-  talentProfileGeneralInfoValue: {
-    fontSize: '1rem!important',
-    fontWeight: '400!important',
-    textAlign: 'left'
-  },
-  talentProfileBioTextValue: {
-    fontSize: '1rem!important',
-    fontWeight: '400!important',
-    textAlign: 'left',
-    display: 'contents'
-  },
-  talentProfileGeneralInfoValueCol: {
-    marginTop: 'auto!important',
-    marginBottom: 'auto!important'
-  },
-  talentProfileEditIcon: {
-    color: theme.palette.black.main,
-    fontSize: '1rem',
-    marginBottom: '4px',
-    marginRight: '7px',
-    '&:hover': {
-      color: theme.palette.black.light,
-    },
-  },
-  talentProfileSpecialInfoEditIcon: {
-    color: theme.palette.black.main,
-    fontSize: '1.15rem',
-    marginRight: '7px',
-    marginTop: '3px',
-    '&:hover': {
-      color: theme.palette.black.light,
-    },
-  },
-  talentProfileHeadlineEditIcon: {
-    color: theme.palette.black.main,
-    fontSize: '1.4rem',
-    marginRight: '7px',
-    marginTop: '10px',
-    '&:hover': {
-      color: theme.palette.black.light,
-    },
-  },
-  talentProfileEditIconEmpty: {
-    width: '24px'
-  },
-  talentProfileFileDeleteButton: {
-    padding: '0px',
-    minWidth: '10px',
-    minHeight: '10px',
-    width: '20px',
-    height: '20px',
-    position: 'relative',
-    top: '-33px',
-    left: '80px',
-    fontWeight: 600,
-  },
-  talentProfileFileDeleteDisable: {
-    color: '#FFFFFF',
-    borderRadius: '2px',
-    background: '#FFFFFF',
-    fontWeight: 600,
-    position: 'relative',
-    top: '-48px',
-    left: '192px'
-  },
-  talentProfileResumeDeleteButton: {
-    padding: '0px',
-    minWidth: '10px',
-    minHeight: '10px',
-    width: '20px',
-    height: '20px',
-    position: 'relative',
-    top: '-25px',
-    left: '170px',
-    fontWeight: 600,
-  },
-  talentProfilePictureEmpty: {
-    width: '20px',
-    height: '20px',
-  },
-  talentAvailabilityCalendarDeleteButton: {
-    padding: '0px',
-    minWidth: '10px',
-    minHeight: '10px',
-    width: '20px',
-    height: '20px',
-    display: 'block',
-    fontWeight: 600,
-    right: '-300px',
-    bottom: '-15px',
-    color: theme.palette.white.main,
-    backgroundColor: theme.palette.red.main,
-    '&:hover': {
-      backgroundColor: theme.palette.red.dark,
-    },
-  },
-  talentAvailabilityCalendarDeleteButtonGridItem: {
-    textAlign: 'right',
-  },
-  talentProfilePictureDeleteButton: {
-    padding: '0px',
-    minWidth: '10px',
-    minHeight: '10px',
-    width: '20px',
-    height: '20px',
-    position: 'relative',
-    top: '-25px',
-    left: '90px',
-    fontWeight: 600,
-  },
-  talentProfileViewTitleText: {
-    fontSize: '2rem',
-    fontWeight: 600,
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-    lineHeight: '1.46429em',
-  },
-  talentProfileViewSubTitleText: {
-    fontSize: '1.2rem',
-    fontWeight: 600,
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-    lineHeight: '1.46429em',
-  },
-  talentProfileViewHeaderTextItem: {
-    fontSize: '1rem!important',
-    fontWeight: '600!important',
-    textAlign: 'center',
-    display: 'inherit',
-    margin: 'auto',
-
-  },
-  talentProfileViewHeaderText: {
-    fontSize: '1.4rem',
-    fontWeight: 600,
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-    lineHeight: '1.46429em',
-    textAlign: 'center',
-    padding: '3px 10px 3px 10px',
-    border: `3px solid ${theme.palette.black.main}`
-  },
-  talentProfileVideoViewModal: {
-    width: '60%',
-    height: '70%',
-    left: '20%',
-    top: '15%'
-  },
-  talentProfileVideoUploadingText: {
-    padding: '10px',
-    fontSize: '1rem',
-    textAlign: 'center',
-    top: '-36px',
-    position: 'relative',
-    fontWeight: '400'
-  },
-  talentProfileVideoAuditionSubTitleText: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: '10px',
-    fontSize: '1.5rem'
-  },
-  talentProfileVideoAuditionDescriptionText: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: '10px',
-    fontSize: '1rem'
-  },
-  talentProfileVideoAuditionUploadersRow: {
-    width: '100%'
-  },
-  talentProfileVideoAuditionInstructionLinkedText: {
-    color: '#0366d6',
-    textDecoration: 'underline',
-    fontSize: '0.85rem',
-    textAlign: 'center'
-  },
-  talentProfileVideoAuditionHelpfulHintTitle: {
-    textAlign: 'center',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-  },
-  talentProfileVideoAuditionHelpfulHintContentGrid: {
-    border: '4px solid #000000',
-    margin: 'auto',
-    width: '250px',
-    minWidth: '250px'
-  },
-  talentProfileVideoAuditionHelpfulHintText: {
-    textAlign: 'center',
-    fontSize: '0.85rem',
-    fontWeight: 100,
-  },
-  talentProfileVideoAuditionHelpfulHintImage: {
-    width: '100%',
-  },
-  talentIntroductionButton: {
-    borderRadius: '5px',
-    padding: '16px 8px',
-    display: 'block'
-  },
-  talentIntroductionButtonTitle: {
-    fontWeight: 100,
-    fontSize: '1rem',
-    color: theme.palette.white.main,
-    textTransform: 'none'
-  },
-  talentIntroductionButtonSuffixTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 600,
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    textTransform: 'none',
-    display: 'inline',
-    color: theme.palette.white.main,
   },
   homeBackgroundImage: {
     width: '100%',
@@ -1143,12 +730,14 @@ export const styles = theme => ({
 
 export const theme = createMuiTheme ({
   palette: {
-    primary: {
-      main: '#007bff',
-      light: '#2196F3'
-    },
-    secondary: {
-      main: '#28a745'//'#C00'
+    palette: {
+      primary: {
+        main: '#212121',
+        light: '#424242'
+      },
+      secondary: {
+        main: '#28a745'
+      }
     },
     green: {
       main: '#28a745'
@@ -1192,33 +781,13 @@ export const theme = createMuiTheme ({
       light: blue[400],
       dark: blue[900]
     }
-  },
-  typography: {
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
-    textTransform: "none",
-    useNextVariants: true
-  },
-  button: {
-    primaryColor: '#FFFFFF',
-    primaryFontSize: '1.5rem'
-  },
+  }
 });
 
 export const themeV0 = getMuiTheme({
   palette: {
     primary1Color: '#007bff',
     accent1Color: '#40c741',
-  }
-});
-
-export const themeClientSpecialActionButton = createMuiTheme ({
-  palette: {
-    primary: {
-      main: '#2a3134',
-    },
-    secondary: {
-      main: '#C00'
-    }
   }
 });
 

@@ -27,17 +27,6 @@ class MyRate extends Component {
     }
   };
 
-  // onRemoveFavorite = (castingRequestId) => {
-  //   const { castingRequestTalents } = this.state;
-  //   let newFavorites = castingRequestTalents;
-  //   let index = castingRequestTalents.findIndex(castingRequest => {
-  //     return castingRequest.id === castingRequestId;
-  //   });
-  //
-  //   newFavorites.splice(index, 1);
-  //   this.setState({castingRequestTalents: newFavorites});
-  // };
-
   render() {
     const { classes } = this.props;
     return(

@@ -12,6 +12,7 @@ import TalentTable from "./talentTable";
 import { makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo } from 'utils/appUtils';
 import styles from 'styles';
 import '../client.css';
+import Panel from "../../../components/general/panel";
 
 class TalentSearchResult extends Component {
   constructor(props) {
@@ -23,18 +24,18 @@ class TalentSearchResult extends Component {
   };
 
   getInfoFromProps(props) {
-    const { talentSearchResult } = props
-    let availableTalents = []
-    let nearAvailableTalents = []
+    const { talentSearchResult } = props;
+    let availableTalents = [];
+    let nearAvailableTalents = [];
 
     if (talentSearchResult) {
-      console.log('==== talent search result: ', talentSearchResult)
+      console.log('==== talent search result: ', talentSearchResult);
       for(let i = 0; i < talentSearchResult.length; i ++) {
-        let talent = talentSearchResult[i]
+        let talent = talentSearchResult[i];
         if (talent.profile_status.is_completed_profile) {
-          availableTalents.push(talent)
+          availableTalents.push(talent);
         } else {
-          nearAvailableTalents.push(talent)
+          nearAvailableTalents.push(talent);
         }
       }
     }
@@ -42,38 +43,52 @@ class TalentSearchResult extends Component {
     return {
       availableTalents,
       nearAvailableTalents
-    }
+    };
   }
 
   componentWillMount() {
     this.setState({
       ...this.getInfoFromProps(this.props)
-    })
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.getInfoFromProps(nextProps)
-    })
+    });
   }
 
   renderContent() {
-    const { classes } = this.props
+    const { classes } = this.props;
+    const { availableTalents, nearAvailableTalents } = this.state;
 
     return(
-      <Grid container spacing={24}>
-        <Grid item xs={12} >
-          <TalentTable talents={this.state.availableTalents} />
-        </Grid>
-        <Grid item xs={12} />
-        <Grid item xs={12} >
-          <Typography className={classes.clientFormSubTitle}>
-            {"NEAR AVAILABLE(Availability within 14 Days of Specified Contract Start and/or End Date)"}
-          </Typography>
-          <Spacer size={11}/>
-          <TalentTable talents={this.state.nearAvailableTalents} />
-        </Grid>
-      </Grid>
+      <div>
+        {
+          availableTalents.length > 0 &&
+          <Panel>
+            <Grid container spacing={24}>
+              <Grid item xs={12} >
+                <TalentTable talents={availableTalents} />
+              </Grid>
+              <Grid item xs={12} />
+            </Grid>
+          </Panel>
+        }
+        {
+          nearAvailableTalents.length > 0 &&
+          <Panel
+            title="NEAR AVAILABLE(Availability within 14 Days of Specified Contract Start and/or End Date)"
+            bold={true}
+          >
+            <Grid container spacing={24}>
+              <Grid item xs={12} >
+                <TalentTable talents={nearAvailableTalents} />
+              </Grid>
+            </Grid>
+          </Panel>
+        }
+      </div>
     )
   }
 

@@ -43,9 +43,9 @@ class TalentLanguageList(APIView):
         # Save languages from client
         for language in data:
             talent_language = TalentLanguage.objects.create(
-                    talent = talent,
-                    language = language['language'],
-                    fluency = language['fluency']
+                    talent=talent,
+                    language=language['language'],
+                    fluency=language['fluency']
                 )
             talent_language.save()
 

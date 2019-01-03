@@ -82,7 +82,7 @@ class MoreActions extends Component {
       <MuiThemeProvider theme={theme}>
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
           {this.renderButton('/client/casting_request/new', "Request More Info")}
-          {this.renderButton('/client/myshared_profile', "Shared Profile")}
+          {this.renderButton({pathname: '/client/select_team_members', state: {talent}}, "Shared Profile")}
           {this.renderButton(
             {pathname: '/client/block_profile/edit', state: {talent}},
             "Block Profile", "Temporarily or permanently"

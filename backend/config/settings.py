@@ -88,7 +88,10 @@ LOCAL_APPS = (
     'casting_request_talent',
     'blocked_profile',
     'call_back',
-    'favorite'
+    'favorite',
+    'team',
+    'team_member',
+    'shared_profile'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

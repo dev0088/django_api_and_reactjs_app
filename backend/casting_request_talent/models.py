@@ -1,6 +1,4 @@
 from django.db import models
-
-from datetime import datetime, timedelta
 from casting_request.models import CastingRequest
 from talent.models import Talent
 

@@ -52,11 +52,11 @@ class ClientAPI {
       headers: {
         'Accept': 'application/json',
         "Content-Type": "application/json",
-        "Access-Control-Expose-Headers": "Access-Control-*",
-        "Access-Control-Allow-Headers": "Access-Control-*, Origin, X-Requested-With, Content-Type, Accept",
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
-        'Access-Control-Allow-Origin': '*',
-        'Allow': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+        // "Access-Control-Expose-Headers": "Access-Control-*",
+        // "Access-Control-Allow-Headers": "Access-Control-*, Origin, X-Requested-With, Content-Type, Accept",
+        // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Allow': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
         "Authorization": `Bearer ${getToken()}`
       }
     };
@@ -155,5 +155,28 @@ class ClientAPI {
     this.processRequestWithToken(`talent_rating/create`, 'post', data, handleResponse)
   }
 
+  static getAllTeamMembers(handleResponse) {
+    this.processRequestWithToken(`client/team_member/all`, 'get', null, handleResponse)
+  }
+
+  static addTeamMembers(data, handleResponse) {
+    this.processRequestWithToken(`client/favorite/create_bulk`, 'post', data, handleResponse)
+  }
+
+  static removeTeamMember(favoriteId, handleResponse) {
+    this.processRequestWithToken(`client/team_member/${favoriteId}/`, 'delete', null, handleResponse)
+  }
+
+  static getAllSharedProfiles(handleResponse) {
+    this.processRequestWithToken(`client/shared_profile/all`, 'get', null, handleResponse)
+  }
+
+  static addSharedProfiles(data, handleResponse) {
+    this.processRequestWithToken(`client/shared_profile/bulk`, 'post', data, handleResponse)
+  }
+
+  static removeSharedProfile(sharedProfileID, handleResponse) {
+    this.processRequestWithToken(`client/shared_profile/${sharedProfileID}/`, 'delete', null, handleResponse)
+  }
 }
 export default ClientAPI
