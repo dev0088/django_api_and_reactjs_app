@@ -10,8 +10,8 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework_bulk import (ListBulkCreateUpdateDestroyAPIView)
+from drf_yasg.utils import swagger_auto_schema
 
 
 class SharedProfileList(APIView):
@@ -65,37 +65,6 @@ class SharedProfileDetail(APIView):
         shared_profile.delete()
         return Response({'id': int(pk)}, status=status.HTTP_200_OK)
 
-#
-# class SharedProfileCreate(APIView):
-#     """
-#     Get current client info
-#     """
-#     # authentication_classes = (authentication.TokenAuthentication, )
-#     # permission_classes = (permissions.IsAuthenticated,)
-#
-#     def get_object(self, user):
-#         try:
-#             user = User.objects.get(pk=user.pk)
-#             client = Client.objects.get(user=user.id)
-#             return client
-#         except Client.DoesNotExist:
-#             raise Http404
-#
-#     @swagger_auto_schema(
-#         request_body=SharedProfileCreateSerializer,
-#         responses={200: SharedProfileCreateSerializer(many=True)}
-#     )
-#     def post(self, request, format=None):
-#         client = self.get_object(request.user)
-#         serializer = SharedProfileCreateSerializer(data=request.data)
-#         if serializer.is_valid():
-#             data = serializer.validated_data
-#             new_shared_profile = SharedProfile(**data)
-#             new_shared_profile.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#
-#         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
 
 class SharedProfileBulkCreate(ListBulkCreateUpdateDestroyAPIView):
     """
@@ -113,11 +82,3 @@ class SharedProfileBulkCreate(ListBulkCreateUpdateDestroyAPIView):
         return client
       except Client.DoesNotExist:
         raise Http404
-
-    def allow_bulk_create(self, qs, filtered):
-        # custom logic here
-
-        # default checks if the qs was filtered
-        # qs comes from self.get_queryset()
-        # filtered comes from self.filter_queryset(qs)
-        return qs is not filtered

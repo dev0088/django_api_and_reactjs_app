@@ -1,24 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
-import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import Panel from 'components/general/panel';
-import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import Spacer from "components/general/spacer";
-import ClientAPI from 'apis/clientAPIs';
 import styles from 'styles/clientStyles';
 
 
-class  SharedProfileConfirm extends Component {
+class SharedProfileConfirm extends Component {
 
   state = {
     talent: null,

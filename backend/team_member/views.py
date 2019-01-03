@@ -9,6 +9,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_bulk import (ListBulkCreateUpdateDestroyAPIView)
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -96,12 +97,14 @@ class TeamMemberCreate(APIView):
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class TeamMemberBulkCreate(APIView):
+class TeamMemberBulkCreate(ListBulkCreateUpdateDestroyAPIView):
     """
     Create Team member info
     """
     # authentication_classes = (authentication.TokenAuthentication, )
     # permission_classes = (permissions.IsAuthenticated,)
+    queryset = TeamMember.objects.all()
+    serializer_class = TeamMemberCreateSerializer
 
     def get_object(self, user):
       try:
@@ -110,36 +113,3 @@ class TeamMemberBulkCreate(APIView):
         return client
       except Client.DoesNotExist:
         raise Http404
-
-    def get_serializer(self, *args, **kwargs):
-        if "data" in kwargs:
-            data = kwargs["data"]
-
-            # check if many is required
-            if isinstance(data, list):
-                kwargs["many"] = True
-
-        return super(TeamMemberBulkCreate, self).get_serializer(*args, **kwargs)
-
-    @swagger_auto_schema(
-        request_body=TeamMemberCreateSerializer(many=True),
-        responses={200: TeamMemberSerializer(many=True)}
-    )
-    def post(self, request, format=None):
-        client = self.get_object(request.user)
-        is_many = True if isinstance(request.data, list) else False
-        print("==== is_many: ", is_many)
-        serializer = TeamMemberCreateSerializer(data=request.data, many=is_many)
-        print('==== TeamMemberBulkCreate: ', request.data)
-        if serializer.is_valid():
-            new_team_members_ids = []
-            for team_member in serializer.validated_data:
-                new_team_member = TeamMember(**team_member)
-                new_team_member.save()
-                new_team_members_ids.append(new_team_member.id)
-
-            new_team_members = TeamMember.objects.filter(id__in=new_team_members_ids)
-            new_serializer = TeamMemberSerializer(new_team_members, many=True)
-            return Response(new_serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

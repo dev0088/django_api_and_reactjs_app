@@ -160,11 +160,11 @@ class ClientAPI {
   }
 
   static addTeamMembers(data, handleResponse) {
-    this.processRequestWithToken(`client/favorite/create_bulk`, 'post', data, handleResponse)
+    this.processRequestWithToken(`client/team_member/bulk`, 'post', data, handleResponse)
   }
 
-  static removeTeamMember(favoriteId, handleResponse) {
-    this.processRequestWithToken(`client/team_member/${favoriteId}/`, 'delete', null, handleResponse)
+  static removeTeamMember(teamMemberId, handleResponse) {
+    this.processRequestWithToken(`client/team_member/${teamMemberId}/`, 'delete', null, handleResponse)
   }
 
   static getAllSharedProfiles(handleResponse) {
