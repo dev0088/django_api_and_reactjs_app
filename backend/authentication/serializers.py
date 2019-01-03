@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import User
 from talent.models import Talent
 from client.models import Client
+from team.models import Team
 
 
 class GeneralUserSerializer(serializers.ModelSerializer):
@@ -45,4 +46,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
         elif user.type == "client":
             # Create client
             client = Client.objects.create(user_id=user.id)
+            # Create team of this client
+            team = Team.objects.create(
+                client_id=client.id,
+                name='{first_name} {last_name}'.format(
+                    first_name=user.first_name,
+                    last_name=user.last_name
+                )
+            )
         return user
