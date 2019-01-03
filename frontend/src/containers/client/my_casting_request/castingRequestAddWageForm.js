@@ -145,14 +145,15 @@ class CastingRequestAddWageForm extends Component {
             <TextField
               id="outlined-name"
               label=""
-              className={classes.textField}
               value={comment}
-              type="number"
+              type="text"
               onChange={this.handleChange('comment')}
               margin="normal"
               variant="outlined"
               multiline
               fullWidth
+              rows={5}
+              rowsMax={2}
               InputLabelProps={{
                 shrink: true,
               }}

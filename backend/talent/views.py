@@ -17,11 +17,13 @@ from talent_position_sub_type.models import TalentPositionSubType
 from talent_visa.models import TalentVisa
 from talent_skill.models import TalentSkill
 from talent_sub_skill.models import TalentSubSkill
-
+from client.models import Client
+from favorite.models import Favorite
 from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
+from datetime import datetime
 import json
 
 class TalentViewSet(viewsets.ModelViewSet):
@@ -54,7 +56,6 @@ class CurrentTalent(APIView):
     Get current talent info
     """
     def get(self, request, format=None):
-        print('==== request.user: ', request.user)
         talent_item = self.get_object(request.user)
         serializer = TalentSerializer(talent_item)
         return Response(serializer.data)
@@ -298,8 +299,24 @@ class TalentDetail(APIView):
 
     @swagger_auto_schema(responses={200: TalentSerializer(many=False)})
     def get(self, request, pk, format=None):
-        talent_item = self.get_object(pk)
-        serializer = TalentSerializer(talent_item)
+        try:
+            talent = Talent.objects.get(pk=pk)
+        except Talent.DoesNotExist:
+            raise Http404
+
+        serializer = TalentSerializer(talent)
+
+        # In the case client require this talent info, save this history in Favorite table.
+        user = request.user
+        client = Client.objects.filter(user_id=user.id).first()
+        if client:
+            favorite = Favorite.objects.filter(client=client, talent=talent).first()
+            if favorite:
+                favorite.save()
+            else:
+                new_favorite = Favorite.objects.create(client=client, talent=talent)
+                new_favorite.save()
+
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=TalentSerializer, responses={200: TalentSerializer(many=False)})

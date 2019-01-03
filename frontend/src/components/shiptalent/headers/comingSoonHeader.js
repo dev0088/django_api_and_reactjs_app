@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import {
   Nav,
   Navbar,
@@ -7,8 +6,6 @@ import {
   NavbarToggler,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-// import { SidebarNavItems } from './sidebar';
-
 import './header.css'
 import './comingSoonHeader.css'
 

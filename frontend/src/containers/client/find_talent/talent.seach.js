@@ -9,23 +9,10 @@ import {Redirect} from 'react-router';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Constant from 'constants/talent.search';
-import {talentSearch} from 'actions/clientActions';
+import * as clientActions from 'actions/clientActions';
 import styles from 'styles';
 import '../client.css';
 
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getOnlineData: bindActionCreators(talentSearch, dispatch)
-  }
-};
-
-const mapStateToProps = state => {
-  const { talentSearchResult } = state
-  return {
-    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null
-  }
-};
 
 class TalentSearch extends Component {
   constructor(props) {
@@ -44,6 +31,7 @@ class TalentSearch extends Component {
       lang_list: [],
       rating_list: [],
       talent_name: '',
+      talent_tid: '',
       talent_id: ''
     }
   }
@@ -119,7 +107,7 @@ class TalentSearch extends Component {
   onSearch = (e) => {
     e.preventDefault();
     console.log('==== onSearch: state: ', this.state);
-    this.props.getOnlineData(this.state);
+    this.props.clientActions.talentSearch(this.state);
     this.props.history.push('/client/talent_search_result');
   };
 
@@ -212,7 +200,7 @@ class TalentSearch extends Component {
   };
 
   onChangeId = (e) => {
-    this.state.talent_id = e.target.value;
+    this.state.talent_tid = e.target.value;
   };
 
   onClickRating = (e) => {
@@ -344,5 +332,19 @@ class TalentSearch extends Component {
     )
   }
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    clientActions: bindActionCreators(clientActions, dispatch)
+  }
+};
+
+const mapStateToProps = state => {
+  const { talentSearchResult } = state
+  return {
+    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TalentSearch))

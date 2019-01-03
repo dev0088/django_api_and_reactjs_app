@@ -1,6 +1,7 @@
 import UnitConverter from 'convert-units';
 import defaultValues from 'constants/defaultValues';
 
+
 // handle user media capture
 export function captureUserMedia(options, callback) {
   let params = { audio: true, video: options };
@@ -13,7 +14,7 @@ export function captureUserMedia(options, callback) {
 
 export function makeTitleWithAllPositionTypes(talentInfo) {
   const { talent_position_types, talent_position_sub_types, talent_skills } = talentInfo
-  console.log('==== makeTitleWithAllPositionTypes: ', talent_position_sub_types)
+
   let title = ''
   if (talent_position_types && talent_position_types.length > 0) {
     title = talent_position_types[0]
@@ -37,7 +38,7 @@ export function makeTitleWithAllPositionTypes(talentInfo) {
 }
 
 export function getAvatarFromTalentInfo(talentInfo) {
-  if (talentInfo && talentInfo.talent_pictures.length > 0) {
+  if (talentInfo && talentInfo.talent_pictures && talentInfo.talent_pictures.length > 0) {
     for (let i = 0; i < talentInfo.talent_pictures.length; i++) {
       if (talentInfo.talent_pictures[i].url) {
         return talentInfo.talent_pictures[i].url
@@ -144,11 +145,13 @@ export function getPracticVideoNumbers(talent_videos) {
 export function getLiveVideoNumbers(talent_videos) {
   let res = 0
 
-  for (let i = 0; i < talent_videos.length; i ++) {
-    let talent_video = talent_videos[i]
-    if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
-      talent_video.position_type !== null) {
-      res ++
+  if (talent_videos) {
+    for (let i = 0; i < talent_videos.length; i ++) {
+      let talent_video = talent_videos[i]
+      if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
+        talent_video.position_type !== null) {
+        res ++
+      }
     }
   }
 
@@ -335,5 +338,18 @@ export function generateLinkWithPosition(position, link) {
 }
 
 export function makeTalentOverviewTitle(talent) {
-  return `${talent.user.first_name} ${talent.user.last_name} (${talent.tid}) - ${getSexTitle(talent.sex)} ${makeTitleWithAllPositionTypes(talent)}`
+  return talent.user ? `${talent.user.first_name} ${talent.user.last_name} (${talent.tid}) - ${getSexTitle(talent.sex)} ${makeTitleWithAllPositionTypes(talent)}` : '';
+}
+
+export function arrayUnique(array, fieldName) {
+  let a = array.concat();
+
+  for(let i = 0; i < a.length; ++i) {
+    for(let j = i + 1; j < a.length; ++j) {
+      if(a[i][fieldName] === a[j][fieldName])
+        a.splice(j--, 1);
+    }
+  }
+
+  return a;
 }

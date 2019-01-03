@@ -128,19 +128,38 @@ import CastingRequestListView from "containers/client/my_casting_request/casting
 import CastingRequestView from "containers/client/my_casting_request/casting.request.view";
 import CastingRequestSubmitConfirm from "containers/client/my_casting_request/submit.confirm";
 import CastingRequestAddWageForm from "containers/client/my_casting_request/castingRequestAddWageForm";
+import CastingRequestSearchTalentsForm from "containers/client/my_casting_request/castingRequestSearchTalentsForm";
 import MyTalentSaved from "containers/client/my_saved_talent/mytalent.saved";
 import MyCallback from "containers/client/my_saved_talent/mycallback";
-import MyFavorite from "containers/client/my_saved_talent/myfavorite";
+import MyFavorite from "containers/client/favorite/myfavorite";
+import CallBackConfirm from "containers/client/my_saved_talent/mycallback.confirm";
+import SelectTeamMembers from "containers/client/my_shared_profile/selectTeamMembers";
+import SharedProfileConfirm from "containers/client/my_shared_profile/sharedProfileConfirm";
 import MySharedProfile from "containers/client/my_shared_profile/myshared.profile";
 import TalentSharedWith from "containers/client/my_shared_profile/talent.shared.with";
 import TalentSharedBy from "containers/client/my_shared_profile/talent.shared.by";
 import TalentSharedTeam from "containers/client/my_shared_profile/talent.shared.team";
 import BlockedProfile from "containers/client/my_blocked_profile/blocked.profile";
+import BlockedProfileEdit from "containers/client/my_blocked_profile/blocked.profile.edit";
+import BlockedProfileConfirm from "containers/client/my_blocked_profile/blocked.profile.confirm";
 import MyRate from "containers/client/my_rating/myrate";
 import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
 import TalentChangePassword from "../containers/talent/account/change-password/changePasswordScreen";
 
+
+function renderRouter(path, topBar, layout) {
+  return(
+    <Route
+      path={path}
+      render={props => (
+        <topBar>
+          <layout {...props}/>
+        </topBar>
+      )}
+    />
+  );
+}
 
 const Index = () => (
   <Switch>
@@ -267,7 +286,6 @@ const Index = () => (
         </TemplateClientTopbar>
       )}
     />
-
     <Route
       path="/client/casting_request/add_wage"
       render={props => (
@@ -285,6 +303,16 @@ const Index = () => (
       )}
     />
     <Route
+      path="/client/casting_request/search_talent"
+      render={props => (
+        <TemplateClientTopbar>
+          <CastingRequestSearchTalentsForm {...props} />
+        </TemplateClientTopbar>
+      )}
+    />
+
+
+    <Route
       path="/client/mytalent/saved"
       render={props => (
         <TemplateClientTopbar>
@@ -296,7 +324,7 @@ const Index = () => (
       path="/client/mycallback"
       render={props => (
         <TemplateClientTopbar>
-        <MyCallback {...props}/>
+          <MyCallback {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -304,7 +332,23 @@ const Index = () => (
       path="/client/myfavorite"
       render={props => (
         <TemplateClientTopbar>
-        <MyFavorite {...props}/>
+          <MyFavorite {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/callback/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <CallBackConfirm {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/select_team_members"
+      render={props => (
+        <TemplateClientTopbar>
+          <SelectTeamMembers {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -312,7 +356,15 @@ const Index = () => (
       path="/client/myshared_profile"
       render={props => (
         <TemplateClientTopbar>
-        <MySharedProfile {...props}/>
+          <MySharedProfile {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/shared_profile/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <SharedProfileConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -336,7 +388,7 @@ const Index = () => (
       path="/client/talent_shared_team"
       render={props => (
         <TemplateClientTopbar>
-        <TalentSharedTeam {...props}/>
+          <TalentSharedTeam {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -344,7 +396,23 @@ const Index = () => (
       path="/client/blocked_profile"
       render={props => (
         <TemplateClientTopbar>
-        <BlockedProfile {...props}/>
+          <BlockedProfile {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/block_profile/edit"
+      render={props => (
+        <TemplateClientTopbar>
+          <BlockedProfileEdit {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      path="/client/block_profile/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <BlockedProfileConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />

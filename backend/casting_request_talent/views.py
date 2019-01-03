@@ -3,6 +3,7 @@ from client.models import Client
 from casting_request.models import CastingRequest
 from casting_request_talent.models import CastingRequestTalent
 from casting_request_talent.serializers import CastingRequestTalentSerializer, CastingRequestTalentCreateSerializer
+from talent_rating.models import TalentRating
 from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,8 +24,31 @@ class CastingRequestTalentList(APIView):
         client = Client.objects.get(user=user)
         casting_requests = CastingRequest.objects.filter(client_id=client.id)
         casting_request_talents = CastingRequestTalent.objects.filter(
-                casting_request_id__in=casting_requests.values_list('id'))
+                casting_request_id__in=casting_requests.values_list('id')
+        )
         serializer = CastingRequestTalentSerializer(casting_request_talents, many=True)
+        return Response(serializer.data)
+
+
+class CastingRequestTalentCompletedList(APIView):
+    """
+    Retrieve all completed casting requests of client.
+    """
+    @swagger_auto_schema(responses={200: CastingRequestTalentSerializer(many=True)})
+    def get(self, request, format=None):
+        user = User.objects.get(pk=request.user.pk)
+        client = Client.objects.get(user=user)
+        casting_requests = CastingRequest.objects.filter(client_id=client.id, status='Completed')
+        casting_request_talents = CastingRequestTalent.objects.filter(
+                casting_request_id__in=casting_requests.values_list('id')
+        )
+        unrated_casting_request_talents = []
+        for crt in casting_request_talents:
+            talent_rating_count = TalentRating.objects.filter(casting_request_talent=crt).count()
+            if talent_rating_count == 0:
+                unrated_casting_request_talents.append(crt)
+
+        serializer = CastingRequestTalentSerializer(unrated_casting_request_talents, many=True)
         return Response(serializer.data)
 
 
@@ -62,7 +86,7 @@ class CastingRequestTalentDetail(APIView):
 
 class CastingRequestTalentBulkCreate(APIView):
     """
-    Get current client info
+    Create casting requests for each talent
     """
     # authentication_classes = (authentication.TokenAuthentication, )
     # permission_classes = (permissions.IsAuthenticated,)
@@ -79,8 +103,8 @@ class CastingRequestTalentBulkCreate(APIView):
                          responses={200: CastingRequestTalentSerializer(many=True)})
     def post(self, request, format=None):
         client = self.get_object(request.user)
-
         serializer = CastingRequestTalentCreateSerializer(data=request.data, many=True)
+
         if serializer.is_valid():
             new_crt_ids = []
             for casting_request_talent in serializer.validated_data:

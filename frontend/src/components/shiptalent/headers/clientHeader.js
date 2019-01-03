@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import compose from 'recompose/compose';
+import Hidden from '@material-ui/core/Hidden';
+import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,17 +11,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Badge from '@material-ui/core/Badge';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-
-import Divider from 'material-ui/Divider';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Drawer from '@material-ui/core/Drawer';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -31,13 +36,15 @@ class ClientHeader extends Component {
   static defaultProps = {
     member: {},
     auth: {}
-  }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
       anchorEl: null,
       mobileMoreAnchorEl: null,
+      open: false,
     };
   }
 
@@ -93,17 +100,38 @@ class ClientHeader extends Component {
     const { classes } = this.props;
     return (
       <Link to={link} style={{display: 'inline-block'}}>
-        <Typography className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}>
+        <Typography
+          className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}
+        >
           {title}
         </Typography>
       </Link>
     )
   }
 
+  renderDrawerListItem(title, link) {
+    return (
+      <Link to={link} onClick={this.handleDrawerClose}>
+        <ListItem button>
+          <ListItemText primary={title} />
+        </ListItem>
+      </Link>
+    );
+  }
+
+
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { auth, clientInfo, classes } = this.props;
-    const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const open = Boolean(anchorEl);
+    const { anchorEl, mobileMoreAnchorEl, open } = this.state;
+    const openAnchor = Boolean(anchorEl);
     const loggedIn = (auth && auth.access && auth.access.email);
     let username = "";
     let userAvatar = null;
@@ -155,7 +183,7 @@ class ClientHeader extends Component {
           {loggedIn ? (
             <MenuItem onClick={this.handleClickLogin}>
               <IconButton
-                aria-owns={open ? 'menu-appbar' : null}
+                aria-owns={openAnchor ? 'menu-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleClick}
                 color="inherit">
@@ -185,21 +213,32 @@ class ClientHeader extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Link to="/client/home" className="navbar-brand" style={{ color: '#FFF' }}>
-              <img className="brand-image"
-                   alt="Logo"
-                   src={require('images/logo.png')} />
-            </Link>
-
-            <div className={[classes.grow, classes.topbarDynamicShow]}>
-              {this.renderTopbarMenuItem('Home', '/client/home')}
-              {this.renderTopbarMenuItem('Find Talent', '/client/talent_search')}
-              {this.renderTopbarMenuItem('Casting Requests', '/client/request_selection')}
-              {this.renderTopbarMenuItem('Saved Talent', '/client/mytalent/saved')}
-              {this.renderTopbarMenuItem('Shared Profiles', '/client/myshared_profile')}
-              {this.renderTopbarMenuItem('Blocked Profiles', '/client/blocked_profile')}
-              {this.renderTopbarMenuItem('Ratings', '/client/my_rate')}
-            </div>
+            <Hidden only={['lg']}>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={[classes.drawerMenuButton, open && classes.hide]}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
+            <Hidden only={['md', 'sm', 'xs']}>
+              <Link to="/client/home" className="navbar-brand" style={{ color: '#FFF' }}>
+                <img className="brand-image"
+                     alt="Logo"
+                     src={require('images/logo.png')} />
+              </Link>
+              <div className={[classes.grow, classes.topbarDynamicShow]}>
+                {this.renderTopbarMenuItem('Home', '/client/home')}
+                {this.renderTopbarMenuItem('Find Talent', '/client/talent_search')}
+                {this.renderTopbarMenuItem('Casting Requests', '/client/request_selection')}
+                {this.renderTopbarMenuItem('Saved Talent', '/client/mytalent/saved')}
+                {this.renderTopbarMenuItem('Shared Profiles', '/client/myshared_profile')}
+                {this.renderTopbarMenuItem('Blocked Profiles', '/client/blocked_profile')}
+                {this.renderTopbarMenuItem('Ratings', '/client/my_rate')}
+              </div>
+            </Hidden>
 
             <div className={classes.grow}/>
 
@@ -209,11 +248,11 @@ class ClientHeader extends Component {
                   <SearchIcon />
                 </div>
                 <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
                 />
               </div>
             )}
@@ -221,7 +260,7 @@ class ClientHeader extends Component {
             {loggedIn ? (
               <div>
                 <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-owns={openAnchor ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleClick}
                   color="inherit">
@@ -249,6 +288,34 @@ class ClientHeader extends Component {
           </Toolbar>
         </AppBar>
         {renderMenu}
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <img className={classes.drawerBandImage}
+                 alt="Logo"
+                 src={require('images/logo.png')} />
+            <IconButton onClick={this.handleDrawerClose}>
+              {<ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            {this.renderDrawerListItem('Home', '/client/home')}
+            {this.renderDrawerListItem('Find Talent', '/client/talent_search')}
+            {this.renderDrawerListItem('Casting Requests', '/client/request_selection')}
+            {this.renderDrawerListItem('Saved Talent', '/client/mytalent/saved')}
+            {this.renderDrawerListItem('Shared Profiles', '/client/myshared_profile')}
+            {this.renderDrawerListItem('Blocked Profiles', '/client/blocked_profile')}
+            {this.renderDrawerListItem('Ratings', '/client/my_rate')}
+          </List>
+        </Drawer>
       </div>
     )
   }
@@ -267,4 +334,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(ClientHeader)));
+export default connect(mapStateToProps, mapDispatchToProps)(compose(withStyles(styles, { withTheme: true }),
+  withWidth(),)(withRouter(ClientHeader)));

@@ -630,28 +630,30 @@ class ViewProfile extends Component {
   }
 
   renderVideoButtonsGroup() {
-    const { classes, allPositionTypes } = this.props
-    const { talent_video_greetings } = this.state
+    const { classes, allPositionTypes } = this.props;
+    const { talent_video_greetings } = this.state;
 
     return (
       <div>
-          <Grid container spacing={24} direction="column" justify="center" alignItems="center">
-            <ColumnButton
-              link = {{
-                pathname: "/video-greetings"
-              }}
-              color="primary"
-              itemClass = {classes.clientTalentViewVideoButtonGridItem}
-              buttonClass = {classes.clientTalentViewVideoButton}
-              title = {"My Video Greetings"}
-              titleClass = {classes.clientTalentViewVideoButtonText}
-              subTitle = {talent_video_greetings ? talent_video_greetings.length : 0}
-              subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
-              xs = {12}
-              fullWidth = {false}
-            />
-          </Grid>
-      <Spacer size={30}/>
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <ColumnButton
+            link = {{
+              pathname: "/video-greetings"
+            }}
+            color="primary"
+            itemClass = {classes.clientTalentViewVideoButtonGridItem}
+            buttonClass = {classes.clientTalentViewVideoButton}
+            title = {"My Video Greetings"}
+            titleClass = {classes.clientTalentViewVideoButtonText}
+            subTitle = {talent_video_greetings ? talent_video_greetings.length : 0}
+            subTitleClass = {classes.clientTalentViewVideoButtonStatusText}
+            xs = {12}
+            fullWidth = {false}
+          />
+        </Grid>
+
+        <Spacer size={30}/>
+
         <Grid container spacing={16} justify="center" alignItems="center">
           { this.renderPositionButtons() }
         </Grid>

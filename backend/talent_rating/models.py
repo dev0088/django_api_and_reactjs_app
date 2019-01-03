@@ -1,13 +1,20 @@
 from django.db import models
 from talent.models import Talent
 from client.models import Client
+from casting_request_talent.models import CastingRequestTalent
 
 
 class TalentRating(models.Model):
     talent = models.ForeignKey(Talent, related_name='talent_ratings', on_delete=models.CASCADE)
-    rating = models.FloatField(blank=True, default=0.0)
+    rating = models.FloatField(blank=False, default=0.0)
     comments = models.TextField(blank=True, null=True)
     client = models.ForeignKey(Client, related_name='talent_ratings_by_client', on_delete=models.CASCADE)
+    casting_request_talent = models.ForeignKey(
+        CastingRequestTalent,
+        related_name='talent_rating_casting_request_talent',
+        on_delete=models.CASCADE,
+        blank=True, null=True
+    )
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):

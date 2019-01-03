@@ -14,6 +14,7 @@ from rest_framework import generics
 from drf_yasg.utils import swagger_auto_schema
 from django.db.models import Q
 
+
 class ClientViewSet(generics.ListCreateAPIView):
     model = Client
     queryset = Client.objects.all()
@@ -45,9 +46,8 @@ class CurrentClient(APIView):
       except Client.DoesNotExist:
         raise Http404
 
-    @swagger_auto_schema(responses={200: CastingRequestSerializer(many=False)})
+    @swagger_auto_schema(responses={200: ClientAllInfoSerializer(many=False)})
     def get(self, request, format=None):
-        print('==== request.user: ', request.user)
         client_item = self.get_object(request.user)
         serializer = ClientAllInfoSerializer(client_item)
         return Response(serializer.data)

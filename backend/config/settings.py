@@ -28,7 +28,9 @@ ALLOWED_HOSTS = [
     '34.193.87.115',
     'localhost',
     '127.0.0.1',
-    '192.168.0.121'
+    '192.168.0.121',
+    'localhost',
+    'localhost:3000'
 ]
 
 # Application definition
@@ -84,6 +86,12 @@ LOCAL_APPS = (
     # 'auth_permission',
     'client',
     'casting_request_talent',
+    'blocked_profile',
+    'call_back',
+    'favorite',
+    'team',
+    'team_member',
+    'shared_profile'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -148,9 +156,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static_backend/'
 STATIC_ROOT = 'static_backend'

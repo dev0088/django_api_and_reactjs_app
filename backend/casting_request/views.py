@@ -35,6 +35,7 @@ class CastingRequestDetail(APIView):
 
     @swagger_auto_schema(responses={200: CastingRequestDetailSerializer(many=False)})
     def get(self, request, pk, format=None):
+        print('==== pk: ', pk)
         casting_request = self.get_object(pk)
         serializer = CastingRequestDetailSerializer(casting_request)
         return Response(serializer.data)

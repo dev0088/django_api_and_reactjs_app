@@ -3,7 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import NavigateButtonGroup from 'components/shiptalent/buttonGroups/navigateButtonGroup';
+import ClientTalentTitle from './clientTalentTitle';
 import styles from 'styles';
+
 
 class ClientForm extends Component {
 
@@ -22,21 +24,36 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle, formSubTitle, children,
+    const { formTitle,
+      formSubTitle, formSubTitleClass,
+      children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
-      classes
+      talent, classes
     } = this.props;
 
     return (
       <div>
-        <Grid container spacing={24}>
+        <Grid container spacing={16}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
+            { talent && <ClientTalentTitle talent={talent} /> }
+          </Grid>
+          <Grid item xs={12} >
+            <Typography
+              align="center"
+              className={[classes.h4SmallMargin, classes.bold]}
+            >
               {formTitle}
             </Typography>
-            <Typography align="center" className={classes.clientFormSubTitle}>
+            <Typography
+              align="center"
+              className={
+                formSubTitleClass
+                ? [classes.clientFormSubTitle, formSubTitleClass]
+                : classes.clientFormSubTitle
+              }
+            >
               {formSubTitle}
             </Typography>
           </Grid>

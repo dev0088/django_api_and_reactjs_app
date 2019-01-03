@@ -6,7 +6,7 @@ import { processRequest } from "../service/api";
 
 
 export const getCurrentClientInfo = () => {
-  let token = getToken()
+  let token = getToken();
 
   if (token) {
     return {
@@ -41,6 +41,7 @@ export const getCurrentClientInfo = () => {
 };
 
 export const getClientInfo = (id) => {
+  console.trace('==== getClientInfo: id');
   return {
     [RSAA]: {
       endpoint: `${apiConfig.url}/client/${id}/`,

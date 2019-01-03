@@ -146,7 +146,9 @@ export default {
 	  'Basic'
 	],
   CASTING_REQUEST_TITLE_DATE_FORMAT: 'M/D/YY',
-  CASTING_REQUEST_DESCRIPTION_DATE_FORMAT: 'MM/DD/YYYY'
+  CASTING_REQUEST_DESCRIPTION_DATE_FORMAT: 'MM/DD/YYYY',
+  MAIN_RATING_VALUES: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+  BONUS_RATING_VALUES: ['+.25', '+.50', '+.75']
 };
 
 function generateWeightConst() {

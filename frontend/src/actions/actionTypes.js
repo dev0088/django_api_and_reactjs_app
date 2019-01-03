@@ -49,3 +49,6 @@ export const REQUEST_VIEW = createRequestTypes('@@jwt/REQUEST_VIEW');
 export const SEARCH_VIEW = createRequestTypes('@@jwt/SEARCH_VIEW');
 export const CALLBACK_TALENT = createRequestTypes('@@jwt/CALLBACK_TALENT');
 export const FAVORITE_TALENT = createRequestTypes('@@jwt/FAVORITE_TALENT');
+
+// Common
+export const GLOBAL_NOTIFICATION = 'GLOBAL_NOTIFICATION';

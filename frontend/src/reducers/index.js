@@ -12,6 +12,7 @@ import { getWizardQuestionScenario } from './wizardQuestionScenario'
 import deviceSettings from './deviceSettings'
 import contactUs from './contactus'
 import {getCurrentClientInfo, talentSearchReducer, requestViewReducer, searchViewReducer} from './clientReducer'
+import globalNotification from './globalNotification'
 
 export default combineReducers({
   auth: auth,
@@ -32,7 +33,8 @@ export default combineReducers({
   talentSearchResult: talentSearchReducer,
   requestViewReducer,
   searchViewReducer,
-  clientInfo: getCurrentClientInfo
+  clientInfo: getCurrentClientInfo,
+  globalNotification
 })
 
 

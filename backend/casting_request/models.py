@@ -10,6 +10,7 @@ STATUS_CHOICES = (
     ('Accepted', 'Accepted'),
     ('Declined', 'Declined'),
     ('Canceled', 'Canceled'),
+    ('Completed', 'Completed'),
 )
 
 
