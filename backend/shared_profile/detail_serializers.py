@@ -7,6 +7,7 @@ from talent.simple_serializers import TalentSimpleSerializer
 class SharedProfileDetailSerializer(serializers.ModelSerializer):
     team_member = TeamMemberDetailSerializer(many=False, read_only=True)
     talent = TalentSimpleSerializer(many=False, read_only=True)
+    
     class Meta:
         model = SharedProfile
         fields = (

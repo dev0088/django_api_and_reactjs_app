@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Spacer from "components/general/spacer";
-import styles from 'styles/clientStyles';
+import styles from 'styles';
 
 
 class SharedProfileConfirm extends Component {

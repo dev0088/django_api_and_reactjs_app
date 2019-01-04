@@ -171,6 +171,28 @@ class ClientAPI {
     this.processRequestWithToken(`client/shared_profile/all`, 'get', null, handleResponse)
   }
 
+  static getAllSharedTalents(pageNumber, handleResponse) {
+    this.processRequestWithToken(
+      `client/shared_profile/shared_talent/all?page=${pageNumber}`,
+      'get', null, handleResponse
+    );
+  }
+
+  static getAllTalentSharedWith(pageNumber, handleResponse) {
+    this.processRequestWithToken(
+      `client/shared_profile/talent_shared_with/all?page=${pageNumber}`,
+      'get', null, handleResponse
+    );
+  }
+
+  static getAllTalentSharedByTeamMember(pageNumber, handleResponse) {
+    this.processRequestWithToken(
+      `client/shared_profile/shared_talent_by_team_member/all?page=${pageNumber}`,
+      'get', null, handleResponse
+    );
+  }
+
+
   static addSharedProfiles(data, handleResponse) {
     this.processRequestWithToken(`client/shared_profile/bulk`, 'post', data, handleResponse)
   }

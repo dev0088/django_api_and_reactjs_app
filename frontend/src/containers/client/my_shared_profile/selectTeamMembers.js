@@ -59,13 +59,15 @@ class SelectTeamMembers extends Component {
     if(isFailed) {
 
     } else {
-      const { teamMembers } = this.state;
+      const { teamMembers, talent } = this.state;
       let sharedProfiles = response;
       let alreadySharedTeamMembers = [];
       let additionalTeamMembers = [];
 
       for (let i = 0; i < teamMembers.length; i ++) {
-        let sharedProfile = sharedProfiles.find(sharedProfile => sharedProfile.team_member === teamMembers[i].id);
+        let sharedProfile = sharedProfiles.find(sharedProfile =>
+          (sharedProfile.team_member === teamMembers[i].id) && (sharedProfile.talent === talent.id)
+        );
         if(sharedProfile)
           alreadySharedTeamMembers.push(teamMembers[i]);
         else

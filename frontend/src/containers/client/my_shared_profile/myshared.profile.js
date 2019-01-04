@@ -43,7 +43,7 @@ class MySharedProfile extends Component {
                 <Spacer size={10} />
               </Grid>
               <ColumnButton
-                link = {'/client/talent_shared'}
+                link = {'/client/talent_shared_by'}
                 itemClass = {classes.clientTalentViewVideoButtonGridItem}
                 buttonClass = {classes.clientTalentViewVideoButton}
                 title = {"View Talent You Have Shared"}
@@ -52,10 +52,10 @@ class MySharedProfile extends Component {
                 fullWidth = {true}
               />
               <ColumnButton
-                link = {'/client/talent_shared_by'}
+                link = {'/client/talent_shared'}
                 itemClass = {classes.clientTalentViewVideoButtonGridItem}
                 buttonClass = {classes.clientTalentViewVideoButton}
-                title = {"View My Casting Requests"}
+                title = {"View Talent Shared with You"}
                 titleClass = {classes.clientTalentViewVideoButtonText}
                 xs = {12}
                 fullWidth = {true}

@@ -545,9 +545,12 @@ export const styles = theme => ({
     objectFit: 'cover'
   },
   pictureContainer: {
-    display: 'inline-block',
     border: 'solid 3px',
-    color: '#000000'
+    color: '#000000',
+    display: 'inline-block',
+    textAlign: 'center',
+    marginRight: '10px',
+    verticalAlign: 'top'
   },
   clientFormSubTitle: {
     fontSize: '1.25rem',
@@ -714,6 +717,16 @@ export const styles = theme => ({
     paddingBottom: '1px',
     textTransform: 'none',
     color: theme.palette.white.main
+  },
+  clientSharedProfileTeamMemberText: {
+    background: 'black',
+    color: 'white',
+    textAlign: 'center',
+    paddingLeft: '20px',
+    paddingRight: '20px!important',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    borderRadius: '8px'
   },
   submitCastingRequestButton: {
     borderRadius: '5px',
