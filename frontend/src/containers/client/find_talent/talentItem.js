@@ -20,7 +20,9 @@ class TalentItem extends Component {
 
       return (
         <Grid container spacing={16}>
-          <Grid item xl={1} lg={1} md={1} sm={2} xs={3}>
+          <Grid
+            item xl={11} lg={11} md={11} sm={10} xs={9}
+            style={{display: 'inline-block', whiteSpace: 'nowrap'}}>
             <Link
               to={{
                 pathname: '/client/talent_view',
@@ -37,11 +39,10 @@ class TalentItem extends Component {
                 }
               />
             </Link>
-          </Grid>
-          <Grid item xl={11} lg={11} md={11} sm={10} xs={9}>
             <Grid
               container spacing={0} direction="column" justify="flex-start" alignItems="flex-start"
               key={`casting-request-talent-table-item-${!!talent && talent.id}-description`}
+              style={{display: 'inline-block'}}
             >
               <Grid item lg={12} md={12} xs={12}>
                 <Typography className={[classes.descriptionText, classes.leftText]}>

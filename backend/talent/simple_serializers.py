@@ -32,7 +32,6 @@ class TalentSimpleSerializer(serializers.ModelSerializer):
             'talent_skills',
             'talent_sub_skills',
             'talent_pictures',
-            'talent_medicals',
             'talent_ratings',
             'average_rating',
             'head_line',

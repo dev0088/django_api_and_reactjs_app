@@ -50,7 +50,7 @@ urlpatterns = [
   url(r'^apis(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
   url(r'^apis/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
   url(r'^swagger-docs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-  url(r'^admin/', admin.site.urls),
+  url(r'^django-admin/', admin.site.urls),
   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
   url(r'^api/v1/auth/', include('authentication.urls')),
   url(r'^api/v1/talent/', include('talent.urls')),
