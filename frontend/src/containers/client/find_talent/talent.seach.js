@@ -7,9 +7,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Redirect} from 'react-router';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import ClientForm from 'components/shiptalent/forms/clientForm';
 import Constant from 'constants/talent.search';
 import * as clientActions from 'actions/clientActions';
+import * as talentActions from 'actions/talentActions';
+import Panel from "components/general/panel";
+import GenderSelection from './GenderSelection';
+import PositionsSelection from './PositionsSelection';
 import styles from 'styles';
 import '../client.css';
 
@@ -19,22 +26,35 @@ class TalentSearch extends Component {
     super(props);
 
     this.state = {
-      sex_list: [],
-      master_type_list: [],
-      sub_type_list: [],
-      master_role_list: [],
-      sub_role_list: [],
-      startDate: moment(),
-      endDate: moment(),
-      age_list: [],
-      height_list: [],
-      lang_list: [],
-      rating_list: [],
+      allPositionTypes: props.allPositionTypes,
+      allSkills: props.allSkills,
       talent_name: '',
       talent_tid: '',
-      talent_id: ''
+      talent_id: '',
+      talent_name_or_tid: '',
+      sexes: [],
+      position_ids: [],
+      position_sub_type_ids: [],
+      skill_ids: [],
+      sub_skill_ids: [],
+      availability: {},
+      ages: [],
+      heights: [],
+      languages: [],
+      ratings: []
     }
   }
+
+  componentWillMount = () => {
+    this.props.talentActions.getAllPositionTypes();
+    this.props.talentActions.getAllSkills();
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const { allPositionTypes, allSkills } = nextProps;
+    this.setState({ allPositionTypes, allSkills });
+  };
+
 
   renderSexes(sex) {
     let default_css = 'master-select master-select-deselected noselect ';
@@ -151,14 +171,11 @@ class TalentSearch extends Component {
     }
   };
 
-  onClickSex = (e, index) => {
-    this.onToggle(e);
-    this.onChangeState(e, this.state.sex_list, index);
-  };
+  onChangeGender = (genders) => this.setState({sexes: genders});
 
   onClickType = (e, index) => {
     this.onToggle(e);
-    this.onChangeState(e, this.state.master_type_list, index);
+    this.onChangeState(e, this.state.position_ids, index);
   };
 
   onClickSubType = (e, index) => {
@@ -177,20 +194,20 @@ class TalentSearch extends Component {
   };
 
   onClickAge = (e) => {
-    this.onChangeCheckboxState(e, this.state.age_list);
+    this.onChangeCheckboxState(e, this.state.ages);
   };
 
   onClickHeight = (e) => {
-    this.onChangeCheckboxState(e, this.state.height_list)
+    this.onChangeCheckboxState(e, this.state.heights)
   };
 
   onClickLang = (e, index) => {
     if (e.target.checked) {
-      this.state.lang_list.push(index);
+      this.state.languages.push(index);
     } else {
-      let index = this.state.lang_list.indexOf(index);
+      let index = this.state.languages.indexOf(index);
       if (index > -1) {
-        this.state.lang_list.splice(index, 1);
+        this.state.languages.splice(index, 1);
       }
     }
   };
@@ -204,39 +221,60 @@ class TalentSearch extends Component {
   };
 
   onClickRating = (e) => {
-    this.onChangeCheckboxState(e, this.state.rating_list)
+    this.onChangeCheckboxState(e, this.state.ratings)
   };
 
-  render() {
+
+  onChangePosition = (position) => {
+    const { position_ids } = this.state;
+
+    let newSelectedPositions = position_ids;
+    let index = newSelectedPositions.indexOf(position);
+
+    if ( index > -1) newSelectedPositions.splice(index, 1);
+    else newSelectedPositions.push(position);
+
+    this.setState({ position_ids: newSelectedPositions });
+  };
+
+  onChangeSubPosition = (subPosition) => {
+    const { position_sub_type_ids } = this.state;
+
+    let newSelectedSubPositions = position_sub_type_ids;
+    let index = newSelectedSubPositions.indexOf(subPosition);
+
+    if ( index > -1) newSelectedSubPositions.splice(index, 1);
+    else newSelectedSubPositions.push(subPosition);
+
+    this.setState({ position_sub_type_ids: newSelectedSubPositions });
+  };
+
+  renderContent = () => {
+    const { classes } = this.props;
+    const { allPositionTypes } = this.state;
 
     return (
-      <div>
-        <div className="search-title text-center mt-4 mb-3">Talent Search</div>
-        <div className="master-title mb-1">I need a...</div>
-        <form onSubmit={this.onSearch}>
-          <div className="d-flex justify-content-between mb-1">
-            {Constant.sexes.map(sex => (
-              <div key={uuidv1()} className={this.renderSexes(sex)}
-                   onClick={(e) => this.onClickSex(e, sex.key)}>{sex.value}</div>
-            ))}
-          </div>
-          <div className="d-flex justify-content-between mb-1">
-            {Constant.types.map(type => (
-              <div key={uuidv1()} className="master-select noselect master-select-deselected"
-                   onClick={(e) => this.onClickType(e, type.key)}>{type.value}</div>
-            ))}
-          </div>
-          <div className="d-flex justify-content-between">
-            {Constant.subTypes.map((subtype, index) => (
-              <div key={uuidv1()} className="master-select-empty d-flex flex-wrap">
-                {subtype.map(eachtype => (
-                  <div key={uuidv1()} className="sub-select noselect master-select-deselected"
-                       onClick={(e) => this.onClickSubType(e, eachtype.key)}>{eachtype.value}</div>
-                ))}
-              </div>
-            ))}
-          </div>
+      <Panel>
+        <Grid container spacing={16} justify="flex-start" alignItems="center">
+          <Grid item lg={12} md={12} sm={12} xs={12} >
+            <Typography className={classes.clientFormSubTitle}>
+              {`I need a...`}
+            </Typography>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} >
+            <GenderSelection onChange={(genders) => this.onChangeGender(genders)} />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} >
+            <PositionsSelection
+              loading={!allPositionTypes.isFetched}
+              positions={allPositionTypes && allPositionTypes.value}
+              onChangePosition={(position) => this.onChangePosition(position)}
+              onChangeSubPosition={(subPosition) => this.onChangeSubPosition(subPosition)}
+            />
+          </Grid>
+        </Grid>
 
+        <form onSubmit={this.onSearch}>
           <div className="master-title mb-1 mt-3">Who also...</div>
           <div className="d-flex justify-content-between mb-1">
             {Constant.cando.map(eachdo => (
@@ -322,28 +360,37 @@ class TalentSearch extends Component {
             </div>
           </div>
         </form>
-
-        <div className="mt-2 d-flex justify-content-end mr-3 pb-4">
-          <button className="btn btn-dark" onClick={this.goClientHomeScreen}>
-            Back to My Home Page
-          </button>
-        </div>
-      </div>
+      </Panel>
     )
+  };
+
+  render() {
+    return (
+      <ClientForm
+        formTitle="Talent Search"
+        backLink="/client/home"
+        backButtonTitle="Back to My Home Page"
+      >
+        {this.renderContent()}
+      </ClientForm>
+    );
   }
 }
 
 
 const mapDispatchToProps = dispatch => {
   return {
-    clientActions: bindActionCreators(clientActions, dispatch)
+    clientActions: bindActionCreators(clientActions, dispatch),
+    talentActions: bindActionCreators(talentActions, dispatch)
   }
 };
 
 const mapStateToProps = state => {
-  const { talentSearchResult } = state
+  const { talentSearchResult, allPositionTypes, allSkills } = state;
   return {
-    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null
+    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null,
+    allPositionTypes,
+    allSkills
   }
 };
 

@@ -94,7 +94,7 @@ class ClientFindTalentList(APIView):
     @swagger_auto_schema(request_body=TalentSearchConditionSerializer, responses={200: TalentSerializer(many=True)})
     def post(self, request, format=None):
         """
-        List all talents for search conditions.
+        Get talents matching to search condition
         """
         # Filter talents according to search condition
         search_conditions = request.data
@@ -131,6 +131,8 @@ class ClientFindTalentList(APIView):
                 Q(user__last_name__icontains=talent_name_or_tid) |
                 Q(tid__icontains=talent_name_or_tid)
             )
+
+
 
         serializer = TalentSerializer(talents, many=True)
         return Response(serializer.data)

@@ -1,18 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import ImageLoader from 'react-loading-image';
 import ClientForm from 'components/shiptalent/forms/clientForm';
-import Spacer from "components/general/spacer";
 import TalentTable from "./talentTable";
 import { makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo } from 'utils/appUtils';
+import Panel from "components/general/panel";
 import styles from 'styles';
-import '../client.css';
-import Panel from "../../../components/general/panel";
+
 
 class TalentSearchResult extends Component {
   constructor(props) {
@@ -94,22 +89,17 @@ class TalentSearchResult extends Component {
 
   render() {
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} />
-        <Grid item xs={12} >
-          <ClientForm
-            formTitle="Search Result"
-            formSubTitle="Click Picture to View FullProfile"
-            backLink="/client/home"
-            backButtonTitle="Back to My Home Page"
-            nextLink="/client/talent_search"
-            nextButtonTitle="Back to Talent Search"
-            handleClickNextButton={this.handleClickNextButton}
-          >
-            {this.renderContent()}
-          </ClientForm>
-        </Grid>
-      </Grid>
+      <ClientForm
+        formTitle="Search Result"
+        formSubTitle="Click Picture to View FullProfile"
+        backLink="/client/home"
+        backButtonTitle="Back to My Home Page"
+        nextLink="/client/talent_search"
+        nextButtonTitle="Back to Talent Search"
+        handleClickNextButton={this.handleClickNextButton}
+      >
+        {this.renderContent()}
+      </ClientForm>
     )
   }
 }
