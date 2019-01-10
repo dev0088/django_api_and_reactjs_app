@@ -15,5 +15,5 @@ npm run build
 # Re-build docker container
 docker-compose build --no-cache
 
-# Run docker-compose as deamon
+# Run docker-compose as daemon
 docker-compose up -d

@@ -148,7 +148,26 @@ export default {
   CASTING_REQUEST_TITLE_DATE_FORMAT: 'M/D/YY',
   CASTING_REQUEST_DESCRIPTION_DATE_FORMAT: 'MM/DD/YYYY',
   MAIN_RATING_VALUES: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-  BONUS_RATING_VALUES: ['+.25', '+.50', '+.75']
+  BONUS_RATING_VALUES: ['+.25', '+.50', '+.75'],
+	RATING_RANGES: [
+		{start_rating: 0, end_rating: 8.00},
+    {start_rating: 8.00, end_rating: 8.24},
+    {start_rating: 8.50, end_rating: 8.74},
+    {start_rating: 8.75, end_rating: 8.99},
+    {start_rating: 9.00, end_rating: 9.24},
+    {start_rating: 9.25, end_rating: 9.49},
+    {start_rating: 9.50, end_rating: 9.74},
+    {start_rating: 9.75, end_rating: 10.0},
+	],
+  HEIGHT_RANGES: [
+    {start_height: 0, end_height: 153},
+    {start_height: 155, end_height: 163},
+    {start_height: 165, end_height: 173},
+    {start_height: 175, end_height: 180},
+    {start_height: 183, end_height: 193},
+    {start_height: 193, end_height: 0},
+  ],
+
 };
 
 function generateWeightConst() {

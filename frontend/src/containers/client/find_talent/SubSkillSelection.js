@@ -5,39 +5,39 @@ import Typography from '@material-ui/core/Typography';
 import styles from 'styles';
 
 
-class SubPositionSelection extends Component {
+class SubSkillSelection extends Component {
 
   state = {
-    selectedSubPosition: false
+    selectedSubSkill: false
   };
 
-  handleClickSubPositionButton = () => {
-    const { onChangeSubPosition, subPosition } = this.props;
-    const { selectedSubPosition } = this.state;
+  handleClickSubSkillButton = () => {
+    const { onChangeSubSkill, subSkill } = this.props;
+    const { selectedSubSkill } = this.state;
 
-    this.setState({selectedSubPosition: !selectedSubPosition}, () => {
-      if (onChangeSubPosition) onChangeSubPosition(subPosition.id);
+    this.setState({selectedSubSkill: !selectedSubSkill}, () => {
+      if (onChangeSubSkill) onChangeSubSkill(subSkill.id);
     });
   };
 
 
   render() {
-    const {classes, subPosition } = this.props;
-    const {selectedSubPosition} = this.state;
+    const {classes, subSkill } = this.props;
+    const {selectedSubSkill} = this.state;
 
     return(
       <Button
         color="primary"
         className={
-          selectedSubPosition
+          selectedSubSkill
             ? classes.clientTalentSearchSubPositionButtonSelected
             : classes.clientTalentSearchSubPositionButton
         }
         fullWidth={true}
-        onClick={this.handleClickSubPositionButton}
+        onClick={this.handleClickSubSkillButton}
       >
         <Typography className={classes.clientTalentSearchSubPositionButtonTitle}>
-          {`${subPosition.select_option_title}`}
+          {`${subSkill.select_option_title}`}
         </Typography>
       </Button>
     );
@@ -45,4 +45,4 @@ class SubPositionSelection extends Component {
 
 }
 
-export default withStyles(styles)(SubPositionSelection);
+export default withStyles(styles)(SubSkillSelection);

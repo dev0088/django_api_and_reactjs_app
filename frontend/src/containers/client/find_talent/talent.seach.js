@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import DatePicker from 'react-datepicker';
-import uuidv1 from "uuid";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Redirect} from 'react-router';
@@ -10,13 +9,24 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import Constant from 'constants/talent.search';
 import * as clientActions from 'actions/clientActions';
 import * as talentActions from 'actions/talentActions';
 import Panel from "components/general/panel";
+import Spacer from "components/general/spacer";
 import GenderSelection from './GenderSelection';
 import PositionsSelection from './PositionsSelection';
+import SkillsSelection from './SkillsSelection';
+import defaultValues from 'constants/defaultValues';
+import {
+  makeRatingSearchConditionTitle,
+  makeHeightSearchConditionTitle
+} from 'utils/appUtils';
 import styles from 'styles';
 import '../client.css';
 
@@ -55,63 +65,6 @@ class TalentSearch extends Component {
     this.setState({ allPositionTypes, allSkills });
   };
 
-
-  renderSexes(sex) {
-    let default_css = 'master-select master-select-deselected noselect ';
-
-    if (sex === '') {
-      default_css += 'invisible';
-      return default_css
-    }
-    else
-      return default_css
-  }
-
-  renderCando(eachdo) {
-    let default_css = 'master-select noselect master-select-deselected ';
-
-    if (eachdo === '') {
-      default_css += 'invisible';
-      return default_css
-    }
-    else
-      return default_css
-  }
-
-  renderAge(age) {
-    if (age[0] === 51) {
-      return age[0] + '+'
-    } else {
-      return age[0] + '~' + age[1]
-    }
-  }
-
-  renderHeight(height) {
-    if (height[0] === '0.0') {
-      const q = height[1].split('.')[0];
-      const r = height[1].split('.')[1];
-
-      return '<' + q + '\' ' + r + '\"'
-    } else if (height[0] === '6.4') {
-      const q = height[0].split('.')[0];
-      const r = height[0].split('.')[1];
-
-      return '>' + q + '\' ' + r + '\"'
-    } else {
-      const lh = height[0].split('.')[0] + '\' ' + height[0].split('.')[1] + '\"'
-      const rh = height[1].split('.')[0] + '\' ' + height[1].split('.')[1] + '\"'
-
-      return lh + '~' + rh
-    }
-  }
-
-  renderRate(rate) {
-    if (rate[0] == 0)
-      return '<' + rate[1]
-    else
-      return rate[0] + '~' + rate[1]
-  }
-
   handleChangeStartDate = (date) => {
     this.setState({
       startDate: date
@@ -135,82 +88,7 @@ class TalentSearch extends Component {
     window.location.href = "/client/home"
   };
 
-  // Toggle search features
-  onToggle = (e) => {
-    let tag = e.target;
-
-    if (e.target.classList.contains("master-select-deselected")) {
-      e.target.classList.remove("master-select-deselected");
-      e.target.classList.add("master-select-selected");
-    } else {
-      e.target.classList.remove("master-select-selected");
-      e.target.classList.add("master-select-deselected");
-    }
-  };
-
-  // change state value according to toggle
-  onChangeState = (e, state, index) => {
-    if (e.target.classList.contains("master-select-selected")) {
-      state.push(index)
-    } else {
-      let index = state.indexOf(index);
-      if (index > -1) {
-        state.splice(index, 1);
-      }
-    }
-  };
-
-  onChangeCheckboxState = (e, state) => {
-    if (e.target.checked) {
-      state.push(e.target.value);
-    } else {
-      let index = state.indexOf(e.target.value)
-      if (index > -1) {
-        state.splice(index, 1);
-      }
-    }
-  };
-
   onChangeGender = (genders) => this.setState({sexes: genders});
-
-  onClickType = (e, index) => {
-    this.onToggle(e);
-    this.onChangeState(e, this.state.position_ids, index);
-  };
-
-  onClickSubType = (e, index) => {
-    this.onToggle(e);
-    this.onChangeState(e, this.state.sub_type_list, index);
-  };
-
-  onClickCanDo = (e, index) => {
-    this.onToggle(e);
-    this.onChangeState(e, this.state.master_role_list, index);
-  };
-
-  onClickSubCanDo = (e, index) => {
-    this.onToggle(e);
-    this.onChangeState(e, this.state.sub_role_list, index);
-  };
-
-  onClickAge = (e) => {
-    this.onChangeCheckboxState(e, this.state.ages);
-  };
-
-  onClickHeight = (e) => {
-    this.onChangeCheckboxState(e, this.state.heights)
-  };
-
-  onClickLang = (e, index) => {
-    if (e.target.checked) {
-      this.state.languages.push(index);
-    } else {
-      let index = this.state.languages.indexOf(index);
-      if (index > -1) {
-        this.state.languages.splice(index, 1);
-      }
-    }
-  };
 
   onChangeName = (e) => {
     this.state.talent_name = e.target.value;
@@ -220,146 +98,337 @@ class TalentSearch extends Component {
     this.state.talent_tid = e.target.value;
   };
 
-  onClickRating = (e) => {
-    this.onChangeCheckboxState(e, this.state.ratings)
+  onChangeNameOrId = name => event => this.setState({ [name]: event.target.value });
+
+  onChangeSearCondition = (stateName, value) => {
+    let newItems = this.state[stateName];
+
+    if (!newItems) return;
+
+    let index = newItems.indexOf(value);
+
+    if ( index > -1) newItems.splice(index, 1);
+    else newItems.push(value);
+
+    this.setState({ [stateName]: newItems });
   };
 
-
-  onChangePosition = (position) => {
-    const { position_ids } = this.state;
-
-    let newSelectedPositions = position_ids;
-    let index = newSelectedPositions.indexOf(position);
-
-    if ( index > -1) newSelectedPositions.splice(index, 1);
-    else newSelectedPositions.push(position);
-
-    this.setState({ position_ids: newSelectedPositions });
-  };
-
-  onChangeSubPosition = (subPosition) => {
-    const { position_sub_type_ids } = this.state;
-
-    let newSelectedSubPositions = position_sub_type_ids;
-    let index = newSelectedSubPositions.indexOf(subPosition);
-
-    if ( index > -1) newSelectedSubPositions.splice(index, 1);
-    else newSelectedSubPositions.push(subPosition);
-
-    this.setState({ position_sub_type_ids: newSelectedSubPositions });
-  };
-
-  renderContent = () => {
+  renderNeed = () => {
     const { classes } = this.props;
     const { allPositionTypes } = this.state;
 
     return (
-      <Panel>
-        <Grid container spacing={16} justify="flex-start" alignItems="center">
-          <Grid item lg={12} md={12} sm={12} xs={12} >
-            <Typography className={classes.clientFormSubTitle}>
-              {`I need a...`}
-            </Typography>
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12} >
-            <GenderSelection onChange={(genders) => this.onChangeGender(genders)} />
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12} >
-            <PositionsSelection
-              loading={!allPositionTypes.isFetched}
-              positions={allPositionTypes && allPositionTypes.value}
-              onChangePosition={(position) => this.onChangePosition(position)}
-              onChangeSubPosition={(subPosition) => this.onChangeSubPosition(subPosition)}
-            />
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`I need a...`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <GenderSelection onChange={(genders) => this.onChangeGender(genders)} />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <PositionsSelection
+            loading={!allPositionTypes.isFetched}
+            positions={allPositionTypes && allPositionTypes.value}
+            onChangePosition={(position) => this.onChangeSearCondition('position_ids', position)}
+            onChangeSubPosition={(subPosition) => this.onChangeSearCondition('sub_position_ids', subPosition)}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderWhoAlso = () => {
+    const { classes } = this.props;
+    const { allSkills } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Who also...`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <SkillsSelection
+            loading={!allSkills.isFetched}
+            skills={allSkills && allSkills.value}
+            onChangeSkill={(skill) => this.onChangeSearCondition('skill_ids', skill)}
+            onChangeSubSkill={(subSkill) => this.onChangeSearCondition('sub_skill_ids', subSkill)}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderAvailable = () => {
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`And is available...`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+            <Grid item >
+              <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+                <Grid item >
+                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                    Between:
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <DatePicker
+                    className="mr-4" selected={this.state.startDate}
+                    onChange={this.handleChangeStartDate}
+                    dropdownMode="scroll"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item >
+              <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+                <Grid item >
+                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                    And:
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <DatePicker
+                    selected={this.state.endDate}
+                    onChange={this.handleChangeEndDate}
+                    dropdownMode="scroll"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
+      </Grid>
+    );
+  };
 
-        <form onSubmit={this.onSearch}>
-          <div className="master-title mb-1 mt-3">Who also...</div>
-          <div className="d-flex justify-content-between mb-1">
-            {Constant.cando.map(eachdo => (
-              <div key={uuidv1()} className={this.renderCando(eachdo)}
-                   onClick={(e) => this.onClickCanDo(e, eachdo.key)}>{eachdo.value}</div>
-            ))}
-          </div>
-          <div className="d-flex justify-content-between">
-            {Constant.subCandos.map(subcando => (
-              <div key={uuidv1()} className="master-select-empty d-flex flex-wrap">
-                {subcando.map(eachcando => (
-                  <div key={uuidv1()} className="sub-select noselect master-select-deselected"
-                       onClick={(e) => this.onClickSubCanDo(e, eachcando.key)}>{eachcando.value}</div>
-                ))}
-              </div>
-            ))}
-          </div>
+  renderAgeRange = () => {
+    const { classes } = this.props;
+    const { ages } = this.state;
 
-          <div className="master-title mb-1 mt-3">And is available...</div>
-          <div className="d-flex">
-            <div className="mr-2">Between</div>
-            <DatePicker className="mr-4" selected={this.state.startDate} onChange={this.handleChangeStartDate}
-                        dropdownMode="scroll"/>
-            <div className="mr-2">And</div>
-            <DatePicker selected={this.state.endDate} onChange={this.handleChangeEndDate}
-                        dropdownMode="scroll"/>
-          </div>
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Age Range (select all that apply)`}
+          </Typography>
 
-          <div className="master-title mb-1 mt-3">Age Range (select all that apply)</div>
-          <div className="d-flex">
-            {Constant.ages.map(age => (
-              <div key={uuidv1()} className="mr-3">
-                <input className="mr-1" type="checkbox" value={age} onChange={this.onClickAge}/>
-                {this.renderAge(age)}
-              </div>
-            ))}
-          </div>
+          <FormGroup row>
+            { defaultValues.AGES.map((age, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={ages && (ages.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('ages', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={age}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
 
-          <div className="master-title mb-1 mt-3">Height (select all that apply)</div>
-          <div className="d-flex">
-            {Constant.heights.map(height => (
-              <div key={uuidv1()} className="mr-3">
-                <input className="mr-1" type="checkbox" value={height} onClick={this.onClickHeight}/>
-                {this.renderHeight(height)}
-              </div>
-            ))}
-          </div>
+  renderHeight = () => {
+    const { classes } = this.props;
+    const { heights } = this.state;
 
-          <div className="master-title mb-1 mt-3">Languages Spoken (select all that apply)</div>
-          <div className="d-flex">
-            {Constant.langs.map(lang => (
-              <div key={uuidv1()} className="mr-3">
-                <input className="mr-1" type="checkbox" onClick={(e) => this.onClickLang(e, lang.key)}/>
-                {lang.value}
-              </div>
-            ))}
-          </div>
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Height (select all that apply)`}
+          </Typography>
 
-          <div className="master-title mb-1 mt-3">Average Cruise Line Rating (select all that apply)</div>
-          <div className="d-flex">
-            {Constant.ratings.map(rate => (
-              <div key={uuidv1()} className="mr-3">
-                <input className="mr-1" type="checkbox" value={rate} onClick={this.onClickRating}/>
-                {this.renderRate(rate)}
-              </div>
-            ))}
-          </div>
+          <FormGroup row>
+            { defaultValues.HEIGHT_RANGES.map((heightRange, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={heights && (heights.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('heights', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={makeHeightSearchConditionTitle(heightRange)}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
 
-          <div className="master-title mb-1 mt-3">Already know who you're looking for?</div>
-          <div className="row mb-5">
-            <div className="col-5">
-              <div className="d-flex">
-                <small>SEARCH BY NAME:</small>
-                <input className="form-control form-control-sm" width="100%" type="text" onChange={this.onChangeName}/>
-              </div>
-              <div className="d-flex">
-                <small>SEARCH BY TALENT ID:</small>
-                <input className="form-control form-control-sm" type="text" onChange={this.onChangeId}/>
-              </div>
-            </div>
-            <div className="col-7 my-auto">
-              <button type="submit" className="btn btn-primary">Search</button>
-            </div>
-          </div>
-        </form>
+  renderLanguage = () => {
+    const { classes } = this.props;
+    const { languages } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Languages Spoken (select all that apply)`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.LANGUAGES.map((language, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={languages && (languages.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('languages', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={language}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderRatingRange = () => {
+    const { classes } = this.props;
+    const { ratings } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Average Cruise Line Rating (select all that apply)`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.RATING_RANGES.map((ratingRange, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={ratings && (ratings.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('ratings', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={makeRatingSearchConditionTitle(ratingRange)}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderTextCondition = (label, placeHolderText, stateName) => {
+    const { classes } = this.props;
+    return (
+      <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Typography className={classes.descriptionText}>
+            {label}
+          </Typography>
+        </Grid>
+        <Grid item lg={8} md={8} sm={12} xs={12}>
+          <TextField
+            id={stateName}
+            label=""
+            value={this.state[stateName]}
+            type="text"
+            onChange={this.onChangeNameOrId(stateName)}
+            margin="normal"
+            variant="outlined"
+            placeholder={placeHolderText}
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderSearchByNameAndID = () => {
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.clientFormSubTitle}>
+            {`Already know who you're looking for?`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
+            <Grid item lg={5} md={6} sm={12} xs={12}>
+              { this.renderTextCondition('SEARCH BY NAME: ', "Enter Name...", 'talent_name') }
+              { this.renderTextCondition('SEARCH BY TALENT ID: ', "Enter Talent ID...", 'talent_id') }
+            </Grid>
+            <Grid item lg={1} md={1} sm={12} xs={12}/>
+            <Grid item lg={6} md={5} sm={12} xs={12}>
+              <Button variant="contained" color="secondary" className={classes.button}>
+                <Typography className={classes.clientTalentViewVideoButtonText} onClick={this.onSearch}>
+                  Search
+                </Typography>
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderContent = () => {
+    const { classes } = this.props;
+    const { allPositionTypes, allSkills, ranges } = this.state;
+
+    return (
+      <Panel>
+        { this.renderNeed() }
+        <Spacer size={30} />
+        { this.renderWhoAlso() }
+        <Spacer size={30} />
+        { this.renderAvailable() }
+        <Spacer size={10} />
+        { this.renderAgeRange() }
+        <Spacer size={10} />
+        { this.renderHeight() }
+        <Spacer size={10} />
+        { this.renderLanguage() }
+        <Spacer size={10} />
+        { this.renderRatingRange() }
+        <Spacer size={20} />
+        { this.renderSearchByNameAndID() }
       </Panel>
     )
   };
