@@ -52,12 +52,12 @@ class ClientCommunity extends Component {
 
   handleSubmitResponse = (response, isFailed) => {
     if(isFailed) {
-      // this.setState({ error: true, errorMessage: 'Failed save wages.' });
-      this.props.globalNotificationActions.notify(true, 'error', response['feedback'] ? response['feedback'][0] : 'Failed to sent. Please try later.');
+      this.props.globalNotificationActions.notify(
+        true, 'error', response['feedback'] ? response['feedback'][0] : 'Failed to sent. Please try later.'
+      );
     } else {
-      // this.setState({ error: false, errorMessage: false });
       this.props.globalNotificationActions.notify(true, 'success', 'sent your feedback successfully.');
-      this.props.history.push('/client/home');
+      this.props.history.push('/client/community/confirm');
     }
   };
 

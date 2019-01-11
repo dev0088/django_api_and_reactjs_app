@@ -17,11 +17,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="clientCommunity.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="clientCommunity.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/client/community/clientCommunity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="55" column="106" lean-forward="false" selection-start-line="55" selection-start-column="106" selection-end-line="55" selection-end-column="106" />
+            <state relative-caret-position="170">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clientCommunityConfirm.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/containers/client/community/clientCommunityConfirm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="28" column="64" lean-forward="false" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -42,8 +52,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="464" column="29" lean-forward="false" selection-start-line="464" selection-start-column="20" selection-end-line="464" selection-end-column="29" />
+            <state relative-caret-position="408">
+              <caret line="475" column="25" lean-forward="false" selection-start-line="475" selection-start-column="25" selection-end-line="475" selection-end-column="25" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#9449#9499#0" expanded="true" />
@@ -78,8 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>subPosition</find>
-      <find>onGeneralChangeItem</find>
       <find>.react-datepicker__input-container</find>
       <find>DatePicker</find>
       <find>onChangeRange</find>
@@ -108,10 +116,10 @@
       <find>loading</find>
       <find>talentSearchResult</find>
       <find>RatingAndComment</find>
+      <find>ClientCommunity</find>
+      <find>comment</find>
     </findStrings>
     <replaceStrings>
-      <replace>TalentSharedBy</replace>
-      <replace>TalentSharedTeam</replace>
       <replace>SharedTeamMemberItem</replace>
       <replace>TalentGenderSelection</replace>
       <replace>onChangeGender</replace>
@@ -140,6 +148,8 @@
       <replace>start_age</replace>
       <replace>onChangeRating</replace>
       <replace>ClientCommunity</replace>
+      <replace>ClientCommunityConfirm</replace>
+      <replace>feedback</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -148,8 +158,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientForm.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientTalentTitle.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/template/templateClientTopbar.js" />
         <option value="$PROJECT_DIR$/src/containers/client/my_shared_profile/inviteTeamMemberConfirm.js" />
@@ -195,10 +203,12 @@
         <option value="$PROJECT_DIR$/src/constants/api.js" />
         <option value="$PROJECT_DIR$/src/containers/client/find_talent/talent.seach.js" />
         <option value="$PROJECT_DIR$/src/containers/client/find_talent/talent.search.result.js" />
-        <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/containers/client/clientHomeScreen.js" />
         <option value="$PROJECT_DIR$/src/apis/clientAPIs.js" />
+        <option value="$PROJECT_DIR$/src/containers/client/community/clientComminityConfirm.js" />
+        <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/containers/client/community/clientCommunity.js" />
+        <option value="$PROJECT_DIR$/src/containers/client/community/clientCommunityConfirm.js" />
       </list>
     </option>
   </component>
@@ -415,12 +425,12 @@
       <workItem from="1546850036936" duration="2278000" />
       <workItem from="1546917589366" duration="189000" />
       <workItem from="1546917825606" duration="20797000" />
-      <workItem from="1547100001437" duration="26956000" />
+      <workItem from="1547100001437" duration="27678000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="888350000" />
+    <option name="totallyTimeSpent" value="889072000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -532,13 +542,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/sharedProfileConfirm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-728">
-          <caret line="55" column="36" lean-forward="true" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/client/my_shared_profile/SharedTeamMemberTable.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -932,17 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="464" column="29" lean-forward="false" selection-start-line="464" selection-start-column="20" selection-end-line="464" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#9449#9499#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/client/clientHomeScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -961,10 +953,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="475" column="25" lean-forward="false" selection-start-line="475" selection-start-column="25" selection-end-line="475" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#9449#9499#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/client/community/clientCommunity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="55" column="106" lean-forward="false" selection-start-line="55" selection-start-column="106" selection-end-line="55" selection-end-column="106" />
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/client/community/clientCommunityConfirm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="28" column="64" lean-forward="false" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

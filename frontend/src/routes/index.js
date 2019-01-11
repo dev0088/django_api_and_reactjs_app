@@ -149,6 +149,8 @@ import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
 import TalentChangePassword from "containers/talent/account/change-password/changePasswordScreen";
 import ClientCommunity from "containers/client/community/clientCommunity";
+import ClientCommunityConfirm from "containers/client/community/clientCommunityConfirm";
+
 
 function renderRouter(path, topBar, layout) {
   return(
@@ -466,6 +468,15 @@ const Index = () => (
       render={props => (
         <TemplateClientTopbar>
           <ClientCommunity {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/community/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientCommunityConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />
