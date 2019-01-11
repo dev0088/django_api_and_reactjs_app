@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import TalentTable from "./talentTable";
 import { makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo } from 'utils/appUtils';
@@ -23,10 +24,9 @@ class TalentSearchResult extends Component {
     let availableTalents = [];
     let nearAvailableTalents = [];
 
-    if (talentSearchResult) {
-      console.log('==== talent search result: ', talentSearchResult);
-      for(let i = 0; i < talentSearchResult.length; i ++) {
-        let talent = talentSearchResult[i];
+    if (talentSearchResult && talentSearchResult.value) {
+      for(let i = 0; i < talentSearchResult.value.length; i ++) {
+        let talent = talentSearchResult.value[i];
         if (talent.profile_status.is_completed_profile) {
           availableTalents.push(talent);
         } else {
@@ -54,8 +54,12 @@ class TalentSearchResult extends Component {
   }
 
   renderContent() {
-    const { classes } = this.props;
+    const { classes, talentSearchResult } = this.props;
     const { availableTalents, nearAvailableTalents } = this.state;
+
+    if ( talentSearchResult.isFetching ) {
+      return <CircularProgress className={classes.progress} />
+    }
 
     return(
       <div>
@@ -108,7 +112,7 @@ class TalentSearchResult extends Component {
 function mapStateToProps(state) {
   const { talentSearchResult } = state;
   return {
-    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null
+    talentSearchResult
   }
 }
 

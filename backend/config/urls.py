@@ -88,4 +88,5 @@ urlpatterns = [
   url(r'^api/v1/client/team/', include('team.urls')),
   url(r'^api/v1/client/team_member/', include('team_member.urls')),
   url(r'^api/v1/client/shared_profile/', include('shared_profile.urls')),
+  url(r'^api/v1/client/feedback/', include('client_feedback.urls')),
 ]

@@ -192,7 +192,6 @@ class ClientAPI {
     );
   }
 
-
   static addSharedProfiles(data, handleResponse) {
     this.processRequestWithToken(`client/shared_profile/bulk`, 'post', data, handleResponse)
   }
@@ -200,5 +199,10 @@ class ClientAPI {
   static removeSharedProfile(sharedProfileID, handleResponse) {
     this.processRequestWithToken(`client/shared_profile/${sharedProfileID}/`, 'delete', null, handleResponse)
   }
+
+  static addClientFeedback(data, handleResponse) {
+    this.processRequestWithToken(`client/feedback/create`, 'post', data, handleResponse)
+  }
+
 }
 export default ClientAPI

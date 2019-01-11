@@ -154,7 +154,7 @@ class ClientHomeScreen extends Component {
             />
             <ColumnButton
               link={{
-                pathname: "#"
+                pathname: "/client/community"
               }}
               color="primary"
               itemClass={classes.talentProfileGuideButtonItem}
