@@ -36,10 +36,37 @@ class ClientAllInfoSerializer(serializers.ModelSerializer):
         )
 
 
+class TalentSearchAvailabilityConditionSerializer(serializers.Serializer):
+    start_date = serializers.CharField(required=False)
+    end_date = serializers.CharField(required=False)
+
+
+class TalentSearchRatingConditionSerializer(serializers.Serializer):
+    start_rating = serializers.FloatField(required=False)
+    end_rating = serializers.FloatField(required=False)
+
+
+class TalentSearchHeightConditionSerializer(serializers.Serializer):
+    start_height = serializers.FloatField(required=False)
+    end_height = serializers.FloatField(required=False)
+
+
 class TalentSearchConditionSerializer(serializers.Serializer):
-    talent_name = serializers.CharField()
-    talent_id = serializers.IntegerField()
-    talent_tid = serializers.CharField()
-    talent_name_or_tid = serializers.CharField()
-    casting_request_id = serializers.IntegerField()
+    talent_name = serializers.CharField(required=False)
+    talent_id = serializers.IntegerField(required=False)
+    talent_tid = serializers.CharField(required=False)
+    talent_name_or_tid = serializers.CharField(required=False)
+    casting_request_id = serializers.IntegerField(required=False)
+    sexes = serializers.ListField(child=serializers.CharField(), required=False)
+    position_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
+    position_sub_type_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
+    skill_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
+    sub_skill_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
+    availability = TalentSearchAvailabilityConditionSerializer(required=False)
+    ages = serializers.ListField(child=serializers.CharField(), required=False)
+    heights = serializers.ListField(child=TalentSearchHeightConditionSerializer(), required=False)
+    languages = serializers.ListField(child=serializers.CharField(), required=False)
+    ratings = serializers.ListField(child=TalentSearchRatingConditionSerializer(), required=False)
+
+
 

@@ -23,7 +23,6 @@ class TalentSharedTeam extends Component {
   }
 
   handleResponseAllgetAllTalentSharedByTeamMember = (response, isFailed) => {
-    console.log('==== handleResponseAllgetAllTalentSharedByTeamMember: response: ', response);
     if(isFailed) {
 
     } else {

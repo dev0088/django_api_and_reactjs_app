@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Grid from '@material-ui/core/Grid';
@@ -43,7 +42,7 @@ class SelectMaleWizard extends Component {
 
   handleClickGenderButton = (type, val) =>  {
     this.setState({ [type]: val});
-  }
+  };
 
 	handleClickNextButton = () => {
 		const { gender } = this.state

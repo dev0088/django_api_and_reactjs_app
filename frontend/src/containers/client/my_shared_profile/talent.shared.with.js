@@ -24,7 +24,6 @@ class TalentSharedWith extends Component {
   }
 
   handleResponseAllTalentSharedWith = (response, isFailed) => {
-    console.log('==== handleResponseAllTalentSharedWith: response: ', response);
     if(isFailed) {
 
     } else {
@@ -36,11 +35,12 @@ class TalentSharedWith extends Component {
     return(
       <ClientForm
         formTitle="My Shared Profiles"
+        formSubTitle="Talent Share with You"
         nextLink="/client/myshared_profile"
         nextButtonTitle="Back to My Shared Profiles"
       >
         <Grid container spacing={40} direction="column" justify="center" alignItems="center">
-          <Panel title="Talent Share with You" bold={true} center={true}>
+          <Panel>
             <SharedTalentTable
              sharedProfiles={this.state.sharedProfiles}
              sharedTitle="Shared by"

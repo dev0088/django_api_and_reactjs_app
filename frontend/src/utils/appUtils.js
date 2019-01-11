@@ -52,12 +52,25 @@ export function getSexTitle(sex) {
   return sex === 'm' ? 'Male' : (sex === 'f' ? 'Female' : 'None');
 }
 
+export function getSexValue(sexTitle) {
+  return sexTitle === 'Male' ? 'm' : (sexTitle === 'Female' ? 'f' : null);
+}
+
 export function existSkill(skills, name) {
   let skill = skills.find(function(element) {
     return element === name;
   });
   // return skill ? true : false
   return !!skill
+}
+
+
+export function convertCm2Feet(cm) {
+  let feet = UnitConverter(parseInt(cm, 10)).from('cm').to('ft-us');
+  let integerFeet = Math.floor(feet);
+  let decimalInch = Math.round(UnitConverter(feet - integerFeet).from('ft-us').to('in'));
+
+  return `${integerFeet}'${decimalInch}"`
 }
 
 export function makeHeight(height) {
@@ -77,13 +90,14 @@ export function makeHeight(height) {
     prefix = '>'
   }
 
-  heightInFeet = UnitConverter(parseInt(tmp_height, 10))
-    .from('cm').to('ft-us')
-  heightIntegerInFeet = Math.floor(heightInFeet)
-  heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
+  // heightInFeet = UnitConverter(parseInt(tmp_height, 10))
+  //   .from('cm').to('ft-us')
+  // heightIntegerInFeet = Math.floor(heightInFeet)
+  // heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
 
-  return `${prefix}${heightIntegerInFeet}'${heightDecimalInInch}" / ${prefix}${height}cm`
+  return `${prefix}${convertCm2Feet(tmp_height)}" / ${prefix}${height}cm`
 }
+
 
 export function makeWeight(weight) {
   const { WEIGHTS } = defaultValues
@@ -352,4 +366,34 @@ export function arrayUnique(array, fieldName) {
   }
 
   return a;
+}
+
+export function makeRatingSearchConditionTitle(ratingCondition) {
+  let start_rating = ratingCondition.start_rating > 0 ? ratingCondition.start_rating.toFixed(2) : 0;
+  let end_rating = ratingCondition.end_rating > 0 ? ratingCondition.end_rating.toFixed(2) : 0;
+
+  if (start_rating === 0 ) return `<${end_rating}`;
+  else if (end_rating === 0 ) return `>${start_rating}`;
+  else return `${start_rating}-${end_rating}`;
+}
+
+export function makeHeightSearchConditionTitle(heightCondition) {
+  let start_height = heightCondition.start_height > 0 ? convertCm2Feet(heightCondition.start_height) : 0;
+  let end_height = heightCondition.end_height > 0 ? convertCm2Feet(heightCondition.end_height) : 0;
+
+  if (start_height === 0 ) return `<${end_height}`;
+  else if (end_height === 0 ) return `>${start_height}`;
+  else return `${start_height}-${end_height}`;
+}
+
+export function convertIndexes2Values(array, indexes) {
+  return indexes.map((itemIndex) => {
+    return array[itemIndex]
+  })
+}
+
+export function convertSexTitle2Values(titles) {
+  return titles.map((title) => {
+    return getSexValue(title);
+  })
 }

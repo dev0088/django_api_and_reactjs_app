@@ -16,6 +16,13 @@ export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
   typography: {
     fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
     textTransform: "none",
@@ -216,10 +223,6 @@ export const styles = theme => ({
   optionMenuItem: {
     backgroundColor: 'rgba(0, 0, 0, 0)!important',
     paddingLeft: '40px',
-  },
-  paper: {
-    height: 140,
-    width: 100,
   },
   paperContent: {
     ...theme.mixins.gutters(),
@@ -857,6 +860,70 @@ export const styles = theme => ({
     marginBottom: 'auto',
     textAlign: 'right'
   },
+  clientTalentSearchGenderButtonItem: {
+    padding: '5px',
+    display: 'block!important'
+  },
+  clientTalentSearchGenderButton: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    border: `1px solid ${theme.palette.black.main}`,
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  clientTalentSearchGenderButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  clientTalentSearchGenderButtonSelected: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.black.light,
+    border: `1px solid ${theme.palette.black.main}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin
+    },
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  clientTalentSearchGenderButtonSelectedTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  clientTalentSearchSubPositionButton: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    border: `1px solid ${theme.palette.black.main}`,
+    padding: 0,
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  clientTalentSearchSubPositionButtonTitle: {
+    fontSize: '0.75rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  clientTalentSearchSubPositionButtonSelected: {
+    display: '\'inline-flex',
+    borderRadius: '9px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.black.light,
+    border: `1px solid ${theme.palette.black.main}`,
+    padding: 0,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin
+    },
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  clientTalentSearchSubPositionButtonSelectedTitle: {
+    fontSize: '0.75rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
   clientTalentSearchResultPicture: {
     width: '70px',
     height: '72px',
@@ -1234,5 +1301,11 @@ export const themeClientSpecialActionButton = createMuiTheme ({
     }
   }
 });
+
+export const clientDesigns = {
+  talentSearch: {
+    PositionsTableItems: { xl: 1, lg: 2, md: 2, sm: 3, xs: 4 },
+  },
+};
 
 export default styles;

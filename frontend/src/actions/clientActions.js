@@ -42,19 +42,23 @@ export const getCurrentClientInfo = () => {
 
 export const getClientInfo = (id) => {
   console.trace('==== getClientInfo: id');
-  return {
-    [RSAA]: {
-      endpoint: `${apiConfig.url}/client/${id}/`,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      types: [
-        types.CLIENT_INFO.REQUEST,
-        types.CLIENT_INFO.SUCCESS,
-        types.CLIENT_INFO.FAILURE
-      ]
-    }}
+  if (id) {
+    return {
+      [RSAA]: {
+        endpoint: `${apiConfig.url}/client/${id}/`,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        types: [
+          types.CLIENT_INFO.REQUEST,
+          types.CLIENT_INFO.SUCCESS,
+          types.CLIENT_INFO.FAILURE
+        ]
+      }}
+  } else {
+    console.trace('client id is null: ');
+  }
 };
 
 export const talentSearch = (data) => {
