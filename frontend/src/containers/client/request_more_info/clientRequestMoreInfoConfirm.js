@@ -12,14 +12,16 @@ class ClientCommunityConfirm extends Component {
 
   render() {
     const { classes } = this.props;
+    const { talent } = this.props.location.state;
 
     return (
       <ClientForm
-        nextLink={'/client/home'}
-        nextButtonTitle="Back to My Home Page"
+        nextLink={{pathname: '/client/talent_view', state:{talentId: talent.id}}}
+        nextButtonTitle="Back to Profile"
+        talent={talent}
       >
         <Panel>
-          <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <Grid container spacing={16} direction="column" justify="center" alignItems="center">
 
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Spacer size={30} />
@@ -31,15 +33,16 @@ class ClientCommunityConfirm extends Component {
               </Typography>
             </Grid>
 
-            <Grid item lg={8} md={8} sm={10} xs={10}>
-              <Typography className={classes.clientFormSubTitle}>
-                {'Your feedback is very important to us.'}
-              </Typography>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Spacer size={30} />
             </Grid>
 
             <Grid item lg={8} md={8} sm={10} xs={10}>
-              <Typography className={classes.clientFormSubTitle}>
-                {'A ShipTalent.com representative will get back to you shortly.'}
+              <Typography className={[classes.clientFormSubTitle, classes.centerText]}>
+                {'Your request for more information has been sent.'}
+              </Typography>
+              <Typography className={[classes.clientFormSubTitle, classes.centerText]}>
+                {'A ShipTalent.com representative will get back to you shortly with the information you have requested.'}
               </Typography>
             </Grid>
 

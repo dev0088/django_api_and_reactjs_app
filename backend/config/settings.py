@@ -92,7 +92,8 @@ LOCAL_APPS = (
     'team',
     'team_member',
     'shared_profile',
-    'client_feedback'
+    'client_feedback',
+    'client_request'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -4,19 +4,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Spacer from 'components/general/spacer';
+import Panel from 'components/general/panel';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import TalentPictures from 'components/shiptalent/views/TalentPictures';
 import TalentResume from 'components/shiptalent/views/TalentResume';
 import TalentBio from 'components/shiptalent/views/TalentBio';
 import TalentGeneralInfo from 'components/shiptalent/views/TalentGeneralInfo';
 import TalentHeader from 'components/shiptalent/views/TalentHeader';
+import ClientTalentMarkWithStar from 'components/shiptalent/forms/clientTalentMarkWithStar';
 import MoreActions from './MoreActions';
 import DetailButtonsGroup from './DetailButtonsGroup';
 import VideoButtonsGroup from './VideoButtonsGroup';
 import AdditionalButtonsGroup from './AdditionalButtonsGroup';
 import * as talentActions from 'actions/talentActions';
 import * as globalNotificationActions from 'actions/globalNotificationActions';
+import { makeTitleWithAllPositionTypes } from 'utils/appUtils';
 import styles from 'styles';
 
 
@@ -76,16 +80,17 @@ class TalentView extends React.Component {
   };
 
   renderContent() {
-    const { talent, client, talentId } = this.state;
+    const { classes } = this.props;
+    const { talent, talentId } = this.state;
 
     if (!this.state.talent) return <div/>;
+    const { head_line } = talent;
 
     return (
+      <Panel title={head_line} center bold titleClassName={classes.clientTalentViewHeaderTitleText}>
       <Grid container spacing={8}>
         {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
-        <Grid item xs={12}>
-          <TalentHeader talent={talent} />
-        </Grid>
+
         <Grid item xs={12}>
           <Spacer size={10} />
         </Grid>
@@ -122,7 +127,7 @@ class TalentView extends React.Component {
           <VideoButtonsGroup talent={talent} />
         </Grid>
         <Grid item md={3} xs={12}>
-          <DetailButtonsGroup />
+          <DetailButtonsGroup talent={talent} />
         </Grid>
 
         <Grid item xs={12}>
@@ -139,25 +144,35 @@ class TalentView extends React.Component {
           <Spacer size={50} />
         </Grid>
       </Grid>
+      </Panel>
     );
   }
 
   render() {
+    const { talent } = this.state;
+
+    if (!talent) return <div/>;
+
+    const { user, average_rating } = talent;
+
+    let title = user ? `${user.first_name} ${user.last_name}` : ``;
+    let ratingTitle = average_rating ? ` - ${average_rating}` : ``;
+    title = `${title}${ratingTitle}`;
+    let subTitle = makeTitleWithAllPositionTypes(talent);
+
+
     return(
-      <Grid container spacing={24}>
-        <Grid item xs={12} >
-          <ClientForm
-            formTitle=""
-            formSubTitle=""
-            backLink="/client/talent_search_result"
-            backButtonTitle="Back to Search Result"
-            nextLink="/client/home"
-            nextButtonTitle="Back to My Home Page"
-          >
-            {this.renderContent()}
-          </ClientForm>
-        </Grid>
-      </Grid>
+      <ClientForm
+        formTitle={title}
+        formSubTitle={subTitle}
+        backLink="/client/talent_search_result"
+        backButtonTitle="Back to Search Result"
+        nextLink="/client/home"
+        nextButtonTitle="Back to My Home Page"
+      >
+        { talent && <ClientTalentMarkWithStar talent={talent} enableAddFavorite/> }
+        {this.renderContent()}
+      </ClientForm>
     );
   }
 }

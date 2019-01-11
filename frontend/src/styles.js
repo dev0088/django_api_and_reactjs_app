@@ -1067,6 +1067,12 @@ export const styles = theme => ({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
   },
+  clientFromTalentMarkFavoriteText: {
+    fontSize: '0.85rem',
+    fontWeight: 400,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
   clientRatingSubTitle: {
     width: '60%',
     margin: 'auto'
@@ -1110,7 +1116,8 @@ export const styles = theme => ({
     border: '2px solid',
     fontWeight: 'bold',
     fontSize: '1.5rem',
-    padding: '5px 10px 5px 10px'
+    padding: '5px 10px 5px 10px',
+    display: 'inline-flex'
   },
   clientTalentViewMoreInfoButtonGridItemWithoutFullWidth: {
     textAlign: 'center',
@@ -1218,6 +1225,10 @@ export const styles = theme => ({
     paddingBottom: '5px',
     textTransform: 'none',
     color: theme.palette.white.main
+  },
+  clientImmigrationForm: {
+    marginLeft: 100,
+    marginRight: 100
   }
 });
 

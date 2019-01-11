@@ -204,5 +204,9 @@ class ClientAPI {
     this.processRequestWithToken(`client/feedback/create`, 'post', data, handleResponse)
   }
 
+  static addRequestMoreInfo(data, handleResponse) {
+    this.processRequestWithToken(`client/request/create`, 'post', data, handleResponse)
+  }
+
 }
 export default ClientAPI
