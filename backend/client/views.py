@@ -166,7 +166,9 @@ class ClientFindTalentList(APIView):
 
         # Check position_ids
         if position_ids:
-            talent_position_talent_ids = TalentPositionType.objects.filter(Q(position_type_id__all=position_ids))\
+            talent_position_talent_ids = TalentPositionType.objects.filter(
+                    Q(position_type_id__in=position_ids)
+                )\
                 .values_list('talent', flat=True)\
                 .order_by('talent')\
                 .distinct()

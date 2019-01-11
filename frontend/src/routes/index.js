@@ -147,8 +147,8 @@ import BlockedProfileConfirm from "containers/client/my_blocked_profile/blocked.
 import MyRate from "containers/client/my_rating/myrate";
 import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
-import TalentChangePassword from "../containers/talent/account/change-password/changePasswordScreen";
-
+import TalentChangePassword from "containers/talent/account/change-password/changePasswordScreen";
+import ClientCommunity from "containers/client/community/clientCommunity";
 
 function renderRouter(path, topBar, layout) {
   return(
@@ -460,7 +460,15 @@ const Index = () => (
         </TemplateClientTopbar>
       )}
     />
-
+    <Route
+      exact
+      path="/client/community"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientCommunity {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
     <Route
       path="/interview-start"
       render={props => (

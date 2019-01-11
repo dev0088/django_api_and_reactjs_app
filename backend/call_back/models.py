@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import datetime, timedelta
 from client.models import Client
 from talent.models import Talent
 
