@@ -44,8 +44,8 @@ class TalentAvailabilityList(APIView):
         for availability in data:
             talent_availability = TalentAvailability.objects.create(
                     talent = talent,
-                    start_date = parse(availability['start_date']),
-                    end_date = parse(availability['end_date'])
+                    start_date=parse(availability['start_date']),
+                    end_date=parse(availability['end_date'])
                 )
             talent_availability.save()
 

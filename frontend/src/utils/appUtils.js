@@ -52,6 +52,10 @@ export function getSexTitle(sex) {
   return sex === 'm' ? 'Male' : (sex === 'f' ? 'Female' : 'None');
 }
 
+export function getSexValue(sexTitle) {
+  return sexTitle === 'Male' ? 'm' : (sexTitle === 'Female' ? 'f' : null);
+}
+
 export function existSkill(skills, name) {
   let skill = skills.find(function(element) {
     return element === name;
@@ -380,4 +384,16 @@ export function makeHeightSearchConditionTitle(heightCondition) {
   if (start_height === 0 ) return `<${end_height}`;
   else if (end_height === 0 ) return `>${start_height}`;
   else return `${start_height}-${end_height}`;
+}
+
+export function convertIndexes2Values(array, indexes) {
+  return indexes.map((itemIndex) => {
+    return array[itemIndex]
+  })
+}
+
+export function convertSexTitle2Values(titles) {
+  return titles.map((title) => {
+    return getSexValue(title);
+  })
 }

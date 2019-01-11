@@ -63,7 +63,7 @@ class TalentSearchConditionSerializer(serializers.Serializer):
     skill_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
     sub_skill_ids = serializers.ListField(child=serializers.IntegerField(), required=False)
     availability = TalentSearchAvailabilityConditionSerializer(required=False)
-    ages = serializers.ListField(child=serializers.IntegerField(), required=False)
+    ages = serializers.ListField(child=serializers.CharField(), required=False)
     heights = serializers.ListField(child=TalentSearchHeightConditionSerializer(), required=False)
     languages = serializers.ListField(child=serializers.CharField(), required=False)
     ratings = serializers.ListField(child=TalentSearchRatingConditionSerializer(), required=False)

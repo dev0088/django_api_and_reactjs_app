@@ -14,18 +14,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import ClientForm from 'components/shiptalent/forms/clientForm';
-import Constant from 'constants/talent.search';
-import * as clientActions from 'actions/clientActions';
-import * as talentActions from 'actions/talentActions';
 import Panel from "components/general/panel";
 import Spacer from "components/general/spacer";
 import GenderSelection from './GenderSelection';
 import PositionsSelection from './PositionsSelection';
 import SkillsSelection from './SkillsSelection';
+import * as clientActions from 'actions/clientActions';
+import * as talentActions from 'actions/talentActions';
 import defaultValues from 'constants/defaultValues';
 import {
   makeRatingSearchConditionTitle,
-  makeHeightSearchConditionTitle
+  makeHeightSearchConditionTitle,
+  convertIndexes2Values,
+  convertSexTitle2Values
 } from 'utils/appUtils';
 import styles from 'styles';
 import '../client.css';
@@ -47,7 +48,10 @@ class TalentSearch extends Component {
       position_sub_type_ids: [],
       skill_ids: [],
       sub_skill_ids: [],
-      availability: {},
+      availability: {
+        start_date: "",
+        end_date: ""
+      },
       ages: [],
       heights: [],
       languages: [],
@@ -65,22 +69,68 @@ class TalentSearch extends Component {
     this.setState({ allPositionTypes, allSkills });
   };
 
-  handleChangeStartDate = (date) => {
-    this.setState({
-      startDate: date
-    });
+  onChangeAvailability = (name, date) => {
+    let availability = this.state.availability;
+    availability[name] = date;
+    this.setState({ availability });
   };
 
-  handleChangeEndDate = (date) => {
-    this.setState({
-      endDate: date
-    })
-  };
+  onChangeAvailabilityStartDate = (date) => this.onChangeAvailability('start_date', date);
 
+  onChangeAvailabilityEndDate = (date) => this.onChangeAvailability('end_date', date);
+
+  addSearchCondition = (conditions, name, value) => {
+    let newConditions = conditions;
+    newConditions = {
+      ...newConditions,
+      [name]: value ? value : this.state[name]
+    };
+    return newConditions;
+  };
   onSearch = (e) => {
     e.preventDefault();
-    console.log('==== onSearch: state: ', this.state);
-    this.props.clientActions.talentSearch(this.state);
+
+    const {
+      talent_name, talent_tid, talent_id, talent_name_or_tid,
+      sexes, position_ids, position_sub_type_ids, skill_ids, sub_skill_ids,
+      availability, ages, heights, languages, ratings
+    } = this.state;
+
+    // let data = {};
+    // data = this.addSearchCondition(data, 'talent_name');
+    // data = this.addSearchCondition(data, 'talent_tid');
+    // data = this.addSearchCondition(data, 'sexes', convertSexTitle2Values(sexes));
+    // data = this.addSearchCondition(data, 'position_ids');
+    // data = this.addSearchCondition(data, 'position_sub_type_ids');
+    // data = this.addSearchCondition(data, 'skill_ids');
+    // data = this.addSearchCondition(data, 'sub_skill_ids');
+    // if (availability.start_date && availability.end_date)
+    // data = this.addSearchCondition(data, 'talent_name');
+    //
+
+    let data = {
+      talent_name,
+      talent_tid,
+      talent_id,
+      talent_name_or_tid,
+      sexes: convertSexTitle2Values(sexes),
+      position_ids,
+      position_sub_type_ids,
+      skill_ids,
+      sub_skill_ids,
+      availability: {
+        start_date: availability.start_date ? moment(availability.start_date).format(defaultValues.AVAILABILITY_FORMAT) : null,
+        end_date: availability.end_date ? moment(availability.end_date).format(defaultValues.AVAILABILITY_FORMAT) : null
+      },
+      ages,
+      heights: convertIndexes2Values(defaultValues.HEIGHT_RANGES, heights),
+      languages,
+      ratings: convertIndexes2Values(defaultValues.RATING_RANGES, ratings)
+    };
+
+    console.log('==== onSearch: data: ', data);
+
+    this.props.clientActions.talentSearch(data);
     this.props.history.push('/client/talent_search_result');
   };
 
@@ -89,14 +139,6 @@ class TalentSearch extends Component {
   };
 
   onChangeGender = (genders) => this.setState({sexes: genders});
-
-  onChangeName = (e) => {
-    this.state.talent_name = e.target.value;
-  };
-
-  onChangeId = (e) => {
-    this.state.talent_tid = e.target.value;
-  };
 
   onChangeNameOrId = name => event => this.setState({ [name]: event.target.value });
 
@@ -132,7 +174,7 @@ class TalentSearch extends Component {
             loading={!allPositionTypes.isFetched}
             positions={allPositionTypes && allPositionTypes.value}
             onChangePosition={(position) => this.onChangeSearCondition('position_ids', position)}
-            onChangeSubPosition={(subPosition) => this.onChangeSearCondition('sub_position_ids', subPosition)}
+            onChangeSubPosition={(subPosition) => this.onChangeSearCondition('position_sub_type_ids', subPosition)}
           />
         </Grid>
       </Grid>
@@ -164,6 +206,7 @@ class TalentSearch extends Component {
 
   renderAvailable = () => {
     const { classes } = this.props;
+    const { availability } = this.state;
 
     return (
       <Grid container spacing={16} justify="flex-start" alignItems="center">
@@ -183,8 +226,8 @@ class TalentSearch extends Component {
                 </Grid>
                 <Grid item >
                   <DatePicker
-                    className="mr-4" selected={this.state.startDate}
-                    onChange={this.handleChangeStartDate}
+                    className="mr-4" selected={availability.start_date}
+                    onChange={this.onChangeAvailabilityStartDate}
                     dropdownMode="scroll"
                   />
                 </Grid>
@@ -200,8 +243,8 @@ class TalentSearch extends Component {
                 </Grid>
                 <Grid item >
                   <DatePicker
-                    selected={this.state.endDate}
-                    onChange={this.handleChangeEndDate}
+                    selected={availability.end_date}
+                    onChange={this.onChangeAvailabilityEndDate}
                     dropdownMode="scroll"
                   />
                 </Grid>
@@ -225,14 +268,14 @@ class TalentSearch extends Component {
           </Typography>
 
           <FormGroup row>
-            { defaultValues.AGES.map((age, index) => {
+            { defaultValues.AGES.map((age) => {
               return (
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={ages && (ages.indexOf(index) > -1)}
-                      onChange={(event) => this.onChangeSearCondition('ages', index)}
-                      value={index}
+                      checked={ages && (ages.indexOf(age) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('ages', age)}
+                      value={age}
                       color="primary"
                     />
                   }
@@ -293,14 +336,14 @@ class TalentSearch extends Component {
           </Typography>
 
           <FormGroup row>
-            { defaultValues.LANGUAGES.map((language, index) => {
+            { defaultValues.LANGUAGES.map((language) => {
               return (
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={languages && (languages.indexOf(index) > -1)}
-                      onChange={(event) => this.onChangeSearCondition('languages', index)}
-                      value={index}
+                      checked={languages && (languages.indexOf(language) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('languages', language)}
+                      value={language}
                       color="primary"
                     />
                   }
@@ -392,7 +435,7 @@ class TalentSearch extends Component {
           <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
             <Grid item lg={5} md={6} sm={12} xs={12}>
               { this.renderTextCondition('SEARCH BY NAME: ', "Enter Name...", 'talent_name') }
-              { this.renderTextCondition('SEARCH BY TALENT ID: ', "Enter Talent ID...", 'talent_id') }
+              { this.renderTextCondition('SEARCH BY TALENT ID: ', "Enter Talent ID...", 'talent_tid') }
             </Grid>
             <Grid item lg={1} md={1} sm={12} xs={12}/>
             <Grid item lg={6} md={5} sm={12} xs={12}>
@@ -409,9 +452,6 @@ class TalentSearch extends Component {
   };
 
   renderContent = () => {
-    const { classes } = this.props;
-    const { allPositionTypes, allSkills, ranges } = this.state;
-
     return (
       <Panel>
         { this.renderNeed() }
