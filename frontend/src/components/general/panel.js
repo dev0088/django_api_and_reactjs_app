@@ -36,12 +36,13 @@ const Panel = (props) => {
 
   const titleContainterStyle = props.center ? {display: 'inherit', textAlign: 'center'} : {};
   const titleStyle = props.bold ? {fontWeight: 'bold'} : {};
+  const titleClassName = props.titleClassName ? {className: props.titleClassName} : {}
 
   return (
     <div className={panelClass}>
       {props.title && (
         <div className="panel-heading" style={titleContainterStyle}>
-          <h5 style={titleStyle}>{props.title}</h5>
+          <h5 style={titleStyle} {...titleClassName}>{props.title}</h5>
           { props.righticon ? <RightIconOption /> : ''}
         </div>
       )}

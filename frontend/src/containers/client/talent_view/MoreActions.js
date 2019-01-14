@@ -81,7 +81,7 @@ class MoreActions extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
-          {this.renderButton('/client/casting_request/new', "Request More Info")}
+          {this.renderButton({pathname: '/client/request', state: {talent}}, "Request More Info")}
           {this.renderButton({pathname: '/client/select_team_members', state: {talent}}, "Shared Profile")}
           {this.renderButton(
             {pathname: '/client/block_profile/edit', state: {talent}},

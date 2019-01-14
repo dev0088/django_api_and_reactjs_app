@@ -8,7 +8,7 @@ import styles from 'styles';
 class DetailButtonsGroup extends Component {
 
   renderOtherButton(link, title, statusValue) {
-    const { classes }=this.props;
+    const { classes } = this.props;
 
     return (
       <ColumnButton
@@ -23,12 +23,24 @@ class DetailButtonsGroup extends Component {
   }
 
   render() {
+    const { talent } = this.props;
     return (
       <Grid container spacing={24} direction="column" justify="center" alignItems="center">
-        {this.renderOtherButton('#', "Immigration", '2 Active Visas')}
-        {this.renderOtherButton('#', "Medical", 'no conditions')}
-        {this.renderOtherButton('#', "Availability", 'Last updated 04/11/2018')}
-        {this.renderOtherButton('#', "Client Ratings", '3 Submissions')}
+        {this.renderOtherButton(
+          {pathname: '/client/talent_immigration', state: {talent}},
+          "Immigration", '2 Active Visas'
+        )}
+        {this.renderOtherButton(
+          {pathname: '/client/talent_medical', state: {talent}},
+          "Medical", 'no conditions'
+        )}
+        {this.renderOtherButton(
+          '#',
+          "Availability", 'Last updated 04/11/2018'
+        )}
+        {this.renderOtherButton(
+          '#', "Client Ratings", '3 Submissions'
+        )}
       </Grid>
     )
   }

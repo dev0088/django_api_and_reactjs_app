@@ -24,16 +24,18 @@ class ClientForm extends Component {
   };
 
   render() {
-    const { formTitle,
+    const {
+      formTitle,
       formSubTitle, formSubTitleClass,
       children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
-      talent, classes
+      talent, formClassName, classes
     } = this.props;
+    let formStyle = formClassName ? {className: formClassName} : {}
 
     return (
-      <div>
+      <div {...formStyle}>
         <Grid container spacing={16}>
           <Grid item xs={12} />
           <Grid item xs={12} >

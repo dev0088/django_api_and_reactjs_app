@@ -27,4 +27,5 @@ class TalentRating(models.Model):
     class Meta:
         db_table = "talent_rating"
         ordering = ('talent', 'updated', 'client')
+        unique_together = ('talent', 'client', 'casting_request_talent')
         managed = True

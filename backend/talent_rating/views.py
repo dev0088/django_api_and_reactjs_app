@@ -2,8 +2,6 @@ from talent_rating.models import TalentRating
 from talent_rating.serializers import TalentRatingSerializer
 from talent_rating.create_serializers import TalentRatingCreateSerializer
 from talent_rating.detail_serializers import TalentRatingDetailSerializer
-from casting_request.models import CastingRequest
-from casting_request_talent.models import CastingRequestTalent
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,32 +21,6 @@ class TalentRatingList(APIView):
         serializer = TalentRatingSerializer(talent_rating, many=True)
         return Response(serializer.data)
 
-
-# class TalentRatingCompletedList(APIView):
-#     """
-#     List all talent ratings.
-#     """
-#     @swagger_auto_schema(responses={200: TalentRatingDetailSerializer(many=True)})
-#     def get(self, request, format=None):
-#         user = request.user
-#         client = Client.objects.filter(user_id=user.id).first
-#         if client:
-#             talent_rating = TalentRating.objects.all()
-#
-#             completed_casting_request_ids = CastingRequest.objects\
-#                 .filter(client=client, status='Completed')\
-#                 .order_by('status_updated_date')\
-#                 .values_list('id', falt=True)
-#
-#             talent_ids = CastingRequestTalent.objects\
-#                 .filter(casting_request_id__in=completed_casting_request_ids)\
-#                 .values_list('talent', flat=True)
-#
-#             completed_talent_ratings = TalentRating.objects.filter(talent_id__in=talent_ids)
-#             serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
-#
-#         serializer = TalentRatingSerializer(completed_talent_ratings, many=True)
-#         return Response(serializer.data)
 
 class TalentRatingDetail(APIView):
     """
@@ -101,7 +73,12 @@ class TalentRatingCreate(APIView):
         client = Client.objects.get(user_id=user.id)
         # Check exist.
         talent_id = request.data['talent']
-        talent_rating = TalentRating.objects.filter(client_id=client, talent_id=talent_id).first();
+        casting_request_talent = request.data['casting_request_talent']
+        talent_rating = TalentRating.objects.filter(
+                client_id=client,
+                talent_id=talent_id,
+                casting_request_talent_id=casting_request_talent
+            ).first()
         if talent_rating:
             return Response(
                         {'error': {"talent": ["this talent already exists."]}},
@@ -116,3 +93,4 @@ class TalentRatingCreate(APIView):
             return Response(new_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+

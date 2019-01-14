@@ -121,6 +121,8 @@ import ClientHomeScreen from "containers/client/clientHomeScreen"
 import TalentSearch from 'containers/client/find_talent/talent.seach'
 import TalentSearchResult from "containers/client/find_talent/talent.search.result";
 import TalentView from "containers/client/talent_view/talent.view";
+import Immigration from "containers/client/talent_view/immigration";
+import Medical from "containers/client/talent_view/medical";
 import RequestSelection from "containers/client/my_casting_request/request.selection";
 import CastingRequestNew from "containers/client/my_casting_request/casting.request.new";
 import CastingRequestAddConfirm from "containers/client/my_casting_request/casting.request.add.confirm";
@@ -149,6 +151,10 @@ import RatingAndComment from "containers/client/my_rating/rating.and.comment";
 import MyrateSubmitted from "containers/client/my_rating/myrate.submitted";
 import TalentChangePassword from "containers/talent/account/change-password/changePasswordScreen";
 import ClientCommunity from "containers/client/community/clientCommunity";
+import ClientCommunityConfirm from "containers/client/community/clientCommunityConfirm";
+import ClientRequestMoreInfo from "containers/client/request_more_info/clientRequestMoreInfo";
+import ClientRequestMoreInfoConfirm from "containers/client/request_more_info/clientRequestMoreInfoConfirm";
+
 
 function renderRouter(path, topBar, layout) {
   return(
@@ -246,6 +252,24 @@ const Index = () => (
       <TemplateClientTopbar>
         <TalentView {...props}/>
       </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/talent_immigration"
+      render={props => (
+        <TemplateClientTopbar>
+          <Immigration {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/talent_medical"
+      render={props => (
+        <TemplateClientTopbar>
+          <Medical {...props}/>
+        </TemplateClientTopbar>
       )}
     />
     <Route
@@ -351,6 +375,24 @@ const Index = () => (
       render={props => (
         <TemplateClientTopbar>
           <SelectTeamMembers {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/request"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientRequestMoreInfo {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/request/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientRequestMoreInfoConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -466,6 +508,15 @@ const Index = () => (
       render={props => (
         <TemplateClientTopbar>
           <ClientCommunity {...props}/>
+        </TemplateClientTopbar>
+      )}
+    />
+    <Route
+      exact
+      path="/client/community/confirm"
+      render={props => (
+        <TemplateClientTopbar>
+          <ClientCommunityConfirm {...props}/>
         </TemplateClientTopbar>
       )}
     />
