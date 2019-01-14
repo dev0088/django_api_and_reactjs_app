@@ -6,7 +6,7 @@ from talent_position_sub_type.serializers import GeneralTalentPositionSubTypeSer
 from authentication.serializers import GeneralUserSerializer
 from talent_skill.serializers import TalentSkillSerializer
 from talent_sub_skill.serializers import GeneralTalentSubSkillSerializer
-from talent_rating.serializers import TalentRatingSerializer
+from talent_rating.deatil_by_talent_serializers import TalentRatingDetailByTalentSerializer
 
 
 class TalentSimpleSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class TalentSimpleSerializer(serializers.ModelSerializer):
     talent_position_sub_types = GeneralTalentPositionSubTypeSerializer(many=True, read_only=True)
     talent_skills = TalentSkillSerializer(many=True, read_only=True)
     talent_sub_skills = GeneralTalentSubSkillSerializer(many=True, read_only=True)
-    talent_ratings = TalentRatingSerializer(many=True, read_only=True)
+    talent_ratings = TalentRatingDetailByTalentSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(source='get_average_rating', read_only=True)
     profile_status = serializers.JSONField(source='get_profile_status', read_only=True)
 

@@ -14,7 +14,7 @@ from talent_visa.serializers import TalentVisaSerializer
 from talent_language.serializers import TalentLanguageSerializer
 from talent_medical.serializers import TalentMedicalSerializer
 from talent_availability.serializers import TalentAvailabilitySerializerWithoutTalentID
-from talent_rating.serializers import TalentRatingSerializer
+from talent_rating.deatil_by_talent_serializers import TalentRatingDetailByTalentSerializer
 from django.contrib.auth.password_validation import validate_password
 
 
@@ -33,7 +33,7 @@ class TalentSerializer(serializers.ModelSerializer):
     talent_languages = TalentLanguageSerializer(many=True, read_only=True)
     talent_medicals = TalentMedicalSerializer(many=True, read_only=True)
     talent_availabilities = TalentAvailabilitySerializerWithoutTalentID(many=True, read_only=True)
-    talent_ratings = TalentRatingSerializer(many=True, read_only=True)
+    talent_ratings = TalentRatingDetailByTalentSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(source='get_average_rating', read_only=True)
     profile_status = serializers.JSONField(source='get_profile_status', read_only=True)
     talent_availabilities_last_update = serializers.DateTimeField(
