@@ -40,5 +40,6 @@ class SubSkillSerializer(serializers.ModelSerializer):
             'is_special_video_audition',
             'is_required_all',
             'is_required',
-            'is_video_interview_button'
+            'is_video_interview_button',
+            'video_audition_view_content_type'
         )
