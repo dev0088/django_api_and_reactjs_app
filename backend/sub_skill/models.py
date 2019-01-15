@@ -8,6 +8,13 @@ VIDEO_TYPES = [
     (3, 3),  # step2, introduction, helpful hint
 ]
 
+VIDEO_VIEW_CONTENT_TYPES = [
+    ('Nothing Content', 'Nothing Content'),
+    ('Site Content', 'Site Content'),
+    ('Talent Content', 'Talent Content'),
+    ('Reference', 'Reference'),
+]
+
 
 class SubSkillManager(models.Manager):
     def get_queryset(self):
@@ -49,6 +56,12 @@ class SubSkill(models.Model):
     is_required_all = models.BooleanField(blank=False, default=False)
     is_required = models.BooleanField(blank=False, default=False)
     is_video_interview_button = models.BooleanField(blank=False, default=False)
+    video_audition_view_content_type = models.CharField(
+        choices=VIDEO_VIEW_CONTENT_TYPES,
+        blank=True,
+        default='Nothing Content',
+        max_length=50
+    )
     
     def __str__(self):
         return self.skill.name + ' -> ' + self.name
