@@ -352,7 +352,8 @@ class TalentDetail(APIView):
 
         serializer = TalentSerializer(talent_item, data=talent_data)
         # Reset tid
-        serializer.tid = self.generate_tid_by_one(talent_item, talent_position_type_data)
+        if talent_position_type_data:
+            serializer.tid = self.generate_tid_by_one(talent_item, talent_position_type_data)
 
         if serializer.is_valid():
             serializer.save()
@@ -391,7 +392,7 @@ class TalentDetail(APIView):
             if talent_visas_data:
                 self.save_talent_visas(talent_item, talent_visas_data)
 
-            return Response(status=status.HTTP_200_OK)
+            return Response(request.data, status=status.HTTP_200_OK)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
