@@ -178,10 +178,12 @@ class ViewProfile extends Component {
   makeLanguages = (talent_languages) => {
     let res = ''
 
-		for (let i = 0; i < talent_languages.length; i ++) {
-			let talent_language = talent_languages[i]
-      res = res + talent_language.language + ' '
-		}
+    if (talent_languages) {
+      for (let i = 0; i < talent_languages.length; i ++) {
+        let talent_language = talent_languages[i]
+        res = res + talent_language.language + ' '
+      }
+    }
 
     return res
   }
@@ -248,13 +250,15 @@ class ViewProfile extends Component {
   getLiveVideoNumbers = (talent_videos) => {
     let res = 0
 
-		for (let i = 0; i < talent_videos.length; i ++) {
-			let talent_video = talent_videos[i]
-      if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
-        talent_video.position_type !== null) {
-        res ++
+    if (talent_videos) {
+      for (let i = 0; i < talent_videos.length; i ++) {
+        let talent_video = talent_videos[i]
+        if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
+          talent_video.position_type !== null) {
+          res ++
+        }
       }
-		}
+    }
 
     return res
   }
@@ -549,6 +553,8 @@ class ViewProfile extends Component {
       const { talent_video_sub_skills } = talentInfo
       for(let i = 0; i < allPositionTypes.length; i +=2) {
         let position = allPositionTypes[i]
+        if (!position.video_audition_button_title) continue;
+
         let title = `${position.name} Audition Videos`
         let subTitle = getSubSkillVideoNumbersByPositionType(talent_video_sub_skills, allSkills, position)
         let link = {

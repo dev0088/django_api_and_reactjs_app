@@ -35,11 +35,12 @@ class DetailButtonsGroup extends Component {
           "Medical", 'no conditions'
         )}
         {this.renderOtherButton(
-          '#',
+          {pathname: '/client/talent_availability', state: {talent}},
           "Availability", 'Last updated 04/11/2018'
         )}
         {this.renderOtherButton(
-          '#', "Client Ratings", '3 Submissions'
+          {pathname: '/client/talent_ratings', state: {talent}},
+          "Client Ratings", '3 Submissions'
         )}
       </Grid>
     )

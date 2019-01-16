@@ -94,8 +94,8 @@ class TalentPositionVideosForm extends Component {
           link = {
             pathname: '/interview-start',
             state: {
-              position: position.name,
-              subPosition: ''
+              position: position,
+              subPosition: null
             }
           }
         }

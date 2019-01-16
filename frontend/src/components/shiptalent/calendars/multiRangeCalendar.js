@@ -26,27 +26,28 @@ class MultiRangeCalendar extends Component {
       ranges: [],
       selections: 0,
       focusedRange: [0],
-      defaultFocusRangeKey: null
+      defaultFocusRangeKey: null,
+      disabled: false
     }
   }
 
-  generateDefaultFocusRange = (year, month, defaultFocusRangeKey, focusDate) => {
+  generateDefaultFocusRange = (year, month, defaultFocusRangeKey, focusDate, disabled) => {
     return {
       startDate: focusDate,
       endDate: focusDate,
       key: defaultFocusRangeKey,
       autoFocus: true,
-      disabled: false
-    }
+      disabled: disabled
+    };
   };
 
   removeDefaultFocusRange = (ranges, defaultFocusRangeKey) => {
     return ranges.filter(function(range) {
       return range.key !== defaultFocusRangeKey
-    })
+    });
   };
 
-  convertStr2Date = (ranges, year, month, defaultFocusRangeKey, minDate) => {
+  convertStr2Date = (ranges, year, month, defaultFocusRangeKey, minDate, disabled) => {
     let res = [];
 
     for(let i = 0; i < ranges.length; i++) {
@@ -63,7 +64,7 @@ class MultiRangeCalendar extends Component {
     if (res.length > 0) {
       res = this.removeDefaultFocusRange(res, defaultFocusRangeKey);
     } else {
-      res.push(this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate));
+      res.push(this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate, disabled));
     }
 
     return res;
@@ -88,37 +89,35 @@ class MultiRangeCalendar extends Component {
   }
 
   getInfoFromProps(props) {
-    const { year, month, ranges } = props;
+    const { year, month, ranges, disabled } = props;
     const minDate = new Date(parseInt(year), parseInt(month) - 1, 1);
     const maxDate = new Date(parseInt(year), parseInt(month), 0);
     const defaultFocusRangeKey = `selection-${year}-${month}-focus`;
     const newRanges = this.convertStr2Date(ranges, year, month, defaultFocusRangeKey, minDate);
 
     return {
-      year: year,
-      month: month,
+      year,
+      month,
       minDate: minDate ? minDate : new Date(`${year}-${parseInt(month)}-${1} 09:00 EST`),
       maxDate: maxDate ? maxDate : new Date(`${year}-${parseInt(month)}-${31} 18:00 EST`),
       ranges: newRanges,
       selections: newRanges.length - 1,
-      defaultFocusRangeKey: defaultFocusRangeKey
-    }
+      defaultFocusRangeKey,
+      disabled
+    };
   }
 
   componentWillMount() {
-    this.setState({
-      ...this.getInfoFromProps(this.state)
-    })
+    this.setState({...this.getInfoFromProps(this.props)})
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...this.getInfoFromProps(nextProps)
-    })
+    this.setState({...this.getInfoFromProps(nextProps)})
   }
 
   handleRangeSelect = (selectedRange, year, month) => {
-    const { ranges, selections } = this.state;
+    const { ranges, selections, defaultFocusRangeKey, minDate, disabled } = this.state;
+
     let newSelections = selections + 1;
     let newRanges = [];
     let firstRange = selectedRange[Object.keys(selectedRange)[0]];
@@ -128,6 +127,13 @@ class MultiRangeCalendar extends Component {
       key: `selection-${year}-${month}-${selections + 1}`,
       color: '#3d91ff'
     };
+
+    if (this.disabled) {
+      this.setState({
+        ranges: this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate, disabled)
+      });
+      return
+    }
 
     // Check previous ranges and overwrite this rage
     for (let i = 0; i < ranges.length; i ++) {
@@ -149,14 +155,8 @@ class MultiRangeCalendar extends Component {
       newRanges = this.removeDefaultFocusRange(newRanges, this.state.defaultFocusRangeKey);
     }
 
-    this.setState({ ranges: newRanges, selections: newSelections }, () => {
-      // const { onChange } = this.props;
-      // const { ranges } = this.state;
-      // if (onChange) {
-      //   let strRanges = this.convertDate2Str(newRanges);
-      //   onChange(strRanges, year, month);
-      // }
-    });
+    this.setState({ ranges: newRanges, selections: newSelections });
+
     const { onChange } = this.props;
     if (onChange) {
       let strRanges = this.convertDate2Str(newRanges);
@@ -165,15 +165,23 @@ class MultiRangeCalendar extends Component {
   };
 
   handleRangeFocusChange = (focusedRange) => {
-    this.setState({
-      ranges: this.removeDefaultFocusRange(this.state.ranges, this.state.defaultFocusRangeKey)
-    });
+    const { ranges, year, month, defaultFocusRangeKey, minDate, disabled } = this.state;
+
+    if (this.disabled) {
+      this.setState({
+        ranges: this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate, disabled)
+      });
+    } else {
+      this.setState({
+        ranges: this.removeDefaultFocusRange(ranges, defaultFocusRangeKey)
+      });
+    }
   };
 
   handleClickClear = () => {
-    const { year, month, defaultFocusRangeKey, minDate } = this.state;
+    const { year, month, defaultFocusRangeKey, minDate, disabled } = this.state;
     this.setState({
-      ranges: [this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate)]
+      ranges: [this.generateDefaultFocusRange(year, month, defaultFocusRangeKey, minDate, disabled)]
     }, () => {
       const { onChange } = this.props;
       const { ranges } = this.state;
@@ -185,21 +193,23 @@ class MultiRangeCalendar extends Component {
   };
 
   render() {
-    const { year, month, minDate, maxDate, ranges, focusedRange } = this.state
+    const { year, month, minDate, maxDate, ranges, focusedRange, disabled } = this.state;
     const { classes } = this.props;
 
     return (
       <Grid container spacing={0}>
-        <Grid item xs={12} className={classes.talentAvailabilityCalendarDeleteButtonGridItem}>
-          <Button
-            variant="contained"
-            aria-label="Clear"
-            className={classes.talentAvailabilityCalendarDeleteButton}
-            onClick={this.handleClickClear}
-          >
-            <ClearRounded style={{fontSize: '20px'}}/>
-          </Button>
-        </Grid>
+        { !disabled && <Grid item xs={12} className={classes.talentAvailabilityCalendarDeleteButtonGridItem}>
+            <Button
+              variant="contained"
+              aria-label="Clear"
+              className={classes.talentAvailabilityCalendarDeleteButton}
+              onClick={this.handleClickClear}
+            >
+              <ClearRounded style={{fontSize: '20px'}}/>
+            </Button>
+          </Grid>
+        }
+
         <Grid item xs={12}>
           <DateRange
             showMonthAndYearPickers={false}
@@ -213,6 +223,7 @@ class MultiRangeCalendar extends Component {
             ranges={ranges}
             onChange={range => this.handleRangeSelect(range, year, month)}
             onRangeFocusChange={this.handleRangeFocusChange}
+            disabled={disabled}
           />
         </Grid>
       </Grid>

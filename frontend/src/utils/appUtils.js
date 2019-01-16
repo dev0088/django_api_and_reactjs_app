@@ -305,6 +305,12 @@ export function getSubSkillVideoNumbersByPositionType(talentSubSkillVideos, allS
   return videos.length
 }
 
+
+export function getSubSkillVideoCount(talentSubSkillVideos, subSkillId) {
+  let videos = talentSubSkillVideos.filter(video => video.sub_skill === subSkillId);
+  return videos.length
+}
+
 const positionPaths = [
   {name: 'Actor', path: '/video-acting-audition-videos'},
   {name: 'Vocal', path: '/video-vocal-audition-videos'},
@@ -396,4 +402,11 @@ export function convertSexTitle2Values(titles) {
   return titles.map((title) => {
     return getSexValue(title);
   })
+}
+
+export function getValueFromLocation(props, name) {
+  if (props && props.location && props.location.state && props.location.state[name]) {
+    return props.location.state[name];
+  }
+  return null;
 }

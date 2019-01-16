@@ -95,7 +95,7 @@ class TalentVideoGreetingsForm extends Component {
       return true
     }
     return false
-  }
+  };
 
   handleLanguageChange = (event) => {
     console.log('===== handleLanguageChange: ', event.target.name)

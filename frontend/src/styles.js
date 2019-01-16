@@ -44,14 +44,16 @@ export const styles = theme => ({
       width: 'auto',
     },
   },
-  searchIcon: {
+  searchIconContainer: {
     width: theme.spacing.unit * 9,
     height: '100%',
     position: 'absolute',
-    pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchIcon: {
+    cursor: 'pointer'
   },
   inputRoot: {
     color: 'inherit',
@@ -450,6 +452,15 @@ export const styles = theme => ({
   },
   green: {
     color: theme.palette.green.main
+  },
+  talentVideoInterviewBody: {
+    fontSize: '1.5rem',
+    lineHeight: 2
+  },
+  talentVideoInstructionBody: {
+    fontSize: '17px',
+    textAlign: 'left',
+    lineHeight: 1.6
   },
   generalButtonClass: {
     textTransform: 'none',
@@ -1229,7 +1240,16 @@ export const styles = theme => ({
   clientImmigrationForm: {
     marginLeft: 100,
     marginRight: 100
-  }
+  },
+  clientVideoPlayer: {
+    margin: 'auto'
+  },
+  clientEmptyVideoPlayer: {
+    margin: 'auto',
+    border: '2px dashed',
+    width: '100%',
+    height: '100%'
+  },
 });
 
 export const theme = createMuiTheme ({

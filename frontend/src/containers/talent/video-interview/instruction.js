@@ -1,52 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TalentForm from 'components/shiptalent/forms/talentForm';
+import Panel from 'components/general/panel';
+import { getValueFromLocation } from 'utils/appUtils';
 import { styles } from 'styles';
 
-const title = {
-  "cruise": "Cruise Staff",
-  "audio": "Audio Technician",
-  "light-technician": "Lighting Technician",
-  "vocalist": "Vocalist",
-  "dancer": "Dancer",
-  "actor": "Actor",
-  "aerialist": "Aerialist",
-  "solo-musician": "Solo Musician",
-  "music-group-leader": "Musical Group Leader",
-  "video-technician": "Video Technician",
-  "youth-staff": "Youth Staff"
-}
-// const styles={
-//   raisedButton: {
-//     whiteSpace: "normal",
-//     width: "240px",
-//   },
-// }
 
 class InterviewInstruction extends React.Component {
-  render() {
+  renderContents(position) {
     const { classes } = this.props;
-    const { pageId } = this.props.match.params;
-    let link = {
-      pathname: '/interview-start',
-      state: {
-        position: pageId,
-        subPosition: ''
-      }
-    };
 
     return (
-      <div className="video-interview">
-        <div className="video-interview-header">
-          <h1>{`My Video Interview (${pageId && pageId})`}</h1>
-          <h3>Instructions</h3>
-        </div>
-        <Grid container className={classes.root} spacing={24}>
-          <Grid item md={2}/>
-          <Grid item md={8}>
-            <div className="video-instruction-body">
+      <Panel className="video-interview">
+        <Grid container spacing={24}>
+          <Grid item md={12}>
+            <Typography className={classes.descriptionText}>
+              <p></p>
               <p>
                 A Video Interview is required for every ShipTalent.com member.
                 With the exception of Technicians,
@@ -102,25 +73,26 @@ class InterviewInstruction extends React.Component {
                 take away from your interview responses.
               </p>
               <p></p>
-            </div>
+            </Typography>
           </Grid>
-          <Grid item md={2}/>
         </Grid>
-        <div className="text-center">
-          <Link to={link}>
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              className={classes.generalButtonClass}
-            >
-              {`Back to My Video Interview`}
-            </Button>
-          </Link>
-        </div>
+      </Panel>
+    );
+  }
 
-      </div>)
+  render() {
+    const position = getValueFromLocation(this.props, 'position');
+    const positionName = position ? position.name : '';
 
+    return (
+      <TalentForm
+        formTitle={`My Video Interview Introductions (${positionName})`}
+        nextLink={{pathname: "/interview-start", state: {position: position}}}
+        nextButtonTitle={`Back to My Video Interview`}
+      >
+        {this.renderContents(position)}
+      </TalentForm>
+    );
   }
 }
 
