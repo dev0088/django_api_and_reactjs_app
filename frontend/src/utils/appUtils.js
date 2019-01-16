@@ -305,6 +305,12 @@ export function getSubSkillVideoNumbersByPositionType(talentSubSkillVideos, allS
   return videos.length
 }
 
+
+export function getSubSkillVideoCount(talentSubSkillVideos, subSkillId) {
+  let videos = talentSubSkillVideos.filter(video => video.sub_skill === subSkillId);
+  return videos.length
+}
+
 const positionPaths = [
   {name: 'Actor', path: '/video-acting-audition-videos'},
   {name: 'Vocal', path: '/video-vocal-audition-videos'},

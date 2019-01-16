@@ -82,7 +82,7 @@ class SingleRangeCalendar extends Component {
 
   componentWillMount() {
     this.setState({
-      ...this.getInfoFromProps(this.state)
+      ...this.getInfoFromProps(this.props)
     })
   }
 

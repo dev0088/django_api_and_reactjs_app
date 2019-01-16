@@ -51,7 +51,7 @@ class TalentVideosForm extends Component {
         let title = position.video_audition_button_title
         let subTitle = 'in progress'
         let link = {
-          pathname: '/video-positions', // getPathByPositionName(position.name),
+          pathname: '/video-positions',
           state: {
             position: position
           }
@@ -62,9 +62,10 @@ class TalentVideosForm extends Component {
         }
 
         items.push(
-          <Grid key={`position${i}-2`}
-                item lg={6} md={6} sm={6} xs={12}
-                className={classes.talentProfileGuideButtonItem}
+          <Grid
+            key={`position${i}-2`}
+            item lg={6} md={6} sm={6} xs={12}
+            className={classes.talentProfileGuideButtonItem}
           >
             <Link to={link}>
               <Button

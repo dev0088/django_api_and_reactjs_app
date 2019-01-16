@@ -32,41 +32,43 @@ class TalentView extends React.Component {
       talentId: (props && props.location && props.location.state) ? props.location.state.talentId : null,
       talent: props.talent,
       notification: false,
+      allPositionTypes: null,
+      allSkills: null
     };
   }
 
-  getInfoFromProps(props) {
-    const { talentId, talent } = props;
+  getInfoFromProps = (props) => {
+    const { talentId, talent, allPositionTypes, allSkills } = props;
     let res = {};
 
     if (talentId) res = {...res, talentId};
     if (talent) res = {...res, talent};
+    if (allPositionTypes) res = {...res, allPositionTypes};
+    if (allSkills) res = {...res, allSkills};
 
-    return res
-  }
+    return res;
+  };
 
-  componentWillMount() {
+  componentWillMount = () => {
     const locationState = this.props.location.state;
     const { talentId } = locationState;
 
     if (locationState) {
       this.setState({...this.getInfoFromProps(locationState)});
       this.props.talentActions.getTalentInfo(talentId);
+      this.props.talentActions.getAllPositionTypes();
+      this.props.talentActions.getAllSkills();
     }
-  }
+  };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     const locationState = nextProps.location.state;
-    const { talent } = nextProps;
+    const { talent, allPositionTypes, allSkills } = nextProps;
 
-    if (talent) {
+    if (talent || allPositionTypes || allSkills) {
       this.setState({...this.getInfoFromProps(nextProps)})
     }
-    // else if (locationState) {
-    //   this.setState({...this.getInfoFromProps(locationState)});
-    //   this.props.talentActions.getTalentInfo(talentId);
-    // }
-  }
+  };
 
   onAddCallBackConfirm = (response, isFailed) => {
     console.log('==== handleAddCallBacksResponse: response: ', response, isFailed);
@@ -76,77 +78,87 @@ class TalentView extends React.Component {
       this.props.globalNotificationActions.notify(true, 'success', 'Added successfully');
       this.props.history.push('/client/callback/confirm', {talentId: response['talent']})
     }
-
   };
 
-  renderContent() {
+  renderContent = () => {
     const { classes } = this.props;
-    const { talent, talentId } = this.state;
+    const { talent, talentId, allPositionTypes, allSkills } = this.state;
 
     if (!this.state.talent) return <div/>;
+
     const { head_line } = talent;
 
     return (
       <Panel title={head_line} center bold titleClassName={classes.clientTalentViewHeaderTitleText}>
-      <Grid container spacing={8}>
-        {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
+        <Grid container spacing={8}>
+          {this.state.notification && <Alert color="info">{this.state.notification}</Alert>}
 
-        <Grid item xs={12}>
-          <Spacer size={10} />
-        </Grid>
+          <Grid item xs={12}>
+            <Spacer size={10} />
+          </Grid>
 
-        <Grid item md={3} xs={12}>
-          <TalentGeneralInfo talent={talent} />
-        </Grid>
-        <Grid item md={9} xs={12} className="profile-bio">
-          <Grid container spacing={8}>
-            <Grid item md={3} xs={12}>
-              <TalentPictures pictures={talent.talent_pictures} />
-            </Grid>
-            <Grid item md={9} xs={12}>
-              <Grid container spacing={8}>
-                <Grid item md={4} xs={12}>
-                  <TalentResume resume={talent.talent_resume} />
-                </Grid>
-                <Grid item md={8} xs={12}>
-                  <TalentBio bio={talent.bio} />
+          <Grid item md={3} xs={12}>
+            <TalentGeneralInfo talent={talent} />
+          </Grid>
+          <Grid item md={9} xs={12} className="profile-bio">
+            <Grid container spacing={8}>
+              <Grid item md={3} xs={12}>
+                <TalentPictures pictures={talent.talent_pictures} />
+              </Grid>
+              <Grid item md={9} xs={12}>
+                <Grid container spacing={8}>
+                  <Grid item md={4} xs={12}>
+                    <TalentResume resume={talent.talent_resume} />
+                  </Grid>
+                  <Grid item md={8} xs={12}>
+                    <TalentBio bio={talent.bio} />
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item md={12} xs={12}>
-          <Spacer size={50} />
-        </Grid>
+          <Grid item md={12} xs={12}>
+            <Spacer size={50} />
+          </Grid>
 
-        <Grid item md={3} xs={12} style={{margin: 'auto'}}>
-          <MoreActions talent={talent} />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <VideoButtonsGroup talent={talent} />
-        </Grid>
-        <Grid item md={3} xs={12}>
-          <DetailButtonsGroup talent={talent} />
-        </Grid>
+          <Grid item md={3} xs={12} style={{margin: 'auto'}}>
+            <MoreActions talent={talent} />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <VideoButtonsGroup
+              talent={talent}
+              allPositionTypes={allPositionTypes ? allPositionTypes.value : null}
+              allSkills={allSkills ? allSkills.value : null}
+              loading={
+                ((allPositionTypes && !allPositionTypes.isFetched) ||
+                  (allPositionTypes && !allPositionTypes.isFetched))
+              }
+            />
+          </Grid>
+          <Grid item md={3} xs={12}>
+            <DetailButtonsGroup talent={talent} />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Spacer size={30} />
-        </Grid>
+          <Grid item xs={12}>
+            <Spacer size={30} />
+          </Grid>
 
-        <Grid item xs={12}>
-          <AdditionalButtonsGroup
-            talentId={talentId}
-            onAddCallBackConfirm={this.onAddCallBackConfirm}
-          />
+          <Grid item xs={12}>
+            <AdditionalButtonsGroup
+              talentId={talentId}
+              onAddCallBackConfirm={this.onAddCallBackConfirm}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Spacer size={50} />
+          </Grid>
+
         </Grid>
-        <Grid item xs={12}>
-          <Spacer size={50} />
-        </Grid>
-      </Grid>
       </Panel>
     );
-  }
+  };
 
   render() {
     const { talent } = this.state;
@@ -160,8 +172,7 @@ class TalentView extends React.Component {
     title = `${title}${ratingTitle}`;
     let subTitle = makeTitleWithAllPositionTypes(talent);
 
-
-    return(
+    return (
       <ClientForm
         formTitle={title}
         formSubTitle={subTitle}
@@ -178,9 +189,11 @@ class TalentView extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { talentInfo } = state;
+  const { talentInfo, allPositionTypes, allSkills } = state;
   return {
-    talent: talentInfo.value
+    talent: talentInfo.value,
+    allPositionTypes,
+    allSkills
   }
 }
 

@@ -549,6 +549,8 @@ class ViewProfile extends Component {
       const { talent_video_sub_skills } = talentInfo
       for(let i = 0; i < allPositionTypes.length; i +=2) {
         let position = allPositionTypes[i]
+        if (!position.video_audition_button_title) continue;
+
         let title = `${position.name} Audition Videos`
         let subTitle = getSubSkillVideoNumbersByPositionType(talent_video_sub_skills, allSkills, position)
         let link = {

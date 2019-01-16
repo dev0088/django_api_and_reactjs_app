@@ -45,6 +45,7 @@ class ClientHeader extends Component {
       anchorEl: null,
       mobileMoreAnchorEl: null,
       open: false,
+      search: ''
     };
   }
 
@@ -119,13 +120,31 @@ class ClientHeader extends Component {
     );
   }
 
-
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
 
   handleDrawerClose = () => {
     this.setState({ open: false });
+  };
+  
+  handleSearchChange = (event) => {
+    this.setState({ search: event.target.value });
+  };
+  
+  handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.handleSearch();
+    }
+  };
+
+  handleSearch = () => {
+    let data = {
+      talent_name_or_tid: this.state.search
+    };
+    this.props.clientActions.talentSearch(data);
+    this.props.history.push('/client/talent_search_result');
   };
 
   render() {
@@ -244,8 +263,8 @@ class ClientHeader extends Component {
 
             {loggedIn && (
               <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
+                <div className={classes.searchIconContainer}>
+                  <SearchIcon className={classes.searchIcon} onClick={this.handleSearch} />
                 </div>
                 <InputBase
                   placeholder="Search…"
@@ -253,6 +272,8 @@ class ClientHeader extends Component {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                   }}
+                  onChange={this.handleSearchChange}
+                  onKeyDown={this.handleKeyDown}
                 />
               </div>
             )}

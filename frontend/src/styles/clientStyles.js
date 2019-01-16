@@ -738,7 +738,7 @@ export const styles = theme => ({
     paddingBottom: '5px',
     textTransform: 'none',
     color: theme.palette.white.main
-  }
+  },
 });
 
 export const theme = createMuiTheme ({
