@@ -403,3 +403,10 @@ export function convertSexTitle2Values(titles) {
     return getSexValue(title);
   })
 }
+
+export function getValueFromLocation(props, name) {
+  if (props && props.location && props.location.state && props.location.state[name]) {
+    return props.location.state[name];
+  }
+  return null;
+}

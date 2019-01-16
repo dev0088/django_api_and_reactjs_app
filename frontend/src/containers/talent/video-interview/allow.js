@@ -1,12 +1,19 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
 import DetectRTC from "detectrtc";
-import {
-  Alert,
-} from 'reactstrap';
+import { Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TalentForm from 'components/shiptalent/forms/talentForm';
+import Panel from 'components/general/panel';
+import Spacer from 'components/general/spacer';
+import { getValueFromLocation } from 'utils/appUtils';
+import { styles } from 'styles';
 
-const styles={
+const customStyles={
   raisedLongButton: {
     whiteSpace: "normal",
     width: "320px",
@@ -15,19 +22,7 @@ const styles={
     marginBottom: 16,
   },
 }
-const title = {
-  "cruise": "Cruise Staff",
-  "audio": "Audio Technician",
-  "light-technician": "Lighting Technician",
-  "vocalist": "Vocalist",
-  "dancer": "Dancer",
-  "actor": "Actor",
-  "aerialist": "Aerialist",
-  "solo-musician": "Solo Musician",
-  "music-group-leader": "Musical Group Leader",
-  "video-technician": "Video Technician",
-  "youth-staff": "Youth Staff"
-}
+
 class InterviewDeviceAllow extends React.Component {
   constructor() {
     super();
@@ -39,6 +34,7 @@ class InterviewDeviceAllow extends React.Component {
       videoAllow: true
     }
   }
+
   componentWillMount() {
     let __this = this, detectError = [];
     DetectRTC.load(function() {
@@ -66,13 +62,15 @@ class InterviewDeviceAllow extends React.Component {
       __this.setState({ errors: detectError });
     });
   }
+
   updateError = (search) => {
     let detectError = this.state.errors;
     detectError = detectError.filter(e => e.indexOf(search) === -1);
     this.setState({ errors: detectError });
   }
+
   enableDevice = () => {
-    var __this = this;
+    let __this = this;
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
@@ -90,67 +88,111 @@ class InterviewDeviceAllow extends React.Component {
         );
     }
   }
-  render() {
-    const { pageId } = this.props.match.params;
-    const { audioDevice, audioAllow, videoDevice, videoAllow, errors } = this.state;
-    return (<div className="video-interview">
-        <div className="video-interview-header">
-          <h1>{`My Video Interview (${pageId})`}</h1>
-          <Link to={"/interview-instruction/" + pageId}>
-            My Video Interview Instructions
-          </Link>
-        </div>
-        <div className="video-access-body row d-flex justify-content-center">
-          <p>First, ShipTalent.com needs access to your <b>camera</b> and <b>microphone</b>.</p>
-        {
-          (audioAllow && videoAllow) ? (
-            <div className="col-md-8">
-              {
-                videoAllow && (
-                  <Alert color="primary">Webcam is enabled.</Alert>
-              )}
-              {
-                audioAllow && (
-                  <Alert color="primary">Microphone is enabled.</Alert>  
-              )}
-              <Link to={"/video-interview/" + pageId }>
-                <RaisedButton
-                  label="Let's Rehearse"
-                  className="btn-video-buttons"
-                  style={styles.raisedLongButton}
-                  primary={true}
-                />
-              </Link>
-            </div>
-            ) : (
-              <React.Fragment>
-                <div className="col-md-8"> 
-                  {
-                    errors.map((error, index) => {
-                      console.log(error, index);
-                      return (<Alert color="warning" key={index}>{error}</Alert>);
-                    })
-                  }
-                </div>
-                {
-                  audioDevice && videoDevice && 
-                    (<div className="col-md-8">
-                      <p>Click <b>Allow</b> when prompted.</p>
-                      <RaisedButton
-                        label="Enable Camera and Microphone"
-                        className="btn-video-buttons"
-                        style={styles.raisedLongButton}
-                        primary={true}
-                        onClick={this.enableDevice}
-                      />
-                    </div>)
-                }
-              </React.Fragment>)
-        }
-        </div>
-      </div>)
 
+  renderContents(position) {
+    let positionName = position ? position.name : '' ;
+    const { audioDevice, audioAllow, videoDevice, videoAllow, errors } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Panel className="video-interview">
+        <Grid container spacing={24} direction="column" justify="center" alignItems="center">
+          <Grid item>
+            <Link to={{pathname: "/interview-instruction/", state: {position}}}>
+              <Typography className={[classes.blue, classes.boldText, classes.underlineText, classes.talentVideoInstructionBody]}>
+                My Video Interview Instructions
+              </Typography>
+            </Link>
+          </Grid>
+          <Grid item>
+            <Spacer size={30} />
+          </Grid>
+          <Grid item>
+            <Typography className={classes.talentVideoInterviewBody}>
+              First, ShipTalent.com needs access to your <b>camera</b> and <b>microphone</b>
+            </Typography>
+          </Grid>
+          <Grid item>
+            {(audioAllow && videoAllow) ? (
+                <Grid item>
+                  {
+                    videoAllow && (
+                      <Alert color="primary">Webcam is enabled.</Alert>
+                  )}
+                  {
+                    audioAllow && (
+                      <Alert color="primary">Microphone is enabled.</Alert>
+                  )}
+                  <Link to={{pathname: "/video-interview", state: {position}}}>
+                    <Button
+                      variant="contained" color={'primary'}
+                      fullWidth={true}
+                      className={classes.generalButtonClass}
+                    >
+                      <Typography className={classes.talentProfileGuideButtonTitle}>
+                        {"Let's Rehearse"}
+                      </Typography>
+                    </Button>
+                  </Link>
+                </Grid>
+                ) : (
+                  <React.Fragment>
+                    <Grid item>
+                      {
+                        errors.map((error, index) => {
+                          console.log(error, index);
+                          return (<Alert color="warning" key={index}>{error}</Alert>);
+                        })
+                      }
+                    </Grid>
+                    { audioDevice && videoDevice &&
+                        (<Grid item>
+                            <p>Click <b>Allow</b> when prompted.</p>
+                            <Button
+                              variant="contained" color={'primary'}
+                              fullWidth={true}
+                              className={classes.talentProfileGuideButton}
+                              onClick={this.enableDevice}
+                            >
+                              <Typography className={classes.talentProfileGuideButtonTitle}>
+                                {"Enable Camera and Microphone"}
+                              </Typography>
+                            </Button>
+                            <RaisedButton
+                              label="Enable Camera and Microphone"
+                              className="btn-video-buttons"
+                              style={customStyles.raisedLongButton}
+                              primary={true}
+                              onClick={this.enableDevice}
+                            />
+                        </Grid>)
+                    }
+                  </React.Fragment>
+                )
+            }
+          </Grid>
+          <Grid item>
+            <Spacer size={50} />
+          </Grid>
+        </Grid>
+      </Panel>
+    )
+  }
+
+  render () {
+    const position = getValueFromLocation(this.props, 'position');
+    const positionName = position ? position.name : '';
+
+    return (
+      <TalentForm
+        formTitle={`My Video Interview (${positionName})`}
+        nextLink={{pathname: "/interview-start", state: {position: position}}}
+        nextButtonTitle={`Back to My Video Interview`}
+      >
+        {this.renderContents(position)}
+      </TalentForm>
+    );
   }
 }
 
-export default InterviewDeviceAllow;
+export default withStyles(styles)(InterviewDeviceAllow);

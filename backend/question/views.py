@@ -14,13 +14,14 @@ from rest_framework.filters import BaseFilterBackend
 from rest_framework.schemas import ManualSchema
 import random
 
+
 class QuestionPracticeStaticList(APIView):
     """
     Retrieve 5 static practice questions.
     """
     def get(self, request, format=None):
         try:
-            position_type_name = 'Practice'
+            position_type_name = 'Staff' #'Practice'
             position_type = PositionType.objects.get(name=position_type_name)
             questions = Question.objects.filter(position_type=position_type.id).order_by('created')
         except PositionType.DoesNotExist:

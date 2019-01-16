@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import TalentForm from 'components/shiptalent/forms/talentForm';
 import { styles } from 'styles';
 
 // const styles={
@@ -13,28 +14,14 @@ import { styles } from 'styles';
 // }
 
 class InterviewStart extends React.Component {
-  render() {
-    const { classes } = this.props
 
-    let position_type = 'Cruise Staff';
-    let page_id = 'Cruise Staff';
-    if (this.props.history &&
-      this.props.history.location &&
-      this.props.history.location.state &&
-      this.props.history.location.state.position) {
-      let position = this.props.history.location.state.position;
-      let subPosition = this.props.history.location.state.subPosition;
-      position_type = position;
-      page_id = position_type
-    }
+  renderContents = (position) => {
+    const { classes } = this.props;
 
     return (
       <div className="video-interview">
-        <div className="video-interview-header">
-          <h1>{`My Video Interview (${position_type})`}</h1>
-        </div>
         <div className="col-md-12">
-          <Link to={`/interview-instruction/${page_id}`}>
+          <Link to={{pathname: `/interview-instruction`, state: {position: position}}}>
             <Button
               variant="contained"
               size="large"
@@ -53,7 +40,7 @@ class InterviewStart extends React.Component {
           <p>When ready to proceed, click the Let’s Begin button below. </p>
         </div>
         <div className="col-md-12">
-          <Link to={`/interview-device-allow/${page_id}`}>
+          <Link to={{pathname: `/interview-device-allow`, state: {position}}}>
             <Button
               variant="contained"
               size="large"
@@ -66,6 +53,28 @@ class InterviewStart extends React.Component {
         </div>
       </div>
     )
+  }
+
+  render() {
+    let position = null;
+    if (this.props &&
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.position) {
+      position = this.props.location.state.position;
+    }
+
+    let positionName = position ? position.name : '';
+
+    return (
+      <TalentForm
+        formTitle={`My Video Interview (${position ? position.name : ''})`}
+        nextLink={{pathname: "/video-positions", state: {position: position}}}
+        nextButtonTitle={`Back to My ${positionName} Audition Videos`}
+      >
+        {this.renderContents(position)}
+      </TalentForm>
+    );
   }
 }
 

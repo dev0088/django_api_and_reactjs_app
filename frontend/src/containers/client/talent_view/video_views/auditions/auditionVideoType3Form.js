@@ -21,7 +21,7 @@ import apiConfig from 'constants/api';
 import { findVideoByPriority, findVideoIndexByPriority } from 'utils/appUtils';
 
 
-class AuditionVideoType3Form extends Component {
+class AuditionVideoTypeStaffForm extends Component {
 
   constructor(props) {
     super(props);
@@ -402,4 +402,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AuditionVideoType3Form));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AuditionVideoTypeStaffForm));

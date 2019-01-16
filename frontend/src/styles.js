@@ -453,6 +453,15 @@ export const styles = theme => ({
   green: {
     color: theme.palette.green.main
   },
+  talentVideoInterviewBody: {
+    fontSize: '1.5rem',
+    lineHeight: 2
+  },
+  talentVideoInstructionBody: {
+    fontSize: '17px',
+    textAlign: 'left',
+    lineHeight: 1.6
+  },
   generalButtonClass: {
     textTransform: 'none',
     borderRadius: 0,

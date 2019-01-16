@@ -124,7 +124,7 @@ import TalentView from "containers/client/talent_view/talent.view";
 import Immigration from "containers/client/talent_view/immigration";
 import Medical from "containers/client/talent_view/medical";
 import Availability from "containers/client/talent_view/availability";
-import VideoGreatingsView from "containers/client/talent_view/video_views/greetingsVideoView";
+import GreetingsVideoView from "containers/client/talent_view/video_views/greetingsVideoView";
 import PositionVideosScreen from "containers/client/talent_view/video_views/positions/positionVideosScreen";
 import SubSkillVideos from "containers/client/talent_view/video_views/positions/subSkillVideosScreen";
 import ClientRatings from "containers/client/talent_view/clientRatings";
@@ -311,7 +311,7 @@ const Index = () => (
       path="/client/talent_view/video_greetings"
       render={props => (
         <TemplateClientTopbar>
-          <VideoGreatingsView {...props}/>
+          <GreetingsVideoView {...props}/>
         </TemplateClientTopbar>
       )}
     />
@@ -591,7 +591,7 @@ const Index = () => (
     />
 
     <Route
-      path="/interview-instruction/:pageId"
+      path="/interview-instruction"
       render={props => (
         <TemplateTopbar>
           <InterviewInstruction {...props} />
@@ -600,7 +600,7 @@ const Index = () => (
     />
 
     <Route
-      path="/interview-instruction-live/:pageId"
+      path="/interview-instruction-live"
       render={props => (
         <TemplateTopbar>
           <InterviewInstructionLive {...props} />
@@ -609,7 +609,7 @@ const Index = () => (
     />
 
     <Route
-      path="/interview-device-allow/:pageId"
+      path="/interview-device-allow"
       render={props => (
         <TemplateTopbar>
           <InterviewDeviceAllow {...props} />
@@ -618,7 +618,7 @@ const Index = () => (
     />
 
     <Route
-      path="/video-interview/:pageId"
+      path="/video-interview"
       render={props => (
         <TemplateTopbar>
           <VideoPreview {...props} />
@@ -627,7 +627,7 @@ const Index = () => (
     />
 
     <Route
-      path="/live-interview/:pageId"
+      path="/live-interview"
       render={props => (
         <TemplateTopbar>
           <LiveInterview {...props} />
@@ -636,7 +636,7 @@ const Index = () => (
     />
 
     <Route
-      path="/video-practice/:pageId"
+      path="/video-practice"
       render={props => (
         <TemplateTopbar>
           <VideoPractice {...props} />
@@ -1324,7 +1324,7 @@ const Index = () => (
     />
 
     <Route
-      path="/faq/:pageId"
+      path="/faq"
       render={props => (
         <TemplateTopbar>
           <SubFaq {...props} />

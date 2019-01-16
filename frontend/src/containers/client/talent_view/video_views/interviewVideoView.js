@@ -8,7 +8,7 @@ import VideoPlayer from 'components/shiptalent/videos/videoPlayer';
 import styles from 'styles';
 
 
-class GreetingsVideoView extends Component {
+class InterviewVideoView extends Component {
 
   state = {
     talent: null,
@@ -24,7 +24,6 @@ class GreetingsVideoView extends Component {
 
   componentWillMount() {
     this.setState({ ...this.getInfoFromProps(this.props)}, () => {
-
     });
   }
 
@@ -58,7 +57,13 @@ class GreetingsVideoView extends Component {
       <Panel>
         <Spacer size={30} />
         <Grid container spacing={32} justify="center" alignItems="flex-start">
-          { item }
+          <Grid item xl={6} lg={6} md={6} xs={12}>
+            <VideoPlayer
+              key={`video-player-${i}`}
+              title={video ? video.language : "Other Language (if applicable)"}
+              url={video ? video.url : '' }
+            />
+          </Grid>
         </Grid>
         <Spacer size={30} />
       </Panel>
@@ -69,7 +74,7 @@ class GreetingsVideoView extends Component {
     const { talent } = this.state;
     return (
       <ClientForm
-        formTitle={"Video Greetings"}
+        formTitle={"Video Geetings"}
         nextLink={{pathname: '/client/talent_view', state: {talentId: talent && talent.id}}}
         nextButtonTitle="Back to Profile"
         talent={talent}
@@ -80,4 +85,4 @@ class GreetingsVideoView extends Component {
   }
 }
 
-export default withStyles(styles)(GreetingsVideoView);
+export default withStyles(styles)(InterviewVideoView);
