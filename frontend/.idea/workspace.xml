@@ -17,21 +17,11 @@
       <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+            <state relative-caret-position="219">
+              <caret line="70" column="12" lean-forward="true" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="12" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="appUtils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/appUtils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="405" column="0" lean-forward="true" selection-start-line="405" selection-start-column="0" selection-end-line="405" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -39,72 +29,80 @@
       <file leaf-file-name="allow.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/allow.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="95" column="0" lean-forward="true" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+            <state relative-caret-position="-152">
+              <caret line="125" column="77" lean-forward="false" selection-start-line="125" selection-start-column="77" selection-end-line="125" selection-end-column="77" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <element signature="e#4763#6283#0" expanded="false" />
-                <element signature="e#5187#6224#0" expanded="false" />
+                <element signature="e#4783#6303#0" expanded="false" />
+                <element signature="e#5207#6244#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="623" column="23" lean-forward="false" selection-start-line="623" selection-start-column="11" selection-end-line="623" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="preview.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="244" column="19" lean-forward="true" selection-start-line="244" selection-start-column="19" selection-end-line="244" selection-end-column="19" />
+            <state relative-caret-position="408">
+              <caret line="177" column="41" lean-forward="true" selection-start-line="177" selection-start-column="41" selection-end-line="177" selection-end-column="41" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#7961#8864#0" expanded="false" />
-                <element signature="e#8917#9242#0" expanded="false" />
-                <element signature="e#9295#10109#0" expanded="false" />
-                <element signature="e#10150#13472#0" expanded="false" />
+                <element signature="e#8774#12096#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/styles.js">
+      <file leaf-file-name="practice.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/practice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="455" column="29" lean-forward="false" selection-start-line="455" selection-start-column="29" selection-end-line="455" selection-end-column="29" />
+            <state relative-caret-position="424">
+              <caret line="547" column="4" lean-forward="false" selection-start-line="547" selection-start-column="4" selection-end-line="547" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#4476#5770#0" expanded="false" />
+                <element signature="e#7630#8741#0" expanded="false" />
+                <element signature="n#!!block;n#requestUserMedia#0;n#VideoPractice#0" expanded="false" />
+                <element signature="e#9591#9767#0" expanded="false" />
+                <element signature="e#9794#10085#0" expanded="false" />
+                <element signature="e#10115#11334#0" expanded="false" />
+                <element signature="e#11362#11749#0" expanded="false" />
+                <element signature="e#11789#12099#0" expanded="false" />
+                <element signature="e#12126#12485#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myInterviewVideosScreen.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="talentPositionVideosForm.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/videos/positions/talentPositionVideosForm.js">
+      <file leaf-file-name="talentActions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/actions/talentActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="94" column="39" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="39" />
+            <state relative-caret-position="169">
+              <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VideoInterViewControl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/VideoInterViewControl.js">
+      <file leaf-file-name="videoActions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/actions/videoActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="13" column="32" lean-forward="false" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+            <state relative-caret-position="206">
+              <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,13 +122,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>handleChange</find>
-      <find>this.searc</find>
-      <find>Vide</find>
-      <find>VideoGreatingsView</find>
-      <find>AuditionVideoType3Form</find>
-      <find>api/v1</find>
-      <find>Practice</find>
       <find>&lt;TalentForm</find>
       <find>My Video Interview</find>
       <find>/interview-start</find>
@@ -143,17 +134,24 @@
       <find>title</find>
       <find>/interview-instruction</find>
       <find>video-interview/</find>
-      <find>underline</find>
-      <find>pageId</find>
       <find>has_sub_position_type</find>
       <find>var</find>
       <find>styles</find>
-      <find>/video-interview</find>
-      <find>&lt;Button</find>
       <find>.camera-box</find>
       <find>.audio-box</find>
-      <find>&lt;Webcam</find>
       <find>TalentItem</find>
+      <find>/video-interview</find>
+      <find>underline</find>
+      <find>&lt;Webcam</find>
+      <find>&lt;Button</find>
+      <find>getValueFromLocation</find>
+      <find>getVideoQuestionsActions</find>
+      <find>Practice</find>
+      <find>pageId</find>
+      <find>practice</find>
+      <find>videoQuestions</find>
+      <find>defaultValues</find>
+      <find>showSpinner</find>
     </findStrings>
     <replaceStrings>
       <replace>feedback</replace>
@@ -194,10 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/containers/client/request_more_info/clientRequestMoreInfoConfirm.js" />
-        <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientTalentTitleWithStar.js" />
-        <option value="$PROJECT_DIR$/src/components/general/panel.js" />
-        <option value="$PROJECT_DIR$/src/containers/client/talent_view/immigration.css" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientForm.js" />
         <option value="$PROJECT_DIR$/src/containers/client/talent_view/immigration.js" />
         <option value="$PROJECT_DIR$/src/components/shiptalent/forms/clientTalentMarkWithStar.js" />
@@ -236,15 +230,19 @@
         <option value="$PROJECT_DIR$/src/containers/talent/profile/view-profile/viewProfile.js" />
         <option value="$PROJECT_DIR$/src/constants/api.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/videos/positions/talentPositionVideosForm.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/video-interview/start.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/video-interview/videointerview.js" />
         <option value="$PROJECT_DIR$/src/utils/appUtils.js" />
-        <option value="$PROJECT_DIR$/src/styles.js" />
-        <option value="$PROJECT_DIR$/src/containers/talent/video-interview/allow.js" />
         <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/video-interview/instruction.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/video-interview/VideoInterViewControl.js" />
+        <option value="$PROJECT_DIR$/src/styles.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/video-interview/start.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/video-interview/allow.js" />
         <option value="$PROJECT_DIR$/src/containers/talent/video-interview/preview.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js" />
+        <option value="$PROJECT_DIR$/src/components/shiptalent/headers/talentHeader.js" />
+        <option value="$PROJECT_DIR$/src/actions/videoActions.js" />
+        <option value="$PROJECT_DIR$/src/containers/talent/video-interview/practice.js" />
       </list>
     </option>
   </component>
@@ -308,48 +306,40 @@
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="actions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="shiptalent" type="462c0819:PsiDirectoryNode" />
+              <item name="headers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="constants" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="talent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="talent" type="462c0819:PsiDirectoryNode" />
-              <item name="profile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="talent" type="462c0819:PsiDirectoryNode" />
-              <item name="profile" type="462c0819:PsiDirectoryNode" />
-              <item name="build-profile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="talent" type="462c0819:PsiDirectoryNode" />
-              <item name="profile" type="462c0819:PsiDirectoryNode" />
-              <item name="build-profile" type="462c0819:PsiDirectoryNode" />
-              <item name="videos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -357,8 +347,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
               <item name="talent" type="462c0819:PsiDirectoryNode" />
-              <item name="profile" type="462c0819:PsiDirectoryNode" />
-              <item name="view-profile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -367,18 +355,6 @@
               <item name="containers" type="462c0819:PsiDirectoryNode" />
               <item name="talent" type="462c0819:PsiDirectoryNode" />
               <item name="video-interview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -492,12 +468,12 @@
       <workItem from="1546917825606" duration="20797000" />
       <workItem from="1547100001437" duration="40039000" />
       <workItem from="1547341463344" duration="4034000" />
-      <workItem from="1547416750846" duration="53042000" />
+      <workItem from="1547416750846" duration="60118000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="958509000" />
+    <option name="totallyTimeSpent" value="965585000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -512,7 +488,7 @@
     <frame x="4" y="23" width="1912" height="990" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25700688" sideWeight="0.7614679" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17874141" sideWeight="0.7614679" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908458" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.058486238" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -523,7 +499,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11811927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="RNConsole" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912844" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32683486" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22591743" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -599,56 +575,36 @@
           <properties />
           <option name="timeStamp" value="384" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/containers/talent/video-interview/start.js</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="388" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/containers/talent/video-interview/allow.js</url>
+          <line>182</line>
+          <properties />
+          <option name="timeStamp" value="389" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/containers/talent/video-interview/allow.js</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="390" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/containers/talent/video-interview/practice.js</url>
+          <line>127</line>
+          <properties />
+          <option name="timeStamp" value="392" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="388" />
+      <option name="time" value="393" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/videos/videoPlayer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/talent_view/video_views/videoViewType0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-534">
-          <caret line="12" column="11" lean-forward="true" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/talent_view/video_views/auditionVideoType0Form.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4471">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/client/talent_view/video_views/positionVideosView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="160" column="32" lean-forward="false" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentBuildProfileForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="15" column="23" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/client/talent_view/talent.view.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
@@ -855,14 +811,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/defaultValues.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/shiptalent/forms/talentForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-388">
@@ -870,14 +818,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/practice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,32 +913,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/appUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="405" column="0" lean-forward="true" selection-start-line="405" selection-start-column="0" selection-end-line="405" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="455" column="29" lean-forward="false" selection-start-line="455" selection-start-column="29" selection-end-line="455" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/client/find_talent/GenderSelection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1255">
@@ -1030,26 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="623" column="23" lean-forward="false" selection-start-line="623" selection-start-column="11" selection-end-line="623" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/allow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="95" column="0" lean-forward="true" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#4763#6283#0" expanded="false" />
-            <element signature="e#5187#6224#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/VideoInterViewControl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -1060,26 +954,144 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="623" column="23" lean-forward="false" selection-start-line="623" selection-start-column="11" selection-end-line="623" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="587" column="14" lean-forward="true" selection-start-line="587" selection-start-column="14" selection-end-line="587" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/videos/positions/talentPositionVideosForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="94" column="39" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="39" />
+        <state relative-caret-position="187">
+          <caret line="83" column="20" lean-forward="false" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/appUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="406" column="42" lean-forward="false" selection-start-line="406" selection-start-column="37" selection-end-line="406" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="70" column="12" lean-forward="true" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/allow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-152">
+          <caret line="125" column="77" lean-forward="false" selection-start-line="125" selection-start-column="77" selection-end-line="125" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#4783#6303#0" expanded="false" />
+            <element signature="e#5207#6244#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/defaultValues.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="53" column="32" lean-forward="false" selection-start-line="53" selection-start-column="2" selection-end-line="53" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/talentHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="115" column="25" lean-forward="false" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/shiptalent/headers/comingSoonHeader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="34" column="21" lean-forward="true" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="244" column="19" lean-forward="true" selection-start-line="244" selection-start-column="19" selection-end-line="244" selection-end-column="19" />
+        <state relative-caret-position="408">
+          <caret line="177" column="41" lean-forward="true" selection-start-line="177" selection-start-column="41" selection-end-line="177" selection-end-column="41" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#7961#8864#0" expanded="false" />
-            <element signature="e#8917#9242#0" expanded="false" />
-            <element signature="e#9295#10109#0" expanded="false" />
-            <element signature="e#10150#13472#0" expanded="false" />
+            <element signature="e#8774#12096#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/videoActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/talentActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/profile/build-profile/interview-videos/myInterviewVideosScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/talent/video-interview/practice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="547" column="4" lean-forward="false" selection-start-line="547" selection-start-column="4" selection-end-line="547" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#4476#5770#0" expanded="false" />
+            <element signature="e#7630#8741#0" expanded="false" />
+            <element signature="n#!!block;n#requestUserMedia#0;n#VideoPractice#0" expanded="false" />
+            <element signature="e#9591#9767#0" expanded="false" />
+            <element signature="e#9794#10085#0" expanded="false" />
+            <element signature="e#10115#11334#0" expanded="false" />
+            <element signature="e#11362#11749#0" expanded="false" />
+            <element signature="e#11789#12099#0" expanded="false" />
+            <element signature="e#12126#12485#0" expanded="false" />
           </folding>
         </state>
       </provider>

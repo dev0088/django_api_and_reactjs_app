@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as talentActions from 'actions/talentActions';
+import defaultValues from 'constants/defaultValues'
 import '../contact-info/myContactInfo.css';
 import { styles } from 'styles';
 
@@ -34,9 +35,9 @@ class MyVideos extends Component {
       Object.keys(talentInfo.talent_videos).map((key) => {
         let video = talentInfo.talent_videos[key]
         if (video.active && video.uploaded) {
-          if (position_type === 'Practice') {
+          if (position_type === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) {
             // In the case Practice video interview
-            if (video.position_type === 'Practice' || video.position_type === null) {
+            if (video.position_type === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE || video.position_type === null) {
               interviewVideoUrls.push(video)
             }
           } else if (video.position_type === video.position_type) {

@@ -1,10 +1,11 @@
 import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
+import defaultValues from 'constants/defaultValues'
 import * as types from './actionTypes'
 
 export const getVideoQuestionsActions = (id, mode) => ({
   [RSAA]: {
-    endpoint: ((mode === 'practice') ? `${apiConfig.url}/question/practice/static` : `${apiConfig.url}/question/random/?position_type=${id}`),
+    endpoint: ((mode === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) ? `${apiConfig.url}/question/practice/static` : `${apiConfig.url}/question/random/?position_type=${id}`),
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     types: [

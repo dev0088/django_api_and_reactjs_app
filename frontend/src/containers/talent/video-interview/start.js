@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TalentForm from 'components/shiptalent/forms/talentForm';
+import { getValueFromLocation } from 'utils/appUtils';
 import { styles } from 'styles';
 
 // const styles={
@@ -40,12 +41,12 @@ class InterviewStart extends React.Component {
           <p>When ready to proceed, click the Let’s Begin button below. </p>
         </div>
         <div className="col-md-12">
-          <Link to={{pathname: `/interview-device-allow`, state: {position}}}>
+          <Link to={{pathname: `/interview-device-allow`, state: {position: position}}}>
             <Button
               variant="contained"
               size="large"
               color="primary"
-              className={classes.generalButtonClass}
+              className={classes.talentProfileGuideButtonTitle}
             >
               {`Let's Begin`}
             </Button>
@@ -56,13 +57,14 @@ class InterviewStart extends React.Component {
   }
 
   render() {
-    let position = null;
-    if (this.props &&
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.position) {
-      position = this.props.location.state.position;
-    }
+    let position = getValueFromLocation(this.props, 'position');
+    //   null;
+    // if (this.props &&
+    //   this.props.location &&
+    //   this.props.location.state &&
+    //   this.props.location.state.position) {
+    //   position = this.props.location.state.position;
+    // }
 
     let positionName = position ? position.name : '';
 

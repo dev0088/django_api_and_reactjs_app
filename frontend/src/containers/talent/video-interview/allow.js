@@ -98,7 +98,7 @@ class InterviewDeviceAllow extends React.Component {
       <Panel className="video-interview">
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <Grid item>
-            <Link to={{pathname: "/interview-instruction/", state: {position}}}>
+            <Link to={{pathname: "/interview-instruction/", state: {position: position}}}>
               <Typography className={[classes.blue, classes.boldText, classes.underlineText, classes.talentVideoInstructionBody]}>
                 My Video Interview Instructions
               </Typography>
@@ -123,7 +123,7 @@ class InterviewDeviceAllow extends React.Component {
                     audioAllow && (
                       <Alert color="primary">Microphone is enabled.</Alert>
                   )}
-                  <Link to={{pathname: "/video-interview", state: {position}}}>
+                  <Link to={{pathname: "/video-interview", state: {position: position}}}>
                     <Button
                       variant="contained" color={'primary'}
                       fullWidth={true}
