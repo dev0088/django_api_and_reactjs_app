@@ -579,6 +579,15 @@ export const styles = theme => ({
     textTransform: 'none',
     color: theme.palette.white.main,
   },
+  talentProfileGuideButtonTitleDisabled: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    pointerEvents: 'none',
+    color: theme.palette.black.thin,
+  },
   talentProfileGuideButtonRequiredTitle: {
     fontWeight: 600,
     color: theme.palette.red.light,

@@ -57,39 +57,31 @@ class VideoPreview extends React.Component {
       selectedVideo: "",
       audioDevices: [],
       videoDevices: [],
-      has_sub_position_type: props.talentInfo.value && props.talentInfo.value.talent_position_sub_type ? true : false
+      has_sub_position_type: false
     }
   }
 
-  componentWillMount() {
-    let { deviceSettings, talentInfo } = this.props;
-    this.setState({
-      position: getValueFromLocation(this.props, 'position'),
+  getInfoFromProps = (props) => {
+    let { deviceSettings, talentInfo } = props;
+    return {
+      position: getValueFromLocation(props, 'position'),
       resolution: deviceSettings.resolution,
       frameRate: deviceSettings.frameRate,
       bitRate: deviceSettings.bitRate,
       selectedAudio: deviceSettings.audio,
       selectedVideo: deviceSettings.video,
-      has_sub_position_type: !!(talentInfo.value && talentInfo.value.talent_position_sub_type)
-    }, () => {
+      has_sub_position_type: !!(talentInfo && talentInfo.value && talentInfo.value.talent_position_sub_type)
+    };
+  };
+
+  componentWillMount() {
+    this.setState({...this.getInfoFromProps(this.props)}, () => {
       this.props.talentActions.getCurrentTalentInfo();
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { talentInfo } = nextProps;
-    
-    if (talentInfo.value && 
-        talentInfo.value.talent_position_sub_type && 
-        talentInfo.value.talent_position_sub_type.talent_position_type) {
-      this.setState({
-        has_sub_position_type: true
-      })
-    } else {
-      this.setState({
-        has_sub_position_type:false
-      })
-    }
+    this.setState({...this.getInfoFromProps(nextProps)})
   }
 
   adjustSettings = () => {
@@ -186,6 +178,10 @@ class VideoPreview extends React.Component {
     this.setState({selectedVideo: video});
   };
 
+  onClickPractice = (event) => {
+
+  };
+
   renderContents (position) {
     const { positionName } = position ? position.name : '';
     const {
@@ -210,13 +206,6 @@ class VideoPreview extends React.Component {
       />,
     ];
     const { talentInfo, classes } = this.props;
-    // let positionName = "";
-    // if (talentInfo.value){
-    //   const { talent_position_sub_type } = talentInfo.value;
-    //   if (talent_position_sub_type)
-    //     positionName = talent_position_sub_type.talent_position_type.toLowerCase();
-    // }
-
     return (
       <Panel className="video-interview">
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
@@ -233,83 +222,52 @@ class VideoPreview extends React.Component {
           <Grid item>
             <Spacer size={20} />
           </Grid>
+
           <Grid item>
-            <div className="col-md-12">
-            <Link to={{pathname: "/video-practice", state: {position: position}}}>
-              <RaisedButton
-                label="Start Practice Questions"
-                className="btn-video-buttons"
-                style={customStyles.raisedButton}
-                primary={true}
-              />
+            <Link to={{pathname: "/video-practice", state: {position: position}}} onClick={this.onClickPractice}>
+              <Button
+                variant="contained" color="primary"
+                className={classes.generalButtonClass}
+                fullWidth
+              >
+                <Typography className={classes.talentProfileGuideButtonTitle}>
+                  {"Start Practice Questions"}
+                </Typography>
+              </Button>
             </Link>
-          </div>
           </Grid>
+
           <Grid item>
-            <div className="col-md-12">
-          {
-            has_sub_position_type ? (
+            { /*has_sub_position_type ? (
               <Link to={{pathname: "/interview-instruction-live", state: {position: position}}}>
-                <Button
-                  variant="contained" color="secondary"
-                  className="btn-video-buttons"
-                  style={customStyles.raisedButton}
-                >
+                <Button variant="contained" color="secondary" className={classes.generalButtonClass} fullWidth>
                   <Typography className={classes.talentProfileGuideButtonTitle}>
-                    {"Start Live Questions"}
+                    Start Live Questions
                   </Typography>
                 </Button>
               </Link>
             ) : (
-              <RaisedButton
-                label="Start Live Questions"
-                className="btn-video-buttons btnn-not-ready disabled_raied_button"
-                style={customStyles.disabledRaisedButton}
-                secondary={true}
-              />
-            )
-          }
-          </div>
+              <Button variant="contained" color="secondary" className={classes.generalButtonClass} fullWidth disabled>
+                <Typography className={classes.talentProfileGuideButtonTitleDisabled}>
+                  Start Live Questions
+                </Typography>
+              </Button>
+            )*/}
           </Grid>
+
           <Grid item>
-            <div className="col-md-12">
-            <RaisedButton
-              className="btn-video-buttons btnn-adjust-settings"
-              style={customStyles.raisedButton}
-              label="Adjust Video and Audio Settings"
+            <Button
+              variant="contained" color="primary" fullWidth className={classes.generalButtonClass}
               onClick={this.adjustSettings}
-              primary={true}
-            />
-          </div>
-          </Grid>
-          <Grid item>
-            <div className="col-md-12">
-          {
-            has_sub_position_type ? (
-                <RaisedButton
-                  className="btn-video-buttons btnn-not-ready"
-                  style={customStyles.raisedButton}
-                  label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-                  primary={true}
-                  disabled={true}
-                />
-            ) : (
-              <Link to="/edit-profile">
-                <RaisedButton
-                  style={customStyles.raisedButton}
-                  className="btn-video-buttons btnn-adjust-settings"
-                  label="I’m Not Ready. Take Me Back to My Cruise Staff Audition Videos"
-                  primary={true}
-                />
-              </Link>
-            )
-          }
-
-
-          </div>
+            >
+              <Typography className={classes.talentProfileGuideButtonTitle}>
+                Adjust Video and Audio Settings
+              </Typography>
+            </Button>
           </Grid>
         </Grid>
-      <Dialog
+
+        <Dialog
         actions={actions}
         title="Video and Audio Settings"
         modal={false}
@@ -404,15 +362,16 @@ class VideoPreview extends React.Component {
   }
 
   render() {
-    const position = getValueFromLocation(this.props);
+    const position = getValueFromLocation(this.props, 'position');
     const positionName = position ? position.name : '';
+    const { has_sub_position_type } = this.state;
 
     return (
       <TalentForm
         formTitle={`My Video Interview Introductions (${positionName})`}
         formSubTitle={"Video and Audio Preview"}
-        nextLink={{pathname: "/interview-start", state: {position: position}}}
-        nextButtonTitle={`Back to My Video Interview`}
+        nextLink={{pathname: "/video-positions", state: {position: position}}}
+        nextButtonTitle={`I’m Not Ready. Take Me Back to My ${positionName} Audition Videos`}
       >
         {this.renderContents(position)}
       </TalentForm>

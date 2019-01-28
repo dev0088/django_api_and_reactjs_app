@@ -17,16 +17,17 @@ import { bindActionCreators } from 'redux';
 import RecordRTC from 'recordrtc';
 import DetectRTC from "detectrtc";
 
-import * as talentActions from '../../../actions/talentActions';
-import * as videoActions from '../../../actions/videoActions';
-import * as deviceActions from '../../../actions/deviceSettings';
-import AudioMeter from "../../../components/general/audio-meter/index";
+import * as talentActions from 'actions/talentActions';
+import * as videoActions from 'actions/videoActions';
+import * as deviceActions from 'actions/deviceSettings';
+import AudioMeter from "components/general/audio-meter/index";
 
 import './styles.css';
-import RecordCtl from "../../../components/general/record-ctl/index";
+import RecordCtl from "components/general/record-ctl/index";
 import VideoPlayBack from "./play-back";
-import apiConfig from '../../../constants/api';
-import { captureUserMedia } from '../../../utils/appUtils';
+import apiConfig from 'constants/api';
+import { captureUserMedia } from 'utils/appUtils';
+import defaultValues from 'constants/defaultValues'
 
 const styles={
   floatingLabelStyle: {
@@ -83,7 +84,7 @@ class VideoPractice extends React.Component {
 
   }
 
-  componentWillMount() {
+  detectDevice = () => {
     let __this = this, detectError = [];
     let { deviceSettings } = this.props;
     DetectRTC.load(function() {
@@ -110,17 +111,21 @@ class VideoPractice extends React.Component {
       }
       __this.setState({ errors: detectError });
       __this.setState({
-          resolution: deviceSettings.resolution,
-          frameRate: deviceSettings.frameRate,
-          bitRate: deviceSettings.bitRate,
-          selectedAudio: deviceSettings.audio,
-          selectedVideo: deviceSettings.video,
-        }, function(){
-          __this.requestUserMedia();
-        })
+        resolution: deviceSettings.resolution,
+        frameRate: deviceSettings.frameRate,
+        bitRate: deviceSettings.bitRate,
+        selectedAudio: deviceSettings.audio,
+        selectedVideo: deviceSettings.video,
+      }, function(){
+        __this.requestUserMedia();
+      })
     });
+  };
+
+  componentWillMount() {
+    this.detectDevice();
     const { pageId } = this.props.match.params;
-    this.props.videoActions.getVideoQuestionsActions(pageId, 'practice');
+    this.props.videoActions.getVideoQuestionsActions(pageId, defaultValues.DEFAULT_PRACTICE_POSITION_TYPE);
     this.props.videoActions.getVideoSettingsActions();
   }
 
@@ -435,7 +440,7 @@ class VideoPractice extends React.Component {
     const params = {
       objectName: file.name,
       contentType: file.type,
-      position_type: 'Practice',
+      position_type: defaultValues.DEFAULT_PRACTICE_POSITION_TYPE,
       position_sub_type: '',
       question: videoQuestions.value[currentQuestion]['content']
     }
@@ -533,12 +538,14 @@ class VideoPractice extends React.Component {
   }
 
   showSpinner = (b) => {
-    return b ? (<div className="spinner">
-                  <div className="loading_text">
-                    <div className="loading"></div>
-                    Uploading - Please Wait
-                  </div>
-                </div>) : null;
+    return b ? (
+      <div className="spinner">
+        <div className="loading_text">
+          <div className="loading"></div>
+          Uploading - Please Wait
+        </div>
+      </div>
+    ) : null;
   }
 
   renderStarAndStopRecordButton () {
