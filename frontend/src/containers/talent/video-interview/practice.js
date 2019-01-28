@@ -300,8 +300,9 @@ class VideoPractice extends React.Component {
   onStopRecord = () => {
     const { remainingTime } = this.state;
     remainingTime[0] = remainingTime[1] = 0;
-    this.setState({isStopped: true, isPlaying: false});
-    this.videoRecordStop();
+    this.setState({isStopped: true, isPlaying: false}, () => {
+      this.videoRecordStop();
+    });
   };
 
   onStartRecord = () => {
@@ -311,11 +312,13 @@ class VideoPractice extends React.Component {
         isStopped: false,
         isPlaying: true,
         timePos: 1,
-        remainingTime: remainingTime},
-      function() {
+        remainingTime: remainingTime
+      },
+      () => {
         this.countDown();
         this.videoRecordStart();
-      });
+      }
+    );
   };
 
   videoRecordStart = () => {
@@ -430,9 +433,10 @@ class VideoPractice extends React.Component {
     const {user_id} = this.props.auth.access;
     const signAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/policy/`
     const completeAPI = `${apiConfig.url}/talent_video/upload/${user_id}/interview/complete/`
-    this.setState({ uploading: true });
-    this.uploadToS3(signAPI, completeAPI, file)
-  }
+    this.setState({ uploading: true }, () => {
+      this.uploadToS3(signAPI, completeAPI, file)
+    });
+  };
 
   uploadToS3 = (signAPI, completeAPI, file) => {
     const { videoQuestions } = this.props
@@ -451,30 +455,31 @@ class VideoPractice extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(params)
-    }).then(response => response.json())
-    .then(response => {
-      if(response.error) {
-        // console.log('error: ', response.error)
-        this.onError(file)
-      }
-      else {
-        if (response.signedUrl){
-          // console.log('success: ', response, response.signedUrl)
-          this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
-        } else {
-          // console.log('error: ', response)
+    })
+      .then(response => response.json())
+      .then(response => {
+        if(response.error) {
+          // console.log('error: ', response.error)
           this.onError(file)
         }
-      }
-    })
-    .catch(error => {
-      // console.log('error: ', error)
-      this.onError(file)
-    })
+        else {
+          if (response.signedUrl){
+            // console.log('success: ', response, response.signedUrl)
+            this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
+          } else {
+            // console.log('error: ', response)
+            this.onError(file)
+          }
+        }
+      })
+      .catch(error => {
+        // console.log('error: ', error)
+        this.onError(file)
+      })
   }
 
   onError = (file) => {
-    // console.log('==== Error: ', file)
+    console.log('==== Error: ', file)
     this.setState({uploading: false});
   }
 
@@ -487,26 +492,27 @@ class VideoPractice extends React.Component {
     }
     let url_parse = response.url.split("?");
     let s3_url = url_parse[0];
-    __this.setState({ uploading: false, src: s3_url });
-    fetch(completeAPI, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).then(response => response.json())
-    .then(response => {
-      if(response.error) {
-        // console.log('error: ', response.error)
-      }
-      else {
+    __this.setState({ uploading: false, src: s3_url }, () => {
+      fetch(completeAPI, {
+        method: 'post',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(params)
+      }).then(response => response.json())
+        .then(response => {
+          if(response.error) {
+            // console.log('error: ', response.error)
+          }
+          else {
 
-      }
-    })
-    .catch(error => {
-      this.setState({uploading: false});
-      // console.log('error: ', error)
-    })
+          }
+        })
+        .catch(error => {
+          this.setState({uploading: false});
+          // console.log('error: ', error)
+        })
+    });
   }
 
   uploadFile = (s3PutUrl, completeAPI, fileID, file) => {
@@ -546,7 +552,7 @@ class VideoPractice extends React.Component {
         </div>
       </div>
     ) : null;
-  }
+  };
 
   renderStarAndStopRecordButton () {
     const { isPlayBackOpen, isPlaying, isStopped } = this.state
