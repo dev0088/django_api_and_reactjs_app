@@ -17,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Panel from 'components/general/panel'
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import Spacer from 'components/general/spacer';
+import TalentPictures from 'components/shiptalent/views/TalentPictures';
 import apiConfig from 'constants/api';
 import defaultValues from 'constants/defaultValues';
 import { makeTitleWithAllPositionTypes, existSkill } from 'utils/appUtils';
@@ -715,8 +716,8 @@ class ViewProfile extends Component {
   }
 
   render() {
-    const { classes } = this.props
-    const { user, head_line, title, currentImageUrl, openImageModal } = this.state
+    const { classes } = this.props;
+    const { user, head_line, title, talent_pictures, currentImageUrl, openImageModal } = this.state;
 
     return (
       <div className="profile-container">
@@ -753,7 +754,8 @@ class ViewProfile extends Component {
               <Col md="9" className="profile-bio">
                 <Row>
                   <Col md="3" className="profile-bio">
-                    { this.renderPicturesView() }
+                    {/*{ this.renderPicturesView() }*/}
+                    <TalentPictures pictures={talent_pictures} />
                   </Col>
                   <Col md="9">
                     <Row>

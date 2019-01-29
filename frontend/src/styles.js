@@ -518,10 +518,12 @@ export const styles = theme => ({
     textTransform: 'none',
     color: theme.palette.black.main,
   },
+  talentProfilePictureViewContainer: {
+    width: 230
+  },
   talentProfileOtherInfoButton: {
     display: 'block!important'
   },
-
   talentProfileOtherInfoButtonTitle: {
     fontSize: '1rem',
     fontWeight: '600',
