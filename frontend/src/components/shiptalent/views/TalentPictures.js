@@ -9,15 +9,15 @@ import styles from 'styles';
 class TalentPictures extends Component {
 
   render() {
-    const { pictures } = this.props;
+    const { pictures, classes } = this.props;
     if (pictures) {
       return (
-        <Grid container spacing={8}>
+        <Grid container spacing={8} direction="column" justify="center" alignItems="center">
           <Grid item xs={12}>
             <Typography className="profile-picture-name">{"Pictures"}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <div className="profile-picture-view-container">
+            <div className={classes.talentProfilePictureViewContainer}>
               <Grid container spacing={0} style={{textAlign: 'center'}}>
                 <Grid item xs={12}>
                   <TalentPicture caption="My Current Headshot" pictures={pictures} />
