@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth'
 
-class MemberScreen extends Component {
+class AdminScreen extends Component {
 
   render = () => {
-    const { Layout, member, auth, memberLogout } = this.props;
+    const { Layout, member, auth, memberLogout, children } = this.props;
 
-    return <Layout member={member} auth={auth} logout={memberLogout} />;
+    return <Layout member={member} auth={auth} logout={memberLogout} children={children} />;
   }
 }
 
@@ -21,4 +21,4 @@ const mapDispatchToProps = {
   // getMemberData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MemberScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminScreen);

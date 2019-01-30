@@ -6,9 +6,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import Card from  "components/admin/Card/Card.jsx";
+import CardBody from  "components/admin/Card/CardBody.jsx";
+import Button from  "components/admin/CustomButtons/Button.jsx";
 // import dashboardRoutes from "../../routes/dashboard.jsx";
 
 const style = ({

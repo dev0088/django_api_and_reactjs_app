@@ -4,6 +4,7 @@ import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { adminStyles, themeAdmin } from "./styles/adminStyles";
 
 const drawerWidth = 240;
 
@@ -384,8 +385,31 @@ export const styles = theme => ({
       display: 'none',
     },
   },
+  footerLayout: {
+    backgroundColor: '#007bff',
+    bottom: 0,
+    width: '100%',
+    paddingRight: 15,
+    paddingLeft: 15,
+    marginTop: 16
+  },
+  footerBackground: {
+    width: '100%',
+    borderRadius: 0,
+    marginBottom: 0,
+    paddingTop: 0,
+    paddingBottom: 0
+  },
   footerMenuItemText: {
     color: theme.palette.white.main,
+    fontWeight: 'bold',
+    textTransform: 'none',
+    display: 'inline-block'
+  },
+  footerItemSeparator: {
+    color: theme.palette.white.main,
+    marginLeft: 10,
+    marginRight: 10,
     fontWeight: 'bold',
     textTransform: 'none',
     display: 'inline-block'
@@ -1333,6 +1357,71 @@ export const themeV0 = getMuiTheme({
   }
 });
 
+export const themeClient = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#007bff',
+      light: '#2196F3'
+      // main: '#212121',
+      // light: '#424242'
+    },
+    secondary: {
+      main: '#28a745'//'#C00'
+    },
+    green: {
+      main: '#28a745'
+    },
+    teal: {
+      main: '#20c997'
+    },
+    white: {
+      main: '#FFFFFF',
+      light: grey[100],
+      dark: grey[300],
+      thin: '#d6d7d8',
+      contrastText: '#fff'
+    },
+    black: {
+      main: grey[900],
+      dark: grey[800],
+      thin: grey[700],
+      light: grey[600],
+    },
+    grey: {
+      main: grey[900],
+      dark: grey[800],
+      light: grey[400],
+      thin: grey[200],
+    },
+    darkGrey: {
+      main: grey[800]
+    },
+    lightGrey: {
+      main: grey[400]
+    },
+    red: {
+      main: '#C00',
+      thin: red[400],
+      light: red[400],
+      dark: red[900]
+    },
+    blue: {
+      main: blue[700],
+      light: blue[400],
+      dark: blue[900]
+    }
+  },
+  typography: {
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    textTransform: "none",
+    useNextVariants: true
+  },
+  button: {
+    primaryColor: '#FFFFFF',
+    primaryFontSize: '1.5rem'
+  },
+});
+
 export const themeClientSpecialActionButton = createMuiTheme ({
   palette: {
     primary: {
@@ -1351,3 +1440,7 @@ export const clientDesigns = {
 };
 
 export default styles;
+
+export {
+  adminStyles, themeAdmin
+};

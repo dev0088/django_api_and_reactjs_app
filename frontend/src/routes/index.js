@@ -2,24 +2,29 @@ import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import { TemplateSidebar } from 'components/shiptalent/template';
 import Error from 'components/general/error';
+import commonRoutes from './common/index';
 import talentRoutes from './talent/index';
 import clientRoutes from './client/index';
-import commonRoutes from './common/index';
-
+import adminPageRoutes from './admin/pages';
 
 function renderRoute (route, key) {
-  return(
-    <Route
-      exact={route.exact}
-      path={route.path}
-      render={props => (
-        <route.layout>
-          <route.component {...props}/>
-        </route.layout>
-      )}
-      key={key}
-    />
-  );
+  if (route.layout) {
+    return(
+      <Route
+        exact={route.exact}
+        path={route.path}
+        render={props => (
+          <route.layout>
+            <route.component {...props}/>
+          </route.layout>
+        )}
+        key={key}
+      />
+    );
+  } else {
+    return <div></div>
+  }
+
 }
 
 function renderRoutes (routes){
@@ -37,7 +42,7 @@ const Index = () => (
     { renderRoutes(commonRoutes) }
     { renderRoutes(talentRoutes) }
     { renderRoutes(clientRoutes) }
-
+    { renderRoutes(adminPageRoutes) }
     <Route
       render={props => (
         <TemplateSidebar>

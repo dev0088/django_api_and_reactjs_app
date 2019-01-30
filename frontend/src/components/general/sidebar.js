@@ -1,25 +1,27 @@
 /* global window */
 import React from 'react';
 import { Col, Nav } from 'reactstrap';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 const SidebarNavItems = () => (
   <div>
-  {/*
-    <Menu>
-      <MenuItem 
-        className={`nav-link ${window.location.pathname === '/' && 'active'}`} 
+    {/*<Menu>
+      <MenuItem
+        className={`nav-link ${window.location.pathname === '/' && 'active'}`}
         leftIcon={<ActionHome />}
         href="/"
-        primaryText="Home" 
+        primaryText="Home"
       />
-      <MenuItem 
+      <MenuItem
         className={`nav-link ${window.location.pathname.startsWith('/recipe') && 'active'}`}
         leftIcon={<ActionNoteAdd />}
         href="/recipes"
-        primaryText="Recipes" 
+        primaryText="Recipes"
       />
-    </Menu>
-  */}
+    </Menu>*/}
   </div>
 );
 

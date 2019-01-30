@@ -11,7 +11,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import HeaderLinks from "./HeaderLinks.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import Button from "components/admin/CustomButtons/Button.jsx";
 
 import headerStyle from "assets/jss/material-dashboard-react/components/headerStyle.jsx";
 

@@ -1,5 +1,6 @@
 import {
   TemplateNothing,
+  TemplateSidebar,
   TemplateTopbar,
   TemplateTopbarOfComingSoon,
 } from 'components/shiptalent/template';
@@ -30,12 +31,6 @@ const commonRoutes = [
     exact: true
   },
   {
-    path: "/home",
-    layout: TemplateTopbar,
-    component: HomeScreen,
-    exact: false
-  },
-  {
     path: "/sign-up",
     layout: TemplateNothing,
     component: SignUpScreen,
@@ -51,6 +46,12 @@ const commonRoutes = [
     path: "/forgot-password",
     layout: TemplateNothing,
     component: ForgotPasswordScreen,
+    exact: false
+  },
+  {
+    path: "/home",
+    layout: TemplateTopbar,
+    component: HomeScreen,
     exact: false
   },
   {
