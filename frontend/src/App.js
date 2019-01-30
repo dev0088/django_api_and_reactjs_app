@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import createHistory from 'history/createBrowserHistory'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom';
-import { MuiThemeProvider, } from '@material-ui/core/styles'; // v1.x
-import { MuiThemeProvider as V0MuiThemeProvider} from 'material-ui';
-
 import configureStore from './store'
 import Routes from './routes/index';
-
 import './static/css/App.css';
 import './static/css/vendor-styles.css';
-import { theme, themeV0 } from './styles';
 
 const history = createHistory()
 
@@ -36,13 +31,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-				<MuiThemeProvider theme={theme}>
-	        <V0MuiThemeProvider muiTheme={themeV0}>
-						<Router>
-	          	<Routes />
-	        	</Router>
-	        </V0MuiThemeProvider>
-				</MuiThemeProvider>
+        <Router>
+          <Routes />
+        </Router>
       </Provider>
     );
   }

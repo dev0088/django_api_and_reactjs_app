@@ -1,6 +1,6 @@
 import { RSAA } from 'redux-api-middleware';
 import { withAuth } from '../reducers';
-import config from '../config';
+import apiConfig from 'constants/api';
 
 export const ECHO_REQUEST = '@@echo/ECHO_REQUEST';
 export const ECHO_SUCCESS = '@@echo/ECHO_SUCCESS';
@@ -8,7 +8,7 @@ export const ECHO_FAILURE = '@@echo/ECHO_FAILURE';
 
 export const echo = (message) => ({
   [RSAA]: {
-      endpoint: `${config.url}/api/echo/`,
+      endpoint: `${apiConfig.url}/api/echo/`,
       method: 'POST',
       body: JSON.stringify({message: message}),
       headers: withAuth({ 'Content-Type': 'application/json' }),

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { Container } from 'reactstrap';
 import compose from 'recompose/compose';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
@@ -20,34 +21,33 @@ import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Icon from "@material-ui/core/Icon";
 import Divider from '@material-ui/core/Divider';
+import classNames from 'classnames'
 import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as clientActions from  'actions/clientActions';
+import * as clientActions from 'actions/clientActions';
+import dashboardRoutes from 'routes/admin/dashboard';
+import { adminStyles } from 'styles'
 import './header.css'
-import { styles } from 'styles'
 
 
-class ClientHeader extends Component {
+class AdminHeader extends Component {
   static defaultProps = {
     member: {},
     auth: {}
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      anchorEl: null,
-      mobileMoreAnchorEl: null,
-      open: false,
-      search: ''
-    };
-  }
+  state = {
+    open: true,
+    anchorEl: null,
+    mobileMoreAnchorEl: null,
+    search: ''
+  };
 
   componentDidMount() {
     let __this = this;
@@ -55,6 +55,14 @@ class ClientHeader extends Component {
       __this.props.clientActions.getCurrentClientInfo();
     }, 100);
   }
+
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
 
   hanldeClickLogout = () => {
     this.props.logout(this.props.auth.access.token);
@@ -91,7 +99,7 @@ class ClientHeader extends Component {
   };
 
   getUserAvatarFromProps() {
-    const { clientInfo } = this.props
+    const { adminInfo } = this.props
 
     return null
   }
@@ -109,28 +117,33 @@ class ClientHeader extends Component {
     )
   }
 
-  renderDrawerListItem(title, link) {
+  renderDrawerListItem(title, link, IconComponent, key) {
+    const { classes } = this.props;
+
     return (
-      <Link to={link} onClick={this.handleDrawerClose}>
-        <ListItem button>
-          <ListItemText primary={title} />
+      <Link to={link} onClick={this.handleDrawerClose} key={key}>
+        <ListItem button key={title} color="light">
+          <ListItemIcon>
+            {typeof IconComponent === "string" ? (
+              <Icon>{IconComponent}</Icon>
+            ) : (
+              <IconComponent className={classes.drawerListIcon}/>
+            )}
+          </ListItemIcon>
+          <ListItemText >
+            <Typography className={classes.drawerListText}>
+              {title}
+            </Typography>
+          </ListItemText>
         </ListItem>
       </Link>
     );
   }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
-  
   handleSearchChange = (event) => {
     this.setState({ search: event.target.value });
   };
-  
+
   handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -147,7 +160,7 @@ class ClientHeader extends Component {
   };
 
   render() {
-    const { auth, clientInfo, classes } = this.props;
+    const { auth, adminInfo, classes, children } = this.props;
     const { anchorEl, mobileMoreAnchorEl, open } = this.state;
     const openAnchor = Boolean(anchorEl);
     const loggedIn = (auth && auth.access && auth.access.email);
@@ -155,8 +168,8 @@ class ClientHeader extends Component {
     let userAvatar = null;
 
     if (loggedIn) {
-      if (clientInfo){
-        username = clientInfo.user.first_name;
+      if (adminInfo){
+        username = adminInfo.user.first_name;
         if (username !== "")
           username = username.charAt(0).toUpperCase() + username.slice(1);
         userAvatar = this.getUserAvatarFromProps()
@@ -189,93 +202,46 @@ class ClientHeader extends Component {
       </Menu>
     );
 
-    const renderMobileMenu = (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={this.handleMobileMenuClose}
-      >
-
-          {loggedIn ? (
-            <MenuItem onClick={this.handleClickLogin}>
-              <IconButton
-                aria-owns={openAnchor ? 'menu-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleClick}
-                color="inherit">
-                { userAvatar  ? (
-                  <ImageLoader
-                    className={classes.avatarImage}
-                    src={userAvatar}
-                    loading={() => <AccountCircle />}
-                    error={() => <AccountCircle />} />
-                ) : (
-                  <AccountCircle />
-                )}
-                <p> {username} </p>
-              </IconButton>
-            </MenuItem>
-          ) : (
-            <MenuItem onClick={this.handleClickLogin}>
-              <Button color="inherit" onClick={this.handleClick}>
-                {'Login'}
-              </Button>
-            </MenuItem>
-          )}
-      </Menu>
-    );
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Hidden only={['lg']}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={[classes.drawerMenuButton, open && classes.hide]}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
-            <Hidden only={['md', 'sm', 'xs']}>
-              <Link to="/client/home" className="navbar-brand" style={{ color: '#FFF' }}>
-                <img className="brand-image"
-                     alt="Logo"
-                     src={require('images/logo.png')} />
-              </Link>
-              <div className={[classes.grow, classes.topbarDynamicShow]}>
-                {this.renderTopbarMenuItem('Home', '/client/home')}
-                {this.renderTopbarMenuItem('Find Talent', '/client/talent_search')}
-                {this.renderTopbarMenuItem('Casting Requests', '/client/request_selection')}
-                {this.renderTopbarMenuItem('Saved Talent', '/client/mytalent/saved')}
-                {this.renderTopbarMenuItem('Shared Profiles', '/client/myshared_profile')}
-                {this.renderTopbarMenuItem('Blocked Profiles', '/client/blocked_profile')}
-                {this.renderTopbarMenuItem('Ratings', '/client/my_rate')}
-              </div>
-            </Hidden>
-
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
             <div className={classes.grow}/>
-
-            {loggedIn && (
-              <div className={classes.search}>
-                <div className={classes.searchIconContainer}>
-                  <SearchIcon className={classes.searchIcon} onClick={this.handleSearch} />
+            <Hidden only={['md', 'sm', 'xs']}>
+              {loggedIn && (
+                <div className={classes.search}>
+                  <div className={classes.searchIconContainer}>
+                    <SearchIcon className={classes.searchIcon} onClick={this.handleSearch} />
+                  </div>
+                  <InputBase
+                    placeholder="Search…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    onChange={this.handleSearchChange}
+                    onKeyDown={this.handleKeyDown}
+                  />
                 </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  onChange={this.handleSearchChange}
-                  onKeyDown={this.handleKeyDown}
-                />
-              </div>
-            )}
+              )}
+            </Hidden>
 
             {loggedIn ? (
               <div>
@@ -284,16 +250,15 @@ class ClientHeader extends Component {
                   aria-haspopup="true"
                   onClick={this.handleClick}
                   color="inherit">
-                  { userAvatar  ? (
-                    <ImageLoader
-                      className={classes.avatarImage}
-                      src={userAvatar}
-                      loading={() => <AccountCircle />}
-                      error={() => <AccountCircle />} />
-                  ) : (
-                    <AccountCircle />
-                  )
-                  }
+                    { userAvatar  ? (
+                      <ImageLoader
+                        className={classes.avatarImage}
+                        src={userAvatar}
+                        loading={() => <AccountCircle />}
+                        error={() => <AccountCircle />} />
+                    ) : (
+                      <AccountCircle />
+                    )}
                   <Typography className={classes.avatarMenuItemText}> {username} </Typography>
                   <ExpandMore />
                 </IconButton>
@@ -309,43 +274,49 @@ class ClientHeader extends Component {
         </AppBar>
         {renderMenu}
         <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
+          variant="permanent"
+          className={classNames(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
           classes={{
-            paper: classes.drawerPaper,
+            paper: classNames({
+              [classes.drawerOpen]: this.state.open,
+              [classes.drawerClose]: !this.state.open,
+            }),
           }}
+          open={open}
         >
-          <div className={classes.drawerHeader}>
-            <img className={classes.drawerBandImage}
-                 alt="Logo"
-                 src={require('images/logo.png')} />
+          <div className={classes.toolbar}>
+
+            <Typography className={[classes.drawerBandText]}>
+              ShipTalent Admin
+            </Typography>
             <IconButton onClick={this.handleDrawerClose}>
-              {<ChevronLeftIcon />}
+              <ChevronLeftIcon className={classes.drawerListIcon} />
             </IconButton>
           </div>
           <Divider />
           <List>
-            {this.renderDrawerListItem('Home', '/client/home')}
-            {this.renderDrawerListItem('Find Talent', '/client/talent_search')}
-            {this.renderDrawerListItem('Casting Requests', '/client/request_selection')}
-            {this.renderDrawerListItem('Saved Talent', '/client/mytalent/saved')}
-            {this.renderDrawerListItem('Shared Profiles', '/client/myshared_profile')}
-            {this.renderDrawerListItem('Blocked Profiles', '/client/blocked_profile')}
-            {this.renderDrawerListItem('Ratings', '/client/my_rate')}
+            {dashboardRoutes.map((itemRoute, key) => {
+              return this.renderDrawerListItem(itemRoute.sidebarName, itemRoute.path, itemRoute.icon, key);
+            })}
           </List>
         </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {children}
+        </main>
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { auth, clientInfo } = state;
+  const { auth, adminInfo } = state;
   return {
     auth: auth,
-    clientInfo: clientInfo.value
+    adminInfo: adminInfo && adminInfo.value,
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -354,5 +325,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(compose(withStyles(styles, { withTheme: true }),
-  withWidth(),)(withRouter(ClientHeader)));
+export default connect(mapStateToProps, mapDispatchToProps)(compose(withStyles(adminStyles, { withTheme: true }),
+  withWidth(),)(withRouter(AdminHeader)));

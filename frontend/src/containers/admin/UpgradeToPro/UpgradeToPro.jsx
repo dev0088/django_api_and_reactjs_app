@@ -6,14 +6,14 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 // core components
 import Grid from '@material-ui/core/Grid';
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
-import Success from "components/Typography/Success.jsx";
+import GridItem from  "components/admin/Grid/GridItem.jsx";
+import GridContainer from  "components/admin/Grid/GridContainer.jsx";
+import Danger from  "components/admin/Typography/Danger.jsx";
+import Success from  "components/admin/Typography/Success.jsx";
 import Button from '@material-ui/core/Button';
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
+import Card from  "components/admin/Card/Card.jsx";
+import CardHeader from  "components/admin/Card/CardHeader.jsx";
+import CardBody from  "components/admin/Card/CardBody.jsx";
 import { Link } from 'react-router-dom';
 
 const styles = {

@@ -2,11 +2,11 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
+import Card from  "components/admin/Card/Card.jsx";
+import CardBody from  "components/admin/Card/CardBody.jsx";
 import Grid from '@material-ui/core/Grid';
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from  "components/admin/Grid/GridItem.jsx";
+import GridContainer from  "components/admin/Grid/GridContainer.jsx";
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';

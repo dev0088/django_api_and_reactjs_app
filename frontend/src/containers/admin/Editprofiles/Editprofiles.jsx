@@ -2,19 +2,19 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Quote from "components/Typography/Quote.jsx";
-import Muted from "components/Typography/Muted.jsx";
-import Primary from "components/Typography/Primary.jsx";
-import Info from "components/Typography/Info.jsx";
-import Success from "components/Typography/Success.jsx";
-import Warning from "components/Typography/Warning.jsx";
-import Danger from "components/Typography/Danger.jsx";
-import Card from "components/Card/Card.jsx";
+import Quote from  "components/admin/Typography/Quote.jsx";
+import Muted from  "components/admin/Typography/Muted.jsx";
+import Primary from  "components/admin/Typography/Primary.jsx";
+import Info from  "components/admin/Typography/Info.jsx";
+import Success from  "components/admin/Typography/Success.jsx";
+import Warning from  "components/admin/Typography/Warning.jsx";
+import Danger from  "components/admin/Typography/Danger.jsx";
+import Card from  "components/admin/Card/Card.jsx";
 
-import CardBody from "components/Card/CardBody.jsx";
+import CardBody from  "components/admin/Card/CardBody.jsx";
 import Grid from '@material-ui/core/Grid';
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from  "components/admin/Grid/GridItem.jsx";
+import GridContainer from  "components/admin/Grid/GridContainer.jsx";
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 

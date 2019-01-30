@@ -5,21 +5,24 @@ import MemberScreen from '../../../containers/talent/memberScreen';
 import ClientHeader from '../headers/clientHeader';
 import ClientFooter from '../footer/clientFooter';
 import GlobalNotification from 'containers/common/globalNotification';
-import { theme } from 'styles/clientStyles';
+import { MuiThemeProvider, } from '@material-ui/core/styles';
+import { themeClient } from 'styles';
 
-const Template = ({ children }) => (
-  <div>
+const TemplateClientTopbar = ({ children }) => (
+  <MuiThemeProvider theme={themeClient}>
+    <div>
       <MemberScreen Layout={ClientHeader} />
         <Container fluid>
           {children}
         </Container>
         <GlobalNotification />
       <ClientFooter />
-  </div>
+    </div>
+  </MuiThemeProvider>
 );
 
-Template.propTypes = {
+TemplateClientTopbar.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default Template;
+export default TemplateClientTopbar;

@@ -4,14 +4,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from  "components/admin/Grid/GridItem.jsx";
+import GridContainer from  "components/admin/Grid/GridContainer.jsx";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import Card from  "components/admin/Card/Card.jsx";
+import CardBody from  "components/admin/Card/CardBody.jsx";
+import Button from  "components/admin/CustomButtons/Button.jsx";
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

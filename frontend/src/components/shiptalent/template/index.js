@@ -3,6 +3,7 @@ import TemplateSidebar from './templateSidebar';
 import TemplateTopbar from './templateTopbar';
 import TemplateTopbarOfComingSoon from './templateTopbarOfComingSoon';
 import TemplateClientTopbar from './templateClientTopbar';
+import TemplateAdminSidebar from './templateAdminSidebar';
 
 export {
   TemplateNothing,
@@ -10,5 +11,6 @@ export {
   TemplateTopbar,
   TemplateTopbarOfComingSoon,
   TemplateClientTopbar,
+  TemplateAdminSidebar
 };
 

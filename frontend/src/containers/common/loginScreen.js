@@ -18,6 +18,7 @@ import { login } from 'actions/auth';
 import { authErrors, isAuthenticated } from 'reducers/index';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import apiConfig from 'constants/api';
 import './loginScreen.css'
 
 const styles = {
@@ -58,6 +59,8 @@ class LoginScreen extends React.Component {
         this.props.history.push('/home')
       } else if (type === 'client') {
         this.props.history.push('/client/home')
+      } else if (type === 'agency') {
+        this.props.history.push('/admin/dashboard')
       }
     }
   }
@@ -93,6 +96,8 @@ class LoginScreen extends React.Component {
         return <Redirect to='/home' />
       } else if (type === 'client') {
         return <Redirect to='/client/home' />
+      } else if (type === 'agency') {
+        return <Redirect to='/admin/dashboard' />
       }
     }
     return (
