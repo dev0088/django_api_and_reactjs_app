@@ -119,3 +119,12 @@ export const onFavoriteTalent = () => ({
     ]
   }
 });
+
+export function setSearchCondition(condition){
+  return {
+    type: types.SET_SEARCH_CONDITION,
+    payload: {
+      ...condition
+    }
+  }
+}

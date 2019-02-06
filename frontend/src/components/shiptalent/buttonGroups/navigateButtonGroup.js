@@ -32,6 +32,7 @@ class NavigateButtonGroup extends Component {
               <Button
                 variant="contained"
                 color="primary"
+                size="large"
                 className={backButtonClass ? backButtonClass: classes.defaultBackButtonClass}
               >
                 {backButtonTitle ? backButtonTitle : 'Back'}
@@ -46,6 +47,7 @@ class NavigateButtonGroup extends Component {
               <Button
                 variant="contained"
                 color="primary"
+                size="large"
                 fullWidth={false}
                 className={nextButtonClass ? nextButtonClass : classes.nextButtonClass}
               >
