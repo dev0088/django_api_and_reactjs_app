@@ -947,7 +947,7 @@ export const styles = theme => ({
     boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
   },
   clientTalentSearchSubPositionButtonTitle: {
-    fontSize: '0.75rem',
+    fontSize: '0.65rem',
     fontWeight: 400,
     textTransform: 'none',
     color: theme.palette.black.main,
@@ -1435,7 +1435,7 @@ export const themeClientSpecialActionButton = createMuiTheme ({
 
 export const clientDesigns = {
   talentSearch: {
-    PositionsTableItems: { xl: 1, lg: 2, md: 2, sm: 3, xs: 4 },
+    PositionsTableItems: { xl: 1, lg: 1, md: 2, sm: 3, xs: 4 },
   },
 };
 

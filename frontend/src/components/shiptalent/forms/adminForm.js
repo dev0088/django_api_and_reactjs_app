@@ -3,11 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import NavigateButtonGroup from 'components/shiptalent/buttonGroups/navigateButtonGroup';
-import ClientTalentTitle from './clientTalentTitle';
-import styles from 'styles';
+import AdminTalentTitle from './adminTalentTitle';
+import { adminStyles } from 'styles';
 
 
-class ClientForm extends Component {
+class AdminForm extends Component {
 
   handleClickBackButton = () => {
     const { handleClickBackButton } = this.props;
@@ -37,8 +37,7 @@ class ClientForm extends Component {
     return (
       <div {...formStyle}>
         <Grid container spacing={16}>
-          <Grid item xs={12} />
-          { talent && <Grid item xs={12} ><ClientTalentTitle talent={talent} /></Grid> }
+          { talent && <Grid item xs={12} ><AdminTalentTitle talent={talent} /></Grid>}
           <Grid item xs={12} >
             <Typography
               align="center"
@@ -50,8 +49,8 @@ class ClientForm extends Component {
               align="center"
               className={
                 formSubTitleClass
-                ? [classes.clientFormSubTitle, formSubTitleClass]
-                : classes.clientFormSubTitle
+                  ? [classes.adminFormSubTitle, formSubTitleClass]
+                  : classes.adminFormSubTitle
               }
             >
               {formSubTitle}
@@ -66,11 +65,11 @@ class ClientForm extends Component {
             <NavigateButtonGroup
               backLink={backLink}
               backButtonTitle={backButtonTitle}
-              backButtonClass={classes.clientFormBackButton}
+              backButtonClass={classes.adminFormBackButton}
               handleClickBackButton={handleClickBackButton}
               nextLink={nextLink}
               nextButtonTitle={nextButtonTitle}
-              nextButtonClass={classes.clientFormNextButton}
+              nextButtonClass={classes.adminFormNextButton}
               handleClickNextButton={handleClickNextButton}
               direction="column"
             />
@@ -82,4 +81,4 @@ class ClientForm extends Component {
   }
 }
 
-export default (withStyles(styles)(ClientForm));
+export default (withStyles(adminStyles)(AdminForm));

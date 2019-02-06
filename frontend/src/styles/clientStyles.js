@@ -67,6 +67,7 @@ export const styles = theme => ({
       },
     },
   },
+
   selectedButton: {
     display: 'block!important',
     width: '100%',

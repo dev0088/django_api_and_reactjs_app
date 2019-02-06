@@ -71,6 +71,10 @@ export const talentSearchReducer = (state = initState, action) => {
         errorMessage: action.payload,
         value: false
       });
+    case types.SET_SEARCH_CONDITION:
+      return Object.assign({}, state, {
+        condition: action.payload
+      });
     default:
       return state;
   }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="Django default" uuid="86dc079f-f4e3-4ec3-8d09-f1273fb97cf9">
-      <first-sync>true</first-sync>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <user-name>postgres</user-name>
     </data-source>
   </component>

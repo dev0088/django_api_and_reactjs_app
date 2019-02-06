@@ -1,873 +1,577 @@
-import React from "react";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-// core components
-import GridItem from  "components/admin/Grid/GridItem.jsx";
-import GridContainer from  "components/admin/Grid/GridContainer.jsx";
+import React, {Component} from 'react'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+import {Redirect} from 'react-router';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-
-import Card from  "components/admin/Card/Card.jsx";
-import CardBody from  "components/admin/Card/CardBody.jsx";
-import Button from  "components/admin/CustomButtons/Button.jsx";
-import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import { CountryDropdown } from 'react-country-region-selector';
+import AdminForm from 'components/shiptalent/forms/adminForm';
+import Panel from "components/general/panel";
+import Spacer from "components/general/spacer";
+import GenderSelection from 'containers/client/find_talent/GenderSelection';
+import PositionsSelection from 'containers/client/find_talent/PositionsSelection';
+import SkillsSelection from 'containers/client/find_talent/SkillsSelection';
+import * as clientActions from 'actions/clientActions';
+import * as talentActions from 'actions/talentActions';
+import defaultValues from 'constants/defaultValues';
+import {
+  makeRatingSearchConditionTitle,
+  makeHeightSearchConditionTitle,
+  convertIndexes2Values,
+  convertSexTitle2Values
+} from 'utils/appUtils';
+import { adminStyles } from 'styles';
 
 
-const styles = ({
-  menuBtn:{
-    backgroundColor: '#007bff',
-    width: '300px',
-    fontSize: '25px'
-  },
-  dense: {
-    marginTop: 16,
-  },
-});
+class ProfileSearch extends Component {
+  constructor(props) {
+    super(props);
 
-const backgroundColor = '#007bff';
+    this.state = {
+      allPositionTypes: props.allPositionTypes,
+      allSkills: props.allSkills,
+      talent_name: '',
+      talent_tid: '',
+      talent_id: '',
+      talent_name_or_tid: '',
+      sexes: [],
+      position_ids: [],
+      position_sub_type_ids: [],
+      skill_ids: [],
+      sub_skill_ids: [],
+      availability: {
+        start_date: "",
+        end_date: ""
+      },
+      ages: [],
+      heights: [],
+      languages: [],
+      ratings: [],
+      isAvailable: false,
+      notAvailable: false,
+      isActiveCastingRequest: false,
+      isContracted: false,
+      isCurrentDeployed: false,
+      citizenship: ''
+    }
+  }
 
-class ProfileSearch extends React.Component {
-  
-  state = {
-    available: true,
-    not_available: false,
-    active_casting_request: false,
-    contracted: false,
-    currently_deployed: false,
-    available_date: false,
+  componentWillMount = () => {
+    this.props.talentActions.getAllPositionTypes();
+    this.props.talentActions.getAllSkills();
+  }
 
-    english: true,
-    spanish: false,
-    portuguese: false,
-    german: false,
-    french: false,
-    italian: false,
-    japanese: false,
-    mandarin: false,
-    cantonese: false,
-    other: false,
-
-    rating1: true,
-    rating2: false,
-    rating3: false,
-    rating4: false,
-    rating5: false,
-    rating6: false,
-    rating7: false,
-    rating8: false,
-    rating9: false,
-
-    range1: true,
-    range2: false,
-    range3: false,
-    range4: false,
-    range5: false,
-    range6: false,
-    range7: false,
-    range8: false,
-
-    height1: true,
-    height2: false,
-    height3: false,
-    height4: false,
-    height5: false,
-    height6: false,
-
-    color: backgroundColor,
+  componentWillReceiveProps = (nextProps) => {
+    const { allPositionTypes, allSkills } = nextProps;
+    this.setState({ allPositionTypes, allSkills });
   };
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+  onChangeAvailability = (name, date) => {
+    let availability = this.state.availability;
+    availability[name] = date;
+    this.setState({ availability });
   };
 
+  onChangeAvailabilityStartDate = (date) => this.onChangeAvailability('start_date', date);
 
-  switchRoutes(path){
-    this.props.history.push(path)
-  }
-  
-  onBtnClick(){
-    this.setState({color: !this.state.color})
-  }
+  onChangeAvailabilityEndDate = (date) => this.onChangeAvailability('end_date', date);
 
-  renderSearchKey(){
+  addSearchCondition = (conditions, name, value) => {
+    let newConditions = conditions;
+    newConditions = {
+      ...newConditions,
+      [name]: value ? value : this.state[name]
+    };
+    return newConditions;
+  };
+  onSearch = (e) => {
+    e.preventDefault();
+
+    const {
+      talent_name, talent_tid, talent_id, talent_name_or_tid,
+      sexes, position_ids, position_sub_type_ids, skill_ids, sub_skill_ids,
+      availability, ages, heights, languages, ratings
+    } = this.state;
+
+    let data = {
+      talent_name,
+      talent_tid,
+      talent_id,
+      talent_name_or_tid,
+      sexes: convertSexTitle2Values(sexes),
+      position_ids,
+      position_sub_type_ids,
+      skill_ids,
+      sub_skill_ids,
+      availability: {
+        start_date: availability.start_date ? moment(availability.start_date).format(defaultValues.AVAILABILITY_FORMAT) : null,
+        end_date: availability.end_date ? moment(availability.end_date).format(defaultValues.AVAILABILITY_FORMAT) : null
+      },
+      ages,
+      heights: convertIndexes2Values(defaultValues.HEIGHT_RANGES, heights),
+      languages,
+      ratings: convertIndexes2Values(defaultValues.RATING_RANGES, ratings)
+    };
+
+    console.log('==== onSearch: data: ', data);
+
+    this.props.clientActions.setSearchCondition(data);
+    this.props.clientActions.talentSearch(data);
+    this.props.history.push('/admin/profile-search-results');
+  };
+
+  onChangeGender = (genders) => this.setState({sexes: genders});
+
+  onChangeNameOrId = name => event => this.setState({ [name]: event.target.value });
+
+  onChangeCheckbox = name => event => this.setState({ [name]: event.target.checked });
+
+  onChangeSearCondition = (stateName, value) => {
+    let newItems = this.state[stateName];
+
+    if (!newItems) return;
+
+    let index = newItems.indexOf(value);
+
+    if ( index > -1) newItems.splice(index, 1);
+    else newItems.push(value);
+
+    this.setState({ [stateName]: newItems });
+  };
+
+  handleCitizenShipChange = (value) => {
+    this.setState({ citizenship: value });
+  };
+
+  renderPositions = () => {
     const { classes } = this.props;
-    return(
-      <Grid container spacing={24}>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
-          <h1>PROFILE SEARCH</h1>
-        </Grid>
+    const { allPositionTypes } = this.state;
 
-        <Grid item xs={2} style={{textAlign: 'left'}}>    
-          <h5>SEARCH BY NAME: </h5>
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Gender`}
+          </Typography>
         </Grid>
-        <Grid item xs={4} style={{textAlign: 'left'}}>    
-          <TextField
-            id="outlined-dense"
-            label="Enter Name..."
-            className={classNames(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <GenderSelection onChange={(genders) => this.onChangeGender(genders)} />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Position Types`}
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <PositionsSelection
+            loading={!allPositionTypes.isFetched}
+            positions={allPositionTypes && allPositionTypes.value}
+            onChangePosition={(position) => this.onChangeSearCondition('position_ids', position)}
+            onChangeSubPosition={(subPosition) => this.onChangeSearCondition('position_sub_type_ids', subPosition)}
           />
         </Grid>
-        <Grid item xs={2} style={{textAlign: 'left'}}>    
-          <h5>SEARCH BY CITIZENSHIP:</h5>
+      </Grid>
+    );
+  };
+
+  renderSkills = () => {
+    const { classes } = this.props;
+    const { allSkills } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Skills`}
+          </Typography>
         </Grid>
-        <Grid item xs={4} style={{textAlign: 'left'}}>    
-          <TextField
-            id="outlined-dense"
-            label="Dropdown List..."
-            className={classNames(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <SkillsSelection
+            loading={!allSkills.isFetched}
+            skills={allSkills && allSkills.value}
+            onChangeSkill={(skill) => this.onChangeSearCondition('skill_ids', skill)}
+            onChangeSubSkill={(subSkill) => this.onChangeSearCondition('sub_skill_ids', subSkill)}
           />
         </Grid>
-
-        <Grid item xs={2} style={{textAlign: 'left'}}>    
-          <h5>SEARCH BY TALENT ID:</h5>
-        </Grid>
-        <Grid item xs={4} style={{textAlign: 'left'}}>    
-          <TextField
-            id="outlined-dense"
-            label="Enter Talent ID..."
-            className={classNames(classes.textField, classes.dense)}
-            margin="dense"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={6} style={{textAlign: 'left'}}/>    
       </Grid>
-    )
-  }
+    );
+  };
 
-  renderCategories(){
-    return(
-      <Grid container spacing={24}>
-
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              Male
-            </Button>
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff',}}>
-              Female
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={9} style={{textAlign: 'center'}}/> 
-
-
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '10px', backgroundColor: this.state.color}}>
-              Vocalist
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: this.state.color}} onClick={()=>{this.onBtnClick()}}>
-                  Sop
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Alt
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Ten
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bar
-                </Button>
-            </Grid>                            
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-              Dancer
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Jazz
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Tap
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Hip
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Lyr
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bal
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Con
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bam
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Gym
-                </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              Actor
-            </Button>                      
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff',}}>
-              Aerial
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              Music
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Solor
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Duo
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Trio
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff'}}>
-                  Quar
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Band
-                </Button>
-            </Grid>
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff',}}>
-              Staff
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              Youth
-            </Button>
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff',}}>
-              Tech
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Sound
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Light
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Video
-                </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-        
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '10px', backgroundColor: '#007bff'}}>
-              +sing
-            </Button>                       
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-              +dance
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Jazz
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Tap
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bal
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Con
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Hip
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Lyr
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bam
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Gym
-                </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              +move
-            </Button>                      
-          </Grid>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff',}}>
-              +act
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={3} style={{display: 'inherit'}}>
-          <Grid item xs={6} style={{textAlign: 'left'}}>    
-            <Button color="primary" style={{width: '30px', backgroundColor: '#007bff'}}>
-              +play
-            </Button>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Pno
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Bas
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Drm
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff'}}>
-                  Str
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Win
-                </Button>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff'}}>
-                  Bra
-                </Button>
-            </Grid>
-            <Grid item xs={12} style={{display: 'inherit'}}>
-                <Button color="primary" style={{width: '10px', backgroundColor: '#007bff',}}>
-                  Per
-                </Button>
-            </Grid>
-          </Grid>
-        </Grid> 
-        <Grid item xs={3} style={{display: 'inherit'}}/>                 
-      </Grid>    
-     
-    )
-  }
-
-  renderSearchAvailablity(){
+  renderAvailable = () => {
     const { classes } = this.props;
-    const { available, not_available, active_casting_request, contracted, currently_deployed, available_date } = this.state
+    const { availability } = this.state;
 
-    return(
-      <Grid container spacing={24}>
-        <Grid item xs={3} style={{textAlign: 'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={available} onChange={this.handleChange('available')} value="available" />
-                }
-                label="Available"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={not_available} onChange={this.handleChange('not_available')} value="not_available" />
-                }
-                label="Not Available(Talent Calendar)"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={active_casting_request}
-                    onChange={this.handleChange('active_casting_request')}
-                    value="active_casting_request"
-                  />
-                }
-                label="Active Casting Request"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={contracted} onChange={this.handleChange('contracted')} value="contracted" />
-                }
-                label="Contracted"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={currently_deployed} onChange={this.handleChange('currently_deployed')} value="currently_deployed" />
-                }
-                label="Currently Deployed"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={available_date}
-                    onChange={this.handleChange('available_date')}
-                    value="available_date"
-                  />
-                }
-                label="Available"
-              />
-            </FormGroup>
-          </FormControl>
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Search by Available`}
+          </Typography>
         </Grid>
-        <Grid item xs={9} style={{textAlign: 'left'}}/>
-      </Grid>
-    )
-  }
-  
-  renderSearchLanguages(){
-    const { classes } = this.props;
-    const { english, spanish, portuguese, german, french, italian, japanese, mandarin, cantonese, other } = this.state
-
-    return(
-      <Grid container spacing={24}>
-        <Grid item xs={11} style={{textAlign:'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={english} onChange={this.handleChange('english')} value="english" />
-                }
-                label="English"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={spanish} onChange={this.handleChange('spanish')} value="spanish" />
-                }
-                label="Spanish"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={portuguese}
-                    onChange={this.handleChange('portuguese')}
-                    value="portuguese"
-                  />
-                }
-                label="Portuguese"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={german} onChange={this.handleChange('german')} value="german" />
-                }
-                label="German"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={french} onChange={this.handleChange('french')} value="french" />
-                }
-                label="French"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={italian}
-                    onChange={this.handleChange('italian')}
-                    value="italian"
-                  />
-                }
-                label="Italian"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={japanese} onChange={this.handleChange('japanese')} value="japanese" />
-                }
-                label="Japanese"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={mandarin}
-                    onChange={this.handleChange('mandarin')}
-                    value="mandarin"
-                  />
-                }
-                label="Mandarin"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={cantonese}
-                    onChange={this.handleChange('cantonese')}
-                    value="cantonese"
-                  />
-                }
-                label="Cantonese"
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={1} style={{textAlign:'left'}}></Grid>
-
-        <Grid item xs={1} style={{textAlign:'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={other} onChange={this.handleChange('other')} value="other" />
-                }
-                label="Other"
-              />
-              
-            </FormGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={11} style={{textAlign:'left'}}/>
-      </Grid>
-    )
-  }
-
-  renderSearchRating(){
-    const { classes } = this.props;
-    const { rating1, rating2, rating3, rating4, rating5, rating6, rating7, rating8, rating9 } = this.state
-
-    return(
-      <Grid container spacing={24}>
-        <Grid item xs={11} style={{textAlign:'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={rating1} onChange={this.handleChange('rating1')} value="rating1" />
-                }
-                label="<8.00"
-              />
-              
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rating2}
-                    onChange={this.handleChange('rating2')}
-                    value="rating2"
-                  />
-                }
-                label="8.00-8.24"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={rating3} onChange={this.handleChange('rating3')} value="rating3" />
-                }
-                label="8.25-8.49"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={rating4} onChange={this.handleChange('rating4')} value="rating4" />
-                }
-                label="8.50-8.74"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rating5}
-                    onChange={this.handleChange('rating5')}
-                    value="rating5"
-                  />
-                }
-                label="8.75-8.99"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={rating6} onChange={this.handleChange('rating6')} value="rating6" />
-                }
-                label="9.00-9.24"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rating7}
-                    onChange={this.handleChange('rating7')}
-                    value="rating7"
-                  />
-                }
-                label="9.25-9.49"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rating8}
-                    onChange={this.handleChange('rating8')}
-                    value="rating8"
-                  />
-                }
-                label="9.50-9.74"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={rating9} onChange={this.handleChange('rating9')} value="rating9" />
-                }
-                label="9.75-10.0"
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={1} style={{textAlign:'left'}}></Grid>  
-      </Grid>
-    )
-  }
-
-  renderSearchAgeRange(){
-    const { classes } = this.props;
-    const { range1, range2, range3, range4, range5, range6, range7, range8 } = this.state
-
-    return(
-      <Grid container spacing={24}>
-         <Grid item xs={11} style={{textAlign:'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={range1} onChange={this.handleChange('range1')} value="range1" />
-                }
-                label="8-21"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={range2} onChange={this.handleChange('range2')} value="range2" />
-                }
-                label="22-25"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={range3}
-                    onChange={this.handleChange('range3')}
-                    value="range3"
-                  />
-                }
-                label="26-30"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={range4} onChange={this.handleChange('range4')} value="range4" />
-                }
-                label="31-35"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={range5} onChange={this.handleChange('range5')} value="range5" />
-                }
-                label="36-40"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={range6}
-                    onChange={this.handleChange('range6')}
-                    value="range6"
-                  />
-                }
-                label="41-45"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={range7} onChange={this.handleChange('range7')} value="range7" />
-                }
-                label="46-50"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={range8}
-                    onChange={this.handleChange('range8')}
-                    value="range8"
-                  />
-                }
-                label="51+"
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={1} style={{textAlign:'center'}}></Grid>
-      </Grid>
-    )
-  }
-
-  renderSearchHeight(){
-    const { classes } = this.props;
-    const { height1, height2, height3, height4, height5, height6 } = this.state
-
-    return(
-      <Grid container spacing={24}>
-        <Grid item xs={11} style={{textAlign:'left'}}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={height1} onChange={this.handleChange('height1')} value="height1" />
-                }
-                label="<5'0'"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={height2} onChange={this.handleChange('height2')} value="height2" />
-                }
-                label="5'1'~5'4'"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={height3}
-                    onChange={this.handleChange('height3')}
-                    value="height3"
-                  />
-                }
-                label="5'5'~5'8'"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={height4} onChange={this.handleChange('height4')} value="height4" />
-                }
-                label="5'9'~5'11'"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={height5} onChange={this.handleChange('height5')} value="height5" />
-                }
-                label="6'0'~6'4'"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={height6}
-                    onChange={this.handleChange('height6')}
-                    value="height6"
-                  />
-                }
-                label=">6'4'"
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={1} style={{textAlign:'center'}}></Grid>
-      </Grid>
-    )
-  }
-
-  render(){
-    const { classes } = this.props;
-
-    return(
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardBody>
-              <div className={classes.root}>
-                <Grid container spacing={24}>
-                  
-                  <Grid item xs={12} >
-                    {this.renderSearchKey()}
-                  </Grid>
-
-                  <Grid item xs={12} >
-                    {this.renderCategories()}
-                  </Grid>
-                  
-                  <Grid item xs={12} >
-                    {this.renderSearchAvailablity()}
-                  </Grid>
-
-                  <Grid item xs={6} style={{display: 'inherit'}}>
-                    <Grid item xs={3} style={{textAlign: 'left'}}>    
-                      <Button color="primary" style={{width: '100px', backgroundColor: '#007bff'}}>
-                        Viewed
-                      </Button>
-                    </Grid>
-                    <Grid item xs={3} style={{textAlign: 'left'}}>    
-                      <Button color="primary" style={{width: '100px', backgroundColor: '#007bff',}}>
-                        Not Viewed
-                      </Button>
-                    </Grid>
-                    <Grid item xs={3} style={{textAlign: 'left'}}>    
-                      <Button color="primary" style={{width: '100px', backgroundColor: '#007bff'}}>
-                        Blocked
-                      </Button>
-                    </Grid>
-                    <Grid item xs={3} style={{textAlign: 'left'}}>    
-                      <Button color="primary" style={{width: '100px', backgroundColor: '#007bff',}}>
-                        Shared
-                      </Button>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={6} style={{textAlign:'left'}}/>
-
-                  <Grid item xs={12} >
-                    {this.renderSearchLanguages()}
-                  </Grid>
-
-                  <Grid item xs={12} >
-                    {this.renderSearchRating()}
-                  </Grid>
-
-                  <Grid item xs={12} >
-                    {this.renderSearchAgeRange()}
-                  </Grid>
-
-                  <Grid item xs={12} >
-                    {this.renderSearchHeight()}
-                  </Grid>
-
-                  <Grid item xs={3} style={{textAlign:'center'}}/>
-                  <Grid item xs={3} style={{textAlign:'center'}}>
-                    <Button color="primary" style={{width: '250px', backgroundColor: '#007bff'}}>
-                      Search
-                    </Button>
-                  </Grid>
-                  <Grid item xs={3} style={{textAlign:'center'}}/>
-                  <Grid item xs={3} style={{textAlign:'right'}}>
-                    <Button color="primary" style={{width: '250px', backgroundColor: '#007bff'}}>
-                      Agent Dashboard
-                    </Button>
-                  </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+            <Grid item >
+              <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+                <Grid item >
+                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                    Between:
+                  </Typography>
                 </Grid>
-              </div>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
+                <Grid item >
+                  <DatePicker
+                    className="mr-4" selected={availability.start_date}
+                    onChange={this.onChangeAvailabilityStartDate}
+                    dropdownMode="scroll"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item >
+              <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
+                <Grid item >
+                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                    And:
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <DatePicker
+                    selected={availability.end_date}
+                    onChange={this.onChangeAvailabilityEndDate}
+                    dropdownMode="scroll"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderAgeRange = () => {
+    const { classes } = this.props;
+    const { ages } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Search by age range`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.AGES.map((age) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={ages && (ages.indexOf(age) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('ages', age)}
+                      value={age}
+                      color="primary"
+                    />
+                  }
+                  label={age}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderHeight = () => {
+    const { classes } = this.props;
+    const { heights } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Search by height`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.HEIGHT_RANGES.map((heightRange, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={heights && (heights.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('heights', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={makeHeightSearchConditionTitle(heightRange)}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderCheckbox = (name, title) => {
+      return (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state[name]}
+              onChange={this.onChangeCheckbox(name)}
+              value={name}
+              color="primary"
+            />
+          }
+          label={title}
+        />
+      );
+  };
+
+  renderEtc = () => {
+    return (
+      <Grid container spacing={0} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <FormGroup column>
+            { this.renderCheckbox('isAvailable', 'Available') }
+            { this.renderCheckbox('notAvailable', 'Not Available (Talent Calendar)') }
+            { this.renderCheckbox('isActiveCastingRequest', 'Active Casting Request') }
+            { this.renderCheckbox('isContracted', 'Contracted') }
+            { this.renderCheckbox('isCurrentDeployed', 'Current Deployed') }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+
+  renderLanguage = () => {
+    const { classes } = this.props;
+    const { languages } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Search by language`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.LANGUAGES.map((language) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={languages && (languages.indexOf(language) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('languages', language)}
+                      value={language}
+                      color="primary"
+                    />
+                  }
+                  label={language}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderRatingRange = () => {
+    const { classes } = this.props;
+    const { ratings } = this.state;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Typography className={classes.adminFormSubTitle}>
+            {`Search by rating`}
+          </Typography>
+
+          <FormGroup row>
+            { defaultValues.RATING_RANGES.map((ratingRange, index) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={ratings && (ratings.indexOf(index) > -1)}
+                      onChange={(event) => this.onChangeSearCondition('ratings', index)}
+                      value={index}
+                      color="primary"
+                    />
+                  }
+                  label={makeRatingSearchConditionTitle(ratingRange)}
+                />
+              );
+            })
+            }
+          </FormGroup>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderTextCondition = (label, placeHolderText, stateName) => {
+    const { classes } = this.props;
+    return (
+      <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Typography className={classes.adminFormSubTitle}>
+            {label}
+          </Typography>
+        </Grid>
+        <Grid item lg={8} md={8} sm={12} xs={12}>
+          <TextField
+            id={stateName}
+            label=""
+            value={this.state[stateName]}
+            type="text"
+            onChange={this.onChangeNameOrId(stateName)}
+            margin="normal"
+            variant="outlined"
+            placeholder={placeHolderText}
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderCitizenShipCondition = () => {
+    const { classes } = this.props;
+    const { citizenship } = this.state;
+
+    return (
+      <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Typography className={classes.adminFormSubTitle}>
+            {'SEARCH BY CITIZENSHIP: '}
+          </Typography>
+        </Grid>
+        <Grid item lg={8} md={8} sm={12} xs={12}>
+          <CountryDropdown
+            defaultOptionLabel="Select a country"
+            value={citizenship}
+            onChange={this.handleCitizenShipChange}
+            classes={classes.adminSearchCitizenShip}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderSearchByNameAndID = () => {
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={16} justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Grid container spacing={16} direction="row" justify="flex-start" alignItems="center">
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              { this.renderTextCondition('SEARCH BY NAME: ', "Enter Name...", 'talent_name') }
+            </Grid>
+            <Grid item lg={1} md={1} sm={12} xs={12}/>
+            <Grid item lg={5} md={5} sm={12} xs={12}>
+              { this.renderCitizenShipCondition() }
+            </Grid>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              { this.renderTextCondition('SEARCH BY TALENT ID: ', "Enter Talent ID...", 'talent_tid') }
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderSearchButton = () => {
+    const { classes } = this.props;
+
+    return (
+      <Grid container spacing={16} direction="column" justify="flex-start" alignItems="center">
+        <Grid item lg={12} md={12} sm={12} xs={12} >
+          <Button variant="contained" color="secondary" className={classes.button}>
+            <Typography className={classes.adminTalentViewVideoButtonText} onClick={this.onSearch}>
+              Search
+            </Typography>
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderContent = () => {
+    return (
+      <Panel>
+        { this.renderSearchByNameAndID() }
+        <Spacer size={20} />
+        { this.renderPositions() }
+        <Spacer size={30} />
+        { this.renderSkills() }
+        <Spacer size={30} />
+        { this.renderEtc() }
+        <Spacer size={10} />
+        { this.renderAvailable() }
+        <Spacer size={10} />
+        { this.renderLanguage() }
+        <Spacer size={10} />
+        { this.renderRatingRange() }
+        <Spacer size={10} />
+        { this.renderAgeRange() }
+        <Spacer size={10} />
+        { this.renderHeight() }
+        <Spacer size={10} />
+        { this.renderSearchButton() }
+      </Panel>
+    )
+  };
+
+  render() {
+    return (
+      <AdminForm
+        formTitle="PROFILE SEARCH"
+        backLink="/admin/dashboard"
+        backButtonTitle="Agent Dashboard"
+      >
+        {this.renderContent()}
+      </AdminForm>
     );
   }
 }
 
-ProfileSearch.propTypes = {
-  classes: PropTypes.object.isRequired,
+
+const mapDispatchToProps = dispatch => {
+  return {
+    clientActions: bindActionCreators(clientActions, dispatch),
+    talentActions: bindActionCreators(talentActions, dispatch)
+  }
 };
 
-export default withStyles(styles)(ProfileSearch);
+const mapStateToProps = state => {
+  const { talentSearchResult, allPositionTypes, allSkills } = state;
+  return {
+    talentSearchResult: talentSearchResult && talentSearchResult.value ? talentSearchResult.value : null,
+    allPositionTypes,
+    allSkills
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(ProfileSearch))

@@ -16,6 +16,7 @@ import HeadLine from "containers/admin/Editprofiles/HeadLine.jsx"
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
 import UserProfile from "containers/admin/UserProfile/UserProfile.jsx";
 import ProfileSearch from "containers/admin/ProfileSearch/ProfileSearch.jsx";
+import ProfileSearchResults from "containers/admin/ProfileSearch/ProfileSearchResults";
 import Editprofiles from "containers/admin/Editprofiles/Editprofiles.jsx";
 import Castingrequests from "containers/admin/Castingrequests/Castingrequests.jsx";
 import Maps from "containers/admin/Maps/Maps.jsx";
@@ -110,6 +111,12 @@ const adminPageRoutes = [
   {
     path: "/admin/head-line",
     component: HeadLine,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/profile-search-results",
+    component: ProfileSearchResults,
     layout: TemplateAdminSidebar,
     exact: true
   },

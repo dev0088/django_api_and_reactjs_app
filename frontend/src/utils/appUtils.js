@@ -250,10 +250,32 @@ export function findPositionTypeByName(allPositionTypes, name) {
   });
 }
 
+export function findSubPositionTypeById(allPositionTypes, subPositionId) {
+  for (let i = 0; i < allPositionTypes.length; i++) {
+    let subPositions = allPositionTypes[i].position_sub_types;
+    if (subPositions) {
+      let subPosition = subPositions.find(sp => { return sp.id === subPositionId });
+      if (subPosition) return subPosition;
+    }
+  }
+  return null;
+}
+
 export function findSkillByName(allSkills, name) {
   return allSkills.find(function(skill) {
     return skill.name === name;
   });
+}
+
+export function findSubSkillById(allSkills, skillId) {
+  for (let i = 0; i < allSkills.length; i++) {
+    let subSkills = allSkills[i].position_sub_types;
+    if (subSkills) {
+      let subSkill = subPositions.find(ss => { return ss.id === skillId });
+      if (subSkill) return subSkill;
+    }
+  }
+  return null;
 }
 
 export function getPrefixByWord(positionTypeName) {
@@ -355,6 +377,10 @@ export function generateLinkWithPosition(position, link) {
     pathname: link,
     state: { position }
   }
+}
+
+export function makeTalentNameWithTid(talent) {
+  return talent.user ? `${talent.user.first_name} ${talent.user.last_name} (${talent.tid})` : 'unknown name';
 }
 
 export function makeTalentOverviewTitle(talent) {

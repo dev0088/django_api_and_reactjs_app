@@ -2,14 +2,12 @@ import React from "react";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-
 import Card from  "components/admin/Card/Card.jsx";
 import CardBody from  "components/admin/Card/CardBody.jsx";
 import Button from  "components/admin/CustomButtons/Button.jsx";
-// import dashboardRoutes from "../../routes/dashboard.jsx";
+import { adminStyles } from "styles/adminStyles";
 
 const style = ({
   menuBtn:{
@@ -44,38 +42,38 @@ class Dashboard extends React.Component {
               <Grid item xs={12} style={{textAlign: 'center'}}>
                 <h1>AGENT DASHBOARD</h1>
               </Grid>
-              <Grid item xs={12} style={{textAlign: 'center'}}>    
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/profile-search')}}>
+              <Grid item xs={12} style={{textAlign: 'center'}}>
+                <Button color="primary" className={classes.dashboardButton}  onClick={()=>{this.switchRoutes('/admin/profile-search')}}>
                   PROFILE <br></br> SEARCH
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/new-profiles')}}>
+              <Grid item xs={6} size={300} style={{textAlign: 'right'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/new-profiles')}}>
                   NEW <br></br> PROFILES
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/edited-profiles')}}>
+              <Grid item xs={6} size={300} style={{textAlign: 'left'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/edited-profiles')}}>
                   EDITED <br></br> PROFILES
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/casting-requests')}}>
+              <Grid item xs={6} style={{textAlign: 'right'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/casting-requests')}}>
                   CASTING <br></br> REQUESTS
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/metrics-tools')}}>
+              <Grid item xs={6} style={{textAlign: 'left'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/metrics-tools')}}>
                   METRICS & <br></br> TOOLS
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/dance-combo-lockouts')}}>
+              <Grid item xs={6} style={{textAlign: 'right'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/dance-combo-lockouts')}}>
                   DANCE COMBO <br></br> LOCKOUTS
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{textAlign: 'center'}}>
-                <Button color="primary" className={classes.menuBtn} onClick={()=>{this.switchRoutes('/medicial-disclosure')}}>
+              <Grid item xs={6} style={{textAlign: 'left'}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/medicial-disclosure')}}>
                   MEDICIAL <br></br> DISCLOSURE
                 </Button>
               </Grid>
@@ -96,4 +94,4 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(style)(Dashboard);
+export default withStyles(adminStyles)(Dashboard);

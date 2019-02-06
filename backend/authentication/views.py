@@ -11,6 +11,7 @@ from .models import User
 from .serializers import RegistrationSerializer
 from talent.models import Talent
 
+
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = RegistrationSerializer
@@ -24,7 +25,6 @@ class RegistrationAPIView(APIView):
 
     def get_serializer_class(self):
         return RegistrationSerializer
-
     
     def post(self, request):
         user = {

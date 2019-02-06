@@ -26,6 +26,93 @@ export const adminStyles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  h4NoMargin: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '2.125rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.17,
+    letterSpacing: '0.00735em',
+    marginBlockStart: '0em',
+    marginBlockEnd: '0em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+  },
+  h4SmallMargin: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '2.125rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.17,
+    letterSpacing: '0.00735em',
+    marginBlockStart: '0.5em',
+    marginBlockEnd: '0.5em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+  },
+  h4: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '2.125rem',
+    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.17,
+    letterSpacing: '0.00735em',
+    marginBlockStart: '1.33em',
+    marginBlockEnd: '1.33em',
+    marginInlineStart: '0px',
+    marginInlineEnd: '0px',
+  },
+  h5: {
+    display: 'block',
+    fontSize: '0.83em',
+    marginBlockStart: '1.67em',
+    marginBlockEnd: '1.67em',
+    marginInlineEtart: '0px',
+    marginInlineEnd: '0px',
+    fontWeight: 'bold',
+  },
+  underlineText: {
+    textDecoration: 'underline',
+  },
+  italicText: {
+    fontStyle: 'italic',
+  },
+  inlineText: {
+    display: 'inline'
+  },
+  centerText: {
+    textAlign: 'center',
+  },
+  leftText: {
+    textAlign: 'left',
+  },
+  rightText: {
+    textAlign: 'right',
+  },
+  fullWidth: {
+    width: '100%'
+  },
+  bold: {
+    fontWeight: 600,
+  },
+  red: {
+    color: theme.palette.red.main
+  },
+  white: {
+    color: theme.palette.white.main
+  },
+  blue: {
+    color: theme.palette.blue.main
+  },
+  green: {
+    color: theme.palette.green.main
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
   menuButton: {
     marginLeft: 12,
     marginRight: 36,
@@ -204,6 +291,465 @@ export const adminStyles = theme => ({
     textTransform: 'none',
     paddingBottom: '10px'
   },
+  dashboardButton: {
+    backgroundColor: theme.palette.primary.main,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    width: '300px',
+    fontSize: '25px'
+  },
+  adminHomeContainer: {
+    marginLeft: '-15px',
+    marginRight: '-15px',
+    marginBottom: '-16px'
+  },
+  adminHomeButtonsContainer: {
+    width: '100%',
+    borderRadius: '0rem',
+    marginBottom: '0rem',
+    marginTop: '0rem',
+    paddingTop: '22px',
+    backgroundColor: 'transparent!important',
+    position: 'absolute'
+  },
+  adminHomeButton: {
+    minWidth: '300px',
+    maxWidth: '300px',
+    minHeight: '105px',
+    padding: '8px',
+    display: 'block',
+    borderRadius: '5px'
+  },
+  adminHomeButtonTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    whiteSpace: 'nowrap',
+    color: theme.palette.white.main,
+  },
+  adminHomeButtonSubTitle: {
+    fontWeight: 400,
+    color: theme.palette.white.light,
+    textTransform: 'none'
+  },
+  adminTalentTableCheckboxGridItem: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'right'
+  },
+  adminTalentSearchGenderButtonItem: {
+    padding: '5px',
+    display: 'block!important'
+  },
+  adminTalentSearchGenderButton: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    border: `1px solid ${theme.palette.black.main}`,
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentSearchGenderButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  adminTalentSearchGenderButtonSelected: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.black.light,
+    border: `1px solid ${theme.palette.black.main}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin
+    },
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentSearchGenderButtonSelectedTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  adminTalentSearchSubPositionButton: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    border: `1px solid ${theme.palette.black.main}`,
+    padding: 0,
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentSearchSubPositionButtonTitle: {
+    fontSize: '0.75rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  adminTalentSearchSubPositionButtonSelected: {
+    display: '\'inline-flex',
+    borderRadius: '9px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.black.light,
+    border: `1px solid ${theme.palette.black.main}`,
+    padding: 0,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin
+    },
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentSearchSubPositionButtonSelectedTitle: {
+    fontSize: '0.75rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  },
+  adminTalentSearchResultPicture: {
+    width: '70px',
+    height: '72px',
+    objectFit: 'cover',
+  },
+  adminTalentControlButtonContainer: {
+    padding: '0px',
+    maxWidth: '30px',
+    margin: '0px'
+  },
+  adminTalentControlNewText: {
+    padding: '0px',
+    fontSize: '14px',
+    fontWeight: 600,
+  },
+  adminCallbackTalentControlContainerDiv: {
+    width: '64px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'bottom',
+    textAlign: 'right',
+    marginBottom: '10px',
+    marginRight: '5px',
+  },
+  adminRatingTalentControlContainerDiv: {
+    width: '64px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'top',
+    textAlign: 'right',
+    marginTop: '23px',
+    marginRight: '5px',
+  },
+  adminTalentControlContainerDiv: {
+    width: '64px',
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'top',
+    textAlign: 'right',
+    marginTop: '10px',
+    marginRight: '5px',
+  },
+  adminTalentContainerDiv: {
+    clear: 'both',
+    display: 'inline-block',
+    overflow: 'hidden',
+    // white-space: nowrap;
+    width: '90%'
+  },
+  adminTalentControlEditIcon: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  adminTalentControlDeleteButton: {
+    padding: '0px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '20px',
+    height: '20px',
+    fontWeight: 600,
+  },
+  adminTalentControlDeleteIcon: {
+    color: theme.palette.grey.thin,
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  adminTalentControlBlockProfileExpirationText: {
+    padding: '0px',
+    fontSize: '0.8rem',
+    fontWeight: 100,
+  },
+  adminTalentControlRatingButton: {
+    padding: '3px 10px 3px 10px',
+    minWidth: '10px',
+    minHeight: '10px',
+    width: '50px',
+    fontWeight: 400,
+  },
+  adminTalentControlRatingButtonText: {
+    color: theme.palette.white.main,
+    fontSize: '0.8rem',
+    fontWeight: 400,
+    textTransform: 'none',
+  },
+  adminRatingAvatarImageContainer: {
+    width: 300,
+    height: '100%',
+    objectFit: 'cover'
+  },
+  pictureContainer: {
+    border: 'solid 3px',
+    color: '#000000',
+    display: 'inline-block',
+    textAlign: 'center',
+    marginRight: '10px',
+    verticalAlign: 'top'
+  },
+  adminFormSubTitle: {
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    //fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+    marginTop: '0.5rem'
+  },
+  adminFromTalentIDContainer: {
+    fontSize: '1rem',
+    fontWeight: 400,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+    position: 'absolute',
+    right: 15,
+    top: 45,
+  },
+  adminFromTalentName: {
+    fontSize: '1.35rem',
+    fontWeight: 600,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  adminFromTalentHeadLine: {
+    fontSize: '1.15rem',
+    fontWeight: 600,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  adminFromTalentIDText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  adminFromTalentMarkFavoriteText: {
+    fontSize: '0.85rem',
+    fontWeight: 400,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    lineHeight: '1.46429em',
+  },
+  adminRatingSubTitle: {
+    width: '60%',
+    margin: 'auto'
+  },
+  adminFormBackButton: {
+    textTransform: 'none',
+    borderRadius: '8px',
+    backgroundColor: theme.palette.black.main,
+    // border: '1px solid #EEEEEE',
+    primaryColor: theme.palette.white.main,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin,
+    },
+  },
+  adminFormNextButtonContainerGridItem: {
+    textAlign: 'right',
+  },
+  adminFormNextButton: {
+    textTransform: 'none',
+    borderRadius: '8px',
+    backgroundColor: theme.palette.black.main,
+    primaryColor: theme.palette.white.main,
+    // border: '1px solid #EEEEEE',
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin,
+    },
+  },
+  adminFormBackButtonText: {
+    color: theme.palette.white.main,
+  },
+  adminFormNextButtonText: {
+    color: theme.palette.white.main
+  },
+  adminSearchCitizenShip: {
+    width: '100%'
+  },
+  adminSearchResultTalentHeadlineText: {
+    fontWeight: 'bold'
+  },
+  adminTalentViewHeaderGridItem: {
+    textAlign: 'center'
+  },
+  adminTalentViewHeaderTitleText: {
+    border: '2px solid',
+    fontWeight: 'bold',
+    fontSize: '1.5rem',
+    padding: '5px 10px 5px 10px',
+    display: 'inline-flex'
+  },
+  adminTalentViewButton: {
+    display: 'block',
+    borderRadius: '5px',
+    border: "2px solid rgba(0, 0, 162, 0.6)"
+  },
+  adminTalentViewButtonText: {
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    textTransform: 'none',
+  },
+  adminTalentViewMoreInfoButtonGridItemWithoutFullWidth: {
+    textAlign: 'center',
+  },
+  adminTalentViewMoreInfoButtonGridItem: {
+    textAlign: 'center',
+    paddingLeft: '15%!important',
+    paddingRight: '15%!important',
+    width: '100%'
+  },
+  adminTalentViewMoreInfoButton: {
+    display: 'block',
+    borderRadius: '5px',
+  },
+  adminTalentViewMoreInfoButtonText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main
+  },
+  adminTalentViewMoreInfoButtonStatusText: {
+    color: theme.palette.white.thin,
+    textTransform: 'none',
+  },
+  adminTalentViewVideoButtonGridItem: {
+    textAlign: 'center',
+    padding: '5px'
+  },
+  adminTalentViewVideoButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '10px',
+    border: `2px solid ${theme.palette.grey.thin}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+  },
+  adminTalentViewVideoButtonText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main
+  },
+  adminTalentViewVideoButtonStatusText: {
+    color: theme.palette.white.thin,
+    textTransform: 'none',
+  },
+  adminCastingRequestGridItem: {
+    textAlign: 'right',
+    paddingRight: '5px!important',
+    verticalAlign: 'top',
+    // paddingTop: '10px!important',
+    marginBottom: 'auto',
+    justifyContent: 'flex-end',
+    display: 'flex'
+  },
+  adminCastingRequestListViewButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '9px',
+    border: `2px solid ${theme.palette.grey.thin}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+  },
+  adminTalentSearchButton: {
+    backgroundColor: theme.palette.black.main,
+    display: 'block',
+    borderRadius: '9px',
+    border: `2px solid ${theme.palette.grey.thin}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.light
+    },
+    // width: '100px'
+  },
+  adminCastingRequestListViewButtonText: {
+    fontSize: '0.95rem',
+    fontWeight: 400,
+    paddingTop: '1px',
+    paddingBottom: '1px',
+    textTransform: 'none',
+    color: theme.palette.white.main
+  },
+  adminSharedProfileTeamMemberText: {
+    background: 'black',
+    color: 'white',
+    textAlign: 'center',
+    paddingLeft: '20px',
+    paddingRight: '20px!important',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    borderRadius: '8px'
+  },
+  submitCastingRequestButton: {
+    borderRadius: '5px',
+  },
+  submitCastingRequestButtonText: {
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    color: theme.palette.white.main
+  },
+  adminImmigrationForm: {
+    marginLeft: 100,
+    marginRight: 100
+  },
+  adminVideoPlayer: {
+    margin: 'auto'
+  },
+  adminEmptyVideoPlayer: {
+    margin: 'auto',
+    border: '2px dashed',
+    width: '100%',
+    height: '100%'
+  },
+  adminSearchCriteriaPositionButton: {
+    display: 'inline-flex',
+    borderRadius: '9px',
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.black.light,
+    border: `1px solid ${theme.palette.black.main}`,
+    '&:hover': {
+      backgroundColor: theme.palette.black.thin
+    },
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    marginRight: '5px',
+    marginTop: '5px'
+  },
+  adminSearchCriteriaPositionButtonText: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+  }
 });
 
 export const themeAdmin = createMuiTheme ({
@@ -267,9 +813,28 @@ export const themeAdmin = createMuiTheme ({
     primaryColor: '#FFFFFF',
     primaryFontSize: '1.5rem'
   },
-  MuiListItemText: {
-    primary: {
-      color: '#f8f9fa'
-    }
-  }
+
+  overrides: {
+    // Name of the component ⚛️ / style sheet
+    // MuiButton: {
+    //   root: {
+    //     backgroundColor: '#007bff!important',
+    //   },
+    //   text: {
+    //     // Some CSS
+    //     // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    //     borderRadius: 3,
+    //     border: 0,
+    //     color: 'white',
+    //     height: 48,
+    //     padding: '0 30px',
+    //     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    //   },
+    // },
+    MuiListItemText: {
+      primary: {
+        color: '#f8f9fa'
+      }
+    },
+  },
 });
