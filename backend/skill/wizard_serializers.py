@@ -14,10 +14,12 @@ class WizardSkillSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'priority',
             'multi_selection',
             'related_position_type',
             'wizard_button_title',
             'select_option_title',
+            'agent_title',
             'question',
         )

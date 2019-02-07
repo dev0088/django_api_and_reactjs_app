@@ -6,10 +6,10 @@ from rest_framework.authtoken.admin import TokenAdmin
 @admin.register(models.PositionType)
 class TalentPositionTypeAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'priority', 'multi_selection', 'sub_position_display',
-        'select_option_title', 'wizard_button_title', 'video_audition_button_title',
+        'id', 'name', 'abbreviated_key', 'priority', 'multi_selection', 'sub_position_display',
+        'select_option_title', 'wizard_button_title', 'video_audition_button_title', 'agent_title',
         'question', 'introduction_link')
-    list_display_links = ('id', 'name', 'video_audition_button_title', 'wizard_button_title', 'introduction_link')
+    list_display_links = ('id', 'name', 'abbreviated_key', 'video_audition_button_title', 'wizard_button_title', 'introduction_link')
     list_filter = ('multi_selection',)
     list_per_page = 25
 

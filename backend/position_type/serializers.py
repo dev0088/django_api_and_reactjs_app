@@ -16,12 +16,14 @@ class PositionTypeSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'priority',
             'multi_selection',
             'position_sub_types',
             'select_option_title',
             'wizard_button_title',
             'video_audition_button_title',
+            'agent_title',
             'question',
             'introduction_link'
         )

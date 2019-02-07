@@ -1,6 +1,9 @@
 import React from "react";
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import {bindActionCreators} from "redux";
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from  "components/admin/Grid/GridItem.jsx";
@@ -12,108 +15,112 @@ import CardHeader from  "components/admin/Card/CardHeader.jsx";
 import CardAvatar from  "components/admin/Card/CardAvatar.jsx";
 import CardBody from  "components/admin/Card/CardBody.jsx";
 import CardFooter from  "components/admin/Card/CardFooter.jsx";
+import Panel from "components/general/panel";
 import Grid from '@material-ui/core/Grid';
-import avatar from "assets/img/faces/marc.jpg";
+import Typography from '@material-ui/core/Typography';
+import AdminForm from 'components/shiptalent/forms/adminForm';
+import ProfileTable from "containers/admin/ProfileSearch/ProfileTable";
+import Spacer from 'components/general/spacer';
+import * as clientActions from 'actions/clientActions';
 import { Link } from 'react-router-dom';
+import { adminStyles } from 'styles';
 
-const styles = {
-  cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
-  },
-  // const style = ({
-  button:{
-    // backgroundColor: '#007bff',
-    width: '500px',
-    fontSize: '25px'
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
-  }
-};
+
 class UserProfile extends React.Component {
   
+  state = {
+    isLoading: true,
+    profiles: []
+  }
+
+  componentWillMount() {
+    let data = {
+      approved: false,
+    }
+    this.props.clientActions.setSearchCondition(data);
+    this.props.clientActions.talentSearch(data);
+  }
+
+  getInfoFromProps(props) {
+    const { talentSearchResult } = props;
+    let loading = true;
+    let profiles = [];
+
+    if (talentSearchResult.value) profiles = talentSearchResult.value;
+    loading = talentSearchResult.isFetching;
+
+    return { loading, profiles };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.getInfoFromProps(nextProps)
+    });
+  }
+
   switchRoutes(path){
     this.props.history.push(path)
   }
 
-  render(){
+  renderContent = () => {
     const { classes } = this.props;
-    return(
-// function UserProfile(props) {
-//   const { classes } = props;
-  // return (
-        <Card>
-          <CardBody>
-            <div>
-              <Grid container spacing={24}>
-                <Grid item xs={12} style={{textAlign: 'center'}}>
-                  <h1> NEW PORFILES FOR APPROVAL</h1>
-                </Grid>
-                <Grid item xs={12} style={{textAlign: 'left'}}>  
-                 <Link to="/admin/view-profile">
-                  <Button variant="contained" size="large" className={classes.button} >
-                    Thomas Tomasello(VM213)
-                  </Button>
-                 </Link>
-                </Grid>
-                <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} >
-                    Kirsten Mallow(VM213)
-                  </Button>
-                </Grid>
-                <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} >
-                    Tristan Turnbull(TU147)
-                  </Button>
-                 </Grid>
-                 <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} >
-                    Candy Cooke(C148)
-                  </Button>
-                 </Grid>
-                 <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} >
-                    D'Arcy Dell(DSA197)
-                  </Button>
-                 </Grid>
-                 <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} >
-                    Amy Arello(VMA229)
-                  </Button>
-                 </Grid>
-                 <Grid item xs={12} style={{textAlign: 'left'}}>    
-                  <Button variant="contained" size="large" className={classes.button} onClick={()=>{this.switchRoutes('/profile-search')}}>
-                    Francine Funicello(ED116)
-                  </Button>
-                 </Grid>
-                <Grid item xs={3} style={{textAlign:'center'}}/>
-                <Grid item xs={3} style={{textAlign:'center'}}/>
-                <Grid item xs={3} style={{textAlign:'center'}}/>
-                <Grid item xs={3} style={{textAlign:'right'}}>
-                 <Link to="/admin/dashboard">
-                  <Button variant="contained" style={{width: '250px'}}>
-                    Agetn Dashbord
-                  </Button>
-                 </Link>
-                </Grid>     
-               </Grid>
-            </div>
-          </CardBody>
-        </Card>    
-//   );
-// }
-    )
+    const { loading, profiles } = this.state;
+
+    if ( loading ) {
+      return 
+    }
+
+    return (
+      <Panel>
+        <Grid container spacing={16}>
+        <Grid item xl={12} lg={12} md={12} xs={12}>
+          <Spacer size={10} />
+        </Grid>
+        <Grid item xl={2} lg={2} md={1} xs/>
+          <Grid item xl={3} lg={3} md={4} xs={12}>
+            { loading ? <CircularProgress className={classes.progress} /> : <ProfileTable profiles={profiles} />}
+          </Grid>
+          <Grid item xl={1} lg={1} md={1} xs/>
+          <Grid item xl={4} lg={4} md={5} xs={12}>
+            <img 
+              src={require('assets/img/new_profile_for_approval.png')} 
+              alt='new_profile_for_approval'
+              className={classes.adminUserProfileApprovalImage}
+            />
+            <Grid item xl={2} lg={2} md={1} xs></Grid>
+          </Grid>
+        </Grid>
+        <Grid item xl={12} lg={12} md={12} xs={12}>
+          <Spacer size={10} />
+        </Grid>
+      </Panel>
+    );
   }  
+
+  render = () => {
+    return (
+      <AdminForm
+        formTitle="NEW PROFILES FOR APPROVAL"
+        nextLink="/admin/dashboard"
+        nextButtonTitle="Agent Dashboard"
+      >
+        {this.renderContent()}
+      </AdminForm>
+    );
+  }
 }
 
-export default withStyles(styles)(UserProfile);
+const mapDispatchToProps = dispatch => {
+  return {
+    clientActions: bindActionCreators(clientActions, dispatch)
+  }
+};
+
+const mapStateToProps = state => {
+  const { talentSearchResult } = state;
+  return {
+    talentSearchResult
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(UserProfile));

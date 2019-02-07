@@ -8,10 +8,12 @@ class PositionTypeManager(models.Manager):
 
 class PositionType(models.Model):
     name = models.CharField(blank=False, max_length=50)
+    abbreviated_key = models.CharField(max_length=1, blank=True)
     priority = models.IntegerField(blank=True, default=100)
     multi_selection = models.BooleanField(default=False)
     select_option_title = models.CharField(blank=True, max_length=100, default='')
     wizard_button_title = models.CharField(blank=True, max_length=100, default='')
+    agent_title = models.CharField(blank=True, max_length=100, default='')
     video_audition_button_title = models.CharField(blank=True, max_length=100, default='')
     question = models.TextField(max_length=300, blank=True)
     introduction_link = models.CharField(blank=True, max_length=1024)

@@ -90,11 +90,6 @@ export function makeHeight(height) {
     prefix = '>'
   }
 
-  // heightInFeet = UnitConverter(parseInt(tmp_height, 10))
-  //   .from('cm').to('ft-us')
-  // heightIntegerInFeet = Math.floor(heightInFeet)
-  // heightDecimalInInch = Math.round(UnitConverter(heightInFeet - heightIntegerInFeet).from('ft-us').to('in'))
-
   return `${prefix}${convertCm2Feet(tmp_height)}" / ${prefix}${height}cm`
 }
 
@@ -271,7 +266,7 @@ export function findSubSkillById(allSkills, skillId) {
   for (let i = 0; i < allSkills.length; i++) {
     let subSkills = allSkills[i].position_sub_types;
     if (subSkills) {
-      let subSkill = subPositions.find(ss => { return ss.id === skillId });
+      let subSkill = subSkills.find(ss => { return ss.id === skillId });
       if (subSkill) return subSkill;
     }
   }

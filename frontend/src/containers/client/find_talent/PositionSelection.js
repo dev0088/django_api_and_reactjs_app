@@ -24,7 +24,7 @@ class PositionSelection extends Component {
 
 
   render() {
-    const {classes, position, onChangeSubPosition } = this.props;
+    const {classes, position, titleItem, onChangeSubPosition } = this.props;
     const {selectedPosition} = this.state;
 
     return(
@@ -44,7 +44,7 @@ class PositionSelection extends Component {
             onClick={this.handleClickPositionButton}
           >
             <Typography className={classes.clientTalentSearchGenderButtonTitle}>
-              {`${position.name}`}
+              {position[titleItem]}
             </Typography>
           </Button>
         </Grid>
@@ -54,6 +54,7 @@ class PositionSelection extends Component {
         >
           <SubPositionsSelection
             subPositions={position.position_sub_types}
+            titleItem={titleItem}
             onChangeSubPosition={onChangeSubPosition}
           />
         </Grid>

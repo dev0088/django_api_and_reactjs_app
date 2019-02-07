@@ -25,6 +25,7 @@ class SubSkill(models.Model):
     # Relation with user
     skill = models.ForeignKey(Skill, related_name='sub_skills', on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=50)
+    abbreviated_key = models.CharField(max_length=1, blank=True)
     caption = models.CharField(blank=True, max_length=50, default='')
     priority = models.IntegerField(blank=True, default=100)
     select_option_title = models.CharField(blank=True, max_length=100, default='')
@@ -33,6 +34,7 @@ class SubSkill(models.Model):
     form_title = models.CharField(blank=True, max_length=50, default='')
     video_audition_title = models.TextField(blank=True, default='')
     video_audition_sub_title = models.TextField(blank=True, default='')
+    agent_title = models.CharField(blank=True, max_length=100, default='')
     description = models.CharField(blank=True, max_length=50)
     max_video_time = models.IntegerField(blank=True, default=3600)
     have_step2 = models.BooleanField(blank=False, default=False)

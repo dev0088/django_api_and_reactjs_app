@@ -10,6 +10,7 @@ class SubSkillSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'caption',
             'priority',
             'skill',
@@ -19,6 +20,7 @@ class SubSkillSerializer(serializers.ModelSerializer):
             'form_title',
             'video_audition_title',
             'video_audition_sub_title',
+            'agent_title',
             'max_video_time',
             'have_step2',
             'step1_title',

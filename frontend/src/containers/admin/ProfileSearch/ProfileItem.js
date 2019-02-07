@@ -22,7 +22,7 @@ class ProfileItem extends Component {
             state: { profileId: profile.id }
           }}
         >
-          <Button variant="contained" size="large" className={[classes.button, classes.adminTalentViewButton]}>
+          <Button variant="contained" size="large" fullWidth className={[classes.button, classes.adminTalentViewButton]}>
             <Typography className={[classes.bold, classes.adminTalentViewButtonText]}>
               { makeTalentNameWithTid(profile)}
             </Typography>

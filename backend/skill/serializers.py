@@ -22,6 +22,7 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'priority',
             'multi_selection',
             'related_position_type',
@@ -29,6 +30,7 @@ class SkillSerializer(serializers.ModelSerializer):
             'wizard_button_title',
             'video_audition_button_title',
             'question',
+            'agent_title',
             'description',
             'sub_skills'
         )

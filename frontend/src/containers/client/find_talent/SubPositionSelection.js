@@ -22,7 +22,7 @@ class SubPositionSelection extends Component {
 
 
   render() {
-    const {classes, subPosition } = this.props;
+    const {classes, subPosition, titleItem } = this.props;
     const {selectedSubPosition} = this.state;
 
     return(
@@ -37,7 +37,7 @@ class SubPositionSelection extends Component {
         onClick={this.handleClickSubPositionButton}
       >
         <Typography className={classes.clientTalentSearchSubPositionButtonTitle}>
-          {`${subPosition.select_option_title}`}
+          {subPosition[titleItem]}
         </Typography>
       </Button>
     );

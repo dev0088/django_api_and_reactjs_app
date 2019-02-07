@@ -6,9 +6,9 @@ from rest_framework.authtoken.admin import TokenAdmin
 @admin.register(models.Skill)
 class SkillAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'priority', 'multi_selection', 'related_position_type', 'sub_skill_display',
-        'select_option_title', 'wizard_button_title', 'video_audition_button_title', 'question')
-    list_display_links = ('id', 'name', 'priority')
+        'id', 'name', 'abbreviated_key', 'priority', 'multi_selection', 'related_position_type', 'sub_skill_display',
+        'select_option_title', 'wizard_button_title', 'video_audition_button_title', 'question', 'agent_title')
+    list_display_links = ('id', 'name', 'abbreviated_key', 'priority')
     list_filter = ('multi_selection',)
     list_per_page = 25
 
