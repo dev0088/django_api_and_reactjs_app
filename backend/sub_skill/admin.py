@@ -5,15 +5,15 @@ from . import models
 @admin.register(models.SubSkill)
 class SubSkillAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'related_position_type_display', 'skill_display', 'name',
-        'select_option_title', 'wizard_button_title', 'video_audition_button_title', 'priority', 'opts_in',
-        'video_audition_type', 'video_counts', 'max_video_time',
+        'id', 'related_position_type_display', 'skill_display', 'name', 'abbreviated_key',
+        'select_option_title', 'wizard_button_title', 'video_audition_button_title', 'agent_title', 
+        'priority', 'opts_in', 'video_audition_type', 'video_counts', 'max_video_time',
         'is_special_video_audition', 'is_required_all', 'is_required', 'is_video_interview_button',
         'video_audition_view_content_type'
     )
     list_display_links = (
-        'id', 'name', 'priority', 'opts_in', 'video_audition_type', 'video_audition_button_title', 'video_counts',
-        'select_option_title', 'wizard_button_title', 'max_video_time',
+        'id', 'name', 'abbreviated_key', 'priority', 'opts_in', 'video_audition_type', 'video_audition_button_title', 'video_counts',
+        'select_option_title', 'wizard_button_title', 'agent_title', 'max_video_time',
         'is_special_video_audition', 'is_required_all', 'is_required', 'is_video_interview_button',
         'video_audition_view_content_type'
     )

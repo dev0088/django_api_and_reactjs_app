@@ -9,8 +9,9 @@ import styles, { clientDesigns } from 'styles';
 class SkillsSelection extends Component {
 
   renderSkills() {
-    const { classes, skills, loading, onChangeSkill, onChangeSubSkill } = this.props;
+    const { classes, skills, titleItem, loading, onChangeSkill, onChangeSubSkill } = this.props;
     let items = [];
+    let titleItemName = titleItem ? titleItem : 'select_option_title';
 
     if (!skills || loading ) {
       return <CircularProgress className={classes.progress} />
@@ -19,7 +20,7 @@ class SkillsSelection extends Component {
     for (let i = 0; i < skills.length; i ++) {
       let skill = skills[i];
 
-      if (skill.select_option_title)
+      if (skill[titleItemName])
         items.push(
           <Grid
             item {...clientDesigns.talentSearch.PositionsTableItems}
@@ -27,6 +28,7 @@ class SkillsSelection extends Component {
           >
             <SkillSelection
               skill={skill}
+              titleItem={titleItemName}
               onChangeSkill={onChangeSkill}
               onChangeSubSkill={onChangeSubSkill}
             />

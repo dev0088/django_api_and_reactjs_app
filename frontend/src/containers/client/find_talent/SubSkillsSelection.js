@@ -8,13 +8,13 @@ import styles from 'styles';
 class SubSkillsSelection extends Component {
 
   renderSubSkills() {
-    const { classes, subSkills, onChangeSubSkill } = this.props;
+    const { classes, subSkills, titleItem, onChangeSubSkill } = this.props;
     let items = [];
 
     for (let i = 0; i < subSkills.length; i ++) {
       let subSkill = subSkills[i];
 
-      if (subSkill.select_option_title)
+      if (subSkill[titleItem])
         items.push(
           <Grid
             item xl={6} lg={6} md={6} sm={6} xs={6}
@@ -23,6 +23,7 @@ class SubSkillsSelection extends Component {
           >
             <SubSkillSelection
               subSkill={subSkill}
+              titleItem={titleItem}
               onChangeSubSkill={onChangeSubSkill}
             />
           </Grid>

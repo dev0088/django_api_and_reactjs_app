@@ -10,8 +10,10 @@ class WizardPositionTypeSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'priority',
             'wizard_button_title',
             'select_option_title',
+            'agent_title',
             'introduction_link'
         )

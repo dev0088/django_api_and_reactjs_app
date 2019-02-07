@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfileTable from "./ProfileTable";
-import { makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo } from 'utils/appUtils';
 import Panel from "components/general/panel";
 import { adminStyles } from 'styles';
 import SearchCriteria from "./SearchCriteria/SearchCriteria";
@@ -51,16 +50,19 @@ class ProfileSearchResults extends Component {
     return(
       <div>
         <Panel>
-          <Grid container spacing={24}>
-            <Grid item xs={6} >
+          <Grid container spacing={24} >
+            <Grid item xl={2} lg={2} md={1} xs/>
+            <Grid item xl={3} lg={3} md={4} xs={12}>
               <ProfileTable profiles={profiles} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xl={1} lg={1} md={1} xs/>
+            <Grid item xl={4} lg={4} md={5} xs={12} className={classes.leftText}>
               <SearchCriteria
                 condition={talentSearchResult.condition}
                 allPositionTypes={allPositionTypes.value}
                 allSkills={allSkills.value}
               />
+              <Grid item xl={2} lg={2} md={1} xs/>
             </Grid>
           </Grid>
         </Panel>
@@ -74,7 +76,6 @@ class ProfileSearchResults extends Component {
         formTitle="Search Result"
         nextLink="/admin/profile-search"
         nextButtonTitle="Back to Profile Search"
-        handleClickNextButton={this.handleClickNextButton}
       >
         {this.renderContent()}
       </AdminForm>

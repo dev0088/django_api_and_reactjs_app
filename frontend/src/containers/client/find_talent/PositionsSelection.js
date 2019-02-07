@@ -9,9 +9,10 @@ import styles, { clientDesigns } from 'styles';
 class PositionsSelection extends Component {
 
   renderPositions() {
-    const { classes, positions, loading, onChangePosition, onChangeSubPosition } = this.props;
+    const { classes, positions, titleItem, loading, onChangePosition, onChangeSubPosition } = this.props;
     let items = [];
-
+    let titleItemName = titleItem ? titleItem : 'select_option_title';
+    
     if (!positions || loading ) {
       return <CircularProgress className={classes.progress} />
     }
@@ -19,7 +20,7 @@ class PositionsSelection extends Component {
     for (let i = 0; i < positions.length; i ++) {
       let position = positions[i];
 
-      if (position.select_option_title)
+      if (position[titleItemName]) 
         items.push(
           <Grid
             item {...clientDesigns.talentSearch.PositionsTableItems}
@@ -27,6 +28,7 @@ class PositionsSelection extends Component {
           >
             <PositionSelection
               position={position}
+              titleItem={titleItemName}
               onChangePosition={onChangePosition}
               onChangeSubPosition={onChangeSubPosition}
             />

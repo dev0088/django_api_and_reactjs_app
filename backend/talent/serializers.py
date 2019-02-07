@@ -101,6 +101,7 @@ class TalentSerializer(serializers.ModelSerializer):
             'worked_cruise_ship',
             # 'auditions',
             'tid',
+            'approved',
             'created',
 
             'profile_status'

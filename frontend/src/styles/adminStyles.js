@@ -93,7 +93,7 @@ export const adminStyles = theme => ({
     width: '100%'
   },
   bold: {
-    fontWeight: 600,
+    fontWeight: '600!important',
   },
   red: {
     color: theme.palette.red.main
@@ -603,7 +603,8 @@ export const adminStyles = theme => ({
   adminTalentViewButton: {
     display: 'block',
     borderRadius: '5px',
-    border: "2px solid rgba(0, 0, 162, 0.6)"
+    border: '1px solid rgba(0, 0, 0, 1)',
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
   },
   adminTalentViewButtonText: {
     fontSize: '1.25rem',
@@ -749,6 +750,20 @@ export const adminStyles = theme => ({
     fontWeight: 600,
     textTransform: 'none',
     color: theme.palette.black.main,
+  },
+  adminGeneralTitle: {
+    fontSize: '1.2rem',
+    fontWeight: 400,
+    textTransform: 'none',
+  },
+  adminGeneralText: {
+    fontSize: '1rem',
+    fontWeight: 400,
+    textTransform: 'none',
+  },
+  adminUserProfileApprovalImage: {
+    width: '100%',
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
   }
 });
 

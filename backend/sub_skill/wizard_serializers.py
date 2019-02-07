@@ -11,9 +11,11 @@ class WizardSubSkillSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'abbreviated_key',
             'caption',
             'priority',
             'skill',
             'wizard_button_title',
             'select_option_title',
+            'agent_title',
         )

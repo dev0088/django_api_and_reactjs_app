@@ -15,5 +15,6 @@ class WizardTalentInfoSerializer(serializers.ModelSerializer):
             'id',
             'talent_position_types',
             'talent_skills',
+            'approved',
             'need_initialize'
         )

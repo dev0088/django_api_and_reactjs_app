@@ -10,14 +10,16 @@ class TalentAdmin(admin.ModelAdmin):
         'user_id_display',
         'user_email_display',
         'sex',
-        'tid'
+        'tid',
+        'approved',
     )
     list_display_links = (
         'id',
         'user_id_display',
         'user_email_display',
         'sex',
-        'tid'
+        'tid',
+        'approved',
     )
     list_per_page = 25
 

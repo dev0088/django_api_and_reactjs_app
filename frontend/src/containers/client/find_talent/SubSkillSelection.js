@@ -22,7 +22,7 @@ class SubSkillSelection extends Component {
 
 
   render() {
-    const {classes, subSkill } = this.props;
+    const {classes, subSkill, titleItem} = this.props;
     const {selectedSubSkill} = this.state;
 
     return(
@@ -37,7 +37,7 @@ class SubSkillSelection extends Component {
         onClick={this.handleClickSubSkillButton}
       >
         <Typography className={classes.clientTalentSearchSubPositionButtonTitle}>
-          {`${subSkill.select_option_title}`}
+          {subSkill[titleItem]}
         </Typography>
       </Button>
     );

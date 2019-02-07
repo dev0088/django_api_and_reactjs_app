@@ -37,6 +37,7 @@ class TalentSimpleSerializer(serializers.ModelSerializer):
             'head_line',
             'bio',
             'tid',
+            'approved',
             'created',
             'profile_status'
         )

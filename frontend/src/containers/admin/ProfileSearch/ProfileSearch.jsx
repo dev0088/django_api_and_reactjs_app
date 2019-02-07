@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import {Redirect} from 'react-router';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -99,7 +98,9 @@ class ProfileSearch extends Component {
     const {
       talent_name, talent_tid, talent_id, talent_name_or_tid,
       sexes, position_ids, position_sub_type_ids, skill_ids, sub_skill_ids,
-      availability, ages, heights, languages, ratings
+      availability, ages, heights, languages, ratings,       
+      isAvailable, notAvailable, isActiveCastingRequest, isContracted, isCurrentDeployed,
+      citizenship
     } = this.state;
 
     let data = {
@@ -119,7 +120,13 @@ class ProfileSearch extends Component {
       ages,
       heights: convertIndexes2Values(defaultValues.HEIGHT_RANGES, heights),
       languages,
-      ratings: convertIndexes2Values(defaultValues.RATING_RANGES, ratings)
+      ratings: convertIndexes2Values(defaultValues.RATING_RANGES, ratings),
+      is_available: isAvailable,
+      not_available: notAvailable,
+      is_active_casting_request: isActiveCastingRequest,
+      is_contracted: isContracted,
+      is_current_deployed: isCurrentDeployed,
+      citizenship
     };
 
     console.log('==== onSearch: data: ', data);
@@ -175,6 +182,7 @@ class ProfileSearch extends Component {
           <PositionsSelection
             loading={!allPositionTypes.isFetched}
             positions={allPositionTypes && allPositionTypes.value}
+            titleItem={'agent_title'}
             onChangePosition={(position) => this.onChangeSearCondition('position_ids', position)}
             onChangeSubPosition={(subPosition) => this.onChangeSearCondition('position_sub_type_ids', subPosition)}
           />
@@ -198,6 +206,7 @@ class ProfileSearch extends Component {
           <SkillsSelection
             loading={!allSkills.isFetched}
             skills={allSkills && allSkills.value}
+            titleItem={'agent_title'}
             onChangeSkill={(skill) => this.onChangeSearCondition('skill_ids', skill)}
             onChangeSubSkill={(subSkill) => this.onChangeSearCondition('sub_skill_ids', subSkill)}
           />

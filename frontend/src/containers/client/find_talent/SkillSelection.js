@@ -24,7 +24,7 @@ class SkillSelection extends Component {
 
 
   render() {
-    const {classes, skill, onChangeSubSkill } = this.props;
+    const {classes, skill, titleItem, onChangeSubSkill } = this.props;
     const {selectedSkill} = this.state;
 
     return(
@@ -44,7 +44,7 @@ class SkillSelection extends Component {
             onClick={this.handleClickPositionButton}
           >
             <Typography className={classes.clientTalentSearchGenderButtonTitle}>
-              {`${skill.name}`}
+              {skill[titleItem]}
             </Typography>
           </Button>
         </Grid>
@@ -54,6 +54,7 @@ class SkillSelection extends Component {
         >
           <SubSkillsSelection
             subSkills={skill.sub_skills}
+            titleItem={titleItem}
             onChangeSubSkill={onChangeSubSkill}
           />
         </Grid>
