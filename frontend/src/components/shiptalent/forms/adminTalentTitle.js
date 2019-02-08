@@ -30,8 +30,8 @@ class AdminTalentTitle extends Component {
 
         <Grid item xs={12}>
           <Grid container spacing={0} direction="row" justify="center" alignItems="center">
-            <Grid item xs/>
-            <Grid item xs>
+            <Grid item lg md={12} xs={12}/>
+            <Grid item lg md={12} xs={12}>
               <PositionsSelection 
                 selectedPositions={talent.talent_position_types}
                 selectedSubPositions={talent.talent_position_sub_types}
@@ -40,7 +40,7 @@ class AdminTalentTitle extends Component {
                 loading={!allPositionTypes.isFetched} 
               />
             </Grid>
-            <Grid item xs>
+            <Grid item lg md={12} xs={12}>
               <SkillsSelection 
                 selectedSkills={talent.talent_skills}
                 selectedSubSkills={talent.talent_sub_skills}
@@ -49,7 +49,7 @@ class AdminTalentTitle extends Component {
                 loading={!allSkills.isFetched} 
               />
             </Grid>
-            <Grid item xs/>
+            <Grid item lg md={12} xs={12}/>
           </Grid>
         </Grid>
       </Grid>

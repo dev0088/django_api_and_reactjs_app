@@ -8,13 +8,13 @@ import Panel from "components/general/panel";
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfileTable from "containers/admin/ProfileSearch/ProfileTable";
 import Spacer from 'components/general/spacer';
-import Card from  "components/admin/Card/Card.jsx";
-import CardBody from  "components/admin/Card/CardBody.jsx";
 import Grid from '@material-ui/core/Grid';
 import GridItem from  "components/admin/Grid/GridItem.jsx";
 import GridContainer from  "components/admin/Grid/GridContainer.jsx";
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import ProfileStatusButtons from './ProfileStatusButtons';
+import ProfileCurrentStatus from './ProfileCurrentStatus';
 import * as talentActions from 'actions/talentActions';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
@@ -68,149 +68,16 @@ class EditProfile extends React.Component {
     return (
       <Panel>
          <Grid container spacing={40}>
-            <Grid item xs={6}>
-              <Grid container item xs={12} spacing={16}  >
-               <Grid item xs={4} >
-                <Link to="/admin/head-line">
-                 <Button variant="contained" size="large" className={classes.agent}>
-                    Headline, Bio& Resume
-                 </Button>
-                </Link>
-               </Grid>
-               <Grid item xs={4} >
-                <Button variant="contained" size="large" className={classes.agent} style={{backgroundColor: 'red'}}>
-                  Pictures
-                </Button>
-               </Grid>
-               <Grid item xs={4} >
-                <Button variant="contained" size="large" className={classes.agent} style={{backgroundColor: 'red'}}>
-                  Videos
-                </Button>
-               </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent} style={{backgroundColor: 'yellow'}}>
-                  Casting Requests
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Profile Notes
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Logs & Lockouts
-                </Button>
-              </Grid> 
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Search/Views
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Shares
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Blocks
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Ratings
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Contracts
-                </Button>
-              </Grid>
-              <Grid item xs={4}> 
-                <Button variant="contained" size="large" className={classes.agent} style={{backgroundColor: 'red'}}>
-                  Medical
-                </Button>
-              </Grid>
-              <Grid item xs={4}> 
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Credentials
-                </Button>
-              </Grid>
-              <Grid item xs={4}> 
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Personal Info
-                </Button>
-              </Grid>
-              <Grid item xs={4}> 
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Immigration
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Languages
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Finance
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button variant="contained" size="large" className={classes.agent}>
-                  Calendar
-                </Button>
-              </Grid>
-             </Grid>  
-            </Grid>   
-            <Grid item xs={6} >
-              <Grid container spacing={0}> 
-                <Grid item xs={12} style={{textAlign:'left'}}>
-                  <h3> CURRENT STATUS</h3>
-                </Grid>
-                <Grid container spacing={0}>
-                 <Grid item xs={12}>
-                  <Checkbox value="checkedC" />Avaliable
-                 </Grid>
-                 <Grid item xs={12}>
-                  <Checkbox value="checkedC" />Not Avaliable(Talent Calendar)
-                 </Grid>
-                 <Grid item xs={12}>  
-                  <Checkbox value="checkedC" />Active Casting Request
-                 </Grid>
-                 <Grid item xs={12}>
-                  <Checkbox value="checkedC" />Contracted
-                 </Grid>
-                 <Grid item xs={12}>  
-                  <Checkbox value="checkedC" />Deployed until
-                 </Grid>
-                </Grid> 
-              </Grid>
+            <Grid item lg md={12} xs={12} />
+            <Grid item lg={7} md={12} xs={12}>
+              <Spacer size={43} />
+              <ProfileStatusButtons profile={profile} loading={isLoading} /> 
+            </Grid>
+            <Grid item lg md={12} xs={12} />
+            <Grid item lg={3} md={12} xs={12} >
+              <ProfileCurrentStatus profile={profile} loading={isLoading} />
             </Grid> 
-            <Grid container spacing={8}> 
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/admin/new-profiles">
-                <Button variant="contained" style={{width: '250px'}}>
-                  New Profiles
-                </Button>
-               </Link>
-              </Grid>  
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'center'}}/>
-              <Grid item xs={3} style={{textAlign:'right'}}>
-               <Link to="/admin/dashboard">
-                <Button variant="contained" style={{width: '250px'}}>
-                  Agetn Dashbord
-                </Button>
-               </Link>
-              </Grid>
-           </Grid>       
-          </Grid>  
+          </Grid>
         </Panel>
     );
   }
@@ -218,13 +85,12 @@ class EditProfile extends React.Component {
   render = () => {
     const { profile, isLoading } = this.state;
     const { allPositionTypes, allSkills } = this.props;
-    console.log('==== isLoading: ', isLoading);
     return (
       <AdminForm
         talent={profile}
         allPositionTypes={allPositionTypes}
         allSkills={allSkills}
-        loading={ isLoading /*!(allPositionTypes.isFetched && allSkills.isFetched)*/}
+        loading={isLoading}
         showMale
         showPosition
         backLink="/admin/new-profiles"
