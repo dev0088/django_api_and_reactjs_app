@@ -1,7 +1,13 @@
 import React from "react";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-// core components
+import {bindActionCreators} from "redux";
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Panel from "components/general/panel";
+import AdminForm from 'components/shiptalent/forms/adminForm';
+import ProfileTable from "containers/admin/ProfileSearch/ProfileTable";
+import Spacer from 'components/general/spacer';
 import Card from  "components/admin/Card/Card.jsx";
 import CardBody from  "components/admin/Card/CardBody.jsx";
 import Grid from '@material-ui/core/Grid';
@@ -9,78 +15,59 @@ import GridItem from  "components/admin/Grid/GridItem.jsx";
 import GridContainer from  "components/admin/Grid/GridContainer.jsx";
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
+import * as talentActions from 'actions/talentActions';
+import AdminAPI from 'apis/adminAPIs';
+import { adminStyles } from 'styles';
 
-const style = {
-   button:{
-     width: '500px',
-    // fontSize: '25px'
-  },
-   small:{
-    width: '15px',
+class EditProfile extends React.Component {
 
-   },
-   agent:{
-    width: '200px',
-    height:'50px'
-   },
-   profile:{
-    width: '300px'
-   }
-  
-};
-function EditProfile(props) {
-  const { classes } = props;
-  return (
+  state = {
+    isLoading: false,
+    profile: null,
+    profileId: null
+  };
+
+  getInfoFromProps = (props) => {
+    const { location } = props;
+    let profileId = (location && location.state && location.state.profileId) ? location.state.profileId : null;
+    return { profileId };
+  };
+
+  handleGetProfileResponse = (response, isFailed) => {
+    console.log('==== handleGetProfileResponse: response: ', response);
+    if(isFailed) {
+
+    } else {
+      const { allPositionTypes, allSkills } = this.props;
+      this.setState({profile: response, isLoading: false});
+    }
+  };
+
+  componentWillMount() {
+    const { profileId } = this.getInfoFromProps(this.props);
+    
+    if (profileId) {
+      this.setState({isLoading: true}, () => {
+        this.props.talentActions.getAllPositionTypes();
+        this.props.talentActions.getAllSkills();
+        AdminAPI.getProfile(profileId, this.handleGetProfileResponse);
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.getInfoFromProps(nextProps)
+    });
+  }
+
+  renderContent = () => {
+    const { classes } = this.props;
+    const { profile, isLoading } = this.state;
+
+    return (
+      <Panel>
          <Grid container spacing={40}>
-             <Grid item xs={12} style={{textAlign: 'center'}}>
-                <Button variant="contained" size="large" className={classes.button} >
-                  Thomas Tomasello(ASD166)
-                </Button>
-             </Grid>
-             <Grid container item xs={12} spacing={16}>
-               <Grid item xs={12} style={{textAlign: 'center'}} >    
-                <Button variant="contained" className={classes.small} style={{backgroundColor: 'green'}}>
-                  Vocalist
-                </Button>
-                <Button variant="contained" className={classes.small}>
-                  Dancer
-                </Button>
-                <Button variant="contained" className={classes.small}>
-                  Actor
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  Aerial
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  +sing
-                </Button>
-                <Button variant="contained"  className={classes.small} style={{backgroundColor: 'green'}}>
-                  +dance
-                </Button>
-                <Button variant="contained" className={classes.small}>
-                  +move
-                </Button>
-                <Button variant="contained"  className={classes.small} style={{backgroundColor: 'green'}}>
-                  +act
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  +play
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  Music
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  Staff
-                </Button>
-                <Button variant="contained"  className={classes.small}>
-                  Youth
-                </Button>
-                 <Button variant="contained"  className={classes.small}>
-                  Tech
-                </Button>
-              </Grid>
-            </Grid>
             <Grid item xs={6}>
               <Grid container item xs={12} spacing={16}  >
                <Grid item xs={4} >
@@ -224,7 +211,45 @@ function EditProfile(props) {
               </Grid>
            </Grid>       
           </Grid>  
-  );
+        </Panel>
+    );
+  }
+
+  render = () => {
+    const { profile, isLoading } = this.state;
+    const { allPositionTypes, allSkills } = this.props;
+    console.log('==== isLoading: ', isLoading);
+    return (
+      <AdminForm
+        talent={profile}
+        allPositionTypes={allPositionTypes}
+        allSkills={allSkills}
+        loading={ isLoading /*!(allPositionTypes.isFetched && allSkills.isFetched)*/}
+        showMale
+        showPosition
+        backLink="/admin/new-profiles"
+        backButtonTitle="New Profiles"
+        nextLink="/admin/dashboard"
+        nextButtonTitle="Agent Dashboard"
+      >
+        {this.renderContent()}
+      </AdminForm>
+    );
+  }
 }
 
-export default withStyles(style)(EditProfile);
+const mapDispatchToProps = dispatch => {
+  return {
+    talentActions: bindActionCreators(talentActions, dispatch)
+  };
+};
+
+const mapStateToProps = state => {
+  const { allPositionTypes, allSkills } = state;
+  return {
+    allPositionTypes, 
+    allSkills
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditProfile));

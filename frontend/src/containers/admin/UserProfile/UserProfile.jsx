@@ -1,28 +1,14 @@
 import React from "react";
-// @material-ui/core components
 import {bindActionCreators} from "redux";
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import InputLabel from "@material-ui/core/InputLabel";
-// core components
-import GridItem from  "components/admin/Grid/GridItem.jsx";
-import GridContainer from  "components/admin/Grid/GridContainer.jsx";
-import CustomInput from  "components/admin/CustomInput/CustomInput.jsx";
-import Button from '@material-ui/core/Button';
-import Card from  "components/admin/Card/Card.jsx";
-import CardHeader from  "components/admin/Card/CardHeader.jsx";
-import CardAvatar from  "components/admin/Card/CardAvatar.jsx";
-import CardBody from  "components/admin/Card/CardBody.jsx";
-import CardFooter from  "components/admin/Card/CardFooter.jsx";
 import Panel from "components/general/panel";
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfileTable from "containers/admin/ProfileSearch/ProfileTable";
 import Spacer from 'components/general/spacer';
 import * as clientActions from 'actions/clientActions';
-import { Link } from 'react-router-dom';
 import { adminStyles } from 'styles';
 
 
@@ -31,14 +17,6 @@ class UserProfile extends React.Component {
   state = {
     isLoading: true,
     profiles: []
-  }
-
-  componentWillMount() {
-    let data = {
-      approved: false,
-    }
-    this.props.clientActions.setSearchCondition(data);
-    this.props.clientActions.talentSearch(data);
   }
 
   getInfoFromProps(props) {
@@ -50,6 +28,14 @@ class UserProfile extends React.Component {
     loading = talentSearchResult.isFetching;
 
     return { loading, profiles };
+  }
+
+  componentWillMount() {
+    let data = {
+      approved: false,
+    }
+    this.props.clientActions.setSearchCondition(data);
+    this.props.clientActions.talentSearch(data);
   }
 
   componentWillReceiveProps(nextProps) {

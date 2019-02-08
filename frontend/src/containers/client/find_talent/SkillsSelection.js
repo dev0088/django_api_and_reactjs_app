@@ -43,6 +43,7 @@ class SkillsSelection extends Component {
     return(
       <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
         { this.renderSkills() }
+        <Grid item xs />
       </Grid>
     );
   }

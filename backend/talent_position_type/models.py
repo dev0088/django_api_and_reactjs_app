@@ -17,6 +17,9 @@ class TalentPositionType(models.Model):
             talent=self.talent.user.email,
             position_type=self.position_type.name)
 
+    def get_position_type_id(self):
+        return self.position_type.id
+
     class Meta:
         db_table = "talent_position_type"
         ordering = ('talent', 'position_type')

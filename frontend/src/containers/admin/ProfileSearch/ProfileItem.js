@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
-  makeTitleWithAllPositionTypes, getSexTitle, getAvatarFromTalentInfo, makeTalentNameWithTid
+  makeTalentNameWithTid
 } from 'utils/appUtils';
 import { adminStyles } from 'styles';
 

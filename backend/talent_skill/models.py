@@ -15,6 +15,9 @@ class TalentSkill(models.Model):
       talent=self.talent.user.email, 
       skill=self.skill.name)
 
+  def get_skill_id(self):
+    return self.skill.id
+
   def get_sub_skills(self):
     return self.skill.sub_skills
 
