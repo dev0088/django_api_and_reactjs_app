@@ -297,6 +297,97 @@ export const adminStyles = theme => ({
     width: '300px',
     fontSize: '25px'
   },
+  adminFormTalentNameButton: {
+    minWidth: '300px',
+    maxWidth: '300px',
+    minHeight: '105px',
+    padding: '8px',
+    display: 'block',
+    borderRadius: '5px'
+  },
+  adminFormTalentNameButtonTitle: {
+    fontSize: '1.35rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    textTransform: 'none',
+    whiteSpace: 'nowrap',
+    color: theme.palette.white.main,
+  },
+  adminFormTalentGenderButton: {
+    display: 'inline-flex',
+    marginLeft: 5,
+    padding: '3px 15px',
+    minWidth: 87,
+    backgroundColor: '#e0e0e0',
+    border: `1px solid ${theme.palette.black.main}`,
+    borderRadius: 4,
+    boxShadow: `0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    justifyContent: 'center',
+  },
+  adminFormTalentGenderButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+    textAlign: 'center'
+  },
+  adminFormTalentGenderButtonSelected: {
+    display: 'inline-flex',
+    marginLeft: 5,
+    padding: '3px 15px',
+    minWidth: 87,
+    backgroundColor: theme.palette.green.main,
+    border: `1px solid ${theme.palette.black.main}`,
+    borderRadius: 4,
+    boxShadow: `0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    justifyContent: 'center'
+  },
+  adminTalentTitlePropertiesWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+  },
+  adminTalentTitleSubPropertiesWrapper: {
+    minWidth: 87,
+    maxWidth: 87,
+    textAlign: 'left',
+    paddingLeft: 2,
+    paddingRight: 2,
+    marginLeft: 5
+  },
+  adminFormTalentSubPropertyButton: {
+    display: 'inline-flex',
+    marginLeft: 2,
+    padding: '1px 5px',
+    backgroundColor: '#e0e0e0',
+    border: `1px solid ${theme.palette.black.main}`,
+    borderRadius: '50%',
+    boxShadow: `0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    justifyContent: 'center',
+  },
+  adminFormTalentSubPropertyButtonSelected: {
+    display: 'inline-flex',
+    marginLeft: 2,
+    padding: '1px 5px',
+    backgroundColor: theme.palette.green.main,
+    border: `1px solid ${theme.palette.black.main}`,
+    borderRadius: '50%',
+    boxShadow: `0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    justifyContent: 'center',
+  },
+  adminFormTalentSubPropertyButtonTitle: {
+    fontSize: '0.5rem',
+    fontWeight: 400,
+    textTransform: 'none',
+    color: theme.palette.black.main,
+    textAlign: 'center'
+  },
+  adminFormTalentPropertyButtonItem: {
+    padding: '5px',
+    display: 'block!important',
+    textAlign: 'center'
+  },
   adminHomeContainer: {
     marginLeft: '-15px',
     marginRight: '-15px',

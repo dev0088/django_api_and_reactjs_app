@@ -30,31 +30,43 @@ class AdminForm extends Component {
       children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
-      talent, formClassName, classes
+      talent, showMale, showPosition,
+      allPositionTypes, allSkills, loading,
+      formClassName, classes
     } = this.props;
     let formStyle = formClassName ? {className: formClassName} : {}
 
     return (
       <div {...formStyle}>
         <Grid container spacing={16}>
-          { talent && <Grid item xs={12} ><AdminTalentTitle talent={talent} /></Grid>}
+          { talent && 
+            <Grid item xs={12} >
+              <AdminTalentTitle talent={talent} showMale={showMale} showPosition={showPosition} 
+                allPositionTypes={allPositionTypes} allSkills={allSkills} loading={loading}
+              />
+            </Grid>
+          }
           <Grid item xs={12} >
-            <Typography
-              align="center"
-              className={[classes.h4SmallMargin, classes.bold]}
-            >
-              {formTitle}
-            </Typography>
-            <Typography
-              align="center"
-              className={
-                formSubTitleClass
-                  ? [classes.adminFormSubTitle, formSubTitleClass]
-                  : classes.adminFormSubTitle
-              }
-            >
-              {formSubTitle}
-            </Typography>
+            { formTitle &&
+              <Typography
+                align="center"
+                className={[classes.h4SmallMargin, classes.bold]}
+              >
+                {formTitle}
+              </Typography>
+            }
+            { formSubTitle &&
+              <Typography
+                align="center"
+                className={
+                  formSubTitleClass
+                    ? [classes.adminFormSubTitle, formSubTitleClass]
+                    : classes.adminFormSubTitle
+                }
+              >
+                {formSubTitle}
+              </Typography>
+            }
           </Grid>
 
           <Grid item xs={12} >

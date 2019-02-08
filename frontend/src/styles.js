@@ -914,7 +914,9 @@ export const styles = theme => ({
     display: 'inline-flex',
     borderRadius: '9px',
     border: `1px solid ${theme.palette.black.main}`,
-    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    maxWidth: 120,
+    // minWidth: 120
   },
   clientTalentSearchGenderButtonTitle: {
     fontSize: '1rem',
@@ -931,7 +933,9 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.black.thin
     },
-    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    maxWidth: 120,
+    // minWidth: 120
   },
   clientTalentSearchGenderButtonSelectedTitle: {
     fontSize: '1rem',
@@ -944,7 +948,9 @@ export const styles = theme => ({
     borderRadius: '9px',
     border: `1px solid ${theme.palette.black.main}`,
     padding: 0,
-    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    maxWidth: 45,
+    minWidth: 45
   },
   clientTalentSearchSubPositionButtonTitle: {
     fontSize: '0.65rem',
@@ -962,7 +968,9 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.black.thin
     },
-    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+    boxShadow: `0 0px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    maxWidth: 45,
+    minWidth: 45
   },
   clientTalentSearchSubPositionButtonSelectedTitle: {
     fontSize: '0.75rem',

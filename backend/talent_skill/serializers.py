@@ -8,17 +8,18 @@ from talent_sub_skill.serializers import TalentSubSkillSerializer
 class TalentSkillSerializer(serializers.ModelSerializer):
   talent = serializers.SlugRelatedField(many=False, read_only=True, slug_field='id')
   skill = serializers.SlugRelatedField(many=False, read_only=True, slug_field='name')
+  skill_id = serializers.IntegerField(source='get_skill_id', read_only=True)
 
   class Meta:
     model = TalentSkill
-    fields = ('id', 'talent', 'skill')
+    fields = ('id', 'talent', 'skill', 'skill_id')
 
 
 class GeneralTalentSkillSerializerWithTalent(serializers.ModelSerializer):
   talent = serializers.SlugRelatedField(many=False, read_only=True, slug_field='id')
   skill = SkillSerializer(many=True)
   sub_skills = serializers.Field(source="skill.sub_skills")
-
+  
   # sub_skills = serializers.SerializerMethodField('_get_sub_skills')
 
   def _get_sub_skills(self, obj):
