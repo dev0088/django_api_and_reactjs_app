@@ -13,23 +13,6 @@ import { getSexTitle, makeRatingSearchConditionTitle, makeHeightSearchConditionT
 import defaultValues from 'constants/defaultValues';
 import { adminStyles } from 'styles';
 
-const conditionTypeData = [
-  { key: 'talent_name', title: 'Profile Name', type: 'text' },
-  { key: 'talent_tid', title: 'Profile TID', type: 'text' },
-  { key: 'talent_id', title: 'Profile ID', type: 'text' },
-  { key: 'talent_name_or_tid', title: 'Profile Name or TID', type: 'text' },
-  { key: 'sexes', title: 'Gender', type: 'button' },
-  { key: 'position_ids', title: 'Positions', type: 'button' },
-  { key: 'position_sub_type_ids', title: 'Positions Sub Types', type: 'button' },
-  { key: 'skill_ids', title: 'Skills', type: 'button' },
-  { key: 'sub_skill_ids', title: 'Sub Skills', type: 'button' },
-  { key: 'availability', title: 'Availability', type: 'button' },
-  { key: 'ages', title: 'Ages', type: 'checkbox'},
-  { key: 'heights', title: 'Heights', type: 'checkbox'},
-  { key: 'languages', title: 'Languages', type: 'checkbox'},
-  { key: 'ratings', title: 'Ratings', type: 'checkbox'}
-];
-
 
 class SearchCriteria extends Component {
 

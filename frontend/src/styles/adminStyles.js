@@ -2,6 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
+import yellow from '@material-ui/core/colors/yellow';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const drawerWidth = 240;
@@ -106,6 +107,9 @@ export const adminStyles = theme => ({
   },
   green: {
     color: theme.palette.green.main
+  },
+  yellow: {
+    color: theme.palette.yellow.main
   },
   sectionMobile: {
     display: 'flex',
@@ -855,6 +859,44 @@ export const adminStyles = theme => ({
   adminUserProfileApprovalImage: {
     width: '100%',
     boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentStatusButton: {
+    minHeight: 70,
+    maxHeight: 70,
+    borderRadius: 9,
+    border: '1px solid',
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminTalentStatusApproved: {
+    backgroundColor: theme.palette.red.main,
+    '&:hover': {
+      backgroundColor: theme.palette.red.dark
+    },
+  },
+  adminTalentStatusButtonText: {
+    fontSize: '1.15rem',
+    fontWeight: 600,
+    textTransform: 'none',
+  },
+  adminTalentCurrentStatusCheckboxAvailable: {
+    color: `${theme.palette.green.main}!important`,
+    padding: '5px 12px'
+  },
+  adminTalentCurrentStatusCheckboxNotAvailable: {
+    color: `${theme.palette.red.main}!important`,
+    padding: '5px 12px'
+  },
+  adminTalentCurrentStatusCheckboxActiveCastingRequest: {
+    color: `${theme.palette.yellow.main}!important`,
+    padding: '5px 12px'
+  },
+  adminTalentCurrentStatusCheckboxContracted: {
+    color: `${theme.palette.green.main}!important`,
+    padding: '5px 12px'
+  },
+  adminTalentCurrentStatusCheckboxDeployed: {
+    color: `${theme.palette.red.main}!important`,
+    padding: '5px 12px'
   }
 });
 
@@ -899,15 +941,20 @@ export const themeAdmin = createMuiTheme ({
       main: grey[400]
     },
     red: {
-      main: '#C00',
-      thin: red[400],
-      light: red[400],
-      dark: red[900]
+      main: '#dd2c00', //red[700],
+      thin: red[100],
+      light: '#ff6e40', //red[500],
+      dark: '#ff3d00', //red[900]
     },
     blue: {
       main: blue[700],
       light: blue[400],
       dark: blue[900]
+    },
+    yellow: {
+      main: yellow[500],
+      light: yellow[300],
+      dark: yellow[600],
     }
   },
   typography: {
