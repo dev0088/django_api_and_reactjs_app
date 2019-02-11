@@ -61,9 +61,6 @@ class AdminAPI {
       parameters = {...parameters, body: JSON.stringify(data)};
     }
 
-    console.log('==== parameters: ', parameters);
-    console.log('==== url: ', `${apiConfig.url}/${url}/`);
-
     fetch(`${apiConfig.url}/${url}/`, parameters)
       .then(response => {console.log('=== response: ', response); return response.json()})
       .then(response => {
@@ -77,6 +74,26 @@ class AdminAPI {
 
   static getProfile(profileId, handleResponse) {
     this.processRequestWithToken(`talent/${profileId}`, 'get', null, handleResponse);
+  }
+
+  static saveProfile(userId, data, handleResponse) {
+    this.processRequestWithToken(`talent/${userId}`, 'put', data, handleResponse);
+  }
+
+  static saveProfileResume(resumeId, data, handleResponse) {
+    this.processRequestWithToken(`talent_resume/${resumeId}`, 'put', data, handleResponse);
+  }
+
+  static deleteProfileResume(resumeId, data, handleResponse) {
+    this.processRequestWithToken(`talent_resume/${resumeId}`, 'delete', data, handleResponse);
+  }
+
+  static saveProfilePicture(pictureId, data, handleResponse) {
+    this.processRequestWithToken(`talent_picture/${pictureId}`, 'put', data, handleResponse);
+  }
+
+  static deleteProfilePicture(pictureId, data, handleResponse) {
+    this.processRequestWithToken(`talent_picture/${pictureId}`, 'delete', data, handleResponse);
   }
 
 }

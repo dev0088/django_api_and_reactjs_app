@@ -20,9 +20,11 @@ class SkillsSelection extends Component {
 
     for (let i = 0; i < allSkills.length; i ++) {
       let skill = allSkills[i];
-      let selected = selectedSkills.find(s => {
-        return s.skill_id === skill.id;
-      }) ? true : false;
+      let selected = false;
+      if (selectedSkills)
+        selected = selectedSkills.find(s => {
+          return s.skill_id === skill.id;
+        }) ? true : false;
 
       if (skill[titleItemName])
         items.push(

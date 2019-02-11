@@ -69,8 +69,12 @@ class TalentDetail(APIView):
     """
     def get_object(self, pk):
         try:
+            print('=== pk: ', pk)
             user = User.objects.get(pk=pk)
-            talent = Talent.objects.get(user=user.id)
+            print('=== user: ', user.email, user.type, user.is_staff)
+            if user.type == 'agency'and is_staff:
+                admin = user
+            talent = Talent.objects.filter(user=user.id).first()
             return talent
         except Talent.DoesNotExist:
             raise Http404

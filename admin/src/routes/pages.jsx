@@ -1,22 +1,22 @@
-import ViewProfile from "views/UserProfile/ViewProfile.jsx";
-import EditProfile from "views/Editprofiles/EditProfile.jsx";
+import NewProfile from "views/NewProfiles/NewProfile.jsx";
+import EditProfile from "views/EditProfiles/EditProfile.jsx";
 import NewCasting from "views/Castingrequests/NewCasting.jsx";
 import CastingRequest from "views/Castingrequests/CastingRequest.jsx";
 import CastingDetail from "views/Castingrequests/CastingDetail.jsx";
-import MetricTool from "views/Maps/MetricTool.jsx"
-import ChooseClient from "views/Maps/ChooseClient.jsx"
-import DanceCombo from "views/Maps/DanceCombo.jsx"
-import AddEdit from "views/Maps/AddEdit.jsx"
-import AddVideo from "views/Maps/AddVideo.jsx"
-import ClientLook from "views/Maps/ClientLook.jsx"
-import ClientMainten from "views/Maps/ClientMainten.jsx"
-import AddClient from "views/Maps/AddClient.jsx"
-import HeadLine from "views/Editprofiles/HeadLine.jsx"
+import MetricTool from "views/Maps/MetricTool.jsx";
+import ChooseClient from "views/Maps/ChooseClient.jsx";
+import DanceCombo from "views/Maps/DanceCombo.jsx";
+import AddEdit from "views/Maps/AddEdit.jsx";
+import AddVideo from "views/Maps/AddVideo.jsx";
+import ClientLook from "views/Maps/ClientLook.jsx";
+import ClientMainten from "views/Maps/ClientMainten.jsx";
+import AddClient from "views/Maps/AddClient.jsx";
+import HeadLine from "views/EditProfiles/HeadLine.jsx";
 
 const pageRoutes = [
   {
-    path: "/admin/view-profile",
-    component: ViewProfile
+    path: "/admin/new-profile",
+    component: NewProfile
   },
   {
     path: "/admin/edit-profiles/edit-profile",
@@ -71,8 +71,8 @@ const pageRoutes = [
     component: HeadLine
   },
   // {
-  //   path: "/admin/view-profile/:id",
-  //   component: ViewProfile
+  //   path: "/admin/new-profile/:id",
+  //   component: NewProfile
   // },
 ];
 

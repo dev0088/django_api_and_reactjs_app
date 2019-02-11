@@ -9,18 +9,13 @@ import { adminStyles } from 'styles';
 class ProfileStatusButton extends Component {
 
   render() {
-    const { link, title, requireApproval, profileId, classes } = this.props;
+    const { link, title, requireApproval, profile, classes } = this.props;
     let buttonClasses = [classes.button, classes.adminTalentStatusButton];
 
     if (requireApproval) buttonClasses.push(classes.adminTalentStatusApproved);
 
     return (
-        <Link
-            to={{
-                pathname: link,
-                state: { profileId: profileId }
-            }}
-        >
+        <Link to={link}>
             <Button variant="contained" size="large" fullWidth className={buttonClasses}>
             <Typography className={[classes.bold, classes.adminTalentStatusButtonText]}>
                 { title }

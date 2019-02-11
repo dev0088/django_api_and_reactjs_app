@@ -20,5 +20,8 @@ class TalentPictureSerializer(serializers.ModelSerializer):
             'updated',
             'uploaded',
             'active',
-            'caption'
+            'caption',
+            'approved',
+            'approved_date',
+            'approved_by'
         )

@@ -11,6 +11,7 @@ from django.db import models
 TYPE_CHOICES = (
     ('talent', 'Talent'),
     ('client', 'Client'),
+    ('agency', 'Agency')
 )
 
 class UserManager(BaseUserManager):

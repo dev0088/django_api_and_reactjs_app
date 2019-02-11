@@ -124,6 +124,7 @@ class ClientFindTalentList(APIView):
         sexes = self.pickout_data(search_conditions, 'sexes')
         skill_ids = self.pickout_data(search_conditions, 'skill_ids')
         sub_skill_ids = self.pickout_data(search_conditions, 'sub_skill_ids')
+        approved = self.pickout_data(search_conditions, 'approved')
 
         talents = Talent.objects.all()
 
@@ -254,6 +255,10 @@ class ClientFindTalentList(APIView):
                             rated_talent_ids.append(talent.id)
 
             talents = talents.filter(Q(id__in=rated_talent_ids))
+
+        # Check approved
+        if approved is not None:
+            talents = talents.filter(approved=approved)
 
         serializer = TalentSerializer(talents, many=True)
         return Response(serializer.data)

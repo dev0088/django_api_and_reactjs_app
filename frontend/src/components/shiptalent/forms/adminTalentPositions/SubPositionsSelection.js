@@ -13,9 +13,11 @@ class SubPositionsSelection extends Component {
     
     for (let i = 0; i < allSubPositions.length; i ++) {
       let subPosition = allSubPositions[i];
-      let selected = selectedSubPositions.find(s => {
-        return s.position_sub_type.id === subPosition.id;
-      }) ? true : false;
+      let selected = false;
+      if (selectedSubPositions)
+        selected = selectedSubPositions.find(s => {
+          return s.position_sub_type.id === subPosition.id;
+        }) ? true : false;
 
       let newTitleItem = subPosition[titleItem] ? titleItem : 'select_option_title';
       if (subPosition[newTitleItem])
