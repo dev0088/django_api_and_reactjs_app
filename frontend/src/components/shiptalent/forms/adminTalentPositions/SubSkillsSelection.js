@@ -8,14 +8,17 @@ import { adminStyles } from 'styles';
 class SubSkillsSelection extends Component {
 
   renderSubSkills() {
-    const { classes, selectedSubSkills, allSubSkills, titleItem } = this.props;
+    const { selectedSubSkills, allSubSkills, titleItem } = this.props;
     let items = [];
 
     for (let i = 0; i < allSubSkills.length; i ++) {
       let subSkill = allSubSkills[i];
-      let selected = selectedSubSkills.find(s => {
-        return s.sub_skill.id === subSkill.id;
-      }) ? true : false;
+      let selected = false;
+      if (selectedSubSkills)
+        selected = selectedSubSkills.find(s => {
+          return s.sub_skill.id === subSkill.id;
+        }) ? true : false;
+
       let newTitleItem = subSkill[titleItem] ? titleItem : 'select_option_title';
       
       if (subSkill[newTitleItem])

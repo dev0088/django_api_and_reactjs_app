@@ -67,6 +67,7 @@ class TalentSearchConditionSerializer(serializers.Serializer):
     heights = serializers.ListField(child=TalentSearchHeightConditionSerializer(), required=False)
     languages = serializers.ListField(child=serializers.CharField(), required=False)
     ratings = serializers.ListField(child=TalentSearchRatingConditionSerializer(), required=False)
+    approved = serializers.BooleanField(required=False)
 
 
 

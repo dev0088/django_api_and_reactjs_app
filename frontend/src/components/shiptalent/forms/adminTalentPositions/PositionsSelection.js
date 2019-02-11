@@ -20,9 +20,11 @@ class PositionsSelection extends Component {
     
     for (let i = 0; i < allPositionTypes.length; i ++) {
       let positionType = allPositionTypes[i];
-      let selected = selectedPositions.find(p => {
-        return p.position_type_id === positionType.id;
-      }) ? true : false;
+      let selected = false;
+      if (selected)
+        selected = selectedPositions.find(p => {
+          return p.position_type_id === positionType.id;
+        }) ? true : false;
 
       if (positionType[titleItemName]) 
         items.push(

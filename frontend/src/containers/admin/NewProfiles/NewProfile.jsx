@@ -2,22 +2,25 @@ import React from "react";
 import {bindActionCreators} from "redux";
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Panel from "components/general/panel";
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import Spacer from 'components/general/spacer';
-import Grid from '@material-ui/core/Grid';
-import ProfileStatusButtons from './ProfileStatusButtons';
-import ProfileCurrentStatus from './ProfileCurrentStatus';
+import ProfileStatusButtons from 'containers/admin/EditProfiles/ProfileStatusButtons';
+import ProfileCurrentStatus from 'containers/admin/EditProfiles/ProfileCurrentStatus';
+import ConfirmProfileApprovedDialog from 'components/admin/dialogs/ConfirmProfileApprovedDialog';
 import * as talentActions from 'actions/talentActions';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
 
-class EditProfile extends React.Component {
+class NewProfile extends React.Component {
 
   state = {
     isLoading: false,
     profile: null,
-    profileId: null
+    profileId: null,
+    openConfirmApproved: false,
   };
 
   getInfoFromProps = (props) => {
@@ -54,9 +57,25 @@ class EditProfile extends React.Component {
     });
   }
 
+  onClickProfileApproved = () => {
+    this.setState({openConfirmApproved: true});
+  };
+
+  onClickNewProfiles = () => {
+    this.setState({openConfirmApproved: false}, () => {
+      this.props.history.push('/admin/new-profiles');
+    })
+  };
+
+  onClickAgentDashboard = () => {
+    this.setState({openConfirmApproved: false}, () => {
+      this.props.history.push('/admin/dashboard');
+    })
+  };
+
   renderContent = () => {
     const { classes } = this.props;
-    const { profile, isLoading } = this.state;
+    const { profile, isLoading, openConfirmApproved } = this.state;
 
     return (
       <Panel>
@@ -69,8 +88,19 @@ class EditProfile extends React.Component {
             <Grid item lg md={12} xs={12} />
             <Grid item lg={3} md={12} xs={12} >
               <ProfileCurrentStatus profile={profile} loading={isLoading} />
+              <Button variant="contained" className={classes.adminNewProfileApprovedButton} onClick={this.onClickProfileApproved}>
+                PROFILE APPROVED
+              </Button>
+              <Button variant="contained" className={classes.adminNewProfileApprovedButton}>
+                PROFILE PENDING
+              </Button>
             </Grid> 
           </Grid>
+          <ConfirmProfileApprovedDialog 
+            open={openConfirmApproved}
+            onClickNewProfiles={this.onClickNewProfiles}
+            onClickAgentDashboard={this.onClickAgentDashboard}
+          />
         </Panel>
     );
   }
@@ -112,4 +142,5 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(NewProfile));
+

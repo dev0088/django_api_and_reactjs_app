@@ -8,7 +8,7 @@ import { adminStyles } from 'styles';
 class ProfileTable extends Component {
 
   render() {
-    const { profiles, classes } = this.props;
+    const { profiles, path, classes } = this.props;
 
     return (
       <Grid container spacing={24}>
@@ -16,7 +16,7 @@ class ProfileTable extends Component {
           profiles.map((profile, index) => {
             return (
               <Grid item xs={12} key={index}>
-                <ProfileItem profile={profile}/>
+                <ProfileItem profile={profile} path={path} />
               </Grid>
             )
           })

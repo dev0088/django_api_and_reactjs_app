@@ -30,7 +30,7 @@ class AdminForm extends Component {
       children,
       backLink, backButtonTitle, handleClickBackButton,
       nextLink, nextButtonTitle, handleClickNextButton,
-      talent, showMale, showPosition,
+      talent, showName, showGender, showPosition,
       allPositionTypes, allSkills, loading,
       formClassName, classes
     } = this.props;
@@ -41,7 +41,7 @@ class AdminForm extends Component {
         <Grid container spacing={16}>
           { talent && 
             <Grid item xs={12} >
-              <AdminTalentTitle talent={talent} showMale={showMale} showPosition={showPosition} 
+              <AdminTalentTitle talent={talent} showName={showName} showGender={showGender} showPosition={showPosition} 
                 allPositionTypes={allPositionTypes} allSkills={allSkills} loading={loading}
               />
             </Grid>

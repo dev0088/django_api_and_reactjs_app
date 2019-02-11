@@ -3,6 +3,7 @@ import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import yellow from '@material-ui/core/colors/yellow';
+import green from '@material-ui/core/colors/green';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const drawerWidth = 240;
@@ -856,7 +857,7 @@ export const adminStyles = theme => ({
     fontWeight: 400,
     textTransform: 'none',
   },
-  adminUserProfileApprovalImage: {
+  adminNewProfilesApprovalImage: {
     width: '100%',
     boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
   },
@@ -897,7 +898,83 @@ export const adminStyles = theme => ({
   adminTalentCurrentStatusCheckboxDeployed: {
     color: `${theme.palette.red.main}!important`,
     padding: '5px 12px'
+  },
+  adminNewProfileApprovedButton: {
+    width: 200,
+    height: 47,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: '#4dd0e1',
+    '&:hover': {
+      backgroundColor: '#0097a7'
+    },
+    boxShadow: `0 0px 0px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminConfirmButton: {
+    textTransform: 'none',
+  },
+  adminEditProfileDescriptionContainer: {
+    backgroundColor: '#000000',
+    padding: '20px',
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminEditProfileDescriptionText: {
+    color: theme.palette.white.main,
+    fontSize: '1rem'
+  },
+  adminEditProfileDescriptionTextWithTooltip: {
+    color: theme.palette.yellow.main,
+    textDecoration: 'underline',
+    fontWeight: 600,
+    cursor: 'pointer'
+  },
+  adminEditProfileDescriptionTextTooltipContainer: {
+    maxWidth: '500px',
+  },
+  adminSaveButton: {
+    marginLeft: 20,
+    marginRight: 7,
+    textTransform: 'none',
+    boxShadow: `0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminGeneralDescriptionText: {
+    color: theme.palette.black.main,
+    fontSize: '1rem'
+  },
+  adminResumeApproveSelection: {
+    color: theme.palette.green.main,
+    '&$checked': {
+      color: theme.palette.green.light,
+    },
+  },
+  adminResumeApproveSelectionChecked: {},
+  adminAwaitingApproval: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: theme.palette.red.main
+  },
+  adminNotApproved: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: '#e0e0e0'
+  },
+  adminApproved: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: theme.palette.green.main
+  },
+  adminPorfilePictureContainer: {
+    width: 150,
+    height: 180,
+    objectFit: 'cover'
   }
+  
 });
 
 export const themeAdmin = createMuiTheme ({
@@ -910,7 +987,8 @@ export const themeAdmin = createMuiTheme ({
       main: '#28a745'//'#C00'
     },
     green: {
-      main: '#28a745'
+      main: '#28a745',
+      light: green[500]
     },
     teal: {
       main: '#20c997'

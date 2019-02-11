@@ -8,7 +8,10 @@ class TalentResumeSerializer(serializers.ModelSerializer):
     model = TalentResume
     fields = (
         'id', 
-        'talent', 
+        'talent',
+        'approved',
+        'approved_date',
+        'approved_by',
         'name', 
         'path', 
         'url',

@@ -1,9 +1,3 @@
-/*
- * Filename: panel.js
- * Responsible all cmponent with headding
- * and child components
- */
-
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';

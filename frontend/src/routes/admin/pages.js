@@ -1,23 +1,26 @@
 import { TemplateAdminSidebar } from 'components/shiptalent/template';
-import ViewProfile from "containers/admin/UserProfile/ViewProfile.jsx";
-import EditProfile from "containers/admin/Editprofiles/EditProfile.jsx";
+import NewProfile from "containers/admin/NewProfiles/NewProfile.jsx";
+import EditProfile from "containers/admin/EditProfiles/EditProfile.jsx";
 import NewCasting from "containers/admin/Castingrequests/NewCasting.jsx";
 import CastingRequest from "containers/admin/Castingrequests/CastingRequest.jsx";
 import CastingDetail from "containers/admin/Castingrequests/CastingDetail.jsx";
-import MetricTool from "containers/admin/Maps/MetricTool.jsx"
-import ChooseClient from "containers/admin/Maps/ChooseClient.jsx"
-import DanceCombo from "containers/admin/Maps/DanceCombo.jsx"
-import AddEdit from "containers/admin/Maps/AddEdit.jsx"
-import AddVideo from "containers/admin/Maps/AddVideo.jsx"
-import ClientLook from "containers/admin/Maps/ClientLook.jsx"
-import ClientMainten from "containers/admin/Maps/ClientMainten.jsx"
-import AddClient from "containers/admin/Maps/AddClient.jsx"
-import HeadLine from "containers/admin/Editprofiles/HeadLine.jsx"
+import MetricTool from "containers/admin/Maps/MetricTool.jsx";
+import ChooseClient from "containers/admin/Maps/ChooseClient.jsx";
+import DanceCombo from "containers/admin/Maps/DanceCombo.jsx";
+import AddEdit from "containers/admin/Maps/AddEdit.jsx";
+import AddVideo from "containers/admin/Maps/AddVideo.jsx";
+import ClientLook from "containers/admin/Maps/ClientLook.jsx";
+import ClientMainten from "containers/admin/Maps/ClientMainten.jsx";
+import AddClient from "containers/admin/Maps/AddClient.jsx";
+import HeadLine from "containers/admin/EditProfiles/HeadLine.jsx";
+import EditResume from "containers/admin/EditProfiles/Resume/EditResume";
+import ProfilePictures from "containers/admin/EditProfiles/Pictures/ProfilePictures";
+import EditProfilePicture from "containers/admin/EditProfiles/Pictures/ProfileEditPicture";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
-import UserProfile from "containers/admin/UserProfile/UserProfile.jsx";
+import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
 import ProfileSearch from "containers/admin/ProfileSearch/ProfileSearch.jsx";
 import ProfileSearchResults from "containers/admin/ProfileSearch/ProfileSearchResults";
-import Editprofiles from "containers/admin/Editprofiles/Editprofiles.jsx";
+import EditProfiles from "containers/admin/EditProfiles/EditProfiles.jsx";
 import Castingrequests from "containers/admin/Castingrequests/Castingrequests.jsx";
 import Maps from "containers/admin/Maps/Maps.jsx";
 import NotificationsPage from "containers/admin/Notifications/Notifications.jsx";
@@ -31,9 +34,9 @@ const adminPageRoutes = [
     exact: true
   },
   {
-    path: "/admin/view-profile",
+    path: "/admin/new-profiles/new-profile",
     layout: TemplateAdminSidebar,
-    component: ViewProfile,
+    component: NewProfile,
     exact: true
   },
   {
@@ -115,6 +118,24 @@ const adminPageRoutes = [
     exact: true
   },
   {
+    path: "/admin/resume",
+    component: EditResume,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/profile-pictures",
+    component: ProfilePictures,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/profile-pictures/edit-picture",
+    component: EditProfilePicture,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
     path: "/admin/profile-search-results",
     component: ProfileSearchResults,
     layout: TemplateAdminSidebar,
@@ -134,13 +155,13 @@ const adminPageRoutes = [
   },
   {
     path: "/admin/new-profiles",
-    component: UserProfile,
+    component: NewProfiles,
     layout: TemplateAdminSidebar,
     exact: true
   },
   {
     path: "/admin/edited-profiles",
-    component: Editprofiles,
+    component: EditProfiles,
     layout: TemplateAdminSidebar,
     exact: true
   },

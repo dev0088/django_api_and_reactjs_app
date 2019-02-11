@@ -9,6 +9,7 @@ class TalentPictureAdmin(admin.ModelAdmin):
         'caption',
         'priority',
         'url',
+        'approved',
         'path',
         'size',
         'file_type',

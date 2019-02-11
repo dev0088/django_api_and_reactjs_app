@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import ProfileStatusButton from './ProfileStatusButton';
 import { adminStyles } from 'styles';
 
@@ -10,14 +9,14 @@ class ProfileStatusButtons extends Component {
 
   render() {
     const { profile, classes } = this.props;
-
+    console.log('===== ProfileStatusButtons: profile: ', profile);
     return(
     <Grid container spacing={24}>
         <Grid item xs={4} >
-          <ProfileStatusButton link="/admin/head-line" requireApproval={true} title="Headline, Bio & Resume" />
+          <ProfileStatusButton link={{pathname: "/admin/head-line", state: {profile: profile}}} requireApproval={true} title="Headline, Bio & Resume" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={true} title="Pictures" />
+          <ProfileStatusButton link={{pathname: "/admin/profile-pictures", state: {profile: profile}}} requireApproval={true} title="Pictures" />
         </Grid>
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={true} title="Videos" />

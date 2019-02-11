@@ -19,28 +19,7 @@ class PositionSelection extends Component {
           titleItem={'abbreviated_key'}
         />
       </div>
-    )
-
-    // return(
-    //   <Grid container spacing={8} justify="center" alignItems="flex-start">
-    //     <Grid
-    //       item xl={12} lg={12} md={12} sm={12} xs={12}
-    //       className={classes.adminFormTalentPropertyButtonItem}
-    //     >
-    //       <PropertyButton title={position[titleItem]} selected={selected} />
-    //     </Grid>
-    //     <Grid
-    //       item xl={12} lg={12} md={12} sm={12} xs={12}
-    //       className={classes.adminFormTalentPropertyButtonItem}
-    //     >
-    //       <SubPositionsSelection
-    //         allSubPositions={position.position_sub_types}
-    //         selectedSubPositions={selectedSubPositions}
-    //         titleItem={'abbreviated_key'}
-    //       />
-    //     </Grid>
-    //   </Grid>
-    // );
+    );
   }
 }
 

@@ -12,13 +12,13 @@ import { adminStyles } from 'styles';
 class ProfileItem extends Component {
 
   render() {
-    const { profile, classes } = this.props;
+    const { profile, path, classes } = this.props;
 
     if (profile) {
       return (
         <Link
           to={{
-            pathname: '/admin/edit-profiles/edit-profile',
+            pathname: path ? path : '/admin/edit-profiles/edit-profile',
             state: { profileId: profile.id }
           }}
         >

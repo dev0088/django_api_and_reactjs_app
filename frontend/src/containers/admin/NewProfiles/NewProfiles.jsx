@@ -8,13 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfileTable from "containers/admin/ProfileSearch/ProfileTable";
 import Spacer from 'components/general/spacer';
-import EditProfileDescription from './EditProfileDescription';
-import EditProfileDescriptionCastingRequest from './EditProfileDescriptionCastingRequest';
 import * as clientActions from 'actions/clientActions';
 import { adminStyles } from 'styles';
 
 
-class EditProfiles extends React.Component {
+class NewProfiles extends React.Component {
   
   state = {
     isLoading: true,
@@ -33,7 +31,9 @@ class EditProfiles extends React.Component {
   }
 
   componentWillMount() {
-    let data = {};
+    let data = {
+      approved: false,
+    }
     this.props.clientActions.setSearchCondition(data);
     this.props.clientActions.talentSearch(data);
   }
@@ -42,6 +42,10 @@ class EditProfiles extends React.Component {
     this.setState({
       ...this.getInfoFromProps(nextProps)
     });
+  }
+
+  switchRoutes(path){
+    this.props.history.push(path)
   }
 
   renderContent = () => {
@@ -55,34 +59,25 @@ class EditProfiles extends React.Component {
     return (
       <Panel>
         <Grid container spacing={16}>
-          <Grid item xl={12} lg={12} md={12} xs={12}>
-            <Spacer size={10} />
-          </Grid>
-          <Grid item xl={2} lg={2} md={1} xs/>
+        <Grid item xl={12} lg={12} md={12} xs={12}>
+          <Spacer size={10} />
+        </Grid>
+        <Grid item xl={2} lg={2} md={1} xs/>
           <Grid item xl={3} lg={3} md={4} xs={12}>
-            { loading ? <CircularProgress className={classes.progress} /> : <ProfileTable profiles={profiles} path='/admin/edit-profiles/edit-profile'/>}
+            { loading ? <CircularProgress className={classes.progress} /> : <ProfileTable profiles={profiles} path='/admin/new-profiles/new-profile'/>}
           </Grid>
-          <Grid item xl={1} lg={1} md xs/>
+          <Grid item xl={1} lg={1} md={1} xs/>
           <Grid item xl={4} lg={4} md={5} xs={12}>
-            <EditProfileDescriptionCastingRequest />
+            <img 
+              src={require('assets/img/new_profile_for_approval.png')} 
+              alt='new_profile_for_approval'
+              className={classes.adminNewProfilesApprovalImage}
+            />
+            <Grid item xl={2} lg={2} md={1} xs></Grid>
           </Grid>
-          <Grid item xs></Grid>
-
-          <Grid item xs={12}><Spacer size={10} /></Grid>
-
-          <Grid item xs={12}>
-            <Grid container spacing={16}>
-              <Grid item xl={3} lg={3} md={2} xs />
-              <Grid item xl={6} lg={6} md={8} xs={10}>
-                <EditProfileDescription />
-              </Grid>
-              <Grid item xl={3} lg={3} md={2} xs />
-            </Grid>
-          </Grid>
-          
-          <Grid item xl={12} lg={12} md={12} xs={12}>
-            <Spacer size={10} />
-          </Grid>
+        </Grid>
+        <Grid item xl={12} lg={12} md={12} xs={12}>
+          <Spacer size={10} />
         </Grid>
       </Panel>
     );
@@ -114,4 +109,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditProfiles));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(NewProfiles));
