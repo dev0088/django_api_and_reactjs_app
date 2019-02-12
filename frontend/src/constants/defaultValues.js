@@ -148,6 +148,8 @@ export default {
   CASTING_REQUEST_TITLE_DATE_FORMAT: 'M/D/YY',
   CASTING_REQUEST_DESCRIPTION_DATE_FORMAT: 'MM/DD/YYYY',
 	AVAILABILITY_FORMAT: 'MM/DD/YYYY HH:mm ZZ',
+	ADMIN_EDIT_PROFILE_FORMAT: 'MM/DD/YYYY HH:mm z',
+	ADMIN_CASTING_REQUEST_TITLE_FORMAT: 'MMDDYYYY',
   MAIN_RATING_VALUES: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
   BONUS_RATING_VALUES: ['+.25', '+.50', '+.75'],
 	RATING_RANGES: [
@@ -167,8 +169,17 @@ export default {
     {start_height: 175, end_height: 180},
     {start_height: 183, end_height: 193},
     {start_height: 193, end_height: 0},
-  ],
-
+	],
+	CASTING_REQUEST_STATUS: {
+		DRAFT: 'Draft',
+		REQUESTED: 'Requested',
+		REVIEWING: 'Reviewing',
+		IN_PROGRESS: 'In Progress',
+		ACCEPTED: 'Accepted',
+		DECLINED: 'Declined',
+		CANCELED: 'Canceled',
+		COMPLETED: 'Completed'
+	}
 };
 
 function generateWeightConst() {

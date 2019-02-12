@@ -29,7 +29,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '192.168.0.121',
-    'localhost',
+    '192.168.0.121:3000',
+    '192.168.0.121:8000',
     'localhost:3000'
 ]
 
@@ -93,7 +94,8 @@ LOCAL_APPS = (
     'team_member',
     'shared_profile',
     'client_feedback',
-    'client_request'
+    'client_request',
+    'agency'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

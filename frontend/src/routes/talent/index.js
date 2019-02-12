@@ -586,7 +586,7 @@ const talentRoutes = [
     exact: false
   },
   {
-    path: "talent-auditions",
+    path: "/talent-auditions",
     layout: TemplateTopbar,
     component: MyAuditions,
     exact: false

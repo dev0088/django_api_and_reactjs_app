@@ -5,6 +5,7 @@ import Panel from "components/general/panel";
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfilePicture from './ProfilePicture';
 import Spacer from 'components/general/spacer';
+import { getPictureByCaption } from 'utils/appUtils';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
 
@@ -13,7 +14,8 @@ class ProfilePcitures extends React.Component  {
 
   state = {
     profile: null,
-    pictures: null
+    pictures: null,
+    isLoading: false,
   };
 
   getInfoFromProps = (props) => {
@@ -27,12 +29,20 @@ class ProfilePcitures extends React.Component  {
     return { profile, pictures };
   };
 
-  componentWillMount = () => {
-    this.setState({...this.getInfoFromProps(this.state)});
-  }
+  handleGetProfileResponse = (response, isFailed) => {
+    console.log('==== handleGetProfileResponse: response: ', response);
+    if(isFailed) {
+      this.setState({sLoading: false});
+    } else {
+      this.setState({profile: response, pictures: response.talent_pictures, isLoading: false});
+    }
+  };
 
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps)});
+    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
+      const { profile } = this.state;
+      if (profile) AdminAPI.getProfile(profile.id, this.handleGetProfileResponse);
+    });
   };
 
   renderContent() {
@@ -47,13 +57,13 @@ class ProfilePcitures extends React.Component  {
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[0] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Headshot')} caption='My Current Headshot' />
               </Grid>
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[1] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 1')} caption='My Current Body Shot 1' />
               </Grid>
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[2] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 2')} caption='My Current Body Shot 2' />
               </Grid>
               <Grid item lg md={12} xs={12} />
             </Grid>
@@ -65,19 +75,19 @@ class ProfilePcitures extends React.Component  {
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[3] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 1')} caption='My Other Pic 1' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[4] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 2')} caption='My Other Pic 2' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[5] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 3')} caption='My Other Pic 3' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[6] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 4')} caption='My Other Pic 4' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={pictures ? pictures[7] : null} />
+                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 5')} caption='My Other Pic 5' />
               </Grid>
               <Grid item lg md={12} xs={12} />
             </Grid>

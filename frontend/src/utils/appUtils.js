@@ -431,3 +431,42 @@ export function getValueFromLocation(props, name) {
   }
   return null;
 }
+
+export function getPictureByCaption(pictures, caption) {
+  if (pictures) return pictures.find(function(picture) {
+    return (picture.caption === caption);
+  });
+  return null;
+}
+
+export function getProfileButtonClassNameByCastingRequest(castingRequest, classes) {
+  const { CASTING_REQUEST_STATUS } = defaultValues;
+  let profileItemClassName = classes.adminStatusCastingRequestTalentPending;
+  
+  if (castingRequest) {
+    switch (castingRequest.status) {
+      case CASTING_REQUEST_STATUS.DRAFT:
+      case CASTING_REQUEST_STATUS.REQUESTED:
+      case CASTING_REQUEST_STATUS.REVIEWING: // Pending
+        profileItemClassName = classes.adminStatusCastingRequestTalentPending;
+        break;
+      case CASTING_REQUEST_STATUS.IN_PROGRESS: // Advised
+        profileItemClassName = classes.adminStatusCastingRequestTalentAdvised;
+        break;
+      case CASTING_REQUEST_STATUS.ACCEPTED: // Accepted
+        profileItemClassName = classes.adminStatusCastingRequestTalentAccepted;
+        break;  
+      case CASTING_REQUEST_STATUS.COMPLETED: // Contracted and Ready to Go
+        profileItemClassName = classes.adminStatusCastingRequestTalentContracted;
+        break;  
+      case CASTING_REQUEST_STATUS.DECLINED: // Declined
+        profileItemClassName = classes.adminStatusCastingRequestTalentDeclined;
+        break;  
+      default:
+        profileItemClassName = classes.adminStatusCastingRequestTalentPending;
+        break;
+    }
+  }
+  
+  return profileItemClassName;
+}
