@@ -2,26 +2,17 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
+import StatusCheckBox from 'components/shiptalent/checkbox/StatusCheckBox';
 import { adminStyles } from 'styles';
 
 
 class ProfileCurrentStatus extends Component {
 
-  renderCheckbox = (name, title, value, className) => {
+  renderCheckbox = (name, title, checked, className) => {
     return (
         <Grid item xs={12}>
-            <FormControlLabel 
-            control={
-                <Checkbox checked={true} value={value} className={className} />
-            } label={
-                <Typography className={[this.props.classes.adminGeneralText]}>
-                    {title}
-                </Typography>
-            } 
-            />
+            <StatusCheckBox name={name} title={title} checked={checked} className={className} />
         </Grid>
     );
   };
@@ -37,11 +28,11 @@ class ProfileCurrentStatus extends Component {
                 </Typography>
             </Grid>
             <Grid container spacing={0}>
-                { this.renderCheckbox('isAvailable', 'Available', false, classes.adminTalentCurrentStatusCheckboxAvailable) }
-                { this.renderCheckbox('notAvailable', 'Not Avaliable (Talent Calendar)', false, classes.adminTalentCurrentStatusCheckboxNotAvailable) }
-                { this.renderCheckbox('isActiveCastingRequest', 'Active Casting Request', false, classes.adminTalentCurrentStatusCheckboxActiveCastingRequest) }
-                { this.renderCheckbox('isContracted', 'Contracted', false, classes.adminTalentCurrentStatusCheckboxContracted) }
-                { this.renderCheckbox('isDeployed', 'Deployed until', false, classes.adminTalentCurrentStatusCheckboxDeployed) }
+                { this.renderCheckbox('isAvailable', 'Available', true, classes.adminStatusTalentAvailable) }
+                { this.renderCheckbox('notAvailable', 'Not Avaliable (Talent Calendar)', true, classes.adminStatusTalentNotAvailable) }
+                { this.renderCheckbox('isActiveCastingRequest', 'Active Casting Request', true, classes.adminStatusTalentActiveCastingRequest) }
+                { this.renderCheckbox('isContracted', 'Contracted', true, classes.adminStatusTalentContracted) }
+                { this.renderCheckbox('isDeployed', 'Deployed until', true, classes.adminStatusTalentDeployed) }
             </Grid> 
         </Grid>
     );

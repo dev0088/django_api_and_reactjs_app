@@ -8,7 +8,7 @@ docker-compose stop
 export NVM_DIR="$HOME/.nvm"
 source ~/.nvm/nvm.sh
 
-nvm use 9.8.0
+nvm use 11.2.0
 npm install
 npm run build
 

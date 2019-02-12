@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
                 </Button>
               </Grid>
               <Grid item xs={6} size={300} style={{textAlign: 'left'}}>
-                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/edited-profiles')}}>
+                <Button color="primary" className={classes.dashboardButton} onClick={()=>{this.switchRoutes('/admin/edit-profiles')}}>
                   EDITED <br></br> PROFILES
                 </Button>
               </Grid>

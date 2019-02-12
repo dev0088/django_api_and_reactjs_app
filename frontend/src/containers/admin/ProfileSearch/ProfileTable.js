@@ -16,7 +16,7 @@ class ProfileTable extends Component {
           profiles.map((profile, index) => {
             return (
               <Grid item xs={12} key={index}>
-                <ProfileItem profile={profile} path={path} />
+                <ProfileItem profile={profile} link={{pathname: path, state: { profileId: profile.id }}} />
               </Grid>
             )
           })

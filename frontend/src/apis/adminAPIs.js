@@ -96,5 +96,21 @@ class AdminAPI {
     this.processRequestWithToken(`talent_picture/${pictureId}`, 'delete', data, handleResponse);
   }
 
+  static getAllCastingRequests(handleResponse) {
+    this.processRequestWithToken(`agency/casting_request/all`, 'get', null, handleResponse);
+  }
+
+  static getProfileCastingRequests(data, handleResponse) {
+    this.processRequestWithToken(`agency/casting_request/search`, 'post', data, handleResponse);
+  }
+
+  static getCastingRequest(castingRequestId, handleResponse) {
+    this.processRequestWithToken(`agency/casting_request/${castingRequestId}`, 'get', null, handleResponse);
+  }
+
+  static setCastingRequestStatus(castingRequestId, data, handleResponse) {
+    this.processRequestWithToken(`agency/casting_request/set_status/${castingRequestId}`, 'put', data, handleResponse);
+  }
+
 }
 export default AdminAPI

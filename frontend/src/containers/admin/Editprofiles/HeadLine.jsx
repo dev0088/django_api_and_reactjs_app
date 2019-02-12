@@ -32,8 +32,19 @@ class HeadLine extends React.Component  {
     return { profile, headLine, bio, isChanged: false };
   };
 
+  handleGetProfileResponse = (response, isFailed) => {
+    if(isFailed) {
+      this.setState({sLoading: false});
+    } else {
+      this.setState({profile: response, headLine: response.head_line, bio: response.bio, isLoading: false});
+    }
+  };
+
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps)});
+    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
+      const { profile } = this.state;
+      if (profile) AdminAPI.getProfile(profile.id, this.handleGetProfileResponse);
+    });
   };
 
   handleChange = name => event => {

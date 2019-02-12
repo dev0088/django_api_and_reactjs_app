@@ -1,9 +1,9 @@
 import { TemplateAdminSidebar } from 'components/shiptalent/template';
 import NewProfile from "containers/admin/NewProfiles/NewProfile.jsx";
 import EditProfile from "containers/admin/EditProfiles/EditProfile.jsx";
-import NewCasting from "containers/admin/Castingrequests/NewCasting.jsx";
-import CastingRequest from "containers/admin/Castingrequests/CastingRequest.jsx";
-import CastingDetail from "containers/admin/Castingrequests/CastingDetail.jsx";
+import NewCasting from "containers/admin/CastingRequests/NewCasting.jsx";
+import CastingRequest from "containers/admin/CastingRequests/CastingRequest.jsx";
+import CastingRequestDetail from "containers/admin/CastingRequests/CastingRequestDetail.jsx";
 import MetricTool from "containers/admin/Maps/MetricTool.jsx";
 import ChooseClient from "containers/admin/Maps/ChooseClient.jsx";
 import DanceCombo from "containers/admin/Maps/DanceCombo.jsx";
@@ -16,12 +16,13 @@ import HeadLine from "containers/admin/EditProfiles/HeadLine.jsx";
 import EditResume from "containers/admin/EditProfiles/Resume/EditResume";
 import ProfilePictures from "containers/admin/EditProfiles/Pictures/ProfilePictures";
 import EditProfilePicture from "containers/admin/EditProfiles/Pictures/ProfileEditPicture";
+import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
 import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
 import ProfileSearch from "containers/admin/ProfileSearch/ProfileSearch.jsx";
 import ProfileSearchResults from "containers/admin/ProfileSearch/ProfileSearchResults";
 import EditProfiles from "containers/admin/EditProfiles/EditProfiles.jsx";
-import Castingrequests from "containers/admin/Castingrequests/Castingrequests.jsx";
+import Castingrequests from "containers/admin/CastingRequests/Castingrequests.jsx";
 import Maps from "containers/admin/Maps/Maps.jsx";
 import NotificationsPage from "containers/admin/Notifications/Notifications.jsx";
 import UpgradeToPro from "containers/admin/UpgradeToPro/UpgradeToPro.jsx";
@@ -59,7 +60,7 @@ const adminPageRoutes = [
   },
   {
     path: "/admin/casting-detail",
-    component: CastingDetail,
+    component: CastingRequestDetail,
     layout: TemplateAdminSidebar,
     exact: true
   },
@@ -136,6 +137,12 @@ const adminPageRoutes = [
     exact: true
   },
   {
+    path: "/admin/edit-profiles/profile-casting-request",
+    component: ProfileCastingRequests,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
     path: "/admin/profile-search-results",
     component: ProfileSearchResults,
     layout: TemplateAdminSidebar,
@@ -160,7 +167,7 @@ const adminPageRoutes = [
     exact: true
   },
   {
-    path: "/admin/edited-profiles",
+    path: "/admin/edit-profiles",
     component: EditProfiles,
     layout: TemplateAdminSidebar,
     exact: true

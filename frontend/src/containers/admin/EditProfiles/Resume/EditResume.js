@@ -15,6 +15,7 @@ import ConfirmApproveResumeDialog from './ConfirmApproveResumeDialog';
 import ConfirmRejectResumeDialog from './ConfirmRejectResumeDialog';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import AdminAPI from 'apis/adminAPIs';
+import defaultValues from 'constants/defaultValues';
 import { adminStyles } from 'styles';
 
 
@@ -115,7 +116,7 @@ class EditResume extends React.Component  {
                     <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
                         {'Date and Time Posted: '}
                     </Typography>
-                    {resume ? resume.updated : ''}
+                    {resume ? moment.tz(resume.updated).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -123,7 +124,7 @@ class EditResume extends React.Component  {
                   <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
                       {'Date and Time Approved: '}
                   </Typography>
-                  {resume ? resume.approved_date : ''}
+                  {resume ? moment.tz(resume.approved_date).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>

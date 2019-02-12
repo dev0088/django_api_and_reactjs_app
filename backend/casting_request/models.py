@@ -29,7 +29,7 @@ class CastingRequest(models.Model):
     performance_end_date = models.DateTimeField(blank=False)
     visa_requirements = models.TextField(blank=False, default='')
     comments = models.TextField(blank=False, default='')
-    status = models.CharField(choices=STATUS_CHOICES, default='Draft', max_length=10)
+    status = models.CharField(choices=STATUS_CHOICES, default='Draft', max_length=20)
     status_updated_date = models.DateTimeField(blank=True, null=True)
     saved = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

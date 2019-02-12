@@ -12,13 +12,15 @@ class ProfilePciture extends React.Component  {
 
   state = {
     profile: null,
-    picture: null
+    picture: null,
+    showStatus: false, 
+    showCaption: false, 
+    caption: ''
   };
 
   getInfoFromProps = (props) => {
-    let profile = props.profile;
-    let picture = props.picture;
-    return { profile, picture };
+    const { profile, picture, showStatus, showCaption, caption} = this.props;
+    return { profile, picture, showStatus, showCaption, caption };
   };
 
   componentWillMount = () => {
@@ -30,19 +32,19 @@ class ProfilePciture extends React.Component  {
   };
 
   render() {
-    const { showStatus, showCaption, classes } = this.props;
-    const { picture, profile } = this.state;
+    const { classes } = this.props;
+    const { picture, profile, showStatus, showCaption, caption } = this.state;
     return (
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         { showCaption && 
           <Grid item xs={12}>
             <Typography className={[classes.adminGeneralTitle, classes.bold]}>
-              {picture ? picture.caption : ''}
+              {caption ? caption : ''}
             </Typography>
           </Grid>
         }
         <Grid item xs={12}>
-          <Link to={{pathname: '/admin/profile-pictures/edit-picture', state: {profile: profile, picture: picture}}}>
+          <Link to={{pathname: picture ? '/admin/profile-pictures/edit-picture' : '', state: {profile: profile, picture: picture}}}>
             <ShipTalentImageLoader
               src={picture ? picture.url : ''}
               containerClass={"profile-picture-container-div"}

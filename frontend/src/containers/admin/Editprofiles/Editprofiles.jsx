@@ -91,7 +91,7 @@ class EditProfiles extends React.Component {
   render = () => {
     return (
       <AdminForm
-        formTitle="NEW PROFILES FOR APPROVAL"
+        formTitle="EDIT PROFILES"
         nextLink="/admin/dashboard"
         nextButtonTitle="Agent Dashboard"
       >

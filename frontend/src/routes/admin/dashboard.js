@@ -29,7 +29,7 @@ const dashboardRoutes = [
     icon: Person,
   },
   {
-    path: "/admin/edited-profiles",
+    path: "/admin/edit-profiles",
     sidebarName: "Edit Profiles",
     navbarName: "Edit Profiles",
     icon: LibraryBooks,

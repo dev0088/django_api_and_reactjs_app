@@ -4,6 +4,7 @@ import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import yellow from '@material-ui/core/colors/yellow';
 import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const drawerWidth = 240;
@@ -879,26 +880,72 @@ export const adminStyles = theme => ({
     fontWeight: 600,
     textTransform: 'none',
   },
-  adminTalentCurrentStatusCheckboxAvailable: {
+  // Status colors
+  adminStatusTalentAvailable: {
     color: `${theme.palette.green.main}!important`,
     padding: '5px 12px'
   },
-  adminTalentCurrentStatusCheckboxNotAvailable: {
+  adminStatusTalentNotAvailable: {
     color: `${theme.palette.red.main}!important`,
     padding: '5px 12px'
   },
-  adminTalentCurrentStatusCheckboxActiveCastingRequest: {
+  adminStatusTalentActiveCastingRequest: {
     color: `${theme.palette.yellow.main}!important`,
     padding: '5px 12px'
   },
-  adminTalentCurrentStatusCheckboxContracted: {
+  adminStatusTalentContracted: {
     color: `${theme.palette.green.main}!important`,
     padding: '5px 12px'
   },
-  adminTalentCurrentStatusCheckboxDeployed: {
+  adminStatusTalentDeployed: {
     color: `${theme.palette.red.main}!important`,
     padding: '5px 12px'
   },
+  adminStatusApproveAwaitingApproval: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: theme.palette.red.main
+  },
+  adminStatusApproveNotApproved: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: '#e0e0e0'
+  },
+  adminStatusApproveApproved: {
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    border: '1px solid',
+    backgroundColor: theme.palette.green.main
+  },
+  adminStatusCastingRequestContractCompleted: {
+    color: `${theme.palette.green.main}!important`,
+    padding: '5px 12px'
+  },
+  adminStatusCastingRequestContractNotCompleted: {
+    color: `${theme.palette.black.main}!important`,
+    padding: '5px 12px'
+  },
+  adminStatusCastingRequestTalentPending: {
+    backgroundColor: `#e0e0e0!important`,
+  },
+  adminStatusCastingRequestTalentAdvised: {
+    backgroundColor: `${theme.palette.orange.main}!important`,
+  },
+  adminStatusCastingRequestTalentAccepted: {
+    backgroundColor: `${theme.palette.yellow.main}!important`,
+  },
+  adminStatusCastingRequestTalentContracted: {
+    backgroundColor: `${theme.palette.green.main}!important`,
+  },
+  adminStatusCastingRequestTalentDeclined: {
+    backgroundColor: `${theme.palette.red.main}!important`,
+  },
+  ///////
   adminNewProfileApprovedButton: {
     width: 200,
     height: 47,
@@ -948,33 +995,27 @@ export const adminStyles = theme => ({
     },
   },
   adminResumeApproveSelectionChecked: {},
-  adminAwaitingApproval: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    border: '1px solid',
-    backgroundColor: theme.palette.red.main
-  },
-  adminNotApproved: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    border: '1px solid',
-    backgroundColor: '#e0e0e0'
-  },
-  adminApproved: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    border: '1px solid',
-    backgroundColor: theme.palette.green.main
-  },
   adminPorfilePictureContainer: {
     width: 150,
     height: 180,
     objectFit: 'cover'
+  },
+  adminCastingRequestButton: {
+    display: 'block',
+    borderRadius: '5px',
+    border: '1px solid rgba(0, 0, 0, 1)',
+    boxShadow: `0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`
+  },
+  adminAddNoteButton: {
+    borderRadius: '5px',
+    border: '1px solid rgba(0, 0, 0, 1)',
+    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)`,
+    textTransform: 'none',
+  },
+  adminAddNoteButtonTitle: {
+    fontSize: '0.85rem',
+    fontWeight: 400
   }
-  
 });
 
 export const themeAdmin = createMuiTheme ({
@@ -1033,6 +1074,11 @@ export const themeAdmin = createMuiTheme ({
       main: yellow[500],
       light: yellow[300],
       dark: yellow[600],
+    },
+    orange: {
+      main: orange[500],
+      light: orange[300],
+      dark: orange[700]
     }
   },
   typography: {

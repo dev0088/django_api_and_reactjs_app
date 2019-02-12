@@ -17,9 +17,9 @@ class ProfileStatusButton extends Component {
     return (
         <Link to={link}>
             <Button variant="contained" size="large" fullWidth className={buttonClasses}>
-            <Typography className={[classes.bold, classes.adminTalentStatusButtonText]}>
-                { title }
-            </Typography>
+                <Typography className={[classes.bold, classes.adminTalentStatusButtonText]}>
+                    { title }
+                </Typography>
             </Button>
         </Link>
     );

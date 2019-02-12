@@ -22,7 +22,7 @@ class ProfileStatusButtons extends Component {
           <ProfileStatusButton link="#" requireApproval={true} title="Videos" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Casting Requests" />
+          <ProfileStatusButton link={{pathname: "/admin/edit-profiles/profile-casting-request", state: {profile: profile}}} requireApproval={false} title="Casting Requests" />
         </Grid>
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={false} title="Profile Notes" />

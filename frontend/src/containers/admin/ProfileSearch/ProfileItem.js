@@ -12,17 +12,13 @@ import { adminStyles } from 'styles';
 class ProfileItem extends Component {
 
   render() {
-    const { profile, path, classes } = this.props;
+    const { profile, link, className, classes } = this.props;
+    let defaultClassName = className ? className : classes.adminTalentViewButton;
 
     if (profile) {
       return (
-        <Link
-          to={{
-            pathname: path ? path : '/admin/edit-profiles/edit-profile',
-            state: { profileId: profile.id }
-          }}
-        >
-          <Button variant="contained" size="large" fullWidth className={[classes.button, classes.adminTalentViewButton]}>
+        <Link to={link}>
+          <Button variant="contained" size="large" fullWidth className={[classes.button, defaultClassName]}>
             <Typography className={[classes.bold, classes.adminTalentViewButtonText]}>
               { makeTalentNameWithTid(profile)}
             </Typography>

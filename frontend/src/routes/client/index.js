@@ -183,6 +183,12 @@ const clientRoutes = [
     exact: false
   },
   {
+    path: "/client/casting_request/view",
+    layout: TemplateClientTopbar,
+    component: CastingRequestView,
+    exact: false
+  },
+  {
     path: "/client/casting_request/add_wage",
     layout: TemplateClientTopbar,
     component: CastingRequestAddWageForm,

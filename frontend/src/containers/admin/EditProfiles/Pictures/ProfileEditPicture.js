@@ -15,6 +15,7 @@ import ConfirmApprovePictureDialog from './ConfirmApprovePictureDialog';
 import ConfirmRejectPictureDialog from './ConfirmRejectPictureDialog';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import AdminAPI from 'apis/adminAPIs';
+import defaultValues from 'constants/defaultValues';
 import { adminStyles } from 'styles';
 
 
@@ -62,7 +63,7 @@ class ProfileEditPicture extends React.Component  {
       let data = {
         talent: profile.id,
         approved: true,
-        approved_date: moment().format(),
+        approved_date: moment().format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT),
         approved_by: this.props.auth.access.username
       };
       AdminAPI.saveProfilePicture(picture.id, data, this.handleApproveResponse);
@@ -74,7 +75,9 @@ class ProfileEditPicture extends React.Component  {
   }
 
   handleApproveResponse = (response, isFailed) => {
-    if (!isFailed) this.setState({selectedValue: 'approved'});
+    if (!isFailed) {
+      this.setState({selectedValue: 'approved'});
+    }
   };
 
   handleClickReject = () => {
@@ -115,7 +118,7 @@ class ProfileEditPicture extends React.Component  {
                     <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
                         {'Date and Time Posted: '}
                     </Typography>
-                    {picture ? picture.updated : ''}
+                    {picture ? moment.tz(picture.updated).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -123,7 +126,7 @@ class ProfileEditPicture extends React.Component  {
                   <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
                       {'Date and Time Approved: '}
                   </Typography>
-                  {picture ? picture.approved_date : ''}
+                  {picture ? moment.tz(picture.approved_date).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
