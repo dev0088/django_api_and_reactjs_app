@@ -74,7 +74,7 @@ class TeamCreate(APIView):
         raise Http404
 
     @swagger_auto_schema(request_body=TeamCreateSerializer,
-                         responses={200: TeamCreateSerializer(many=False)})
+                         responses={200: TeamSerializer(many=False)})
     def post(self, request, format=None):
         client = self.get_object(request.user)
         serializer = TeamCreateSerializer(data=request.data)
