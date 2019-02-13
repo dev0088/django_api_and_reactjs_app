@@ -8,7 +8,8 @@ class AudioMeter extends React.Component {
     super();
 
     this.state =  {
-      volume: 0
+      volume: 0,
+      stream: null
     };
   }
 
@@ -54,6 +55,9 @@ class AudioMeter extends React.Component {
         processor.onaudioprocess = process;
         processor.connect(audioCtx.destination);
         source.connect(processor);
+        if (this.props.setAudioStream) {
+          this.props.setAudioStream(stream);
+        }
       }.bind(this)
     ).catch(function(err){
       console.log('Error occurred while initalizing audio input: ' +  err.toString());
