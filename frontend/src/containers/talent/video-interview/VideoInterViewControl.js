@@ -8,16 +8,20 @@ import styles from 'styles';
 
 class VideoInterViewControl extends Component {
 
+  handleUserMedia = () => {
+    this.props.setVideoStream(this.webcam.stream);
+  }
+
   render() {
     const { width, height, audioMeterWidth } = this.props;
     return (
       <Grid container spacing={0} direction="column" justify="center" alignItems="center">
         <Grid item lg={12} md={12} xs={12}>
-          <Webcam height={height} width={width}/>
+          <Webcam height={height} width={width} ref={e => this.webcam = e} onUserMedia={this.handleUserMedia}/>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
           <div className="audio-box">
-            <AudioMeter width={audioMeterWidth}/>
+            <AudioMeter width={audioMeterWidth} setAudioStream={this.props.setAudioStream}/>
           </div>
         </Grid>
       </Grid>

@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 const initialSettings = {
-  resolution: 1,
+  resolution: -1, // default high resolution
   frameRate: 0,
   bitRate: 0,
   audio: "",
