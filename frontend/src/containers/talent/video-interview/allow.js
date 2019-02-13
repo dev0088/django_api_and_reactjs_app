@@ -145,7 +145,7 @@ class InterviewDeviceAllow extends React.Component {
                         })
                       }
                     </Grid>
-                    { audioDevice && videoDevice &&
+                    { true &&
                         (<Grid item>
                             <p>Click <b>Allow</b> when prompted.</p>
                             <Button
@@ -158,13 +158,6 @@ class InterviewDeviceAllow extends React.Component {
                                 {"Enable Camera and Microphone"}
                               </Typography>
                             </Button>
-                            <RaisedButton
-                              label="Enable Camera and Microphone"
-                              className="btn-video-buttons"
-                              style={customStyles.raisedLongButton}
-                              primary={true}
-                              onClick={this.enableDevice}
-                            />
                         </Grid>)
                     }
                   </React.Fragment>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Webcam from 'react-webcam';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -38,26 +37,45 @@ const customStyles={
   },
 }
 
-let videoResolution = {
-  1: [480, 360],    // Default
-  2: [1280, 720],    // 1080
-  3: [1280, 720],    // 720
-  4: [858, 480],    // 480
-}
+let VideoResolutions = [
+  {width: 4096, height:2160},
+  {width: 3840, height:2160},
+  {width: 2560, height:1440},
+  {width: 1920, height:1200},
+  {width: 1920, height:1080},
+  {width: 1280, height:1000},
+  {width: 1280, height:900},
+  {width: 1280, height:800},
+  {width: 1280, height:768},
+  {width: 1280, height:720},
+  {width: 1024, height:576},
+  {width: 768, height:576},
+  {width: 640, height:480},
+  {width: 640, height:360},
+  {width: 320, height:240},
+  {width: 320, height:180},
+  {width: 160, height:120}
+];
+
+let MAX_RESOLUTION = {width: 1280, height: 768};
+
 class VideoPreview extends React.Component {
   constructor(props) {
     super();
     this.state = {
       position: null,
       settingDlg: false,
-      resolution: 1,
+      resolution: -1,
       frameRate: 0,
       bitRate: 0,
       selectedAudio: "",
       selectedVideo: "",
       audioDevices: [],
       videoDevices: [],
-      has_sub_position_type: false
+      has_sub_position_type: false,
+      startingResolution: 0,
+      maxWidth: 0,
+      maxHeight: 0,
     }
   }
 
@@ -78,10 +96,53 @@ class VideoPreview extends React.Component {
     this.setState({...this.getInfoFromProps(this.props)}, () => {
       this.props.talentActions.getCurrentTalentInfo();
     });
+    this.checkAvailableCamera();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({...this.getInfoFromProps(nextProps)})
+  }
+
+  componentWillUnmount() {
+    this.stopDevice();
+  }
+
+  checkAvailableCamera = () => {
+    const __this = this;
+    let constraints = {
+      audio: false,
+      video: {
+        width: { ideal: VideoResolutions[0]['width'] },
+        height: { ideal: VideoResolutions[0]['height'] },
+      }
+    };
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+      let {width, height} = stream.getTracks()[0].getSettings();
+      VideoResolutions.map((each, key) => {
+        if (each.width === width && each.height === height) {
+          __this.setState({ startingResolution: key, maxWidth: width, maxHeight: height });
+        }
+      })
+    }).catch(function(err) {
+      console.log(err.name + ': ' + err.message);
+    });
+  }
+
+  stopDevice = () => {
+    if (this.videoStream) {
+      this.videoStream.stop();
+    }
+    if (this.audioStream) {
+      this.audioStream.stop();
+    }
+  }
+
+  setAudioStream = (audio) => {
+    this.audioStream = audio;
+  }
+
+  setVideoStream = (video) => {
+    this.videoStream = video;
   }
 
   adjustSettings = () => {
@@ -193,7 +254,10 @@ class VideoPreview extends React.Component {
       videoDevices, 
       selectedAudio, 
       selectedVideo, 
-      has_sub_position_type
+      has_sub_position_type,
+      startingResolution,
+      maxWidth,
+      maxHeight,
     } = this.state;
     const selectItemStyle = {
       'whiteSpace': 'preWrap'
@@ -206,6 +270,10 @@ class VideoPreview extends React.Component {
       />,
     ];
     const { talentInfo, classes } = this.props;
+    const resolutions = VideoResolutions.slice(startingResolution);
+    const videoWidth = Math.min(resolution === -1 ? maxWidth : VideoResolutions[resolution]['width'], MAX_RESOLUTION.width);
+    const videoHeight = Math.min(resolution === -1 ? maxHeight : VideoResolutions[resolution]['height'], MAX_RESOLUTION.height);
+
     return (
       <Panel className="video-interview">
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
@@ -214,9 +282,11 @@ class VideoPreview extends React.Component {
           </Grid>
           <Grid item>
             <VideoInterViewControl
-              width={videoResolution[resolution][0]}
-              height={videoResolution[resolution][1]}
+              width={videoWidth}
+              height={videoHeight}
               audioMeterWidth={"450px"}
+              setAudioStream={this.setAudioStream}
+              setVideoStream={this.setVideoStream}
             />
           </Grid>
           <Grid item>
@@ -320,10 +390,10 @@ class VideoPreview extends React.Component {
           onChange={this.handleResolutionChange}
           menuItemStyle={selectItemStyle}
         >
-          <MenuItem value={1} primaryText="Default" />
-          <MenuItem value={2} primaryText="1080p" />
-          <MenuItem value={3} primaryText="720p" />
-          <MenuItem value={4} primaryText="480p" />
+          <MenuItem value={-1} primaryText="Default" />
+          {resolutions.map((each, key) => (
+            (<MenuItem key={key} value={key+startingResolution} primaryText={`${each.width}*${each.height}`} />)
+          ))}
         </SelectField>
         <SelectField
           floatingLabelText="Frame Rate"

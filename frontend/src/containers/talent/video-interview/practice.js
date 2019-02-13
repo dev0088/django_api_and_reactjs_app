@@ -34,12 +34,36 @@ const styles={
     color: "#258df2",
   },
 }
-const resolutionSize = {
-  1: [],
-  2: [1920, 1080],
-  3: [1280, 720],
-  4: [640, 480]
-}
+
+let VideoResolutions = [
+  {width: 4096, height:2160},
+  {width: 3840, height:2160},
+  {width: 2560, height:1440},
+  {width: 1920, height:1200},
+  {width: 1920, height:1080},
+  {width: 1280, height:1000},
+  {width: 1280, height:900},
+  {width: 1280, height:800},
+  {width: 1280, height:768},
+  {width: 1280, height:720},
+  {width: 1024, height:576},
+  {width: 768, height:576},
+  {width: 640, height:480},
+  {width: 640, height:360},
+  {width: 320, height:240},
+  {width: 320, height:180},
+  {width: 160, height:120}
+];
+
+let MAX_RESOLUTION = {width: 1280, height: 768};
+
+// const resolutionSize = {
+//   1: [],
+//   2: [1920, 1080],
+//   3: [1280, 720],
+//   4: [640, 480]
+// }
+
 const theme = createMuiTheme ({
   palette: {
     primary: {
@@ -73,13 +97,14 @@ class VideoPractice extends React.Component {
       settings: [],
 
       settingDlg: false,
-      resolution: 1,
+      resolution: -1,
       frameRate: 0,
       bitRate: 0,
       selectedAudio: "",
       selectedVideo: "",
       audioDevices: [],
       videoDevices: [],
+      startingResolution: 0,
     };
 
   }
@@ -124,6 +149,7 @@ class VideoPractice extends React.Component {
 
   componentWillMount() {
     this.detectDevice();
+    this.checkAvailableCamera();
     const { pageId } = this.props.match.params;
     this.props.videoActions.getVideoQuestionsActions(pageId, defaultValues.DEFAULT_PRACTICE_POSITION_TYPE);
     this.props.videoActions.getVideoSettingsActions();
@@ -134,6 +160,10 @@ class VideoPractice extends React.Component {
     setTimeout(function() {
       __this.props.talentActions.getCurrentTalentInfo();
     }, 400);
+    if (this.timer && this.timer != -1) {
+      clearTimeout(this.timer);
+      this.timer = -1;
+    }
     this.countDown();
   }
 
@@ -153,6 +183,51 @@ class VideoPractice extends React.Component {
         waitingTime: wait,
         remainingTime: remain,
       });
+  }
+
+  componentWillUnmount() {
+    this.stopDevice();
+  }
+
+  stopDevice = () => {
+    const { src } = this.state;
+    if (src && typeof src.getTracks === "function") {
+      src.getTracks().forEach(function(track) {
+        track.stop();
+      });
+    }
+    if (this.webcam && this.webcam.stream) {
+      const video = this.webcam.stream.getVideoTracks()[0];
+      video.stop();
+    }
+    if (this.audioStream) {
+      this.audioStream.stop();
+    }
+  }
+
+  setAudioStream = (stream) => {
+    this.audioStream = stream;
+  }
+
+  checkAvailableCamera = () => {
+    const __this = this;
+    let constraints = {
+      audio: false,
+      video: {
+        width: { ideal: VideoResolutions[0]['width'] },
+        height: { ideal: VideoResolutions[0]['height'] },
+      }
+    };
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+      let {width, height} = stream.getTracks()[0].getSettings();
+      VideoResolutions.map((each, key) => {
+        if (each.width === width && each.height === height) {
+          __this.setState({ startingResolution: key, maxWidth: width, maxHeight: height });
+        }
+      })
+    }).catch(function(err) {
+      console.log(err.name + ': ' + err.message);
+    });
   }
 
   adjustSettings = () => {
@@ -240,7 +315,7 @@ class VideoPractice extends React.Component {
     const __this = this;
     if (!isStopped)
     {
-      setTimeout(function () {
+      this.timer = setTimeout(function () {
         const { remainingTime, timePos } = __this.state;
         let isStopped1 = __this.state.isStopped;
         if (!isStopped1)
@@ -263,6 +338,10 @@ class VideoPractice extends React.Component {
             newRemaining[timePos]= remainingTime[timePos] - 1;
             __this.setState({remainingTime: newRemaining});
           }
+          if (__this.timer && __this.timer != -1) {
+            clearTimeout(__this.timer);
+            __this.timer = -1;
+          }
           __this.countDown();
         }
       }, 1000)
@@ -280,9 +359,16 @@ class VideoPractice extends React.Component {
     {
       options["video"] = {deviceId: {exact: selectedVideo}};
     }
-    if (resolution !== 1 ){
-      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
-      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    if (resolution !== -1 ){
+      options['mandatory']['minWidth'] = VideoResolutions[resolution]['width'];
+      options['mandatory']['minHeight'] = VideoResolutions[resolution]['height'];
+    }
+    else {
+      if (!options['video']) {
+        options['video'] = {};
+      }
+      options['video']['width'] = { ideal: VideoResolutions[0]['width'] };
+      options['video']['height'] = { ideal: VideoResolutions[0]['height'] };
     }
     if (frameRate !== 0){
       options['mandatory']['minFrameRate'] = frameRate;
@@ -315,6 +401,10 @@ class VideoPractice extends React.Component {
         remainingTime: remainingTime
       },
       () => {
+        if (this.timer && this.timer != -1) {
+          clearTimeout(this.timer);
+          this.timer = -1;
+        }
         this.countDown();
         this.videoRecordStart();
       }
@@ -345,9 +435,16 @@ class VideoPractice extends React.Component {
     {
       options["video"] = {deviceId: {exact: selectedVideo}};
     }
-    if (resolution !== 1 ){
-      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
-      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    if (resolution !== -1 ){
+      options['mandatory']['minWidth'] = VideoResolutions[resolution]['width'];
+      options['mandatory']['minHeight'] = VideoResolutions[resolution]['height'];
+    }
+    else {
+      if (!options['video']) {
+        options['video'] = {};
+      }
+      options['video']['width'] = { ideal: VideoResolutions[0]['width'] };
+      options['video']['height'] = { ideal: VideoResolutions[0]['height'] };
     }
     if (frameRate !== 0){
       options['mandatory']['minFrameRate'] = frameRate;
@@ -355,7 +452,7 @@ class VideoPractice extends React.Component {
     if (bitRate !== 0)
       rtcOptions['videoBitsPerSecond'] = bitRate;
     captureUserMedia(options, (stream) => {
-      __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
+      __this.setState({recordVideo: RecordRTC(stream, rtcOptions), src: stream}, function() {
         __this.state.recordVideo.startRecording();
       })
     });
@@ -397,6 +494,10 @@ class VideoPractice extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
+      if (this.timer && this.timer != -1) {
+        clearTimeout(this.timer);
+        this.timer = -1;
+      }
       this.countDown();
     });
   };
@@ -412,6 +513,10 @@ class VideoPractice extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
+      if (this.timer && this.timer != -1) {
+        clearTimeout(this.timer);
+        this.timer = -1;
+      }
       this.countDown();
     });
   };
@@ -615,8 +720,10 @@ class VideoPractice extends React.Component {
       videoDevices,
       selectedAudio,
       selectedVideo,
+      startingResolution,
     } = this.state;
     const { videoQuestions } = this.props;
+    const resolutions = VideoResolutions.slice(startingResolution);
     let question = "";
     const actions = [
       <FlatButton
@@ -705,9 +812,9 @@ class VideoPractice extends React.Component {
 
                 <Row className="video-webcam">
                   <Col className="col-sm-12 video-webcam-col">
-                    <Webcam height="100%" width="100%"/>
+                    <Webcam height="100%" width="100%" ref={e => this.webcam = e} />
                     <div className="audio-box">
-                      <AudioMeter width={'90%'}/>
+                      <AudioMeter width={'90%'} setAudioStream={this.setAudioStream}/>
                     </div>
                   </Col>
                 </Row>
@@ -795,10 +902,10 @@ class VideoPractice extends React.Component {
             onChange={this.handleResolutionChange}
             menuItemStyle={selectItemStyle}
           >
-            <MenuItem value={1} primaryText="Default" />
-            <MenuItem value={2} primaryText="1080p" />
-            <MenuItem value={3} primaryText="720p" />
-            <MenuItem value={4} primaryText="480p" />
+            <MenuItem value={-1} primaryText="Default" />
+            {resolutions.map((each, key) => (
+              (<MenuItem key={key} value={key+startingResolution} primaryText={`${each.width}*${each.height}`} />)
+            ))}
           </SelectField>
           <SelectField
             floatingLabelText="Frame Rate"

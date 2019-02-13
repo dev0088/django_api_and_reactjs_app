@@ -19,7 +19,7 @@ import { DateRange } from 'react-date-range';
 import moment from 'moment';
 import * as talentActions from 'actions/talentActions';
 import TalentAPI from 'apis/talentAPIs'
-import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/saveCancelButtonGroup';
+import SaveCancelButtonGroup from 'components/shiptalent/buttonGroups/SaveCancelButtonGroup';
 import MultiRangeCalendar from 'components/shiptalent/calendars/multiRangeCalendar';
 import { styles } from 'styles';
 
