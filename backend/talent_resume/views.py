@@ -4,16 +4,12 @@ import json
 import time
 import os
 import sys
-
 from werkzeug.utils import secure_filename
-
 from django.shortcuts import render
 from django.http import Http404
-
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
-
 from rest_framework import permissions, status, authentication
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
@@ -33,8 +29,10 @@ from authentication.models import User
 from talent_resume.text2pdf import text_to_image
 from talent_resume.pdf2jpg import pdf_to_image
 from talent_resume.doc2pdf import doc_to_pdf, docx_to_pdf
+from user_note.models import UserNoteManager
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 
 class TalentResumeFileUploadPolicy(APIView):
     """
@@ -139,7 +137,6 @@ class TalentResumeFileUploadCompleteHandler(APIView):
     Save uploaded file path and mark active state of it.
     """
     def post(self, request, *args, **kwargs):
-        print('==== request.data: ', request.data)
         file_id = request.data.get('fileID')
         size = request.data.get('fileSize')
         course_obj = None
@@ -156,6 +153,15 @@ class TalentResumeFileUploadCompleteHandler(APIView):
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
+
+            # Logging
+            talent_user = obj.talent.user
+            UserNoteManager.profile_logger(
+                None, None, talent_user,
+                '{user} uploaded resume.'.format(user=talent_user.first_name),
+                obj
+            )
+
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -253,7 +259,6 @@ class TalentResumeGeneratePrevew(APIView):
         obj.uploaded = True
         obj.preview_path = preview_file_path
         obj.save()
-
         data['id'] = obj.id
         data['preview_path'] = stored_path
         return Response(data, status=status.HTTP_200_OK)
@@ -294,10 +299,42 @@ class TalentResumeDetail(APIView):
         serializer = TalentResumeSerializer(talent_resume_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            # Logging
+            user = request.user
+            if user and 'approved' in serializer.data:
+                talent_user = talent_resume_item.talent.user
+                UserNoteManager.profile_logger(
+                    None, user, talent_user, 
+                    'Resume of {talent} {status} by {user}.'.format(
+                        talent=talent_user.first_name,
+                        status='Approved' if serializer.data['approved'] else 'Rejected',
+                        user=user.first_name
+                    ),
+                    talent_resume_item
+                )
+
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_resume_item = self.get_object(pk)
         talent_resume_item.delete()
+
+        user = request.user
+        if user:
+            talent_user = talent_resume_item.talent.user
+            note = ''
+            if user.type == 'agency':
+                note = 'Resume of {talent} {status} by {user}. Comment: {comment}'.format(
+                    talent=talent_user.first_name,
+                    status='Rejected',
+                    user=user.first_name,
+                    comment= request.data['comment'] if 'comment' in request.data else ''
+                )
+            elif user.type == 'talent':
+                note = '{user} removed resume.'.format(user=user.first_name)
+
+            UserNoteManager.profile_logger(None, user, talent_user, note, talent_resume_item)
+
         return Response({'id': pk}, status=status.HTTP_204_NO_CONTENT)

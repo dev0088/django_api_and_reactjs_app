@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.http import Http404
-
-# Create your views here.
 from rest_framework import permissions, status, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -16,7 +14,7 @@ from .models import TalentPicture
 from .serializers import TalentPictureSerializer
 from talent.models import Talent
 from authentication.models import User
-
+from user_note.models import UserNoteManager
 import boto
 import mimetypes
 import json
@@ -131,7 +129,7 @@ class FileUploadCompleteHandler(APIView):
         course_obj = None
         data = {}
         type_ = request.data.get('fileType')
-        print(file_id, size, type_)
+
         if file_id:
             obj = TalentPicture.objects.get(id=int(file_id))
             obj.size = int(size)
@@ -140,6 +138,18 @@ class FileUploadCompleteHandler(APIView):
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
+
+            # Logging
+            talent_user = obj.talent.user
+            UserNoteManager.profile_logger(
+                None, None, talent_user,
+                '{user} uploaded {picture_caption}.'.format(
+                    user=talent_user.first_name,
+                    picture_caption=obj.caption
+                ),
+                obj
+            )
+
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -177,10 +187,44 @@ class TalentPictureDetail(APIView):
         serializer = TalentPictureSerializer(talent_picture_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            user = request.user
+            if user and 'approved' in serializer.data:
+                talent_user = talent_picture_item.talent.user
+                UserNoteManager.profile_logger(
+                    None, user, talent_user, 
+                    '{picture_caption} {status} by {user}.'.format(
+                        picture_caption=talent_picture_item.caption,
+                        status='Approved' if serializer.data['approved'] else 'Rejected',
+                        user=user.first_name
+                    ),
+                    talent_picture_item
+                )
+            
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_picture_item = self.get_object(pk)
         talent_picture_item.delete()
+
+        user = request.user
+        if user:
+            talent_user = talent_picture_item.talent.user
+            note = ''
+            if user.type == 'agency':
+                note = '{picture_caption} {status} by {user}. Comment: {comment}'.format(
+                    picture_caption=talent_picture_item.caption,
+                    status='Rejected',
+                    user=user.first_name,
+                    comment= request.data['comment'] if request.data and ('comment' in request.data) else ''
+                )
+            elif user.type == 'talent':
+                note = '{user} removed {picture_caption}.'.format(
+                    user=user.first_name,
+                    picture_caption=talent_picture_item.caption,
+                )
+            
+            UserNoteManager.profile_logger(None, user, talent_user, note, talent_picture_item)
+            
         return Response({'id': pk}, status=status.HTTP_204_NO_CONTENT)

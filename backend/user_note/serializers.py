@@ -13,7 +13,10 @@ class UserNoteSerializer(serializers.ModelSerializer):
         'receiver',
         'note_type',
         'note',
-        'created'
+        'object_type',
+        'object_id',
+        'created',
+        'updated'
       )
 
 

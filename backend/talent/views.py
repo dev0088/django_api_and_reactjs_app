@@ -19,11 +19,13 @@ from talent_skill.models import TalentSkill
 from talent_sub_skill.models import TalentSubSkill
 from client.models import Client
 from favorite.models import Favorite
+from user_note.models import UserNoteManager
 from rest_framework import viewsets, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from drf_yasg.utils import swagger_auto_schema
 from datetime import datetime
+from pytz import timezone
 import json
 
 class TalentViewSet(viewsets.ModelViewSet):
@@ -69,9 +71,7 @@ class TalentDetail(APIView):
     """
     def get_object(self, pk):
         try:
-            print('=== pk: ', pk)
             user = User.objects.get(pk=pk)
-            print('=== user: ', user.email, user.type, user.is_staff)
             if user.type == 'agency'and is_staff:
                 admin = user
             talent = Talent.objects.filter(user=user.id).first()
@@ -286,9 +286,16 @@ class TalentDetail(APIView):
             tid=tid,
             talent_id=talent.id
         )
+        
+        UserNoteManager.tid_logger(
+            None, None, talent.user, 
+            '{action} {tid} by SYS'.format(action='Changed to' if talent.tid else 'Assigned', tid=tid),
+            talent
+        )
+        
         talent.tid = tid
-        talent.save
-
+        talent.save()
+        
         return tid
 
     def generate_tid_by_one(self, talent, position):
@@ -296,8 +303,15 @@ class TalentDetail(APIView):
             prefix=position[0],
             talent_id=talent.id
         )
+
+        UserNoteManager.tid_logger(
+            None, None, talent.user, 
+            '{action} {tid} by SYS'.format(action='Changed to' if talent.tid else 'Assigned', tid=tid),
+            talent
+        )
+
         talent.tid = tid
-        talent.save
+        talent.save()
 
         return tid
 
@@ -314,6 +328,16 @@ class TalentDetail(APIView):
         user = request.user
         client = Client.objects.filter(user_id=user.id).first()
         if client:
+            # Logging
+            UserNoteManager.search_logger(
+                None, user, talent.user, 
+                'TALENT VIEWED BY {finder}'.format(
+                    finder=user
+                ),
+                user
+            )
+
+            # Favoriting
             favorite = Favorite.objects.filter(client=client, talent=talent).first()
             if favorite:
                 favorite.save()
@@ -321,11 +345,19 @@ class TalentDetail(APIView):
                 new_favorite = Favorite.objects.create(client=client, talent=talent)
                 new_favorite.save()
 
+            # Logging
+            UserNoteManager.favorite_logger(
+                None, user, talent.user, 
+                'TALENT FAVORITED BY {finder}'.format(
+                    finder=user
+                ),
+                user
+            )
+
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=TalentSerializer, responses={200: TalentSerializer(many=False)})
     def put(self, request, pk, format=None):
-        print('== request.data: ', request.data)
         talent_item = self.get_object(pk)
         talent_data = request.data
 
@@ -397,6 +429,7 @@ class TalentDetail(APIView):
                 self.save_talent_visas(talent_item, talent_visas_data)
 
             return Response(request.data, status=status.HTTP_200_OK)
+            
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
@@ -406,7 +439,6 @@ class TalentDetail(APIView):
 
     @swagger_auto_schema(request_body=WizardTalentInfoSerializer, responses={200: WizardTalentInfoSerializer(many=False)})
     def post(self, request, pk, format=None):
-        print('== request.data: ', request.data)
         talent_item = self.get_object(pk)
         talent_data = request.data
 
@@ -457,7 +489,6 @@ class TalentChangePassword(APIView):
         user = self.get_object(pk)
         data = request.data
         serializer = ChangePasswordSerializer(data=data)
-        print('==== request.data: ', request.data)
         if serializer.is_valid():
             # Check old password
             if not user.check_password(serializer.data.get("current_password")):
@@ -467,6 +498,11 @@ class TalentChangePassword(APIView):
                         )
             # set_password also hashes the password that the user will get
             user.set_password(serializer.data.get("new_password"))
+            UserNoteManager.change_password_logger(
+                None, None, user, 
+                'Changed on {now}'.format(now=UserNoteManager.get_current_time()),
+                user
+            )
             user.save()
             return Response("Success.", status=status.HTTP_200_OK)
 

@@ -12,7 +12,10 @@ class UserNoteAdmin(admin.ModelAdmin):
         'receiver_display',
         'note_type',
         'note',
-        'created'
+        'object_type',
+        'object_id',
+        'created',
+        'updated'
     )
     list_display_links = (
         'id',
@@ -21,7 +24,10 @@ class UserNoteAdmin(admin.ModelAdmin):
         'receiver_display',
         'note_type',
         'note',
-        'created'
+        'object_type',
+        'object_id',
+        'created',
+        'updated'
     )
     list_per_page = 25
 

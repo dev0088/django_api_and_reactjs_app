@@ -3,6 +3,7 @@ from client.models import Client
 from casting_request.models import CastingRequest
 from casting_request.serializers import CastingRequestSerializer, CastingRequestCreateSerializer
 from casting_request.detail_serializers import  CastingRequestDetailSerializer
+from user_note.models import UserNoteManager
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -46,6 +47,13 @@ class CastingRequestDetail(APIView):
         serializer = CastingRequestSerializer(casting_request, data=request.data)
         if serializer.is_valid():
             serializer.save()
+            user = request.user
+            if user:
+                note = '{client} updated casting reqeust.'.format(client=user.first_name)
+                if casting_request.status == 'Requested':
+                    note = '{client} submited.'.format(client=user.first_name)
+                UserNoteManager.casting_request_logger(None, None, user, note, casting_request)
+                
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -53,6 +61,13 @@ class CastingRequestDetail(APIView):
     def delete(self, request, pk, format=None):
         casting_request = self.get_object(pk)
         casting_request.delete()
+        user = request.user
+        if user:
+            UserNoteManager.casting_request_logger(
+                None, None, user, 
+                '{client} deleted this casting reqeust.'.format(client=user.first_name),
+                casting_request
+            )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -93,6 +108,14 @@ class CastingRequestCreate(APIView):
                 comments=data['comments']
             )
             new_casting_request.save()
+            UserNoteManager.casting_request_logger(
+                None, None, client.user, 
+                '{client} created a new casting reqeust.'.format(
+                    client=client.user.first_name,
+                    casting_request_id=new_casting_request.id
+                ), 
+                new_casting_request
+            )
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
