@@ -8,21 +8,19 @@ import { adminStyles } from 'styles';
 class ProfileStatusButtons extends Component {
 
   render() {
-    const { profile, classes } = this.props;
-    console.log('===== ProfileStatusButtons: profile: ', profile);
     return(
-    <Grid container spacing={24}>
+      <Grid container spacing={24}>
         <Grid item xs={4} >
-          <ProfileStatusButton link={{pathname: "/admin/head-line", state: {profile: profile}}} requireApproval={true} title="Headline, Bio & Resume" />
+          <ProfileStatusButton link={{pathname: "/admin/head-line"}} requireApproval={true} title="Headline, Bio & Resume" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link={{pathname: "/admin/profile-pictures", state: {profile: profile}}} requireApproval={true} title="Pictures" />
+          <ProfileStatusButton link={{pathname: "/admin/profile-pictures"}} requireApproval={true} title="Pictures" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={true} title="Videos" />
+          <ProfileStatusButton link={{pathname: "/admin/edit-profiles/profile-videos"}} requireApproval={true} title="Videos" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link={{pathname: "/admin/edit-profiles/profile-casting-request", state: {profile: profile}}} requireApproval={false} title="Casting Requests" />
+          <ProfileStatusButton link={{pathname: "/admin/edit-profiles/profile-casting-request"}} requireApproval={false} title="Casting Requests" />
         </Grid>
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={false} title="Profile Notes" />
@@ -66,7 +64,7 @@ class ProfileStatusButtons extends Component {
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={false} title="Calendar" />
         </Grid>
-    </Grid>  
+      </Grid>  
 
     );
   }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -40,4 +41,18 @@ class OverviewResume extends Component {
   }
 }
 
-export default withStyles(adminStyles)(OverviewResume);
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { 
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(OverviewResume));

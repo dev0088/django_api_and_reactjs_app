@@ -18,7 +18,7 @@ class ProfileCurrentStatus extends Component {
   };
     
   render() {
-    const { profile, classes } = this.props;
+    const { classes } = this.props;
 
     return (
         <Grid container spacing={0} justify="flex-start"> 

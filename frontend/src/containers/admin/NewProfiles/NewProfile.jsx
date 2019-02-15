@@ -11,14 +11,13 @@ import ProfileStatusButtons from 'containers/admin/EditProfiles/ProfileStatusBut
 import ProfileCurrentStatus from 'containers/admin/EditProfiles/ProfileCurrentStatus';
 import ConfirmProfileApprovedDialog from 'components/admin/dialogs/ConfirmProfileApprovedDialog';
 import * as talentActions from 'actions/talentActions';
+import * as adminActions from 'actions/adminActions';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
 
 class NewProfile extends React.Component {
 
   state = {
-    isLoading: false,
-    profile: null,
     profileId: null,
     openConfirmApproved: false,
   };
@@ -29,25 +28,13 @@ class NewProfile extends React.Component {
     return { profileId };
   };
 
-  handleGetProfileResponse = (response, isFailed) => {
-    console.log('==== handleGetProfileResponse: response: ', response);
-    if(isFailed) {
-
-    } else {
-      const { allPositionTypes, allSkills } = this.props;
-      this.setState({profile: response, isLoading: false});
-    }
-  };
-
   componentWillMount() {
     const { profileId } = this.getInfoFromProps(this.props);
     
     if (profileId) {
-      this.setState({isLoading: true}, () => {
-        this.props.talentActions.getAllPositionTypes();
-        this.props.talentActions.getAllSkills();
-        AdminAPI.getProfile(profileId, this.handleGetProfileResponse);
-      });
+      this.props.talentActions.getAllPositionTypes();
+      this.props.talentActions.getAllSkills();
+      this.props.talentActions.getTalentInfo(profileId);
     }
   }
 
@@ -74,8 +61,8 @@ class NewProfile extends React.Component {
   };
 
   renderContent = () => {
-    const { classes } = this.props;
-    const { profile, isLoading, openConfirmApproved } = this.state;
+    const { profile, isLoading, classes } = this.props;
+    const { openConfirmApproved } = this.state;
 
     return (
       <Panel>
@@ -83,11 +70,11 @@ class NewProfile extends React.Component {
             <Grid item lg md={12} xs={12} />
             <Grid item lg={7} md={12} xs={12}>
               <Spacer size={38} />
-              <ProfileStatusButtons profile={profile} loading={isLoading} /> 
+              <ProfileStatusButtons loading={isLoading} /> 
             </Grid>
             <Grid item lg md={12} xs={12} />
             <Grid item lg={3} md={12} xs={12} >
-              <ProfileCurrentStatus profile={profile} loading={isLoading} />
+              <ProfileCurrentStatus loading={isLoading} />
               <Button variant="contained" className={classes.adminNewProfileApprovedButton} onClick={this.onClickProfileApproved}>
                 PROFILE APPROVED
               </Button>
@@ -106,8 +93,7 @@ class NewProfile extends React.Component {
   }
 
   render = () => {
-    const { profile, isLoading } = this.state;
-    const { allPositionTypes, allSkills } = this.props;
+    const { profile, allPositionTypes, allSkills, isLoading } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -130,15 +116,18 @@ class NewProfile extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    talentActions: bindActionCreators(talentActions, dispatch)
+    talentActions: bindActionCreators(talentActions, dispatch),
+    adminActions: bindActionCreators(adminActions, dispatch)
   };
 };
 
 const mapStateToProps = state => {
-  const { allPositionTypes, allSkills } = state;
+  const { allPositionTypes, allSkills, talentInfo } = state;
   return {
     allPositionTypes, 
-    allSkills
+    allSkills,
+    profile: talentInfo.value,
+    isLoading: talentInfo.isFetching
   };
 };
 

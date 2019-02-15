@@ -50,7 +50,10 @@ export const SEARCH_VIEW = createRequestTypes('@@jwt/SEARCH_VIEW');
 export const CALLBACK_TALENT = createRequestTypes('@@jwt/CALLBACK_TALENT');
 export const FAVORITE_TALENT = createRequestTypes('@@jwt/FAVORITE_TALENT');
 
+// Admin event
+export const SET_SELECTED_PROFILE = 'SET_SELECTED_PROFILE';
 
 // Common
+export const RESTORE_AUTH = 'RESTORE_AUTH';
 export const GLOBAL_NOTIFICATION = 'GLOBAL_NOTIFICATION';
 export const SET_SEARCH_CONDITION = 'SET_SEARCH_CONDITION';

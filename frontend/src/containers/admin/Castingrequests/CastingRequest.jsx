@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import moment from "moment";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +26,6 @@ const confirmDescription = {
 class CastingRequest extends React.Component  {
 
   state = {
-    profile: null,
     castingRequest: null,
     note: '',
     isLoading: false,
@@ -61,11 +61,15 @@ class CastingRequest extends React.Component  {
     }
   };
 
-  componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props), isLoading: true}, () => {
       const { castingRequest } = this.state;
       if (castingRequest) AdminAPI.getCastingRequest(castingRequest.id, this.handleGetCastingRequestResponse);
     });
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({...this.getInfoFromProps(nextProps)});
   };
 
   handleClickOK = () => {
@@ -230,4 +234,16 @@ class CastingRequest extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(CastingRequest);
+
+const mapDispatchToProps = dispatch => {
+  return { };
+};
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(CastingRequest));

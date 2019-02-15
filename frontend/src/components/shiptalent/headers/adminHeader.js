@@ -50,10 +50,10 @@ class AdminHeader extends Component {
   };
 
   componentDidMount() {
-    let __this = this;
-    setTimeout(function(){
-      __this.props.clientActions.getCurrentClientInfo();
-    }, 100);
+    // let __this = this;
+    // setTimeout(function(){
+    //   __this.props.clientActions.getCurrentClientInfo();
+    // }, 100);
   }
 
   handleDrawerOpen = () => {

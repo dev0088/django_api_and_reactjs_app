@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 class AlertDialog extends React.Component {
   render() {
+    const { children } = this.props
     return (
       <Dialog
         open={this.props.open}
@@ -20,6 +21,7 @@ class AlertDialog extends React.Component {
           <DialogContentText id="alert-dialog-description">
             {this.props.description}
           </DialogContentText>
+          {children && children}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onOK} variant="outlined" color="primary">

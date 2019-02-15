@@ -19,8 +19,11 @@ export const logout = (token) => ({
     [RSAA]: {
         endpoint: `${apiConfig.url}/auth/logout/`,
         method: 'POST',
-    body: JSON.stringify({token: token}),
-        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({token: token}),
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
         types: [
             types.LOGOUT.REQUEST, types.LOGOUT.SUCCESS, types.LOGOUT.FAILURE
         ]
@@ -38,3 +41,9 @@ export const refreshAccessToken = (token) => ({
         ]
     }
 })
+
+export const restoreAuth = () => {
+  return {
+    type: types.RESTORE_AUTH
+  }
+}

@@ -95,7 +95,8 @@ LOCAL_APPS = (
     'shared_profile',
     'client_feedback',
     'client_request',
-    'agency'
+    'agency',
+    'user_note'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

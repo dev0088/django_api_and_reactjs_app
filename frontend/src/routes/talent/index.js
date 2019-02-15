@@ -322,10 +322,10 @@ const talentRoutes = [
     exact: false
   },
   {
-    path: "/videos-greetings",
+    path: "/video-greetings",
     layout: TemplateTopbar,
     component: MyVideoGreetings,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-greetings/introduction",

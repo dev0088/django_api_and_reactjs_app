@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CastingRequestTalent from './CastingRequestTalent';
@@ -6,8 +7,9 @@ import { adminStyles } from 'styles';
 
 
 class CastingRequestTable extends Component {
+  
   render() {
-    const {profile, castingRequests, classes } = this.props;
+    const {profile, castingRequests } = this.props;
     return (
       (profile && castingRequests) ? (
         <Grid container spacing={24} justify="center" alignItems="center">
@@ -27,4 +29,15 @@ class CastingRequestTable extends Component {
   }
 }
 
-export default withStyles(adminStyles)(CastingRequestTable);
+const mapDispatchToProps = dispatch => {
+  return { };
+};
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(CastingRequestTable));

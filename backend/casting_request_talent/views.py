@@ -4,6 +4,7 @@ from casting_request.models import CastingRequest
 from casting_request_talent.models import CastingRequestTalent
 from casting_request_talent.serializers import CastingRequestTalentSerializer, CastingRequestTalentCreateSerializer
 from talent_rating.models import TalentRating
+from user_note.models import UserNoteManager
 from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -64,23 +65,47 @@ class CastingRequestTalentDetail(APIView):
 
     @swagger_auto_schema(responses={200: CastingRequestTalentSerializer(many=False)})
     def get(self, request, pk, format=None):
-        casting_request = self.get_object(pk)
-        serializer = CastingRequestTalentSerializer(casting_request)
+        casting_request_talent = self.get_object(pk)
+        serializer = CastingRequestTalentSerializer(casting_request_talent)
         return Response(serializer.data)
 
     @swagger_auto_schema(responses={200: CastingRequestTalentSerializer(many=False)})
     def put(self, request, pk, format=None):
-        casting_request = self.get_object(pk)
-        serializer = CastingRequestTalentSerializer(casting_request, data=request.data)
+        casting_request_talent = self.get_object(pk)
+        serializer = CastingRequestTalentSerializer(casting_request_talent, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            client_user = casting_request_talent.casting_request.client.user
+            talent_user = casting_request_talent.talent.user
+            UserNoteManager.casting_request_talent_logger(
+                None, client_user, talent_user, 
+                '{client} updated status of talent {talent} in casting reqeust.'.format(
+                    client=client_user.first_name,
+                    talent=talent_user.first_name
+                ),
+                casting_request_talent
+            )
+
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(responses={200: 'OK'})
     def delete(self, request, pk, format=None):
-        casting_request = self.get_object(pk)
-        casting_request.delete()
+        casting_request_talent = self.get_object(pk)
+        casting_request_talent.delete()
+
+        client_user = casting_request_talent.casting_request.client.user
+        talent_user = casting_request_talent.talent.user
+        UserNoteManager.casting_request_talent_logger(
+            None, client_user, talent_user, 
+            '{client} removed talent {talent} from casting reqeust.'.format(
+                client=client_user.first_name,
+                talent=talent_user.first_name
+            ),
+            casting_request_talent
+        )
+
         return Response({'id': int(pk)}, status=status.HTTP_200_OK)
 
 
@@ -107,9 +132,22 @@ class CastingRequestTalentBulkCreate(APIView):
 
         if serializer.is_valid():
             new_crt_ids = []
-            for casting_request_talent in serializer.validated_data:
-                new_casting_request_talent = CastingRequestTalent(**casting_request_talent)
+            for casting_request_talent_data in serializer.validated_data:
+                new_casting_request_talent = CastingRequestTalent(**casting_request_talent_data)
                 new_casting_request_talent.save()
+
+                client_user = new_casting_request_talent.casting_request.client.user
+                talent_user = new_casting_request_talent.talent.user
+                UserNoteManager.casting_request_talent_logger(
+                    None, client_user, talent_user, 
+                    '{client} added talent {talent} into casting reqeust.'.format(
+                        client=client_user.first_name,
+                        talent=talent_user.first_name,
+                        casting_request=new_casting_request_talent.casting_request.id
+                    ),
+                    new_casting_request_talent
+                )
+                
                 new_crt_ids.append(new_casting_request_talent.id)
 
             new_casting_request_talents = CastingRequestTalent.objects.all().filter(id__in=new_crt_ids)

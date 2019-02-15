@@ -33,13 +33,15 @@ class CastingRequestDetail extends React.Component  {
     const { location } = props;
     let castingRequest = (location && location.state && location.state.castingRequest) ? location.state.castingRequest : null;
     let castingRequestTalent = (location && location.state && location.state.castingRequestTalent) ? location.state.castingRequestTalent : null;
-    console.log('==== castingRequest, castingRequestTalent: ', castingRequest, castingRequestTalent);
-    console.log('==== props: ', props);
     return { castingRequest, castingRequestTalent };
   };
 
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props)});
+  };
+
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps), isLoading: true});
+    this.setState({...this.getInfoFromProps(nextProps)});
   };
 
   renderContent() {

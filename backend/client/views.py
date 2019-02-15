@@ -17,6 +17,7 @@ from talent_sub_skill.models import TalentSubSkill
 from talent_availability.models import TalentAvailability
 from talent_language.models import TalentLanguage
 from talent_rating.models import TalentRating
+from user_note.models import UserNoteManager
 from rest_framework import generics
 from drf_yasg.utils import swagger_auto_schema
 from django.db.models import Q
@@ -82,12 +83,8 @@ class ClientDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        print('== request.data: ', request.data)
         client_item = self.get_object(pk)
         client_data = request.data
-
-        print('==== client_data: ', client_data)
-
         serializer = ClientSerializer(client_item, data=client_data)
         if serializer.is_valid():
             serializer.save()
@@ -109,7 +106,7 @@ class ClientFindTalentList(APIView):
         """
         # Filter talents according to search condition
         search_conditions = request.data
-        print('===== search_conditions: ', search_conditions)
+        hasAnyConditions = len(search_conditions.values()) > 0
         talent_name = self.pickout_data(search_conditions, 'talent_name')
         talent_tid = self.pickout_data(search_conditions, 'talent_tid')
         casting_request_id = self.pickout_data(search_conditions, 'casting_request_id')
@@ -259,6 +256,18 @@ class ClientFindTalentList(APIView):
         # Check approved
         if approved is not None:
             talents = talents.filter(approved=approved)
+
+        # Logging
+        user = request.user
+        if user and user.type != 'agency' and len(talents) > 0 and hasAnyConditions:
+            for talent in talents:        
+                UserNoteManager.search_logger(
+                    None, user, talent.user, 
+                    'TALENT APPEARED INSEARCH BY {finder}'.format(
+                        finder=user
+                    ),
+                    user
+                )
 
         serializer = TalentSerializer(talents, many=True)
         return Response(serializer.data)

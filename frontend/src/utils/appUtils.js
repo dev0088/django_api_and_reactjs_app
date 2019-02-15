@@ -470,3 +470,29 @@ export function getProfileButtonClassNameByCastingRequest(castingRequest, classe
   
   return profileItemClassName;
 }
+
+export function filterSubSkillVideosByPosition (allSkills, subSkillVideos, positionType) {
+  let res = [];
+
+  for (let i = 0; i < subSkillVideos.length; i ++) {
+    let subSkillVideo = subSkillVideos[i];
+    for (let j = 0; j < allSkills.length; j ++) {
+      let skill = allSkills[j];
+      for (let k = 0; k < skill.sub_skills.length; k ++) {
+        let sub_skill = skill.sub_skills[k];
+        if (sub_skill.id === subSkillVideo.sub_skill) {
+          if (skill.related_position_type === positionType.name) {
+            res.push(subSkillVideos[i]);
+          }
+        }
+      }
+    }
+  }
+  return res;
+
+  // return subSkillVideos.filter(ssv => {
+  //   let skill = allSkills.find(skill => skill.sub_skills.find(subSkill => subSkill.id === ssv.id));
+  //   if (skill && skill.related_position_type === positionType.name) return true;
+  //   else return false
+  // });
+}

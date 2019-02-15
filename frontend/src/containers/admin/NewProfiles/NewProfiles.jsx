@@ -15,19 +15,15 @@ import { adminStyles } from 'styles';
 class NewProfiles extends React.Component {
   
   state = {
-    isLoading: true,
     profiles: []
   }
 
   getInfoFromProps(props) {
     const { talentSearchResult } = props;
-    let loading = true;
     let profiles = [];
 
-    if (talentSearchResult.value) profiles = talentSearchResult.value;
-    loading = talentSearchResult.isFetching;
-
-    return { loading, profiles };
+    if (talentSearchResult) profiles = talentSearchResult;
+    return { profiles };
   }
 
   componentWillMount() {
@@ -49,12 +45,8 @@ class NewProfiles extends React.Component {
   }
 
   renderContent = () => {
-    const { classes } = this.props;
-    const { loading, profiles } = this.state;
-
-    if ( loading ) {
-      return 
-    }
+    const { isLoading, classes } = this.props;
+    const { profiles } = this.state;
 
     return (
       <Panel>
@@ -64,7 +56,7 @@ class NewProfiles extends React.Component {
         </Grid>
         <Grid item xl={2} lg={2} md={1} xs/>
           <Grid item xl={3} lg={3} md={4} xs={12}>
-            { loading ? <CircularProgress className={classes.progress} /> : <ProfileTable profiles={profiles} path='/admin/new-profiles/new-profile'/>}
+            { isLoading ? <CircularProgress className={classes.progress} /> : <ProfileTable profiles={profiles} path='/admin/new-profiles/new-profile'/>}
           </Grid>
           <Grid item xl={1} lg={1} md={1} xs/>
           <Grid item xl={4} lg={4} md={5} xs={12}>
@@ -105,7 +97,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   const { talentSearchResult } = state;
   return {
-    talentSearchResult
+    talentSearchResult: talentSearchResult.value,
+    isLoading: talentSearchResult.isFetching
   }
 };
 

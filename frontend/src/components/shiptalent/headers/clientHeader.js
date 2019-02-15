@@ -28,6 +28,7 @@ import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as clientActions from  'actions/clientActions';
+import { restoreAuth } from 'actions/auth';
 import './header.css'
 import { styles } from 'styles'
 
@@ -50,10 +51,12 @@ class ClientHeader extends Component {
   }
 
   componentDidMount() {
-    let __this = this;
-    setTimeout(function(){
-      __this.props.clientActions.getCurrentClientInfo();
-    }, 100);
+    if (!this.props.clientInfo) {
+      let __this = this;
+      setTimeout(function(){
+        __this.props.clientActions.getCurrentClientInfo();
+      }, 100);  
+    }
   }
 
   hanldeClickLogout = () => {
@@ -351,6 +354,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     clientActions: bindActionCreators(clientActions, dispatch),
+    restoreAuthAction: () => dispatch(restoreAuth())
   }
 }
 

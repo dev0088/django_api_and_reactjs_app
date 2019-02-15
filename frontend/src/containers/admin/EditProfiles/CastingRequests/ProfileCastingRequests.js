@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Panel from "components/general/panel";
@@ -12,29 +13,28 @@ import { adminStyles } from 'styles';
 class ProfileCastingRequests extends React.Component  {
 
   state = {
-    profile: null,
     castingRequestTalents: null,
-    isLoading: false,
+    isLoading: false
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
-    return { profile};
+    // const { profile } = props;
+    // let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    return {};
   };
 
   handleGetAllCastingRequestResponse = (response, isFailed) => {
     console.log('==== handleGetProfileResponse: response: ', response);
     if(isFailed) {
-      this.setState({sLoading: false});
+      this.setState({isLoading: false});
     } else {
       this.setState({castingRequestTalents: response, isLoading: false});
     }
   };
 
-  componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
-      const { profile } = this.state;
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props), isLoading: true}, () => {
+      const { profile } = this.props;
       if (profile) {
         let data = { talent_id: profile.id };
         AdminAPI.getProfileCastingRequests(data, this.handleGetAllCastingRequestResponse);
@@ -42,9 +42,12 @@ class ProfileCastingRequests extends React.Component  {
     });
   };
 
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({...this.getInfoFromProps(nextProps)});
+  };
+
   renderContent() {
-    const { classes } = this.props;
-    const { castingRequestTalents, profile } = this.state;
+    const { castingRequestTalents } = this.state;
 
     return (
       <Panel>
@@ -53,7 +56,7 @@ class ProfileCastingRequests extends React.Component  {
           <Grid lg={2} md={1} xs={12} />
 
           <Grid lg={8} md={10} xs={12} >
-            <CastingRequestTable castingRequests={castingRequestTalents} profile={profile} />
+            <CastingRequestTable castingRequests={castingRequestTalents} />
           </Grid>
 
           <Grid lg={2} md={1} xs={12} />
@@ -64,7 +67,7 @@ class ProfileCastingRequests extends React.Component  {
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -79,4 +82,15 @@ class ProfileCastingRequests extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(ProfileCastingRequests);
+const mapDispatchToProps = dispatch => {
+  return { };
+};
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(ProfileCastingRequests));
