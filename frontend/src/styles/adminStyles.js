@@ -922,6 +922,23 @@ export const adminStyles = theme => ({
     border: '1px solid',
     backgroundColor: theme.palette.green.main
   },
+  adminTalentVideoButton: {
+    display: 'block',
+    borderRadius: '5px'
+  },
+  adminTalentVideoButtonTitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    color: theme.palette.white.main,
+  },
+  adminTalentVideoButtonSubTitle: {
+    fontWeight: 400,
+    color: theme.palette.white.thin,
+    textTransform: 'none',
+    textAlign: 'left'
+  },
   adminStatusCastingRequestContractCompleted: {
     color: `${theme.palette.green.main}!important`,
     padding: '5px 12px'

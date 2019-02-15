@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   init: true,
+  isFetching: false,
   isFetched: false,
   errorMessage: false,
   isFailure: false,
@@ -53,6 +54,7 @@ export function getCurrentTalentInfo(state = initialTalentInfoState, action) {
     case types.TALENT_INFO.REQUEST:
       return Object.assign({}, state, {
         init: false,
+        isFetching: true,
         isFetched: false,
         isFailure: false,
         errorMessage: false,
@@ -61,6 +63,7 @@ export function getCurrentTalentInfo(state = initialTalentInfoState, action) {
     case types.TALENT_INFO.SUCCESS:
       return Object.assign({}, state, {
         init: false,
+        isFetching: false,
         isFetched: true,
         isFailure: false,
         failure: true,
@@ -69,6 +72,7 @@ export function getCurrentTalentInfo(state = initialTalentInfoState, action) {
     case types.TALENT_INFO.FAILURE:
       return Object.assign({}, state, {
         init: true,
+        isFetching: false,
         isFetched: false,
         isFailure: true,
         errorMessage: action.payload,

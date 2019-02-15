@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Panel from "components/general/panel";
@@ -13,41 +14,32 @@ import { adminStyles } from 'styles';
 class ProfilePcitures extends React.Component  {
 
   state = {
-    profile: null,
     pictures: null,
     isLoading: false,
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    const { profile, location } = props;
     let pictures = null;
     if (profile) {
       pictures = profile.talent_pictures;
     }
 
-    return { profile, pictures };
+    return { pictures };
   };
 
-  handleGetProfileResponse = (response, isFailed) => {
-    console.log('==== handleGetProfileResponse: response: ', response);
-    if(isFailed) {
-      this.setState({sLoading: false});
-    } else {
-      this.setState({profile: response, pictures: response.talent_pictures, isLoading: false});
-    }
-  };
+
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props)});
+  }
 
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
-      const { profile } = this.state;
-      if (profile) AdminAPI.getProfile(profile.id, this.handleGetProfileResponse);
-    });
+    this.setState({...this.getInfoFromProps(nextProps)});
   };
 
   renderContent() {
     const { classes } = this.props;
-    const { pictures, profile } = this.state;
+    const { pictures } = this.state;
 
     return (
       <Panel>
@@ -57,13 +49,13 @@ class ProfilePcitures extends React.Component  {
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Headshot')} caption='My Current Headshot' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Headshot')} caption='My Current Headshot' />
               </Grid>
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 1')} caption='My Current Body Shot 1' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 1')} caption='My Current Body Shot 1' />
               </Grid>
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 2')} caption='My Current Body Shot 2' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Current Body Shot 2')} caption='My Current Body Shot 2' />
               </Grid>
               <Grid item lg md={12} xs={12} />
             </Grid>
@@ -75,19 +67,19 @@ class ProfilePcitures extends React.Component  {
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 1')} caption='My Other Pic 1' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 1')} caption='My Other Pic 1' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 2')} caption='My Other Pic 2' />
+                <ProfilePicture howStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 2')} caption='My Other Pic 2' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 3')} caption='My Other Pic 3' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 3')} caption='My Other Pic 3' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 4')} caption='My Other Pic 4' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 4')} caption='My Other Pic 4' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture profile={profile} showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 5')} caption='My Other Pic 5' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 5')} caption='My Other Pic 5' />
               </Grid>
               <Grid item lg md={12} xs={12} />
             </Grid>
@@ -99,7 +91,7 @@ class ProfilePcitures extends React.Component  {
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -114,4 +106,16 @@ class ProfilePcitures extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(ProfilePcitures);
+const mapStateToProps = state => {
+  const { auth, talentInfo } = state;
+  return {
+    auth,
+    profile: talentInfo.value
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(ProfilePcitures));

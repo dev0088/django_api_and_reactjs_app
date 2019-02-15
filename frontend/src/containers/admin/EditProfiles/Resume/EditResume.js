@@ -22,19 +22,18 @@ import { adminStyles } from 'styles';
 class EditResume extends React.Component  {
 
   state = {
-    profile: null,
     resume: null,
     selectedValue: '',
     openConfirmApproveDialog: false,
     openConfirmRejectDialog: false,
+    comment: ''
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    const { profile } = props;
     let resume = (profile && profile.talent_resume) ? profile.talent_resume[0] : null;
     let selectedValue = (resume && resume.approved) ? 'approved' : '';
-    return { profile, resume, selectedValue };
+    return { resume, selectedValue, comment: '' };
   };
 
   componentWillMount = () => {
@@ -54,7 +53,7 @@ class EditResume extends React.Component  {
   };
 
   handleClickApprove = () => {
-    this.setState({openConfirmApproveDialog: true});
+    this.setState({openConfirmApproveDialog: true, comment: ''});
   }
 
   handleClickApproveOk = () => {
@@ -79,14 +78,15 @@ class EditResume extends React.Component  {
   };
 
   handleClickReject = () => {
-    this.setState({openConfirmRejectDialog: true});
+    this.setState({openConfirmRejectDialog: true, comment: ''});
   }
 
-  handleClickRejectOk = () => {
+  handleClickRejectOk = (comment) => {
     this.setState({openConfirmRejectDialog: false}, () => {
       const { profile, resume } = this.state;
       let data = {
         talent: profile.id,
+        comment
       };
       AdminAPI.deleteProfileResume(resume.id, data, this.handleRejectResponse);
     });
@@ -102,8 +102,8 @@ class EditResume extends React.Component  {
   };
 
   renderContent() {
-    const { classes } = this.props;
-    const { profile, resume, selectedValue, openConfirmApproveDialog, openConfirmRejectDialog   } = this.state;
+    const { profile, classes } = this.props;
+    const { resume, selectedValue, openConfirmApproveDialog, openConfirmRejectDialog } = this.state;
 
     return (
       <Panel>
@@ -193,7 +193,7 @@ class EditResume extends React.Component  {
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -208,15 +208,17 @@ class EditResume extends React.Component  {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
 
 const mapStateToProps = state => {
-  const { auth } = state;
+  const { auth, talentInfo } = state;
   return {
-    auth
+    auth,
+    profile: talentInfo.value
   };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditResume));

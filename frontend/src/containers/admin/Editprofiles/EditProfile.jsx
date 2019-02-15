@@ -9,14 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import ProfileStatusButtons from './ProfileStatusButtons';
 import ProfileCurrentStatus from './ProfileCurrentStatus';
 import * as talentActions from 'actions/talentActions';
-import AdminAPI from 'apis/adminAPIs';
+import * as adminActions from 'actions/adminActions';
 import { adminStyles } from 'styles';
 
 class EditProfile extends React.Component {
 
   state = {
-    isLoading: false,
-    profile: null,
     profileId: null
   };
 
@@ -26,25 +24,13 @@ class EditProfile extends React.Component {
     return { profileId };
   };
 
-  handleGetProfileResponse = (response, isFailed) => {
-    console.log('==== handleGetProfileResponse: response: ', response);
-    if(isFailed) {
-
-    } else {
-      const { allPositionTypes, allSkills } = this.props;
-      this.setState({profile: response, isLoading: false});
-    }
-  };
-
   componentWillMount() {
     const { profileId } = this.getInfoFromProps(this.props);
     
     if (profileId) {
-      this.setState({isLoading: true}, () => {
-        this.props.talentActions.getAllPositionTypes();
-        this.props.talentActions.getAllSkills();
-        AdminAPI.getProfile(profileId, this.handleGetProfileResponse);
-      });
+      this.props.talentActions.getAllPositionTypes();
+      this.props.talentActions.getAllSkills();
+      this.props.talentActions.getTalentInfo(profileId);
     }
   }
 
@@ -55,8 +41,7 @@ class EditProfile extends React.Component {
   }
 
   renderContent = () => {
-    const { classes } = this.props;
-    const { profile, isLoading } = this.state;
+    const { isLoading } = this.props;
 
     return (
       <Panel>
@@ -64,11 +49,11 @@ class EditProfile extends React.Component {
             <Grid item lg md={12} xs={12} />
             <Grid item lg={7} md={12} xs={12}>
               <Spacer size={38} />
-              <ProfileStatusButtons profile={profile} loading={isLoading} /> 
+              <ProfileStatusButtons loading={isLoading} /> 
             </Grid>
             <Grid item lg md={12} xs={12} />
             <Grid item lg={3} md={12} xs={12} >
-              <ProfileCurrentStatus profile={profile} loading={isLoading} />
+              <ProfileCurrentStatus loading={isLoading} />
             </Grid> 
           </Grid>
         </Panel>
@@ -76,8 +61,7 @@ class EditProfile extends React.Component {
   }
 
   render = () => {
-    const { profile, isLoading } = this.state;
-    const { allPositionTypes, allSkills } = this.props;
+    const { allPositionTypes, allSkills, profile, isLoading } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -100,15 +84,18 @@ class EditProfile extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    talentActions: bindActionCreators(talentActions, dispatch)
+    talentActions: bindActionCreators(talentActions, dispatch),
+    adminActions: bindActionCreators(adminActions, dispatch)
   };
 };
 
 const mapStateToProps = state => {
-  const { allPositionTypes, allSkills } = state;
+  const { allPositionTypes, allSkills, talentInfo } = state;
   return {
     allPositionTypes, 
-    allSkills
+    allSkills,
+    profile: talentInfo.value,
+    isLoading: talentInfo.isFetching
   };
 };
 

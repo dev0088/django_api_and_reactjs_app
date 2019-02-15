@@ -22,19 +22,18 @@ import { adminStyles } from 'styles';
 class ProfileEditPicture extends React.Component  {
 
   state = {
-    profile: null,
     picture: null,
     selectedValue: '',
     openConfirmApproveDialog: false,
     openConfirmRejectDialog: false,
+    comment: ''
   };
 
   getInfoFromProps = (props) => {
     const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
     let picture = (location && location.state && location.state.picture) ? location.state.picture : null;
     let selectedValue = (picture && picture.approved) ? 'approved' : '';
-    return { profile, picture, selectedValue };
+    return { picture, selectedValue, comment: '' };
   };
 
   componentWillMount = () => {
@@ -54,16 +53,17 @@ class ProfileEditPicture extends React.Component  {
   };
 
   handleClickApprove = () => {
-    this.setState({openConfirmApproveDialog: true});
+    this.setState({openConfirmApproveDialog: true, comment: ''});
   }
 
   handleClickApproveOk = () => {
     this.setState({openConfirmApproveDialog: false}, () => {
-      const { profile, picture } = this.state;
+      const { picture } = this.state;
+      const { profile } = this.props;
       let data = {
         talent: profile.id,
         approved: true,
-        approved_date: moment().format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT),
+        approved_date: moment().format(),
         approved_by: this.props.auth.access.username
       };
       AdminAPI.saveProfilePicture(picture.id, data, this.handleApproveResponse);
@@ -81,14 +81,16 @@ class ProfileEditPicture extends React.Component  {
   };
 
   handleClickReject = () => {
-    this.setState({openConfirmRejectDialog: true});
+    this.setState({openConfirmRejectDialog: true, comment: ''});
   }
 
-  handleClickRejectOk = () => {
-    this.setState({openConfirmRejectDialog: false}, () => {
-      const { profile, picture } = this.state;
+  handleClickRejectOk = (comment) => {
+    this.setState({openConfirmRejectDialog: false, comment}, () => {
+      const { picture } = this.state;
+      const { profile } = this.props;
       let data = {
         talent: profile.id,
+        comment
       };
       AdminAPI.deleteProfilePicture(picture.id, data, this.handleRejectResponse);
     });
@@ -105,7 +107,7 @@ class ProfileEditPicture extends React.Component  {
 
   renderContent() {
     const { classes } = this.props;
-    const { profile, picture, selectedValue, openConfirmApproveDialog, openConfirmRejectDialog   } = this.state;
+    const { picture, selectedValue, openConfirmApproveDialog, openConfirmRejectDialog } = this.state;
 
     return (
       <Panel>
@@ -174,7 +176,7 @@ class ProfileEditPicture extends React.Component  {
             <Grid container spacing={8} justify="center" alignItems="center">
               <Grid item xs />
               <Grid item xs>
-                <ProfilePicture profile={profile} picture={picture} />
+                <ProfilePicture picture={picture} />
               </Grid>
               <Grid item xs />
             </Grid>
@@ -195,13 +197,14 @@ class ProfileEditPicture extends React.Component  {
   }
 
   render() {
-    const { profile, picture } = this.state;
+    const { picture } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
         showName
         formSubTitle={picture ? picture.caption : ''}
-        nextLink={{pathname: "/admin/profile-pictures", state: {profile: profile}}}
+        nextLink={{pathname: "/admin/profile-pictures"}}
         nextButtonTitle="Back to Pictures"
       >
         {this.renderContent()}
@@ -215,9 +218,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { auth } = state;
+  const { auth, talentInfo } = state;
   return {
-    auth
+    auth,
+    profile: talentInfo.value
   };
 };
 

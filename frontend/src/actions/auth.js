@@ -41,3 +41,9 @@ export const refreshAccessToken = (token) => ({
         ]
     }
 })
+
+export const restoreAuth = () => {
+  return {
+    type: types.RESTORE_AUTH
+  }
+}

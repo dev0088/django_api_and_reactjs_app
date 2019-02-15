@@ -1,6 +1,7 @@
 // import * as auth from '../actions/auth'
 import * as types from '../actions/actionTypes';
 import jwtDecode from 'jwt-decode';
+import { setAuth, getAuth } from 'service/storage';
 
 const initialState = {
   access: false,
@@ -18,19 +19,16 @@ export default (state=initialState, action) => {
         isAuthenticated: false,
     }
     case types.LOGIN.SUCCESS:
-      localStorage.setItem('auth', JSON.stringify({
-          token: action.payload.token,
-          access: jwtDecode(action.payload.token)
-        })
-      );
-      return {
+      let auth = {
         access: {
           token: action.payload.token,
           ...jwtDecode(action.payload.token)
         },
         errors: false,
         isAuthenticated: true,
-    }
+      }
+      setAuth(auth);
+      return auth;
     case types.TOKEN.RECEIVED:
       return {
         ...state,
@@ -58,6 +56,14 @@ export default (state=initialState, action) => {
         access: {},
         isAuthenticated: false,
         errors: action.payload.response || {'non_field_errors': action.payload.statusText},
+      }
+    case types.RESTORE_AUTH:
+      let restoredAuth = getAuth();
+      if (restoredAuth) return {...restoredAuth};
+      return {
+        access: {},
+        errors: false,
+        isAuthenticated: false
       }
     default:
       return state

@@ -10,27 +10,28 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default (history) => {
   const persistedFilter = createFilter(
-    'auth', ['access', 'refresh']
+    'auth', ['access', 'refresh'], 'talentInfo', 'clientInfo', 'selectedProfile'
   );
 
-  const reducer = persistReducer(
-    {
-      key: 'polls',
-      storage: storage,
-      whitelist: ['auth'],
-      transforms: [ persistedFilter]
-    },
+  const persistConfig = {
+    key: 'root',
+    storage,
+  };
+
+  const persistedReducer = persistReducer(
+    persistConfig,
     rootReducer
-  )
+  );
 
   const store = createStore(
-    reducer, {},
+    persistedReducer, {},
     composeWithDevTools(
       applyMiddleware(apiMiddleware, routerMiddleware(history)),
     )
-  )
+  );
 
-  persistStore(store)
+  let persistor = persistStore(store);
 
-  return store
+  // return store
+  return { store, persistor };
 }

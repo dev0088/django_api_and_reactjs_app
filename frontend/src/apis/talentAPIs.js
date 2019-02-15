@@ -64,7 +64,7 @@ class TalentAPI {
   }
 
   static saveTalentInfo(user_id, data, handleResponse) {
-    TalentAPI.processRequest(`talent/${user_id}/`, 'put', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent/${user_id}/`, 'put', data, handleResponse)
   }
 
   static saveTalentInfoWithToken(data, handleResponse) {
@@ -76,46 +76,46 @@ class TalentAPI {
   }
 
   static addTalentPositionAndSkills(data, handleResponse) {
-    TalentAPI.processRequest(`talent/${getUserID()}/`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent/${getUserID()}/`, 'post', data, handleResponse)
   }
 
   static saveLanguages(user_id, data, handleResponse) {
-    TalentAPI.processRequest(`talent_language/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_language/${user_id}/all`, 'post', data, handleResponse)
   }
   static saveLanguagesWithToken(data, handleResponse) {
-    TalentAPI.processRequest(`talent_language/${getUserID()}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_language/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
 	static saveMedicals(user_id, data, handleResponse) {
-    TalentAPI.processRequest(`talent_medical/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_medical/${user_id}/all`, 'post', data, handleResponse)
   }
 
   static saveMedicalsWithToken(data, handleResponse) {
-    TalentAPI.processRequest(`talent_medical/${getUserID()}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_medical/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
   static saveAvailability(user_id, data, handleResponse) {
-    TalentAPI.processRequest(`talent_availability/${user_id}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_availability/${user_id}/all`, 'post', data, handleResponse)
   }
 
   static saveAvailabilityWithToken(data, handleResponse) {
-    TalentAPI.processRequest(`talent_availability/${getUserID()}/all`, 'post', data, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_availability/${getUserID()}/all`, 'post', data, handleResponse)
   }
 
   static deletePicture(picture_id, handleResponse) {
-    TalentAPI.processRequest(`talent_picture/${picture_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_picture/${picture_id}/`, 'delete', null, handleResponse)
   }
 
   static deleteResume(resume_id, handleResponse) {
-    TalentAPI.processRequest(`talent_resume/${resume_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_resume/${resume_id}/`, 'delete', null, handleResponse)
   }
 
   static deleteVideoGreeting(video_greeting_id, handleResponse) {
-    TalentAPI.processRequest(`talent_video_greetings/${video_greeting_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_video_greetings/${video_greeting_id}/`, 'delete', null, handleResponse)
   }
 
   static deleteVideoSubSkill(video_sub_skill_id, handleResponse) {
-    TalentAPI.processRequest(`talent_video_sub_skills/${video_sub_skill_id}/`, 'delete', null, handleResponse)
+    TalentAPI.processRequestWithToken(`talent_video_sub_skills/${video_sub_skill_id}/`, 'delete', null, handleResponse)
   }
 
 }

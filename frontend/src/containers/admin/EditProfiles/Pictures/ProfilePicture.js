@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
@@ -10,30 +11,9 @@ import { adminStyles } from 'styles';
 
 class ProfilePciture extends React.Component  {
 
-  state = {
-    profile: null,
-    picture: null,
-    showStatus: false, 
-    showCaption: false, 
-    caption: ''
-  };
-
-  getInfoFromProps = (props) => {
-    const { profile, picture, showStatus, showCaption, caption} = this.props;
-    return { profile, picture, showStatus, showCaption, caption };
-  };
-
-  componentWillMount = () => {
-    this.setState({...this.getInfoFromProps(this.props)});
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps)});
-  };
-
   render() {
-    const { classes } = this.props;
-    const { picture, profile, showStatus, showCaption, caption } = this.state;
+    const { picture, showStatus, showCaption, caption, classes } = this.props;
+
     return (
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         { showCaption && 
@@ -44,7 +24,7 @@ class ProfilePciture extends React.Component  {
           </Grid>
         }
         <Grid item xs={12}>
-          <Link to={{pathname: picture ? '/admin/profile-pictures/edit-picture' : '', state: {profile: profile, picture: picture}}}>
+          <Link to={{pathname: picture ? '/admin/profile-pictures/edit-picture' : '', state: {picture: picture}}}>
             <ShipTalentImageLoader
               src={picture ? picture.url : ''}
               containerClass={"profile-picture-container-div"}
@@ -63,4 +43,16 @@ class ProfilePciture extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(ProfilePciture);
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(ProfilePciture));

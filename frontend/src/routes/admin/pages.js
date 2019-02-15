@@ -12,10 +12,12 @@ import AddVideo from "containers/admin/Maps/AddVideo.jsx";
 import ClientLook from "containers/admin/Maps/ClientLook.jsx";
 import ClientMainten from "containers/admin/Maps/ClientMainten.jsx";
 import AddClient from "containers/admin/Maps/AddClient.jsx";
-import HeadLine from "containers/admin/EditProfiles/HeadLine.jsx";
+import HeadLine from "containers/admin/EditProfiles/HeadLine/HeadLine.jsx";
 import EditResume from "containers/admin/EditProfiles/Resume/EditResume";
 import ProfilePictures from "containers/admin/EditProfiles/Pictures/ProfilePictures";
 import EditProfilePicture from "containers/admin/EditProfiles/Pictures/ProfileEditPicture";
+import ProfileVideos from "containers/admin/EditProfiles/Videos/ProfileVideos";
+import EditGreetingVideos from "containers/admin/EditProfiles/Videos/EditGreetingVideos/EditGreetingVideos";
 import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
 import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
@@ -133,6 +135,18 @@ const adminPageRoutes = [
   {
     path: "/admin/profile-pictures/edit-picture",
     component: EditProfilePicture,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-videos",
+    component: ProfileVideos,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-videos/greetings",
+    component: EditGreetingVideos,
     layout: TemplateAdminSidebar,
     exact: true
   },

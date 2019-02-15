@@ -1,11 +1,12 @@
 import React from "react";
+import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Panel from "components/general/panel";
 import AdminForm from 'components/shiptalent/forms/adminForm';
-import OverviewResume from './Resume/OverviewResume';
+import OverviewResume from '../Resume/OverviewResume';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
 
@@ -13,15 +14,15 @@ import { adminStyles } from 'styles';
 class HeadLine extends React.Component  {
 
   state = {
-    profile: null,
+    // profile: null,
     headLine: '',
     bio: '',
     isChanged: false
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    const { location, profile } = props;
+    // let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
     let headLine = '';
     let bio = '';
     if (profile) {
@@ -29,22 +30,15 @@ class HeadLine extends React.Component  {
       bio = profile.bio;
     }
 
-    return { profile, headLine, bio, isChanged: false };
+    return { headLine, bio, isChanged: false };
   };
 
-  handleGetProfileResponse = (response, isFailed) => {
-    if(isFailed) {
-      this.setState({sLoading: false});
-    } else {
-      this.setState({profile: response, headLine: response.head_line, bio: response.bio, isLoading: false});
-    }
-  };
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props)});
+  }
 
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
-      const { profile } = this.state;
-      if (profile) AdminAPI.getProfile(profile.id, this.handleGetProfileResponse);
-    });
+    this.setState({...this.getInfoFromProps(nextProps)});
   };
 
   handleChange = name => event => {
@@ -114,7 +108,7 @@ class HeadLine extends React.Component  {
             </Grid>
           </Grid>
           <Grid item md={4} xs={12}>
-            <OverviewResume profile={profile} showStatus link={{pathname: "/admin/resume", state: {profile: profile}}}/>
+            <OverviewResume showStatus link={{pathname: "/admin/resume"}}/>
           </Grid>
         </Grid>
       </Panel>
@@ -122,7 +116,7 @@ class HeadLine extends React.Component  {
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -137,4 +131,17 @@ class HeadLine extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(HeadLine);
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { 
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(HeadLine));

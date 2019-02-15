@@ -1,18 +1,19 @@
-import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
-import auth, * as fromAuth from './auth'
-import register from './register'
-import echo, * as fromEcho from './echo'
-import shiptalentInfo from './shiptalentInfo'
-import videoQuestions, { videoSettings } from './video'
-import { getCurrentTalentInfo, changePassword } from './talent.js'
-import { getAllPositionTypes } from './positionTypes'
-import { getAllSkills } from './skills'
-import { getWizardQuestionScenario } from './wizardQuestionScenario'
-import deviceSettings from './deviceSettings'
-import contactUs from './contactus'
-import {getCurrentClientInfo, talentSearchReducer, requestViewReducer, searchViewReducer} from './clientReducer'
-import globalNotification from './globalNotification'
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import auth, * as fromAuth from './auth';
+import register from './register';
+import echo, * as fromEcho from './echo';
+import shiptalentInfo from './shiptalentInfo';
+import videoQuestions, { videoSettings } from './video';
+import { getCurrentTalentInfo, changePassword } from './talent.js';
+import { getAllPositionTypes } from './positionTypes';
+import { getAllSkills } from './skills';
+import { getWizardQuestionScenario } from './wizardQuestionScenario';
+import deviceSettings from './deviceSettings';
+import contactUs from './contactus';
+import {getCurrentClientInfo, talentSearchReducer, requestViewReducer, searchViewReducer} from './clientReducer';
+import globalNotification from './globalNotification';
+import selectedProfileReducer from './admin/selectedProfileReducer';
 
 export default combineReducers({
   auth: auth,
@@ -34,7 +35,8 @@ export default combineReducers({
   requestViewReducer,
   searchViewReducer,
   clientInfo: getCurrentClientInfo,
-  globalNotification
+  globalNotification,
+  selectedProfile: selectedProfileReducer
 })
 
 

@@ -41,8 +41,8 @@ export const getCurrentClientInfo = () => {
 };
 
 export const getClientInfo = (id) => {
-  console.trace('==== getClientInfo: id');
   if (id) {
+    console.trace('client id is null: ');
     return {
       [RSAA]: {
         endpoint: `${apiConfig.url}/client/${id}/`,
@@ -62,12 +62,16 @@ export const getClientInfo = (id) => {
 };
 
 export const talentSearch = (data) => {
+  let token = getToken();
   return {
     [RSAA]: {
       endpoint: `${apiConfig.url}/client/talent_search/`,
       method: 'POST',
       body: JSON.stringify(data),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       types: [
         types.TALENT_SEARCH.REQUEST, types.TALENT_SEARCH.SUCCESS, types.TALENT_SEARCH.FAILURE
       ]
@@ -75,28 +79,40 @@ export const talentSearch = (data) => {
   }
 };
 
-export const requestView = () => ({
-  [RSAA]: {
-    endpoint: `${apiConfig.url}/client/request_view/`,
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'},
-    types: [
-      types.REQUEST_VIEW.REQUEST, types.REQUEST_VIEW.SUCCESS, types.REQUEST_VIEW.FAILURE
-    ]
-  }
-});
+export const requestView = () => {
+  let token = getToken();
+  return ({
+    [RSAA]: {
+      endpoint: `${apiConfig.url}/client/request_view/`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      types: [
+        types.REQUEST_VIEW.REQUEST, types.REQUEST_VIEW.SUCCESS, types.REQUEST_VIEW.FAILURE
+      ]
+    }
+  })
+};
 
-export const onCastingViewSearch = (data) => ({
-  [RSAA]: {
-    endpoint: `${apiConfig.url}/client/request_view/`,
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {'Content-Type': 'application/json'},
-    types: [
-      types.SEARCH_VIEW.REQUEST, types.SEARCH_VIEW.SUCCESS, types.SEARCH_VIEW.FAILURE
-    ]
-  }
-});
+export const onCastingViewSearch = (data) => {
+  let token = getToken();
+  return ({
+    [RSAA]: {
+      endpoint: `${apiConfig.url}/client/request_view/`,
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      types: [
+        types.SEARCH_VIEW.REQUEST, types.SEARCH_VIEW.SUCCESS, types.SEARCH_VIEW.FAILURE
+      ]
+    }
+  });
+};
 
 export const onCallbackTalent = () => ({
   [RSAA]: {
@@ -109,22 +125,28 @@ export const onCallbackTalent = () => ({
   }
 });
 
-export const onFavoriteTalent = () => ({
-  [RSAA]: {
-    endpoint: `${apiConfig.url}/client/favorite/`,
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'},
-    types: [
-      types.FAVORITE_TALENT.REQUEST, types.FAVORITE_TALENT.SUCCESS, types.FAVORITE_TALENT.FAILURE
-    ]
-  }
-});
+export const onFavoriteTalent = () => {
+  let token = getToken();
+  return ({
+    [RSAA]: {
+      endpoint: `${apiConfig.url}/client/favorite/`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      types: [
+        types.FAVORITE_TALENT.REQUEST, types.FAVORITE_TALENT.SUCCESS, types.FAVORITE_TALENT.FAILURE
+      ]
+    }
+  });
+};
 
-export function setSearchCondition(condition){
+export const setSearchCondition = (condition) => {
   return {
     type: types.SET_SEARCH_CONDITION,
     payload: {
       ...condition
     }
   }
-}
+};
