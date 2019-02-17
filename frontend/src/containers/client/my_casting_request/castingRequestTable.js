@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -39,12 +40,12 @@ class CastingRequestTable extends Component {
     );
   };
 
-  renderValue = (text, fieldName, classNames = null) => {
+  renderValue = (text, fieldName, className = null) => {
     const { classes } = this.props;
 
     return (
       <Grid item {...castingRequestTableDesign[fieldName]} key={`${fieldName}`}>
-        <Typography className={classNames ? classNames : [classes.descriptionText, classes.fontLightWeight]}>
+        <Typography className={className ? className : classNames(classes.descriptionText, classes.fontLightWeight)}>
           {text}
         </Typography>
       </Grid>
@@ -54,16 +55,16 @@ class CastingRequestTable extends Component {
   renderGeneralHeader = () => {
     const { hideRequestDate, classes } = this.props;
     let items = [];
-    items.push(this.renderValue('', 'view', [classes.financeTableTitle, classes.underlineText]));
-    items.push(this.renderValue('Casting Request Name', 'name', [classes.financeTableTitle, classes.underlineText]));
-    items.push(this.renderValue('Venue', 'venue', [classes.financeTableTitle, classes.underlineText]));
-    items.push(this.renderValue('Dates', 'dates', [classes.financeTableTitle, classes.underlineText]));
+    items.push(this.renderValue('', 'view', classNames(classes.financeTableTitle, classes.underlineText)));
+    items.push(this.renderValue('Casting Request Name', 'name', classNames(classes.financeTableTitle, classes.underlineText)));
+    items.push(this.renderValue('Venue', 'venue', classNames(classes.financeTableTitle, classes.underlineText)));
+    items.push(this.renderValue('Dates', 'dates', classNames(classes.financeTableTitle, classes.underlineText)));
 
     items.push(
       this.renderValue(
         'Status',
         hideRequestDate ? 'statusDraft' : 'status',
-        [classes.financeTableTitle, classes.underlineText]
+        classNames(classes.financeTableTitle, classes.underlineText)
       )
     );
 
@@ -71,7 +72,7 @@ class CastingRequestTable extends Component {
       items.push(
         this.renderValue(
           'Request Date', 'requestDate',
-          [classes.financeTableTitle, classes.underlineText]
+          classNames(classes.financeTableTitle, classes.underlineText)
         )
       )
     }
@@ -97,7 +98,7 @@ class CastingRequestTable extends Component {
       'dates')
     );
 
-    let classNames = [classes.descriptionText, classes.bold];
+    let classNames = classNames(classes.descriptionText, classes.bold);
     let statusText = status
     let fieldName = 'status'
     if(status === 'Draft') {

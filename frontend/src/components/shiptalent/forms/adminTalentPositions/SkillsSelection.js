@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SkillSelection from './SkillSelection';
-import { clientDesigns } from 'styles';
 import { adminStyles } from 'styles';
 
 
@@ -38,6 +36,7 @@ class SkillsSelection extends Component {
               selectedSubSkills={selectedSubSkills}
               titleItem={titleItemName}
               selected={selected}
+              key={`skill-${skill.id}`}
             />
           
           // </Grid>

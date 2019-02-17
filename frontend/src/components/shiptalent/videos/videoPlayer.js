@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,11 +13,13 @@ class VideoPlayer extends Component {
     console.log('===== VideoPlayer: title: ', title);
     return (
       <Grid container spacing={16} justify="center" alignItems="center">
-        <Grid item xl={12} lg={12} md={12} xs={12}>
-          <Typography className={[classes.clientFormSubTitle, classes.centerText]} >
-            {title}
-          </Typography>
-        </Grid>
+        {title && (
+          <Grid item xl={12} lg={12} md={12} xs={12}>
+            <Typography className={classNames(classes.clientFormSubTitle, classes.centerText)} >
+              {title}
+            </Typography>
+          </Grid>
+        )}
         <Grid item xl={12} lg={12} md={12} xs={12}>
           <ReactPlayer
             url={url}

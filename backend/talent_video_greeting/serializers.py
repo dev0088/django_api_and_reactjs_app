@@ -20,5 +20,8 @@ class TalentVideoGreetingSerializer(serializers.ModelSerializer):
             'uploaded',
             'active',
             'language',
-            'priority'
+            'priority',
+            'approved',
+            'approved_date',
+            'approved_by'
         )

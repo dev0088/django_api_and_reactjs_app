@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -112,24 +113,24 @@ class EditResume extends React.Component  {
           <Grid item md={7} xs={12}>
             <Grid container spacing={24}>
               <Grid item xs={12} spacing={0}>
-                <Typography className={[classes.adminGeneralDescriptionText, classes.inlineText]}>
-                    <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminGeneralDescriptionText, classes.inlineText)}>
+                    <Typography className={classNames(classes.adminGeneralDescriptionText, classes.bold, classes.inlineText)}>
                         {'Date and Time Posted: '}
                     </Typography>
                     {resume ? moment.tz(resume.updated).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography className={[classes.adminGeneralDescriptionText, classes.inlineText]}>
-                  <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminGeneralDescriptionText, classes.inlineText)}>
+                  <Typography className={classNames(classes.adminGeneralDescriptionText, classes.bold, classes.inlineText)}>
                       {'Date and Time Approved: '}
                   </Typography>
                   {resume ? moment.tz(resume.approved_date).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : ''}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography className={[classes.adminGeneralDescriptionText, classes.inlineText]}>
-                  <Typography className={[classes.adminGeneralDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminGeneralDescriptionText, classes.inlineText)}>
+                  <Typography className={classNames(classes.adminGeneralDescriptionText, classes.bold, classes.inlineText)}>
                       {'Approved By: '}
                   </Typography>
                   {resume ? resume.approved_by : ''}

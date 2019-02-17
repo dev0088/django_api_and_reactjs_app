@@ -20,7 +20,10 @@ class TalentVideoSubSkillSerializer(serializers.ModelSerializer):
             'timestamp',
             'updated',
             'uploaded',
-            'active'
+            'active',
+            'approved',
+            'approved_date',
+            'approved_by'
         )
 
 

@@ -15,6 +15,9 @@ class TalentVideoGreeting(models.Model):
     active = models.BooleanField(default=True)
     language = models.CharField(max_length=50, null=True, blank=True)
     priority = models.IntegerField(blank=True, default=100)
+    approved = models.BooleanField(default=False)
+    approved_date = models.DateTimeField(blank=True, null=True)
+    approved_by = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return 'talent: {user_email}, language: {language}, video: {video_url}, {video_size}'.format(

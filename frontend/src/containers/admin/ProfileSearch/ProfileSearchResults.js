@@ -53,7 +53,7 @@ class ProfileSearchResults extends Component {
           <Grid container spacing={24} >
             <Grid item xl={2} lg={2} md={1} xs/>
             <Grid item xl={3} lg={3} md={4} xs={12}>
-              <ProfileTable profiles={profiles} />
+              <ProfileTable profiles={profiles} path='/admin/edit-profiles/edit-profile'/>
             </Grid>
             <Grid item xl={1} lg={1} md={1} xs/>
             <Grid item xl={4} lg={4} md={5} xs={12} className={classes.leftText}>

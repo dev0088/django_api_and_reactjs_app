@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -18,8 +19,8 @@ class ProfileItem extends Component {
     if (profile) {
       return (
         <Link to={link}>
-          <Button variant="contained" size="large" fullWidth className={[classes.button, defaultClassName]}>
-            <Typography className={[classes.bold, classes.adminTalentViewButtonText]}>
+          <Button variant="contained" size="large" fullWidth className={classNames(classes.button, defaultClassName)}>
+            <Typography className={classNames(classes.bold, classes.adminTalentViewButtonText)}>
               { makeTalentNameWithTid(profile)}
             </Typography>
           </Button>

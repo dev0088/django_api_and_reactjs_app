@@ -112,5 +112,20 @@ class AdminAPI {
     this.processRequestWithToken(`agency/casting_request/set_status/${castingRequestId}`, 'put', data, handleResponse);
   }
 
+  static saveGreetingVideo(videoId, data, handleResponse) {
+    this.processRequestWithToken(`talent_video_greetings/${videoId}`, 'put', data, handleResponse);
+  }
+
+  static deleteGreetingVideo(videoId, data, handleResponse) {
+    this.processRequestWithToken(`talent_video_greetings/${videoId}`, 'delete', data, handleResponse);
+  }
+
+  static saveSubSkillVideo(videoId, data, handleResponse) {
+    this.processRequestWithToken(`talent_video_sub_skills/${videoId}`, 'put', data, handleResponse);
+  }
+
+  static deleteSubSkillVideo(videoId, data, handleResponse) {
+    this.processRequestWithToken(`talent_video_sub_skills/${videoId}`, 'delete', data, handleResponse);
+  }
 }
 export default AdminAPI

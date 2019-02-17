@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -35,13 +36,13 @@ class ClientHomeScreen extends Component {
 
     return (
       <div className={classes.clientHomeContainer}>
-        <Jumbotron className={[classes.centerText, classes.clientHomeButtonsContainer]}>
+        <Jumbotron className={classNames(classes.centerText, classes.clientHomeButtonsContainer)}>
           <Grid container spacing={16} direction="column" justify="center" alignItems="center">
             <Grid item md={12} xs={12}>
-              <Typography className={[classes.h4SmallMargin, classes.bold]}>
+              <Typography className={classNames(classes.h4SmallMargin, classes.bold)}>
                 {`Welcome, ${userName}!`}
               </Typography>
-              <Typography className={[classes.h4SmallMargin, classes.bold, classes.centerText]}>
+              <Typography className={classNames(classes.h4SmallMargin, classes.bold, classes.centerText)}>
                 {`My Home Page`}
               </Typography>
             </Grid>

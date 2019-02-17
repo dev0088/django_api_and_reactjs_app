@@ -12,7 +12,12 @@ class TalentVideoSubSkillAdmin(admin.ModelAdmin):
             'priority',
             'file_type',
             'size',
-            'url')
+            'url',
+            'approved',
+            'approved_date',
+            'approved_by'
+        )
+
         list_display_links = (
             'id',
             'user_email_display',
@@ -20,7 +25,12 @@ class TalentVideoSubSkillAdmin(admin.ModelAdmin):
             'priority',
             'file_type',
             'size',
-            'url')
+            'url',
+            'approved',
+            'approved_date',
+            'approved_by'
+        )
+
         list_per_page = 25
 
         def sub_skill_display(self, obj):

@@ -12,9 +12,7 @@ const emptyVideoImage = require('assets/img/empty_video.png');
 class OverviewVideo extends Component {
 
   render() {
-    const {profile, caption, video, link, showStatus, showCaption, classes } = this.props;
-    // let buttonClasses = [classes.button, classes.adminTalentStatusButton];
-    
+    const {caption, video, link, showStatus, showCaption } = this.props;
     return (
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         { showCaption && 

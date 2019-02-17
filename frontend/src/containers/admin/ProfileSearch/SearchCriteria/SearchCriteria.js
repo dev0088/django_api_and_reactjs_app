@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -19,7 +20,7 @@ class SearchCriteria extends Component {
   renderTextCondition = (title, value) => {
     const { classes } = this.props;
     return value ? (
-      <Typography className={[classes.adminGeneralText]}>
+      <Typography className={classes.adminGeneralText}>
         { `${title}: ${value}` }
       </Typography>
     ) : (
@@ -120,7 +121,7 @@ class SearchCriteria extends Component {
             </Typography>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12} >
-            <Typography className={[classes.descriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
               {`Between: ${moment(availability.start_date).format(defaultValues.CASTING_REQUEST_TITLE_DATE_FORMAT)}    And: ${moment(availability.end_date).format(defaultValues.CASTING_REQUEST_TITLE_DATE_FORMAT)}`}
             </Typography>
           </Grid>
@@ -190,7 +191,7 @@ class SearchCriteria extends Component {
     if (condition) {
       return (
         <div>
-          <Typography className={[classes.adminGeneralTitle, classes.bold, classes.underlineText]}>
+          <Typography className={classNames(classes.adminGeneralTitle, classes.bold, classes.underlineText)}>
             { `Search Criteria` }
           </Typography>
           { this.renderTextCondition('Talent name', condition.talent_name, classes) }
@@ -198,7 +199,7 @@ class SearchCriteria extends Component {
           <div>
           {condition.sexes.map(gender => {
             return (
-              <Button size="small" className={[classes.button, classes.adminSearchCriteriaPositionButton]}>
+              <Button size="small" className={classNames(classes.button, classes.adminSearchCriteriaPositionButton)}>
                 <Typography className={classes.adminSearchCriteriaPositionButtonText}>
                   {getSexTitle(gender)}
                 </Typography>

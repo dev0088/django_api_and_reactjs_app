@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Container } from 'reactstrap';
 import compose from 'recompose/compose';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
-import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +26,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Icon from "@material-ui/core/Icon";
 import Divider from '@material-ui/core/Divider';
-import classNames from 'classnames'
 import ImageLoader from 'react-loading-image';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -109,7 +108,7 @@ class AdminHeader extends Component {
     return (
       <Link to={link} style={{display: 'inline-block'}}>
         <Typography
-          className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}
+          className={classNames(classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow)}
         >
           {title}
         </Typography>
@@ -289,7 +288,7 @@ class AdminHeader extends Component {
         >
           <div className={classes.toolbar}>
 
-            <Typography className={[classes.drawerBandText]}>
+            <Typography className={classes.drawerBandText}>
               ShipTalent Admin
             </Typography>
             <IconButton onClick={this.handleDrawerClose}>

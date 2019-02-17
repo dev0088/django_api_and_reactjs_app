@@ -10,14 +10,14 @@ import { adminStyles } from 'styles';
 class GreetingVideoItem extends Component {
 
   render() {
-    const { profile, videos, classes } = this.props;
+    const { videos, classes } = this.props;
     let total = 4;
     let currentVideos = videos ? videos.length : 0;
     let approved = (total && videos) ? videos.filter(video => video.approved).length : 0;
     let pending = currentVideos - approved;
     
     return (
-      <Link to={{pathname: '/admin/edit-profiles/profile-videos/greetings', state: {profile: profile, videos: videos}}}>
+      <Link to={{pathname: '/admin/edit-profiles/profile-videos/greetings'}}>
         <Button variant="contained" color={'primary'} size="large" fullWidth className={classNames(classes.adminTalentVideoButton)}>
           <Typography className={classNames(classes.adminTalentVideoButtonTitle)}>
             { `VIDEO GREETINGS & ` }

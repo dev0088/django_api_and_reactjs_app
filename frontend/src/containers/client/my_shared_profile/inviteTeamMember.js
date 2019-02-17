@@ -1,18 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import Panel from 'components/general/panel';
 import ColumnButton from 'components/shiptalent/buttons/columnButton';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Spacer from "components/general/spacer";
 import * as globalNotificationActions from 'actions/globalNotificationActions';
 import ClientAPI from 'apis/clientAPIs';
 import styles from 'styles/clientStyles';
@@ -121,7 +118,7 @@ class InviteTeamMembers extends Component {
         {items}
         <Grid item xs={7}>
           <Button
-            className={[classes.clientCastingRequestListViewButton, classes.leftText]}
+            className={classNames(classes.clientCastingRequestListViewButton, classes.leftText)}
             onClick={this.onClickMoreButton}
           >
             <Typography align="center" className={classes.clientCastingRequestListViewButtonText} >
@@ -146,7 +143,7 @@ class InviteTeamMembers extends Component {
           <ColumnButton
             link='/client/shared_profile/confirm'
             itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-            buttonClass={[classes.clientTalentViewVideoButton, classes.centerText]}
+            buttonClass={classNames(classes.clientTalentViewVideoButton, classes.centerText)}
             title={'Send Invitation'} titleClass={classes.clientTalentViewVideoButtonText}
             xl={5} lg={5} md={6} sm={7} xs={10} fullWidth={true}
             onClickButton={this.handleInviteTeamMembers}

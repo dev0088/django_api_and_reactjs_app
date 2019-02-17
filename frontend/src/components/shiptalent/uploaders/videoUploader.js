@@ -92,9 +92,7 @@ class VideoUploader extends Component {
     const { preCheckFunc, signApi, completeApi, optionsData } = this.props
     if (preCheckFunc) {
       if (!preCheckFunc(optionsData)) {
-        this.setState({
-          notification: "Please select a language to upload the video."
-        })
+        this.setState({notification: "Please select a language to upload the video."})
         return
       }
     }

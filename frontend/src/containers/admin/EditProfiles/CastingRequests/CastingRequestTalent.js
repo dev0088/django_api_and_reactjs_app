@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ class CastingRequestTalent extends Component {
     const {castingRequestTalent, classes } = this.props;
     const castingRequest = castingRequestTalent ? castingRequestTalent.casting_request : null;
     let completedStatus = (castingRequest && castingRequest.status === "Completed");
-    let buttonClasses = [classes.button, classes.adminCastingRequestButton];
+    let buttonClasses = classNames(classes.button, classes.adminCastingRequestButton);
 
     return (
       (castingRequest) ? (
@@ -23,7 +24,7 @@ class CastingRequestTalent extends Component {
           <Grid item xs={6} >
             <Link to={{pathname: '/admin/casting-request', state: {castingRequest: castingRequest}}}>
               <Button variant="contained" size="large" fullWidth className={buttonClasses}>
-                  <Typography className={[classes.bold, classes.adminTalentStatusButtonText]}>
+                  <Typography className={classNames(classes.bold, classes.adminTalentStatusButtonText)}>
                   { `${castingRequest.name} ${moment(castingRequest.created).format(defaultValues.ADMIN_CASTING_REQUEST_TITLE_FORMAT)}` }
                   </Typography>
               </Button>

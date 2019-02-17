@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -23,17 +24,17 @@ class EditProfileDescriptionCastingRequest extends React.Component  {
     const { classes } = this.props;
     return (
         <div className={classes.adminEditProfileDescriptionContainer}>
-            <Typography className={[classes.adminEditProfileDescriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.inlineText)}>
                 {'When Talent is included in an active '}
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     {'Casting Request'}
                 </Typography>
                 {', '}
             </Typography>
             <br></br>
-            <Typography className={[classes.adminEditProfileDescriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.inlineText)}>
                 {'Talent name turns to '}
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     Status Color
                 </Typography>
                 {' (per active '}
@@ -58,7 +59,7 @@ class EditProfileDescriptionCastingRequest extends React.Component  {
                             }
                         >
                             <Typography
-                                className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText, classes.adminEditProfileDescriptionTextWithTooltip]}
+                                className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText, classes.adminEditProfileDescriptionTextWithTooltip)}
                                 onClick={this.handleTooltipOpen}
                             >
                                 {'Casting Request'}

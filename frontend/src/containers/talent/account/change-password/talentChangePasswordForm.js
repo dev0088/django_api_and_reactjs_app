@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Alert } from 'reactstrap';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -115,12 +116,7 @@ class TalentChangePasswordForm extends Component {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Grid container spacing={16} direction="row" justify="center" alignItems="center">
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <Typography
-                  className={[
-                    classes.financeTableTitle,
-                    descriptionAlignClass
-                  ]}
-                >
+                <Typography className={classNames(classes.financeTableTitle,descriptionAlignClass)}>
                   {`Current Password`}
                 </Typography>
               </Grid>
@@ -128,7 +124,7 @@ class TalentChangePasswordForm extends Component {
                 {(!!error && errorMessage['currentPassword']) && <Alert color="danger">{errorMessage['currentPassword']}</Alert>}
                 <TextField
                   id="outlined-current-password"
-                  className={[classes.margin, classes.textField, classes.fullWidth]}
+                  className={classNames(classes.margin, classes.textField, classes.fullWidth)}
                   variant="outlined"
                   type={this.state.showPassword ? 'text' : 'password'}
                   label="Current Password"
@@ -155,7 +151,7 @@ class TalentChangePasswordForm extends Component {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Grid container spacing={16} direction="row" justify="center" alignItems="center">
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <Typography className={[classes.financeTableTitle, descriptionAlignClass]}>
+                <Typography className={classNames(classes.financeTableTitle, descriptionAlignClass)}>
                   {`Enter New Password`}
                 </Typography>
               </Grid>
@@ -163,7 +159,7 @@ class TalentChangePasswordForm extends Component {
                 {(!!error && errorMessage['newPassword']) && <Alert color="danger">{errorMessage['newPassword']}</Alert>}
                 <TextField
                   id="outlined-new-password"
-                  className={[classes.margin, classes.textField, classes.fullWidth]}
+                  className={classNames(classes.margin, classes.textField, classes.fullWidth)}
                   variant="outlined"
                   type={this.state.showNewPassword ? 'text' : 'password'}
                   label="Enter New Password"
@@ -190,7 +186,7 @@ class TalentChangePasswordForm extends Component {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Grid container spacing={16} direction="row" justify="center" alignItems="center">
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <Typography className={[classes.financeTableTitle, descriptionAlignClass]}>
+                <Typography className={classNames(classes.financeTableTitle, descriptionAlignClass)}>
                   {`Confirm New Password`}
                 </Typography>
               </Grid>
@@ -198,7 +194,7 @@ class TalentChangePasswordForm extends Component {
                 {(!!error && errorMessage['confirmPassword']) && <Alert color="danger">{errorMessage['confirmPassword']}</Alert>}
                 <TextField
                   id="outlined-current-password"
-                  className={[classes.margin, classes.textField, classes.fullWidth]}
+                  className={classNames(classes.margin, classes.textField, classes.fullWidth)}
                   variant="outlined"
                   type={this.state.showConfirmPassword ? 'text' : 'password'}
                   label="Confirm New Password"

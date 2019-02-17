@@ -1,20 +1,16 @@
 import React from "react";
 import moment from "moment";
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Panel from "components/general/panel";
 import Spacer from 'components/general/spacer';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import ProfileItem from 'containers/admin/ProfileSearch/ProfileItem';
-import CastingRequestTalentTable from './CastingRequestTalentTable';
 import CastingRequestOfferDetails from './CastingRequestOfferDetails';
-import AdminAPI from 'apis/adminAPIs';
 import defaultValues from 'constants/defaultValues';
 import { getProfileButtonClassNameByCastingRequest } from 'utils/appUtils';
 import { adminStyles } from 'styles';
@@ -81,7 +77,7 @@ class CastingRequestDetail extends React.Component  {
 
             <Grid lg={1} md={1} xs={12} />
             <Grid item lg={10} md={10} xs={12}>
-              <Button variant="contained" size="small" className={[classes.button, classes.adminAddNoteButton]}>
+              <Button variant="contained" size="small" className={classNames(classes.button, classes.adminAddNoteButton)}>
                 <Typography className={classes.adminAddNoteButtonTitle}>
                   Add Note
                 </Typography>

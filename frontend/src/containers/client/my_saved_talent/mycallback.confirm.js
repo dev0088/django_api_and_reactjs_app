@@ -1,12 +1,11 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ClientForm from 'components/shiptalent/forms/clientForm';
 import Panel from 'components/general/panel';
 import Spacer from 'components/general/spacer';
-import ClientAPI from 'apis/clientAPIs';
 import styles from 'styles';
 
 
@@ -30,10 +29,10 @@ class CallBackConfirm extends Component {
       <Panel>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <Grid item lg={10} md={10} sm={10} xs={10}>
-            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
+            <Typography align="center" className={classNames(classes.h4SmallMargin, classes.bold)}>
               {"Talent has been added to My Callbacks"}
             </Typography>
-            <Typography className={[classes.clientFormSubTitle, classes.centerText]}>
+            <Typography className={classNames(classes.clientFormSubTitle, classes.centerText)}>
               {"(view callbacks in My Talent section of My Home Page)"}
             </Typography>
           </Grid>

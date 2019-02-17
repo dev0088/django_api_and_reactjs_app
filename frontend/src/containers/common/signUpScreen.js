@@ -116,6 +116,7 @@ class SignUp extends React.Component {
               value={this.state.type}
               onChange={this.handleSelectChange}
               menuItemStyle={selectItemStyle}
+              variant="outlined"
             >
               <MenuItem value={1} primaryText="Talent" />
               <MenuItem value={2} primaryText="Client" />

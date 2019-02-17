@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -23,7 +24,7 @@ class ProfileCurrentStatus extends Component {
     return (
         <Grid container spacing={0} justify="flex-start"> 
             <Grid item xs={12}>
-                <Typography className={[classes.bold, classes.adminTalentViewButtonText]}>
+                <Typography className={classNames(classes.bold, classes.adminTalentViewButtonText)}>
                     CURRENT STATUS
                 </Typography>
             </Grid>

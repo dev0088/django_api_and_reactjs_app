@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import SubSkillSelection from './SubSkillSelection'
 import { adminStyles } from 'styles';
 
@@ -32,6 +31,7 @@ class SubSkillsSelection extends Component {
               subSkill={subSkill}
               titleItem={newTitleItem}
               selected={selected}
+              key={`subSkill-${subSkill.id}`}
             />
           // </Grid>
         );

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -50,7 +51,7 @@ class AdminForm extends Component {
             { formTitle &&
               <Typography
                 align="center"
-                className={[classes.h4SmallMargin, classes.bold]}
+                className={classNames(classes.h4SmallMargin, classes.bold)}
               >
                 {formTitle}
               </Typography>
@@ -60,7 +61,7 @@ class AdminForm extends Component {
                 align="center"
                 className={
                   formSubTitleClass
-                    ? [classes.adminFormSubTitle, formSubTitleClass]
+                    ? classNames(classes.adminFormSubTitle, formSubTitleClass)
                     : classes.adminFormSubTitle
                 }
               >

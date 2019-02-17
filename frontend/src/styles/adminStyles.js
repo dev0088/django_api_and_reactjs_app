@@ -113,6 +113,9 @@ export const adminStyles = theme => ({
   yellow: {
     color: theme.palette.yellow.main
   },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {

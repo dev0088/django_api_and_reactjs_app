@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -18,7 +19,7 @@ class ProfilePciture extends React.Component  {
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         { showCaption && 
           <Grid item xs={12}>
-            <Typography className={[classes.adminGeneralTitle, classes.bold]}>
+            <Typography className={classNames(classes.adminGeneralTitle, classes.bold)}>
               {caption ? caption : ''}
             </Typography>
           </Grid>

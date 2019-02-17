@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ClientForm from 'components/shiptalent/forms/clientForm';
@@ -58,7 +59,7 @@ class SharedProfileConfirm extends Component {
                 {listItems}
               </List>
             ) : (
-              <Typography align="center" className={[classes.descriptionText, classes.italicText]} >
+              <Typography align="center" className={classNames(classes.descriptionText, classes.italicText)} >
                 No items
               </Typography>
             )

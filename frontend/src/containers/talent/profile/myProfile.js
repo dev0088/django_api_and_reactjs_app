@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -39,7 +40,7 @@ class MyProfile extends Component {
 					<ColumnButton
 						link="/profile-wizard/welcome"
 						itemClass={classes.fullWidthButtonGridItem}
-						buttonClass={[classes.generalAssistButton, ]}
+						buttonClass={classNames(classes.generalAssistButton)}
 						title={`Build My Profile`}
 						titleClass={classes.generalAssistButtonTitle}
 						subTitle={'(Wizard)'}
@@ -52,7 +53,7 @@ class MyProfile extends Component {
 					<ColumnButton
 						link="/edit-profile"
 						itemClass={classes.fullWidthButtonGridItem}
-						buttonClass={[classes.generalAssistButton, ]}
+						buttonClass={classes.generalAssistButton}
 						title={`Build/Edit My Profile`}
 						titleClass={classes.generalAssistButtonTitle}
 						xl={2} lg={3} md={4} sm={7} xs={7}
@@ -63,7 +64,7 @@ class MyProfile extends Component {
 					<ColumnButton
 						link="/profile"
 						itemClass={classes.fullWidthButtonGridItem}
-						buttonClass={[classes.generalAssistButton, ]}
+						buttonClass={classes.generalAssistButton}
 						title={`View My Profile`}
 						titleClass={classes.generalAssistButtonTitle}
 						xl={2} lg={3} md={4} sm={7} xs={7}
@@ -77,53 +78,6 @@ class MyProfile extends Component {
 				</Grid>
 			</Panel>
 		)
-
-    return (
-      <Panel title={""}>
-				<Row>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-					<Col xs="12" md="4" className="pt-4 pt-md-4">
-						<Link to="/profile-wizard/welcome">
-							<Button variant="contained"  color="primary" className={"home-button"} >
-								<div className="home-button-title-only">
-									{"Build My Profile"}
-								</div>
-								<div className="home-button-status">
-									{'(Wizard)'}
-								</div>
-							</Button>
-						</Link>
-					</Col>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-				</Row>
-				<Row>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-					<Col xs="12" md="4" className="pt-4 pt-md-4">
-						<Link to="/edit-profile">
-							<Button variant="contained"  color="primary" className={"home-button"} >
-								<div className="home-button-title-only">
-									{"Build/Edit My Profile"}
-								</div>
-							</Button>
-						</Link>
-					</Col>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-				</Row>
-				<Row>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-					<Col xs="12" md="4" className="pt-4 pt-md-4">
-						<Link to="/profile">
-							<Button variant="contained"  color="primary" className={"home-button"} >
-								<div className="home-button-title-only">
-									{"View My Profile"}
-								</div>
-							</Button>
-						</Link>
-					</Col>
-					<Col xs="12" md="4" className="pt-4 pt-md-4" />
-				</Row>
-      </Panel>
-    )
   }
 
   render() {

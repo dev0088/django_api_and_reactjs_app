@@ -9,16 +9,19 @@ import ConfirmApproveDialog from 'components/shiptalent/dialogs/ConfirmApproveDi
 import ConfirmRejectDialog from 'components/shiptalent/dialogs/ConfirmRejectDialog';
 import VideoPlayer from 'components/shiptalent/videos/videoPlayer';
 import AdminForm from 'components/shiptalent/forms/adminForm';
-import ApproveAction from '../../ApproveAction';
 import VideoDetail from '../VideoDetail';
+import ApproveAction from '../../ApproveAction';
 import AdminAPI from 'apis/adminAPIs';
+import { findSubSkillById } from 'utils/appUtils';
 import * as talentActions from 'actions/talentActions';
 import { adminStyles } from 'styles';
 
 
-class EditGreetingVideo extends Component  {
+class EditPositionVideo extends Component  {
 
   state = {
+    positionType: null,
+    subSkill: null,
     video: null,
     selectedValue: '',
     openConfirmApproveDialog: false,
@@ -27,10 +30,12 @@ class EditGreetingVideo extends Component  {
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
+    const { location, allSkills } = props;
     let video = (location && location.state && location.state.video) ? location.state.video : null;
+    let positionType = (location && location.state && location.state.positionType) ? location.state.positionType : null;
     let selectedValue = (video && video.approved) ? 'approved' : '';
-    return { video, selectedValue, comment: '' };
+    let subSkill = findSubSkillById(allSkills, video.sub_skill);
+    return { positionType, subSkill, video, selectedValue, comment: '' };
   };
 
   getInfoFromNextProps = (props) => {
@@ -39,7 +44,7 @@ class EditGreetingVideo extends Component  {
     let selectedValue = '';
     let updatedVideo = null;
     if (video && profile) {  
-      updatedVideo = profile.talent_video_greetings.find(v => v.id === video.id);
+      updatedVideo = profile.talent_video_sub_skills.find(v => v.id === video.id);
       selectedValue = (updatedVideo && updatedVideo.approved) ? 'approved' : '';
     }
     return { video: updatedVideo, selectedValue, comment: '' };
@@ -71,11 +76,12 @@ class EditGreetingVideo extends Component  {
       const { profile } = this.props;
       let data = {
         talent: profile.id,
+        sub_skill: video.sub_skill,
         approved: true,
         approved_date: moment().format(),
         approved_by: this.props.auth.access.username
       };
-      AdminAPI.saveGreetingVideo(video.id, data, this.handleApproveResponse);
+      AdminAPI.saveSubSkillVideo(video.id, data, this.handleApproveResponse);
     });
   }
 
@@ -101,9 +107,10 @@ class EditGreetingVideo extends Component  {
       const { profile } = this.props;
       let data = {
         talent: profile.id,
+        sub_skill: video.sub_skill,
         comment
       };
-      AdminAPI.deleteGreetingVideo(video.id, data, this.handleRejectResponse);
+      AdminAPI.deleteSubSkillVideo(video.id, data, this.handleRejectResponse);
     });
   }
 
@@ -135,7 +142,6 @@ class EditGreetingVideo extends Component  {
             </Grid>
           </Grid>
           <Grid item xs />
-
           <Grid item xs={12} >
             <Grid container spacing={8} justify="center" alignItems="center">
               <Grid item xs />
@@ -166,14 +172,16 @@ class EditGreetingVideo extends Component  {
   }
 
   render() {
-    const { video } = this.state;
+    const { positionType, subSkill } = this.state;
     const { profile } = this.props;
+    const title = subSkill ? subSkill.name : '';
+    
     return (
       <AdminForm
         talent={profile}
         showName
-        formSubTitle={video ? `VIDEO GREETING (${video.language})` : ''}
-        nextLink={{pathname: "/admin/edit-profiles/profile-videos/greetings"}}
+        formSubTitle={title}
+        nextLink={{pathname: "/admin/edit-profiles/profile-videos/edit-position-videos", state: {positionType}}}
         nextButtonTitle="Back to Video Greetings"
       >
         {this.renderContent()}
@@ -189,11 +197,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { auth, talentInfo } = state;
+  const { auth, allSkills, allPositionTypes, talentInfo } = state;
   return {
     auth,
-    profile: talentInfo.value
+    profile: talentInfo.value,
+    allSkills: allSkills.value,
+    allPositionTypes: allPositionTypes.value
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditGreetingVideo));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditPositionVideo));

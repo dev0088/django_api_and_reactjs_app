@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -79,7 +80,7 @@ class CastingRequestTalentsForm extends Component {
             <div className={classes.clientTalentControlContainerDiv}>
               <MuiThemeProvider theme={theme}>
                 <div style={{height:'20px'}}>
-                  <Typography color="secondary" className={[classes.clientTalentControlNewText]}>
+                  <Typography color="secondary" className={classNames(classes.clientTalentControlNewText)}>
                     { isNew ? "New" : "" }
                   </Typography>
                 </div>

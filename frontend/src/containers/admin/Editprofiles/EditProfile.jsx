@@ -1,6 +1,6 @@
 import React from "react";
-import {bindActionCreators} from "redux";
 import { connect } from 'react-redux';
+import {bindActionCreators} from "redux";
 import { withStyles } from '@material-ui/core/styles';
 import Panel from "components/general/panel";
 import AdminForm from 'components/shiptalent/forms/adminForm';

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import moment from 'moment';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -29,26 +30,26 @@ class RatingTalentAvatar extends Component {
             </div>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography className={[classes.financeTableTitle, classes.inlineText]}>
+            <Typography className={classNames(classes.financeTableTitle, classes.inlineText)}>
               {`Average Rating: `}
             </Typography>
-            <Typography className={[classes.descriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
               {talent.average_rating}
             </Typography>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography className={[classes.financeTableTitle, classes.inlineText]}>
+            <Typography className={classNames(classes.financeTableTitle, classes.inlineText)}>
               {`Casting Request: `}
             </Typography>
-            <Typography className={[classes.descriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
               {castingRequest.name}
             </Typography>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography className={[classes.financeTableTitle, classes.inlineText]}>
+            <Typography className={classNames(classes.financeTableTitle, classes.inlineText)}>
               {`Contract Dates: `}
             </Typography>
-            <Typography className={[classes.descriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
               {`From ${moment(castingRequest.created).format(dateFormat)}
                 To ${moment(castingRequest.status_updated_date).format(dateFormat)}`}
             </Typography>

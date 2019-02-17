@@ -13,7 +13,10 @@ class TalentPictureAdmin(admin.ModelAdmin):
         'path',
         'size',
         'file_type',
-        'updated'
+        'updated',
+        'approved',
+        'approved_date',
+        'approved_by'
     )
     list_display_links = ('id', 'caption')
     list_per_page = 25

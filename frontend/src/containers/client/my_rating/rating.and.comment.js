@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +14,6 @@ import RatingTalentAvatar from './RatingTalentAvatar';
 import RatingValues from './RatingValues';
 import ClientAPI from 'apis/clientAPIs';
 import * as globalNotificationActions from 'actions/globalNotificationActions';
-import {getAvatarFromTalentInfo} from 'utils/appUtils';
 import styles from 'styles';
 
 
@@ -125,7 +125,7 @@ class RatingAndComment extends Component {
           <ColumnButton
             link='/client/rating_comment/submitted'
             itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-            buttonClass={[classes.clientTalentViewMoreInfoButton, classes.centerText]}
+            buttonClass={classNames(classes.clientTalentViewMoreInfoButton, classes.centerText)}
             title={'Submit'} titleClass={classes.clientTalentViewVideoButtonText}
             xl={5} lg={5} md={6} sm={7} xs={8} color={'secondary'} fullWidth={true}
             onClickButton={this.handleSubmit}

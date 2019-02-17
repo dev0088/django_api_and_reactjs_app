@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import compose from 'recompose/compose';
+import classNames from 'classnames';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
@@ -104,7 +105,7 @@ class ClientHeader extends Component {
     return (
       <Link to={link} style={{display: 'inline-block'}}>
         <Typography
-          className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}
+          className={classNames(classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow)}
         >
           {title}
         </Typography>
@@ -239,7 +240,7 @@ class ClientHeader extends Component {
                 color="inherit"
                 aria-label="Open drawer"
                 onClick={this.handleDrawerOpen}
-                className={[classes.drawerMenuButton, open && classes.hide]}
+                className={classNames(classes.drawerMenuButton, open && classes.hide)}
               >
                 <MenuIcon />
               </IconButton>
@@ -250,7 +251,7 @@ class ClientHeader extends Component {
                      alt="Logo"
                      src={require('images/logo.png')} />
               </Link>
-              <div className={[classes.grow, classes.topbarDynamicShow]}>
+              <div className={classNames(classes.grow, classes.topbarDynamicShow)}>
                 {this.renderTopbarMenuItem('Home', '/client/home')}
                 {this.renderTopbarMenuItem('Find Talent', '/client/talent_search')}
                 {this.renderTopbarMenuItem('Casting Requests', '/client/request_selection')}

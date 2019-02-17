@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -231,7 +232,7 @@ class ProfileSearch extends Component {
             <Grid item >
               <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
                 <Grid item >
-                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                  <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
                     Between:
                   </Typography>
                 </Grid>
@@ -248,7 +249,7 @@ class ProfileSearch extends Component {
             <Grid item >
               <Grid container spacing={16} direction="row" justify="flex-start" alignItems="flex-start">
                 <Grid item >
-                  <Typography className={[classes.descriptionText, classes.inlineText]}>
+                  <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
                     And:
                   </Typography>
                 </Grid>

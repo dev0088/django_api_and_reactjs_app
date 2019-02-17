@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import { Alert } from 'reactstrap';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -46,10 +47,10 @@ class CastingRequestSubmitForm extends Component {
     const { classes } = this.props;
     return (
       <Grid item xs={12}>
-        <Typography className={[classes.financeTableTitle, classes.inlineText]}>
+        <Typography className={classNames(classes.financeTableTitle, classes.inlineText)}>
           {`${name}: `}
         </Typography>
-        <Typography className={[classes.descriptionText, classes.inlineText]}>
+        <Typography className={classNames(classes.descriptionText, classes.inlineText)}>
           {value}
         </Typography>
       </Grid>
@@ -96,7 +97,7 @@ class CastingRequestSubmitForm extends Component {
                 </Typography>
               </Button>
             ) : (
-              <Typography className={[classes.financeTableTitle, classes.italicText]}>
+              <Typography className={classNames(classes.financeTableTitle, classes.italicText)}>
                 {castingRequest.status}
               </Typography>
             )

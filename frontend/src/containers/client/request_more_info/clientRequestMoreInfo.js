@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -73,7 +74,7 @@ class ClientRequestMoreInfo extends Component {
       <Panel>
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
           <Grid item lg={8} md={8} sm={10} xs={10}>
-            <Typography className={[classes.clientFormSubTitle, classes.centerText]} >
+            <Typography className={classNames(classes.clientFormSubTitle, classes.centerText)} >
               {`You have requested more information on this talent. Please tell us below what you need.`}
             </Typography>
           </Grid>
@@ -106,7 +107,7 @@ class ClientRequestMoreInfo extends Component {
           <ColumnButton
 
             itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-            buttonClass={[classes.clientTalentViewMoreInfoButton, classes.centerText]}
+            buttonClass={classNames(classes.clientTalentViewMoreInfoButton, classes.centerText)}
             title={'Submit Request'}
             titleClass={classes.clientTalentViewVideoButtonText}
             xl={5} lg={5} md={7} sm={8} xs={8} color={'secondary'} fullWidth={true}
