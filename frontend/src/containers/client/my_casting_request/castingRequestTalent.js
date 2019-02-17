@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-// import ImageLoader from 'react-loading-image';
+import classNames from 'classnames';
 import ShipTalentImageLoader from 'components/shiptalent/loaders/ImageLoader';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -37,17 +37,17 @@ class CastingRequestTalent extends React.Component {
         key={`casting-request-talent-table-item-${!!talent && talent.id}-description`}
       >
         <Grid item lg={12} md={12} xs={12}>
-          <Typography className={[classes.descriptionText, classes.leftText]}>
+          <Typography className={classNames(classes.descriptionText, classes.leftText)}>
             { talent && makeTalentOverviewTitle(talent)}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
-          <Typography className={[classes.descriptionText, classes.bold, classes.leftText]}>
+          <Typography className={classNames(classes.descriptionText, classes.bold, classes.leftText)}>
             {talent && `“${talent.head_line}”`}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} xs={12}>
-          <Typography className={[classes.descriptionText, classes.leftText]}>
+          <Typography className={classNames(classes.descriptionText, classes.leftText)}>
             {talent && `Average Rating: ${talent.average_rating}`}
           </Typography>
         </Grid>
@@ -86,18 +86,18 @@ class CastingRequestTalent extends React.Component {
     return (
       <Grid container spacing={8} direction="row" justify="center" alignItems="center" key={`casting-request-talent-table-item-${!!talent && talent.id}-wage`}>
         <Grid item lg={6} md={6} xs={12}>
-          <Typography className={[classes.descriptionText, classes.bold, classes.underlineText]}>
+          <Typography className={classNames(classes.descriptionText, classes.bold, classes.underlineText)}>
             {`Rehearsal Wage`}
           </Typography>
-          <Typography className={[classes.descriptionText]}>
+          <Typography className={classNames(classes.descriptionText)}>
             {`$${rehearsal_wage.toLocaleString()}/mo`}
           </Typography>
         </Grid>
         <Grid item lg={6} md={6} xs={12}>
-          <Typography className={[classes.descriptionText, classes.bold, classes.underlineText]}>
+          <Typography className={classNames(classes.descriptionText, classes.bold, classes.underlineText)}>
             {`Performance Wage`}
           </Typography>
-          <Typography className={[classes.descriptionText]}>
+          <Typography className={classNames(classes.descriptionText)}>
             {`$${performance_wage.toLocaleString()}/mo`}
           </Typography>
         </Grid>

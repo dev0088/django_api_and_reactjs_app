@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -69,7 +70,7 @@ class ClientCommunity extends Component {
       <Panel>
         <Grid container spacing={16} direction="column" justify="center" alignItems="center">
           <Grid item lg={8} md={8} sm={10} xs={10}>
-            <Typography className={[classes.clientFormSubTitle, classes.centerText]} >
+            <Typography className={classNames(classes.clientFormSubTitle, classes.centerText)} >
               {`Client feedback is critical to the success of ShipTalent.com. Help us better customize your experience by sharing any feedback, concerns and/or suggestions you may have, as well as reporting any bugs and/or glitches that you come across while using the system.`}
             </Typography>
           </Grid>
@@ -112,7 +113,7 @@ class ClientCommunity extends Component {
           <ColumnButton
             link='/client/rating_feedback/submitted'
             itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-            buttonClass={[classes.clientTalentViewMoreInfoButton, classes.centerText]}
+            buttonClass={classNames(classes.clientTalentViewMoreInfoButton, classes.centerText)}
             title={'Submit Feedback'}
             titleClass={classes.clientTalentViewVideoButtonText}
             xl={5} lg={5} md={7} sm={8} xs={8} color={'secondary'} fullWidth={true}

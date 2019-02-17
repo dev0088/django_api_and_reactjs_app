@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -88,7 +89,7 @@ class ClientMobileAppBar extends Component {
     return (
       <Link to={link} style={{display: 'inline-block'}}>
         <Typography
-          className={[classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow]}
+          className={classNames(classes.menuItemText, classes.topbarMenuItemTitle, classes.topbarDynamicShow)}
         >
           {title}
         </Typography>

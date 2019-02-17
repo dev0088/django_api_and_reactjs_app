@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Panel from 'components/general/panel';
@@ -86,7 +86,7 @@ class TalentFinanceForm extends Component {
           </Typography>
         </Grid>
         <Grid item lg={2} md={2} sm={6} xs={6}>
-          <Typography className={[classes.financeTableTitle, classes.descriptionStrongRed]}>
+          <Typography className={classNames(classes.financeTableTitle, classes.descriptionStrongRed)}>
             {`Balance Due: ${financeData.balance_due}`}
           </Typography>
         </Grid>
@@ -99,7 +99,7 @@ class TalentFinanceForm extends Component {
 
     return (
       <Grid item lg={1} md={1} sm={3} xs={2}>
-        <Typography className={[classes.financeTableContentText, classes.underlineText]}>
+        <Typography className={classNames(classes.financeTableContentText, classes.underlineText)}>
           { value }
         </Typography>
       </Grid>

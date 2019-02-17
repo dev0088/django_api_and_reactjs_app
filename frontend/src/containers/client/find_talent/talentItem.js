@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -45,17 +46,17 @@ class TalentItem extends Component {
               style={{display: 'inline-block'}}
             >
               <Grid item lg={12} md={12} xs={12}>
-                <Typography className={[classes.descriptionText, classes.leftText]}>
+                <Typography className={classNames(classes.descriptionText, classes.leftText)}>
                   { makeTalentOverviewTitle(talent)}
                 </Typography>
               </Grid>
               <Grid item lg={12} md={12} xs={12}>
-                <Typography className={[classes.descriptionText, classes.bold, classes.leftText]}>
+                <Typography className={classNames(classes.descriptionText, classes.bold, classes.leftText)}>
                   {`“${talent.head_line}”`}
                 </Typography>
               </Grid>
               <Grid item lg={12} md={12} xs={12}>
-                <Typography className={[classes.descriptionText, classes.leftText]}>
+                <Typography className={classNames(classes.descriptionText, classes.leftText)}>
                   {`Average Rating: ${talent.average_rating ? talent.average_rating : ''}`}
                 </Typography>
               </Grid>

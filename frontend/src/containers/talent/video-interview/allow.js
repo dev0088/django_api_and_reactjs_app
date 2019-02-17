@@ -1,5 +1,5 @@
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton';
+import classNames from 'classnames';
 import DetectRTC from "detectrtc";
 import { Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -99,7 +99,7 @@ class InterviewDeviceAllow extends React.Component {
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <Grid item>
             <Link to={{pathname: "/interview-instruction/", state: {position: position}}}>
-              <Typography className={[classes.blue, classes.boldText, classes.underlineText, classes.talentVideoInstructionBody]}>
+              <Typography className={classNames(classes.blue, classes.boldText, classes.underlineText, classes.talentVideoInstructionBody)}>
                 My Video Interview Instructions
               </Typography>
             </Link>

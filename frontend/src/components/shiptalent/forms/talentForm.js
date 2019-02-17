@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -34,7 +35,7 @@ class TalentForm extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} />
           <Grid item xs={12} >
-            <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
+            <Typography align="center" className={classNames(classes.h4SmallMargin, classes.bold)}>
               {formTitle}
             </Typography>
             <Typography align="center" className={classes.clientFormSubTitle}>

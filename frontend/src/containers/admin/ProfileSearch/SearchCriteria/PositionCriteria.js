@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -19,7 +20,7 @@ class PositionCriteria extends Component {
             return (
             <Button
                 size="small"
-                className={[classes.button, classes.adminSearchCriteriaPositionButton]}
+                className={classNames(classes.button, classes.adminSearchCriteriaPositionButton)}
             >
                 <Typography className={classes.adminSearchCriteriaPositionButtonText}>
                 { position.select_option_title }

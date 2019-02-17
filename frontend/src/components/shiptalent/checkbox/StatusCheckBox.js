@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,7 +15,7 @@ class StatusCheckBox extends Component {
         control={
             <Checkbox checked={checked} value={name} className={className} disabled/>
         } label={
-            <Typography className={[classes.adminGeneralText]}>
+            <Typography className={classes.adminGeneralText}>
                 {title}
             </Typography>
         } 

@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -23,26 +24,26 @@ class EditProfileDescription extends React.Component  {
     const { classes } = this.props;
     return (
         <div className={classes.adminEditProfileDescriptionContainer}>
-            <Typography className={[classes.adminEditProfileDescriptionText, classes.inlineText]}>
+            <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.inlineText)}>
                 {'All of these Talent have made edits and changes to their '}
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     {'Profile'}
                 </Typography>
                 {'. These changes must be reviewed and approved by the '}
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     {'Agent'}
                 </Typography>
                 {' before changes and edits go live and can be viewed by the '}  
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     {'Client'}
                 </Typography>
                 {'.'}
             </Typography>
             <br></br>
             <br></br>
-            <Typography className={[classes.adminEditProfileDescriptionText, classes.inlineText, classes.centerText]}>
+            <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.inlineText, classes.centerText)}>
                 {'Each box includes '}
-                <Typography className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText]}>
+                <Typography className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText)}>
                     Name
                 </Typography>
                 {' and '}
@@ -67,7 +68,7 @@ class EditProfileDescription extends React.Component  {
                             }
                         >
                             <Typography
-                                className={[classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText, classes.adminEditProfileDescriptionTextWithTooltip]}
+                                className={classNames(classes.adminEditProfileDescriptionText, classes.bold, classes.inlineText, classes.adminEditProfileDescriptionTextWithTooltip)}
                                 onClick={this.handleTooltipOpen}
                             >
                                 {'Talent ID#'}

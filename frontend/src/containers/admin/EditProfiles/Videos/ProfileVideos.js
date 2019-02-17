@@ -9,15 +9,14 @@ import { adminStyles } from 'styles';
 class ProfileVideos extends React.Component {
 
   state = {
-    profile: null,
     profileId: null
   };
 
   getInfoFromProps = (props) => {
     const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    // let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
     let profileId = (location && location.state && location.state.profileId) ? location.state.profileId : null;
-    return {profile, profileId };
+    return { profileId };
   };
 
   componentWillMount() {
@@ -33,8 +32,7 @@ class ProfileVideos extends React.Component {
   }
 
   renderContent = () => {
-    const { profile } = this.state;
-    const { allPositionTypes, allSkills } = this.props;
+    const { allPositionTypes, allSkills, profile } = this.props;
     return (
       <Panel>
         { profile && (
@@ -52,7 +50,7 @@ class ProfileVideos extends React.Component {
   }
 
   render = () => {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         formSubTitle="VIDEOS"
@@ -71,16 +69,15 @@ class ProfileVideos extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return { 
-    
-  };
+  return { };
 };
 
 const mapStateToProps = state => {
-  const { allPositionTypes, allSkills } = state;
+  const { allPositionTypes, allSkills, talentInfo } = state;
   return {
     allPositionTypes, 
-    allSkills
+    allSkills,
+    profile: talentInfo.value
   };
 };
 

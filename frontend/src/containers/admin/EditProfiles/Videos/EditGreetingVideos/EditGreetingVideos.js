@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Panel from "components/general/panel";
@@ -11,48 +12,37 @@ import { adminStyles } from 'styles';
 class EditGreetingVideos extends React.Component  {
 
   state = {
-    profile: null,
-    videos: null,
-    isLoading: false,
   };
 
   getInfoFromProps = (props) => {
-    const { location } = props;
-    let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
-    let videos = profile ? profile.talent_video_greetings : null;
+    // const { profile, location } = props;
+    // let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
+    // let videos = profile ? profile.talent_video_greetings : null;
 
-    return { profile, videos };
+    return {};
   };
 
-  // handleGetProfileResponse = (response, isFailed) => {
-  //   console.log('==== handleGetProfileResponse: response: ', response);
-  //   if(isFailed) {
-  //     this.setState({sLoading: false});
-  //   } else {
-  //     this.setState({profile: response, pictures: response.talent_pictures, isLoading: false});
-  //   }
-  // };
+  componentWillMount = () => {
+    this.setState({...this.getInfoFromProps(this.props)});
+  };
 
-  // componentWillReceiveProps = (nextProps) => {
-  //   this.setState({...this.getInfoFromProps(nextProps), isLoading: true}, () => {
-  //     const { profile } = this.state;
-  //     if (profile) AdminAPI.getProfile(profile.id, this.handleGetProfileResponse);
-  //   });
-  // };
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({...this.getInfoFromProps(nextProps)});
+  };
 
   renderContent() {
-    const { classes } = this.props;
-    const { videos, profile } = this.state;
+    const { profile, classes } = this.props;
+    let videos = profile ? profile.talent_video_greetings : null;
     let emptyVideos = [];
+
     if (videos) {
       for (let i = 0; i < (4 - videos.length); i ++) {
         emptyVideos.push(
           <Grid item lg={3} md={4} xs={12} className={classes.centerText}>
             <OverviewVideo
-              profile={profile}
               showStatus showCaption
               video={null}
-              caption={'Other'} 
+              caption={`Other ${i + 1}`} 
               link={"#"}
               key={`Other${i}`}
             />
@@ -69,16 +59,17 @@ class EditGreetingVideos extends React.Component  {
           <Grid item lg={8} md={10} xs={12} >
             <Grid container spacing={24} justify="center" alignItems="center">
               {videos && videos.map(video => {
-                <Grid item lg={3} md={4} xs={12} className={classes.centerText}>
-                  <OverviewVideo
-                    profile={profile}
-                    showStatus showCaption
-                    video={video}
-                    caption={video.language} 
-                    link={"#"}
-                    key={video.language}
-                  />
-                </Grid>
+                return (
+                  <Grid item lg={3} md={4} xs={12} className={classes.centerText}>
+                    <OverviewVideo
+                      showStatus showCaption
+                      video={video}
+                      caption={video.language} 
+                      link={{pathname: "/admin/edit-profiles/profile-videos/edit-greeting-video", state: {video}}}
+                      key={video.language}
+                    />
+                  </Grid>
+                )
               })}
               {emptyVideos}
             </Grid>
@@ -91,7 +82,7 @@ class EditGreetingVideos extends React.Component  {
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile } = this.props;
     return (
       <AdminForm
         talent={profile}
@@ -106,4 +97,15 @@ class EditGreetingVideos extends React.Component  {
   }
 }
 
-export default withStyles(adminStyles)(EditGreetingVideos);
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+const mapStateToProps = state => {
+  const { talentInfo } = state;
+  return {
+    profile: talentInfo.value
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(adminStyles)(EditGreetingVideos));

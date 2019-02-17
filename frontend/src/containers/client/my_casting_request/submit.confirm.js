@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Spacer from "components/general/spacer";
@@ -19,26 +20,26 @@ class CastingRequestSubmitConfirm extends Component {
         <Spacer size={100}/>
         <Typography
           align="center" component="h4" variant="h4" gutterBottom
-          className={[classes.centerText, classes.bold]}
+          className={classNames(classes.centerText, classes.bold)}
         >
           Thank you.
         </Typography>
         <Spacer size={50}/>
         <Typography
           align="center" component="h4" variant="h4" gutterBottom
-          className={[classes.centerText, classes.bold]}
+          className={classNames(classes.centerText, classes.bold)}
         >
           Your Casting Request has been submitted.
         </Typography>
         <Typography
           align="center" component="h4" variant="h4" gutterBottom
-          className={[classes.centerText, classes.bold]}
+          className={classNames(classes.centerText, classes.bold)}
         >
           A ShipTalent.com representative
         </Typography>
         <Typography
           align="center" component="h4" variant="h4" gutterBottom
-          className={[classes.centerText, classes.bold]}
+          className={classNames(classes.centerText, classes.bold)}
         >
           will be contracting you shortly to confirm.
         </Typography>

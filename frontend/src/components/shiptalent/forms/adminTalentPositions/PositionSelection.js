@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import SubPositionsSelection from './SubPositionsSelection';
 import PropertyButton from './PropertyButton';
 import { adminStyles } from 'styles';

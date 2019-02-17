@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ShipTalentImageLoader from 'components/shiptalent/loaders/ImageLoader';
@@ -13,7 +14,7 @@ class OverviewResume extends Component {
 
   render() {
     const {profile, link, showStatus, classes } = this.props;
-    let buttonClasses = [classes.button, classes.adminTalentStatusButton];
+    let buttonClasses = classNames(classes.button, classes.adminTalentStatusButton);
     let resume = profile && profile.talent_resume ? profile.talent_resume[0] : null;
     return (
       (resume && resume.preview_path) ? (

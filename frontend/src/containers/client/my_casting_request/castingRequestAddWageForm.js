@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { Alert } from 'reactstrap';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Panel from 'components/general/panel';
 import ClientForm from 'components/shiptalent/forms/clientForm';
@@ -96,7 +96,7 @@ class CastingRequestAddWageForm extends Component {
     const { castingRequestTalent, rehearsalWage, performanceWage, comment, error, errorMessage } = this.state;
 
     return (
-      <Panel title={title} bold={true} center={true} key="cr-aw-f" className={[classes.h4NoMargin, classes.bold, classes.centerText]}>
+      <Panel title={title} bold={true} center={true} key="cr-aw-f" className={classNames(classes.h4NoMargin, classes.bold, classes.centerText)}>
         {error && <Alert color="danger">{errorMessage}</Alert>}
         <Grid container spacing={16} justify="flex-start" alignItems="flex-start">
           <Grid item lg={12} md={12} sm={12} xs={12}>

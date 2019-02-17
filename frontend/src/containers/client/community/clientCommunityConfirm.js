@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +27,7 @@ class ClientCommunityConfirm extends Component {
             </Grid>
 
             <Grid item lg={8} md={8} sm={10} xs={10}>
-              <Typography className={[classes.clientFormSubTitle, classes.centerText]} >
+              <Typography className={classNames(classes.clientFormSubTitle, classes.centerText)} >
                 {'Thank you.'}
               </Typography>
             </Grid>

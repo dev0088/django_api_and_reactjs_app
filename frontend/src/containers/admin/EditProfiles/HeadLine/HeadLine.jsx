@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -96,10 +97,18 @@ class HeadLine extends React.Component  {
                 <Grid container spacing={8} direction="row" justify="flex-end" alignItems="center"> 
                   <Grid item xs></Grid>
                   <Grid item xs className={classes.rightText}>
-                    <Button variant="outlined" color="primary" disabled={!isChanged} className={[classes.button, classes.adminSaveButton]} onClick={this.handleClickSave}>
+                    <Button 
+                      variant="outlined" color="primary" disabled={!isChanged} 
+                      className={classNames(classes.button, classes.adminSaveButton)} 
+                      onClick={this.handleClickSave}
+                    >
                       Save
                     </Button>
-                    <Button variant="outlined" color="primary" disabled={!isChanged} className={[classes.button, classes.adminSaveButton]} onClick={this.handleClickCancel}>
+                    <Button 
+                      variant="outlined" color="primary" disabled={!isChanged} 
+                      className={classNames(classes.button, classes.adminSaveButton)} 
+                      onClick={this.handleClickCancel}
+                    >
                       Cancel
                     </Button>
                   </Grid>

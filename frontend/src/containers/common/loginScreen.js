@@ -8,16 +8,17 @@ import {
   Form,
   Alert,
 } from 'reactstrap';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-// import keydown from 'react-keydown';
 import { login } from 'actions/auth';
 import { authErrors, isAuthenticated } from 'reducers/index';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import apiConfig from 'constants/api';
 import './loginScreen.css'
 
@@ -73,9 +74,9 @@ class LoginScreen extends React.Component {
     }
   }
 
-  handleChange = (event) => {
+  handleChange = name => event => {
     this.setState({
-      ...this.state,
+      // ...this.state,
       [event.target.name]: event.target.value,
     });
   }
@@ -88,7 +89,7 @@ class LoginScreen extends React.Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { error, classes } = this.props;
 
     if(this.props.isAuthenticated) {
       const { type } = this.props.user
@@ -104,75 +105,87 @@ class LoginScreen extends React.Component {
       <div className="login-layout" onKeyPress={this.handleKeyPress} >
         <div className="login-wrapper">
           <div className="login-fields" id="loginForm">
-            <h3>Login</h3>
-            {!!error && <Alert color="danger">{'Login failed'}</Alert>}
-            <Form>
-              <TextField
-                name="email"
-                id="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-                floatingLabelText="Email"
-                fullWidth={true}
-                autoFocus={true}
-              />
-              <TextField
-                name="password"
-                id="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                floatingLabelText="Password"
-                fullWidth={true}
-              />
-              <div className="pt20">
-                <Checkbox
-                  id="remember"
-                  label="Remember Me"
-                />
-              </div>
-              <div className="pt20">
-                <Button
-									variant="contained"
-									color="primary"
-                  primary={true}
-                  fullWidth={true}
-                  focusVisible={true}
-                  onClick={this.handleSubmit}
-                >
-									Log In
-								</Button>
-              </div>
-            </Form>
-            <hr />
-            <Row>
-              <Col sm="7">
-                Need an account ?
-                <Link to="/sign-up">
-                  <FlatButton
-                    label="Sign Up"
-                    style={styles.flatPrimary}
-                  />
-                </Link>
-              </Col>
-              <Col sm="5" className="text-right">
-                <Link to="/forgot-password">
-                  <FlatButton
-                    label="Forgot Password?"
-                    style={styles.flatPrimary}
-                  />
-                </Link>
-              </Col>
-              <Col sm="12">
-                Return home
-                <Link to="/">
-                  <FlatButton
-                    label="Home"
-                    style={styles.flatPrimary}
-                  />
-                </Link>
-              </Col>
-            </Row>
+            <Grid container spacing={24}>
+              <Grid item xs={12}>
+                <h3>Login</h3>
+              </Grid>
+              <Grid item xs={12}>
+                {!!error && <Alert color="danger">{'Login failed'}</Alert>}
+                <Form>
+                  <Grid container spacing={16}>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="email"
+                        label="Email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        value={this.state.email}
+                        onChange={this.handleChange('email')}
+                        fullWidth
+                        autoFocus
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="password"
+                        label="Password"
+                        name="password"
+                        type="password"
+                        autoComplete="password"
+                        value={this.state.password}
+                        onChange={this.handleChange('password')}
+                        fullWidth
+                        autoFocus
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControlLabel 
+                        control={<Checkbox id="remember" color="primary"/>}
+                        label={<Typography className={classes.adminGeneralText}>Remember Me</Typography>} 
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth={true}
+                        focusVisible={true}
+                        onClick={this.handleSubmit}
+                      >
+                        Log In
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
+              </Grid>
+              <Grid item xs={12}><Divider /></Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={8}>
+                  <Grid item sm={7} xs={12}>
+                    Need an account ?
+                    <Link to="/sign-up">
+                      <Button color="primary">Sign Up</Button>
+                    </Link>
+                  </Grid>
+                  <Grid item sm={5} xs={12} className={classes.rightText}>
+                    <Link to="/forgot-password">
+                      <Button color="primary">Forgot Password?</Button>
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12}>
+                    Return home
+                    <Link to="/">
+                      <Button color="primary">Home</Button>
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </div>
         </div>
       </div>

@@ -12,14 +12,18 @@ class SaveCancelButtonGroup extends Component {
     return (
       <Grid container direction="column" justify="center" alignItems="flex-end" spacing={24}>
         <Grid item xs={12} sm>
-          <Button size="large"
-                  className={classes.button}
-                  onClick={onCancel} >
+          <Button 
+            size="large"
+            className={classes.button}
+            onClick={onCancel}
+          >
             {'Cancel'}
           </Button>
-          <Button size="large" color="primary"
-                  className={classes.button}
-                  onClick={onSave}>
+          <Button 
+            size="large" color="primary"
+            className={classes.button}
+            onClick={onSave}
+          >
             {'Save'}
           </Button>
         </Grid>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +14,7 @@ class TeamMemberList extends Component {
     return (
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         <Grid item xs={12}>
-          <Typography align="center" className={[classes.descriptionText, classes.boldText]}>
+          <Typography align="center" className={classNames(classes.descriptionText, classes.boldText)}>
             {title}
           </Typography>
         </Grid>

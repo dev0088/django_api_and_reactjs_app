@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PositionSelection from './PositionSelection';
-import { clientDesigns } from 'styles';
 import { adminStyles } from 'styles';
 
 
@@ -37,6 +35,7 @@ class PositionsSelection extends Component {
               selectedSubPositions={selectedSubPositions}
               titleItem={titleItemName}
               selected={selected}
+              key={`positionSelection-${positionType.id}`}
             />
           // </Grid>
         );

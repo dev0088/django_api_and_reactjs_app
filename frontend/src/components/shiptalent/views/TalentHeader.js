@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -20,7 +21,7 @@ class TalentHeader extends Component {
     return (
       <Grid container spacing={8} direction="column" justify="center" alignItems="center">
         <Grid item xs={12}>
-          <Typography align="center" className={[classes.h4SmallMargin, classes.bold]}>
+          <Typography align="center" className={classNames(classes.h4SmallMargin, classes.bold)}>
             {title}
           </Typography>
           <Typography align="center" className={classes.clientFormSubTitle}>

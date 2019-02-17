@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -56,11 +56,11 @@ class ClientRatings extends Component {
           <Grid item xl={12} lg={12} md={12} xs={12} className={classes.centerText}>
             <Typography
               align='center'
-              className={[
+              className={classNames(
                 classes.clientFormSubTitle,
                 classes.underlineText,
                 classes.centerText
-              ]}
+              )}
             >
               RATING HISTORY
             </Typography>
@@ -80,7 +80,7 @@ class ClientRatings extends Component {
                   <ColumnButton
                     link={{pathname: '/client/talent_ratings/detail', state: {talent, rating}}}
                     itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-                    buttonClass={[classes.clientTalentViewVideoButton, classes.centerText]}
+                    buttonClass={classNames(classes.clientTalentViewVideoButton, classes.centerText)}
                     title={rating.casting_request_talent.casting_request.name}
                     titleClass={classes.clientTalentViewVideoButtonText}
                     xl={7} lg={7} md={7} sm={8} xs={8} color={'primary'} fullWidth={true}

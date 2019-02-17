@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import moment from 'moment';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -14,10 +15,10 @@ class CastingRequestOfferDetails extends Component {
     const { classes } = this.props;
     return (
       <Grid item xs={12} >
-        <Typography className={[classes.bold, classes.adminGeneralText, classes.inlineText]}>
+        <Typography className={classNames(classes.bold, classes.adminGeneralText, classes.inlineText)}>
           { title }
         </Typography>
-        <Typography className={[classes.adminGeneralText, classes.inlineText]}>
+        <Typography className={classNames(classes.adminGeneralText, classes.inlineText)}>
           { value }
         </Typography>
       </Grid>
@@ -33,7 +34,7 @@ class CastingRequestOfferDetails extends Component {
       (castingRequest && castingRequestTalent) ? (
         <Grid container spacing={8}>
           <Grid item xs={12} >
-            <Typography className={[classes.bold, classes.adminGeneralTitle, classes.underlineText]}>
+            <Typography className={classNames(classes.bold, classes.adminGeneralTitle, classes.underlineText)}>
               OFFER DETAILS
             </Typography>
           </Grid>

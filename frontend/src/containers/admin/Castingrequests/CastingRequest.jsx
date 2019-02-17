@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import moment from "moment";
+import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -155,7 +156,7 @@ class CastingRequest extends React.Component  {
 
           <Grid lg={1} md={1} xs={12} />
           <Grid item lg={10} md={10} xs={12}>
-            <Button variant="contained" size="small" className={[classes.button, classes.adminAddNoteButton]}>
+            <Button variant="contained" size="small" className={classNames(classes.button, classes.adminAddNoteButton)}>
               <Typography className={classes.adminAddNoteButtonTitle}>
                 Add Note
               </Typography>

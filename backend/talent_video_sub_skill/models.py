@@ -16,6 +16,9 @@ class TalentVideoSubSkill(models.Model):
     updated = models.DateTimeField(auto_now=True)
     uploaded = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    approved = models.BooleanField(default=False)
+    approved_date = models.DateTimeField(blank=True, null=True)
+    approved_by = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return 'talent: {user_email}, sub_skill: {sub_skill}, video: {video_url}, {video_size}'.format(

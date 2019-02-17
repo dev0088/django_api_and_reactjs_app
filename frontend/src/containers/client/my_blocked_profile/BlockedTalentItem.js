@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -39,7 +40,7 @@ class BlockedTalentItem extends Component {
                 <div style={{height:'20px'}}>
                   <Typography
                     color="primary"
-                    className={[classes.clientTalentControlBlockProfileExpirationText]}>
+                    className={classNames(classes.clientTalentControlBlockProfileExpirationText)}>
                     { blockedProfile.description }
                   </Typography>
                 </div>

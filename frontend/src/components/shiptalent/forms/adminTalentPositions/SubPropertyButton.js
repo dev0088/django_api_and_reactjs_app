@@ -9,7 +9,7 @@ class SubPropertyButton extends Component {
 
         return (
             <div className={selected ? classes.adminFormTalentSubPropertyButtonSelected : classes.adminFormTalentSubPropertyButton}>
-                <Typography className={[classes.adminFormTalentSubPropertyButtonTitle]}>
+                <Typography className={classes.adminFormTalentSubPropertyButtonTitle}>
                     { title }
                 </Typography>
             </div>

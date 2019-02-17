@@ -244,6 +244,12 @@ export function findPositionTypeByName(allPositionTypes, name) {
     return positionType.name === name;
   });
 }
+export function findPositionTypeById(allPositionTypes, id) {
+  return allPositionTypes.find(function(positionType) {
+    return positionType.id === id;
+  });
+}
+
 
 export function findSubPositionTypeById(allPositionTypes, subPositionId) {
   for (let i = 0; i < allPositionTypes.length; i++) {
@@ -262,11 +268,22 @@ export function findSkillByName(allSkills, name) {
   });
 }
 
-export function findSubSkillById(allSkills, skillId) {
+export function findSkillBySubSkillId(allSkills, subSkillId) {
   for (let i = 0; i < allSkills.length; i++) {
-    let subSkills = allSkills[i].position_sub_types;
+    let subSkills = allSkills[i].sub_skills;
     if (subSkills) {
-      let subSkill = subSkills.find(ss => { return ss.id === skillId });
+      let subSkill = subSkills.find(ss => { return ss.id === subSkillId });
+      if (subSkill) return allSkills[i];
+    }
+  }
+  return null;
+}
+
+export function findSubSkillById(allSkills, subSkillId) {
+  for (let i = 0; i < allSkills.length; i++) {
+    let subSkills = allSkills[i].sub_skills;
+    if (subSkills) {
+      let subSkill = subSkills.find(ss => { return ss.id === subSkillId });
       if (subSkill) return subSkill;
     }
   }
@@ -495,4 +512,32 @@ export function filterSubSkillVideosByPosition (allSkills, subSkillVideos, posit
   //   if (skill && skill.related_position_type === positionType.name) return true;
   //   else return false
   // });
+}
+
+export function getPositionTypeTotalVideosCount(allSkills, positionType) {
+  let res = 0;
+  let skill = allSkills.find(s => s.related_position_type === positionType.name)
+  if (skill) {
+    for (let i = 0; i < skill.sub_skills.length; i ++) {
+      let subSkill = skill.sub_skills[i];
+      if (subSkill.video_audition_button_title) res += subSkill.video_counts;
+    }
+  }
+  return res;
+}
+
+export function getSubSkillsWithVideoByPositionType(allSkills, positionType) {
+  let res = [];
+  let skill = allSkills.find(s => s.related_position_type === positionType.name)
+  if (skill) {
+    for (let i = 0; i < skill.sub_skills.length; i ++) {
+      let subSkill = skill.sub_skills[i];
+      if (subSkill.video_audition_button_title) res.push(subSkill);
+    }
+  }
+  return res;
+}
+
+export function getApprovedVideos (videos) {
+  return videos.filter(video => video.approved)
 }

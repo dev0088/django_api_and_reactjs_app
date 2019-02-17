@@ -31,6 +31,7 @@ class SubPositionsSelection extends Component {
               subPosition={subPosition}
               titleItem={newTitleItem}
               selected={selected}
+              key={`subPosition-${subPosition.id}`}
             />
           // </Grid>
         );

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ClientForm from 'components/shiptalent/forms/clientForm';
@@ -163,7 +164,7 @@ class SelectTeamMembers extends Component {
               {listItems}
             </List>
           ) : (
-            <Typography align="center" className={[classes.descriptionText, classes.italicText]} >
+            <Typography align="center" className={classNames(classes.descriptionText, classes.italicText)} >
               No items
             </Typography>
           )
@@ -204,7 +205,7 @@ class SelectTeamMembers extends Component {
                 {listItems}
               </List>
             ) : (
-              <Typography align="center" className={[classes.descriptionText, classes.italicText]} >
+              <Typography align="center" className={classNames(classes.descriptionText, classes.italicText)} >
                 No items
               </Typography>
             )
@@ -255,7 +256,7 @@ class SelectTeamMembers extends Component {
     return (
 
         <div className={classes.centerText}>
-          <Typography className={[classes.clientFromTalentName, classes.inlineText]} >
+          <Typography className={classNames(classes.clientFromTalentName, classes.inlineText)} >
             {`Don't see a team member listed? Click `}
           </Typography>
           <Link to={{
@@ -263,11 +264,11 @@ class SelectTeamMembers extends Component {
             state: {talent, team: (clientInfo && clientInfo.client_teams[0]) ? clientInfo.client_teams[0].id : 0}
           }}
           >
-            <Typography color="primary" className={[classes.clientFromTalentName, classes.boldUnderlineText]}>
+            <Typography color="primary" className={classNames(classes.clientFromTalentName, classes.boldUnderlineText)}>
               here
             </Typography>
           </Link>
-          <Typography className={[classes.clientFromTalentName, classes.inlineText]} >
+          <Typography className={classNames(classes.clientFromTalentName, classes.inlineText)}>
             {` to send an invitation to create a ShipTalent.com account`}
           </Typography>
         </div>
@@ -306,7 +307,7 @@ class SelectTeamMembers extends Component {
           <ColumnButton
             link='/client/shared_profile/confirm'
             itemClass={classes.clientTalentViewMoreInfoButtonGridItem}
-            buttonClass={[classes.clientTalentViewVideoButton, classes.centerText]}
+            buttonClass={classNames(classes.clientTalentViewVideoButton, classes.centerText)}
             title={'Share Profile'} titleClass={classes.clientTalentViewVideoButtonText}
             xl={5} md={5} xs={8} fullWidth={true}
             onClickButton={this.handleShareProfiles}

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -21,8 +22,8 @@ class AdminTalentTitle extends Component {
         <Grid item lg={4} md={4} xs={12}>
         { showName && 
           <Link to={{pathname: "/admin/edit-profiles/edit-profile", state: {profileId: talent.id}}}>
-            <Button variant="contained" size="large" fullWidth className={[classes.button, classes.adminTalentViewButton]}>
-              <Typography className={[classes.bold, classes.adminTalentViewButtonText]}>
+            <Button variant="contained" size="large" fullWidth className={classNames(classes.button, classes.adminTalentViewButton)}>
+              <Typography className={classNames(classes.bold, classes.adminTalentViewButtonText)}>
                 { makeTalentNameWithTid(talent)}
               </Typography>
             </Button>

@@ -3,6 +3,7 @@ import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -128,7 +129,7 @@ class TalentVideosForm extends Component {
         <Spacer size={50}/>
         <Grid container spacing={24} direction="column" justify="center" alignItems="center">
           <Grid item lg={7} >
-            <Typography className={[classes.descriptionText, classes.italicText, classes.centerText]}>
+            <Typography className={classNames(classes.descriptionText, classes.italicText, classes.centerText)}>
               <Typography className={classes.boldText}>
                 {"Video Interviews (required)"}
               </Typography>

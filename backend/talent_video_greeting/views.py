@@ -16,6 +16,7 @@ from .models import TalentVideoGreeting
 from .serializers import TalentVideoGreetingSerializer
 from talent.models import Talent
 from authentication.models import User
+from user_note.models import UserNoteManager
 
 
 class GreetingVideoFileUploadPolicy(APIView):
@@ -146,6 +147,17 @@ class GreetingVideoFileUploadCompleteHandler(APIView):
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
+
+            # Logging
+            talent_user = obj.talent.user
+            UserNoteManager.profile_logger(
+                None, None, talent_user,
+                '{user} uploaded a greetings video ({language}).'.format(
+                    user=talent_user.first_name,
+                    language=obj.language
+                ),
+                obj
+            )
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -184,10 +196,45 @@ class GreetingVideoDetail(APIView):
         serializer = TalentVideoGreetingSerializer(talent_greeting_video_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            user = request.user
+            if user and 'approved' in serializer.data:
+                talent_user = talent_greeting_video_item.talent.user
+                UserNoteManager.profile_logger(
+                    None, user, talent_user, 
+                    'Greetings video ({language}) {status} by {user}.'.format(
+                        language=talent_greeting_video_item.language,
+                        status='Approved' if serializer.data['approved'] else 'Rejected',
+                        user=user.first_name
+                    ),
+                    talent_greeting_video_item
+                )
+
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_greeting_video_item = self.get_object(pk)
+
+        user = request.user
+        if user:
+            talent_user = talent_greeting_video_item.talent.user
+            note = ''
+            if user.type == 'agency':
+                note = 'Greeting video ({language}) {status} by {user}. Comment: {comment}'.format(
+                    language=talent_greeting_video_item.language,
+                    status='Rejected',
+                    user=user.first_name,
+                    comment= request.data['comment'] if request.data and ('comment' in request.data) else ''
+                )
+            elif user.type == 'talent':
+                note = '{user} removed a greeing video ({language}).'.format(
+                    user=user.first_name,
+                    language=talent_greeting_video_item.language,
+                )
+            
+            UserNoteManager.profile_logger(None, user, talent_user, note, talent_greeting_video_item)
+
         talent_greeting_video_item.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)

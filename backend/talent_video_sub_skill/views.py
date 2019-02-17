@@ -17,9 +17,11 @@ from .serializers import TalentVideoSubSkillSerializer, TalentVideoSubSkillsSear
 from talent.models import Talent
 from authentication.models import User
 from sub_skill.models import SubSkill
+from user_note.models import UserNoteManager
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.decorators import api_view
+
 
 class SubSkillVideoFileUploadPolicy(APIView):
     """
@@ -143,7 +145,6 @@ class SubSkillVideoFileUploadCompleteHandler(APIView):
         course_obj = None
         data = {}
         type_ = request.data.get('fileType')
-        print(file_id, size, type_)
         if file_id:
             obj = TalentVideoSubSkill.objects.get(id=int(file_id))
             obj.size = int(size)
@@ -152,6 +153,18 @@ class SubSkillVideoFileUploadCompleteHandler(APIView):
             obj.save()
             data['id'] = obj.id
             data['saved'] = True
+            
+            # Logging
+            talent_user = obj.talent.user
+            UserNoteManager.profile_logger(
+                None, None, talent_user,
+                '{user} uploaded a sub skill video ({sub_skill_name}).'.format(
+                    user=talent_user.first_name,
+                    sub_skill_name=obj.sub_skill.name
+                ),
+                obj
+            )
+
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -173,7 +186,7 @@ class SubSkillVideos(APIView):
 
 class SubSkillVideoDetail(APIView):
     """
-    Retrieve a greeting video instance.
+    Retrieve a subskill video instance.
     """
     def get_object(self, pk):
         try:
@@ -191,12 +204,47 @@ class SubSkillVideoDetail(APIView):
         serializer = TalentVideoSubSkillSerializer(talent_sub_skill_video_item, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
+            user = request.user
+            if user and 'approved' in serializer.data:
+                talent_user = talent_sub_skill_video_item.talent.user
+                UserNoteManager.profile_logger(
+                    None, user, talent_user, 
+                    'A subskill video ({sub_skill_name}) {status} by {user}.'.format(
+                        sub_skill_name=talent_sub_skill_video_item.sub_skill.name,
+                        status='Approved' if serializer.data['approved'] else 'Rejected',
+                        user=user.first_name
+                    ),
+                    talent_sub_skill_video_item
+                )
+                
             return Response(serializer.data)
         return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         talent_sub_skill_video_item = self.get_object(pk)
+
+        user = request.user
+        if user:
+            talent_user = talent_sub_skill_video_item.talent.user
+            note = ''
+            if user.type == 'agency':
+                note = 'Greeting video ({sub_skill_name}) {status} by {user}. Comment: {comment}'.format(
+                    sub_skill_name=talent_sub_skill_video_item.sub_skill.name,
+                    status='Rejected',
+                    user=user.first_name,
+                    comment= request.data['comment'] if request.data and ('comment' in request.data) else ''
+                )
+            elif user.type == 'talent':
+                note = '{user} removed a greeing video ({sub_skill_name}).'.format(
+                    user=user.first_name,
+                    sub_skill_name=talent_sub_skill_video_item.sub_skill.name,
+                )
+            
+            UserNoteManager.profile_logger(None, user, talent_user, note, talent_sub_skill_video_item)
+
         talent_sub_skill_video_item.delete()
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

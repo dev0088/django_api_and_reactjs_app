@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -42,7 +43,7 @@ class ClientForm extends Component {
           <Grid item xs={12} >
             <Typography
               align="center"
-              className={[classes.h4SmallMargin, classes.bold]}
+              className={classNames(classes.h4SmallMargin, classes.bold)}
             >
               {formTitle}
             </Typography>
@@ -50,7 +51,7 @@ class ClientForm extends Component {
               align="center"
               className={
                 formSubTitleClass
-                ? [classes.clientFormSubTitle, formSubTitleClass]
+                ? classNames(classes.clientFormSubTitle, formSubTitleClass)
                 : classes.clientFormSubTitle
               }
             >

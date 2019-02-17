@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { Alert } from 'reactstrap';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Panel from 'components/general/panel';
@@ -89,7 +90,7 @@ class CastingRequestSearchTalentsForm extends Component {
     return (
       <Panel
         title={title} bold={true} center={true} key="cr-aw-f"
-        className={[classes.h4NoMargin, classes.bold, classes.centerText]}
+        className={classNames(classes.h4NoMargin, classes.bold, classes.centerText)}
       >
         <Grid container spacing={16} justify="flex-start" alignItems="flex-start">
           <Grid item xs={12} >
