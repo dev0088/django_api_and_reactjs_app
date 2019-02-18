@@ -7,6 +7,7 @@ import Spacer from 'components/general/spacer';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import OverviewVideo from '../OverviewVideo';
 import IntervewVideoItem from '../InterviewVideos/InterviewVideoItem';
+import { getLiveVideosByPositionName, getCurrentTalentPositionName } from 'utils/appUtils';
 import { adminStyles } from 'styles';
 
 
@@ -78,7 +79,7 @@ class EditGreetingVideos extends React.Component  {
           <Grid item lg={2} md={1} xs={12}/>
           <Grid item xs={12}><Spacer size={15} /></Grid>
           <Grid item xs={12}>
-            <IntervewVideoItem videos={profile && profile.talent_videos} />
+            <IntervewVideoItem videos={profile && getLiveVideosByPositionName(profile.talent_videos, getCurrentTalentPositionName(profile))} />
           </Grid>
           <Grid item xs={12}><Spacer size={30} /></Grid>
         </Grid>
@@ -93,8 +94,8 @@ class EditGreetingVideos extends React.Component  {
         talent={profile}
         showName
         formSubTitle="Video Greetings"
-        nextLink={{pathname: "/admin/edit-profiles/edit-profile", state: {profileId: profile ? profile.id : null}}}
-        nextButtonTitle="Back to Profile"
+        nextLink={{pathname: "/admin/edit-profiles/profile-videos"}}
+        nextButtonTitle="Back to VIDEOS"
       >
         {this.renderContent()}
       </AdminForm>

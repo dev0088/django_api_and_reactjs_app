@@ -167,6 +167,17 @@ export function getLiveVideos(talent_videos) {
   return res;
 }
 
+export function getLiveVideosByPositionName(talent_videos, positionName) {
+  let res = [];
+  if (talent_videos && talent_videos.length > 0) {
+    for (let i = 0; i < talent_videos.length; i ++) {
+      let video = talent_videos[i];
+      if (video.position_type === positionName) res.push(video);
+    }
+  }
+  return res;
+}
+
 export function checkPreviousShipMedical(medicals) {
   let checkingMedicals = [
     'Pregnancy',
@@ -219,6 +230,14 @@ export function checkCPR(medicals) {
 
 export function  getLanguageIndex(name) {
   return defaultValues.LANGUAGES.indexOf(name);
+}
+
+export function getCurrentTalentPositionName(talent) {
+  return talent.talent_position_types[0] ? talent.talent_position_types[0].position_type : null;
+}
+
+export function getCurrentTalentPositionSubType(talent) {
+  return talent.talent_position_sub_types[0] ? talent.talent_position_sub_types[0].position_sub_type : null
 }
 
 export function findRelatedSkillByPositionName(skills, positionName) {

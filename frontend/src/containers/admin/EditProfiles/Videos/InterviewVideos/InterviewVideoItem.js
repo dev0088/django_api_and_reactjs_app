@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ApprovedStatus from '../../ApprovedStatus';
-import { getLiveVideoNumbers } from 'utils/appUtils';
 import { adminStyles } from 'styles';
 
 
@@ -25,7 +24,8 @@ class InterviewVideoItem extends Component {
 
   render() {
     const { videos } = this.props;
-    const videoCount = videos ? getLiveVideoNumbers(videos) : 0;
+    const videoCount = videos ? videos.length : 0;
+
     return (
       <Grid container spacing={16} direction="column" justify="center" alignItems="center">
         <Grid item xs={12}>

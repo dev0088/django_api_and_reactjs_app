@@ -27,14 +27,14 @@ class QuestionSelection extends Component {
   };
 
   render() {
-    const { positionType } = this.props;
+    const { positionName } = this.props;
     const { selectedQuestionId } = this.state;
     return (
       <Grid container spacing={16} justify="center" alignItems="center">
         <Grid item xs={12}></Grid>
         <Grid item xs={12}>
           <FormControl component="fieldset">
-            <FormLabel component="legend">{`${positionType ? positionType.position_type : ''} Questions:`}</FormLabel>
+            <FormLabel component="legend">{`${positionName && positionName} Questions:`}</FormLabel>
             <RadioGroup
               aria-label="selectedQuestionId"
               name="selectedQuestionId"
