@@ -103,223 +103,223 @@ const talentRoutes = [
     path: "/interview-start",
     layout: TemplateTopbar,
     component: InterviewStart,
-    exact: false
+    exact: true
   },
   {
     path: "/interview-instruction",
     layout: TemplateTopbar,
     component: InterviewInstruction,
-    exact: false
+    exact: true
   },
   {
     path: "/interview-instruction-live",
     layout: TemplateTopbar,
     component: InterviewInstructionLive,
-    exact: false
+    exact: true
   },
   {
     path: "/interview-device-allow",
     layout: TemplateTopbar,
     component: InterviewDeviceAllow,
-    exact: false
+    exact: true
   },
   {
     path: "/video-interview",
     layout: TemplateTopbar,
     component: VideoPreview,
-    exact: false
+    exact: true
   },
   {
     path: "/live-interview",
     layout: TemplateTopbar,
     component: LiveInterview,
-    exact: false
+    exact: true
   },
   {
     path: "/video-practice",
     layout: TemplateTopbar,
     component: VideoPractice,
-    exact: false
+    exact: true
   },
   {
     path: "/my-profile",
     layout: TemplateTopbar,
     component: MyProfile,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/welcome",
     layout: TemplateTopbar,
     component: WelcomeBuildProfileWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-male",
     layout: TemplateTopbar,
     component: SelectMaleWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-position-type",
     layout: TemplateTopbar,
     component: SelectPositionTypeWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-position-sub-type",
     layout: TemplateTopbar,
     component: SelectPositionSubTypeWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-multi-position-sub-type",
     layout: TemplateTopbar,
     component: SelectMultiPositionSubTypeWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-skill",
     layout: TemplateTopbar,
     component: SelectSkillWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-sub-skill",
     layout: TemplateTopbar,
     component: SelectSubSkillWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-multi-sub-skill",
     layout: TemplateTopbar,
     component: SelectMultiSubSkillWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/lastWizard",
     layout: TemplateTopbar,
     component: LastWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-contact-info",
     layout: TemplateTopbar,
     component: SelectContactInfoWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-nationality",
     layout: TemplateTopbar,
     component: SelectNationalityWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-language",
     layout: TemplateTopbar,
     component: SelectLanguageWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-metric",
     layout: TemplateTopbar,
     component: SelectMetricWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-medical",
     layout: TemplateTopbar,
     component: SelectMedicalWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-bio",
     layout: TemplateTopbar,
     component: SelectBioWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-resume",
     layout: TemplateTopbar,
     component: SelectResumeWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-picture",
     layout: TemplateTopbar,
     component: SelectPictureWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-video",
     layout: TemplateTopbar,
     component: SelectVideoWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-multi-answer",
     layout: TemplateTopbar,
     component: SelectMultiAnswerWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile-wizard/select-single-answer",
     layout: TemplateTopbar,
     component: SelectSingleAnswerWizard,
-    exact: false
+    exact: true
   },
   {
     path: "/profile",
     layout: TemplateTopbar,
     component: ViewProfile,
-    exact: false
+    exact: true
   },
   {
     path: "/edit-profile",
     layout: TemplateTopbar,
     component: EditProfile,
-    exact: false
+    exact: true
   },
   {
     path: "/contact-info",
     layout: TemplateTopbar,
     component: MyContactInfo,
-    exact: false
+    exact: true
   },
   {
     path: "/nationality-info",
     layout: TemplateTopbar,
     component: MyNationality,
-    exact: false
+    exact: true
   },
   {
     path: "/bio-info",
     layout: TemplateTopbar,
     component: MyBio,
-    exact: false
+    exact: true
   },
   {
     path: "/metrics-info",
     layout: TemplateTopbar,
     component: MyMetrics,
-    exact: false
+    exact: true
   },
   {
     path: "/language-info",
     layout: TemplateTopbar,
     component: MyLanguage,
-    exact: false
+    exact: true
   },
   {
     path: "/medical-info",
     layout: TemplateTopbar,
     component: MyMedical,
-    exact: false
+    exact: true
   },
   {
     path: "/videos-info",
     layout: TemplateTopbar,
     component: MyVideos,
-    exact: false
+    exact: true
   },
   {
     path: "/video-greetings",
@@ -331,265 +331,265 @@ const talentRoutes = [
     path: "/talent/video-greetings/introduction",
     layout: TemplateTopbar,
     component: MyVideoGreetingsIntroduction,
-    exact: false
+    exact: true
   },
   {
     path: "/video-positions",
     layout: TemplateTopbar,
     component: MyPositionVideos,
-    exact: false
+    exact: true
   },
   {
     path: "/video-sub-skill",
     layout: TemplateTopbar,
     component: MySubSkillVideos,
-    exact: false
+    exact: true
   },
   {
     path: "/pictures-info",
     layout: TemplateTopbar,
     component: MyPictures,
-    exact: false
+    exact: true
   },
   {
     path: "/resume-info",
     layout: TemplateTopbar,
     component: MyResume,
-    exact: false
+    exact: true
   },
   {
     path: "/practice-interview-videos",
     layout: TemplateTopbar,
     component: MyPracticeInterviewVideos,
-    exact: false
+    exact: true
   },
   {
     path: "/live-interview-videos",
     layout: TemplateTopbar,
     component: MyLiveInterviewVideos,
-    exact: false
+    exact: true
   },
   {
     path: "/availability-info",
     layout: TemplateTopbar,
     component: MyAvailability,
-    exact: false
+    exact: true
   },
   {
     path: "/finance-info",
     layout: TemplateTopbar,
     component: MyFinance,
-    exact: false
+    exact: true
   },
   {
     path: "/my-account",
     layout: TemplateTopbar,
     component: MyAccount,
-    exact: false
+    exact: true
   },
   {
     path: "/change-password",
     layout: TemplateTopbar,
     component: TalentChangePassword,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-main-intro",
     layout: TemplateTopbar,
     component: VocalistIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-general-intro",
     layout: TemplateTopbar,
     component: VocalistIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-moves-intro",
     layout: TemplateTopbar,
     component: VocalistWhoMovesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-dances-intro",
     layout: TemplateTopbar,
     component: VocalistWhoDancesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-acts-intro",
     layout: TemplateTopbar,
     component: VocalistWhoActsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-dancer-sings-intro",
     layout: TemplateTopbar,
     component: VocalistDancerWhoSingsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/vocalist-dancer-actor-sings-intro",
     layout: TemplateTopbar,
     component: VocalistActorWhoSingsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/dancer-main-intro",
     layout: TemplateTopbar,
     component: DancerIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/dancer-intro",
     layout: TemplateTopbar,
     component: DancerIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/dancer-sings-intro",
     layout: TemplateTopbar,
     component: DancerWhoSingsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/dancer-acts-intro",
     layout: TemplateTopbar,
     component: DancerWhoActsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/dancer-movement-combination-intro",
     layout: TemplateTopbar,
     component: DancerMovementCombinationIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-main-intro",
     layout: TemplateTopbar,
     component: ActorIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-intro",
     layout: TemplateTopbar,
     component: ActorIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-sings-intro",
     layout: TemplateTopbar,
     component: ActorWhoSingsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-sings-more-intro",
     layout: TemplateTopbar,
     component: ActorWhoSingsMoreIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-moves-intro",
     layout: TemplateTopbar,
     component: ActorWhoMovesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-dances-intro",
     layout: TemplateTopbar,
     component: ActorWhoDancesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-vocalist-acts-intro",
     layout: TemplateTopbar,
     component: ActorVocalistWhoActsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/actor-dancer-acts-intro",
     layout: TemplateTopbar,
     component: ActorDancerWhoActsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-main-intro",
     layout: TemplateTopbar,
     component: AerialistIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-intro",
     layout: TemplateTopbar,
     component: AerialistIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-sings-intro",
     layout: TemplateTopbar,
     component: AerialistWhoSingsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-sings-more-intro",
     layout: TemplateTopbar,
     component: AerialistWhoSingsMoreIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-moves-intro",
     layout: TemplateTopbar,
     component: AerialistWhoMovesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-dances-intro",
     layout: TemplateTopbar,
     component: AerialistWhoDancesIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/aerialist-acts-intro",
     layout: TemplateTopbar,
     component: AerialistWhoActsIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/musician-main-intro",
     layout: TemplateTopbar,
     component: MusicianIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/technician-main-intro",
     layout: TemplateTopbar,
     component: TechnicianIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/cruise-staff-main-intro",
     layout: TemplateTopbar,
     component: CruiseStaffIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/youth-staff-main-intro",
     layout: TemplateTopbar,
     component: YouthStaffIntroMain,
-    exact: false
+    exact: true
   },
   {
     path: "/talent/video-audition/landscape-orientation",
     layout: TemplateTopbar,
     component: LandscapeOrientationIntro,
-    exact: false
+    exact: true
   },
   {
     path: "/talent-auditions",
     layout: TemplateTopbar,
     component: MyAuditions,
-    exact: false
+    exact: true
   },
 ];
 

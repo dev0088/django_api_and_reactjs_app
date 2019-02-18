@@ -152,19 +152,19 @@ export function getPracticVideoNumbers(talent_videos) {
 }
 
 export function getLiveVideoNumbers(talent_videos) {
-  let res = 0
+  return getLiveVideos().length;
+}
 
-  if (talent_videos) {
+export function getLiveVideos(talent_videos) {
+  let res = [];
+  if (talent_videos && talent_videos.length > 0) {
     for (let i = 0; i < talent_videos.length; i ++) {
-      let talent_video = talent_videos[i]
-      if (talent_video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE &&
-        talent_video.position_type !== null) {
-        res ++
-      }
+      let video = talent_videos[i];
+      if (video.position_type !== defaultValues.DEFAULT_PRACTICE_POSITION_TYPE)
+      res.push(video);
     }
   }
-
-  return res
+  return res;
 }
 
 export function checkPreviousShipMedical(medicals) {

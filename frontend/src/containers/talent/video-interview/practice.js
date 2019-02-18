@@ -151,15 +151,12 @@ class VideoPractice extends React.Component {
     this.detectDevice();
     this.checkAvailableCamera();
     const { pageId } = this.props.match.params;
-    this.props.videoActions.getVideoQuestionsActions(pageId, defaultValues.DEFAULT_PRACTICE_POSITION_TYPE);
+    this.props.videoActions.getVideoQuestionsActions('', defaultValues.DEFAULT_PRACTICE_POSITION_TYPE);
     this.props.videoActions.getVideoSettingsActions();
   }
 
   componentDidMount() {
-    let __this = this;
-    setTimeout(function() {
-      __this.props.talentActions.getCurrentTalentInfo();
-    }, 400);
+    this.props.talentActions.getCurrentTalentInfo();
     if (this.timer && this.timer != -1) {
       clearTimeout(this.timer);
       this.timer = -1;
@@ -745,15 +742,15 @@ class VideoPractice extends React.Component {
       />,
     ];
     const { talentInfo } = this.props;
-    let positionName = "";
+    let currentPositionType = null;
     if (talentInfo.value){
-      const { talent_position_sub_type } = talentInfo.value;
-      if (talent_position_sub_type)
-        positionName = talent_position_sub_type.talent_position_type.toLowerCase();
+      const { talent_position_types } = talentInfo.value;
+      if (talent_position_types) currentPositionType = talent_position_types[0];
     }
 
     if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
       question = videoQuestions.value[currentQuestion]['content'];
+      
     return config ? (<div className="video-practice">
         {this.showSpinner(uploading)}
 
@@ -843,7 +840,7 @@ class VideoPractice extends React.Component {
         {isPlayBackOpen &&  // Show playback.
           <VideoPlayBack
             url={src}
-            pageId={positionName}
+            positionType={currentPositionType}
             currentQuestion={currentQuestion}
             onSettings={this.adjustSettings}
             onNext={this.onNextQuestion}
@@ -977,4 +974,5 @@ function mapDispatchToProps(dispatch) {
     talentActions: bindActionCreators(talentActions, dispatch),
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPractice);

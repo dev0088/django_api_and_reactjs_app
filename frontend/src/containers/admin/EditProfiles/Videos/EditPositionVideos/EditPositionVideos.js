@@ -40,21 +40,27 @@ class EditPositionVideos extends React.Component  {
     
     let videos = [];
     for (let i = 0; i < subSkillsWithVideo.length; i ++) {
-      let video = currentVideos.find(v => {
-        return v.sub_skill === subSkillsWithVideo[i].id
+      const subSkill = subSkillsWithVideo[i];
+      const subSkillVideos = currentVideos.filter(v => {
+        return v.sub_skill === subSkill.id
       });
       
-      videos.push(
-        <Grid item lg={3} md={4} xs={12} className={classes.centerText}>
-          <OverviewVideo
-            showStatus showCaption
-            video={video}
-            caption={subSkillsWithVideo[i].video_audition_button_title}
-            link={{pathname: "/admin/edit-profiles/profile-videos/edit-position-video", state: {video, positionType}}}
-            key={`${subSkillsWithVideo[i].video_audition_button_title}-${i}`}
-          />
-        </Grid>
-      );
+      for (let j = 0; j < subSkill.video_counts; j ++) {
+        const video = subSkillVideos.find(v => { return v.priority === (j + 1)});
+        const caption = `${subSkillsWithVideo[i].name}${subSkill.video_counts > 1 ? ' ' + (j + 1) : ''}`;
+        videos.push(
+          <Grid item lg={3} md={4} xs={12} className={classes.centerText}>
+            <OverviewVideo
+              showStatus showCaption
+              video={video}
+              caption={caption}
+              link={{pathname: "/admin/edit-profiles/profile-videos/edit-position-video", state: {video, positionType, caption}}}
+              key={`${subSkillsWithVideo[i].video_audition_button_title}-${i}`}
+            />
+          </Grid>
+        );  
+      }
+      
     }
 
     return (
@@ -82,8 +88,8 @@ class EditPositionVideos extends React.Component  {
         talent={profile}
         showName
         formSubTitle={`${positionType ? positionType.name : ''} VIDEOS`}
-        nextLink={{pathname: "/admin/edit-profiles/edit-profile", state: {profileId: profile ? profile.id : null}}}
-        nextButtonTitle="Back to Profile"
+        nextLink={{pathname: "/admin/edit-profiles/profile-videos"}}
+        nextButtonTitle="Back to VIDEOS"
       >
         {this.renderContent()}
       </AdminForm>

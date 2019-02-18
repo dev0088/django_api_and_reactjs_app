@@ -16,14 +16,14 @@ import { bindActionCreators } from 'redux';
 import RecordRTC from 'recordrtc';
 import DetectRTC from "detectrtc";
 
-import * as videoActions from '../../../actions/videoActions';
-import * as deviceActions from '../../../actions/deviceSettings';
-import AudioMeter from "../../../components/general/audio-meter/index";
+import * as videoActions from 'actions/videoActions';
+import * as deviceActions from 'actions/deviceSettings';
+import AudioMeter from "components/general/audio-meter/index";
 
 import './styles.css';
-import RecordCtl from "../../../components/general/record-ctl/index";
-import apiConfig from '../../../constants/api';
-import { captureUserMedia } from '../../../utils/appUtils';
+import RecordCtl from "components/general/record-ctl/index";
+import apiConfig from 'constants/api';
+import { captureUserMedia } from 'utils/appUtils';
 
 const styles={
   floatingLabelStyle: {
@@ -105,6 +105,7 @@ class LiveInterview extends React.Component {
   componentWillMount() {
     let __this = this, detectError = [];
     let { deviceSettings, talentInfo } = this.props;
+    console.log('===== props: ', this.props);
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
@@ -136,16 +137,25 @@ class LiveInterview extends React.Component {
           __this.requestUserMedia();
         })
     });
-    const { pageId } = this.props.match.params;
-    if (talentInfo && talentInfo.talent_position_sub_type) {
+    
+    if (talentInfo) {
+      const { talent_position_types, talent_position_sub_types } = talentInfo;
+      let positionType = null;
+      let subPositionType = null;
+      
+      if (talent_position_types && talent_position_types.length > 0)
+        positionType = talent_position_types[0];
+      if (talent_position_sub_types && talent_position_sub_types.length > 0)
+        subPositionType = talent_position_sub_types[0].position_sub_type;
+        
       this.setState({
-        position_type: talentInfo.talent_position_sub_type.talent_position_type,
-        position_sub_type: talentInfo.talent_position_sub_type.name
+        position_type: positionType ? positionType.position_type : '',
+        position_sub_type: subPositionType ? subPositionType.name : ''
+      }, () => {
+        this.props.videoActions.getVideoQuestionsActions(positionType.position_type, 'live');
+        this.props.videoActions.getVideoSettingsActions();
       })
     }
-    this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
-    this.props.videoActions.getVideoSettingsActions();
-
   }
 
   componentDidMount() {
@@ -296,9 +306,11 @@ class LiveInterview extends React.Component {
   videoRecordStart = () => {
     let mimeType = "video/webm;codecs=h264";
     let __this = this;
+
     if(this.isMimeTypeSupported('video/mpeg')) {
       mimeType = 'video/mpeg';
     }
+
     const { resolution, frameRate, bitRate } = this.state;
     let options = {mandatory: {}};
     let rtcOptions = {
@@ -308,26 +320,27 @@ class LiveInterview extends React.Component {
       ignoreMutedMedia: false,
       mimeType: mimeType,
       type: "video"
-    }
+    };
+
     if (resolution !== -1 ){
       options['mandatory']['minWidth'] = VideoResolutions[resolution]['width'];
       options['mandatory']['minHeight'] = VideoResolutions[resolution]['height'];
-    }
-    else {
+    } else {
       if (!options['video']) {
         options['video'] = {};
       }
       options['video']['width'] = { ideal: VideoResolutions[0]['width'] };
       options['video']['height'] = { ideal: VideoResolutions[0]['height'] };
     }
+
     if (frameRate !== 0){
       options['mandatory']['minFrameRate'] = frameRate;
     }
+
     if (bitRate !== 0)
       rtcOptions['videoBitsPerSecond'] = bitRate;
-    captureUserMedia(options, (stream) => {
-      // console.log(__this.state);
-      __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
+      captureUserMedia(options, (stream) => {
+        __this.setState({recordVideo: RecordRTC(stream, rtcOptions)}, function() {
         __this.state.recordVideo.startRecording();
       })
     });
@@ -416,13 +429,18 @@ class LiveInterview extends React.Component {
   uploadToS3 = (signAPI, completeAPI, file) => {
     const { videoQuestions } = this.props
     const { currentQuestion, position_type, position_sub_type } = this.state
+    
+    if (videoQuestions.length === 0) {
+      this.onError(file);
+      return;
+    }
 
     const params = {
       objectName: file.name,
       contentType: file.type,
       position_type: position_type,
       position_sub_type: position_sub_type,
-      question: videoQuestions.value[currentQuestion]['content']
+      question: videoQuestions[currentQuestion] ? videoQuestions[currentQuestion]['content'] : ''
     }
 
     fetch(signAPI, {
@@ -434,27 +452,22 @@ class LiveInterview extends React.Component {
     }).then(response => response.json())
     .then(response => {
       if(response.error) {
-        // console.log('error: ', response.error)
         this.onError(file)
       }
       else {
         if (response.signedUrl){
-          // console.log('success: ', response, response.signedUrl)
           this.uploadFile(response.signedUrl, completeAPI, response.fileID, file)
         } else {
-          // console.log('error: ', response)
           this.onError(file)
         }
       }
     })
     .catch(error => {
-      // console.log('error: ', error)
       this.onError(file)
     })
   }
 
   onError = (file) => {
-    // console.log('==== Error: ', file)
     this.setState({uploading: false});
   }
 
@@ -576,9 +589,8 @@ class LiveInterview extends React.Component {
       remainingTime,
       timePos,
       uploading,
-
     } = this.state;
-    const { videoQuestions } = this.props;
+    const { videoQuestions, isLoading } = this.props;
     let question = "";
     const actions = [
       <FlatButton
@@ -592,8 +604,10 @@ class LiveInterview extends React.Component {
         onClick={this.handleAlertClose}
       />,
     ];
-    if (videoQuestions && videoQuestions.value && videoQuestions.value.length > 0)
-      question = videoQuestions.value[currentQuestion]['content'];
+
+    if (videoQuestions && videoQuestions && videoQuestions.length > 0)
+      question = videoQuestions[currentQuestion]['content'];
+
     return config ? (<div className="video-practice">
         {this.showSpinner(uploading)}
         <div className="video-interview-live-header ">
@@ -603,8 +617,8 @@ class LiveInterview extends React.Component {
           </h3>
         </div>
 
-        {videoQuestions && videoQuestions.isFetched &&
-        <React.Fragment>
+        {videoQuestions && (videoQuestions.length > 0) && !isLoading &&
+          <React.Fragment>
           <Row>
             <Col xs="12" md="1" className="pt-6 pt-md-0"/>
             <Col xs="12" md="4" className="pt-6 pt-md-0">
@@ -728,7 +742,8 @@ function mapStateToProps(state) {
   const { auth, videoQuestions, videoSettings, deviceSettings, talentInfo } = state;
   return {
     auth: auth,
-    videoQuestions: videoQuestions,
+    videoQuestions: videoQuestions.value,
+    isLoading: !videoQuestions.isFetched,
     videoSettings: videoSettings,
     deviceSettings: deviceSettings,
     talentInfo: talentInfo.value

@@ -21,6 +21,7 @@ import EditGreetingVideos from "containers/admin/EditProfiles/Videos/EditGreetin
 import EditGreetingVideo from "containers/admin/EditProfiles/Videos/EditGreetingVideos/EditGreetingVideo";
 import EditPositionVideos from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideos";
 import EditPositionVideo from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideo";
+import LiveInterviewVideo from 'containers/admin/EditProfiles/Videos/InterviewVideos/LiveInterviewVideo';
 import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
 import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
@@ -156,6 +157,12 @@ const adminPageRoutes = [
   {
     path: "/admin/edit-profiles/profile-videos/edit-greeting-video",
     component: EditGreetingVideo,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-videos/interview-videos",
+    component: LiveInterviewVideo,
     layout: TemplateAdminSidebar,
     exact: true
   },

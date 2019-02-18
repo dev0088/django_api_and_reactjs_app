@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 import Panel from "components/general/panel";
+import Spacer from 'components/general/spacer';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import OverviewVideo from '../OverviewVideo';
-import Spacer from 'components/general/spacer';
+import IntervewVideoItem from '../InterviewVideos/InterviewVideoItem';
 import { adminStyles } from 'styles';
 
 
@@ -75,6 +76,10 @@ class EditGreetingVideos extends React.Component  {
             </Grid>
           </Grid>
           <Grid item lg={2} md={1} xs={12}/>
+          <Grid item xs={12}><Spacer size={15} /></Grid>
+          <Grid item xs={12}>
+            <IntervewVideoItem videos={profile && profile.talent_videos} />
+          </Grid>
           <Grid item xs={12}><Spacer size={30} /></Grid>
         </Grid>
       </Panel>
