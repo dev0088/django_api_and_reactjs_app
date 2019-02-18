@@ -3,9 +3,9 @@ import apiConfig from '../constants/api';
 import defaultValues from 'constants/defaultValues'
 import * as types from './actionTypes'
 
-export const getVideoQuestionsActions = (id, mode) => ({
+export const getVideoQuestionsActions = (positionName, mode) => ({
   [RSAA]: {
-    endpoint: ((mode === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) ? `${apiConfig.url}/question/practice/static` : `${apiConfig.url}/question/random/?position_type=${id}`),
+    endpoint: ((mode === defaultValues.DEFAULT_PRACTICE_POSITION_TYPE) ? `${apiConfig.url}/question/practice/static` : `${apiConfig.url}/question/random/?position_type=${positionName}`),
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     types: [

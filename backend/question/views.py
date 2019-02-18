@@ -13,6 +13,8 @@ from rest_framework import status
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.schemas import ManualSchema
 import random
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 class QuestionPracticeStaticList(APIView):
@@ -88,6 +90,8 @@ class SimpleFilterBackend(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         return queryset.filter(owner=request.user)
 
+
+
 class QuestionRamdomList(APIView):
     schema = ManualSchema(fields=[
         coreapi.Field(
@@ -103,24 +107,35 @@ class QuestionRamdomList(APIView):
             schema=coreschema.String()
         ),
     ])
+
+    position_type_param = openapi.Parameter(
+            'position_type',
+            openapi.IN_QUERY,
+            description="position type name parameter",
+            type=openapi.TYPE_STRING
+    )
+
     # filter_backends = (SimpleFilterBackend,)
     """
     Retrieve 5 questions randomly.
     """
+    @swagger_auto_schema(manual_parameters=[position_type_param],
+                    responses={200: QuestionSerializer(many=True)})
+
     def get(self, request, format=None):
         try:
-            position_type = request.query_params.get('position_type') #request.query_params.get('position_type')
-            position_sub_type = request.query_params.get('position_sub_type') #request.query_params.get('position_type')
+            position_type_name = request.query_params.get('position_type') #request.query_params.get('position_type')
+            position_sub_type_name = request.query_params.get('position_sub_type') #request.query_params.get('position_type')
             
-            if not position_type:
+            if not position_type_name:
                 questions = Question.objects.all()
             else :
-                position_type = PositionType.objects.get(name__iexact=position_type)
-                if not position_sub_type:
+                position_type = PositionType.objects.get(name__iexact=position_type_name)
+                if not position_sub_type_name:
                     print('===== filter question: ', position_type.id)
                     questions = Question.objects.filter(position_type=position_type.id)
                 else: 
-                    questions = Question.objects.filter(position_type=position_type.id).filter(position_sub_type=position_sub_type)
+                    questions = Question.objects.filter(position_type=position_type.id).filter(position_sub_type=position_sub_type_name)
         except PositionType.DoesNotExist:
             raise Http404
 
