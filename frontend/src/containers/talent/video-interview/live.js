@@ -30,12 +30,27 @@ const styles={
     color: "#258df2",
   },
 }
-const resolutionSize = {
-  1: [],
-  2: [1920, 1080],
-  3: [1280, 720],
-  4: [640, 480]
-}
+let VideoResolutions = [
+  {width: 4096, height:2160},
+  {width: 3840, height:2160},
+  {width: 2560, height:1440},
+  {width: 1920, height:1200},
+  {width: 1920, height:1080},
+  {width: 1280, height:1000},
+  {width: 1280, height:900},
+  {width: 1280, height:800},
+  {width: 1280, height:768},
+  {width: 1280, height:720},
+  {width: 1024, height:576},
+  {width: 768, height:576},
+  {width: 640, height:480},
+  {width: 640, height:360},
+  {width: 320, height:240},
+  {width: 320, height:180},
+  {width: 160, height:120}
+];
+
+let MAX_RESOLUTION = {width: 1280, height: 768};
 const theme = createMuiTheme ({
   palette: {
     primary: {
@@ -198,7 +213,7 @@ class LiveInterview extends React.Component {
     const __this = this;
     if (!isStopped)
     {
-      setTimeout(function () {
+      this.timer = setTimeout(function () {
         const { remainingTime, timePos } = __this.state;
         let isStopped1 = __this.state.isStopped;
         console.log('===== Live: coutnDown: timePos: ', timePos)
@@ -230,6 +245,10 @@ class LiveInterview extends React.Component {
               remainingTime: newRemaining
             });
           }
+          if (__this.timer && __this.timer != -1) {
+            clearTimeout(__this.timer);
+            __this.timer = -1;
+          }
           __this.countDown()
         }
       }, 1000)
@@ -239,9 +258,16 @@ class LiveInterview extends React.Component {
   requestUserMedia() {
     const { resolution, frameRate } = this.state;
     let options = {mandatory: {}};
-    if (resolution !== 1 ){
-      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
-      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    if (resolution !== -1 ){
+      options['mandatory']['minWidth'] = VideoResolutions[resolution]['width'];
+      options['mandatory']['minHeight'] = VideoResolutions[resolution]['height'];
+    }
+    else {
+      if (!options['video']) {
+        options['video'] = {};
+      }
+      options['video']['width'] = { ideal: VideoResolutions[0]['width'] };
+      options['video']['height'] = { ideal: VideoResolutions[0]['height'] };
     }
     if (frameRate !== 0){
       options['mandatory']['minFrameRate'] = frameRate;
@@ -273,7 +299,11 @@ class LiveInterview extends React.Component {
         timePos: 1,
         remainingTime: remainingTime
       },
-      function() {
+      () => {
+        if (this.timer && this.timer != -1) {
+          clearTimeout(this.timer);
+          this.timer = -1;
+        }
         this.countDown();
         this.videoRecordStart();
       }
@@ -296,9 +326,16 @@ class LiveInterview extends React.Component {
       mimeType: mimeType,
       type: "video"
     }
-    if (resolution !== 1 ){
-      options['mandatory']['minWidth'] = resolutionSize[resolution][0];
-      options['mandatory']['minHeight'] = resolutionSize[resolution][1];
+    if (resolution !== -1 ){
+      options['mandatory']['minWidth'] = VideoResolutions[resolution]['width'];
+      options['mandatory']['minHeight'] = VideoResolutions[resolution]['height'];
+    }
+    else {
+      if (!options['video']) {
+        options['video'] = {};
+      }
+      options['video']['width'] = { ideal: VideoResolutions[0]['width'] };
+      options['video']['height'] = { ideal: VideoResolutions[0]['height'] };
     }
     if (frameRate !== 0){
       options['mandatory']['minFrameRate'] = frameRate;
@@ -349,6 +386,10 @@ class LiveInterview extends React.Component {
       isPlaying: false,
       timePos: 0
     }, function() {
+      if (__this.timer && __this.timer != -1) {
+        clearTimeout(__this.timer);
+        __this.timer = -1;
+      }
       __this.countDown();
     });
   };
@@ -363,7 +404,11 @@ class LiveInterview extends React.Component {
       isStopped: false,
       isPlaying: false,
       timePos: 0
-    }, function() {
+    }, () => {
+      if (__this.timer && __this.timer != -1) {
+        clearTimeout(__this.timer);
+        __this.timer = -1;
+      }
       __this.countDown();
     });
   };
