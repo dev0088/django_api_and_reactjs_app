@@ -23,6 +23,7 @@ class EditPositionVideo extends Component  {
     positionType: null,
     subSkill: null,
     video: null,
+    caption: '',
     selectedValue: '',
     openConfirmApproveDialog: false,
     openConfirmRejectDialog: false,
@@ -33,9 +34,10 @@ class EditPositionVideo extends Component  {
     const { location, allSkills } = props;
     let video = (location && location.state && location.state.video) ? location.state.video : null;
     let positionType = (location && location.state && location.state.positionType) ? location.state.positionType : null;
+    let caption = (location && location.state && location.state.caption) ? location.state.caption : null;
     let selectedValue = (video && video.approved) ? 'approved' : '';
     let subSkill = findSubSkillById(allSkills, video.sub_skill);
-    return { positionType, subSkill, video, selectedValue, comment: '' };
+    return { positionType, subSkill, video, caption, selectedValue, comment: '' };
   };
 
   getInfoFromNextProps = (props) => {
@@ -172,15 +174,14 @@ class EditPositionVideo extends Component  {
   }
 
   render() {
-    const { positionType, subSkill } = this.state;
+    const { positionType, caption } = this.state;
     const { profile } = this.props;
-    const title = subSkill ? subSkill.name : '';
     
     return (
       <AdminForm
         talent={profile}
         showName
-        formSubTitle={title}
+        formSubTitle={caption}
         nextLink={{pathname: "/admin/edit-profiles/profile-videos/edit-position-videos", state: {positionType}}}
         nextButtonTitle="Back to Video Greetings"
       >

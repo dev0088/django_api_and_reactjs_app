@@ -28,7 +28,8 @@ class InterviewInstructionLive extends React.Component {
   constructor() {
     super();
     this.state = {
-      talent_position_sub_type: null
+      subPositionType: null,
+      positionType: null
     }
   }
 
@@ -38,18 +39,30 @@ class InterviewInstructionLive extends React.Component {
       __this.props.talentActions.getCurrentTalentInfo();
     }, 400);
   }
-  render() {
-    const { pageId } = this.props.match.params;
-    const { talentInfo } = this.props;
-    let positionName = "";
-    if (talentInfo.value){
-      const { talent_position_sub_type } = talentInfo.value;
-      if (talent_position_sub_type)
-        positionName = talent_position_sub_type.talent_position_type.toLowerCase();
+
+  componentWillReceiveProps(nextProps) {
+    const { talentInfo } = nextProps;
+    if (talentInfo) {
+      const { talent_position_types, talent_position_sub_types } = talentInfo;
+      let positionType = null;
+      let subPositionType = null;
+      
+      if (talent_position_types && talent_position_types.length > 0)
+        positionType = talent_position_types[0].position_type;
+      if (talent_position_sub_types && talent_position_sub_types.length > 0)
+        subPositionType = talent_position_sub_types[0].position_sub_type;
+  
+      this.setState({positionType, subPositionType});
     }
+  }
+
+  render() {
+    const { positionType, subPositionType } = this.state;
+    let positionName = positionType ? positionType.position_type : '';
+
     return (<div className="video-interview">
         <div className="video-interview-header">
-          <h1>{`My Video Interview (${pageId})`}</h1>
+          <h1>{`My Video Interview (${positionName})`}</h1>
           <h3>Live!</h3>
         </div>
         <div className="video-interview-body">
@@ -74,7 +87,7 @@ class InterviewInstructionLive extends React.Component {
           </p>
           <br/><br/>
           {
-            <Link to={"/live-interview/" + positionName}>
+            <Link to={{pathname: "/live-interview/", state: {positionType: positionType}}}>
               <RaisedButton
                 label="Begin My Video Interview"
                 className="btn-video-buttons btn-vpb"
@@ -93,7 +106,7 @@ function mapStateToProps(state) {
   const { auth, talentInfo } = state;
   return {
     auth: auth,
-    talentInfo: talentInfo
+    talentInfo: talentInfo.value
   }
 }
 function mapDispatchToProps(dispatch) {

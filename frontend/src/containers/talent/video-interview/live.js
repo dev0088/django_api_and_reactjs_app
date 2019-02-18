@@ -90,6 +90,7 @@ class LiveInterview extends React.Component {
   componentWillMount() {
     let __this = this, detectError = [];
     let { deviceSettings, talentInfo } = this.props;
+    console.log('===== props: ', this.props);
     DetectRTC.load(function() {
       // console.log(DetectRTC);
 
@@ -121,15 +122,31 @@ class LiveInterview extends React.Component {
           __this.requestUserMedia();
         })
     });
-    const { pageId } = this.props.match.params;
-    if (talentInfo && talentInfo.talent_position_sub_type) {
-      this.setState({
-        position_type: talentInfo.talent_position_sub_type.talent_position_type,
-        position_sub_type: talentInfo.talent_position_sub_type.name
-      })
-    }
-    this.props.videoActions.getVideoQuestionsActions(pageId, 'live');
-    this.props.videoActions.getVideoSettingsActions();
+    
+    // const { pageId } = this.props.match.params;
+    // if (talentInfo && talentInfo.talent_position_sub_type) {
+    //   this.setState({
+    //     position_type: talentInfo.talent_position_types[0].position_type,
+    //     position_sub_type: talentInfo.talent_position_sub_types[0].position_sub_type.name
+    //   })
+    // }
+    const { talent_position_types, talent_position_sub_types } = talentInfo;
+    let positionType = null;
+    let subPositionType = null;
+    
+    if (talent_position_types && talent_position_types.length > 0)
+      positionType = talent_position_types[0].position_type;
+    if (talent_position_sub_types && talent_position_sub_types.length > 0)
+      subPositionType = talent_position_sub_types[0].position_sub_type;
+      
+    this.setState({
+      position_type: positionType ? positionType.position_type : '',
+      position_sub_type: subPositionType ? subPositionType.name : ''
+    }, () => {
+      this.props.videoActions.getVideoQuestionsActions(positionType.position_type, 'live');
+      this.props.videoActions.getVideoSettingsActions();
+    })
+    
 
   }
 
