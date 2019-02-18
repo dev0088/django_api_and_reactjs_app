@@ -14,7 +14,6 @@ class ProfileVideos extends React.Component {
 
   getInfoFromProps = (props) => {
     const { location } = props;
-    // let profile = (location && location.state && location.state.profile) ? location.state.profile : null;
     let profileId = (location && location.state && location.state.profileId) ? location.state.profileId : null;
     return { profileId };
   };

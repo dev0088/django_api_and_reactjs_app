@@ -10,10 +10,12 @@ import { adminStyles } from 'styles';
 class GreetingVideoItem extends Component {
 
   render() {
-    const { videos, classes } = this.props;
-    let total = 4;
-    let currentVideos = videos ? videos.length : 0;
-    let approved = (total && videos) ? videos.filter(video => video.approved).length : 0;
+    const { greetingVideos, interviewVideos, classes } = this.props;
+    let total = 9;
+    let currentVideos = greetingVideos ? greetingVideos.length : 0;
+    let currentInterviewVideos = interviewVideos ? interviewVideos.length : 0;
+    currentVideos += currentInterviewVideos;
+    let approved = (greetingVideos ? greetingVideos.filter(video => video.approved).length: 0) +  currentInterviewVideos;
     let pending = currentVideos - approved;
     
     return (

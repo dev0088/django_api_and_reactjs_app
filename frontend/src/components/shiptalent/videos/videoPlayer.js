@@ -9,8 +9,7 @@ import styles from 'styles';
 
 class VideoPlayer extends Component {
   render() {
-    const { title, url, classes } = this.props;
-    console.log('===== VideoPlayer: title: ', title);
+    const { title, url, width, height, classes } = this.props;
     return (
       <Grid container spacing={16} justify="center" alignItems="center">
         {title && (
@@ -24,10 +23,9 @@ class VideoPlayer extends Component {
           <ReactPlayer
             url={url}
             className={url ? classes.clientVideoPlayer : classes.clientEmptyVideoPlayer}
-            width={'480px'}
-            height={'270px'}
+            width={width ? width : '480px'}
+            height={height ? height : '270px'}
             controls={true}
-            light
           />
         </Grid>
       </Grid>
