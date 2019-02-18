@@ -45,7 +45,7 @@ class ProfilePcitures extends React.Component  {
       <Panel>
         <Grid container spacing={24} justify="center" alignItems="center">
           <Grid item xs={12}><Spacer size={30} /></Grid>
-          <Grid xs={12} >
+          <Grid item xs={12} >
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={4} xs={12} className={classes.centerText}>
@@ -63,14 +63,14 @@ class ProfilePcitures extends React.Component  {
 
           <Grid item xs={12}><Spacer size={30} /></Grid>
          
-          <Grid xs={12} >
+          <Grid item xs={12} >
             <Grid container spacing={24} justify="center" alignItems="center">
               <Grid item lg md={12} xs={12} />
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
                 <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 1')} caption='My Other Pic 1' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
-                <ProfilePicture howStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 2')} caption='My Other Pic 2' />
+                <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 2')} caption='My Other Pic 2' />
               </Grid>
               <Grid item lg={2} md={3} xs={12} className={classes.centerText}>
                 <ProfilePicture showStatus showCaption picture={getPictureByCaption(pictures, 'My Other Pic 3')} caption='My Other Pic 3' />
