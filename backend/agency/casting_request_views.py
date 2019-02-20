@@ -3,7 +3,6 @@ from casting_request.models import CastingRequest
 from casting_request.serializers import CastingRequestSerializer, CastingRequestCreateSerializer
 from casting_request.detail_serializers import  CastingRequestDetailSerializer
 from casting_request_talent.models import CastingRequestTalent
-from casting_request_talent.details_by_talent_serializers import CastingRequestTalentDetailByTalentSerializer
 from agency.casting_request_serializers import CastingRequestSearchSerializer, CastingRequestSetStatusSerializer
 from user_note.models import UserNoteManager
 from django.http import Http404
@@ -24,16 +23,22 @@ class CastingRequestList(APIView):
         serializer = CastingRequestSerializer(casting_requests, many=True)
         return Response(serializer.data)
 
+
 class CastingRequestSearch(APIView):
     """
-    Retrieve all casting requests of talent.
+    Retrieve all casting requests matching to search conditioin.
     """
-    @swagger_auto_schema(request_body=CastingRequestSearchSerializer, responses={200: CastingRequestTalentDetailByTalentSerializer(many=True)})
+    @swagger_auto_schema(request_body=CastingRequestSearchSerializer, responses={200: CastingRequestDetailSerializer(many=True)})
     def post(self, request, format=None):
         user = User.objects.get(pk=request.user.pk)
-        casting_request_talents = CastingRequestTalent.objects.filter(talent=request.data['talent_id'])
-        serializer = CastingRequestTalentDetailByTalentSerializer(casting_request_talents, many=True)
+        if 'status' in request.data:
+            casting_requests = CastingRequest.objects.filter(status__in=request.data['status'])
+        else :
+            casting_requests = CastingRequest.objects.all()
+
+        serializer = CastingRequestDetailSerializer(casting_requests, many=True)
         return Response(serializer.data)
+
 
 class CastingRequestDetail(APIView):
     """

@@ -6,5 +6,4 @@ urlpatterns = [
   re_path(r'^search', casting_request_views.CastingRequestSearch.as_view()),
   re_path(r'^(?P<pk>[0-9]+)/', casting_request_views.CastingRequestDetail.as_view()),
   re_path(r'^set_status/(?P<pk>[0-9]+)/', casting_request_views.CastingRequestSetStatus.as_view()),
-
 ]

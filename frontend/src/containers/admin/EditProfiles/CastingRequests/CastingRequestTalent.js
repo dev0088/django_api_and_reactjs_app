@@ -13,7 +13,7 @@ import { adminStyles } from 'styles';
 
 class CastingRequestTalent extends Component {
   render() {
-    const {castingRequestTalent, classes } = this.props;
+    const {castingRequestTalent, path, showStatus, classes } = this.props;
     const castingRequest = castingRequestTalent ? castingRequestTalent.casting_request : null;
     let completedStatus = (castingRequest && castingRequest.status === "Completed");
     let buttonClasses = classNames(classes.button, classes.adminCastingRequestButton);
@@ -22,7 +22,7 @@ class CastingRequestTalent extends Component {
       (castingRequest) ? (
         <Grid container spacing={16}>
           <Grid item xs={6} >
-            <Link to={{pathname: '/admin/casting-request', state: {castingRequest: castingRequest}}}>
+            <Link to={{pathname: path ? path : '/admin/casting-request', state: {castingRequest: castingRequest}}}>
               <Button variant="contained" size="large" fullWidth className={buttonClasses}>
                   <Typography className={classNames(classes.bold, classes.adminTalentStatusButtonText)}>
                   { `${castingRequest.name} ${moment(castingRequest.created).format(defaultValues.ADMIN_CASTING_REQUEST_TITLE_FORMAT)}` }
@@ -30,17 +30,19 @@ class CastingRequestTalent extends Component {
               </Button>
             </Link>
           </Grid>
-          <Grid item xs={6} >
-            <StatusCheckBox
-              name={'contracted'}
-              title={'Contract Completed'}
-              checked={completedStatus}
-              className={completedStatus 
-                ? classes.adminStatusCastingRequestContractCompleted 
-                : classes.adminStatusCastingRequestContractNotCompleted
-              }
-            />
-          </Grid>
+          { showStatus &&
+            <Grid item xs={6} >
+              <StatusCheckBox
+                name={'contracted'}
+                title={'Contract Completed'}
+                checked={completedStatus}
+                className={completedStatus 
+                  ? classes.adminStatusCastingRequestContractCompleted 
+                  : classes.adminStatusCastingRequestContractNotCompleted
+                }
+              />
+            </Grid>
+          }
         </Grid>
       ) : (
         <div>None</div>

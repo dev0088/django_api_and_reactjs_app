@@ -37,7 +37,7 @@ class ProfileCastingRequests extends React.Component  {
       const { profile } = this.props;
       if (profile) {
         let data = { talent_id: profile.id };
-        AdminAPI.getProfileCastingRequests(data, this.handleGetAllCastingRequestResponse);
+        AdminAPI.searchCastingRequestTalent(data, this.handleGetAllCastingRequestResponse);
       }
     });
   };
@@ -56,7 +56,7 @@ class ProfileCastingRequests extends React.Component  {
           <Grid lg={2} md={1} xs={12} />
 
           <Grid lg={8} md={10} xs={12} >
-            <CastingRequestTable castingRequests={castingRequestTalents} />
+            <CastingRequestTable castingRequests={castingRequestTalents} path={'/admin/casting-request'} />
           </Grid>
 
           <Grid lg={2} md={1} xs={12} />

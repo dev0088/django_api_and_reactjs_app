@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { bindActionCreators } from 'redux';
 import ClientForm from 'components/shiptalent/forms/clientForm';
-import * as talentActions from 'actions/talentActions';
-import TalentAPI from 'apis/talentAPIs'
-import ConfirmChangesDialog from 'components/shiptalent/dialogs/confirmChangesDialog';
 import { styles } from 'styles';
 
 class ClientVideoForm extends Component {

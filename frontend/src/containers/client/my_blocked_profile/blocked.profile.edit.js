@@ -77,7 +77,7 @@ class BlockedProfileEdit extends Component {
 
     } else {
       this.props.history.push(
-        '/client/block_profile/confirm',
+        '/client/blocked_profile/confirm',
         {talent: this.state.talent, expiration: this.state.expiration, blockedProfile: response});
     }
   };
@@ -177,7 +177,7 @@ class BlockedProfileEdit extends Component {
       <ClientForm
         formTitle={talent ? `${talent.user.first_name} ${talent.user.last_name}` : '' }
         formSubTitle={talent ? talent.head_line : '' }
-        nextLink="/client/home"
+        nextLink={{pathname: "/client/talent_view", state: {talentID: talent ? talent.id : 0}}}
         nextButtonTitle="Cancel and return to Profile"
       >
         {this.renderContent()}

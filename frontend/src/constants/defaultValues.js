@@ -181,6 +181,27 @@ export default {
 		DECLINED: 'Declined',
 		CANCELED: 'Canceled',
 		COMPLETED: 'Completed'
+	},
+	USER_NOTE_TYPE: {
+		PROFILE: 'Profile',
+		CASTING_REQUEST: 'CastingRequest',
+		CASTING_REQUEST_TALENT: 'CastingRequestTalent',
+		DANCE_COMBINATION: 'DanceCombination',
+		SEARCH: 'Search',
+		VIEW: 'View',
+		FAVORITE: 'Favorite',
+		SHARE: 'Share',
+		BLOCK: 'Block',
+		MEDICAL_CONDITION: 'MedicalCondition',
+		MEDICAL: 'Medical',
+		LOGIN: 'Login',
+		LOGOUT: 'Logout',
+		TID: 'TID',
+		CHANGE_PASSWORD: 'ChangePassword',
+		RATING: 'Rating',
+		PERSONAL_INFO: 'PersonalInfo',
+		IMMIGRATION: 'Immigration',
+		LANGUAGE: 'Language'
 	}
 };
 

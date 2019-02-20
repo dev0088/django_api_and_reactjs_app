@@ -9,14 +9,14 @@ import { adminStyles } from 'styles';
 class CastingRequestTable extends Component {
   
   render() {
-    const {profile, castingRequests } = this.props;
+    const {profile, castingRequests, path } = this.props;
     return (
       (profile && castingRequests) ? (
         <Grid container spacing={24} justify="center" alignItems="center">
         { castingRequests.map((castingRequestTalent, index) => {
             return (
               <Grid item xs={12} key={index}>
-                <CastingRequestTalent castingRequestTalent={castingRequestTalent}/>
+                <CastingRequestTalent castingRequestTalent={castingRequestTalent} path={path} showStatus={true} />
               </Grid>
             );
           })

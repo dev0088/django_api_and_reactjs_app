@@ -122,6 +122,7 @@ class ClientFindTalentList(APIView):
         skill_ids = self.pickout_data(search_conditions, 'skill_ids')
         sub_skill_ids = self.pickout_data(search_conditions, 'sub_skill_ids')
         approved = self.pickout_data(search_conditions, 'approved')
+        locked_dance_combination = self.pickout_data(search_conditions, 'locked_dance_combination')
 
         talents = Talent.objects.all()
 
@@ -256,6 +257,9 @@ class ClientFindTalentList(APIView):
         # Check approved
         if approved is not None:
             talents = talents.filter(approved=approved)
+
+        if locked_dance_combination:
+            talents = talents.filter(locked_dance_combination=locked_dance_combination)
 
         # Logging
         user = request.user

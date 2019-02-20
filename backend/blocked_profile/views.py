@@ -4,6 +4,7 @@ from blocked_profile.models import BlockedProfile
 from blocked_profile.serializers import BlockedProfileSerializer
 from blocked_profile.detail_serializers import BlockedProfileDetailSerializer
 from blocked_profile.create_serializers import BlockedProfileCreateSerializer
+from user_note.models import UserNote, UserNoteManager
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -53,6 +54,10 @@ class BlockedProfileDetail(APIView):
     @swagger_auto_schema(responses={200: 'OK'})
     def delete(self, request, pk, format=None):
         blocked_profile = self.get_object(pk)
+
+        note = '{client} REMOVED BLOCK.'.format(client=blocked_profile.client.user.email)
+        UserNoteManager.block_logger(None, blocked_profile.client.user, blocked_profile.talent.user, note, blocked_profile)
+
         blocked_profile.delete()
         return Response({'id': int(pk)}, status=status.HTTP_200_OK)
 
@@ -69,6 +74,10 @@ class BlockedProfileCreate(APIView):
         if serializer.is_valid():
             new_blocked_profile = BlockedProfile(client_id=client.id, **serializer.validated_data)
             new_blocked_profile.save()
+
+            note = '{client} BLOCKED FOR {duration}.'.format(client=client.user.email, duration=new_blocked_profile.description)
+            UserNoteManager.block_logger(None, client.user, new_blocked_profile.talent.user, note, new_blocked_profile)
+
             new_serializer = BlockedProfileDetailSerializer(new_blocked_profile, many=False)
             return Response(new_serializer.data, status=status.HTTP_201_CREATED)
 

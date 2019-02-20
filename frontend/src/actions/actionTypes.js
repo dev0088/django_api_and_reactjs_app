@@ -52,6 +52,7 @@ export const FAVORITE_TALENT = createRequestTypes('@@jwt/FAVORITE_TALENT');
 
 // Admin event
 export const SET_SELECTED_PROFILE = 'SET_SELECTED_PROFILE';
+export const SEARCH_NOTES = createRequestTypes('@@jwt/SEARCH_NOTES');
 
 // Common
 export const RESTORE_AUTH = 'RESTORE_AUTH';

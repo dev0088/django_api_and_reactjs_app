@@ -1,5 +1,13 @@
 from authentication.models import User
-from user_note.models import UserNote
+from talent.models import Talent
+from casting_request.models import CastingRequest
+from casting_request_talent.models import CastingRequestTalent
+from favorite.models import Favorite
+from blocked_profile.models import BlockedProfile
+from talent_rating.models import TalentRating
+from talent_language.models import TalentLanguage
+from talent_video_sub_skill.models import TalentVideoSubSkill
+from user_note.models import UserNote, UserNoteManager
 from user_note.serializers import UserNoteSerializer
 from user_note.detail_serializers import UserNoteDetailSerializer
 from user_note.create_serializers import UserNoteCreateSerializer
@@ -74,6 +82,49 @@ class UserNoteCreate(APIView):
       except User.DoesNotExist:
         raise Http404
 
+    def get_object_by_type_and_id(self, type, id):
+        if type == 'Profile':
+            obj = User.objects.get(id=id)
+        elif type == 'CastingRequest':
+            obj = CastingRequest.objects.get(id=id)
+        elif type == 'CastingRequestTalent':
+            obj = CastingRequestTalent.objects.get(id=id)
+        elif type == 'DanceCombination':
+            obj = TalentVideoSubSkill.objects.get(id=id)
+        elif type == 'Search':
+            obj = None
+        elif type == 'View':
+            obj = None
+        elif type == 'Favorite':
+            obj = Favorite.objects.get(id=id)
+        elif type == 'Share':
+            obj = SharedProfile.objects.get(id=id)
+        elif type == 'Block':
+            obj = BlockedProfile.objects.get(id=id)
+        elif type == 'MedicalCondition':
+            obj = None
+        elif type == 'Medical':
+            obj = Medical.objects.get(id=id)
+        elif type == 'Login':
+            obj = User.objects.get(id=id)
+        elif type == 'Logout':
+            obj = User.objects.get(id=id)
+        elif type == 'TID':
+            obj = User.objects.get(id=id)
+        elif type == 'ChangePassword':
+            obj = User.objects.get(id=id)
+        elif type == 'Rating':
+            obj = TalentRating.objects.get(id=id)
+        elif type == 'PersonalInfo':
+            obj = User.objects.get(id=id)
+        elif type == 'Immigration':
+            obj = User.objects.get(id=id)
+        elif type == 'Language':
+            obj = TalentLanguage.objects.get(id=id)
+        
+        return obj
+
+
     @swagger_auto_schema(request_body=UserNoteCreateSerializer,
                          responses={200: UserNoteDetailSerializer(many=False)})
     def post(self, request, format=None):
@@ -82,12 +133,21 @@ class UserNoteCreate(APIView):
         if serializer.is_valid():
             data = serializer.validated_data
             try:
+                object_id = data['object_id']
+                obj = None
+                if object_id:
+                    obj = self.get_object_by_type_and_id(data['note_type'], object_id)
+
+                note = UserNoteManager.generate_prefix(admin) + data['note']
+                
                 new_user_note = UserNote.objects.create(
                     creator=admin.first_name,
                     actor=admin,
                     receiver=data['receiver'],
                     note_type=data['note_type'],
-                    note=data['note']
+                    note=note,
+                    object_id=object_id if object_id else 0,
+                    object_type=type(obj).__name__ if obj else ''
                 )
                 if 'object_type' in data:
                     new_user_note.object_type = data['object_type']
@@ -127,14 +187,16 @@ class UserNoteSearch(APIView):
             user_notes = UserNote.objects.all()
             if 'creator' in request.data:
                 user_notes = user_notes.filter(creator=data['creator'])
-            if 'receiver' in data:
-                user_notes = user_notes.filter(receiver_id=data['receiver'])
+            if 'receivers' in data:
+                user_notes = user_notes.filter(receiver_id__in=data['receivers'])
             if 'actor' in data:
                 user_notes = user_notes.filter(receiver_id=data['actor'])
             if 'note_types' in data:
                 user_notes = user_notes.filter(Q(note_type__in=data['note_types']))
             if 'note' in data:
                 user_notes = user_notes.filter(note__icontains=data['note'])
+            if 'object_id' in data:
+                user_notes = user_notes.filter(object_id=data['object_id'])
 
             new_serializer = UserNoteSerializer(user_notes, many=True)
             return Response(new_serializer.data, status=status.HTTP_200_OK)

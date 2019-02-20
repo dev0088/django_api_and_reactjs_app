@@ -84,7 +84,10 @@ class Talent(models.Model):
     worked_cruise_ship = models.BooleanField(default=False)
     tid = models.CharField(max_length=30, blank=True)
     approved = models.BooleanField(default=False)
+    approved_date = models.DateTimeField(blank=True, null=True)
+    approved_by = models.CharField(max_length=50, null=True, blank=True)
 
+    locked_dance_combination = models.BooleanField(default=False)
     # availability
     # availabilities: has_many -> talent_schedulings
 

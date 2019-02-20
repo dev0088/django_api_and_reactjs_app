@@ -45,7 +45,18 @@ class NewProfile extends React.Component {
   }
 
   onClickProfileApproved = () => {
-    this.setState({openConfirmApproved: true});
+    const { profileId } = this.state;
+    const { profile } = this.props;
+    let data = {
+      approved: true
+    }
+    AdminAPI.saveProfile(profile.user.id, data, (response, isFailed) => {
+      if (isFailed) {}
+      else {
+        this.props.talentActions.getTalentInfo(response.id);
+        this.setState({openConfirmApproved: true});
+      }
+    })
   };
 
   onClickNewProfiles = () => {

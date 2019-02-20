@@ -1035,7 +1035,26 @@ export const adminStyles = theme => ({
   adminAddNoteButtonTitle: {
     fontSize: '0.85rem',
     fontWeight: 400
-  }
+  },
+  adminCastingRequestGroupButton: {
+    display: 'block',
+    borderRadius: '5px',
+    border: '1px solid rgba(0, 0, 0, 1)',
+    boxShadow: `0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)`,
+    height: 100
+  },
+  adminCastingRequestGroupButtonTitle: {
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    textTransform: 'none',
+  },
+  adminCastingRequestGroupButtonSubTitle: {
+    fontSize: '1rem',
+    fontWeight: '400',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    textTransform: 'none',
+  },
 });
 
 export const themeAdmin = createMuiTheme ({

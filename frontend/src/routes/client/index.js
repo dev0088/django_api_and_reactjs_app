@@ -84,25 +84,25 @@ const clientRoutes = [
     path: "/client/login",
     layout: TemplateNothing,
     component: ClientLogin,
-    exact: false
+    exact: true
   },
   {
     path: "/client/home",
     layout: TemplateClientTopbar,
     component: ClientHomeScreen,
-    exact: false
+    exact: true
   },
   {
     path: "/client/talent_search",
     layout: TemplateClientTopbar,
     component: TalentSearch,
-    exact: false
+    exact: true
   },
   {
     path: "/client/talent_search_result",
     layout: TemplateClientTopbar,
     component: TalentSearchResult,
-    exact: false
+    exact: true
   },
   {
     path: "/client/talent_view",
@@ -162,73 +162,73 @@ const clientRoutes = [
     path: "/client/request_selection",
     layout: TemplateClientTopbar,
     component: RequestSelection,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/new",
     layout: TemplateClientTopbar,
     component: CastingRequestNew,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/confirm",
     layout: TemplateClientTopbar,
     component: CastingRequestAddConfirm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/list_view",
     layout: TemplateClientTopbar,
     component: CastingRequestListView,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/view",
     layout: TemplateClientTopbar,
     component: CastingRequestView,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/add_wage",
     layout: TemplateClientTopbar,
     component: CastingRequestAddWageForm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/submit_confirm",
     layout: TemplateClientTopbar,
     component: CastingRequestSubmitConfirm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/casting_request/search_talent",
     layout: TemplateClientTopbar,
     component: CastingRequestSearchTalentsForm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/mytalent/saved",
     layout: TemplateClientTopbar,
     component: MyTalentSaved,
-    exact: false
+    exact: true
   },
   {
     path: "/client/myfavorite",
     layout: TemplateClientTopbar,
     component: MyFavorite,
-    exact: false
+    exact: true
   },
   {
     path: "/client/callback/confirm",
     layout: TemplateClientTopbar,
     component: CallBackConfirm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/select_team_members",
     layout: TemplateClientTopbar,
     component: SelectTeamMembers,
-    exact: false
+    exact: true
   },
   {
     path: "/client/request",
@@ -276,37 +276,37 @@ const clientRoutes = [
     path: "/client/talent_shared_by",
     layout: TemplateClientTopbar,
     component: TalentSharedBy,
-    exact: false
+    exact: true
   },
   {
     path: "/client/talent_shared_team",
     layout: TemplateClientTopbar,
     component: TalentSharedTeam,
-    exact: false
+    exact: true
   },
   {
     path: "/client/blocked_profile",
     layout: TemplateClientTopbar,
     component: BlockedProfile,
-    exact: false
+    exact: true
   },
   {
     path: "/client/blocked_profile/edit",
     layout: TemplateClientTopbar,
     component: BlockedProfileEdit,
-    exact: false
+    exact: true
   },
   {
     path: "/client/blocked_profile/confirm",
     layout: TemplateClientTopbar,
     component: BlockedProfileConfirm,
-    exact: false
+    exact: true
   },
   {
     path: "/client/my_rate",
     layout: TemplateClientTopbar,
     component: MyRate,
-    exact: false
+    exact: true
   },
   {
     path: "/client/rating_comment",

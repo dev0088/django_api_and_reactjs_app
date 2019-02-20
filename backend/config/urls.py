@@ -90,6 +90,8 @@ urlpatterns = [
   url(r'^api/v1/client/shared_profile/', include('shared_profile.urls')),
   url(r'^api/v1/client/feedback/', include('client_feedback.urls')),
   url(r'^api/v1/client/request/', include('client_request.urls')),
+  url(r'^api/v1/agency/overview/', include('agency.overview.urls')),
   url(r'^api/v1/agency/casting_request/', include('agency.casting_request_urls')),
+  url(r'^api/v1/agency/casting_request_talent/', include('agency.casting_request_talent_urls')),
   url(r'^api/v1/agency/user_note/', include('user_note.urls')),
 ]
