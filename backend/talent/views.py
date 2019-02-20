@@ -72,7 +72,7 @@ class TalentDetail(APIView):
     def get_object(self, pk):
         try:
             user = User.objects.get(pk=pk)
-            if user.type == 'agency'and is_staff:
+            if user.type == 'agency'and user.is_staff:
                 admin = user
             talent = Talent.objects.filter(user=user.id).first()
             return talent
@@ -382,6 +382,12 @@ class TalentDetail(APIView):
         # pick out visa data
         talent_visas_data = self.pickout_data(talent_data, 'talent_visas')
 
+        # pick out approved data
+        # approved_data = self.pickout_data(talent_data, 'approved')
+
+        # pick out locked_dance_combination
+        # locked_dance_combination_data = self.pickout_data(talent_data, 'locked_dance_combination')
+
         print('==== talent_data: ', talent_data)
         print('==== talent_skills_data: ', talent_skills_data)
         print('==== talent_sub_skills_data: ', talent_sub_skills_data)
@@ -393,6 +399,29 @@ class TalentDetail(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            # In the case approved or locked_dance_combination, logging
+            agency = request.user
+            if 'approved' in talent_data:
+                approved = talent_data['approved']
+                note = 'TALENT {approve_status} by {admin}'.format(
+                    approve_status='Approved' if approved else 'Rejected',
+                    admin=agency.first_name
+                )
+                UserNoteManager.profile_logger(agency, None, talent_item.user, note, talent_item.user)
+
+            if 'locked_dance_combination' in talent_data:
+                locked_dance_combination = talent_data['locked_dance_combination']
+                note = 'Lockout Reset by Agent ({admin})'.format(admin=agency.first_name)
+                if locked_dance_combination:
+                    note = 'TALENT LOCKED OUT FOR MULTIPLE DOWNLOADS'
+
+                UserNoteManager.dance_combination_logger(None, None, talent_item.user, note, talent_item.user)
+
+            if 'tid' in talent_data:
+                tid = talent_data['tid']
+                note = 'Changed to {tid} by {admin}'.format(tid=tid, admin=agency.first_name)
+                UserNoteManager.tid_logger(None, None, talent_item.user, note, talent_item.user)
 
             # Check and save position sub type
             if talent_position_type_data:
@@ -503,6 +532,7 @@ class TalentChangePassword(APIView):
                 'Changed on {now}'.format(now=UserNoteManager.get_current_time()),
                 user
             )
+
             user.save()
             return Response("Success.", status=status.HTTP_200_OK)
 

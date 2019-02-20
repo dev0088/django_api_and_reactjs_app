@@ -28,7 +28,6 @@ class ProfilePcitures extends React.Component  {
     return { pictures };
   };
 
-
   componentWillMount = () => {
     this.setState({...this.getInfoFromProps(this.props)});
   }

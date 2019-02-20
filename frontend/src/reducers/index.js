@@ -14,6 +14,7 @@ import contactUs from './contactus';
 import {getCurrentClientInfo, talentSearchReducer, requestViewReducer, searchViewReducer} from './clientReducer';
 import globalNotification from './globalNotification';
 import selectedProfileReducer from './admin/selectedProfileReducer';
+import notesReducer from './admin/notesReducer';
 
 export default combineReducers({
   auth: auth,
@@ -36,7 +37,8 @@ export default combineReducers({
   searchViewReducer,
   clientInfo: getCurrentClientInfo,
   globalNotification,
-  selectedProfile: selectedProfileReducer
+  selectedProfile: selectedProfileReducer,
+  notes: notesReducer
 })
 
 

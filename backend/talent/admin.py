@@ -12,7 +12,11 @@ class TalentAdmin(admin.ModelAdmin):
         'sex',
         'tid',
         'approved',
+        'approved_date',
+        'approved_by',
+        'locked_dance_combination'
     )
+    
     list_display_links = (
         'id',
         'user_id_display',
@@ -20,7 +24,11 @@ class TalentAdmin(admin.ModelAdmin):
         'sex',
         'tid',
         'approved',
+        'approved_date',
+        'approved_by',
+        'locked_dance_combination'
     )
+
     list_per_page = 25
 
     def user_id_display(self, obj):

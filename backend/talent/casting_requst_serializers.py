@@ -91,7 +91,9 @@ class TalentForCastingRequestSerializer(serializers.ModelSerializer):
             'worked_cruise_ship',
             # 'auditions',
             'tid',
-            'approved',
+            'approved_date',
+            'approved_by',
+            'locked_dance_combination',
             'created',
 
             'profile_status'

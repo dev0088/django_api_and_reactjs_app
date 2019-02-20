@@ -99,8 +99,12 @@ class AdminAPI {
   static getAllCastingRequests(handleResponse) {
     this.processRequestWithToken(`agency/casting_request/all`, 'get', null, handleResponse);
   }
+  
+  static searchCastingRequestTalent(data, handleResponse) {
+    this.processRequestWithToken(`agency/casting_request_talent/search`, 'post', data, handleResponse);
+  }
 
-  static getProfileCastingRequests(data, handleResponse) {
+  static searchCastingRequest(data, handleResponse) {
     this.processRequestWithToken(`agency/casting_request/search`, 'post', data, handleResponse);
   }
 
@@ -126,6 +130,18 @@ class AdminAPI {
 
   static deleteSubSkillVideo(videoId, data, handleResponse) {
     this.processRequestWithToken(`talent_video_sub_skills/${videoId}`, 'delete', data, handleResponse);
+  }
+
+  static addNote(data, handleResponse) {
+    this.processRequestWithToken(`agency/user_note/create`, 'post', data, handleResponse);
+  }
+
+  static searchNotes(data, handleResponse) {
+    this.processRequestWithToken(`agency/user_note/search`, 'post', data, handleResponse);
+  }
+
+  static getAgencyOverview(handleResponse) {
+    this.processRequestWithToken(`agency/overview/overview`, 'get', null, handleResponse);
   }
 }
 export default AdminAPI

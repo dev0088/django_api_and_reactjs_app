@@ -33,7 +33,9 @@ class EditProfiles extends React.Component {
   }
 
   componentWillMount() {
-    let data = {};
+    let data = {
+      approved: true
+    };
     this.props.clientActions.setSearchCondition(data);
     this.props.clientActions.talentSearch(data);
   }

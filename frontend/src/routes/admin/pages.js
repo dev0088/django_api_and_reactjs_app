@@ -22,13 +22,21 @@ import EditGreetingVideo from "containers/admin/EditProfiles/Videos/EditGreeting
 import EditPositionVideos from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideos";
 import EditPositionVideo from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideo";
 import LiveInterviewVideo from 'containers/admin/EditProfiles/Videos/InterviewVideos/LiveInterviewVideo';
+import ProfileNotes  from 'containers/admin/EditProfiles/ProfileNotes/ProfileNotes';
+import LogsAndLockouts from 'containers/admin/EditProfiles/LogsAndLockouts/LogsAndLockouts';
+import SearchViewFavorites from 'containers/admin/EditProfiles/SearchViewFavorites/SearchViewFavorites';
+import Shares from 'containers/admin/EditProfiles/Shares/Shares';
+import Blocks from 'containers/admin/EditProfiles/Blocks/Blocks';
+import Ratings from 'containers/admin/EditProfiles/Ratings/Ratings';
+import CastingRequestRating from 'containers/admin/EditProfiles/Ratings/CastingRequestRating';
+import Credentials from 'containers/admin/EditProfiles/Credentials/Credentials';
 import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
 import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
 import ProfileSearch from "containers/admin/ProfileSearch/ProfileSearch.jsx";
 import ProfileSearchResults from "containers/admin/ProfileSearch/ProfileSearchResults";
 import EditProfiles from "containers/admin/EditProfiles/EditProfiles.jsx";
-import Castingrequests from "containers/admin/CastingRequests/Castingrequests.jsx";
+import CastingRequests from "containers/admin/CastingRequests/CastingRequests.jsx";
 import Maps from "containers/admin/Maps/Maps.jsx";
 import NotificationsPage from "containers/admin/Notifications/Notifications.jsx";
 import UpgradeToPro from "containers/admin/UpgradeToPro/UpgradeToPro.jsx";
@@ -185,6 +193,54 @@ const adminPageRoutes = [
     exact: true
   },
   {
+    path: "/admin/edit-profiles/profile-notes",
+    component: ProfileNotes,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-logs-locks",
+    component: LogsAndLockouts,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-search-view-favorits",
+    component: SearchViewFavorites,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-shares",
+    component: Shares,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-blocks",
+    component: Blocks,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-ratings",
+    component: Ratings,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-credentials",
+    component: Credentials,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
+    path: "/admin/edit-profiles/profile-ratings/casting-request",
+    component: CastingRequestRating,
+    layout: TemplateAdminSidebar,
+    exact: true
+  },
+  {
     path: "/admin/profile-search-results",
     component: ProfileSearchResults,
     layout: TemplateAdminSidebar,
@@ -216,7 +272,7 @@ const adminPageRoutes = [
   },
   {
     path: "/admin/casting-requests",
-    component: Castingrequests,
+    component: CastingRequests,
     layout: TemplateAdminSidebar,
     exact: true
   },

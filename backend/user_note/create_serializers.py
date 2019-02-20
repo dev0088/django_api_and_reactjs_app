@@ -9,7 +9,8 @@ class UserNoteCreateSerializer(serializers.ModelSerializer):
         fields = (
           'receiver',
           'note_type',
-          'note'
+          'note',
+          'object_id',
         )
 
     def create(self, validated_data):

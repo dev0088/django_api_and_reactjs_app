@@ -45,7 +45,7 @@ class BlockedTalentItem extends Component {
                   </Typography>
                 </div>
                 <div>
-                  <Link to={{ pathname: '/client/block_profile/edit', state: {blockedProfile} }} >
+                  <Link to={{ pathname: '/client/blocked_profile/edit', state: {blockedProfile} }} >
                     <EditIcon color="primary" className={classes.clientTalentControlEditIcon}/>
                   </Link>
                 </div>

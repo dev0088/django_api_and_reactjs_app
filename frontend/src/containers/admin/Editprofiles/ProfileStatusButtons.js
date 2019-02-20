@@ -23,22 +23,22 @@ class ProfileStatusButtons extends Component {
           <ProfileStatusButton link={{pathname: "/admin/edit-profiles/profile-casting-request"}} requireApproval={false} title="Casting Requests" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Profile Notes" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-notes" requireApproval={false} title="Profile Notes" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Logs & Lockouts" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-logs-locks" requireApproval={false} title="Logs & Lockouts" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Searches / Views" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-search-view-favorits" requireApproval={false} title="Searches / Views" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Shares" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-shares" requireApproval={false} title="Shares" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Blocks" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-blocks" requireApproval={false} title="Blocks" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Ratings" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-ratings" requireApproval={false} title="Ratings" />
         </Grid>
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={false} title="Contracts" />
@@ -47,7 +47,7 @@ class ProfileStatusButtons extends Component {
           <ProfileStatusButton link="#" requireApproval={true} title="Medical" />
         </Grid>
         <Grid item xs={4} >
-          <ProfileStatusButton link="#" requireApproval={false} title="Credentials" />
+          <ProfileStatusButton link="/admin/edit-profiles/profile-credentials" requireApproval={false} title="Credentials" />
         </Grid>
         <Grid item xs={4} >
           <ProfileStatusButton link="#" requireApproval={true} title="Personal Info" />

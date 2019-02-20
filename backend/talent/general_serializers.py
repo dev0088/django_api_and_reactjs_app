@@ -90,7 +90,9 @@ class TalentGeneralSerializer(serializers.ModelSerializer):
 
             'worked_cruise_ship',
             'tid',
-            'approved',
+            'approved_date',
+            'approved_by',
+            'locked_dance_combination',
             'created',
 
             'profile_status'

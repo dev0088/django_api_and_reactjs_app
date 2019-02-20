@@ -84,7 +84,7 @@ class MoreActions extends Component {
           {this.renderButton({pathname: '/client/request', state: {talent}}, "Request More Info")}
           {this.renderButton({pathname: '/client/select_team_members', state: {talent}}, "Shared Profile")}
           {this.renderButton(
-            {pathname: '/client/block_profile/edit', state: {talent}},
+            {pathname: '/client/blocked_profile/edit', state: {talent}},
             "Block Profile", "Temporarily or permanently"
           )}
         </Grid>

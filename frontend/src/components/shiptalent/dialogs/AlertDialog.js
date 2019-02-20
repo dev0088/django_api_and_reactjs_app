@@ -8,26 +8,34 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 class AlertDialog extends React.Component {
   render() {
-    const { children } = this.props
+    const { 
+      fullWidth, maxWidth, 
+      title, description,
+      open, onOK, onCancel, 
+      children 
+    } = this.props;
+
     return (
       <Dialog
-        open={this.props.open}
-        onClose={this.props.onCancel}
+        fullWidth={fullWidth ? fullWidth : false}
+        maxWidth={maxWidth ? maxWidth : 'xs'}
+        open={open}
+        onClose={onCancel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{this.props.title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {this.props.description}
+            {description}
           </DialogContentText>
           {children && children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.onOK} variant="outlined" color="primary">
+          <Button onClick={onOK} variant="outlined" color="primary">
             OK
           </Button>
-          <Button onClick={this.props.onCancel} variant="outlined" color="primary">
+          <Button onClick={onCancel} variant="outlined" color="primary">
             Cancel
           </Button>
         </DialogActions>

@@ -8,6 +8,7 @@ NOTE_TYPE_CHOICE = [
   ('Profile', 'Profile'),
   ('CastingRequest', 'CastingRequest'),
   ('CastingRequestTalent', 'CastingRequestTalent'),
+  ('DanceCombination', 'DanceCombination'),
   ('Search', 'Search'),
   ('View', 'View'),
   ('Favorite', 'Favorite'),
@@ -54,7 +55,7 @@ class UserNoteManager(models.Manager):
   @staticmethod
   def create_user_note(creator, actor, receiver, note_type, note, obj):
     user_note = UserNote.objects.create(
-      creator=(creator if creator else 'SYS'),
+      creator=(creator.first_name if creator else 'SYS'),
       actor=(actor if actor else receiver),
       receiver=receiver,
       note_type=note_type,
@@ -97,6 +98,14 @@ class UserNoteManager(models.Manager):
   def casting_request_talent_logger(creator, actor, receiver, note, obj=None):
     return UserNoteManager.create_user_note(
       creator, actor, receiver, 'CastingRequestTalent', 
+      UserNoteManager.generate_prefix(creator) + note,
+      obj
+    )
+
+  @staticmethod
+  def dance_combination_logger(creator, actor, receiver, note, obj=None):
+    return UserNoteManager.create_user_note(
+      creator, actor, receiver, 'DanceCombination', 
       UserNoteManager.generate_prefix(creator) + note,
       obj
     )

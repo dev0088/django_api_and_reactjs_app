@@ -11,6 +11,7 @@ from shared_profile.shared_talent_serializers import SharedTalentSerializer
 from shared_profile.shared_talent_by_team_member_serializers import SharedTalentByTeamMemberSerializer
 from talent.models import Talent
 from talent.simple_serializers import TalentSimpleSerializer
+from user_note.models import UserNote, UserNoteManager
 from django.http import Http404, JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -80,6 +81,20 @@ class SharedProfileBulkCreate(ListBulkCreateUpdateDestroyAPIView):
     # authentication_classes = (authentication.TokenAuthentication, )
     # permission_classes = (permissions.IsAuthenticated,)
     queryset = SharedProfile.objects.all()
+    datas = queryset.values('team_member', 'talent', 'comment')
+    member_names = ''
+    client = None
+    talent = None
+    for data in datas:
+        team_member = TeamMember.objects.get(id=data['team_member'])
+        talent = Talent.objects.get(id=data['talent'])
+        comment = data['comment']
+        client = team_member.team.client
+        member_names = '{prev}, {name}'.format(prev=member_names, name=team_member.member_email)
+
+    note = 'PROFILE SHARED BY {client} with {member_names}.'.format(client=client.user.email, member_names=member_names)
+    UserNoteManager.share_logger(None, client.user, talent.user, note, None)
+
     serializer_class = SharedProfileCreateSerializer
 
 

@@ -1,12 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from "moment";
-import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -15,7 +12,9 @@ import AdminForm from 'components/shiptalent/forms/adminForm';
 import AlertDialog from 'components/shiptalent/dialogs/AlertDialog';
 import CastingRequestTalentTable from './CastingRequestTalentTable'; 
 import Spacer from 'components/general/spacer';
+import UserNote from 'containers/admin/EditProfiles/UserNote/UserNote';
 import AdminAPI from 'apis/adminAPIs';
+import * as adminActions from 'actions/adminActions';
 import defaultValues from 'constants/defaultValues';
 import { adminStyles } from 'styles';
 
@@ -34,7 +33,9 @@ class CastingRequest extends React.Component  {
     isContracted: false,
     isRequestCompleted: false,
     showActionConfirmDialog: false,
-    selectedActionName: null
+    selectedActionName: null,
+    userIds: [],
+    noteTypes: [defaultValues.USER_NOTE_TYPE.CASTING_REQUEST],
   };
 
   getInfoFromCastingRequest = (castingRequest) => {
@@ -51,6 +52,7 @@ class CastingRequest extends React.Component  {
   getInfoFromProps = (props) => {
     const { location } = props;
     let castingRequest = (location && location.state && location.state.castingRequest) ? location.state.castingRequest : null;
+    
     return { castingRequest, ...this.getInfoFromCastingRequest(castingRequest) };
   };
 
@@ -58,7 +60,26 @@ class CastingRequest extends React.Component  {
     if(isFailed) {
       this.setState({sLoading: false});
     } else {
-      this.setState({castingRequest: response, isLoading: false});
+      this.setState({castingRequest: response, isLoading: false}, () => {
+        const { noteTypes, castingRequest } = this.state;
+        let userIds = [];
+
+        if (castingRequest && castingRequest.casting_request_talents) {
+          userIds = castingRequest.casting_request_talents.map(crt => {
+            return crt.talent.user.id;
+          })
+        }
+
+        if (userIds.length > 0) {
+          let searchCondition = {
+            receivers: userIds,
+            note_types: noteTypes,
+          };
+          if (castingRequest) searchCondition = {...searchCondition, object_id: castingRequest.id}
+          this.props.adminActions.searchNotes(searchCondition);
+        }
+        this.setState({userIds});
+      });
     }
   };
 
@@ -127,9 +148,10 @@ class CastingRequest extends React.Component  {
   };
 
   renderContent() {
-    const { classes } = this.props;
-    const { castingRequest, note, isContracted, isRequestCompleted, showActionConfirmDialog, selectedActionName } = this.state;
+    const { profile, classes } = this.props;
+    const { castingRequest, note, isContracted, isRequestCompleted, showActionConfirmDialog, selectedActionName, noteTypes, userIds } = this.state;
     let status_updated_date = (castingRequest && castingRequest.status_updated_date) ? moment.tz(castingRequest.status_updated_date).format(defaultValues.ADMIN_EDIT_PROFILE_FORMAT) : '';
+    
 
     return (
       <Panel>
@@ -156,27 +178,14 @@ class CastingRequest extends React.Component  {
 
           <Grid lg={1} md={1} xs={12} />
           <Grid item lg={10} md={10} xs={12}>
-            <Button variant="contained" size="small" className={classNames(classes.button, classes.adminAddNoteButton)}>
-              <Typography className={classes.adminAddNoteButtonTitle}>
-                Add Note
-              </Typography>
-            </Button>
-            <TextField
-              id="outlined-bare"
-              className={classes.textField}
-              margin="normal"
-              variant="outlined"
-              rows={8}
-              rowsMax={8}
-              multiline
-              value={note}
-              InputProps={{ readOnly: true }}
-              fullWidth
-            />
+            <UserNote 
+              userIds={userIds} 
+              noteTypes={noteTypes} 
+              objectId={castingRequest.id}
+              enableAdd={true}
+            /> 
           </Grid>
           <Grid lg={1} md={1} xs={12} />
-
-          {/* <Grid item xs={12}><Spacer size={20} /></Grid> */}
 
           <Grid lg={1} md={1} xs={12} />
           <Grid item lg={10} md={10} xs={12}>
@@ -237,7 +246,9 @@ class CastingRequest extends React.Component  {
 
 
 const mapDispatchToProps = dispatch => {
-  return { };
+  return {
+    adminActions: bindActionCreators(adminActions, dispatch)
+  };
 };
 
 const mapStateToProps = state => {

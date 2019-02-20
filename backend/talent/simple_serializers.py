@@ -38,6 +38,9 @@ class TalentSimpleSerializer(serializers.ModelSerializer):
             'bio',
             'tid',
             'approved',
+            'approved_date',
+            'approved_by',
+            'locked_dance_combination',
             'created',
             'profile_status'
         )
