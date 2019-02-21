@@ -19,14 +19,14 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
   def position_type_display(self, obj):
-    return obj.position_type.name
+    return obj.position_type
 
   position_type_display.short_description = "Position type"
 
 
   def position_sub_type_display(self, obj):
     if obj.position_sub_type:
-      return obj.position_sub_type.name
+      return obj.position_sub_type
     else: 
       return ""
 
