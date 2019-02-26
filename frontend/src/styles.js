@@ -391,7 +391,8 @@ export const styles = theme => ({
     width: '100%',
     paddingRight: 15,
     paddingLeft: 15,
-    marginTop: 16
+    marginTop: 16,
+    // position: 'sticky'
   },
   footerBackground: {
     width: '100%',

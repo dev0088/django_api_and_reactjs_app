@@ -9,10 +9,27 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const drawerWidth = 240;
 
+const fontFamily = '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji'
+//'"Gotham SSm", "Helvetica", "Arial", sans-serif';
 
 export const adminStyles = theme => ({
+  '@global': {
+    body: {
+      display: 'flex',
+      backgroundColor: '#e4e5e6',
+      position: 'absolute',
+      width: '100% !important',
+      height: '100% !important',
+      display: 'flex'
+    }
+  },
   root: {
     display: 'flex',
+    backgroundColor: '#e4e5e6',
+    position: 'absolute',
+    width: '100% !important',
+    height: '100% !important',
+    display: 'flex'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -32,7 +49,7 @@ export const adminStyles = theme => ({
   h4NoMargin: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    ffontFamily: fontFamily,
     fontWeight: 400,
     lineHeight: 1.17,
     letterSpacing: '0.00735em',
@@ -44,7 +61,7 @@ export const adminStyles = theme => ({
   h4SmallMargin: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    ffontFamily: fontFamily,
     fontWeight: 400,
     lineHeight: 1.17,
     letterSpacing: '0.00735em',
@@ -56,7 +73,7 @@ export const adminStyles = theme => ({
   h4: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: '2.125rem',
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    ffontFamily: fontFamily,
     fontWeight: 400,
     lineHeight: 1.17,
     letterSpacing: '0.00735em',
@@ -266,6 +283,13 @@ export const adminStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
+  descriptionText: {
+    color: '#2a3134',
+    fontSize: '1rem',
+    fontWeight: 400,
+    fontFamily: fontFamily,
+    lineHeight: '1.46429em',
+  },
   footerLayout: {
     backgroundColor: '#007bff',
     bottom: 0,
@@ -299,6 +323,45 @@ export const adminStyles = theme => ({
     color: '#212529',
     textTransform: 'none',
     paddingBottom: '10px'
+  },
+  dashboardItemPanel: {
+    padding: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    borderRadius: '.25rem',
+  },
+  dashboardGeneralCard: {
+    backgroundClip: 'border-box',
+    border: '1px solid #c8ced3',
+    borderRadius: '.25rem',
+  },
+  dashboardGeneralCardHeader: {
+    padding: '.75rem 1.25rem',
+    marginBottom: 0,
+    backgroundColor: '#f0f3f5',
+    borderBottom: '1px solid #c8ced3'
+  },
+  metricToolsItemPanel: {
+    backgroundColor: '#20a8d8!important',
+    padding: 20,
+    border: '1px solid #187da0', //#2eadd3', //
+    marginTop: 5,
+    marginBottom: 5,
+    minHeight: 120,
+    maxHeight: 120,
+    borderRadius: '.25rem',
+  },
+  metricToolsItemPanelTitle: {
+    fontSize: '1.15rem',
+    fontWeight: '600',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    textTransform: 'none'
+  },
+  metricToolsItemPanelSubTitle: {
+    fontSize: '1rem',
+    fontWeight: '600',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    textTransform: 'none'
   },
   dashboardButton: {
     backgroundColor: theme.palette.primary.main,
@@ -613,7 +676,7 @@ export const adminStyles = theme => ({
   adminFormSubTitle: {
     fontSize: '1.25rem',
     fontWeight: 600,
-    //fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    //ffontFamily: fontFamily,
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     lineHeight: '1.46429em',
     marginTop: '0.5rem'
@@ -1055,6 +1118,11 @@ export const adminStyles = theme => ({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     textTransform: 'none',
   },
+  adminTalentMetricTalentPciture: {
+    width: '70px',
+    height: '72px',
+    objectFit: 'cover',
+  }
 });
 
 export const themeAdmin = createMuiTheme ({
@@ -1121,7 +1189,7 @@ export const themeAdmin = createMuiTheme ({
     }
   },
   typography: {
-    fontFamily: '"Gotham SSm", "Helvetica", "Arial", sans-serif',
+    ffontFamily: fontFamily,
     textTransform: "none",
     useNextVariants: true
   },

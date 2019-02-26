@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import AdminForm from 'components/shiptalent/forms/adminForm';
 import Spacer from 'components/general/spacer';
+import DashboardItem from './DashboardItem';
 import AdminAPI from 'apis/adminAPIs';
 import { adminStyles } from 'styles';
 
@@ -48,100 +49,34 @@ class Dashboard extends React.Component {
 
     return(
         <div>
-        <Grid container spacing={16}>
+        <Grid container spacing={8}>
           <Grid item xs={12}><Spacer size={10} /></Grid>
           <Grid xs={1}/>
           <Grid item xs={10}>
             <Grid container spacing={32} direction="row" justify="column" alignItems="center">
               <Grid item xs={12}>
-                <Link to='/admin/profile-search'>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      PROFILE SEARCH
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/profile-search' title='PROFILE SEARCH'/>
               </Grid>
 
               <Grid item xs={6}>
-                <Link to={'/admin/new-profiles'}>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      NEW PROFILE
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                      {newProfiles}
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/new-profiles' title='NEW PROFILE' subTitle={newProfiles} />
               </Grid>
               <Grid item xs={6}>
-                <Link to='/admin/edit-profiles'>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      EDIT PROFILE
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                      {editProfiles}
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/edit-profiles' title='EDIT PROFILE' subTitle={editProfiles} />
               </Grid>
 
               <Grid item xs={6}>
-                <Link to={'/admin/casting-requests'}>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      CASTING REQUESTS
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                      {castingRequests}
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/casting-requests' title='CASTING REQUESTS' subTitle={castingRequests} />
               </Grid>
               <Grid item xs={6}>
-                <Link to='/admin/metrics-tools'>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      METRICS TOOLS
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                    <Spacer size={24} />
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/metrics-tools' title='METRICS TOOLS' />
               </Grid>
 
               <Grid item xs={6}>
-                <Link to={'/admin/dance-combo-lockouts'}>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      DANCE COMBO LOCKOUTS
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                      {danceComboLockouts}
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/dance-combo-lockouts' title='DANCE COMBO LOCKOUTS' subTitle={danceComboLockouts} />
               </Grid>
               <Grid item xs={6}>
-                <Link to='/admin/medicial-disclosure'>   
-                  <Panel>
-                    <Typography className={classes.adminCastingRequestGroupButtonTitle}>
-                      MEDICIAL DISCLOSURE
-                    </Typography>
-                    <Spacer size={10} />
-                    <Typography className={classNames(classes.adminCastingRequestGroupButtonSubTitle, classes.red)}>
-                      {medicalDisclosures}
-                    </Typography>
-                  </Panel>
-                </Link>
+                <DashboardItem path='/admin/medicial-disclosure' title='MEDICIAL DISCLOSURE' subTitle={medicalDisclosures} />
               </Grid>
 
             </Grid>

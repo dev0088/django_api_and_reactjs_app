@@ -1,7 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 import apiConfig from '../constants/api';
-import defaultValues from 'constants/defaultValues'
-import * as types from './actionTypes'
+import defaultValues from 'constants/defaultValues';
+import * as types from './actionTypes';
 
 export const getVideoQuestionsActions = (positionName, mode) => ({
   [RSAA]: {
