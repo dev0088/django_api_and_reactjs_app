@@ -1,17 +1,12 @@
 import { TemplateAdminSidebar } from 'components/shiptalent/template';
 import NewProfile from "containers/admin/NewProfiles/NewProfile.jsx";
-import EditProfile from "containers/admin/EditProfiles/EditProfile.jsx";
+import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
+import CastingRequests from "containers/admin/CastingRequests/CastingRequests.jsx";
 import NewCasting from "containers/admin/CastingRequests/NewCasting.jsx";
 import CastingRequest from "containers/admin/CastingRequests/CastingRequest.jsx";
 import CastingRequestDetail from "containers/admin/CastingRequests/CastingRequestDetail.jsx";
-import MetricTool from "containers/admin/Maps/MetricTool.jsx";
-import ChooseClient from "containers/admin/Maps/ChooseClient.jsx";
-import DanceCombo from "containers/admin/Maps/DanceCombo.jsx";
-import AddEdit from "containers/admin/Maps/AddEdit.jsx";
-import AddVideo from "containers/admin/Maps/AddVideo.jsx";
-import ClientLook from "containers/admin/Maps/ClientLook.jsx";
-import ClientMainten from "containers/admin/Maps/ClientMainten.jsx";
-import AddClient from "containers/admin/Maps/AddClient.jsx";
+import EditProfile from "containers/admin/EditProfiles/EditProfile.jsx";
+import EditProfiles from "containers/admin/EditProfiles/EditProfiles.jsx";
 import HeadLine from "containers/admin/EditProfiles/HeadLine/HeadLine.jsx";
 import EditResume from "containers/admin/EditProfiles/Resume/EditResume";
 import ProfilePictures from "containers/admin/EditProfiles/Pictures/ProfilePictures";
@@ -21,6 +16,7 @@ import EditGreetingVideos from "containers/admin/EditProfiles/Videos/EditGreetin
 import EditGreetingVideo from "containers/admin/EditProfiles/Videos/EditGreetingVideos/EditGreetingVideo";
 import EditPositionVideos from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideos";
 import EditPositionVideo from "containers/admin/EditProfiles/Videos/EditPositionVideos/EditPositionVideo";
+import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import LiveInterviewVideo from 'containers/admin/EditProfiles/Videos/InterviewVideos/LiveInterviewVideo';
 import ProfileNotes  from 'containers/admin/EditProfiles/ProfileNotes/ProfileNotes';
 import LogsAndLockouts from 'containers/admin/EditProfiles/LogsAndLockouts/LogsAndLockouts';
@@ -30,14 +26,18 @@ import Blocks from 'containers/admin/EditProfiles/Blocks/Blocks';
 import Ratings from 'containers/admin/EditProfiles/Ratings/Ratings';
 import CastingRequestRating from 'containers/admin/EditProfiles/Ratings/CastingRequestRating';
 import Credentials from 'containers/admin/EditProfiles/Credentials/Credentials';
-import ProfileCastingRequests from "containers/admin/EditProfiles/CastingRequests/ProfileCastingRequests";
 import DashboardPage from "containers/admin/Dashboard/Dashboard.jsx";
-import NewProfiles from "containers/admin/NewProfiles/NewProfiles.jsx";
 import ProfileSearch from "containers/admin/ProfileSearch/ProfileSearch.jsx";
 import ProfileSearchResults from "containers/admin/ProfileSearch/ProfileSearchResults";
-import EditProfiles from "containers/admin/EditProfiles/EditProfiles.jsx";
-import CastingRequests from "containers/admin/CastingRequests/CastingRequests.jsx";
-import Maps from "containers/admin/Maps/Maps.jsx";
+import MetricTools from "containers/admin/MetricTools/MetricTools.jsx";
+import TalentMetrics from "containers/admin/MetricTools/TalentMetrics/TalentMetrics.jsx";
+import ChooseClient from "containers/admin/MetricTools/ChooseClient.jsx";
+import DanceCombo from "containers/admin/MetricTools/DanceCombo.jsx";
+import AddEdit from "containers/admin/MetricTools/AddEdit.jsx";
+import AddVideo from "containers/admin/MetricTools/AddVideo.jsx";
+import ClientLook from "containers/admin/MetricTools/ClientLook.jsx";
+import ClientMainten from "containers/admin/MetricTools/ClientMainten.jsx";
+import AddClient from "containers/admin/MetricTools/AddClient.jsx";
 import NotificationsPage from "containers/admin/Notifications/Notifications.jsx";
 import UpgradeToPro from "containers/admin/UpgradeToPro/UpgradeToPro.jsx";
 
@@ -79,8 +79,8 @@ const adminPageRoutes = [
     exact: true
   },
   {
-    path: "/admin/metric-tool",
-    component: MetricTool,
+    path: "/admin/talent-metrics",
+    component: TalentMetrics,
     layout: TemplateAdminSidebar,
     exact: true
   },
@@ -278,7 +278,7 @@ const adminPageRoutes = [
   },
   {
     path: "/admin/metrics-tools",
-    component: Maps,
+    component: MetricTools,
     layout: TemplateAdminSidebar,
     exact: true
   },

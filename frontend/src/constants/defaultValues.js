@@ -202,8 +202,25 @@ export default {
 		PERSONAL_INFO: 'PersonalInfo',
 		IMMIGRATION: 'Immigration',
 		LANGUAGE: 'Language'
+	},
+	ADMIN_TALENT_SORT_CONDITION: {
+		ALPHA: {name: 'alpha', title: 'LIST ALL TALENT (ALPHA)'},
+		POSITION: {name: 'position', title: 'LIST ALL TALENT (POSITION)'},
+		LOGIN_DATE: {name: 'login_date', title: 'SORT TALENT BY LOGIN DATE'},
+		TIME_ONLINE: {name: 'time_online', title: 'SORT TALENT BY TIME ONLINE'},
+		SEARCH_RETURNS: {name: 'search_returns', title: 'SORT TALENT BY SEARCH RETURNS'},
+		VIEWD_TIME_BY_CLIENT: {name: 'viewed_time_by_client', title: 'SORT TALENT BY VIEWS'},
+		SHARES: {name: 'shares', title: 'SORT TALENT BY SHARES'},
+		BLOCKS: {name: 'blocks', title: 'SORT TALENT BY BLOCKS'},
+		RATING: {name: 'rating', title: 'SORT TALENT BY RATING'},
+		NATIONALITY: {name: 'nationality', title: 'SORT TALENT BY NATIONALITY'},
+		CASTING_REQUEST: {name: 'casting_request', title: 'SORT TALENT BY CASTING REQUESTS'},
+		CONTRACT_COMPLETED: {name: 'contract_completed', title: 'SORT TALENT BY CONTRACTS COMPLETED'},
+		MEDICAL: {name: 'medical', title: 'SHOW TALENT WITH MEDICAL'},
+		LOCKOUTS: {name: 'lockouts', title: 'SORT TALENT BY COMBO LOCKOUTS'}
 	}
 };
+
 
 function generateWeightConst() {
 	let weights = []

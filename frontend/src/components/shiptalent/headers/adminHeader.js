@@ -98,8 +98,6 @@ class AdminHeader extends Component {
   };
 
   getUserAvatarFromProps() {
-    const { adminInfo } = this.props
-
     return null
   }
 
@@ -176,7 +174,7 @@ class AdminHeader extends Component {
     }
 
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const renderMenu = loggedIn ? (
       <Menu
