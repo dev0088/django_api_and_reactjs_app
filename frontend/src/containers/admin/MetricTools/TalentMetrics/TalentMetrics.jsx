@@ -34,6 +34,9 @@ class TalentMetrics extends React.Component  {
       return {...sortConditions, sortName: false };
     });
 
+    // Set default sort condition
+    sortConditions[ADMIN_TALENT_SORT_CONDITION.ALPHA.name] = true;
+
     this.setState({sortConditions, talents: talentSearchResult, isLoading});
   }
 
@@ -55,6 +58,7 @@ class TalentMetrics extends React.Component  {
   renderContent = () => {
     const { classes } = this.props;
     const { sortConditions, talents, isLoading } = this.state;
+
     return (
       <Grid container spacing={24}>
         <Grid item lg={4} md={4} sm={12} xs={12} >
@@ -78,7 +82,6 @@ class TalentMetrics extends React.Component  {
   };
 
   renderContentOld = () => {
-    const { classes } = this.props;
     return (
       <Grid container spacing={24}>
         <Grid item md={2} sm={2} xs={1} />

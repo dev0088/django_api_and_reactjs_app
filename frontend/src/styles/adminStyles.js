@@ -354,18 +354,18 @@ export const adminStyles = theme => ({
   metricToolsItemPanelTitle: {
     fontSize: '1.15rem',
     fontWeight: '600',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     textTransform: 'none'
   },
   metricToolsItemPanelSubTitle: {
     fontSize: '1rem',
     fontWeight: '600',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     textTransform: 'none'
   },
   dashboardButton: {
     backgroundColor: theme.palette.primary.main,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     width: '300px',
     fontSize: '25px'
   },
@@ -677,14 +677,14 @@ export const adminStyles = theme => ({
     fontSize: '1.25rem',
     fontWeight: 600,
     //ffontFamily: fontFamily,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
     marginTop: '0.5rem'
   },
   adminFromTalentIDContainer: {
     fontSize: '1rem',
     fontWeight: 400,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
     position: 'absolute',
     right: 15,
@@ -693,25 +693,25 @@ export const adminStyles = theme => ({
   adminFromTalentName: {
     fontSize: '1.35rem',
     fontWeight: 600,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
   },
   adminFromTalentHeadLine: {
     fontSize: '1.15rem',
     fontWeight: 600,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
   },
   adminFromTalentIDText: {
     fontSize: '1rem',
     fontWeight: 600,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
   },
   adminFromTalentMarkFavoriteText: {
     fontSize: '0.85rem',
     fontWeight: 400,
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     lineHeight: '1.46429em',
   },
   adminRatingSubTitle: {
@@ -772,7 +772,7 @@ export const adminStyles = theme => ({
   adminTalentViewButtonText: {
     fontSize: '1.25rem',
     fontWeight: '600',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     textTransform: 'none',
   },
   adminTalentViewMoreInfoButtonGridItemWithoutFullWidth: {
@@ -1109,19 +1109,23 @@ export const adminStyles = theme => ({
   adminCastingRequestGroupButtonTitle: {
     fontSize: '1.25rem',
     fontWeight: '600',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     textTransform: 'none',
   },
   adminCastingRequestGroupButtonSubTitle: {
     fontSize: '1rem',
     fontWeight: '400',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: fontFamily,
     textTransform: 'none',
   },
   adminTalentMetricTalentPciture: {
     width: '70px',
     height: '72px',
     objectFit: 'cover',
+  },
+  adminTalentMatricTableNoItemText: {
+    color: 'grey', 
+    fontStyle: 'italic'
   }
 });
 

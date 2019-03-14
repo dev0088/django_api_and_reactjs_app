@@ -1293,7 +1293,7 @@ export const styles = theme => ({
     border: '2px dashed',
     width: '100%',
     height: '100%'
-  },
+  }
 });
 
 export const theme = createMuiTheme ({
