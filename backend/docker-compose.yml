@@ -1,0 +1,28 @@
+
+version: '3.5'
+
+services:
+
+  shiptalent_backend:
+    container_name: shiptalent_backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - '.:/usr/src/backend'
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRE_DATABASE_NAME=shiptalent
+      - POSTGRE_USER_NAME=postgres
+      - POSTGRE_USER_PASSWORD=postgres
+      - AWS_UPLOAD_BUCKET = "shiptalents3video"
+      - AWS_UPLOAD_USERNAME = "valeriiadidushok"
+      - AWS_UPLOAD_GROUP = "Developer"
+      - AWS_UPLOAD_REGION = 'us-east-1'
+      - AWS_UPLOAD_ACCESS_KEY_ID = "AKIAITK7TCIQ4ITTFY6Q"
+      - AWS_UPLOAD_SECRET_KEY = "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"
+      - AWS_UPLOAD_IMAGES_PATH = "uploadstest/images"
+      - AWS_UPLOAD_RESUMES_PATH = "uploadstest/resumes"
+      - AWS_UPLOAD_VIDEOS_PATH = "uploadstest/videos"

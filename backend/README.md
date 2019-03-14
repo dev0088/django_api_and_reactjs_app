@@ -9,10 +9,42 @@ Python/Django + JWT auth backend
 
 	- JWT auth based RESTful API
 
+### Preinstall
+export LANGUAGE="en_US.UTF-8"
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+sudo apt-get install zlib1g-dev libjpeg-dev
+sudo apt-get install build-essential checkinstall && apt-get build-dep imagemagick -y
+sudo apt-get install imagemagick
+
+### Remove Python3.5 env
+```
+sudo apt-get purge python3.5-dev
+sudo apt-get remove --auto-remove python3.5-dev
+
+sudo apt-get purge python3.5
+sudo apt-get purge --auto-remove python3.5
+
+```
+
+### Python3.6 env
+
+```
+sudo add-apt-repository ppa:jonathonf/python-3.6
+$ apt-get update
+
+$ apt-get install python3.6
+
+$ apt-get install python3-pip
+```
+
 ### Create server
 
 	```
 	$ python3.6 -m venv env3
+
+	or
+
+	$ python3.6 -m venv env3 --without-pip
 
 	$ source env3/bin/activate
 

@@ -261,6 +261,8 @@ class ClientFindTalentList(APIView):
         if locked_dance_combination:
             talents = talents.filter(locked_dance_combination=locked_dance_combination)
 
+        talents = self.check_sort_condition(talents, search_conditions)
+
         # Logging
         user = request.user
         if user and user.type != 'agency' and len(talents) > 0 and hasAnyConditions:
@@ -281,6 +283,31 @@ class ClientFindTalentList(APIView):
         if child_name in data:
             res = data[child_name]
         return res
+
+    def check_sort_condition(self, talents, search_conditions):
+        if ('alpha' in search_conditions) and search_conditions['alpha']:
+            talents = talents.order_by('user__first_name', 'user__last_name')
+
+        if ('blocks' in search_conditions) and search_conditions['blocks']:
+            talents = talents.order_by('talent_blocked_profiles__blocked_time')
+
+        if ('casting_request' in search_conditions) and search_conditions['casting_request']:
+            talents = talents.order_by('talent_blocked_profiles__blocked_time')
+
+        return talents
+
+# casting_request: false
+# contract_completed: false
+# lockouts: false
+# login_date: false
+# medical: false
+# nationality: false
+# position: true
+# rating: false
+# search_returns: false
+# shares: false
+# time_online: false
+# viewed_time_by_client: false
 
     # def make_and_query(selfs, itemName, objectType, items):
     #     queries = [Q(''.format(itemName)=item) for item in items]

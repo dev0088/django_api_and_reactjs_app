@@ -56,7 +56,7 @@ PyPDF2==1.26.0
 python-dateutil==2.7.3
 python-docx==0.8.6
 python-magic==0.4.15
-python-magic-bin==0.4.14
+# python-magic-bin==0.4.14
 pytz==2018.5
 PyYAML==3.13
 reportlab==3.5.4

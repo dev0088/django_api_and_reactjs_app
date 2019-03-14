@@ -6,12 +6,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
 
 function CustomTable({ ...props }) {
   const { classes, tableHead, tableData, tableHeaderColor, isLoading } = props;
-  console.log('==== tableData: ', tableData, tableData && tableData.length);
 
   return (
     <div className={classes.tableResponsive}>
@@ -33,27 +31,18 @@ function CustomTable({ ...props }) {
           </TableHead>
         ) : null}
         <TableBody>
-          {(tableData && (tableData.length > 0))
-            ? tableData.map((prop, key) => {
-              console.log('==== prop: ', prop)
-              return (
-                <TableRow key={key}>
-                  {prop.map((prop, key) => {
-                    return (
-                      <TableCell className={classes.tableCell} key={key}>
-                        {prop}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })
-            : <div style={{paddingTop: 20, textAlign: 'center', color: 'grey', fontStyle: 'italic'}}>
-              {isLoading 
-                ? <CircularProgress className={classes.progress} />
-                : 'No items'
-              }
-            </div>
+          {tableData.map((prop, key) => {
+            return (
+              <TableRow key={key}>
+                {prop.map((rowProp, key) => {
+                  return (
+                    <TableCell className={classes.tableCell} key={key}>
+                      {rowProp}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );})
           }
         </TableBody>
       </Table>
