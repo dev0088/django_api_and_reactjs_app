@@ -46,7 +46,7 @@ Markdown==2.6.11
 MarkupSafe==1.0
 numpy==1.14.5
 openapi-codec==1.3.2
-Pillow==5.2.0
+Pillow==8.2.0
 preview-generator==0.2.3
 psycopg2==2.7.5
 psycopg2-binary==2.7.5
