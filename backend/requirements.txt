@@ -69,7 +69,7 @@ six==1.11.0
 static3==0.7.0
 text-to-image==0.0.5
 texttable==0.9.1
-unoconv==0.8.2
+unoconv==0.9.0
 uritemplate==3.0.0
 urllib3==1.22
 Wand==0.4.4
