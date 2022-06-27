@@ -59,7 +59,7 @@ python-magic==0.4.15
 # python-magic-bin==0.4.14
 pytz==2018.5
 PyYAML==3.13
-reportlab==3.5.4
+reportlab==3.5.55
 requests==2.18.4
 ruamel.yaml==0.15.77
 s3transfer==0.1.13
